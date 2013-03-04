@@ -1,0 +1,23 @@
+<%= simple_form_for(@offering) do |f| %>
+  <% if @offering.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offering.errors.count, "error") %> prohibited this offering from being saved:</h2>
+
+      <ul>
+      <% @offering.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.association :course, label_method: :course_name %>
+    <%= f.association :location %>
+    <%= f.input :day, collection: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"] %>
+    <%= f.input :time, collection: [ "9:30 AM", "10:00 AM", "10:30 AM",                               "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "4:30 PM", "5:30 PM", "6:30 PM"] %>
+    <%= f.association :user, label_method: :full_name %>
+    <%= f.input :graduation_year %>
+    <%= f.input :comments %>
+    <%= f.button :submit %>
+  </div>
+<% end %>

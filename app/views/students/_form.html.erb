@@ -1,0 +1,24 @@
+<%= simple_form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% @student.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.input :first_name %><br />
+    <%= f.input :last_name %><br />
+    <%= f.input :birth_date, as: :date, start_year: Date.today.year - 20,
+                              end_year: Date.today.year + 0,
+                              order: [:month, :day, :year] %><br />
+    <%= f.input :start_date %><br />
+    <%= f.association :offering, collection: Offering.all, label_method: :course_id %><br />
+    <%= f.association :user, label_method: :full_name %><br />
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  course_id: 1
+  location_id: 1
+  day: MyString
+  time: 2013-03-03 17:30:50
+  user_id: 1
+  graduation_year: MyString
+  comments: MyText
+
+two:
+  course_id: 1
+  location_id: 1
+  day: MyString
+  time: 2013-03-03 17:30:50
+  user_id: 1
+  graduation_year: MyString
+  comments: MyText

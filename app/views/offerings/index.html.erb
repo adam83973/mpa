@@ -1,0 +1,35 @@
+<h1>Class List</h1>
+
+<table class= "table table-striped">
+  <tr>
+    <th>Course</th>
+    <th>Location</th>
+    <th>Day</th>
+    <th>Time</th>
+    <th>User</th>
+    <th>Graduation year</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @offerings.each do |offering| %>
+  <tr>
+    <td><%= offering.course.course_name %></td>
+    <td><%= offering.location.name %></td>
+    <td><%= offering.day %></td>
+    <td><%= offering.time %></td>
+    <td><%= offering.user.full_name %></td>
+    <td><%= offering.graduation_year %></td>
+    <td><%= offering.comments %></td>
+    <td><%= link_to 'Show', offering %></td>
+    <td><%= link_to 'Edit', edit_offering_path(offering) %></td>
+    <td><%= link_to 'Destroy', offering, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Offering', new_offering_path %>
