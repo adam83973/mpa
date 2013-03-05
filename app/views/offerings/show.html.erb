@@ -2,12 +2,12 @@
 
 <p>
   <b>Course:</b>
-  <%= @offering.course_id %>
+  <%= @offering.course.course_name %>
 </p>
 
 <p>
   <b>Location:</b>
-  <%= @offering.location_id %>
+  <%= @offering.location.name %>
 </p>
 
 <p>
@@ -17,7 +17,7 @@
 
 <p>
   <b>Time:</b>
-  <%= @offering.time %>
+  <%= @offering.time.strftime("%I:%M %p") %>
 </p>
 
 <p>

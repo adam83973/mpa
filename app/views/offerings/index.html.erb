@@ -19,7 +19,7 @@
     <td><%= link_to offering.course.course_name, offering.course %></td>
     <td><%= link_to offering.location.name, offering.location %></td>
     <td><%= offering.day %></td>
-    <td><%= offering.time %></td>
+    <td><%= offering.time.strftime("%I:%M %p") %></td>
     <td><%= link_to offering.user.full_name, offering.user %></td>
     <td><%= offering.graduation_year %></td>
     <td><%= offering.comments %></td>
