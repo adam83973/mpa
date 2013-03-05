@@ -3,5 +3,9 @@ class Offering < ActiveRecord::Base
   belongs_to :location
   belongs_to :course
   belongs_to :user
-  has_many :students 
+  has_many :students
+
+  def offering_name
+      course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
+  end
 end

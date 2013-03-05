@@ -17,7 +17,7 @@
                               end_year: Date.today.year + 0,
                               order: [:month, :day, :year] %><br />
     <%= f.input :start_date %><br />
-    <%= f.association :offering, collection: Offering.all, label_method: :course_id %><br />
+    <%= f.input :offering_id, collection: Offering.all, label_method: :offering_name %><br />
     <%= f.association :user, label_method: :full_name %><br />
     <%= f.button :submit %>
   </div>

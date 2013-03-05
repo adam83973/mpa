@@ -1,23 +1,16 @@
 MathPlus::Application.routes.draw do
+  devise_for :users
+  
+
   resources :grades
-
-
   resources :offerings
-
-
   resources :lessons
-
-
   resources :locations
-
-
   resources :courses
-
-
   resources :students
-
-
   resources :users
+
+  root :to => "users#index"
 
 
   # The priority is based upon order of creation:

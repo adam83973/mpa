@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Math_Plus</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
+  <head>
+    <title>Math_Plus</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <%= render 'layouts/header' %>
+  <body>
     <div class="container">
-      <a href="#" class="brand">Math Plus Academy</a>
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Users", users_path %></li>
-          <li><%= link_to "Students", students_path %></li>
-          <li><%= link_to "Courses", courses_path %></li>
-          <li><%= link_to "Offerings", offerings_path %></li>
-        </ul>
-      </nav>
+      <% flash.each do |type, message| %>
+        <div class="alert <%= flash_class type %>">
+            <button class="close" data-dismiss="alert">&times;</button>
+            <%= message %>
+        </div>
+      <% end %>
+      <%= yield %>
+      <%= debug(params) if Rails.env.development? %>
     </div>
-  </div>
-</header>
-<div class=container>
-<body>
-
-<%= yield %>
-
-</body>
-</div>
+  </body>
 </html>
