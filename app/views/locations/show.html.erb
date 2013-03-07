@@ -30,6 +30,33 @@
   <%= @location.franchise %>
 </p>
 
-
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+
+
+
+
+<fieldset>
+  <span class="row">
+    <div class= "span4 well well-small container">
+      <legend><h2><%= @location.name%> Stats</h2></legend>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th># of Offerings</th>
+            <th># of Students</th>
+            <th>Avg. Student/Offering</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @location.offerings.count %></td>
+            <td><%= @location.students.count %></td>
+            <td><%= @location.students.count / @location.offerings.count %></td>
+          </tr>
+        </tbody>
+      </table>  
+    </div> 
+  </span>
+</fieldset>

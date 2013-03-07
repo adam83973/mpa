@@ -8,9 +8,14 @@ MathPlus::Application.routes.draw do
   resources :locations
   resources :courses
   resources :students
-  resources :users
+  resources :users\
 
-  root :to => "users#index"
+  root to: "users#index"
+
+  # devise_scope :user do
+  #   root to: "users#index", constraints: :user.signed_in?
+  #   root to: "devise/sessions#new"
+  # end
 
 
   # The priority is based upon order of creation:

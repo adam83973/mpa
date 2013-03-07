@@ -1,34 +1,41 @@
-<h1>Listing students</h1>
+<% title "Students" %>
+<fieldset>
+    <legend>
+    <h1><%= yield(:title)%></h1>
+    </legend>
 
-<table class="table table-striped">
-  <tr>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Birth date</th>
-    <th>Start date</th>
-    <th>Location</th>
-    <th>Offering</th>
-    <th>Parent</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <table id="students" class="display">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Birth date</th>
+            <th>Start date</th>
+            <th>Offering</th>
+            <th>Parent</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.first_name %></td>
+            <td><%= student.last_name %></td>
+            <td><%= student.birth_date.strftime("%m/%d/%Y") %></td>
+            <td><%= student.start_date.strftime("%m/%d/%Y") %></td>
+            <td><%= link_to student.offering.offering_name, student.offering %></td>
+            <td><%= link_to student.user.full_name, student.user %></td>
+            <td><%= link_to 'Show', student %></td>
+            <td><%= link_to 'Edit', edit_student_path(student) %></td>
+            <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+        </tbody>
+    </table>
 
-<% @students.each do |student| %>
-  <tr>
-    <td><%= student.first_name %></td>
-    <td><%= student.last_name %></td>
-    <td><%= student.birth_date.strftime("%m/%d/%Y") %></td>
-    <td><%= student.start_date.strftime("%m/%d/%Y") %></td>
-    <td><%= link_to student.offering.offering_name, student.offering %></td>
-    <td><%= link_to student.user.full_name, student.user %></td>
-    <td><%= link_to 'Show', student %></td>
-    <td><%= link_to 'Edit', edit_student_path(student) %></td>
-    <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <br />
 
-<br />
-
-<%= link_to 'New Student', new_student_path %>
+    <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
+</fieldset>

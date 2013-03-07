@@ -1,0 +1,14 @@
+<h2>Class Roster</h2>
+<table class= "table table-striped table-hover table-bordered">
+  <tr>
+    <th>Student</th>
+    <th>Parent</th>
+  </tr>
+
+<% @offering.students.each do |student| %>
+  <tr>
+    <td><%= link_to student.full_name, student %></td>
+    <td><%= link_to student.user.full_name, student.user %></td>
+  </tr>
+<% end %>
+</table>

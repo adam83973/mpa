@@ -8,4 +8,5 @@ class Offering < ActiveRecord::Base
   def offering_name
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
+
 end

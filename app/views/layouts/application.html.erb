@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Math_Plus</title>
+    <title>Math Plus Academy - <%= yield(:title) || "Inspiring kid to do great things" %></title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
+  
   <%= render 'layouts/header' %>
+  
   <body>
     <div class="container">
       <% flash.each do |type, message| %>
@@ -15,9 +17,18 @@
             <%= message %>
         </div>
       <% end %>
+
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#">Dashboard</a>
+          </li>
+          <li><a href="#">Infusionsoft</a></li>
+          <li><a href="#">...</a></li>
+        </ul>
+
       <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
       <%= render 'layouts/footer' %>
-    </div>
+      <%= debug(params) if Rails.env.development? %>
+      </div>
   </body>
 </html>
