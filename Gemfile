@@ -5,7 +5,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'faker', '1.0.1'
 gem 'populator'
-
+gem 'dropbox'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

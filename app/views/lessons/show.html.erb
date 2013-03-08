@@ -12,27 +12,27 @@
 
 <p>
   <b>Course:</b>
-  <%= @lesson.course_id %>
+  <%= @lesson.course.course_name %>
 </p>
 
 <p>
   <b>Assignment:</b>
-  <%= @lesson.assignment %>
+  <a href="<%= @lesson.assignment %>"> <%= @lesson.name %> </a>
 </p>
 
 <p>
   <b>Assignment key:</b>
-  <%= @lesson.assignment_key %>
+  <a href="<%= @lesson.assignment_key %>"> <%= @lesson.name %> Key </a>
 </p>
 
 <p>
   <b>Assesment:</b>
-  <%= @lesson.assesment %>
+  <a href="<%= @lesson.assesment %>"> Assessment </a>
 </p>
 
 <p>
-  <b>Assesment key:</b>
-  <%= @lesson.assesment_key %>
+  <b>Assesment Key:</b>
+  <a href="<%= @lesson.assesment_key %> "> Assessment Key</a>
 </p>
 
 

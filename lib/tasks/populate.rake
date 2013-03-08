@@ -6,6 +6,8 @@ namespace :db do
     make_students
     make_offerings
     make_courses
+    make_grades
+    make_lessons
   end
 end
 
@@ -112,6 +114,40 @@ def make_courses
 
   Course.create!(course_name:       "Analysts",
                  description:       "Bodacious class")
+end
+
+def make_grades
+  48.times do |n|
+    student_id = "1"
+    course_id  = "1"
+    lesson_id = "#{n+1}"
+    score  = "#{rand(1..4)}"
+
+    Grade.create!(student_id:              student_id,
+                   course_id:               course_id,
+                   lesson_id:               lesson_id,
+                   score:                   score)
+  end
+end
+
+def make_lessons
+  48.times do |n|
+    name = "Lesson- #{n+1}"
+    week = "#{n+1}"
+    course_id  = "1"
+    assignment  = "https://www.dropbox.com/s/nagajhz3zq909bj/Recruit%201%20-%20Read%20Write%20Digits%200-9.pdf"
+    assignment_key  = "https://www.dropbox.com/s/076q0byftiqkvih/Recruit%201%20-%20Read%20Write%20Digits%200-9%20KEY.pdf"
+    assesment = "#"
+    assesment_key = "#"
+
+    Lesson.create!(name:                 name,
+                   week:                  week,
+                   course_id:             course_id,
+                   assignment:            assignment,
+                   assignment_key:        assignment_key,
+                   assesment:             assesment,
+                   assesment_key:         assesment_key)
+  end
 end
 
 # def make_relationships

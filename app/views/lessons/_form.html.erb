@@ -1,4 +1,4 @@
-<%= form_for(@lesson) do |f| %>
+<%= simple_form_for(@lesson) do |f| %>
   <% if @lesson.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
@@ -11,35 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :week %><br />
-    <%= f.number_field :week %>
-  </div>
-  <div class="field">
-    <%= f.label :course_id %><br />
-    <%= f.number_field :course_id %>
-  </div>
-  <div class="field">
-    <%= f.label :assignment %><br />
-    <%= f.text_field :assignment %>
-  </div>
-  <div class="field">
-    <%= f.label :assignment_key %><br />
-    <%= f.text_field :assignment_key %>
-  </div>
-  <div class="field">
-    <%= f.label :assesment %><br />
-    <%= f.text_field :assesment %>
-  </div>
-  <div class="field">
-    <%= f.label :assesment_key %><br />
-    <%= f.text_field :assesment_key %>
-  </div>
-  <div class="actions">
+  
+    <%= f.input :name %>
+    <%= f.input :week %>
+    <%= f.association :course, label_method: :course_name %>
+    <%= f.input :assignment %>
+    <%= f.input :assignment_key %>
+    <%= f.input :assesment %>
+    <%= f.input :assesment_key %>
     <%= f.submit %>
-  </div>
+
 <% end %>

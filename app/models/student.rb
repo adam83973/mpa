@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :offering
   belongs_to :user
   belongs_to :location
+  has_many :lessons , :through => :grades
 
   def full_name
       first_name + " " + last_name

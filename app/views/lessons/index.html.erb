@@ -1,35 +1,39 @@
-<h1>Listing lessons</h1>
+<% title "Lessons" %>
+<fieldset>
+    <legend>
+    <h1><%= yield(:title)%></h1>
+    </legend>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Week</th>
-    <th>Course</th>
-    <th>Assignment</th>
-    <th>Assignment key</th>
-    <th>Assesment</th>
-    <th>Assesment key</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @lessons.each do |lesson| %>
-  <tr>
-    <td><%= lesson.name %></td>
-    <td><%= lesson.week %></td>
-    <td><%= lesson.course_id %></td>
-    <td><%= lesson.assignment %></td>
-    <td><%= lesson.assignment_key %></td>
-    <td><%= lesson.assesment %></td>
-    <td><%= lesson.assesment_key %></td>
-    <td><%= link_to 'Show', lesson %></td>
-    <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-    <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table id="lessons" class="display">
+  <thead>
+        <tr>
+          <th>Name</th>
+          <th>Week</th>
+          <th>Course</th>
+          <th>Assignment</th>
+          <th>Assignment key</th>
+          <th>Assesment</th>
+          <th>Assesment key</th>
+          <th></th>
+        </tr>
+  </thead>
+  <tbody>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= link_to lesson.name, lesson %></td>
+        <td><%= lesson.week %></td>
+        <td><%= lesson.course.course_name %></td>
+        <td><a href="<%= lesson.assignment %>"target="_blank"> Assignment </a></td>
+        <td><a href="<%= lesson.assignment_key %>"target="_blank"> Assignment Key </a></td>
+        <td><%= lesson.assesment %></td>
+        <td><%= lesson.assesment_key %></td>
+        <td><%= link_to 'Show', lesson %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Lesson', new_lesson_path %>
+    <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
+</fieldset>
