@@ -24,4 +24,30 @@
 </span>
 
 <br />
-<%= render 'offerings/roster' %>
+
+  <%= render 'offerings/roster' %>
+
+<h2>Class Grades</h2>
+  <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Student/Week</th>
+            <% @offering.course.lessons.each do |lesson| %>
+             <th><%= lesson.week %></th>
+            <% end %>
+        </tr>
+      </thead>
+      <tbody>
+          <% @offering.students.each do |student| %>
+            <tr>
+              <td class="name"> <%= student.full_name %></td>
+              <% student.grades.each do |grade| %>
+              <td><%= grade.score%></td>
+              <% end %>
+            <% end %>  
+            </tr>
+          
+      </tbody>
+  </table>
+
+

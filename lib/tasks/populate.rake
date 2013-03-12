@@ -21,9 +21,21 @@ def make_users
                        password:              "password",
                        password_confirmation: "password")
   admin.toggle!(:admin)
-  99.times do |n|
+
+  admin1 = User.create!(first_name:           "Raj",
+                        last_name:            "Shah",
+                        roll:                 "Owner",
+                        phone:                 "(614) 787-4741",
+                        location_id:          "1",              
+                        email:                "raj@mathplusacademy.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
+  admin1.toggle!(:admin)
+  9.times do |n|
     first_name  = Faker::Name.first_name
     last_name  = Faker::Name.last_name
+    roll = "#{["Owner", "Director", "Teacher", "Teaching Assistant", "Parent"].sample}"
     email = "example-#{n+1}@mathplusacademy.com"
     password  = "password"
     password_confirmation  = "password"
@@ -34,6 +46,53 @@ def make_users
 
     User.create!(first_name:              first_name,
                  last_name:               last_name,
+                 roll:                    roll,
+                 email:                   email,
+                 password:                password,
+                 password_confirmation:   password_confirmation,
+                 phone:                   phone,
+                 passion:                 passion,
+                 address:                 address,
+                 location_id:             location_id)
+  end
+  9.times do |n|
+    first_name  = Faker::Name.first_name
+    last_name  = Faker::Name.last_name
+    roll = "Parent"
+    email = "example-#{n+10}@mathplusacademy.com"
+    password  = "password"
+    password_confirmation  = "password"
+    phone = Faker::PhoneNumber.phone_number
+    passion = Faker::Lorem.sentence
+    address = Faker::Address.street_address
+    location_id = "#{(3+(-1)**n)/2}"
+
+    User.create!(first_name:              first_name,
+                 last_name:               last_name,
+                 roll:                    roll,
+                 email:                   email,
+                 password:                password,
+                 password_confirmation:   password_confirmation,
+                 phone:                   phone,
+                 passion:                 passion,
+                 address:                 address,
+                 location_id:             location_id)
+  end
+  80.times do |n|
+    first_name  = Faker::Name.first_name
+    last_name  = Faker::Name.last_name
+    roll = "#{["Owner", "Director", "Teacher", "Teaching Assistant", "Parent"].sample}"
+    email = "example-#{n+20}@mathplusacademy.com"
+    password  = "password"
+    password_confirmation  = "password"
+    phone = Faker::PhoneNumber.phone_number
+    passion = Faker::Lorem.sentence
+    address = Faker::Address.street_address
+    location_id = "#{(3+(-1)**n)/2}"
+
+    User.create!(first_name:              first_name,
+                 last_name:               last_name,                 
+                 roll:                    roll,
                  email:                   email,
                  password:                password,
                  password_confirmation:   password_confirmation,
@@ -59,13 +118,13 @@ def make_locations
 end
 
 def make_students
- 99.times do |n|
+ 10.times do |n|
     first_name = Faker::Name.first_name
     last_name  = Faker::Name.last_name
     birth_date = "12/12/2004"
     start_date = "12/12/2010"
-    user_id    = "#{rand(10..30)}"
-    offering_id  = "#{rand(1..4)}"
+    user_id    = "#{n+10}"
+    offering_id  = "1"
 
     Student.create!(first_name:              first_name,
                     last_name:               last_name,
@@ -117,16 +176,18 @@ def make_courses
 end
 
 def make_grades
-  48.times do |n|
-    student_id = "1"
-    course_id  = "1"
-    lesson_id = "#{n+1}"
-    score  = "#{rand(1..4)}"
+  10.times do |t|
+    48.times do |n|
+      student_id = "#{t+1}"
+      course_id  = "1"
+      lesson_id = "#{n+1}"
+      score  = "#{rand(1..4)}"
 
-    Grade.create!(student_id:              student_id,
-                   course_id:               course_id,
-                   lesson_id:               lesson_id,
-                   score:                   score)
+      Grade.create!(student_id:              student_id,
+                     course_id:               course_id,
+                     lesson_id:               lesson_id,
+                     score:                   score)
+    end
   end
 end
 

@@ -1,20 +1,17 @@
 <% title "Users" %>
-<fieldset>
-  <legend>
-  <h1><%= yield(:title)%></h1>
-  </legend>
 
+  <h1><%= yield(:title)%></h1>
+  
   <table id="users" class="display">
     <thead>
       <tr>
+        <th>Id</th>
         <th>First name</th>
         <th>Last name</th>
         <th>Roll</th>
         <th>Phone</th>
-        <th>Shirt size</th>
         <th>Has key</th>
         <th>Location</th>
-        <th>Address</th>
         <th>Admin</th>
         <th>Active</th>
         <th></th>
@@ -25,14 +22,13 @@
     <tbody>
         <% @users.each do |user| %>
           <tr>
+            <td><%= user.id %></td>
             <td><%= user.first_name %></td>
             <td><%= user.last_name %></td>
             <td><%= user.roll %></td>
             <td><%= user.phone %></td>
-            <td><%= user.shirt_size %></td>
             <td><%= user.has_key %></td>
             <td><%= user.location.name %></td>
-            <td><%= user.address %></td>
             <td><%= user.admin %></td>
             <td><%= user.active %></td>
             <td><%= link_to 'Show', user %></td>
@@ -44,4 +40,3 @@
   </table>
   <br />
   <%= link_to 'New User', new_user_path %>
-</fieldset>

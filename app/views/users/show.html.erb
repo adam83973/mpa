@@ -10,6 +10,19 @@
   <b>Roll:</b>
   <%= @user.roll %>
 </p>
+
+<!-- displays each student for user -->
+<% if @user.roll  == "Parent" %>
+    <p>
+    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b><br />
+    <% @user.students.each do |student| %>
+      <%= link_to student.full_name, student %>, 
+      <%= link_to student.offering.offering_name, student.offering %>
+    <% end %>
+  </p>
+<% end %>
+
+
 <p>
   <b>Phone:</b>
   <%= @user.phone %>
@@ -22,22 +35,18 @@
   <b>Shirt size:</b>
   <%= @user.shirt_size %>
 </p>
-
 <p>
   <b>Has key:</b>
   <%= @user.has_key %>
 </p>
-
 <p>
   <b>Location:</b>
   <%= @user.location.name %>
 </p>
-
 <p>
   <b>Admin:</b>
   <%= @user.admin %>
 </p>
-
 <p>
   <b>Active:</b>
   <%= @user.active %>

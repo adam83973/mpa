@@ -27,8 +27,30 @@
 
 <p>
   <b>Parent:</b>
-  <%= @student.user.full_name %>
+  <%= link_to @student.user.full_name, @student.user %>
 </p>
+
+<!-- displays grades for student -->
+<div class="tscroll well well-small">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Lessons</th>
+          <% @student.lessons.each do |lesson| %>
+           <td><%= lesson.name %></td>
+          <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th> Grades </th>
+        <% @student.grades.each do |grade| %>
+          <td><%= grade.score %></td>
+        <% end %>
+      </tr>
+    </tbody>
+</table>
+</div>
 
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
