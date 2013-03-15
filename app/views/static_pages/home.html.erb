@@ -1,0 +1,27 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span3">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+    </aside>
+    <div class="span9">
+      <h3>Find Someone...</h3>
+      <%= render 'shared/user_search' %>
+    </div>
+  </div>  
+<% else %>
+  <div class="well well-small">
+    <center>
+      <h1>MPA | App</h1>
+
+      <h2>
+        <a href="http://mathplusacademy.com/">Math Plus Academy</a>
+      </h2>
+
+      <%= link_to "Login", new_user_session_path, 
+                                  class: "btn btn-large btn-primary" %>
+    </center>                                
+  </div>
+
+<% end %> 

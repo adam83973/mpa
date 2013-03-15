@@ -2,15 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-jQuery ->
+jQuery -> 
   $('#offerings').dataTable
   		"bJQueryUI": true
   
+
 jQuery -> 
-	  $("#example").dataTable
-	  			"bJQueryUI": true,
-	  			"bScrollCollapse": true,
-	  			"sScrollX": "100%",
-		 		"sScrollXInner": "150%",
+        oTable = $('#example').dataTable
+        "bJQueryUI": true,
+        "sScrollY": "300px",
+        "sScrollX": "100%",
+        "sScrollXInner": "150%",
+        "bScrollCollapse": true,
+        "bPaginate": false
+
+    new FixedColumns( oTable )
+
 		 		
 		 		

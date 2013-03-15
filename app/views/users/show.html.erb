@@ -43,10 +43,12 @@
   <b>Location:</b>
   <%= @user.location.name %>
 </p>
+<% if @user.roll  == "Parent" %>
 <p>
   <b>Admin:</b>
   <%= @user.admin %>
 </p>
+<% end %>
 <p>
   <b>Active:</b>
   <%= @user.active %>

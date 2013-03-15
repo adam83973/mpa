@@ -1,16 +1,15 @@
 MathPlus::Application.routes.draw do
   devise_for :users
   
-
   resources :grades
   resources :offerings
   resources :lessons
   resources :locations
   resources :courses
   resources :students
-  resources :users\
+  resources :users
 
-  root to: "users#index"
+  root to: 'static_pages#home'
 
   # devise_scope :user do
   #   root to: "users#index", constraints: :user.signed_in?
