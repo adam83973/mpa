@@ -6,17 +6,15 @@ jQuery ->
   $('#offerings').dataTable
   		"bJQueryUI": true
   
-
 jQuery -> 
-        oTable = $('#example').dataTable
-        "bJQueryUI": true,
-        "sScrollY": "300px",
+  $('#example').dataTable
+        "bJQueryUI": true
         "sScrollX": "100%",
         "sScrollXInner": "150%",
         "bScrollCollapse": true,
         "bPaginate": false
 
-    new FixedColumns( oTable )
 
-		 		
-		 		
+
+
+

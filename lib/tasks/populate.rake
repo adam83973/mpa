@@ -14,7 +14,7 @@ end
 def make_users
   admin = User.create!(first_name:            "Travis",
                        last_name:             "Kendall",
-                       roll:                  "Director",
+                       role:                  "Director",
                        phone:                 "(614) 260-6162",
                        location_id:           "2",              
                        email:                 "tkendalls@aol.com",
@@ -24,7 +24,7 @@ def make_users
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
-                        roll:                 "Owner",
+                        role:                 "Owner",
                         phone:                 "(614) 787-4741",
                         location_id:          "1",              
                         email:                "raj@mathplusacademy.com",
@@ -46,7 +46,7 @@ def make_users
 
     User.create!(first_name:              first_name,
                  last_name:               last_name,
-                 roll:                    roll,
+                 role:                    roll,
                  email:                   email,
                  password:                password,
                  password_confirmation:   password_confirmation,
@@ -69,7 +69,7 @@ def make_users
 
     User.create!(first_name:              first_name,
                  last_name:               last_name,
-                 roll:                    roll,
+                 role:                    roll,
                  email:                   email,
                  password:                password,
                  password_confirmation:   password_confirmation,
@@ -92,7 +92,7 @@ def make_users
 
     User.create!(first_name:              first_name,
                  last_name:               last_name,                 
-                 roll:                    roll,
+                 role:                    roll,
                  email:                   email,
                  password:                password,
                  password_confirmation:   password_confirmation,
@@ -198,16 +198,16 @@ def make_lessons
     course_id  = "1"
     assignment  = "https://www.dropbox.com/s/nagajhz3zq909bj/Recruit%201%20-%20Read%20Write%20Digits%200-9.pdf"
     assignment_key  = "https://www.dropbox.com/s/076q0byftiqkvih/Recruit%201%20-%20Read%20Write%20Digits%200-9%20KEY.pdf"
-    assesment = "#"
-    assesment_key = "#"
+    assessment = "#"
+    assessment_key = "#"
 
     Lesson.create!(name:                 name,
                    week:                  week,
                    course_id:             course_id,
                    assignment:            assignment,
                    assignment_key:        assignment_key,
-                   assesment:             assesment,
-                   assesment_key:         assesment_key)
+                   assessment:            assessment,
+                   assessment_key:        assessment_key)
   end
 end
 

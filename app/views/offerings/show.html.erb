@@ -1,31 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<span class="row">
-  <div class="well well-small span4">
-    <dl>
-      <dt>Course:</dt>
-      <dd><%= @offering.course.course_name %></dd>
-      <dt>Location:</dt>
-      <dd><%= @offering.location.name %></dd>
-      <dt>Day:</dt>
-      <dd><%= @offering.day %></dd>
-      <dt>Time:</dt>
-      <dd><%= @offering.time.strftime("%I:%M %p") %></dd>
-      <dt>Teacher:</dt>
-      <dd><%= @offering.user.full_name %></dd>
-      <dt>Graduation year:</dt>
-      <dd><%= @offering.graduation_year %></dd>
-      <dt>Comments:</dt>
-      <dd><%= @offering.comments %></dd>
-    </dl>
+<div class="row">
+  <div class="well well-small">
+    <h2><%= @offering.offering_name %></h2>
   <%= link_to 'Edit', edit_offering_path(@offering) %> |
   <%= link_to 'Back', offerings_path %>
   </div>
-</span>
+</div>
 
 <br />
-
+<div class="row">
   <%= render 'offerings/roster' %>
+</span>
 
 <h2>Class Grades</h2>
   <table id="example" class="display">

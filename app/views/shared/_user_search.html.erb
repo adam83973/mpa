@@ -10,16 +10,16 @@
 </form>
 <p><em>Edit in views/shared/user_search.html.erb</em></p>
 
-<% if params[:search].empty? %>
+<% if params[:search].nil? %>
 	
 <% else %>
 	<h3>Results</h3>
-		  <% @users_search.each do |user|%>
-			  <div class="user_search">
-			  	<p><strong><%= user.full_name %></strong></p>
-			    <p><%= user.email %></p>
-			    <p><%= user.phone %></p>
-			</div>
-		  <% end %>
+	<% @users_search.each do |user|%>
+	  <div class="user_search">
+	  	<p><strong><%= user.full_name %></strong></p>
+	    <p><%= user.email %></p>
+	    <p><%= user.phone %></p>
+	</div>
+	<% end %>
 <% end %>
 

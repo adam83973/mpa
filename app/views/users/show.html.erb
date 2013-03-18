@@ -7,12 +7,12 @@
   <%= @user.last_name %>
 </p>
 <p>
-  <b>Roll:</b>
-  <%= @user.roll %>
+  <b>Role:</b>
+  <%= @user.role %>
 </p>
 
 <!-- displays each student for user -->
-<% if @user.roll  == "Parent" %>
+<% if @user.role  == "Parent" %>
     <p>
     <b><%= "Student".pluralize(@user.students.count) %>/offering:</b><br />
     <% @user.students.each do |student| %>
@@ -21,8 +21,10 @@
     <% end %>
   </p>
 <% end %>
-
-
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
 <p>
   <b>Phone:</b>
   <%= @user.phone %>
@@ -43,7 +45,7 @@
   <b>Location:</b>
   <%= @user.location.name %>
 </p>
-<% if @user.roll  == "Parent" %>
+<% if @user.role  == "Parent" %>
 <p>
   <b>Admin:</b>
   <%= @user.admin %>

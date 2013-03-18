@@ -1,0 +1,28 @@
+<!-- renders each teacher's offering in home.html.erb -->
+
+<h3><%= @user.first_name %>'s Classes</h3>
+<div class="accordion" id="accordion2">
+  <% @user.offerings.each do |offering| %>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=offering.id.humanize.capitalize%>">
+        <%= offering.offering_name %>
+      </a>
+    </div>
+    <div id="collapse<%=offering.id.humanize.capitalize%>" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <table class= "table table-striped table-hover table-bordered">
+          <tr>
+            <th>Student</th>
+          </tr>
+            <% offering.students.each do |student| %>
+          <tr>
+            <td><%= link_to student.full_name, student %></td>
+          </tr>
+      <% end %>
+        </table>
+      </div>
+    </div>
+  </div>  
+    <% end %>  
+</div>

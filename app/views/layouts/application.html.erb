@@ -18,17 +18,14 @@
         </div>
       <% end %>
 
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <a href="#">Dashboard</a>
-          </li>
-          <li><a href="#">Infusionsoft</a></li>
-          <li><a href="#">...</a></li>
-        </ul>
-
       <%= yield %>
+
       <%= render 'layouts/footer' %>
+
       <%= debug(params) if Rails.env.development? %>
+      
       </div>
   </body>
 </html>
+
+

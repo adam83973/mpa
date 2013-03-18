@@ -1,16 +1,24 @@
 <% if signed_in? %>
+
   <div class="row">
     <aside class="span3">
       <section>
         <%= render 'shared/user_info' %>
       </section>
+      <section>
+        clock in/out
+      </section>
     </aside>
     <div class="span9">
-      <h3>Find Someone...</h3>
-      <%= render 'shared/user_search' %>
+<!-- <h3>Find Someone...</h3> <%= render 'shared/user_search' %>  -->
+      <% if @user.role == "Teacher" %>
+        <%= render 'teacher_offerings' %>
+      <% end %>
     </div>
   </div>  
+
 <% else %>
+
   <div class="well well-small">
     <center>
       <h1>MPA | App</h1>
@@ -24,4 +32,5 @@
     </center>                                
   </div>
 
-<% end %> 
+<% end %>
+

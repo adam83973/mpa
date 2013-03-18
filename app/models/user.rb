@@ -7,11 +7,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :roll, :shirt_size
+  attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size
 
   belongs_to :location
-  has_and_belongs_to_many :offerings
-  has_many :students
+  has_many :offerings
+  has_many :students, :through => :offerings
 
   def full_name
       first_name + " " + last_name
