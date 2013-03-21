@@ -13,13 +13,17 @@
 
 <!-- displays each student for user -->
 <% if @user.role  == "Parent" %>
+  
+    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
     <p>
-    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b><br />
     <% @user.students.each do |student| %>
-      <%= link_to student.full_name, student %>, 
-      <%= link_to student.offering.offering_name, student.offering %>
+      <h4> <%= link_to student.full_name, student %></h4> 
+      <% student.offerings.each do |offering| %>
+      <p><%= link_to offering.offering_name, offering %></p>
     <% end %>
-  </p>
+    </p>
+    <% end %>
+  
 <% end %>
 <p>
   <b>Email:</b>

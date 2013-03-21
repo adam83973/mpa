@@ -14,4 +14,9 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/TableTools
 //= require dataTables/extras/FixedColumns
+//= require dataTables/extras/KeyTable
+//= require dataTables/extras/AutoFill
+//= require dataTables/extras/ColReorder
+//= require dataTables/extras/ColVis
+//= require dataTables/extras/Scroller
 //= require_tree .

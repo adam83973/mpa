@@ -6,11 +6,15 @@
         <%= render 'shared/user_info' %>
       </section>
       <section>
-        clock in/out
+        <%= render 'clock_in' %>
+      </section>
+      <section>
+        <%= render 'shared/user_search' %>
       </section>
     </aside>
     <div class="span9">
-<!-- <h3>Find Someone...</h3> <%= render 'shared/user_search' %>  -->
+      <div id="results"><%= render 'shared/user_search_results' %></div>
+
       <% if @user.role == "Teacher" %>
         <%= render 'teacher_offerings' %>
       <% end %>

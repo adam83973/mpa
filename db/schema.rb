@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318194753) do
+ActiveRecord::Schema.define(:version => 20130321203939) do
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
@@ -64,17 +64,27 @@ ActiveRecord::Schema.define(:version => 20130318194753) do
     t.text     "comments"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "active"
   end
+
+  create_table "offerings_students", :id => false, :force => true do |t|
+    t.integer "offering_id"
+    t.integer "student_id"
+  end
+
+  add_index "offerings_students", ["student_id", "offering_id"], :name => "index_offerings_students_on_student_id_and_offering_id"
 
   create_table "students", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.date     "birth_date"
     t.date     "start_date"
-    t.integer  "offering_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "user_id"
+    t.string   "rank"
+    t.integer  "experience_points"
+    t.integer  "credits"
   end
 
   create_table "users", :force => true do |t|

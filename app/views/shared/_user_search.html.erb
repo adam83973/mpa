@@ -1,25 +1,12 @@
 <form>
   <fieldset>
     <legend>Search</legend>
-    <label>Enter part of a first or last name:</label>
-    <%= form_tag("search", :method => "get") do %>
-	  <%= text_field_tag(:search) %>
-	  <%= submit_tag "Search", :class => "btn btn-small btn-inverse" %>
+    <label>Find another Employee or Parent:</label>
+    <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
+	  <%= text_field_tag :search, params[:search] %><br />
+	  <%= submit_tag "Search", :name => nil, :class => "btn btn-small btn-inverse" %>
 	<% end %>
   </fieldset>
 </form>
-<p><em>Edit in views/shared/user_search.html.erb</em></p>
 
-<% if params[:search].nil? %>
-	
-<% else %>
-	<h3>Results</h3>
-	<% @users_search.each do |user|%>
-	  <div class="user_search">
-	  	<p><strong><%= user.full_name %></strong></p>
-	    <p><%= user.email %></p>
-	    <p><%= user.phone %></p>
-	</div>
-	<% end %>
-<% end %>
 

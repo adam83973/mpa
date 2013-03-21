@@ -16,9 +16,13 @@
     <%= f.input :birth_date, as: :date, start_year: Date.today.year - 20,
                               end_year: Date.today.year + 0,
                               order: [:month, :day, :year] %><br />
-    <%= f.input :start_date %><br />
-    <%= f.input :offering_id, collection: Offering.all, label_method: :offering_name %><br />
+    <%= f.input :start_date, as: :date, start_year: Date.today.year,
+                              end_year: Date.today.year + 0,
+                              order: [:month, :day, :year] %><br />
+    <%= f.association :offerings, label_method: :offering_name %><br />
     <%= f.association :user, label_method: :full_name %><br />
     <%= f.button :submit %>
-  </div>
 <% end %>
+
+
+<%= image_submit_tag("acheivement5.png") %>

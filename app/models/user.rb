@@ -15,5 +15,11 @@ class User < ActiveRecord::Base
 
   def full_name
       first_name + " " + last_name
+  end 
+
+  def self.search(search)
+    if search
+       @users_search = User.where('first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%").limit(10)
+    end
   end
 end

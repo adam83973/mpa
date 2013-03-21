@@ -11,8 +11,9 @@
  *= require_self
  *= require jquery.ui.core
  *= require jquery.ui.theme
+ *= require jquery.ui.datepicker
  *= require dataTables/extras/TableTools
-*= require dataTables/extras/TableTools_JUI
+ *= require dataTables/extras/TableTools_JUI
  *= require dataTables/src/demo_table_jui
  *= require_tree .
  */
@@ -24,3 +25,8 @@ body{
 .push, footer {
 	height: 63px;
 }
+
+.tscroll{
+ 	overflow: auto;
+}
+

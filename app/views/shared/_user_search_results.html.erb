@@ -1,0 +1,12 @@
+<% if @users_search.nil? %>
+<% elsif params[:search] == '' %>
+<% else %>
+	<h3>Results</h3>
+	<% @users_search.each do |user|%>
+	  <div class="user_search">
+	  	<p><strong><%= link_to user.full_name, user %></strong></p>
+	    <p><%= user.email %></p>
+	    <p><%= user.phone %></p>
+	</div>
+	<% end %>
+<% end %>

@@ -8,6 +8,7 @@ namespace :db do
     make_courses
     make_grades
     make_lessons
+    make_offerings_students
   end
 end
 
@@ -124,14 +125,22 @@ def make_students
     birth_date = "12/12/2004"
     start_date = "12/12/2010"
     user_id    = "#{n+10}"
-    offering_id  = "1"
 
     Student.create!(first_name:              first_name,
                     last_name:               last_name,
                     birth_date:              birth_date,
                     start_date:              start_date,
-                    user_id:                 user_id,
-                    offering_id:             offering_id)
+                    user_id:                 user_id)
+  end
+end
+
+def make_offerings_students
+ 20.times do |n|
+    offering_id = "#{(n+1)%4}"
+    student_id  = "#{Math.sqrt(n+n).round}"
+
+    OfferingsStudent.create!(offering_id:              offering_id,
+                              student_id:              student_id)
   end
 end
 
