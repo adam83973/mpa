@@ -5,18 +5,25 @@
       <section>
         <%= render 'shared/user_info' %>
       </section>
-      <section>
-        <%= render 'clock_in' %>
-      </section>
-      <section>
-        <%= render 'shared/user_search' %>
-      </section>
+      
+      <% if @user.role == "Teacher" %>
+        <section>  
+          <%= render 'clock_in' %>
+        </section>
+        <section>
+          <%= render 'shared/user_search' %>
+        </section>
+      <% end %>
     </aside>
     <div class="span9">
       <div id="results"><%= render 'shared/user_search_results' %></div>
 
       <% if @user.role == "Teacher" %>
         <%= render 'teacher_offerings' %>
+      <% end %>
+
+      <% if @user.role == "Parent" %>
+        <%= render 'parent_students' %>
       <% end %>
     </div>
   </div>  
@@ -32,7 +39,7 @@
       </h2>
 
       <%= link_to "Login", new_user_session_path, 
-                                  class: "btn btn-large btn-primary" %>
+                                  class: "btn btn-warning btn-primary" %>
     </center>                                
   </div>
 

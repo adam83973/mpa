@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   belongs_to :location
   has_many :offerings
   has_many :students, :through => :offerings
+  has_many :students
 
   def full_name
       first_name + " " + last_name
