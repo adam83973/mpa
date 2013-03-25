@@ -1,6 +1,6 @@
 <!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
 
-<h3><%= @user.first_name %>'s Classes</h3>
+<h3><%= @user.first_name %>'s <%= "Class".pluralize(@user.offerings.count)%></h3>
 <div class="accordion" id="accordion2">
   <% @user.offerings.each do |offering| %>
   <div class="accordion-group">

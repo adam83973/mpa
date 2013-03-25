@@ -11,9 +11,11 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require autocomplete-rails
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/TableTools
-//= require dataTables/extras/FixedColumns
 //= require dataTables/extras/KeyTable
 //= require dataTables/extras/AutoFill
 //= require dataTables/extras/ColReorder

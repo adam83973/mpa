@@ -1,16 +1,15 @@
-<p id="notice"><%= notice %></p>
-  <b>ID:</b>
+
+<p>
+  <h2><%= @student.full_name %></h2>
+</p>
+
+<p class="text-success">
+  <h2>Total XP : <%= @student.experience_points.sum(:points) %></h2>
+</p>
+
+<p>
+<b>ID:</b>
   <%= @student.id %>
-</p>
-
-<p>
-  <b>First name:</b>
-  <%= @student.first_name %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @student.last_name %>
 </p>
 
 <p>
@@ -37,27 +36,25 @@
 
 <!-- displays grades for student -->
 <div class="tscroll well well-small">
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Lessons</th>
-          <% @student.lessons.each do |lesson| %>
-           <td><%= lesson.name %></td>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Experience</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @student.experience_points.each do |xp| %>
+          <tr>
+            <td><%= xp.experience.name %></td>
+            <td><%= xp.points %></td>
+          </tr>
           <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th> Grades </th>
-        <% @student.grades.each do |grade| %>
-          <td><%= grade.score %></td>
-        <% end %>
-      </tr>
-    </tbody>
-</table>
+      </tbody>
+  </table>
 </div>
+<p>
 
-
-
+</p>
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>

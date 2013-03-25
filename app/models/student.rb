@@ -5,6 +5,9 @@ class Student < ActiveRecord::Base
   belongs_to :location
   has_many :grades
   has_many :lessons , :through => :grades
+  has_many :experiences, :through => :experience_points
+  has_many :experience_points
+  accepts_nested_attributes_for :experience_points
 
   def full_name
       first_name + " " + last_name

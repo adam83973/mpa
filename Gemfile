@@ -6,6 +6,7 @@ gem 'devise'
 gem 'faker', '1.0.1'
 gem 'populator'
 gem 'humanize'
+gem 'rails3-jquery-autocomplete'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

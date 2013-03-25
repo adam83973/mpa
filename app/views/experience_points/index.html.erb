@@ -1,0 +1,27 @@
+<h1>Listing Experience Points</h1>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Experience</th>
+    <th>Points</th>
+    <th>Student</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @experience_points.each do |experience_point| %>
+  <tr>
+    <td><%= experience_point.experience.name %></td>
+    <td><%= experience_point.points %></td>
+    <td><%= experience_point.student.full_name %></td>
+    <td><%= link_to 'Show', experience_point %></td>
+    <td><%= link_to 'Edit', edit_experience_point_path(experience_point) %></td>
+    <td><%= link_to 'Destroy', experience_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Experience point', new_experience_point_path %>

@@ -1,4 +1,13 @@
 MathPlus::Application.routes.draw do
+  resources :experience_points
+
+  resources :experience_points do
+    get :autocomplete_student_full_name, :on => :collection
+  end
+
+  resources :experiences
+
+
   devise_for :users
   
   resources :grades
