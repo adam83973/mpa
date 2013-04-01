@@ -1,15 +1,11 @@
 MathPlus::Application.routes.draw do
-  resources :experience_points
 
-  resources :experience_points do
-    get :autocomplete_student_full_name, :on => :collection
-  end
-
-  resources :experiences
-
+  root to: 'static_pages#home'
 
   devise_for :users
   
+  resources :experience_points
+  resources :experiences
   resources :grades
   resources :offerings
   resources :lessons
@@ -18,7 +14,7 @@ MathPlus::Application.routes.draw do
   resources :students
   resources :users
 
-  root to: 'static_pages#home'
+  
 
   # devise_scope :user do
   #   root to: "users#index", constraints: :user.signed_in?

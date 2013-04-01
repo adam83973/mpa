@@ -1,0 +1,31 @@
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Achievements Total: <%= @student.experience_points.count %>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div class="tscroll well well-small">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Experience</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% @student.experience_points.each do |xp| %>
+                  <tr>
+                    <td><%= xp.experience.name %></td>
+                    <td><%= xp.points %></td>
+                  </tr>
+                  <% end %>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
