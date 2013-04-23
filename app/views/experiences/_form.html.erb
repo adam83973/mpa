@@ -3,12 +3,27 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.input :category %>
+    <%= f.input :content, as: :text, :input_html => { :rows => 5 } %>
+  </div>
+    <%= f.button :submit %>
+<% end %>
+
+<p>
+  <%= render '/students/nav_buttons' %>
+</p>
+
+<!--  <%= simple_form_for(@experience) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
   </div>
 
-  	<%= f.simple_fields_for :experience_points do |builder| %>
-	  <p>
-	  	<%= builder.input :student_id %>
-	  	<%= builder.input :points %>
+    <%= f.simple_fields_for :experience_points do |builder| %>
+    <p>
+      <%= builder.input :student_id %>
+      <%= builder.input :points %>
       </p>
     <% end %>
 
@@ -16,3 +31,4 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+ -->

@@ -1,16 +1,31 @@
-<div class"row">
-	<p>
-	  <div class="pull-right"><%= @student.id %></div>
-	  <h2><%= @student.full_name %> </h2> 
-	</p>
-</div>
-<h2>Total XP: <%= @student.experience_points.sum(:points) %></h2>
-<p>
-  <h3>Current level: <em>Classified</em></h3>
-</p>
 
-<center>
-  <div class="progress progress-striped center span6">
-    <div class="bar" style="width:<%= ((@student.experience_points.sum(:points).to_f)/(1000)*100).round %>%;"><%= ((@student.experience_points.sum(:points).to_f)/(1000)*100).round %>%</div> Next level: <em>Confidential</em>   
+<div class="studentname row span span11">
+  <div class="span4">
+	  <h2><%= @student.full_name %> </h2>
+	  <%if current_user.role = "Teacher" %>
+	  <%= link_to "edit student", edit_student_path(@student) %>
+	  <% end %>
+	<p>
+	  <h3>Total XP: <%= @student.xp_total %></h3>
+	</p>
+	<p>
+	  <h3>Total Credits: <%= @student.credits %></h3>
+	</p>
+      <p>
+	    <b>Parent:</b>
+	    <%= link_to @student.parent_name, @student.user %>
+      </p>
   </div>
-</center> 
+
+  <div class="pull-right rank">
+	<p>
+	  <h3>Current level: <em>Classified</em></h3>
+	</p>
+	<div class="progress progress-striped active center span6">
+	  <center>
+	    <div class="bar" style="width:<%= ((@student.experience_points.sum(:points).to_f)/(1000)*100).round %>%"><%= ((@student.xp_sum.to_f)/(1000)*100).round %>%</div>    
+	    </div>
+	  </center>
+	<p>Next Level: <em>Confidential</em></p>
+  </div>
+</div>

@@ -2,19 +2,21 @@
 
 <p>
   <b>Experience:</b>
-  <%= @experience_point.experience_id %>
+  <%= @experience_point.experience.name %>
 </p>
+
+<p>
+  <b>Student:</b>
+  <%= @experience_point.student.full_name %>
+</p>	
 
 <p>
   <b>Points:</b>
   <%= @experience_point.points %>
 </p>
 
-<p>
-  <b>Student:</b>
-  <%= @experience_point.student_id %>
-</p>
-
-
 <%= link_to 'Edit', edit_experience_point_path(@experience_point) %> |
-<%= link_to 'Back', experience_points_path %>
+<%= link_to 'Back', experience_points_path %> |
+<% if current_user.role == "Teacher" || "Teaching Assistant" || "Director"%>
+	<%= link_to 'Destroy', @experience_point, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

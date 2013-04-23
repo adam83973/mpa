@@ -1,9 +1,6 @@
 class ExperiencePointsController < ApplicationController
   # GET /experience_points
   # GET /experience_points.json
-  def autocomplete_student_full_name
-    autocomplete :student_id, :full_name
-  end
 
   def index
     @experience_points = ExperiencePoint.all
@@ -44,11 +41,16 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points
   # POST /experience_points.json
   def create
+    @student = Student.find(params[:experience_point][:student_id])
     @experience_point = ExperiencePoint.new(params[:experience_point])
+    @credits = @student.calculate_credit(@experience_point)
 
     respond_to do |format|
       if @experience_point.save
-        format.html { redirect_to @experience_point, notice: 'Experience point was successfully created.' }
+        if @credits > 0
+              @student.add_credit(@credits)
+        end
+        format.html { redirect_to student_path(@student), notice: "Experience point was successfully created. #{@credits}" }
         format.json { render json: @experience_point, status: :created, location: @experience_point }
       else
         format.html { render action: "new" }
@@ -60,11 +62,12 @@ class ExperiencePointsController < ApplicationController
   # PUT /experience_points/1
   # PUT /experience_points/1.json
   def update
+    @student = Student.find(params[:experience_point][:student_id])
     @experience_point = ExperiencePoint.find(params[:id])
 
     respond_to do |format|
       if @experience_point.update_attributes(params[:experience_point])
-        format.html { redirect_to @experience_point, notice: 'Experience point was successfully updated.' }
+        format.html { redirect_to student_path(@student), notice: 'Experience point was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -77,10 +80,13 @@ class ExperiencePointsController < ApplicationController
   # DELETE /experience_points/1.json
   def destroy
     @experience_point = ExperiencePoint.find(params[:id])
+    @student = Student.find(@experience_point.student_id)
+    @credits = ((@student.xp_sum - @experience_point.points)/100 - ((@student.xp_sum)/100))
+    @student.add_credit(@credits)
     @experience_point.destroy
 
     respond_to do |format|
-      format.html { redirect_to experience_points_url }
+      format.html { redirect_to student_path(@student), notice: 'Experience point was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

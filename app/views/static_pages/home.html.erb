@@ -1,7 +1,7 @@
 <% if signed_in? %>
 
   <div class="row">
-    <aside class="span3">
+    <aside class="span3 user-info">
       <section>
         <%= render 'shared/user_info' %>
       </section>
@@ -15,10 +15,10 @@
         </section>
       <% end %>
     </aside>
-    <div class="span9">
+    <div class="span8">
       <div id="results"><%= render 'shared/user_search_results' %></div>
 
-      <% if @user.role == "Teacher" %>
+      <% if current_user.role == "Teacher" %>
         <%= render 'teacher_offerings' %>
       <% end %>
 
@@ -39,7 +39,7 @@
       </h2>
 
       <%= link_to "Login", new_user_session_path, 
-                                  class: "btn btn-warning btn-primary" %>
+                                  class: "btn btn-success btn-primary" %>
     </center>                                
   </div>
 

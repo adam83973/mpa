@@ -25,7 +25,8 @@ class ExperiencesController < ApplicationController
   # GET /experiences/new.json
   def new
     @experience = Experience.new
-    3.times { @experience.experience_points.build }
+    # create multiple experiences
+    # 3.times { @experience.experience_points.build }
 
     respond_to do |format|
       format.html # new.html.erb

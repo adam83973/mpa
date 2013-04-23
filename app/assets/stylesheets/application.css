@@ -18,10 +18,6 @@
  *= require_tree .
  */
 
-body{
-	padding-top: 55px;
-}
-
 .push, footer {
 	height: 63px;
 }
@@ -30,3 +26,6 @@ body{
  	overflow: auto;
 }
 
+.ul-padding{
+	padding-top: 10px;
+}

@@ -2,6 +2,10 @@ MathPlus::Application.routes.draw do
 
   root to: 'static_pages#home'
 
+  resources :students do
+    get :autocomplete_full_name_id, :on => :collection
+  end
+
   devise_for :users
   
   resources :experience_points

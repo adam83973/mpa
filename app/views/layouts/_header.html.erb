@@ -1,10 +1,11 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner nav-font">
     <div class = "container">
-      <%= link_to "Math Plus Academy", root_path, class: "brand" %>
+      <%= link_to root_path, class: "brand" do %>
+        <%= image_tag('MP-logo.png') %> Math Plus Academy
+      <% end %>
       <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Users", users_path %></li>
+        <ul class="nav pull-right ul-padding">
           <li><%= link_to "Locations", locations_path %></li>
           <li><%= link_to "Students", students_path %></li>
           <li><%= link_to "Courses", courses_path %></li>
@@ -17,9 +18,9 @@
                 <ul class="dropdown-menu">
                   <li><%= link_to "Profile", current_user %></li>
                   <li><%= link_to "Settings", edit_user_registration_path(current_user) %></li>
-          <% if current_user.admin? %>
+              <% if current_user.admin? %>
                   <li><%= link_to "New User", new_user_registration_path %></li>
-                  <% end %>
+              <% end %>
                   <li class="divider"></li>
                   <li> <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
                   </li>

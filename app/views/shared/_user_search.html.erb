@@ -3,10 +3,11 @@
     <legend>Search</legend>
     <label>Find another Employee or Parent:</label>
     <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
-	  <%= text_field_tag :search, params[:search] %><br />
-	  <%= submit_tag "Search", :name => nil, :class => "btn btn-small btn-inverse" %>
-	<% end %>
+  	  <%= text_field_tag :search, params[:search] %><br />
+    	  <%= button_tag(type: "submit", class: "btn btn-small btn-inverse") do %>
+        	Search <i class="icon-search icon-white"></i>
+    	  <% end %>
+    <% end %>
   </fieldset>
 </form>
-
 

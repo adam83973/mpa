@@ -1,20 +1,27 @@
 
-<%= simple_form_for(@experience_point) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.association :experience %>
-    <%= f.association :student, label_method: :full_name %>
-    <%= f.input :points %>
-
+<% if params[:student]%>
+	<%= simple_form_for(@experience_point) do |f| %>
+	  <%= f.error_notification %>
 	
-
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+	  <div class="form-inputs">
+	    <%= f.association :experience %>
+	    <%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
+	    <%= f.input :points %>
+	  </div>
+	    <%= f.button :submit, class: "btn" %>
+	<% end %>
+<% else %>
+	<%= simple_form_for(@experience_point) do |f| %>
+	  <%= f.error_notification %>
+	
+	  <div class="form-inputs">
+	    <%= f.association :experience %> <%= link_to "Create New Experience", new_experience_path%>
+	    <%= f.input :student_id, as: :string %>
+	    <%= f.input :points %>
+	  </div>
+	    <%= f.button :submit, class: "btn" %>
+	<% end %>
 <% end %>
-
-
-
+<p>
+  <%= render '/students/nav_buttons' %>
+</p>

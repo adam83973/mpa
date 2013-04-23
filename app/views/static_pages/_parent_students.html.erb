@@ -1,5 +1,6 @@
 <!-- Render each parent's student in an accordian view and their offering(s) -->
 
+<h3><%= @user.first_name %>'s <%= "Student".pluralize(@user.students.count)%></h3>
 <div class="accordion" id="accordion2">
   <% @user.students.each do |student| %>
   <div class="accordion-group">
@@ -26,4 +27,3 @@
   </div>  
     <% end %>  
 </div>
-<i class="icon-search"></i>

@@ -3,6 +3,10 @@ class StudentsController < ApplicationController
   # GET /students.json
 
   def index
+    # Attempt at adding autocomplete
+    # @students_autocomplete = Student.order(:first_name).where("name like ?", "%#{params[:term]}%")
+    # render json: @students_autocomplete.map(&:first_name)
+
     @students = Student.all
 
     respond_to do |format|
@@ -14,12 +18,18 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+    
     @student = Student.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @student }
+    if signed_in?
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @student }
+      end
+    else
+      redirect_to new_user_session_path, notice: "Please log in to access additional information."
     end
+
   end
 
   # GET /students/new

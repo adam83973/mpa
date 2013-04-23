@@ -1,31 +1,38 @@
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        Achievements Total: <%= @student.experience_points.count %>
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner">
-        <div class="tscroll well well-small">
-          <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Experience</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <% @student.experience_points.each do |xp| %>
-                  <tr>
-                    <td><%= xp.experience.name %></td>
-                    <td><%= xp.points %></td>
-                  </tr>
-                  <% end %>
-              </tbody>
-          </table>
+<fieldset>
+  <legend>
+    <h3>Acheivements</h3>
+  </legend>
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            Achievements Total: <%= @student.experience_points.count %>
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <div class="tscroll well well-small">
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Experience</th>
+                      <th>Date Earned</th>
+                      <th>Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <% @student.experience_points.each do |xp| %>
+                      <tr>
+                        <td><%= link_to "#{xp.experience.name}", experience_point_path(xp) %></td>
+                        <td><%= xp.updated_at.strftime("%B #{xp.updated_at.day.ordinalize}, %Y") %></td>
+                        <td><%= xp.points %></td>
+                      </tr>
+                      <% end %>
+                  </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+</fieldset>

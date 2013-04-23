@@ -1,0 +1,14 @@
+
+.user_search{
+	border-bottom: solid 1px #ddd;
+	padding: 5px;
+}
+
+.user-info{
+	border-right: solid 1px #ebebeb;
+	padding: 15px;
+}
+
+.nav-font{
+	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+}

@@ -1,0 +1,10 @@
+<fieldset>
+  <legend>
+    <h3>Classes:</h3>
+  </legend>
+   <p>
+    	<% @student.offerings.each do |offering| %>
+    	    <%= link_to offering.offering_name, offering %> <br />
+    	<% end %>
+  </p>  
+</fieldset>	

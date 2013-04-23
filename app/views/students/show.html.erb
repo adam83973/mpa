@@ -1,23 +1,28 @@
 <div class="row">
-<%= render 'student_stats' %>
+  <%= render 'student_stats' %>
 </div>
 
-<p>
-  <b>Offerings:</b><br />
-  <% @student.offerings.each do |offering| %>
-      <%= link_to offering.offering_name, offering %> <br />
-  <% end %>
-</p>
+<div class="row rank">
+  <div class="span3">
+    <%= render 'student_class_list' %>
+<br />
+    <p>
+      <%= render 'nav_buttons' %>
+    </p>
+  </div>
+  
+  <div class="span8 achievements">
+      <%= render 'student_achievements' %>
+    <% if current_user.role = "Teacher"%>
+	  <p>
+      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
+    </p>
+    <% else %>
 
-<p>
-  <b>Parent:</b>
-  <%= link_to @student.user.full_name, @student.user %>
-</p>
+    <% end %>
+  </div>
+</div>
 
-<%= render 'student_achievements' %>
-
-<p>
-
-</p>
-<%= link_to 'Edit', edit_student_path(@student) %> |
+<!--  <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
+ -->
