@@ -1,15 +1,38 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Course name:</b>
-  <%= @course.course_name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @course.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<fieldset>
+  <legend>
+     <h2><%= @course.course_name %></h2> 
+     <% if current_user.admin?%>
+      <%= link_to 'Edit', edit_course_path(@course) %>
+     <% end %>
+  </legend>
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            <%= @course.course_name %> Lessons
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <div class="tscroll well well-small">
+              <table class= "table table-striped table-hover table-bordered">
+          <tr>
+            <th>Lesson Name</th>
+            <th>Assignment</th>
+            <th>Assignment KEY</th>
+          </tr>
+        <% @course.lessons.each do |lesson| %>
+          <tr>
+            <td><%= link_to lesson.name, lesson %></td>
+            <td><%= link_to "Week #{lesson.week} Assignment", lesson.assignment %></td>
+            <td><%= link_to "Week #{lesson.week} Assignment KEY", lesson.assignment_key %></td>
+          </tr>
+        <% end %>
+        </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</fieldset>
