@@ -1,6 +1,0 @@
-class StaticPagesController < ApplicationController
-  def home
-   if signed_in? && 
-     @grades  = current_user.student.grades.build
-     @offering = current_user.student.offering
-end
