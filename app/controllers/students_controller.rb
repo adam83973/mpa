@@ -1,12 +1,9 @@
 class StudentsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /students
   # GET /students.json
-
   def index
-    # Attempt at adding autocomplete
-    # @students_autocomplete = Student.order(:first_name).where("name like ?", "%#{params[:term]}%")
-    # render json: @students_autocomplete.map(&:first_name)
-
     @students = Student.all
 
     respond_to do |format|
@@ -18,7 +15,6 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    
     @student = Student.find(params[:id])
 
     if signed_in?

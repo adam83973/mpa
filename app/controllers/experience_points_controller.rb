@@ -44,17 +44,75 @@ class ExperiencePointsController < ApplicationController
     @student = Student.find(params[:experience_point][:student_id])
     @experience_point = ExperiencePoint.new(params[:experience_point])
     @credits = @student.calculate_credit(@experience_point)
+    @student_level = @student.calculate_rank(@experience_point)
 
-    respond_to do |format|
-      if @experience_point.save
-        if @credits > 0
-              @student.add_credit(@credits)
+    if params[:experience_point][:experience_id] == "2"
+      respond_to do |format|
+        if @experience_point.save
+          if @credits > 0
+                @student.add_credit(@credits)
+          end
+
+          if @student.rank.nil?
+            @student.update_rank
+          end
+
+          if @student_level > 0
+            @student.update_rank
+          end
+          
+          format.html { redirect_to new_experience_point_path(:attendance => '2'), notice: "Attendance added for #{@student.first_name}." }
+
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to student_path(@student), notice: "Experience point was successfully created. #{@credits}" }
-        format.json { render json: @experience_point, status: :created, location: @experience_point }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+      end
+    elsif params[:experience_point][:experience_id] == "1"
+      respond_to do |format|
+        if @experience_point.save
+          if @credits > 0
+                @student.add_credit(@credits)
+          end
+
+          if @student.rank.nil?
+            @student.update_rank
+          end
+
+          if @student_level > 0
+            @student.update_rank
+          end
+          
+          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade Added added for #{@student.first_name}'s #{@experience_point.experience.name}." }
+
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        if @experience_point.save
+          if @credits > 0
+                @student.add_credit(@credits)
+          end
+
+          if @student.rank.nil?
+            @student.update_rank
+          end
+
+          if @student_level > 0
+            @student.update_rank
+          end
+          
+          format.html { redirect_to student_path(@student), notice: "Experience point was successfully created." }
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -82,7 +140,12 @@ class ExperiencePointsController < ApplicationController
     @experience_point = ExperiencePoint.find(params[:id])
     @student = Student.find(@experience_point.student_id)
     @credits = ((@student.xp_sum - @experience_point.points)/100 - ((@student.xp_sum)/100))
+    @calculate_rank = ((@student.xp_sum - @experience_point.points)/1000 - ((@student.xp_sum)/1000))
     @student.add_credit(@credits)
+
+    if @calculate_rank < 0
+      @student.decrease_rank
+    end
     @experience_point.destroy
 
     respond_to do |format|

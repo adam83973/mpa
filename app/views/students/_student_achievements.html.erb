@@ -26,6 +26,7 @@
                         <td><%= link_to "#{xp.experience.name}", experience_point_path(xp) %></td>
                         <td><%= xp.updated_at.strftime("%B #{xp.updated_at.day.ordinalize}, %Y") %></td>
                         <td><%= xp.points %></td>
+                        <td><%= link_to "x", xp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                       </tr>
                       <% end %>
                   </tbody>

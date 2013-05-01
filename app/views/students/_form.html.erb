@@ -23,8 +23,9 @@
     <%= f.association :user, label_method: :full_name %><br />
     <%= f.input :xp_total %><br />
     <%= f.input :credits %><br />
+    <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
     <%= f.button :submit %>
 <% end %>
 
 
-<%= image_submit_tag("acheivement5.png") %>
+<!--  <%= image_submit_tag("acheivement5.png") %> -->

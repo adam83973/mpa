@@ -12,13 +12,12 @@
   </div>
   
   <div class="span8 achievements">
-      <%= render 'student_achievements' %>
-    <% if current_user.role = "Teacher"%>
-	  <p>
-      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
-    </p>
-    <% else %>
-
+    <%= render 'student_achievements' %>
+    
+    <% if current_user.role == "Teacher" %>
+  	  <p>
+        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
+      </p>
     <% end %>
   </div>
 </div>

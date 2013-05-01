@@ -2,14 +2,17 @@
 <div class="studentname row span span11">
   <div class="span4">
 	  <h2><%= @student.full_name %> </h2>
-	  <%if current_user.role = "Teacher" %>
-	  <%= link_to "edit student", edit_student_path(@student) %>
+	  <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %>
+	  <%= link_to "edit student", edit_student_path(@student),class: "btn btn-mini" %>
 	  <% end %>
 	<p>
 	  <h3>Total XP: <%= @student.xp_total %></h3>
 	</p>
 	<p>
 	  <h3>Total Credits: <%= @student.credits %></h3>
+	  <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %>
+	  <%= link_to "Redeem Credits", edit_student_path(@student), class: "btn btn-mini" %>
+	  <% end %>
 	</p>
       <p>
 	    <b>Parent:</b>
@@ -19,13 +22,13 @@
 
   <div class="pull-right rank">
 	<p>
-	  <h3>Current level: <em>Classified</em></h3>
+	  <h3>Current level: <em><%= @student.rank %> </em></h3>
 	</p>
 	<div class="progress progress-striped active center span6">
 	  <center>
-	    <div class="bar" style="width:<%= ((@student.experience_points.sum(:points).to_f)/(1000)*100).round %>%"><%= ((@student.xp_sum.to_f)/(1000)*100).round %>%</div>    
+	    <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= ((@student.xp_sum.to_f - @student.rank_points)/(1000)*100).round %>%</div>    
 	    </div>
 	  </center>
-	<p>Next Level: <em>Confidential</em></p>
+	<p>Next Level: <em><%= @student.next_rank %></em></p>
   </div>
 </div>

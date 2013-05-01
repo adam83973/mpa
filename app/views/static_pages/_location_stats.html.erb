@@ -1,0 +1,17 @@
+<div class="location-stats">
+  <div class"location-name">
+    <h4><%= @user_location.name%> Stats</h4>
+  </div>
+  <p>
+    <b># of Offerings</b>
+    <%= @user_location.offerings.count %>
+  </p>
+  <p>
+    <b># of Students</b>
+    <%= @user_location.students.count %>
+  </p>
+  <p>
+    <b>Avg. Students/Offering</b>
+    <%= @user_location.students.count / @user_location.offerings.count %>
+  </p> 
+</div>

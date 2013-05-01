@@ -15,6 +15,20 @@
   <%= @experience_point.points %>
 </p>
 
+<% if @experience_point.comment? %>
+	<p>
+	  <b>Comment:</b>
+	  <%= @experience_point.comment %>
+	</p>
+<% end %>
+
+<p>
+  <b>Created By:</b>
+  <%= @experience_point.user.full_name %>
+</p>
+
+
+
 <%= link_to 'Edit', edit_experience_point_path(@experience_point) %> |
 <%= link_to 'Back', experience_points_path %> |
 <% if current_user.role == "Teacher" || "Teaching Assistant" || "Director"%>

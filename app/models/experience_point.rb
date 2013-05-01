@@ -1,6 +1,7 @@
 class ExperiencePoint < ActiveRecord::Base
-  attr_accessible :experience_id, :points, :student_id, :experience_point
+  attr_accessible :experience_id, :points, :student_id, :experience_point, :user_id, :comment
 
+  belongs_to :user
   belongs_to :student
   belongs_to :experience
 

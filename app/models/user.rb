@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :offerings
   has_many :students, :through => :offerings
   has_many :students
+  has_many :experience_points
 
   def full_name
       first_name + " " + last_name
@@ -21,6 +22,12 @@ class User < ActiveRecord::Base
   def self.search(search)
     if search
        @users_search = User.where('first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%").limit(10)
+    end
+  end
+
+  def students_by_offering
+    offerings.each do |x| 
+      
     end
   end
 end

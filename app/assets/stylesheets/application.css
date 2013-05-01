@@ -15,6 +15,7 @@
  *= require dataTables/extras/TableTools
  *= require dataTables/extras/TableTools_JUI
  *= require dataTables/src/demo_table_jui
+ *= require normalize-rails
  *= require_tree .
  */
 

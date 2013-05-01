@@ -1,4 +1,6 @@
 class OfferingsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /offerings
   # GET /offerings.json
   def index

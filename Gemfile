@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+
 gem 'rails', '3.2.12'
 gem 'simple_form'
 gem 'devise'
 gem 'faker', '1.0.1'
 gem 'populator'
 gem 'humanize'
-gem 'rails3-jquery-autocomplete'
+gem 'jquery-slimscroll-rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -24,6 +24,9 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'normalize-rails'
+  gem "modernizr-rails", "~> 2.6.2.1"
+  gem "selectivizr-rails", "~> 1.0.1"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

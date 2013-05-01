@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits
+  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank
   belongs_to :user
   belongs_to :location
   has_many :grades
@@ -29,8 +29,62 @@ class Student < ActiveRecord::Base
   end  
 
   def add_credit(newcredit)
-    if self.credits
+    if self.credits.nil?
+      update_column(:credits, 1)
+    else
       increment!(:credits,  newcredit)
+    end
+  end
+
+  def calculate_rank(experience_point)
+    ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
+  end
+
+  def update_rank
+    if self.rank.nil?
+      update_column(:rank, 'Classified')
+    elsif self.rank == "Classified"
+      update_column(:rank, 'Confidential')
+    elsif self.rank == "Confidential"
+      update_column(:rank, 'Secret')
+    elsif self.rank == "Secret"
+      update_column(:rank, 'Top Secret')
+    else self.rank == "Top Secret"
+      update_column(:rank, 'Classified')
+    end
+  end
+
+  def decrease_rank
+    if self.rank == "Confidential"
+      update_column(:rank, 'Classified')
+    elsif self.rank == "Secret"
+      update_column(:rank, 'Confidential')
+    else self.rank == "Top Secret"
+      update_column(:rank, 'Secret')
+    end
+  end
+
+  def next_rank
+    if self.rank == 'Classified'
+      "Confidential"
+    elsif self.rank == 'Confidential'
+      "Secret"
+    elsif self.rank == "Secret"
+      "Top Secret"
+    else self.rank == "Top Secret"
+      "You've reached the top... For now."
+    end
+  end
+
+  def rank_points
+    if self.rank == 'Classified'
+      0
+    elsif self.rank == 'Confidential'
+      1000
+    elsif self.rank == "Secret"
+      2000
+    else self.rank == "Top Secret"
+      3000
     end
   end
 end
