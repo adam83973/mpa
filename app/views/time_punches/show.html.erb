@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>In:</b>
+  <%= @time_punch.in %>
+</p>
+
+<p>
+  <b>Out:</b>
+  <%= @time_punch.out %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @time_punch.comment %>
+</p>
+
+<p>
+  <b>Modified:</b>
+  <%= @time_punch.modified %>
+</p>
+
+
+<%= link_to 'Edit', edit_time_punch_path(@time_punch) %> |
+<%= link_to 'Back', time_punches_path %>

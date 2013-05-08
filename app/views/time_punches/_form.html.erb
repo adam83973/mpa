@@ -1,0 +1,10 @@
+<%= simple_form_for(@time_punch) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :in %>
+    <%= f.input :out %>
+    <%= f.input :comment %>
+    <%= f.input :modified %>
+
+    <%= f.button :submit %>
+<% end %>
