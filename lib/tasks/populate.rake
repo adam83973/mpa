@@ -151,25 +151,25 @@ def make_offerings
                    location_id:       "2",
                    day:               "Monday",
                    time:              "4:30 PM",
-                   user_id:           "#{rand(3..10)}")
+                   user_id:           "3")
 
   Offering.create!(course_id:         "2",
                    location_id:       "2",
                    day:               "Monday",
                    time:              "5:30 PM",
-                   user_id:           "#{rand(3..10)}")
+                   user_id:           "3")
 
   Offering.create!(course_id:         "3",
                    location_id:       "1",
                    day:               "Tuesday",
                    time:              "4:30 PM",
-                   user_id:           "#{rand(3..10)}")
+                   user_id:           "3")
 
   Offering.create!(course_id:         "4",
                    location_id:       "1",
                    day:               "Thursday",
                    time:              "5:30 PM",
-                   user_id:           "#{rand(3..10)}")
+                   user_id:           "3")
 end
 
 def make_courses
