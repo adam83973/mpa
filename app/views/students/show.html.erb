@@ -14,13 +14,17 @@
   <div class="span8 achievements">
     <%= render 'student_achievements' %>
     
-    <% if current_user.role == "Teacher" %>
+    <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
   	  <p>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
       </p>
     <% end %>
   </div>
 </div>
+
+<% @student.locations.each do |location| %>
+  <%= location.name %>
+<% end %>
 
 <!--  <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>

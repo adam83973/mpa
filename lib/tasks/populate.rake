@@ -16,7 +16,7 @@ end
 def make_users
   admin = User.create!(first_name:            "Travis",
                        last_name:             "Kendall",
-                       role:                  "Director",
+                       role:                  "Admin",
                        phone:                 "(614) 260-6162",
                        location_id:           "2",              
                        email:                 "tkendalls@aol.com",
@@ -26,7 +26,7 @@ def make_users
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
-                        role:                 "Owner",
+                        role:                 "Admin",
                         phone:                 "(614) 787-4741",
                         location_id:          "1",              
                         email:                "raj@mathplusacademy.com",

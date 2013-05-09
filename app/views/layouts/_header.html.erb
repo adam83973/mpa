@@ -8,9 +8,14 @@
         <ul class="nav pull-right ul-padding">
           
           <% if signed_in? %>
-          <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %>
-            <%= render 'layouts/nav_links' %>
-          <% end %>
+            <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
+              <%= render 'layouts/nav_links' %>
+            <% end %>
+
+            <% if current_user.admin? %>
+              <%= render 'layouts/admin_tasks' %>
+            <% end %>
+
             <%= render 'layouts/nav_dropdown' %>
           <% else %>
             <li><%= link_to "Sign in", new_user_session_path %></li>

@@ -1,13 +1,14 @@
 <% if signed_in? %>
   <div class="row">
     <aside class="span3 user-info">
+
       <section>
          <%= render 'shared/user_info' %>
       </section>
-      
-      <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %> 
 
-        <section>  
+      <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %>
+
+        <section>
           <%= render 'clock_in' %>
         </section>
 
@@ -20,12 +21,13 @@
         <section>
           <%= render 'shared/user_search' %>
         </section>
+
       <% end %>
     </aside>
 
     <div class="span8">
       <div id="results"><%= render 'shared/user_search_results' %></div>
-      
+
         <%if ["Teacher", "Teaching Assistant"].include?(current_user.role) %>
 
           <%= render 'teacher_offerings' %>
@@ -37,15 +39,16 @@
         <% end %>
 
         <% if current_user.role == "Parent" %>
+
           <%= render 'parent_students' %>
+
         <% end %>
 
       </div>
-    </div>  
+    </div>
 
 <% else %>
 
   <%= render 'login_screen' %>
 
 <% end %>
-

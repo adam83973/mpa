@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430202414) do
+ActiveRecord::Schema.define(:version => 20130508211026) do
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
@@ -103,6 +103,16 @@ ActiveRecord::Schema.define(:version => 20130430202414) do
     t.string   "rank"
     t.integer  "credits"
     t.integer  "xp_total"
+    t.boolean  "active"
+  end
+
+  create_table "time_punches", :force => true do |t|
+    t.datetime "in"
+    t.datetime "out"
+    t.string   "comment"
+    t.boolean  "modified",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "users", :force => true do |t|

@@ -1,7 +1,8 @@
 class ExperiencePointsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /experience_points
   # GET /experience_points.json
-
   def index
     @experience_points = ExperiencePoint.all
 

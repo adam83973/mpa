@@ -20,10 +20,10 @@
                               end_year: Date.today.year + 0,
                               order: [:month, :day, :year] %><br />
     <%= f.association :offerings, label_method: :offering_name %><br />
-    <%= f.association :user, label_method: :full_name %><br />
-    <%= f.input :xp_total %><br />
+    <%= f.association :user, label_method: :full_name %>
     <%= f.input :credits %><br />
     <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
+    <%= f.input :active %>
     <%= f.button :submit %>
 <% end %>
 
