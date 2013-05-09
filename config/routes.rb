@@ -1,5 +1,7 @@
 MathPlus::Application.routes.draw do
 
+  get "infusion_pages/home"
+
   root to: 'static_pages#home'
 
   resources :students do
@@ -19,6 +21,16 @@ MathPlus::Application.routes.draw do
   resources :users
 
   
+  get "infusion_pages/home"
+  get "infusion_pages/edit"
+  get "infusion_pages/camps"
+  get "infusion_pages/update"
+  get "infusion_pages/credit_card"
+  get "infusion_pages/subscription"
+  get "infusion_pages/add_subscription"
+  get "infusion_pages/update_subscription"
+  get "infusion_pages/end_subscription"
+  get "infusion_pages/delete_user"
 
   # devise_scope :user do
   #   root to: "users#index", constraints: :user.signed_in?

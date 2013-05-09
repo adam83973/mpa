@@ -8,6 +8,12 @@ gem 'faker', '1.0.1'
 gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
+gem 'infusionsoft'
+
+
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
