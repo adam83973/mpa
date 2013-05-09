@@ -1,0 +1,107 @@
+<h3>Edit Contact and Payment Info</h3>
+<div class="row">
+	<div class="span6">
+		<h4>Edit Conact Details</h4>
+		<%= form_tag url_for(controller: 'static_pages', action: 'update'), {:method => :get, class: 'form-horizontal'} do %>
+			<%= hidden_field_tag :Id, params[:Id] %>
+			<div class="control-group">
+				<div class="control-label">Contact Type </div>
+ 					<%= select_tag :ContactType, options_for_select(["Prospect","Customer","Student"], @user[:ContactType].to_s) %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">First Name </div>
+				<%= text_field_tag :FirstName, @user["FirstName"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Last Name </div>
+				<%= text_field_tag :LastName, @user["LastName"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Email </div>
+				<%= text_field_tag :Email, @user["Email"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Home Phone </div>
+				<%= text_field_tag :Phone1, @user["Phone1"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Mobile Phone </div>
+				<%= text_field_tag :Phone2, @user["Phone2"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Street </div>
+				<%= text_field_tag :StreetAddress1, @user["StreetAddress1"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">City </div>
+				<%= text_field_tag :City, @user["City"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">State </div>
+				<%= text_field_tag :State, @user["State"] %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Zip </div>
+				<%= text_field_tag :PostalCode, @user["PostalCode"] %>
+			</div>
+			<%= submit_tag "Update Contact", :name => nil, class: 'btn' %>
+		<% end %>	
+	</div>
+	<div class="span6">
+		<h4>Credit Cards in Infusionsoft</h4>
+		<table class="table table-striped table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th>Name on Card</th>
+					<th>Type</th>
+					<th>Last 4</th>
+					<th>Exp</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @credit_card.each do |i| %>
+				<tr>
+					<td><%= i["NameOnCard"] %></td>
+					<td><%= i["CardType"] %></td>
+					<td><%= i["Last4"] %></td>
+					<td><%= exp_date(i["ExpirationMonth"],i["ExpirationYear"]) %></td>
+					<td><%= cc_status(i["Status"]) %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<h4>Add New Credit Card</h4>
+		<%= form_tag url_for(controller: 'static_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
+			<%= hidden_field_tag :Id, params[:Id] %>
+			<div class="control-group">
+				<div class="control-label">Name on Card </div>
+				<%= text_field_tag :NameOnCard, nil %>
+						</div>
+			<div class="control-group">
+				<div class="control-label">Card Type </div>
+				<%= select_tag :CardType, options_for_select(["Choose card...", "American Express","Visa","MasterCard", "Discover"]) %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Credit Card Number </div>
+				<%= text_field_tag :CardNumber, nil %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Expiration Month </div>
+				<%= text_field_tag :ExpirationMonth, nil %>
+			</div>
+			<div class="control-group">
+				<div class="control-label">Expiration Year </div>
+				<%= text_field_tag :ExpirationYear, nil %>
+			</div>
+			<%= submit_tag "Add CC", :name => nil, class: 'btn' %>
+		<% end %>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<hr>
+		<%= link_to 'View Subscriptions', static_pages_subscription_path(params.merge(ContactId: params[:Id])), class: 'btn btn-success' %>
+		<hr>
+	</div>
+</div>
