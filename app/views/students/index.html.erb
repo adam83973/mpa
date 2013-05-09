@@ -15,8 +15,9 @@
         <th>Start date</th>
         <th>Parent</th>
         <th></th>
-        <th></th>
-        <th></th>
+        <% if current_user.admin? %>
+          <th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
