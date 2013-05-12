@@ -28,6 +28,7 @@ class ExperiencePointsController < ApplicationController
   def new
     @experience_point = ExperiencePoint.new
 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @experience_point }
@@ -61,7 +62,7 @@ class ExperiencePointsController < ApplicationController
           if @student_level > 0
             @student.update_rank
           end
-          
+
           format.html { redirect_to new_experience_point_path(:attendance => '2'), notice: "Attendance added for #{@student.first_name}." }
 
           format.json { render json: @experience_point, status: :created, location: @experience_point }
@@ -84,7 +85,7 @@ class ExperiencePointsController < ApplicationController
           if @student_level > 0
             @student.update_rank
           end
-          
+
           format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade Added added for #{@student.first_name}'s #{@experience_point.experience.name}." }
 
           format.json { render json: @experience_point, status: :created, location: @experience_point }
@@ -107,7 +108,7 @@ class ExperiencePointsController < ApplicationController
           if @student_level > 0
             @student.update_rank
           end
-          
+
           format.html { redirect_to student_path(@student), notice: "Experience point was successfully created." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else

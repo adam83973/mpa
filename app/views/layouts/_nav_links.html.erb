@@ -1,6 +1,9 @@
-
-<li><%= link_to "Students", students_path %></li>
-<li><%= link_to "Offerings", offerings_path %></li>
-<li><%= link_to "Lessons", lessons_path %></li>
-<li><%= link_to "Users", users_path %></li>
-<li><%= link_to "Billing", '/infusion_pages/home' %></li>
+<li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Find Stuff <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Students", students_path %></li>
+                <li><%= link_to "Offerings", offerings_path %></li>
+                <li><%= link_to "Lessons", lessons_path %></li>
+                <li><%= link_to "Users", users_path %></li>
+                </ul>
+            </li>

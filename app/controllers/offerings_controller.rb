@@ -27,6 +27,7 @@ class OfferingsController < ApplicationController
   # GET /offerings/new.json
   def new
     @offering = Offering.new
+    @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,64 +1,63 @@
 <div class="experience_points_new">
-<% if params[:student]%>
-	<%= simple_form_for(@experience_point) do |f| %>
-	  <%= f.error_notification %>
-	
-	  <div class="form-inputs">
-	    <%= f.association :experience %>
-	    <%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
-	    <%= f.input :points %>
-	    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-	    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-	  </div>
-	    <%= f.button :submit, class: "btn btn-success" %>
-	<% end %>
-	<p>
-  	  <%= render '/students/nav_buttons' %>
-	</p>
-<% elsif params[:attendance] %>
-<%= simple_form_for(@experience_point) do |f| %>
-	  <%= f.error_notification %>
-	
-	  <div class="form-inputs">
-	    <%= f.association :experience, :selected => params[:attendance] %> 
-	    <%= f.input :student_id, :autofocus => true %>
-	    <%= f.input :points, :input_html => { :value => '10'} %>
-	    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-	    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-	  </div>
-	    <%= f.button :submit, class: "btn btn-success" %>
-	<% end %>
-	<a href="/" class="btn btn-danger">Done with attendance...</a>
-<% elsif params[:homework] %>
-<%= simple_form_for(@experience_point) do |f| %>
-	  <%= f.error_notification %>
-	
-	  <div class="form-inputs">
-	    <%= f.association :experience, :selected => params[:homework] %> 
-	    <%= f.input :student_id, :autofocus => true %>
-	    <%= f.input :points, :input_html => { :value => '10'} %>
-	    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-	    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-	  </div>
-	    <%= f.button :submit, class: "btn btn-success" %>
-	<% end %>
-	<a href="/" class="btn btn-danger">Done with grading...</a>
-<% else %>
-	<%= simple_form_for(@experience_point) do |f| %>
-	  <%= f.error_notification %>
-	
-	  <div class="form-inputs">
-	    <%= f.association :experience %> 
-	    <%= f.input :student_id %>
-	    <%= f.input :points %>
-	    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-	    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-	  </div>
-	    <%= f.button :submit, class: "btn btn-success" %>
-	<% end %>
-	<p>
-  	  <%= render '/students/nav_buttons' %>
-	</p>
-<% end %>
+	<% if params[:student]%>
+		<%= simple_form_for(@experience_point) do |f| %>
+		  <%= f.error_notification %>
 
+		  <div class="form-inputs">
+		    <%= f.association :experience %>
+		    <%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
+		    <%= f.input :points %>
+		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+		  </div>
+		    <%= f.button :submit, class: "btn btn-success" %>
+		<% end %>
+		<p>
+	  	  <%= render '/students/nav_buttons' %>
+		</p>
+	<% elsif params[:attendance] %>
+		<%= simple_form_for(@experience_point) do |f| %>
+			  <%= f.error_notification %>
+
+			  <div class="form-inputs">
+			    <%= f.association :experience, :selected => params[:attendance] %>
+			    <%= f.input :student_id, :autofocus => true %>
+			    <%= f.input :points, :input_html => { :value => '10'} %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+			  </div>
+			    <%= f.button :submit, class: "btn btn-success" %>
+			<% end %>
+			<a href="/" class="btn btn-danger">Done with attendance...</a>
+	<% elsif params[:homework] %>
+		<%= simple_form_for(@experience_point) do |f| %>
+			  <%= f.error_notification %>
+
+			  <div class="form-inputs">
+			    <%= f.association :experience, :selected => params[:homework] %>
+			    <%= f.input :student_id, :autofocus => true %>
+			    <%= f.input :points, :input_html => { :value => '10'} %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+			  </div>
+			    <%= f.button :submit, class: "btn btn-success" %>
+			<% end %>
+			<a href="/" class="btn btn-danger">Done with grading...</a>
+	<% else %>
+		<%= simple_form_for(@experience_point) do |f| %>
+		  <%= f.error_notification %>
+
+		  <div class="form-inputs">
+		    <%= f.association :experience %>
+		    <%= f.input :student_id %>
+		    <%= f.input :points %>
+		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+		  </div>
+		    <%= f.button :submit, class: "btn btn-success" %>
+		<% end %>
+		<p>
+	  	  <%= render '/students/nav_buttons' %>
+		</p>
+	<% end %>
 </div>

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates_presence_of :first_name, :last_name, :location, :role
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size
@@ -26,8 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def students_by_offering
-    offerings.each do |x| 
-      
+    offerings.each do |x|
+
     end
   end
 end

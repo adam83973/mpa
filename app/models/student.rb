@@ -1,11 +1,15 @@
 class Student < ActiveRecord::Base
   attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active
+
+  validates_presence_of :first_name, :last_name, :location, :role, :user_id
+
   belongs_to :user
   belongs_to :location
   has_many :grades
   has_many :lessons , :through => :grades
   has_many :experiences, :through => :experience_points
   has_many :locations, :through => :offerings
+  has_many :courses, :through => :offerings
   has_many :experience_points
   has_and_belongs_to_many :offerings
 

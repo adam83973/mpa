@@ -6,7 +6,7 @@
       <% end %>
       <nav>
         <ul class="nav pull-right ul-padding">
-          
+
           <% if signed_in? %>
             <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
               <%= render 'layouts/nav_links' %>
