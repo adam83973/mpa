@@ -13,6 +13,7 @@
 
     <%= f.input :first_name %>
     <%= f.input :last_name %>
+    <%= f.input :user_id, collection: @parents, label_method: :full_name %>
     <%= f.input :birth_date, as: :string %>
     <%= f.input :start_date, as: :string %>
 <!--     <%= f.input :birth_date, as: :date, start_year: Date.today.year - 20,
@@ -23,10 +24,9 @@
                               order: [:month, :day, :year] %><br />
  -->
     <%= f.association :offerings, label_method: :offering_name %><br />
-    <%= f.association :user, label: 'Parent', label_method: :full_name %><br />
-    <%= f.input :xp_total, label: 'Total XP' %><br />
     <%= f.input :credits %><br />
     <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
+    <%= f.input :active %>
     <%= f.button :submit %>
 <% end %>
 

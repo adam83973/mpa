@@ -16,9 +16,9 @@ end
 def make_users
   admin = User.create!(first_name:            "Travis",
                        last_name:             "Kendall",
-                       role:                  "Director",
+                       role:                  "Admin",
                        phone:                 "(614) 260-6162",
-                       location_id:           "2",              
+                       location_id:           "2",
                        email:                 "tkendalls@aol.com",
                        password:              "password",
                        password_confirmation: "password")
@@ -26,15 +26,15 @@ def make_users
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
-                        role:                 "Owner",
+                        role:                 "Admin",
                         phone:                 "(614) 787-4741",
-                        location_id:          "1",              
+                        location_id:          "1",
                         email:                "raj@mathplusacademy.com",
                         password:             "password",
                         password_confirmation:"password")
 
   admin1.toggle!(:admin)
-  
+
   10.times do |n|
     first_name  = Faker::Name.first_name
     last_name  = Faker::Name.last_name
@@ -94,7 +94,7 @@ def make_users
     location_id = "#{(3+(-1)**n)/2}"
 
     User.create!(first_name:              first_name,
-                 last_name:               last_name,                 
+                 last_name:               last_name,
                  role:                    roll,
                  email:                   email,
                  password:                password,
@@ -117,7 +117,7 @@ def make_locations
                    address:       "5346 North Hamilton Road",
                    city:          "Columbus",
                    state:         "Ohio",
-                   zip:           "43230",)  
+                   zip:           "43230",)
 end
 
 def make_students
@@ -203,10 +203,14 @@ def make_experience_points
       experience_id  = "#{(3+(-1)**n)/2}"
       points = "#{["5", "10"].sample}"
       student_id = "#{t+1}"
+      comment = Faker::Lorem.sentence
+      user_id = "#{["1", "2", "3", "4"].sample}"
 
       ExperiencePoint.create!(experience_id:    experience_id,
                               points:           points,
-                              student_id:       student_id)
+                              student_id:       student_id,
+                              comment:          comment,
+                              user_id:          user_id)
     end
   end
 end

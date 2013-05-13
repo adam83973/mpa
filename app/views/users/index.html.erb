@@ -1,7 +1,11 @@
 <% title "Users" %>
 
   <h1><%= yield(:title)%></h1>
-  
+
+<% if current_user.admin? %>
+      <p><%= link_to 'New User', new_user_path, class: "btn btn-success" %></p>
+<% end %>
+
   <table id="users" class="display">
     <thead>
       <tr>
@@ -10,13 +14,13 @@
         <th>Last name</th>
         <th>Role</th>
         <th>Phone</th>
-        <th>Has key</th>
         <th>Location</th>
-        <th>Admin</th>
+        <th>Email</th>
         <th>Active</th>
         <th></th>
-        <th></th>
-        <th></th>
+        <% if current_user.admin? %>
+           <th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -27,16 +31,27 @@
             <td><%= user.last_name %></td>
             <td><%= user.role %></td>
             <td><%= user.phone %></td>
-            <td><%= user.has_key %></td>
-            <td><%= user.location.name %></td>
-            <td><%= user.admin %></td>
+            <% if user.location %>
+              <td><%= user.location.name %></td>
+            <% else %>
+              <td>invited</td>
+            <% end %>
+            <td><%= user.email %></td>
             <td><%= user.active %></td>
             <td><%= link_to 'Show', user %></td>
-            <td><%= link_to 'Edit', edit_user_path(user) %></td>
-            <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
   </table>
   <br />
-  <%= link_to 'New User', new_user_path %>
+
+  <% if signed_in? && current_user.try(:admin?) %>
+  <h3> Import Users</h3>
+    <%= form_tag import_users_path, multipart: true do %>
+     <%= file_field_tag :file %>
+     <%= submit_tag "Import" %>
+    <% end %>
+ <% end %>

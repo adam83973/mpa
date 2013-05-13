@@ -1,0 +1,17 @@
+<% if @student_comment_feed.empty? %>
+
+<% else %>
+  <h3>Recent Comments</h3>
+  <div class="activity_feed">
+    <div id="inner-content-div">
+     <% @student_comment_feed.each do |xp|%>
+       <p>
+        <em><%= xp.experience.name %></em>
+        <b>"<%= xp.comment %>"</b>
+        by: <%= xp.user.full_name %>
+        <%= time_ago_in_words(xp.updated_at) %> ago
+       </p>
+     <% end %>
+    </div>
+  </div>
+<% end %>
