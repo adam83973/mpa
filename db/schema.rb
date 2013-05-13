@@ -97,22 +97,24 @@ ActiveRecord::Schema.define(:version => 20130513184209) do
     t.string   "last_name"
     t.date     "birth_date"
     t.date     "start_date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "user_id"
     t.string   "rank"
     t.integer  "credits"
     t.integer  "xp_total"
-    t.boolean  "active"
+    t.boolean  "active",     :default => true
   end
 
   create_table "time_punches", :force => true do |t|
     t.datetime "in"
     t.datetime "out"
-    t.string   "comment"
-    t.boolean  "modified",   :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.text     "comment"
+    t.integer  "period"
+    t.boolean  "modified"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
