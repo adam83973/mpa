@@ -4,12 +4,8 @@ MathPlus::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  resources :students do
-    get :autocomplete_full_name_id, :on => :collection
-  end
-
   devise_for :users
-  
+
   resources :experience_points
   resources :experiences
   resources :grades
@@ -20,7 +16,27 @@ MathPlus::Application.routes.draw do
   resources :students
   resources :users
 
-  
+  resources :students do
+    collection { post :import }
+  end
+
+  resources :users do
+    collection { post :import }
+  end
+
+  resources :locations do
+    collection { post :import }
+  end
+
+  resources :courses do
+    collection { post :import }
+  end
+
+  resources :offerings do
+    collection { post :import }
+  end
+
+
   get "infusion_pages/home"
   get "infusion_pages/edit"
   get "infusion_pages/camps"

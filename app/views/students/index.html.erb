@@ -37,3 +37,11 @@
         <% end %>
     </tbody>
 </table>
+
+<% if signed_in? && current_user.admin? %>
+<h3> Import Students</h3>
+  <%= form_tag import_students_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>

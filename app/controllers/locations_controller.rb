@@ -82,4 +82,9 @@ class LocationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    Location.import(params[:file])
+    redirect_to locations_path, notice: "Locations imported."
+  end
 end

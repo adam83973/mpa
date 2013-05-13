@@ -82,4 +82,9 @@ class CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    Course.import(params[:file])
+    redirect_to courses_path, notice: "Course imported."
+  end
 end

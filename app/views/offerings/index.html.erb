@@ -2,6 +2,10 @@
 
 <h1><%= yield(:title)%></h1>
 
+<p>
+  <%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
+</p>
+
 <table id="offerings" class="display">
     <thead>
       <tr>
@@ -36,5 +40,11 @@
 </table>
 <br />
 
-<%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
-<br />
+<% if signed_in? && current_user.try(:admin?) %>
+<h3> Import Classes</h3>
+  <%= form_tag import_offerings_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>
+

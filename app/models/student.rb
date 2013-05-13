@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active
 
-  validates_presence_of :first_name, :last_name, :location, :role, :user_id
+  validates_presence_of :first_name, :last_name, :location, :user_id
 
   belongs_to :user
   belongs_to :location
@@ -90,6 +90,14 @@ class Student < ActiveRecord::Base
       2000
     else self.rank == "Top Secret"
       3000
+    end
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      student = find_by_id(row["id"]) || new
+      student.attributes = row.to_hash.slice(*accessible_attributes)
+      student.save!
     end
   end
 end

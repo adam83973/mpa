@@ -1,9 +1,11 @@
 <% title "Lessons" %>
-<fieldset>
-    <legend>
-    <h1><%= yield(:title)%></h1>
-    </legend>
 
+<h1><%= yield(:title)%></h1>
+
+
+<p>
+  <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
+</p>
 <table id="lessons" class="display">
   <thead>
         <tr>
@@ -32,7 +34,4 @@
     <% end %>
   </tbody>
 </table>
-</fieldset>
 <br />
-
-<%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>

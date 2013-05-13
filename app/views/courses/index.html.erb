@@ -2,6 +2,12 @@
 
 <h1><%= yield(:title)%></h1>
 
+<% if signed_in? && current_user.admin? %>
+  <p>
+    <%= link_to 'New Course', new_course_path, class: "btn btn-success" %>
+  </p>
+<% end %>
+
 <table class="table table-striped">
   <tr>
     <th>Course name</th>
@@ -21,8 +27,15 @@
   </tr>
 <% end %>
 </table>
-
 <br />
+
+<% if signed_in? && current_user.admin? %>
+<h3> Import Courses</h3>
+  <%= form_tag import_courses_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>
 
 <%= link_to 'New Course', new_course_path %>
 

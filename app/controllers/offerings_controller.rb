@@ -83,4 +83,12 @@ class OfferingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      offering = find_by_id(row["id"]) || new
+      offering.attributes = row.to_hash.slice(*accessible_attributes)
+      offering.save!
+    end
+  end
 end

@@ -11,4 +11,9 @@ class Offering < ActiveRecord::Base
   def offering_name
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
+
+  def import
+    Offering.import(params[:file])
+    redirect_to offerings_path, notice: "Locations imported."
+  end
 end
