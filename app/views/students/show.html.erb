@@ -1,27 +1,25 @@
+
+<%= render 'student_toolbar' %>
+
 <div class="row">
   <%= render 'student_stats' %>
 </div>
 
 <div class="row rank">
   <div class="span3">
-    <%= render 'student_class_list' %>
-<br />
+    <%= render 'student_class_list' %><br />
     <p>
       <%= render 'shared/nav_buttons' %>
     </p>
   </div>
-  
+
   <div class="span8 achievements">
     <%= render 'student_achievements' %>
-    
-    <% if current_user.role == "Teacher" %>
-  	  <p>
-        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
-      </p>
-    <% end %>
   </div>
 </div>
-
+<span class="row">
+    <%= render 'student_comment_feed'%>
+</span>
 <!--  <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
  -->

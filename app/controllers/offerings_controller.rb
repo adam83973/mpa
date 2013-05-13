@@ -27,6 +27,7 @@ class OfferingsController < ApplicationController
   # GET /offerings/new.json
   def new
     @offering = Offering.new
+    @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,6 +81,14 @@ class OfferingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to offerings_url }
       format.json { head :no_content }
+    end
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      offering = find_by_id(row["id"]) || new
+      offering.attributes = row.to_hash.slice(*accessible_attributes)
+      offering.save!
     end
   end
 end

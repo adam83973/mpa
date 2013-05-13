@@ -1,9 +1,9 @@
 class CreateExperiencePoints < ActiveRecord::Migration
   def change
     create_table :experience_points do |t|
-      t.integer :experience_id
-      t.integer :points
-      t.integer :student_id
+      t.integer :experience_id, :null => false
+      t.integer :points, :null => false
+      t.integer :student_id, :null => false
 
       t.timestamps
     end

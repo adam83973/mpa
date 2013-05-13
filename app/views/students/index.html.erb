@@ -15,8 +15,9 @@
         <th>Start date</th>
         <th>Parent</th>
         <th></th>
-        <th></th>
-        <th></th>
+        <% if current_user.admin? %>
+          <th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -29,9 +30,18 @@
             <td><%= student.start_date %></td>
             <td><%= link_to student.user.full_name, student.user %></td>
             <td><%= link_to 'Show', student %></td>
-            <td><%= link_to 'Edit', edit_student_path(student) %></td>
-            <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Edit', edit_student_path(student) %></td>
+            <% end %>
           </tr>
         <% end %>
     </tbody>
 </table>
+
+<% if signed_in? && current_user.admin? %>
+<h3> Import Students</h3>
+  <%= form_tag import_students_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>

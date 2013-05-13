@@ -1,10 +1,15 @@
 class Student < ActiveRecord::Base
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank
+  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active
+
+  validates_presence_of :first_name, :last_name, :location, :user_id
+
   belongs_to :user
   belongs_to :location
   has_many :grades
   has_many :lessons , :through => :grades
   has_many :experiences, :through => :experience_points
+  has_many :locations, :through => :offerings
+  has_many :courses, :through => :offerings
   has_many :experience_points
   has_and_belongs_to_many :offerings
 
@@ -25,8 +30,8 @@ class Student < ActiveRecord::Base
   end
 
   def calculate_credit(experience_point)
-    ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))    
-  end  
+    ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
+  end
 
   def add_credit(newcredit)
     if self.credits.nil?
@@ -85,6 +90,14 @@ class Student < ActiveRecord::Base
       2000
     else self.rank == "Top Secret"
       3000
+    end
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      student = find_by_id(row["id"]) || new
+      student.attributes = row.to_hash.slice(*accessible_attributes)
+      student.save!
     end
   end
 end

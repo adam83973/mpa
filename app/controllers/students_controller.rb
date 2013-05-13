@@ -16,6 +16,7 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
 
     if signed_in?
       respond_to do |format|
@@ -32,6 +33,7 @@ class StudentsController < ApplicationController
   # GET /students/new.json
   def new
     @student = Student.new
+    @parents = User.where("role = ?", "Parent").order('last_name')
 
     respond_to do |format|
       format.html # new.html.erb
@@ -86,5 +88,10 @@ class StudentsController < ApplicationController
       format.html { redirect_to students_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Student.import(params[:file])
+    redirect_to students_path, notice: "Students imported."
   end
 end

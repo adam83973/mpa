@@ -22,6 +22,9 @@
 	-moz-box-shadow:    2px 2px 12px rgba(50, 50, 50, 0.3);
 		box-shadow:         2px 2px 12px rgba(50, 50, 50, 0.3);
 }
+.student_toolbar{
+  padding-bottom: 10px;
+}
 
 .rank{
 	padding-top: 15px;

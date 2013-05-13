@@ -1,0 +1,9 @@
+<div class="student_toolbar pull-right">
+  <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
+    <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-info" %>
+
+    <%= link_to "Redeem Credits", edit_student_path(@student), class: "btn btn-primary" %>
+
+    <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
+  <% end %>
+</div>

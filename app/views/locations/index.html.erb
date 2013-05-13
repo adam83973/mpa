@@ -36,6 +36,14 @@
 <% end %>
 </table>
 
+<% if signed_in? && current_user.admin? %>
+<h3> Import Locations</h3>
+  <%= form_tag import_locations_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>
+
 <br />
 
 <%= link_to 'New Location', new_location_path %>

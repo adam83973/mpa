@@ -2,12 +2,16 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :invitable, :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :invitable
+
+  validates_presence_of :first_name, :last_name, :location, :role
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me
   attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size
+
+  attr_accessor :current_password
 
   belongs_to :location
   has_many :offerings
@@ -25,9 +29,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def students_by_offering
-    offerings.each do |x| 
-      
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      user = find_by_id(row["id"]) || new
+      user.attributes = row.to_hash.slice(*accessible_attributes)
+      user.save!(:validate => false)
     end
   end
 end

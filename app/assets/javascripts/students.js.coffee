@@ -9,6 +9,6 @@ jQuery ->
       "bJQueryUI": true,
 
     $('#student_birth_date').datepicker
-    	dateFormat: 'yy-mm-dd'
+      dateFormat: 'yy-mm-dd'
     $('#student_start_date').datepicker
-       	dateFormat: 'yy-mm-dd'
+        dateFormat: 'yy-mm-dd'

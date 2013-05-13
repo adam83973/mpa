@@ -14,8 +14,11 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.association :location, label_method: :name %>
-    <%= f.input :role, collection: ["Owner", "Director", "Teacher", "Teaching Assistant", "Parent"] %>
+    <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
     <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
     <%= f.input :passion %>
     <%= f.input :shirt_size %>
     <%= f.input :has_key %>
