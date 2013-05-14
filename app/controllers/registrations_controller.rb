@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  attr_accessible: :current_password
+  #attr_accessible: :current_password
 
   attr_accessor :current_password
 
