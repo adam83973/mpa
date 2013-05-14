@@ -10,15 +10,15 @@ namespace :db do
 end
 
 def make_users
-  admin = User.create!(first_name:            "Travis",
-                       last_name:             "Kendall",
-                       role:                  "Admin",
-                       phone:                 "(614) 260-6162",
-                       location_id:           "2",
-                       email:                 "tkendalls@aol.com",
-                       password:              "password",
-                       password_confirmation: "password")
-  admin.toggle!(:admin)
+  # admin = User.create!(first_name:            "Travis",
+  #                      last_name:             "Kendall",
+  #                      role:                  "Admin",
+  #                      phone:                 "(614) 260-6162",
+  #                      location_id:           "2",
+  #                      email:                 "tkendalls@aol.com",
+  #                      password:              "password",
+  #                      password_confirmation: "password")
+  # admin.toggle!(:admin)
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
