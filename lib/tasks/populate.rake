@@ -60,6 +60,24 @@ def make_users
                         password:             "password",
                         password_confirmation:"password")
 
+  User.create!(first_name:                    "Betsy",
+                        last_name:            "Rafferty",
+                        role:                 "Teacher",
+                        phone:                "614-209-7835",
+                        location_id:          "1",
+                        email:                "eraffer1@gmail.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
+  User.create!(first_name:                    "Ved",
+                        last_name:            "Shelat",
+                        role:                 "Teaching Assistant",
+                        phone:                "614-425-2986",
+                        location_id:          "1",
+                        email:                "veds99@yahoo.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
   User.create!(first_name:                    "John",
                         last_name:            "Doe",
                         role:                 "Parent",
