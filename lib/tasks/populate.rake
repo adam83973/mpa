@@ -3,12 +3,8 @@ namespace :db do
   task populate: :environment do
     make_users
     make_locations
-    make_students
-    make_offerings
     make_courses
     make_lessons
-    make_offerings_students
-    make_experience_points
     make_experiences
   end
 end
@@ -34,76 +30,6 @@ def make_users
                         password_confirmation:"password")
 
   admin1.toggle!(:admin)
-
-  10.times do |n|
-    first_name  = Faker::Name.first_name
-    last_name  = Faker::Name.last_name
-    role = "Teacher"
-    email = "example-#{n+1}@mathplusacademy.com"
-    password  = "password"
-    password_confirmation  = "password"
-    phone = Faker::PhoneNumber.phone_number
-    passion = Faker::Lorem.sentence
-    address = Faker::Address.street_address
-    location_id = "#{(3+(-1)**n)/2}"
-
-    User.create!(first_name:              first_name,
-                 last_name:               last_name,
-                 role:                    role,
-                 email:                   email,
-                 password:                password,
-                 password_confirmation:   password_confirmation,
-                 phone:                   phone,
-                 passion:                 passion,
-                 address:                 address,
-                 location_id:             location_id)
-  end
-  10.times do |n|
-    first_name  = Faker::Name.first_name
-    last_name  = Faker::Name.last_name
-    role = "Parent"
-    email = "example-#{n+11}@mathplusacademy.com"
-    password  = "password"
-    password_confirmation  = "password"
-    phone = Faker::PhoneNumber.phone_number
-    passion = Faker::Lorem.sentence
-    address = Faker::Address.street_address
-    location_id = "#{(3+(-1)**n)/2}"
-
-    User.create!(first_name:              first_name,
-                 last_name:               last_name,
-                 role:                    role,
-                 email:                   email,
-                 password:                password,
-                 password_confirmation:   password_confirmation,
-                 phone:                   phone,
-                 passion:                 passion,
-                 address:                 address,
-                 location_id:             location_id)
-  end
-  77.times do |n|
-    first_name  = Faker::Name.first_name
-    last_name  = Faker::Name.last_name
-    roll = "#{["Owner", "Director", "Teacher", "Teaching Assistant", "Parent"].sample}"
-    email = "example-#{n+21}@mathplusacademy.com"
-    password  = "password"
-    password_confirmation  = "password"
-    phone = Faker::PhoneNumber.phone_number
-    passion = Faker::Lorem.sentence
-    address = Faker::Address.street_address
-    location_id = "#{(3+(-1)**n)/2}"
-
-    User.create!(first_name:              first_name,
-                 last_name:               last_name,
-                 role:                    roll,
-                 email:                   email,
-                 password:                password,
-                 password_confirmation:   password_confirmation,
-                 phone:                   phone,
-                 passion:                 passion,
-                 address:                 address,
-                 location_id:             location_id)
-  end
 end
 
 def make_locations
@@ -120,70 +46,27 @@ def make_locations
                    zip:           "43230",)
 end
 
-def make_students
- 10.times do |n|
-    first_name = Faker::Name.first_name
-    last_name  = Faker::Name.last_name
-    birth_date = "12/12/2004"
-    start_date = "12/12/2010"
-    user_id    = "#{n+13}"
-
-    Student.create!(first_name:              first_name,
-                    last_name:               last_name,
-                    birth_date:              birth_date,
-                    start_date:              start_date,
-                    user_id:                 user_id)
-  end
-end
-
-def make_offerings_students
- 20.times do |n|
-    offering_id = "#{(n+1)%4}"
-    student_id  = "#{Math.sqrt(n+n).round}"
-
-    OfferingsStudent.create!(offering_id:              offering_id,
-                              student_id:              student_id)
-  end
-end
-
-def make_offerings
-  Offering.create!(course_id:         "1",
-                   location_id:       "2",
-                   day:               "Monday",
-                   time:              "4:30 PM",
-                   user_id:           "3")
-
-  Offering.create!(course_id:         "2",
-                   location_id:       "2",
-                   day:               "Monday",
-                   time:              "5:30 PM",
-                   user_id:           "3")
-
-  Offering.create!(course_id:         "3",
-                   location_id:       "1",
-                   day:               "Tuesday",
-                   time:              "4:30 PM",
-                   user_id:           "3")
-
-  Offering.create!(course_id:         "4",
-                   location_id:       "1",
-                   day:               "Thursday",
-                   time:              "5:30 PM",
-                   user_id:           "3")
-end
-
 def make_courses
   Course.create!(course_name:       "Recruits",
-                 description:       "Super class")
+                 description:       "KG - 1st Grade")
 
   Course.create!(course_name:       "Techs",
-                 description:       "Awesome class")
+                 description:       "1st - 2nd Grade")
 
   Course.create!(course_name:       "Operatives",
-                 description:       "Radical class")
+                 description:       "2nd - 3rd Grade")
 
   Course.create!(course_name:       "Analysts",
-                 description:       "Bodacious class")
+                 description:       "3rd - 4th Grade")
+
+  Course.create!(course_name:       "Agents",
+                 description:       "4th - 5th Grade")
+
+  Course.create!(course_name:       "Special Ops",
+                 description:       "5th - 6th Grade")
+
+  Course.create!(course_name:       "Pre-Algebra",
+                 description:       "6th - 7th Grade")
 end
 
 
@@ -195,24 +78,6 @@ def make_experiences
   Experience.create!(name:              "Attendance",
                      category:          "Tasks",
                      content:           "This is the everyday stuff anybody can do this.")
-end
-
-def make_experience_points
-  10.times do |t|
-    10.times do |n|
-      experience_id  = "#{(3+(-1)**n)/2}"
-      points = "#{["5", "10"].sample}"
-      student_id = "#{t+1}"
-      comment = Faker::Lorem.sentence
-      user_id = "#{["1", "2", "3", "4"].sample}"
-
-      ExperiencePoint.create!(experience_id:    experience_id,
-                              points:           points,
-                              student_id:       student_id,
-                              comment:          comment,
-                              user_id:          user_id)
-    end
-  end
 end
 
 def make_lessons
