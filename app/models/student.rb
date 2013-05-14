@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active
 
-  validates_presence_of :first_name, :last_name, :user_id
+  validates_presence_of :first_name, :last_name
 
   belongs_to :user
   belongs_to :location
