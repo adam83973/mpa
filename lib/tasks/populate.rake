@@ -10,15 +10,15 @@ namespace :db do
 end
 
 def make_users
-  # admin = User.create!(first_name:            "Travis",
-  #                      last_name:             "Kendall",
-  #                      role:                  "Admin",
-  #                      phone:                 "(614) 260-6162",
-  #                      location_id:           "2",
-  #                      email:                 "tkendalls@aol.com",
-  #                      password:              "password",
-  #                      password_confirmation: "password")
-  # admin.toggle!(:admin)
+  admin = User.create!(first_name:            "Travis",
+                       last_name:             "Kendall",
+                       role:                  "Admin",
+                       phone:                 "(614) 260-6162",
+                       location_id:           "2",
+                       email:                 "tkendalls@aol.com",
+                       password:              "password",
+                       password_confirmation: "password")
+  admin.toggle!(:admin)
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
@@ -30,6 +30,45 @@ def make_users
                         password_confirmation:"password")
 
   admin1.toggle!(:admin)
+
+  admin2 = User.create!(first_name:           "Madison",
+                        last_name:            "Corna",
+                        role:                 "Admin",
+                        phone:                 "(614) 7946-9986",
+                        location_id:          "1",
+                        email:                "madison@mathplusacademy.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
+  admin2.toggle!(:admin)
+
+  User.create!(first_name:                    "Brittney",
+                        last_name:            "Green",
+                        role:                 "Teacher",
+                        phone:                "(740) 412-3894",
+                        location_id:          "1",
+                        email:                "brittgreen88@gmail.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
+  User.create!(first_name:                    "Olivia",
+                        last_name:            "Dowell",
+                        role:                 "Teaching Assistant",
+                        phone:                "(614) 783-0920",
+                        location_id:          "1",
+                        email:                "tdowell817@aol.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
+  User.create!(first_name:                    "John",
+                        last_name:            "Doe",
+                        role:                 "Parent",
+                        phone:                "(614) 555-1212",
+                        location_id:          "1",
+                        email:                "parent@mathplusacademy.com",
+                        password:             "password",
+                        password_confirmation:"password")
+
 end
 
 def make_locations
