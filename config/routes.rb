@@ -6,6 +6,15 @@ MathPlus::Application.routes.draw do
 
   devise_for :users
 
+  devise_for :users, :skip => [:registrations]
+    devise_scope :user do
+    get "new_user_registration",    :to => "users#new"
+    get "edit_user_registration",   :to => "devise_invitable/registrations#edit"
+    # put "user_registration",        :to => "devise_invitable/registrations#update"
+  end
+
+  # match "register" => "users#new", :as => :user_registration
+
   resources :experience_points
   resources :experiences
   resources :grades
