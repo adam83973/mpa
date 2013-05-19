@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="span6">
 		<h4>Edit Conact Details</h4>
-		<%= form_tag url_for(controller: 'static_pages', action: 'update'), {:method => :get, class: 'form-horizontal'} do %>
+		<%= form_tag url_for(controller: 'infusion_pages', action: 'update'), {:method => :get, class: 'form-horizontal'} do %>
 			<%= hidden_field_tag :Id, params[:Id] %>
 			<div class="control-group">
 				<div class="control-label">Contact Type </div>
@@ -72,7 +72,7 @@
 			</tbody>
 		</table>
 		<h4>Add New Credit Card</h4>
-		<%= form_tag url_for(controller: 'static_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
+		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
 			<%= hidden_field_tag :Id, params[:Id] %>
 			<div class="control-group">
 				<div class="control-label">Name on Card </div>
@@ -101,7 +101,7 @@
 <div class="row">
 	<div class="span12">
 		<hr>
-		<%= link_to 'View Subscriptions', static_pages_subscription_path(params.merge(ContactId: params[:Id])), class: 'btn btn-success' %>
+		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(params.merge(ContactId: params[:Id])), class: 'btn btn-success' %>
 		<hr>
 	</div>
 </div>
