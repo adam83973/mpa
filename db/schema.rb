@@ -21,21 +21,21 @@ ActiveRecord::Schema.define(:version => 20130513184209) do
   end
 
   create_table "experience_points", :force => true do |t|
-    t.integer  "experience_id"
-    t.integer  "points"
-    t.integer  "student_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "experience_id",                 :null => false
+    t.integer  "points",                        :null => false
+    t.integer  "student_id",                    :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "user_id"
-    t.text     "comment"
+    t.text     "comment",       :default => ""
   end
 
   create_table "experiences", :force => true do |t|
-    t.string   "name"
-    t.string   "category"
-    t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                       :null => false
+    t.string   "category",                   :null => false
+    t.text     "content",    :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "grades", :force => true do |t|
@@ -73,11 +73,11 @@ ActiveRecord::Schema.define(:version => 20130513184209) do
   end
 
   create_table "offerings", :force => true do |t|
-    t.integer  "course_id"
-    t.integer  "location_id"
-    t.string   "day"
-    t.time     "time"
-    t.integer  "user_id"
+    t.integer  "course_id",       :null => false
+    t.integer  "location_id",     :null => false
+    t.string   "day",             :null => false
+    t.time     "time",            :null => false
+    t.integer  "user_id",         :null => false
     t.string   "graduation_year"
     t.text     "comments"
     t.datetime "created_at",      :null => false
@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(:version => 20130513184209) do
   add_index "offerings_students", ["student_id", "offering_id"], :name => "index_offerings_students_on_student_id_and_offering_id"
 
   create_table "students", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_name", :default => "",   :null => false
+    t.string   "last_name",  :default => "",   :null => false
     t.date     "birth_date"
     t.date     "start_date"
     t.datetime "created_at",                   :null => false
@@ -109,23 +109,21 @@ ActiveRecord::Schema.define(:version => 20130513184209) do
   create_table "time_punches", :force => true do |t|
     t.datetime "in"
     t.datetime "out"
-    t.text     "comment"
-    t.integer  "period"
-    t.boolean  "modified"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
+    t.string   "comment"
+    t.boolean  "modified",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "users", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone"
+    t.string   "first_name",                                              :null => false
+    t.string   "last_name",                                               :null => false
+    t.string   "phone",                                :default => "",    :null => false
     t.string   "passion"
     t.string   "shirt_size"
     t.boolean  "has_key"
     t.string   "address"
-    t.boolean  "active"
+    t.boolean  "active",                               :default => true,  :null => false
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
     t.integer  "location_id"
