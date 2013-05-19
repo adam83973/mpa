@@ -11,9 +11,9 @@
         <th>Id</th>
         <th>First name</th>
         <th>Last name</th>
-        <th>Birth date</th>
-        <th>Start date</th>
         <th>Parent</th>
+        <th>Parent Email</th>
+        <th>Offerings</th>
         <th></th>
         <% if current_user.admin? %>
           <th></th>
@@ -26,9 +26,25 @@
             <td><%= student.id %></td>
             <td><%= student.first_name %></td>
             <td><%= student.last_name %></td>
-            <td><%= student.birth_date %></td>
-            <td><%= student.start_date %></td>
-            <td><%= link_to student.user.full_name, student.user %></td>
+            <% if student.user %>
+               <td><%= link_to student.user.full_name, student.user %></td>
+            <% else %>
+               <td><em>add parent</em></td>
+            <%end%>
+            <% if student.user.email %>
+               <td><%= student.user.email %></td>
+            <% else %>
+               <td><em>no email on file</em></td>
+            <%end%>
+            <td>
+              <% if student.offerings.any? %>
+                <% student.offerings.each do |offering| %>
+                  <%= offering.offering_name %>
+                <% end %>
+              <% else %>
+                <em>Student not enrolled.</em>
+              <% end %>
+            </td>
             <td><%= link_to 'Show', student %></td>
             <% if current_user.admin? %>
               <td><%= link_to 'Edit', edit_student_path(student) %></td>

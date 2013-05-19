@@ -10,6 +10,7 @@
 
 <table class="table table-striped">
   <tr>
+    <th>ID</th>
     <th>Course name</th>
     <th>Description</th>
     <th></th>
@@ -19,6 +20,7 @@
 
 <% @courses.each do |course| %>
   <tr>
+    <td><%= course.id %></td>
     <td><%= course.course_name %></td>
     <td><%= course.description %></td>
     <td><%= link_to 'Show', course %></td>
