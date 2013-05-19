@@ -17,8 +17,9 @@
         <th># Students</th>
         <th>Open Spots</th>
         <th></th>
-        <th></th>
-        <th></th>
+        <% if signed_in? && current_user.try(:admin?) %>
+              <th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -32,8 +33,9 @@
             <td><%= offering.students.count %></td>
             <td><%= 12 - offering.students.count %></td>
             <td><%= link_to 'Show', offering %></td>
-            <td><%= link_to 'Edit', edit_offering_path(offering) %></td>
-            <td><%= link_to 'Destroy', offering, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if signed_in? && current_user.try(:admin?) %>
+              <td><%= link_to 'Edit', edit_offering_path(offering) %></td>
+            <% end %>
           </tr>
         <% end %>
     </tbody>

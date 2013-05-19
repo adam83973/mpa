@@ -84,11 +84,8 @@ class OfferingsController < ApplicationController
     end
   end
 
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      offering = find_by_id(row["id"]) || new
-      offering.attributes = row.to_hash.slice(*accessible_attributes)
-      offering.save!
-    end
+  def import
+    Offering.import(params[:file])
+    redirect_to offerings_path, notice: "Offerings imported."
   end
 end
