@@ -12,8 +12,11 @@ class Offering < ActiveRecord::Base
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
 
-  def import
-    Offering.import(params[:file])
-    redirect_to offerings_path, notice: "Locations imported."
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      offering = find_by_id(row["id"]) || new
+      offering.attributes = row.to_hash.slice(*accessible_attributes)
+      offering.save!
+    end
   end
 end
