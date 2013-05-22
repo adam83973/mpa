@@ -1,11 +1,11 @@
 class Offering < ActiveRecord::Base
-  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_id
+  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active
 
-  validates_presence_of :course_id, :day, :time, :location_id, :user_id
+  validates_presence_of :course_id, :day, :time, :location_id
 
   belongs_to :location
   belongs_to :course
-  belongs_to :user
+  has_and_belongs_to_many :users
   has_and_belongs_to_many :students
 
   def offering_name

@@ -19,6 +19,7 @@ MathPlus::Application.routes.draw do
   resources :experiences
   resources :grades
   resources :offerings
+  resources :offerings_students
   resources :lessons
   resources :locations
   resources :courses
@@ -42,6 +43,10 @@ MathPlus::Application.routes.draw do
   end
 
   resources :offerings do
+    collection { post :import }
+  end
+
+  resources :offerings_students do
     collection { post :import }
   end
 

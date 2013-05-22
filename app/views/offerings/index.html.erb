@@ -9,13 +9,15 @@
 <table id="offerings" class="display">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Course</th>
         <th>Location</th>
         <th>Day</th>
         <th>Time</th>
-        <th>User</th>
+        <th>Teachers</th>
         <th># Students</th>
         <th>Open Spots</th>
+        <th>Active</th>
         <th></th>
         <% if signed_in? && current_user.try(:admin?) %>
               <th></th>
@@ -25,13 +27,23 @@
     <tbody>
         <% @offerings.each do |offering| %>
           <tr>
+            <td><%= offering.id %></td>
             <td><%= link_to offering.course.course_name, offering.course %></td>
             <td><%= link_to offering.location.name, offering.location %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>
-            <td><%= link_to offering.user.full_name, offering.user %></td>
+            <td>
+                <% if offering.users.any? %>
+                  <% offering.users.each do |user| %>
+                    <p><%= user.role %> - <%= user.full_name %></p>
+                  <% end %>
+                <% else %>
+                  <em>No teachers assigned.</em>
+                <% end %>
+            </td>
             <td><%= offering.students.count %></td>
-            <td><%= 12 - offering.students.count %></td>
+            <td><%= 10 - offering.students.count %></td>
+            <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering %></td>
             <% if signed_in? && current_user.try(:admin?) %>
               <td><%= link_to 'Edit', edit_offering_path(offering) %></td>
