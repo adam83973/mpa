@@ -9,6 +9,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @students }
+      format.csv { send_data @students.to_csv }
     end
   end
 

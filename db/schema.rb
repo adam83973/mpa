@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(:version => 20130522152837) do
     t.integer  "location_id"
     t.string   "day"
     t.time     "time"
-    t.integer  "user_id"
     t.string   "graduation_year"
     t.text     "comments"
     t.datetime "created_at",      :null => false
@@ -91,6 +90,13 @@ ActiveRecord::Schema.define(:version => 20130522152837) do
   end
 
   add_index "offerings_students", ["student_id", "offering_id"], :name => "index_offerings_students_on_student_id_and_offering_id"
+
+  create_table "offerings_users", :id => false, :force => true do |t|
+    t.integer "offering_id"
+    t.integer "user_id"
+  end
+
+  add_index "offerings_users", ["user_id", "offering_id"], :name => "index_offerings_users_on_user_id_and_offering_id"
 
   create_table "students", :force => true do |t|
     t.string   "first_name"
@@ -124,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20130522152837) do
     t.string   "passion"
     t.string   "shirt_size"
     t.boolean  "has_key"
-    t.string   "address"
     t.boolean  "active"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
