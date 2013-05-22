@@ -77,5 +77,5 @@ MathPlus::Application.configure do
     password: 'mathplus'   # you can use your gmail password here, but don't push the changes
   }
 
-   config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }j
+   config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
 end
