@@ -8,8 +8,6 @@ class InfusionPagesController < ApplicationController
         i["FirstName"] == nil ? i["FirstName"]="" : nil
         i["ContactId"] = i["Id"]
       end
-      # alphabetize contacts by first name (errors out if first name is nil)
-      # @contacts.sort_by! {|i| i["FirstName"]}
     end
 
   	if params[:FirstName] && params[:LastName]
@@ -19,7 +17,7 @@ class InfusionPagesController < ApplicationController
         flash[:error] = "Unable to create new contact."
       else
         flash[:notice] = "New contact created."
-        redirect_to infusion_pages_edit_path(params.merge(ContactId: newcontact))
+        redirect_to infusion_pages_edit_path(ContactId: newcontact)
       end
     end
   end
@@ -30,7 +28,7 @@ class InfusionPagesController < ApplicationController
     @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
     # remove all deleted cards from @credit_card array
     @credit_card.delete_if {|i| i["Status"] == 2}
-  end	
+  end
 
   def update
   	# put all user params into an instance variable hash
@@ -131,7 +129,7 @@ class InfusionPagesController < ApplicationController
     result = nil
     # add subcription with default price and qty = 1
     result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
-    # DID NOT WORL: result = Infusionsoft.invoice_add_recurring_order_with_price(params[:ContactId], false, params[:cProgramId].to_s, params[:qty].to_i, params[:price].to_i , false, params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
+    # DID NOT WORK: result = Infusionsoft.invoice_add_recurring_order_with_price(params[:ContactId], false, params[:cProgramId].to_s, params[:qty].to_i, params[:price].to_i , false, params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
     # DID NOT WORK: result = Infusionsoft.invoice_add_recurring_order_with_price('5843', false, 7, 1, 1 , false, 5, 1669, 0, 24)
     data = { :Qty => params[:qty], :BillingAmt => params[:price] }
     Infusionsoft.data_update('RecurringOrder', result, data)
@@ -153,7 +151,11 @@ class InfusionPagesController < ApplicationController
       cc_result = Infusionsoft.invoice_charge_invoice(invoice, "API Payment", params[:creditCardId].to_i, params[:merchantAccountId].to_i, false)
       flash[:warning] = "Deposit result: #{cc_result}"
     end
-    redirect_to :back
+
+    # get firstname and lastname again
+    @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName])
+    redirect_to infusion_pages_subscription_path(params.merge(FirstName:  @user["FirstName"]), LastName: @user["LastName"])
+    # redirect_to :back
   end
 
   def delete_user
