@@ -4,11 +4,12 @@
 
 jQuery ->
 	$("#students").dataTable
-      "bPaginate": true,  #hide pagination control
-      "bFilter": true,     #hide filter control
-      "bJQueryUI": true,
+      bPaginate: true,  #hide pagination control
+      bFilter: true,     #hide filter control
+      bJQueryUI: true,
 
     $('#student_birth_date').datepicker
       dateFormat: 'yy-mm-dd'
     $('#student_start_date').datepicker
         dateFormat: 'yy-mm-dd'
+

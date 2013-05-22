@@ -6,4 +6,11 @@ class OfferingsStudent < ActiveRecord::Base
   belongs_to :student
   belongs_to :offering
 
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      studoffering = find_by_id(row["id"]) || new
+      studoffering.attributes = row.to_hash.slice(*accessible_attributes)
+      studoffering.save!
+    end
+  end
 end
