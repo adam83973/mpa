@@ -3,15 +3,23 @@
     <h4><%= @user_location.name%> Stats</h4>
   </div>
   <p>
-    <b># of Offerings</b>
+    <b># of Offerings: </b>
     <%= @user_location.offerings.count %>
   </p>
   <p>
-    <b># of Students</b>
+    <b># of Students: </b>
     <%= @user_location.students.count %>
   </p>
   <p>
-    <b>Avg. Students/Offering</b>
+    <b>Avg. Students/Offering: </b>
+    <% if @user_location.offerings.count == 0 %>
+      <p><em>There are no students enrolled.</em></p>
+    <% else %>
     <%= @user_location.students.count / @user_location.offerings.count %>
-  </p> 
+    <% end %>
+  </p>
 </div>
+</br>
+<p>
+<%= link_to "Adjust Student Enrollment", offerings_students_path, class: "btn" %>
+</p>

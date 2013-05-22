@@ -14,7 +14,7 @@ MathPlus::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -35,17 +35,17 @@ MathPlus::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: 'smtp.gmail.com',
     port: 587,
-    domain: "mathplusacademy.com",
-    authentication: "plain",
+    domain: 'app.mathplusacademy.com',
+    authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: "info@mathplusacademy.com", # you can use ordinary gmail username here
-    password: "mathplus"   # you can use your gmail password here, but don't push the changes
+    user_name: 'info@mathplusacademy.com', # you can use ordinary gmail username here
+    password: 'mathplus'   # you can use your gmail password here, but don't push the changes
   }
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+   config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
 end

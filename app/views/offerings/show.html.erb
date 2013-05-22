@@ -1,8 +1,14 @@
-<p id="notice"><%= notice %></p>
-
 <div class="row offering-info">
     <h2><%= @offering.offering_name %></h2>
-    <h3>Teacher: <%= @offering.user.full_name %></h3>
+   <h3>
+    Teachers:
+      <% if @offering.users.any? %>
+        <% @offering.users.each do |teacher| %>
+          <%= teacher.full_name %>
+        <% end %>
+        <% else %>
+          <em> no teachers assigned</em>
+      <% end %></h3>
   <%= link_to 'Edit', edit_offering_path(@offering) %> |
   <%= link_to 'Back', offerings_path %>
 </div>
