@@ -1,9 +1,0 @@
-<% if current_user.role == "Teacher" || "Teaching_Assistant" || "Director" %>
-  <div id="time_clock">
-  <% if current_user.following?(@user) %>
-    <%= render 'clock_in' %>
-  <% else %>
-    <%= render 'clock_out' %>
-  <% end %>
-  </div>
-<% end %>
