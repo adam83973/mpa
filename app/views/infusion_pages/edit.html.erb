@@ -3,10 +3,10 @@
 	<div class="span6">
 		<h4>Edit Conact Details</h4>
 		<%= form_tag url_for(controller: 'infusion_pages', action: 'update'), {:method => :get, class: 'form-horizontal'} do %>
-			<%= hidden_field_tag :Id, params[:Id] %>
+			<%= hidden_field_tag :Id, params[:ContactId] %>
 			<div class="control-group">
 				<div class="control-label">Contact Type </div>
- 					<%= select_tag :ContactType, options_for_select(["Prospect","Customer","Student"], @user[:ContactType].to_s) %>
+ 					<%= select_tag :ContactType, options_for_select(["Prospect","Customer","Student"], @user[:ContactType]) %>
 			</div>
 			<div class="control-group">
 				<div class="control-label">First Name </div>
@@ -73,7 +73,7 @@
 		</table>
 		<h4>Add New Credit Card</h4>
 		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
-			<%= hidden_field_tag :Id, params[:Id] %>
+			<%= hidden_field_tag :Id, params[:ContactId] %>
 			<div class="control-group">
 				<div class="control-label">Name on Card </div>
 				<%= text_field_tag :NameOnCard, nil %>
@@ -101,7 +101,7 @@
 <div class="row">
 	<div class="span12">
 		<hr>
-		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(params.merge(ContactId: params[:Id])), class: 'btn btn-success' %>
+		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(ContactId: params[:ContactId]), class: 'btn btn-success' %>
 		<hr>
 	</div>
 </div>
