@@ -71,6 +71,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     ########
     # If Parent has no Infusionsoft Id, then search for matches in Infusionsoft and provide ids
+    @contacts = nil
     if @user.role == "Parent" && @user.infusion_id == nil
       # get contacts with matching last name
       @contacts = Infusionsoft.data_query_order_by('Contact', 50, 0, {:LastName=> @user.last_name}, [:Id, :FirstName, :LastName, :ContactType, :Email], :FirstName, true)
