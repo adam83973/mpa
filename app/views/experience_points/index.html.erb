@@ -1,7 +1,12 @@
 <h1>Listing Experience Points</h1>
 
+<p>
+  <%= link_to 'New Experience Point', new_experience_point_path, class: "btn btn-success" %>
+</p>
+
 <table class="table table-bordered table-striped">
   <tr>
+    <th>ID</th>
     <th>Experience</th>
     <th>Points</th>
     <th>Student</th>
@@ -12,6 +17,7 @@
 
 <% @experience_points.each do |experience_point| %>
   <tr>
+    <td><%= experience_point.id %></td>
     <td><%= experience_point.experience.name %></td>
     <td><%= experience_point.points %></td>
     <td><%= experience_point.student.full_name %></td>
@@ -24,4 +30,3 @@
 
 <br />
 
-<%= link_to 'New Experience point', new_experience_point_path %>

@@ -30,7 +30,7 @@ class InfusionPagesController < ApplicationController
     @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
     # remove all deleted cards from @credit_card array
     @credit_card.delete_if {|i| i["Status"] == 2}
-  end	
+  end
 
   def update
   	# put all user params into an instance variable hash
@@ -148,7 +148,7 @@ class InfusionPagesController < ApplicationController
       invoice = Infusionsoft.invoice_create_blank_order(params[:ContactId], "Deposit", DateTime.now, 0, 0)
       # add deposit to order
       product_id = 275
-      type = 3 # Service 
+      type = 3 # Service
       Infusionsoft.invoice_add_order_item(invoice, product_id, type, params[:deposit].to_f, 1, "Deposit", "Deposit")
       cc_result = Infusionsoft.invoice_charge_invoice(invoice, "API Payment", params[:creditCardId].to_i, params[:merchantAccountId].to_i, false)
       flash[:warning] = "Deposit result: #{cc_result}"

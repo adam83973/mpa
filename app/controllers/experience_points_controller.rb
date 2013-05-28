@@ -71,7 +71,10 @@ class ExperiencePointsController < ApplicationController
           format.json { render json: @experience_point.errors, status: :unprocessable_entity }
         end
       end
-    elsif params[:experience_point][:experience_id] == "1"
+    # elsif params[:experience_point][:experience_id] == "1"
+
+    elsif ["1", "4", "5"].include?(params[:experience_point][:experience_id])
+
       respond_to do |format|
         if @experience_point.save
           if @credits > 0
@@ -86,7 +89,7 @@ class ExperiencePointsController < ApplicationController
             @student.update_rank
           end
 
-          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade Added added for #{@student.first_name}'s #{@experience_point.experience.name}." }
+          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
 
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else

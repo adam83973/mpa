@@ -4,7 +4,7 @@
 		  <%= f.error_notification %>
 
 		  <div class="form-inputs">
-		    <%= f.association :experience %>
+		    <%= f.input :experience_id %>
 		    <%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
 		    <%= f.input :points %>
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
@@ -20,8 +20,8 @@
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
+			  	<%= f.input :student_id, :autofocus => true %>
 			    <%= f.association :experience, :selected => params[:attendance] %>
-			    <%= f.input :student_id, :autofocus => true %>
 			    <%= f.input :points, :input_html => { :value => '10'} %>
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
@@ -34,9 +34,9 @@
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
-			    <%= f.association :experience, :selected => params[:homework] %>
-			    <%= f.input :student_id, :autofocus => true %>
-			    <%= f.input :points, :input_html => { :value => '10'} %>
+			  	<%= f.input :student_id, :autofocus => true %>
+			    <%= f.input :experience_id %>
+			    <%= f.input :points, hint: "0 - Incomplete, 10 - Complete, 20 - Perfect" %>
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
@@ -48,8 +48,8 @@
 		  <%= f.error_notification %>
 
 		  <div class="form-inputs">
-		    <%= f.association :experience %>
 		    <%= f.input :student_id %>
+		    <%= f.association :experience %>
 		    <%= f.input :points %>
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>

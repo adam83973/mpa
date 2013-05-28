@@ -1,7 +1,8 @@
 <h1>Listing experiences</h1>
 
-<table>
+<table class="table table-bordered table-striped">
   <tr>
+    <th>ID</th>
     <th>Name</th>
     <th>Category</th>
     <th>Content</th>
@@ -12,12 +13,18 @@
 
 <% @experiences.each do |experience| %>
   <tr>
+    <td><%= experience.id %></td>
     <td><%= experience.name %></td>
     <td><%= experience.category %></td>
     <td><%= experience.content %></td>
     <td><%= link_to 'Show', experience %></td>
-    <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
-    <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
+      <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Deleting this will do a bunch of bad stuff! Are you sure?' } %></td>
+    <% else %>
+      <td></td>
+      <td></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
