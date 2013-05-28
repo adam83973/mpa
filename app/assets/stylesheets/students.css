@@ -42,3 +42,15 @@
 .student-button{
 	padding-bottom: 50px;
 }
+
+.studentofferings{
+  -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border: solid 1px #cecece;
+    border-radius: 5px;
+  padding-left: 10px;
+  height: 200px;
+  overflow: scroll;
+}
+
