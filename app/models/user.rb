@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :role
 
   # Setup accessible (or protected) attributes for your model
+
   attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids
   attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size
+
 
   attr_accessor :current_password
 

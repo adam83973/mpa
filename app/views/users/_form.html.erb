@@ -17,6 +17,7 @@
     <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
     <%= f.input :phone %>
     <%= f.input :email %>
+    <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
     <%= f.input :passion %>
@@ -26,5 +27,4 @@
     <%= f.input :admin %>
     <%= f.input :active %>
     <%= f.button :submit %>
-  </div>
 <% end %>

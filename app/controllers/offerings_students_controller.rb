@@ -19,5 +19,5 @@ class OfferingsStudentsController < ApplicationController
   end
 end
 
+#User.where('first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%").limit(10)
 
-# User.where('first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%").limit(10)
