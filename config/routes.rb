@@ -1,7 +1,5 @@
 MathPlus::Application.routes.draw do
 
-  get "infusion_pages/home"
-
   root to: 'static_pages#home'
 
   devise_for :users

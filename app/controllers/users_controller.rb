@@ -17,6 +17,38 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    ########
+    if @user.role == "Parent" && @user.infusion_id != nil
+      # retrieve subscriptions for contact
+      @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+      # loop through array of hashes and remove inactive subscriptions
+      @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
+      # attach subscription plan names
+      @active_subscription.each do |i|
+        subscriptions.each do |j|
+          if i["ProgramId"].to_i == j["Id"].to_i
+            i["ProgramName"] = j["ProgramName"]
+          end
+        end
+      end
+
+      # get invoices and display recent ones
+      @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
+      @invoices.each do |i|
+        if i["PayStatus"] == 0
+          i["Status"] = "<span class='label label-important'>Unpaid</span>"
+        elsif i["RefundStatus"] == 1
+          i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+        elsif i["RefundStatus"] == 2
+          i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+        else
+          i["Status"] = "<span class='label label-success'>Paid</span>"
+        end
+      end
+    end
+    ########
+
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -37,6 +69,19 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    ########
+    # If Parent has no Infusionsoft Id, then search for matches in Infusionsoft and provide ids
+    @contacts = nil
+    if @user.role == "Parent" && @user.infusion_id == nil
+      # get contacts with matching last name
+      @contacts = Infusionsoft.data_query_order_by('Contact', 50, 0, {:LastName=> @user.last_name}, [:Id, :FirstName, :LastName, :ContactType, :Email], :FirstName, true)
+      # data clean up - blank out missing names, create ContactId = Id
+      @contacts.each do |i|
+        i["FirstName"] == nil ? i["FirstName"]="" : nil
+        i["ContactId"] = i["Id"]
+      end
+    end
+    ########
   end
 
   # POST /users
