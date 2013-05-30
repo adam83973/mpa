@@ -6,6 +6,15 @@
 </p>
 
 <p>
+  <b>Points:</b>
+  <% if @experience.points %>
+    <%= @experience.points %>
+  <% else %>
+    <em>Please add points.</em>
+  <% end %>
+</p>
+
+<p>
   <b>Category:</b>
   <%= @experience.category %>
 </p>
