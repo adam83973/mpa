@@ -1,6 +1,17 @@
 <h1>Editing experience_point</h1>
 
-<%= render 'form' %>
+<%= simple_form_for(@experience_point) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :student, label_method: :full_name %>
+    <%= f.association :experience %>
+    <%= f.input :points %>
+    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+  </div>
+    <%= f.button :submit, class: "btn btn-success" %>
+<% end %>
 
 <%= link_to 'Show', @experience_point %> |
 <%= link_to 'Back', experience_points_path %>
