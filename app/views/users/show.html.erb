@@ -25,19 +25,6 @@
         <% end %>
         </p>
         <% end %>
-
-<<<<<<< HEAD
-<!-- displays each student for user -->
-<% if @user.role  == "Parent" %>
-
-    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
-    <p>
-    <% @user.students.each do |student| %>
-      <h4> <%= link_to student.full_name, student %></h4>
-      <% student.offerings.each do |offering| %>
-      <p><%= link_to offering.offering_name, offering %></p>
-=======
-    <% if @user.role  == "Parent" %>
       <% if @user.infusion_id != nil %>
         <p>
           <b>Infusionsoft Id:</b>
@@ -52,7 +39,6 @@
       <% end %>
     <% end %>
       
-    <% end %>
     <p>
       <b>Email:</b>
       <%= @user.email %>
@@ -82,8 +68,6 @@
       <b>Admin:</b>
       <%= @user.admin %>
     </p>
->>>>>>> upstream/master
-    <% end %>
     <p>
       <b>Active:</b>
       <%= @user.active %>
@@ -93,52 +77,8 @@
     <% if @user.infusion_id != nil %>
       <%= render 'billing' %>
     <% end %>
-<<<<<<< HEAD
-
-<% end %>
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-<p>
-  <b>Phone:</b>
-  <%= @user.phone %>
-</p>
-<p>
-  <b>Passion:</b>
-  <%= @user.passion %>
-</p>
-<p>
-  <b>Shirt size:</b>
-  <%= @user.shirt_size %>
-</p>
-<p>
-  <b>Has key:</b>
-  <%= @user.has_key %>
-</p>
-<% if @user.location %>
-  <p>
-    <b>Location:</b>
-    <%= @user.location.name %>
-  </p>
-<% else %>
-  <em>Please select a location.</em>
-<% end %>
-<% if @user.role  == "Parent" %>
-<p>
-  <b>Admin:</b>
-  <%= @user.admin %>
-</p>
-<% end %>
-<p>
-  <b>Active:</b>
-  <%= @user.active %>
-</p>
-
-=======
   </div>
 </div>
->>>>>>> upstream/master
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
