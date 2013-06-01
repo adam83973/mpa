@@ -9,9 +9,7 @@ gem 'faker', '1.0.1'
 gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
-gem 'infusionsoft'
-#gem 'infusion-api', '1.0.3'
-#gem 'infusionsoft', :git => 'git://github.com/inportland99/infusionsoft.git'
+gem 'infusionsoft', git: 'git://github.com/nateleavitt/infusionsoft.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
