@@ -27,18 +27,18 @@
 
   <!-- displays each student for user -->
     <% if @user.role  == "Parent" %>
-      <% if @user.infusion_id != nil %>
-        <p>
-          <b>Infusionsoft Id:</b>
-          <%= @user.infusion_id %>
-          <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-          <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-        </p>
-      <% else %>
-        <p>
-          <b>Infusionsoft Id is Undefined</b>
-        </p>
-      <% end %>
+        <% if @user.infusion_id != nil %>
+          <p>
+            <b>Infusionsoft Id:</b>
+            <%= @user.infusion_id %>
+            <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
+            <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
+          </p>
+        <% else %>
+          <p>
+            <b>Infusionsoft Id is Undefined</b>
+          </p>
+        <% end %>
     <% end %>
     <p>
       <b>Email:</b>
@@ -64,7 +64,7 @@
       <b>Location:</b>
       <%= @user.location.name %>
     </p>
-    <% if @user.role  == "Parent" %>
+    <% if @user.admin? %>
       <p>
         <b>Admin:</b>
         <%= @user.admin %>
@@ -74,13 +74,15 @@
       <b>Active:</b>
       <%= @user.active %>
     </p>
+    <% end %>
   </div>
 </div>
-  <div class="span8">
-    <% if @user.infusion_id != nil %>
-      <%= render 'billing' %>
-    <% end %>
-<% end %>
+
+<div class="span8">
+  <% if @user.infusion_id != nil %>
+    <%= render 'billing' %>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
