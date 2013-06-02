@@ -20,6 +20,7 @@
 <span class="row">
     <%= render 'student_comment_feed'%>
 </span>
-<!--  <%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %>
- -->
+
+<% @student.offerings.each do |offering| %>
+  <% if offering.course.id == 11 %>
+<% end %>
