@@ -1,0 +1,28 @@
+<% @student.offerings.each do |offering| %>
+  <% if [11].include?(offering.course.id) %>
+    <fieldset>
+  <legend>
+    <h3>Robotics Achievements</h3>
+  </legend>
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
+            Achievements Total:
+          </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <div class="tscroll well well-small">
+              <table class="table table-striped">
+                  <em>Add robotics achievements.</em>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</fieldset>
+  <% end %>
+<% end %>

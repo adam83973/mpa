@@ -21,6 +21,7 @@
           <h4> <%= link_to student.full_name, student %></h4>
           <% student.offerings.each do |offering| %>
           <p><%= link_to offering.offering_name, offering %></p>
+          <% end %>
         <% end %>
         </p>
     <% end %>
@@ -74,15 +75,18 @@
       <b>Active:</b>
       <%= @user.active %>
     </p>
-    <% end %>
+
+    <p>
+      <%= render 'shared/nav_buttons' %>
+    </p>
+
   </div>
 </div>
 
-<div class="span8">
-  <% if @user.infusion_id != nil %>
-    <%= render 'billing' %>
-  <% end %>
+<div class="row">
+  <div class="span8">
+    <% if @user.infusion_id != nil %>
+      <%= render 'billing' %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
