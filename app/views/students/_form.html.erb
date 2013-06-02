@@ -13,19 +13,12 @@
 
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.input :user_id %>
+    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name %>
     <%= f.input :birth_date, as: :string %>
     <%= f.input :start_date, as: :string %>
-<!--     <%= f.input :birth_date, as: :date, start_year: Date.today.year - 20,
-                              end_year: Date.today.year + 0,
-                              order: [:month, :day, :year] %><br />
-    <%= f.input :start_date, as: :date, start_year: Date.today.year,
-                              end_year: Date.today.year + 0,
-                              order: [:month, :day, :year] %><br />
- -->
     <%= f.label :offerings %>
     <div class="studentofferings">
-      <%= f.association :offerings, label: false, as: :radio, checked: @student.offerings, label_method: :offering_name %>
+      <%= f.association :offerings, collection: Offering.all(order: 'course_id'), as: :check_boxes, label_method: :offering_name, label: false %>
     </div><br />
     <%= f.input :credits %><br />
     <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
