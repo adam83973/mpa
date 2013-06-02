@@ -1,6 +1,4 @@
 
-<%= render 'student_toolbar' %>
-
 <div class="row">
   <%= render 'student_stats' %>
 </div>
@@ -14,13 +12,10 @@
   </div>
 
   <div class="span8 achievements">
-    <%= render 'student_achievements' %>
+    <%= render 'student_achievements' %><br />
+    <%= render 'robotics_achievements' %>
   </div>
 </div>
 <span class="row">
     <%= render 'student_comment_feed'%>
 </span>
-
-<% @student.offerings.each do |offering| %>
-  <%= offering.course.id %>
-<% end %>
