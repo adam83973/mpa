@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
       # attach subscription plan names
       @active_subscription.each do |i|
-        subscriptions.each do |j|
+        i.each do |j|
           if i["ProgramId"].to_i == j["Id"].to_i
             i["ProgramName"] = j["ProgramName"]
           end
