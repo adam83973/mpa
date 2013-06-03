@@ -33,8 +33,7 @@ class UsersController < ApplicationController
           end
         end
       end
-
-      # get invoices and display recent ones
+ # get invoices and display recent ones
       @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
       @invoices.each do |i|
         if i["PayStatus"] == 0
