@@ -23,6 +23,8 @@ class UsersController < ApplicationController
       @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
       # loop through array of hashes and remove inactive subscriptions
       @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
+      # get active subscriptions from Infusiosoft
+      subscriptions = Infusionsoft.data_query('CProgram', 50, 0, {:Status => "1"}, [:Id, :ProgramName, :DefaultPrice, :DefaultCycle, :DefaultFrequency] )
       # attach subscription plan names
       @active_subscription.each do |i|
         subscriptions.each do |j|
