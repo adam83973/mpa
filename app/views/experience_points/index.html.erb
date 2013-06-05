@@ -1,32 +1,38 @@
-<h1>Listing Experience Points</h1>
+<% title "Experience Points" %>
 
-<p>
-  <%= link_to 'New Experience Point', new_experience_point_path, class: "btn btn-success" %>
-</p>
+<h1><%= yield(:title)%></h1>
 
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>ID</th>
-    <th>Experience</th>
-    <th>Points</th>
-    <th>Student</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @experience_points.each do |experience_point| %>
-  <tr>
-    <td><%= experience_point.id %></td>
-    <td><%= experience_point.experience.name %></td>
-    <td><%= experience_point.points %></td>
-    <td><%= experience_point.student.full_name %></td>
-    <td><%= link_to 'Show', experience_point %></td>
-    <td><%= link_to 'Edit', edit_experience_point_path(experience_point) %></td>
-    <td><%= link_to 'Destroy', experience_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% if current_user.admin? %>
+  <p>
+    <%= link_to 'New Experience Point', new_experience_point_path, class: "btn btn-success" %>
+  </p>
 <% end %>
-</table>
 
+<table id="xp" class="display">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Experience</th>
+      <th>Points</th>
+      <th>Student</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @experience_points.each do |experience_point| %>
+      <tr>
+        <td><%= experience_point.id %></td>
+        <td><%= experience_point.experience.name %></td>
+        <td><%= experience_point.points %></td>
+        <td><%= experience_point.student.full_name %></td>
+        <td><%= link_to 'Show', experience_point %></td>
+        <td><%= link_to 'Edit', edit_experience_point_path(experience_point) %></td>
+        <td><%= link_to 'Destroy', experience_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <br />
 

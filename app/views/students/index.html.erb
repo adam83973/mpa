@@ -2,7 +2,11 @@
 
 <h1><%= yield(:title)%></h1>
 
-<p><%= link_to 'New Student', new_student_path, class: "btn btn-success" %></p>
+<% if current_user.admin? %>
+  <p>
+    <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
+  </p>
+<% end %>
 
 <table id="students" class="display">
     <thead>
