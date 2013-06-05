@@ -18,8 +18,21 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
+    @robotics_achievements = Experience.where("category = ?", "Robotics")
+#loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
+    @student.experience_points.each do |xp|
+      @robotics_achievements.each do |achievement|
+      achievement[:completed] = []
+        if achievement.id == xp.experience_id
+          achievement[:completed] << true
+          break
+        else
+          achievement[:completed] << false
+        end
+      end
+    end
 
-    if signed_in?
+      if signed_in?
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @student }

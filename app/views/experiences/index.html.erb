@@ -1,40 +1,49 @@
-<h1>Listing experiences</h1>
+<% title "Achievements" %>
 
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Points</th>
-    <th>Category</th>
-    <th>Content</th>
-    <th></th>
-    <th></th>
-  </tr>
+<h1><%= yield(:title)%></h1>
 
-<% @experiences.each do |experience| %>
-  <tr>
-    <td><%= experience.id %></td>
-    <td><%= experience.name %></td>
-    <td>
-      <% if experience.points %>
-        <%= experience.points %>
-      <% else %>
-        <em>Please add points.</em>
-      <% end %>
-    </td>
-    <td><%= experience.category %></td>
-    <td><%= experience.content %></td>
-    <td><%= link_to 'Show', experience %></td>
-    <% if current_user.admin? %>
-      <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
-    <% else %>
-      <td></td>
-      <td></td>
-    <% end %>
-  </tr>
+<% if current_user.admin? %>
+  <p>
+    <%= link_to 'New Achievement', new_experience_path, class: "btn, btn-success" %>
+  </p>
 <% end %>
+
+<table id="achievements" class="display">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Points</th>
+      <th>Category</th>
+      <th>Content</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @experiences.each do |experience| %>
+      <tr>
+        <td><%= experience.id %></td>
+        <td><%= experience.name %></td>
+        <td>
+          <% if experience.points %>
+            <%= experience.points %>
+          <% else %>
+            <em>Please add points.</em>
+          <% end %>
+        </td>
+        <td><%= experience.category %></td>
+        <td><%= experience.content %></td>
+        <td><%= link_to 'Show', experience %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Experience', new_experience_path %>

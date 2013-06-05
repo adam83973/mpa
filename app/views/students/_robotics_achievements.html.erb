@@ -14,10 +14,15 @@
         <div id="collapseTwo" class="accordion-body collapse">
           <div class="accordion-inner">
             <div class="tscroll well well-small">
-              <table class="table table-striped">
-                  <em>Add robotics achievements.</em>
-                  </tbody>
-              </table>
+              <% @robotics_achievements.each do |achievement| %>
+                <p>
+                  <% if achievement.completed == [true] %>
+                      <%= achievement.name %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                  <% else %>
+                    <%= achievement.name %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
+                  <% end %>
+                </p>
+              <% end %>
             </div>
           </div>
         </div>
