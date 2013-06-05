@@ -16,10 +16,12 @@
             <div class="tscroll well well-small">
               <% @robotics_achievements.each do |achievement| %>
                 <p>
-                  <% if achievement.completed == [true] %>
-                      <%= achievement.name %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
-                  <% else %>
-                    <%= achievement.name %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
+                  <% if acheivement.completed %>
+                    <% if achievement.completed == [true] %>
+                        <%= achievement.name %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                    <% else %>
+                      <%= achievement.name %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
+                    <% end %>
                   <% end %>
                 </p>
               <% end %>
