@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
-    @robotics_achievements = Experience.where("category = ?", "Robotics")
+    @robotics_achievements = Experience.where("category = ?", "Robotics").order("experience_id asc")
 #loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
     @student.experience_points.each do |xp|
       @robotics_achievements.each do |achievement|

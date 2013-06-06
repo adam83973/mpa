@@ -17,6 +17,7 @@
                     <tr>
                       <th>Experience</th>
                       <th>Date Earned</th>
+                      <th>Last Updated</th>
                       <th>Points</th>
                     </tr>
                   </thead>
@@ -25,6 +26,7 @@
                       <tr>
                         <td><%= link_to "#{xp.experience.name}", experience_point_path(xp) %></td>
                         <td><%= xp.created_at.strftime("%B #{xp.created_at.day.ordinalize}, %Y") %></td>
+                        <td><%= xp.updated_at.strftime("%B #{xp.updated_at.day.ordinalize}, %Y") %></td>
                         <td><%= xp.points %></td>
                         <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
                           <td><%= link_to "x", xp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
