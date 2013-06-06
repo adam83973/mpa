@@ -3,5 +3,5 @@ class Experience < ActiveRecord::Base
 
   has_many :experience_points
 
-  accepts_nested_attributes_for :experience_points
+  validates_presence_of :experience_id
 end
