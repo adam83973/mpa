@@ -33,6 +33,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 
 group :production do
   gem 'pg'
