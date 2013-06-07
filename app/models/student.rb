@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
   has_many :experiences, :through => :experience_points
   has_many :locations, :through => :offerings
   has_many :courses, :through => :offerings
-  has_many :experience_points
+  has_many :experience_points, dependent: :destroy
   has_and_belongs_to_many :offerings
 
   def full_name

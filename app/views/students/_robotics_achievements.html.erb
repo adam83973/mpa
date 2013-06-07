@@ -16,6 +16,7 @@
             <div class="tscroll well well-small">
               <% @robotics_achievements.each do |achievement| %>
                 <p>
+                  <% if @student.experience_points %>
                   <% if achievement.completed %>
                     <% if achievement.completed == [true] %>
                         <%= achievement.name %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
@@ -23,6 +24,7 @@
                       <%= achievement.name %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
                     <% end %>
                   <% else %>
+                  <% end %>
                   <% end %>
                 </p>
               <% end %>
@@ -33,4 +35,4 @@
     </div>
 </fieldset>
   <% end %>
-<% end %>st
+<% end %>
