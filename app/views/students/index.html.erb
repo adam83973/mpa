@@ -1,68 +1,20 @@
-<% title "Students" %>
+<% if params[:students] == "active" %>
 
-<h1><%= yield(:title)%></h1>
+  <%= render 'active_student_index' %>
 
-<% if current_user.admin? %>
-  <p>
-    <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
-  </p>
+<% elsif params[:students] == "in_active" %>
+
+  <%= render 'hold_student_index' %>
+
+<% elsif params[:students] == "all" %>
+
+  <%= render 'all_student_index' %>
+
+<% else %>
+
+  <%= render 'all_student_index' %>
+
 <% end %>
 
-<table id="students" class="display">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Parent</th>
-        <th>Parent Email</th>
-        <th>Offerings</th>
-        <th></th>
-        <% if current_user.admin? %>
-          <th></th>
-          <th></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-        <% @students.each do |student| %>
-          <tr>
-            <td><%= student.id %></td>
-            <td><%= student.first_name %></td>
-            <td><%= student.last_name %></td>
-            <% if student.user %>
-               <td><%= link_to student.user.full_name, student.user %></td>
-            <% else %>
-               <td><em>add parent</em></td>
-            <%end%>
-            <% if student.user.email %>
-               <td><%= student.user.email %></td>
-            <% else %>
-               <td><em>no email on file</em></td>
-            <%end%>
-            <td>
-              <% if student.offerings.any? %>
-                <% student.offerings.each do |offering| %>
-                  <%= offering.offering_name %>
-                <% end %>
-              <% else %>
-                <em>Student not enrolled.</em>
-              <% end %>
-            </td>
-            <td><%= link_to 'Show', student %></td>
-            <% if current_user.admin? %>
-              <td><%= link_to 'Edit', edit_student_path(student) %></td>
-              <td><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure you want to destroy #{student.first_name} ?" } %></td>
-            <% end %>
-          </tr>
-        <% end %>
-    </tbody>
-</table>
 
-<% if signed_in? && current_user.admin? %>
-<h3> Import Students</h3>
-  <%= form_tag import_students_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-<% end %>
+

@@ -5,6 +5,8 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     @students = Student.all
+    @active_students = Student.find_all_by_status('Active')
+    @inactive_students = Student.where("status = ? OR status = ?", "Inactive", "Hold")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +19,15 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+
+    @student.offerings.each do |offering|
+      if [11].include?(offering.course.id)
+        @robotics_student = true
+      else
+        @robotics_student = false
+      end
+    end
+
     @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
     @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
     @robotics_achievements.each do |achievement|

@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active
+  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active, :status
 
   validates_presence_of :first_name, :last_name, :user_id
 
@@ -90,6 +90,17 @@ class Student < ActiveRecord::Base
       2000
     else self.rank == "Top Secret"
       3000
+    end
+  end
+
+#attempt to create method that identifies student as robotics student
+  def robotics_student
+    self.offerings.each do |offering|
+      if [11].include?(offering.course.id)
+        true
+      else
+        false
+      end
     end
   end
 

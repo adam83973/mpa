@@ -1,38 +1,36 @@
-<% @student.offerings.each do |offering| %>
-  <% if [11].include?(offering.course.id) %>
-    <fieldset>
-  <legend>
-    <h3>Robotics Achievements</h3>
-  </legend>
-    <div class="accordion" id="accordion2">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
-            Achievements Total:
-          </a>
-        </div>
-        <div id="collapseTwo" class="accordion-body collapse">
-          <div class="accordion-inner">
-            <div class="tscroll well well-small">
-              <% @robotics_achievements.each do |achievement| %>
-                <p>
-                  <% if @student.experience_points %>
-                  <% if achievement.completed %>
-                    <% if achievement.completed == [true] %>
-                        <%= achievement.name %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
-                    <% else %>
-                      <%= achievement.name %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
-                    <% end %>
-                  <% else %>
+
+<% if @robotics_student == true %>
+  <fieldset>
+    <legend>
+      <h3>Robotics Achievements</h3>
+    </legend>
+      <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
+              Achievements Total:
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <div class="tscroll well well-small">
+
+                  <% @robotics_achievements.each do |achievement| %>
+                    <p>
+                      <% if achievement.completed %>
+                        <% if achievement.completed == [true] %>
+                            <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                        <% else %>
+                          <%= link_to achievement.name, achievement %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
+                        <% end %>
+                      <% else %>
+                      <% end %>
+                    </p>
                   <% end %>
-                  <% end %>
-                </p>
-              <% end %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-</fieldset>
-  <% end %>
+  </fieldset>
 <% end %>
