@@ -10,7 +10,10 @@ gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
 gem 'carrierwave'
-gem 'aws-s3'
+gem 'fog'
+gem 'jquery-rails'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 gem 'infusionsoft', git: 'git://github.com/nateleavitt/infusionsoft.git'
 
 # Bundle edge Rails instead:
@@ -33,10 +36,6 @@ group :assets do
   gem 'jquery-ui-rails'
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
 
 group :production do
   gem 'pg'
