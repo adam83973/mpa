@@ -15,11 +15,12 @@
     <% if @user_location.offerings.count == 0 %>
       <p><em>There are no students enrolled.</em></p>
     <% else %>
-    <%= @user_location.students.count / @user_location.offerings.count %>
+    <%= @active_student_count / @user_location.offerings.count %>
     <% end %>
   </p>
 </div>
 </br>
-<p>
+
+<!-- <p>
 <%= link_to "Adjust Student Enrollment", offerings_students_path, class: "btn" %>
-</p>
+</p> -->

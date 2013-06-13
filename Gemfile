@@ -9,6 +9,8 @@ gem 'faker', '1.0.1'
 gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
+gem 'carrierwave'
+gem 'aws-s3'
 gem 'infusionsoft', git: 'git://github.com/nateleavitt/infusionsoft.git'
 
 # Bundle edge Rails instead:

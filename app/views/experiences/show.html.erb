@@ -24,6 +24,9 @@
   <%= @experience.content %>
 </p>
 
+<p>
+  <%= image_tag @experience.image_url if @experience.image_url %>
+</p>
 
 <%= link_to 'Edit', edit_experience_path(@experience) %> |
 <%= link_to 'Back', experiences_path %>
