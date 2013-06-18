@@ -5,5 +5,9 @@
     <%= link_to "Redeem Credits", edit_student_path(@student), class: "btn btn-primary" %>
 
     <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
+
+    <% if @first_offering %>
+      <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "print", :student => @student.id }, { :class => "btn btn-warning" } %>
+    <% end %>
   <% end %>
 </div>

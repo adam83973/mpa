@@ -14,6 +14,7 @@
         <th>Location</th>
         <th>Day</th>
         <th>Time</th>
+        <th>Classroom</th>
         <th>Teachers</th>
         <th># Students</th>
         <th>Open Spots</th>
@@ -32,6 +33,11 @@
             <td><%= link_to offering.location.name, offering.location %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>
+            <% if offering.classroom %>
+              <td> offering.classroom </td>
+            <% else %>
+              <td> <em> No classroom assigned. </em> </td>
+            <% end %>
             <td>
                 <% if offering.users.any? %>
                   <% offering.users.each do |user| %>
@@ -42,7 +48,13 @@
                 <% end %>
             </td>
             <td><%= offering.students.count %></td>
-            <td><%= 10 - offering.students.count %></td>
+            <% if offering.course_id <= 10 %>
+              <td><%= 10 - offering.students.count %></td>
+            <% elsif [11, 12].include?(offering.course_id) %>
+              <td><%= 8 - offering.students.count %></td>
+            <% elsif offering.course_id > 13 %>
+              <td></td>
+            <% end %>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering %></td>
             <% if signed_in? && current_user.try(:admin?) %>

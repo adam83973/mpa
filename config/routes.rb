@@ -48,6 +48,7 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  get "binders/print"
 
   get "infusion_pages/home"
   get "infusion_pages/edit"

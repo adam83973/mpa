@@ -20,6 +20,11 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
 
+    if @student.offerings
+      @offerings = @student.offerings.where("course_id < ?", 7)
+      @first_offering = @offerings.first
+    end
+
     @student.offerings.each do |offering|
       if [11].include?(offering.course.id)
         @robotics_student = true
