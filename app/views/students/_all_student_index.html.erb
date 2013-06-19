@@ -22,7 +22,6 @@
         <th>Parent</th>
         <th>Parent Email</th>
         <th>Status</th>
-        <th>Active</th>
         <th>Offerings</th>
         <th></th>
         <% if current_user.admin? %>
@@ -52,7 +51,6 @@
             <% else %>
                <td><em>update student status</em></td>
             <%end%>
-            <td><%= student.active %></td>
             <td>
               <% if student.offerings.any? %>
                 <% student.offerings.each do |offering| %>
