@@ -15,6 +15,7 @@
     <%= f.association :location %>
     <%= f.input :day, collection: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"] %>
     <%= f.input :time, :minute_step => 30, :ampm => true %>
+    <%= f.input :classroom, collection: [ "A", "B", "C", "Euclid", "Archimedes", "Einstein"] %>
     <%= f.label :teachers %>
     <div class="studentofferings">
       <%= f.association :users, collection: User.where("role  = ? or role = ?", 'Teacher', 'Teaching Assistant').order('last_name asc'), as: :check_boxes, label_method: :full_name, label: false %>
