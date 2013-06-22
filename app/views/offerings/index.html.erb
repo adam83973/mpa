@@ -33,28 +33,31 @@
             <td><%= link_to offering.location.name, offering.location %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>
-            <% if offering.classroom %>
-              <td> offering.classroom </td>
-            <% else %>
-              <td> <em> No classroom assigned. </em> </td>
-            <% end %>
             <td>
-                <% if offering.users.any? %>
-                  <% offering.users.each do |user| %>
-                    <p><%= user.role %> - <%= user.full_name %></p>
-                  <% end %>
-                <% else %>
-                  <em>No teachers assigned.</em>
+              <% if offering.classroom %>
+                <%= offering.classroom %>
+              <% else %>
+                <em> No classroom assigned. </em>
+              <% end %>
+            </td>
+            <td>
+              <% if offering.users.any? %>
+                <% offering.users.each do |user| %>
+                  <p><%= user.role %> - <%= user.full_name %></p>
                 <% end %>
+              <% else %>
+                <em>No teachers assigned.</em>
+              <% end %>
             </td>
             <td><%= offering.students.count %></td>
-            <% if offering.course_id <= 10 %>
-              <td><%= 10 - offering.students.count %></td>
-            <% elsif [11, 12].include?(offering.course_id) %>
-              <td><%= 8 - offering.students.count %></td>
-            <% elsif offering.course_id > 13 %>
-              <td></td>
-            <% end %>
+            <td>
+              <% if offering.course_id <= 10 %>
+                <%= 10 - offering.students.count %>
+              <% elsif [11, 12].include?(offering.course_id) %>
+                <%= 8 - offering.students.count %>
+              <% elsif offering.course_id > 13 %>
+              <% end %>
+            </td>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering %></td>
             <% if signed_in? && current_user.try(:admin?) %>
