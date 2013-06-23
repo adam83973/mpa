@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
 
     if params[:search]
       @users_search = User.search(params[:search])
-    elsif
+    else
       @user_search = []
     end
   end

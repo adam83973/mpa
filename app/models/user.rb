@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids
   attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size, :infusion_id
 
-
   attr_accessor :current_password
 
   belongs_to :location
@@ -27,7 +26,7 @@ class User < ActiveRecord::Base
 
   def self.search(search)
     if search
-       @users_search = User.where('first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%").limit(10)
+       @users_search = User.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%").limit(15)
     end
   end
 
