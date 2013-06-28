@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
     end
 
     @student.offerings.each do |offering|
-      if [11].include?(offering.course.id)
+      if [11].include?(offering.course_id)
         @robotics_student = true
       else
         @robotics_student = false
