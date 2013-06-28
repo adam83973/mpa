@@ -35,15 +35,18 @@ class StudentsController < ApplicationController
 
     @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
     @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
-    @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
+    @robotics_achievements = Experience.where("category = ?", "Robotics").order("id desc")
 
     #loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
-    @student.experience_points.each do |xp|
-      @robotics_achievements.each do |achievement|
-      achievement[:completed] = []
+    @robotics_achievements.each do |achievement|
+      @student.experience_points.each do |xp|
+        achievement[:completed] = []
+
         if achievement.id == xp.experience_id
           achievement[:completed] << true
           break
+        else
+          achievement[:completed] << false
         end
       end
     end
