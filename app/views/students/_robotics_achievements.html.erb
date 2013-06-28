@@ -19,7 +19,21 @@
                     <p>
                       <% if achievement.completed %>
                         <% if achievement.completed == [true] %>
-                            <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                          <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                          <% @student_xps.each do |xp| %>
+                            <% if [15].include?(xp.experience_id) %>
+                             <p>
+                            Upgrades:
+                              <ul>
+                                <li>
+                                  <%= link_to 'Shovel Modification', "https://s3.amazonaws.com/RoboticsLab/TheShovel.mov" %>
+                                </li>
+                                <li>
+                                  <%= link_to 'Str8ter', "https://s3.amazonaws.com/RoboticsLab/Str8er.mov" %>
+                                </li>
+                              </ul>
+                            <% end %>
+                          <% end %>
                         <% else %>
                           <%= link_to achievement.name, achievement %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
                         <% end %>
