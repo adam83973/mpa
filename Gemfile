@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
 
 gem 'rails', '3.2.12'
 gem 'simple_form'
@@ -39,5 +38,6 @@ group :assets do
 end
 
 group :production do
+  ruby '2.0.0'
   gem 'pg'
 end
