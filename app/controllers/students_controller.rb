@@ -47,7 +47,7 @@ class StudentsController < ApplicationController
       end
     end
 
-      if signed_in?
+    if signed_in?
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @student }
