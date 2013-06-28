@@ -17,14 +17,11 @@
 
                   <% @robotics_achievements.each do |achievement| %>
                     <p>
-                      <% if achievement.completed %>
-                        <% if achievement.completed == [true] %>
+                        <% if achievement.completed  && achievement.completed == [true] %>
                           <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
                           <% else %>
                           <%= link_to achievement.name, achievement %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
                         <% end %>
-                      <% else %>
-                      <% end %>
                     </p>
                   <% end %>
 
