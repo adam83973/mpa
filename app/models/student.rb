@@ -93,15 +93,14 @@ class Student < ActiveRecord::Base
     end
   end
 
-#attempt to create method that identifies student as robotics student
-  def robotics_student
-    self.offerings.each do |offering|
-      if [11].include?(offering.course.id)
-        true
-      else
-        false
-      end
-    end
+#takes an array of offerings and converts to an array of the offerings course ids
+  def class_ids
+    self.offerings.map{|h| h['course_id'].to_i}
+  end
+
+#returns true if student is robotics student
+  def robotics
+    class_ids.include?(11)
   end
 
   def self.import(file)
