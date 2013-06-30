@@ -1,4 +1,4 @@
-<div class="studenttoolbar pull-right">
+<div class="pull-right">
   <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
     <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
 
