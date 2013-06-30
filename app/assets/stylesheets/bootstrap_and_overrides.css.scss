@@ -1,3 +1,30 @@
 @import "bootstrap";
 body { padding-top: 80px; }
 @import "bootstrap-responsive";
+
+.progress.square{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-color: #3d75f4;
+}
+
+.accordion-group.square{
+  -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.accordion-inner {
+  padding: 15px 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+.accordion-inner {
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #e5e5e5;
+}

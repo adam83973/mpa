@@ -1,13 +1,12 @@
 <form>
-  <fieldset>
-    <legend>Search</legend>
+
+    <h3>Search</h3>
     <label>Find another Employee or Parent:</label>
     <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
   	  <%= text_field_tag :search, params[:search] %><br />
-    	  <%= button_tag(type: "submit", class: "btn btn-small btn-inverse") do %>
+    	  <%= button_tag(type: "submit", class: "m-btn blue") do %>
         	Search <i class="icon-search icon-white"></i>
     	  <% end %>
     <% end %>
-  </fieldset>
 </form>
 

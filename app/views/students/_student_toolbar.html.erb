@@ -1,13 +1,13 @@
-<div class="student_toolbar pull-right">
+<div class="studenttoolbar pull-right">
   <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
-    <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-info" %>
+    <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
 
-    <%= link_to "Redeem Credits", edit_student_path(@student), class: "btn btn-primary" %>
+    <%= link_to "Redeem Credits", edit_student_path(@student), class: "m-btn blue" %>
 
-    <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn-custom btn" } %>
+    <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>
 
     <% if @first_offering %>
-      <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "print", :student => @student.id }, { :class => "btn btn-warning" } %>
+      <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "print", :student => @student.id }, { :class => "m-btn green" } %>
     <% end %>
   <% end %>
 </div>

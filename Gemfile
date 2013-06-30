@@ -14,6 +14,7 @@ gem 'fog'
 gem 'jquery-rails'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'css3-microsoft-metro-buttons-rails'
 gem 'infusionsoft', git: 'git://github.com/nateleavitt/infusionsoft.git'
 
 # Bundle edge Rails instead:
