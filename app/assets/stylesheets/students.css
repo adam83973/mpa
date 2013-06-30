@@ -62,13 +62,11 @@
   color: #17ce00
 }
 
-#student
-{
+#student{
   position:relative;
 }
 
-#student .buttons
-{
+#student .buttons{
   position:absolute;
   bottom:20px;
   right:20px;
