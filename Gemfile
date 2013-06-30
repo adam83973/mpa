@@ -12,6 +12,7 @@ gem 'jquery-slimscroll-rails'
 gem 'carrierwave'
 gem 'fog'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'css3-microsoft-metro-buttons-rails'
@@ -34,7 +35,6 @@ group :assets do
   gem "modernizr-rails", "~> 2.6.2.1"
   gem "selectivizr-rails", "~> 1.0.1"
   gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-  gem 'jquery-ui-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 

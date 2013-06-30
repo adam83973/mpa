@@ -9,13 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap_and_overrides
+ *= require jquery.ui.theme
+ *= require jquery.ui.datepicker
+ *= require jquery.ui.core
+*= require bootstrap_and_overrides
  *= require m-buttons
  *= require m-forms
  *= require m-icons
- *= require jquery.ui.core
- *= require jquery.ui.theme
- *= require jquery.ui.datepicker
  *= require dataTables/extras/TableTools
  *= require dataTables/extras/TableTools_JUI
  *= require dataTables/src/demo_table_jui
