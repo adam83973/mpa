@@ -13,8 +13,6 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.core
  *= require bootstrap_and_overrides
- *= require dataTables/extras/TableTools
- *= require dataTables/extras/TableTools_JUI
  *= require dataTables/src/demo_table_jui
  *= require normalize-rails
  *= require m-buttons
