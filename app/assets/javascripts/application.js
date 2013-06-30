@@ -12,15 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap
+//= require m-dropdown
+//= require m-radio
 //= require rails.validations
 //= require rails.validations.simple_form
-//= require jquery-ui
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/TableTools
-//= require dataTables/extras/KeyTable
-//= require dataTables/extras/AutoFill
-//= require dataTables/extras/ColReorder
-//= require dataTables/extras/ColVis
 //= require dataTables/extras/Scroller
 //= require_tree .

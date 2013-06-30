@@ -2,6 +2,14 @@
 /* Student Show page */
 
 .studentname{
+  background-color: #f1f1f1;
+  padding-right: 40px;
+  padding-top:4px;
+  padding-bottom:10px;
+  position: relative;
+}
+
+/*.studentname{
 	background: rgb(247,247,247); /* Old browsers */
 	background: -moz-linear-gradient(top, rgba(247,247,247,1) 0%, rgba(232,232,232,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(247,247,247,1)), color-stop(100%,rgba(232,232,232,1))); /* Chrome,Safari4+ */
@@ -21,9 +29,14 @@
     -webkit-box-shadow: 2px 2px 12px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    2px 2px 12px rgba(50, 50, 50, 0.3);
 		box-shadow:         2px 2px 12px rgba(50, 50, 50, 0.3);
-}
-.student_toolbar{
-  padding-bottom: 10px;
+}*/
+
+
+
+.studenttoolbar{
+  position: absolute;
+  bottom: 0;
+  float: bottom;
 }
 
 .rank{
@@ -37,6 +50,21 @@
 .achievements{
 	border-left: solid 1px #afafaf;
 	padding-left: 40px;
+}
+
+.robotics-achievements{
+  background-color: #f1f1f1;
+  padding-bottom: 40px:;
+}
+
+.r-achievements{
+  margin: 15px;
+  padding-left: 10px;
+}
+
+.a-achievements{
+  margin: 15px;
+  padding-left: 5px;
 }
 
 .student-button{
@@ -56,5 +84,17 @@
 
 .achievementcompleted{
   color: #17ce00
+}
+
+#student
+{
+  position:relative;
+}
+
+#student .buttons
+{
+  position:absolute;
+  bottom:20px;
+  right:20px;
 }
 

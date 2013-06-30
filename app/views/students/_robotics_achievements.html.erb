@@ -1,47 +1,46 @@
 
 <% if @student.robotics %>
-  <fieldset>
-    <legend>
-      <h3>Robotics Achievements</h3>
-    </legend>
-      <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
-              Achievements Total:
-            </a>
-          </div>
-          <div id="collapseTwo" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <div class="tscroll well well-small">
 
-                  <% @robotics_achievements.each do |achievement| %>
-                    <p>
-                        <% if achievement.completed  && achievement.completed == [true] %>
-                          <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
-                          <% else %>
-                          <%= link_to achievement.name, achievement %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
-                        <% end %>
-                    </p>
-                  <% end %>
+<h3>Robotics Achievements</h3>
 
-                  <% @student_xps.each do |xp| %>
-                    <% if [15].include?(xp.experience_id) %>
-                      Level 1 Upgrades:
-                      <ul>
-                        <li>
-                          <%= link_to 'Shovel Modification', "https://s3.amazonaws.com/RoboticsLab/TheShovel.mov" %>
-                        </li>
-                        <li>
-                          <%= link_to 'Str8ter', "https://s3.amazonaws.com/RoboticsLab/Str8er.mov" %>
-                        </li>
-                      </ul>
-                    <% end %>
-                  <% end %>
-              </div>
-            </div>
+<div class="accordion" id="accordion2">
+  <div class="accordion-group square">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
+        Achievements Total:
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <div class="tscroll robotics-achievements">
+          <div class="r-achievements">
+             <% @robotics_achievements.each do |achievement| %>
+               <p>
+                   <% if achievement.completed  && achievement.completed == [true] %>
+                     <%= link_to achievement.name, achievement %> | <FONT COLOR="#17ce00"> + <%= achievement.points %> points (Completed)</FONT>
+                     <% else %>
+                     <%= link_to achievement.name, achievement %> | <FONT COLOR="#c30202">(Incomplete)</FONT>
+                   <% end %>
+               </p>
+             <% end %>
+
+             <% @student_xps.each do |xp| %>
+               <% if [15].include?(xp.experience_id) %>
+                 Level 1 Upgrades:
+                 <ul>
+                   <li>
+                     <%= link_to 'Shovel Modification', "https://s3.amazonaws.com/RoboticsLab/TheShovel.mov" %>
+                   </li>
+                   <li>
+                     <%= link_to 'Str8ter', "https://s3.amazonaws.com/RoboticsLab/Str8er.mov" %>
+                   </li>
+                 </ul>
+               <% end %>
+             <% end %>
           </div>
         </div>
       </div>
-  </fieldset>
+    </div>
+  </div>
+</div>
 <% end %>
