@@ -10,7 +10,7 @@
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 		  </div>
-		    <%= f.button :submit, class: "btn btn-success" %>
+		    <%= f.button :submit, class: "m-btn" %>
 		<% end %>
 		<p>
 	  	  <%= render '/students/nav_buttons' %>
@@ -26,9 +26,9 @@
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
-			    <%= f.button :submit, class: "btn btn-success" %>
+			    <%= f.button :submit, class: "m-btn" %>
 			<% end %>
-			<a href="/" class="btn btn-danger">Done with attendance...</a>
+			<a href="/" class="m-btn red">Done with attendance...</a>
 	<% elsif params[:homework] %>
 		<%= simple_form_for @experience_point, :validate => true do |f| %>
 			  <%= f.error_notification %>
@@ -40,9 +40,9 @@
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
-			    <%= f.button :submit, class: "btn btn-success" %>
+			    <%= f.button :submit, class: "m-btn" %>
 			<% end %>
-			<a href="/" class="btn btn-danger">Done with grading...</a>
+			<a href="/" class="m-btn red">Done with grading...</a>
 	<% else %>
 		<%= simple_form_for @experience_point, :validate => true do |f| %>
 		  <%= f.error_notification %>
@@ -54,7 +54,7 @@
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
 		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 		  </div>
-		    <%= f.button :submit, class: "btn btn-success" %>
+		    <%= f.button :submit, class: "m-btn" %>
 		<% end %>
 		<p>
 	  	  <%= render '/students/nav_buttons' %>
