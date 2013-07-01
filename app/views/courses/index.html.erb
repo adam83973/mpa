@@ -4,7 +4,7 @@
 
 <% if signed_in? && current_user.admin? %>
   <p>
-    <%= link_to 'New Course', new_course_path, class: "btn btn-success" %>
+    <%= link_to 'New Course', new_course_path, class: "m-btn green" %>
   </p>
 <% end %>
 
@@ -35,7 +35,7 @@
 <h3> Import Courses</h3>
   <%= form_tag import_courses_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
+    <%= submit_tag "Import", class: "m-btn" %>
   <% end %>
 <% end %>
 

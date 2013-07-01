@@ -9,11 +9,11 @@
 
 <% if current_user.admin? %>
   <p>
-    <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
+    <%= link_to 'New Student', new_student_path, class: "m-btn green" %>
   </p>
 <% end %>
 
-<table id="inactivestudents" class="display">
+<table id="allstudents" class="display">
     <thead>
       <tr>
         <th>Id</th>

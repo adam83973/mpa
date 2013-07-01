@@ -3,7 +3,7 @@
   <h1><%= yield(:title)%></h1>
 
 <% if current_user.admin? %>
-      <p><%= link_to 'New User', new_user_path, class: "btn btn-success" %></p>
+      <p><%= link_to 'New User', new_user_path, class: "m-btn green" %></p>
 <% end %>
 
   <table id="users" class="display">
