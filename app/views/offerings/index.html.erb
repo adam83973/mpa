@@ -49,12 +49,12 @@
                 <em>No teachers assigned.</em>
               <% end %>
             </td>
-            <td><%= offering.students.count %></td>
+            <td><%= offering.students.find_all_by_status("Active").count %></td>
             <td>
               <% if offering.course_id <= 10 %>
-                <%= 10 - offering.students.count %>
+                <%= 10 - offering.students.find_all_by_status("Active").count %>
               <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - offering.students.where("status = ?", "Active").count %>
+                <%= 8 - offering.students.find_all_by_status("Active").count %>
               <% elsif offering.course_id > 13 %>
               <% end %>
             </td>
