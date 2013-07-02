@@ -54,7 +54,7 @@
               <% if offering.course_id <= 10 %>
                 <%= 10 - offering.students.count %>
               <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - offering.students.count %>
+                <%= 8 - offering.students.where("status = ?", "Active").count %>
               <% elsif offering.course_id > 13 %>
               <% end %>
             </td>
