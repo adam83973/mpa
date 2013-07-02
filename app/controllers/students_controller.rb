@@ -25,6 +25,11 @@ class StudentsController < ApplicationController
       @first_offering = @offerings.first
     end
 
+    if @student.offerings
+      @offerings = @student.offerings.where("course_id > ?", 6)
+      @second_offering = @offerings.first
+    end
+
     @student.offerings.each do |offering|
       if [11].include?(offering.course_id)
         @robotics_student = true
