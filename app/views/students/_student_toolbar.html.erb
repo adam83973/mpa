@@ -6,7 +6,7 @@
 
     <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>
 
-    <% if @first_offering %>
+    <% if @agent_offering %>
       <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn green" } %>
     <% end %>
 
