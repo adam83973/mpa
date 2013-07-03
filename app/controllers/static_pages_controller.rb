@@ -5,9 +5,12 @@ class StaticPagesController < ApplicationController
       # if @user.offerings?
         @user_offerings = @user.offerings
         @user_location = @user.location
+        @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
         @user_activity_feed = ExperiencePoint.where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
-        @active_student_count = @user_location.students.find_all_by_status("Active").count
-        @hold_student_count = @user_location.students.find_all_by_status("Hold").count
+        if @user_location
+          @active_student_count = @user_location.students.find_all_by_status("Active").count
+          @hold_student_count = @user_location.students.find_all_by_status("Hold").count
+        end
     end
 
     if params[:search]

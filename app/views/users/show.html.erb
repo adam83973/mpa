@@ -67,7 +67,7 @@
     </p>
     <p>
       <b>Location:</b>
-      <%= @user.location.name %>
+      <%= @user.location.name if @user.location %>
     </p>
     <% if @user.admin? %>
       <p>
