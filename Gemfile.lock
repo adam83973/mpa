@@ -109,6 +109,7 @@ GEM
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
+    newrelic_rpm (3.5.6.55)
     nokogiri (1.5.10)
     normalize-rails (2.0.1)
     orm_adapter (0.4.0)
@@ -189,6 +190,7 @@ DEPENDENCIES
   jquery-slimscroll-rails
   jquery-ui-rails
   modernizr-rails (~> 2.6.2.1)
+  newrelic_rpm
   normalize-rails
   pg
   populator
