@@ -19,12 +19,14 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
-
+# Sets instance variable for student offering, used to print binder
+# for elementary classes.
     if @student.offerings
-      @offerings = @student.offerings.where("course_id < ?", 7)
-      @first_offering = @offerings.first
+      @agent_offerings = @student.offerings.where("course_id < ?", 7)
+      @agent_offering = @agent_offerings.first
     end
-
+# Sets instance variable for student offering, used to print binder for
+# middle school and brain builder classes.
     if @student.offerings
       @offerings = @student.offerings.where("course_id > ?", 6)
       @second_offering = @offerings.first
