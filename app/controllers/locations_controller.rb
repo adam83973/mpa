@@ -16,6 +16,7 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @location = Location.find(params[:id])
+    @location_offerings = @location.offerings.order('course_id asc')
 
     respond_to do |format|
       format.html # show.html.erb

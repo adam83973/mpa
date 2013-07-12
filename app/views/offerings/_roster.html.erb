@@ -3,12 +3,14 @@
   <tr>
     <th>Student</th>
     <th>Parent</th>
+    <th>Status</th>
   </tr>
 
-<% @offering.students.each do |student| %>
+<% @offering.students.order("status asc").each do |student| %>
   <tr>
     <td><%= link_to student.full_name, student %></td>
     <td><%= link_to student.user.full_name, student.user %></td>
+    <td><%= student.status %></td>
   </tr>
 <% end %>
 </table>
