@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  attr_accessible :course_name, :description
+  attr_accessible :course_name, :description, :grade
   has_many :offerings
   has_many :lessons
   has_many :grades
