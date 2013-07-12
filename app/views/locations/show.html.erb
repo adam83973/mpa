@@ -38,25 +38,29 @@
     <% end %>
   </div>
 
-  <div class= "span4">
-    <h2><%= @location.name%> Stats</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th># of Offerings</th>
-          <th># of Students</th>
-          <th>Avg. Student/Offering</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @location.offerings.count %></td>
-          <td><%= @location.students.count %></td>
-          <td><%= @location.students.count / @location.offerings.count %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <% if signed_in? %>
+    <% if current_user.admin?%>
+      <div class= "span4">
+        <h2><%= @location.name%> Stats</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th># of Offerings</th>
+              <th># of Students</th>
+              <th>Avg. Student/Offering</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @location.offerings.count %></td>
+              <td><%= @location.students.count %></td>
+              <td><%= @location.students.count / @location.offerings.count %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="row">
