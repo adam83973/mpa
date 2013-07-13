@@ -13,7 +13,7 @@
         </section>
 
         <section>
-          <% if ["Admin", "Director"].include?(current_user.role) %>
+          <% if current_user.admin? %>
             <%= render 'location_stats' %>
           <% end %>
         </section>
@@ -28,11 +28,12 @@
     <div class="span8">
       <div id="results"><%= render 'shared/user_search_results' %></div>
 
-      <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
-        <%= render 'new_student_feed' %>
-      <% end %>
+        <%if current_user.employee? %>
+          <%= render 'new_student_feed' %>
+        <% end %>
 
-        <%if ["Teacher", "Teaching Assistant"].include?(current_user.role) %>
+
+        <%if current_user.teacher? %>
 
           <%= render 'teacher_offerings' %>
 
@@ -42,7 +43,7 @@
 
         <% end %>
 
-        <% if current_user.role == "Parent" %>
+        <% if current_user.parent? %>
 
           <%= render 'parent_students' %>
 

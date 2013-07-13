@@ -49,12 +49,12 @@
                 <em>No teachers assigned.</em>
               <% end %>
             </td>
-            <td><%= offering.students.find_all_by_status("Active").count %></td>
+            <td><%= offering.active_students_count + offering.returning_students_count %></td>
             <td>
               <% if offering.course_id <= 10 %>
-                <%= 10 - offering.students.find_all_by_status("Active").count %>
+                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - offering.students.find_all_by_status("Active").count %>
+                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif offering.course_id > 13 %>
               <% end %>
             </td>
@@ -76,4 +76,3 @@
     <%= submit_tag "Import" %>
   <% end %>
 <% end %>
-

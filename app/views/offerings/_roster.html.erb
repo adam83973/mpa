@@ -10,7 +10,15 @@
   <tr>
     <td><%= link_to student.full_name, student %></td>
     <td><%= link_to student.user.full_name, student.user %></td>
-    <td><%= student.status %></td>
+    <td><%= student.status %>
+      <% if student.status == "Hold" && student.restart_date %>
+        (<%=  student.restart_date.strftime("%m/%d/%Y") %> restart)
+      <% end %>
+
+      <% if student.status == "Hold" && student.return_date %>
+        (<%=  student.return_date.strftime("%m/%d/%Y") if student.status == "Hold" && student.return_date %> return)
+      <% end %>
+      </td>
   </tr>
 <% end %>
 </table>

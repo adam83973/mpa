@@ -5,6 +5,8 @@ class OfferingsController < ApplicationController
   # GET /offerings.json
   def index
     @offerings = Offering.all
+    @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
+    @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
     respond_to do |format|
       format.html # index.html.erb

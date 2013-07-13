@@ -12,6 +12,14 @@ class Offering < ActiveRecord::Base
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
 
+  def returning_students_count
+      self.students.where("status = ? AND return_date != ?", "Hold", "nil").count
+  end
+
+  def active_students_count
+      self.students.find_all_by_status("Active").count
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       offering = find_by_id(row["id"]) || new

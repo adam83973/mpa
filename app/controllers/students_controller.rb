@@ -7,6 +7,8 @@ class StudentsController < ApplicationController
     @students = Student.all
     @active_students = Student.find_all_by_status('Active')
     @inactive_students = Student.where("status = ? OR status = ?", "Inactive", "Hold")
+    @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
+    @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
     respond_to do |format|
       format.html # index.html.erb
