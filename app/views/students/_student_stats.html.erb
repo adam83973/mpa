@@ -10,15 +10,15 @@
     </p>
     <p>
       <h3>Total Credits: <%= @student.credits %></h3>
-      <%if ["Teacher", "Teaching Assistant", "Director"].include?(current_user.role) %>
-
-      <% end %>
+      <%if current_user.employee? %>
     </p>
         <p>
         <b>Parent:</b>
         <%= link_to @student.parent_name, @student.user %>
         </p>
+        <% end %>
     </div>
+
 
     <div class="rank">
     <p>
@@ -26,7 +26,7 @@
     </p>
     <div class="progress square center ">
       <center>
-        <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= ((@student.xp_sum.to_f - @student.rank_points)/(1000)*100).round %>%</div>
+        <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
         </div>
       </center>
     <p>Next Level: <em><%= @student.next_rank %></em></p>

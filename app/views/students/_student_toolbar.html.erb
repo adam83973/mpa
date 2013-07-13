@@ -1,5 +1,5 @@
 <div class="pull-right">
-  <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
+  <%if current_user.employee? %>
     <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
 
     <%= link_to "Redeem Credits", edit_student_path(@student), class: "m-btn blue" %>
