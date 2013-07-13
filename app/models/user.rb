@@ -35,7 +35,9 @@ class User < ActiveRecord::Base
   end
 
   def employee?
-    ["Teacher", "Teaching Assistant", "Admin"].include?(self.role)
+    if self.role
+      ["Teacher", "Teaching Assistant", "Admin"].include?(self.role)
+    end
   end
 
   def parent?

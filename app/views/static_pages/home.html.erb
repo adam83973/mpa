@@ -6,7 +6,7 @@
          <%= render 'shared/user_info' %>
       </section>
 
-      <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
+      <%if current_user.employee? %>
 
         <section>
           <%= render 'clock_in' %>

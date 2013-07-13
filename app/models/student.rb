@@ -93,6 +93,10 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def level_comp_percentage
+    ((self.xp_sum.to_f - self.rank_points)/(1000)*100).round
+  end
+
 #takes an array of offerings and converts to an array of the offerings course ids
   def class_ids
     self.offerings.map{|h| h['course_id'].to_i}
