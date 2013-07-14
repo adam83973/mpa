@@ -10,8 +10,8 @@ class StaticPagesController < ApplicationController
         if @user_location
           @active_student_count = @user_location.students.find_all_by_status("Active").count
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
-          @student_restart = @user_location.students.where("status = ? AND restart_date != ? AND restart_date < ?", "Hold", "nil", 20.days.from_now)
-          @student_return = @user_location.students.where("status = ? AND return_date != ? AND return_date < ?", "Hold", "nil", 20.days.from_now)
+          @student_restart = @user_location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
+          @student_return = @user_location.students.where("status = ? AND return_date < ?", "Hold", 20.days.from_now)
         end
     end
 
