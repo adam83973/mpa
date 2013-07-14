@@ -30,6 +30,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  def teacher?
+    ["Teacher", "Teaching Assistant"].include?(self.role)
+  end
+
+  def employee?
+    if self.role
+      ["Teacher", "Teaching Assistant", "Admin"].include?(self.role)
+    end
+  end
+
+  def parent?
+    ["Parent"].include?(self.role)
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       user = find_by_id(row["id"]) || new

@@ -1,64 +1,97 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span8">
+    <p>
+      <b>Name:</b>
+      <%= @location.name %>
+    </p>
 
-<p>
-  <b>Name:</b>
-  <%= @location.name %>
-</p>
+    <p>
+      <b>Address:</b>
+      <%= @location.address %>
+    </p>
 
-<p>
-  <b>Address:</b>
-  <%= @location.address %>
-</p>
+    <p>
+      <b>City:</b>
+      <%= @location.city %>
+    </p>
 
-<p>
-  <b>City:</b>
-  <%= @location.city %>
-</p>
+    <p>
+      <b>State:</b>
+      <%= @location.state %>
+    </p>
 
-<p>
-  <b>State:</b>
-  <%= @location.state %>
-</p>
+    <p>
+      <b>Zip:</b>
+      <%= @location.zip %>
+    </p>
 
-<p>
-  <b>Zip:</b>
-  <%= @location.zip %>
-</p>
+    <p>
+      <b>Franchise:</b>
+      <%= @location.franchise %>
+    </p>
 
-<p>
-  <b>Franchise:</b>
-  <%= @location.franchise %>
-</p>
+    <% if signed_in? %>
+      <% if current_user.admin?%>
+        <%= link_to 'Edit', edit_location_path(@location) %> |
+        <%= link_to 'Back', locations_path %>
+      <% end %>
+    <% end %>
+  </div>
 
-<% if signed_in? %>
-  <% if current_user.admin?%>
-    <%= link_to 'Edit', edit_location_path(@location) %> |
-    <%= link_to 'Back', locations_path %>
+  <% if signed_in? %>
+    <% if current_user.admin?%>
+      <div class= "span4">
+        <h2><%= @location.name%> Stats</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th># of Offerings</th>
+              <th># of Students</th>
+              <th>Avg. Student/Offering</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @location.offerings.count %></td>
+              <td><%= @location.students.count %></td>
+              <td><%= @location.students.count / @location.offerings.count %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
-
-<fieldset>
-  <span class="row">
-    <div class= "span4 well well-small container">
-      <legend><h2><%= @location.name%> Stats</h2></legend>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th># of Offerings</th>
-            <th># of Students</th>
-            <th>Avg. Student/Offering</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @location.offerings.count %></td>
-            <td><%= @location.students.count %></td>
-            <td><%= @location.students.count / @location.offerings.count %></td>
-          </tr>
-        </tbody>
-      </table>  
-    </div> 
-  </span>
-</fieldset>
+<div class="row">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Grade</th>
+        <th>Day/Time</th>
+        <th>Teacher</th>
+        <th>Classroom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @location_offerings.each do |offering| %>
+        <tr>
+          <td><%= offering.course.course_name%></td>
+          <td><%= offering.course.grade if offering.course.grade %></td>
+          <td><%= offering.day%> / <%= offering.time.strftime("%I:%M %p")%></td>
+          <td>
+            <% offering.users.each do |user| %>
+              <% if user.role == "Teacher" %>
+                <%= user.full_name %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <%= offering.classroom %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

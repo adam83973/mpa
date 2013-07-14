@@ -6,11 +6,12 @@
 <div id="inner-content-div">
      <% @user_activity_feed.each do |xp|%>
        <p>
-        <em>Added:</em> <%= xp.experience.name %> for 
+        <em>Added:</em> <%= xp.experience.name %> for
         <b><%= xp.student.full_name %></b>
-        <%= time_ago_in_words(xp.updated_at) %> ago 
+        <%= time_ago_in_words(xp.updated_at) %> ago
        </p>
      <% end %>
-    </div> 
+    </div>
   </div>
 <% end %>
+
