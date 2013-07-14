@@ -7,6 +7,8 @@ class StudentsController < ApplicationController
     @students = Student.all
     @active_students = Student.find_all_by_status('Active')
     @inactive_students = Student.where("status = ? OR status = ?", "Inactive", "Hold")
+    # @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
+    # @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,12 +21,14 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
-
+# Sets instance variable for student offering, used to print binder
+# for elementary classes.
     if @student.offerings
-      @offerings = @student.offerings.where("course_id < ?", 7)
-      @first_offering = @offerings.first
+      @agent_offerings = @student.offerings.where("course_id < ?", 7)
+      @agent_offering = @agent_offerings.first
     end
-
+# Sets instance variable for student offering, used to print binder for
+# middle school and brain builder classes.
     if @student.offerings
       @offerings = @student.offerings.where("course_id > ?", 6)
       @second_offering = @offerings.first

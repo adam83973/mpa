@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active, :status
+  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active, :status, :restart_date, :return_date
 
   validates_presence_of :first_name, :last_name, :user_id
 
@@ -93,6 +93,10 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def level_comp_percentage
+    ((self.xp_sum.to_f - self.rank_points)/(1000)*100).round
+  end
+
 #takes an array of offerings and converts to an array of the offerings course ids
   def class_ids
     self.offerings.map{|h| h['course_id'].to_i}
@@ -108,6 +112,19 @@ class Student < ActiveRecord::Base
       student = find_by_id(row["id"]) || new
       student.attributes = row.to_hash.slice(*accessible_attributes)
       student.save!
+    end
+  end
+
+
+  def hold_date_status
+    if self.status == "Hold" && self.return_date != nil
+        "#{self.return_date.strftime("%D")} Returning"
+    elsif self.status == "Hold" && self.restart_date != nil
+        "#{self.restart_date.strftime("%D")} Restarting"
+    elsif self.status == "Hold" && self.restart_date.nil? && return_date.nil?
+        "Add date"
+    else
+      ""
     end
   end
 end

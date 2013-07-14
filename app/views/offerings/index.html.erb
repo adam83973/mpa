@@ -29,8 +29,8 @@
         <% @offerings.each do |offering| %>
           <tr>
             <td><%= offering.id %></td>
-            <td><%= link_to offering.course.course_name, offering.course %></td>
-            <td><%= link_to offering.location.name, offering.location %></td>
+            <td><%= link_to offering.course.course_name, offering.course, :target => "_blank" %></td>
+            <td><%= link_to offering.location.name, offering.location, :target => "_blank" %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>
             <td>
@@ -49,19 +49,19 @@
                 <em>No teachers assigned.</em>
               <% end %>
             </td>
-            <td><%= offering.students.find_all_by_status("Active").count %></td>
+            <td><%= offering.active_students_count + offering.returning_students_count %></td>
             <td>
               <% if offering.course_id <= 10 %>
-                <%= 10 - offering.students.find_all_by_status("Active").count %>
+                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - offering.students.find_all_by_status("Active").count %>
+                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif offering.course_id > 13 %>
               <% end %>
             </td>
             <td><%= offering.active %></td>
-            <td><%= link_to 'Show', offering %></td>
+            <td><%= link_to 'Show', offering, :target => "_blank" %></td>
             <% if signed_in? && current_user.try(:admin?) %>
-              <td><%= link_to 'Edit', edit_offering_path(offering) %></td>
+              <td><%= link_to 'Edit', edit_offering_path(offering), :target => "_blank" %></td>
             <% end %>
           </tr>
         <% end %>
@@ -76,4 +76,3 @@
     <%= submit_tag "Import" %>
   <% end %>
 <% end %>
-
