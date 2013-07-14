@@ -30,8 +30,11 @@
 
         <%if current_user.employee? %>
           <%= render 'new_student_feed' %>
-        <% end %>
 
+          <% if current_user.admin? %>
+            <%= render 'on_hold' %>
+          <% end %>
+        <% end %>
 
         <%if current_user.teacher? %>
 

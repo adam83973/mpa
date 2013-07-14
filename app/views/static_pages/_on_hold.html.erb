@@ -1,0 +1,19 @@
+<% unless @student_restart.empty? && @student_return.empty? %>
+  <h3>On Hold</h3>
+<% end %>
+
+<% unless @student_restart.empty? %>
+  <h4>Students restarting</h4><em>Billing restarts for:</em>
+  <% @student_restart.each do |restart| %>
+  <%= link_to restart.full_name, restart %> -
+  <%= restart.restart_date.strftime("%B %d, %Y") %>
+  <% end %>
+<% end %>
+
+<% unless @student_return.empty? %>
+<h4>Students returning</h4><em>Possible return for:</em>
+  <% @student_return.each do |ret| %>
+  <%= link_to ret.full_name, ret %> -
+  <%= ret.return_date.strftime("%B %d, %Y") %>
+  <% end %>
+<% end %>

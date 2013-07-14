@@ -1,9 +1,9 @@
 <% if @new_students.empty? %>
-          <% else %>
-          <h3>New Students</h3>
-            <% @new_students.each do |student| %>
-              <% student.offerings.each do |offering| %>
-            <p><b><%= student.full_name%></b> is starting in: <b><%= offering.offering_name %></b></p>
-              <% end %>
-            <% end %>
-          <% end %>
+<% else %>
+<h3>New Students</h3>
+  <% @new_students.each do |student| %>
+    <% student.offerings.each do |offering| %>
+  <p><b><%= student.full_name%></b> is starting in: <b><%= offering.offering_name %></b></p>
+    <% end %>
+  <% end %>
+<% end %>
