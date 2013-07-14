@@ -54,9 +54,9 @@
                 <em>Student not enrolled.</em>
               <% end %>
             </td>
-            <td><%= link_to 'Show', student %></td>
+            <td><%= link_to 'Show', student, :target => "_blank" %></td>
             <% if current_user.admin? %>
-              <td><%= link_to 'Edit', edit_student_path(student) %></td>
+              <td><%= link_to 'Edit', edit_student_path(student), :target => "_blank" %></td>
               <td><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure you want to destroy #{student.first_name} ?" } %></td>
             <% end %>
           </tr>

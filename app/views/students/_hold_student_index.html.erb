@@ -16,6 +16,7 @@
         <th>Parent</th>
         <th>Parent Email</th>
         <th>Status</th>
+        <th>Hold Date</th>
         <th>Offerings</th>
         <th></th>
         <% if current_user.admin? %>
@@ -30,21 +31,29 @@
             <td><%= student.id %></td>
             <td><%= student.first_name %></td>
             <td><%= student.last_name %></td>
+
             <% if student.user %>
                <td><%= link_to student.user.full_name, student.user %></td>
             <% else %>
                <td><em>add parent</em></td>
-            <%end%>
+            <% end %>
+
             <% if student.user.email %>
                <td><%= student.user.email %></td>
             <% else %>
                <td><em>no email on file</em></td>
-            <%end%>
+            <% end %>
+
             <% if student.status %>
                <td><%= student.status %></td>
             <% else %>
                <td><em>update student status</em></td>
-            <%end%>
+            <% end %>
+
+            <td>
+              <%= student.hold_date_status %>
+            </td>
+
             <td>
               <% if student.offerings.any? %>
                 <% student.offerings.each do |offering| %>
@@ -54,9 +63,9 @@
                 <em>Student not enrolled.</em>
               <% end %>
             </td>
-            <td><%= link_to 'Show', student %></td>
+            <td><%= link_to 'Show', student, :target => "_blank" %></td>
             <% if current_user.admin? %>
-              <td><%= link_to 'Edit', edit_student_path(student) %></td>
+              <td><%= link_to 'Edit', edit_student_path(student), :target => "_blank" %></td>
               <td><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure you want to destroy #{student.first_name} ?" } %></td>
             <% end %>
           </tr>

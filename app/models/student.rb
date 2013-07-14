@@ -114,4 +114,17 @@ class Student < ActiveRecord::Base
       student.save!
     end
   end
+
+
+  def hold_date_status
+    if self.status == "Hold" && self.return_date != nil
+        "#{self.return_date.strftime("%D")} Returning"
+    elsif self.status == "Hold" && self.restart_date != nil
+        "#{self.restart_date.strftime("%D")} Restarting"
+    elsif self.status == "Hold" && self.restart_date.nil? && return_date.nil?
+        "Add date"
+    else
+      ""
+    end
+  end
 end
