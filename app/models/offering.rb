@@ -13,7 +13,7 @@ class Offering < ActiveRecord::Base
   end
 
   def returning_students_count
-      self.students.where("status = ? AND return_date != ?", "Hold", "NULL").count
+      self.students.where("status = ? AND return_date is NULL", "Hold").count
   end
 
   def active_students_count
