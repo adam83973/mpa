@@ -5,7 +5,7 @@
   <% @user.students.each do |student| %>
   <div class="accordion-group">
     <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=student.id.humanize.capitalize%>">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=student.id.humanize.capitalize.gsub(/\s+/, "")%>">
         <%= student.full_name %> | Total XP : <%= student.experience_points.sum(:points) %>
       </a>
     </div>
