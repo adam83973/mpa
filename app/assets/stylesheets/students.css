@@ -9,11 +9,6 @@
   position: relative;
 }
 
-.studenttoolbar{
-  position: absolute;
-  bottom: 0;
-  float: bottom;
-}
 
 .rank{
 	padding-top: 15px;
@@ -67,8 +62,5 @@
 }
 
 #student .buttons{
-  position:absolute;
-  bottom:20px;
-  right:20px;
 }
 
