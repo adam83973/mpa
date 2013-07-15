@@ -2,37 +2,35 @@
   <div class="studentname row span11">
     <div class="span4">
       <h2><%= @student.full_name %></h2>
-    <p>
-      <h3>ID: <%= @student.id %></h3>
-    </p>
-    <p>
-      <h3>Total XP: <%= @student.xp_total %></h3>
-    </p>
-    <p>
-      <h3>Total Credits: <%= @student.credits %></h3>
+      <p>
+        <h3>ID: <%= @student.id %></h3>
+      </p>
+      <p>
+        <h3>Total XP: <%= @student.xp_total %></h3>
+      </p>
+      <p>
+        <h3>Total Credits: <%= @student.credits %></h3>
+      </p>
       <%if current_user.employee? %>
-    </p>
-        <p>
+      <p>
         <b>Parent:</b>
         <%= link_to @student.parent_name, @student.user %>
-        </p>
-        <% end %>
+      </p>
+      <% end %>
     </div>
 
-
     <div class="rank">
-    <p>
-      <h3>Current level: <em><%= @student.rank %> </em></h3>
-    </p>
-    <div class="progress square center ">
-      <center>
-        <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
+      <p>
+        <h3>Current level: <em><%= @student.rank %> </em></h3>
+      </p>
+      <div class="progress square center ">
+        <center>
+          <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
         </div>
       </center>
-    <p>Next Level: <em><%= @student.next_rank %></em></p>
-      <div class="buttons">
-        <%= render 'student_toolbar' %>
-      </div>
+      <p>Next Level: <em><%= @student.next_rank %></em></p>
+<div class="row">
+       <%= render 'student_toolbar' %></div>
     </div>
   </div>
 </div>

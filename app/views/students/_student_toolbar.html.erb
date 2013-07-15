@@ -1,17 +1,29 @@
+
 <div class="pull-right">
-  <%if current_user.employee? %>
-    <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
+  <nav>
+    <ul class="nav ul-padding inline">
+      <%if current_user.employee? %>
+      <li>
+        <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
+      </li>
+      <li>
+        <%= link_to "Redeem Credits", edit_student_path(@student), class: "m-btn blue" %>
+      </li>
+      <li>
+        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>
+      </li>
+      <% if @agent_offering %>
+      <li>
+        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn green" } %>
+      </li>
+      <% end %>
 
-    <%= link_to "Redeem Credits", edit_student_path(@student), class: "m-btn blue" %>
-
-    <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>
-
-    <% if @agent_offering %>
-      <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn green" } %>
-    <% end %>
-
-    <% if @second_offering %>
-      <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "m-btn green" } %>
-    <% end %>
-  <% end %>
+      <% if @second_offering %>
+      <li>
+        <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "m-btn green" } %>
+      </li>
+      <% end %>
+      <% end %>
+    </ul>
+  </nav>
 </div>
