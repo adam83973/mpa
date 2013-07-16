@@ -54,7 +54,7 @@
       <b>Phone:</b>
       <%= @user.phone %>
     </p>
-    <% unless current_user.parent? %>
+    <% unless current_user.parent? || current_user.teacher? %>
     <p>
       <b>Passion:</b>
       <%= @user.passion %>
@@ -94,7 +94,7 @@
 </div>
 
 <div class="row">
-  <% unless current_user.parent? %>
+  <% unless current_user.parent? || current_user.teacher? %>
   <div class="span8">
     <% if @user.infusion_id != nil %>
     <%= render 'billing' %>
