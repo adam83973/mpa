@@ -15,36 +15,37 @@
 
     <!-- displays each student for user -->
     <% if @user.role  == "Parent" %>
-        <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
-        <p>
-        <% @user.students.each do |student| %>
-          <h4> <%= link_to student.full_name, student %></h4>
-          <% student.offerings.each do |offering| %>
-          <p><%= link_to offering.offering_name, offering %></p>
-          <% end %>
-        <% end %>
-        </p>
+    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
+    <p>
+      <% @user.students.each do |student| %>
+      <h4> <%= link_to student.full_name, student %></h4>
+      <% student.offerings.each do |offering| %>
+      <p><%= link_to offering.offering_name, offering %></p>
+      <% end %>
+      <% end %>
+    </p>
     <% end %>
 
-  <!-- displays each student for user -->
+    <!-- displays each student for user -->
     <% if @user.role  == "Parent" %>
-        <% if @user.infusion_id != nil %>
-          <p>
-            <b>Infusionsoft Id:</b>
-            <%= @user.infusion_id %>
-          </p>
-          <p>
-            <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-          </p>
-          <p>
-            <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-          </p>
-        <% else %>
-          <p>
-            <b>Infusionsoft Id is Undefined</b>
-          </p>
-        <% end %>
+    <% if @user.infusion_id != nil %>
+    <p>
+      <b>Infusionsoft Id:</b>
+      <%= @user.infusion_id %>
+    </p>
+    <p>
+      <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
+    </p>
+    <p>
+      <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
+    </p>
+    <% else %>
+    <p>
+      <b>Infusionsoft Id is Undefined</b>
+    </p>
     <% end %>
+    <% end %>
+
     <p>
       <b>Email:</b>
       <%= @user.email %>
@@ -53,6 +54,7 @@
       <b>Phone:</b>
       <%= @user.phone %>
     </p>
+    <% unless current_user.parent? %>
     <p>
       <b>Passion:</b>
       <%= @user.passion %>
@@ -70,10 +72,10 @@
       <%= @user.location.name if @user.location %>
     </p>
     <% if @user.admin? %>
-      <p>
-        <b>Admin:</b>
-        <%= @user.admin %>
-      </p>
+    <p>
+      <b>Admin:</b>
+      <%= @user.admin %>
+    </p>
     <% end %>
     <p>
       <b>Active:</b>
@@ -82,15 +84,21 @@
 
     <p>
       <%= render 'shared/nav_buttons' %>
+      <% if @user.parent? %>
+      <%= link_to "Add Student", { :controller => "students", :action => "new", :user_id => @user.id }, { :class => "m-btn blue" } %>
+      <% end %>
     </p>
 
   </div>
+  <% end %>
 </div>
 
 <div class="row">
+  <% unless current_user.parent? %>
   <div class="span8">
     <% if @user.infusion_id != nil %>
-      <%= render 'billing' %>
+    <%= render 'billing' %>
     <% end %>
   </div>
+  <% end %>
 </div>

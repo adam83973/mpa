@@ -13,7 +13,7 @@
 
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name %>
+    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name %>
     <%= f.input :start_date, as: :string %>
     <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
     <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
