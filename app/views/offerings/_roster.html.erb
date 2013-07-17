@@ -6,7 +6,7 @@
     <th>Status</th>
   </tr>
 
-<% @offering.students.order("status asc").each do |student| %>
+<% @offering.students.where("status = ? OR status = ?", "Active", "Hold").order("status asc").each do |student| %>
   <tr>
     <td><%= link_to student.full_name, student %></td>
     <td><%= link_to student.user.full_name, student.user %></td>
