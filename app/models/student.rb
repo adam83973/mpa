@@ -107,6 +107,11 @@ class Student < ActiveRecord::Base
     class_ids.include?(11)
   end
 
+#checks to see if student has attended first class
+  def attended?
+  end
+
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       student = find_by_id(row["id"]) || new
