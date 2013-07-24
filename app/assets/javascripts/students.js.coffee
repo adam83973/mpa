@@ -21,11 +21,11 @@ jQuery ->
       bJQueryUI: true
 
     $('#student_birth_date').datepicker
-      dateFormat: 'yy-mm-dd'
+      dateFormat: 'mm-dd-yy'
     $('#student_start_date').datepicker
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'mm-dd-yy'
     $('#student_restart_date').datepicker
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'mm-dd-yy'
     $('#student_return_date').datepicker
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'mm-dd-yy'
 
