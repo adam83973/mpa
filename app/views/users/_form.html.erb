@@ -13,17 +13,19 @@
 
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.association :location, label_method: :name %>
-    <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
     <%= f.input :phone %>
     <%= f.input :email %>
-    <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
-    <%= f.input :passion %>
-    <%= f.input :shirt_size %>
-    <%= f.input :has_key %>
-    <%= f.input :admin %>
-    <%= f.input :active %>
+    <% if current_user.employee? %>
+      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' %>
+      <%= f.input :passion %>
+      <%= f.input :shirt_size %>
+      <%= f.association :location, label_method: :name %>
+      <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
+      <%= f.input :has_key %>
+      <%= f.input :admin %>
+      <%= f.input :active %>
+    <% end %>
     <%= f.button :submit, class: "m-btn" %>
 <% end %>
