@@ -13,10 +13,12 @@
   <%= link_to 'Back', offerings_path %>
 </div>
 
-<br />
-<div class="row">
-  <%= render 'offerings/roster' %>
-</span>
+<% if current_user.employee?%>
+  <br />
+  <div class="row">
+    <%= render 'offerings/roster' %>
+  </span>
+<% end %>
 
 
 

@@ -2,14 +2,14 @@ MathPlus::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  devise_for :users
+  resources :devise
 
   devise_for :users, :skip => [:registrations]
-    devise_scope :user do
-    get "new_user_registration",    :to => "users#new"
-    get "edit_user_registration",   :to => "devise_invitable/registrations#edit"
-    # put "user_registration",        :to => "devise_invitable/registrations#update"
-  end
+    as :user do
+      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+      put 'users' => 'devise/registrations#update', :as => 'user_registration'
+    end
+
 
   # match "register" => "users#new", :as => :user_registration
 

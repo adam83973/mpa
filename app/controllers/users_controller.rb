@@ -6,10 +6,15 @@ class UsersController < ApplicationController
   def index
     @users = User.order(:id)
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-      format.csv { send_data @users.to_csv }
+    if current_user.employee?
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @users }
+        format.csv { send_data @users.to_csv }
+      end
+    else
+      redirect_to root_path
     end
   end
 
@@ -18,42 +23,44 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    if current_user.employee? || current_user.id == @user.id
     ########
-    if @user.role == "Parent" && @user.infusion_id != nil
-      # retrieve subscriptions for contact
-      @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
-      # loop through array of hashes and remove inactive subscriptions
-      @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
-      # get active subscriptions from Infusiosoft
-      subscriptions = Infusionsoft.data_query('CProgram', 50, 0, {:Status => "1"}, [:Id, :ProgramName, :DefaultPrice, :DefaultCycle, :DefaultFrequency] )
-      # attach subscription plan names
-      @active_subscription.each do |i|
-        subscriptions.each do |j|
-          if i["ProgramId"].to_i == j["Id"].to_i
-            i["ProgramName"] = j["ProgramName"]
+      if @user.role == "Parent" && @user.infusion_id != nil
+        # retrieve subscriptions for contact
+        @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+        # loop through array of hashes and remove inactive subscriptions
+        @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
+        # get active subscriptions from Infusiosoft
+        subscriptions = Infusionsoft.data_query('CProgram', 50, 0, {:Status => "1"}, [:Id, :ProgramName, :DefaultPrice, :DefaultCycle, :DefaultFrequency] )
+        # attach subscription plan names
+        @active_subscription.each do |i|
+          subscriptions.each do |j|
+            if i["ProgramId"].to_i == j["Id"].to_i
+              i["ProgramName"] = j["ProgramName"]
+            end
+          end
+        end
+   # get invoices and display recent ones
+        @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
+        @invoices.each do |i|
+          if i["PayStatus"] == 0
+            i["Status"] = "<span class='label label-important'>Unpaid</span>"
+          elsif i["RefundStatus"] == 1
+            i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+          elsif i["RefundStatus"] == 2
+            i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+          else
+            i["Status"] = "<span class='label label-success'>Paid</span>"
           end
         end
       end
- # get invoices and display recent ones
-      @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
-      @invoices.each do |i|
-        if i["PayStatus"] == 0
-          i["Status"] = "<span class='label label-important'>Unpaid</span>"
-        elsif i["RefundStatus"] == 1
-          i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
-        elsif i["RefundStatus"] == 2
-          i["Status"] = "<span class='label label-warning'>Full Refund</span>"
-        else
-          i["Status"] = "<span class='label label-success'>Paid</span>"
-        end
-      end
-    end
     ########
-
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @user }
+      end
+    else
+    redirect_to root_path
     end
   end
 

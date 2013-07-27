@@ -5,9 +5,11 @@
 		<%= render 'form' %>
 	</div>
 	<div class="span8">
+	<% if current_user.admin? %>
 		<% unless @contacts.nil? %>
 			<%= render 'search' %>
 		<% end %>
+	<% end %>
 	</div>
 </div>
 
