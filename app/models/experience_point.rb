@@ -3,7 +3,7 @@ class ExperiencePoint < ActiveRecord::Base
 
   validates_presence_of :experience_id, :student_id, :points
 
-  validate :experience_id_exists
+  validate :experience_id_exists, :comment_exists
 
   belongs_to :user
   belongs_to :student
@@ -27,6 +27,15 @@ class ExperiencePoint < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
       errors.add(:experience_id, "Select a valid Achievement.")
       false
+    end
+  end
+
+  def comment_exists
+    if experience_id == 2
+    else
+      if self.comment == ""
+        errors.add(:comment, "You must add a comment.")
+      end
     end
   end
 
