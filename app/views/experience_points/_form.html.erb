@@ -16,7 +16,7 @@
 	  	  <%= render '/students/nav_buttons' %>
 		</p>
 	<% elsif params[:attendance] %>
-		<%= simple_form_for @experience_point, :validate => true do |f| %>
+		<%= simple_form_for @experience_point do |f| %>
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
