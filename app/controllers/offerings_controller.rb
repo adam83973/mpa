@@ -4,13 +4,17 @@ class OfferingsController < ApplicationController
   # GET /offerings
   # GET /offerings.json
   def index
-    @offerings = Offering.all
-    @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
-    @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
+    if current_user.employee?
+      @offerings = Offering.all
+      @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
+      @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @offerings }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @offerings }
+      end
+    else
+      redirect_to root_path
     end
   end
 
@@ -28,12 +32,16 @@ class OfferingsController < ApplicationController
   # GET /offerings/new
   # GET /offerings/new.json
   def new
-    @offering = Offering.new
-    @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
+    if current_user.employee?
+      @offering = Offering.new
+      @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @offering }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @offering }
+      end
+    else
+      redirect_to root_path
     end
   end
 
