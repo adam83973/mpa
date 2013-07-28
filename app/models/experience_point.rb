@@ -35,6 +35,7 @@ class ExperiencePoint < ActiveRecord::Base
     else
       if self.comment == ""
         errors.add(:comment, "You must add a comment.")
+        false
       end
     end
   end
