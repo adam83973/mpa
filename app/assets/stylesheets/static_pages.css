@@ -1,7 +1,8 @@
 .welcomescreen{
 	background-color: #f1f1f1;
-	height: 200px;
+	height: auto;
 	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 .user_search{
