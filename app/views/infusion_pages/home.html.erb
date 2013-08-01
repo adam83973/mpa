@@ -1,4 +1,4 @@
-<h3>Find Parent by Last Name</h3>
+<h3>Find Parent in Infusionsoft</h3>
 Enter first few letters of last name:
 <%= form_tag({}, {:method => :get, class: 'form-search'}) do %>
 <p>
@@ -26,8 +26,8 @@ Enter first few letters of last name:
 				<td><%= i["LastName"] %></td>
 				<td><%= i["Email"] %></td>
 				<td>
-					<%= link_to 'Edit User', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-small' %>
-					<%= link_to 'View Subscriptions', infusion_pages_subscription_path(ContactId: i["Id"]), class: 'btn btn-small' %>
+					<%= link_to 'Edit', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-small' %>
+					<%= link_to 'Subscriptions', infusion_pages_subscription_path(ContactId: i["Id"]), class: 'btn btn-small' %>
 
  					<%= link_to 'Delete', infusion_pages_delete_user_path(Id: i["Id"]), class: 'btn btn-small btn-danger' %>
 				</td>
@@ -36,12 +36,12 @@ Enter first few letters of last name:
 		</tbody>
 	</table>
 <% end %>
-
-<h3>Create Parent</h3>
+<hr>
+<h3>Create Parent in Infusionsoft</h3>
 <%= form_tag({}, {method: :get, class: 'form-inline'}) do %>
 <p>
 	First Name <%= text_field_tag :FirstName, params[:FirstName] %>
 	Last Name <%= text_field_tag :LastName, params[:LastName] %>
-	<%= submit_tag "Add Contact", :name => nil, class: 'btn' %>
+	<%= submit_tag "Create New Parent", :name => nil, class: 'btn' %>
 </p>
 <% end %>

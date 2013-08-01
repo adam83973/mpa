@@ -28,6 +28,11 @@ class InfusionPagesController < ApplicationController
     @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
     # remove all deleted cards from @credit_card array
     @credit_card.delete_if {|i| i["Status"] == 2}
+    # check to see if parent exists in app user table. returns empty array if no match found
+    @app_user = User.where("infusion_id = ?", params[:ContactId]).first
+    if !@app_user
+       @candidates = User.where("first_name =? AND last_name = ?", @user["FirstName"], @user["LastName"])
+    end
   end
 
   def update
