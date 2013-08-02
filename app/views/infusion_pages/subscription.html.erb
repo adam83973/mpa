@@ -91,6 +91,7 @@
 				</div>
 				<label>Credit Card </label>
 				<%= select_tag :creditCardId, options_for_select(@credit_card_options) %>
+				<hr>
 				<%= submit_tag "Add Subscription", :name => nil, class: 'btn btn-success btn-small' %>
 				<%= link_to 'New Credit Card', infusion_pages_edit_path(params.merge(id: params[:ContactId])), class: 'btn  btn-small' %>
 			<% end %>
