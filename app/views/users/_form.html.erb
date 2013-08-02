@@ -11,8 +11,7 @@
       </ul>
     </div>
   <% end %>
-
-    <% if params[first_name] %>
+    <% if params[:first_name] %>
       <%= f.input :first_name, :input_html => { :value => params[:first_name]} %>
       <%= f.input :last_name, :input_html => { :value => params[:last_name]} %>
       <%= f.input :phone, :input_html => { :value => params[:phone1]} %>
