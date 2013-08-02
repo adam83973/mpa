@@ -93,8 +93,10 @@ class InfusionPagesController < ApplicationController
     end
     # retrieve subscriptions for contact
     @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => params[:ContactId]}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+    @active_subscription.sort_by! {|hsh| hsh["Status"]}
+
     # loop through array of hashes and remove inactive subscriptions
-    @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
+    # @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
     # attach subscription plan names
     @active_subscription.each do |i|
       subscriptions.each do |j|
@@ -145,7 +147,7 @@ class InfusionPagesController < ApplicationController
       flash[:error] = "Subscription Failed"
     end
 
-    # Handle initial Deposit
+    # Handle initial deposit
     if params[:deposit].to_f > 0.0
       # create blank invoice
       invoice = Infusionsoft.invoice_create_blank_order(params[:ContactId], "Deposit", DateTime.now, 0, 0)
@@ -153,13 +155,15 @@ class InfusionPagesController < ApplicationController
       product_id = 275
       type = 3 # Service
       Infusionsoft.invoice_add_order_item(invoice, product_id, type, params[:deposit].to_f, 1, "Deposit", "Deposit")
-      cc_result = Infusionsoft.invoice_charge_invoice(invoice, "API Payment", params[:creditCardId].to_i, params[:merchantAccountId].to_i, false)
-      flash[:warning] = "Deposit result: #{cc_result}"
+      Infusionsoft.invoice_add_payment_plan(invoice, true, params[:creditCardId].to_i, params[:merchantAccountId].to_i, 1, 1, 0.0, startDate, startDate, 1, 30)
+      # charge now
+      #cc_result = Infusionsoft.invoice_charge_invoice(invoice, "API Payment", params[:creditCardId].to_i, params[:merchantAccountId].to_i, false)
+      #flash[:warning] = "Deposit result: #{cc_result}"
     end
 
     # get firstname and lastname again
     @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName])
-    redirect_to infusion_pages_subscription_path(params.merge(FirstName:  @user["FirstName"]), LastName: @user["LastName"])
+    redirect_to infusion_pages_subscription_path(params.merge(FirstName: @user["FirstName"], LastName: @user["LastName"]))
     # redirect_to :back
   end
 
@@ -183,7 +187,7 @@ class InfusionPagesController < ApplicationController
     #
 
     today = DateTime.now
-    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today})
+    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N"})
     if result
       flash[:notice] = "Subscription ended"
     else

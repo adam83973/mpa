@@ -40,7 +40,7 @@
 				<label class="control-label">Zip </label>
 				<div class="controls"><%= text_field_tag :PostalCode, @user["PostalCode"] %></div>
 			</div>
-			<%= submit_tag "Save Changes", :name => nil, class: 'btn' %>
+			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-small' %>
 		<% end %>	
 	</div>
 	<div class="span6">
@@ -90,7 +90,7 @@
 				<label class="control-label">Expiration Year </label>
 				<div class="controls"><%= text_field_tag :ExpirationYear, nil %></div>
 			</div>
-			<%= submit_tag "Add CC", :name => nil, class: 'btn' %>
+			<%= submit_tag "Add CC", :name => nil, class: 'btn btn-small' %>
 		<% end %>
 	</div>
 </div>
@@ -106,7 +106,7 @@
 			This parent is not linked.<br />
 			<% if @candidates.empty? %>
 				No parents in the MPA App match by first and last name.<br /><br />
-				<%= link_to 'Create Parent', new_user_path(params.merge(first_name: @user["FirstName"], last_name: @user["LastName"], email: @user["Email"], phone: @user["Phone1"], infusion_id: params[:ContactId])), class: 'btn' %>
+				<%= link_to 'Create Parent', new_user_path(params.merge(first_name: @user["FirstName"], last_name: @user["LastName"], email: @user["Email"], phone: @user["Phone1"], infusion_id: params[:ContactId])), class: 'btn btn-small' %>
 			<% else %>
 				The following parents in the MPA app could be a match: <br />
 				<% @candidates.each do | candidate | %>
@@ -115,8 +115,8 @@
 			<% end %>
 		<% end %>
 		<hr>
-		<%= link_to 'Back', infusion_pages_home_path(ContactId: params[:ContactId]), class: 'btn' %>
-		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(ContactId: params[:ContactId]), class: 'btn' %>
+		<%= link_to 'Back', infusion_pages_home_path(ContactId: params[:ContactId]), class: 'btn btn-small' %>
+		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(ContactId: params[:ContactId]), class: 'btn btn-small' %>
 		<br />
 	</div>
 </div>
