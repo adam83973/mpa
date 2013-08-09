@@ -8,3 +8,11 @@ jQuery ->
       bPaginate: true,  #hide pagination control
       bFilter: true,     #hide filter control
       bJQueryUI: true
+
+jQuery ->
+  $('#experience_point_experience_id').change ->
+    $.ajax
+      type: 'POST'
+      url: "/experience_points/points_lookup"
+      data: experience_id: $('#experience_point_experience_id').val()
+      success: (result) -> $('#experience_point_points').val(result)

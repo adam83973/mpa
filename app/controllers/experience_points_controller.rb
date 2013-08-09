@@ -35,6 +35,15 @@ class ExperiencePointsController < ApplicationController
     end
   end
 
+  def points_lookup
+    @experience = Experience.find(params[:experience_id])
+    @points = @experience.points
+
+    respond_to do |format|
+      format.json { render json: @points }
+    end
+  end
+
   # GET /experience_points/1/edit
   def edit
     @experience_point = ExperiencePoint.find(params[:id])
