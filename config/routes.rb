@@ -24,6 +24,8 @@ MathPlus::Application.routes.draw do
   resources :students
   resources :users
 
+  post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
+
   resources :students do
     collection { post :import }
   end
