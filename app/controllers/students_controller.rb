@@ -145,8 +145,21 @@ class StudentsController < ApplicationController
     end
   end
 
+  def update_credits
+    @student = Student.find(params[:credits][:id])
+    @credits = params[:credits][:credits]
+
+    @student.redeem_credit(@credits)
+
+    respond_to do |format|
+      format.json { render json: @student }
+      format.js
+    end
+  end
+
   def import
     Student.import(params[:file])
     redirect_to students_path, notice: "Students imported."
   end
+
 end

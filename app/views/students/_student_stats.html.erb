@@ -9,7 +9,9 @@
         <h3>Total XP: <%= @student.xp_total %></h3>
       </p>
       <p>
-        <h3>Total Credits: <%= @student.credits %></h3>
+        <div id="totalCredits">
+          <h3>Total Credits: <%= @student.credits %></h3>
+        </div>
       </p>
       <%if current_user.employee? %>
       <p>
