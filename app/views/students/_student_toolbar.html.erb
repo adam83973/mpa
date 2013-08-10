@@ -7,7 +7,7 @@
         <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
       </li>
       <li>
-        <%= link_to "Redeem Credits", edit_student_path(@student), class: "m-btn blue" %>
+        <%= link_to "Redeem Credits","#creditsModal", data: {toggle: :modal}, class: "m-btn blue"%>
       </li>
       <li>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>

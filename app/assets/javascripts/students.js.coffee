@@ -20,12 +20,21 @@ jQuery ->
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-    $('#student_birth_date').datepicker
+jQuery ->
+  $('#student_birth_date').datepicker
+    dateFormat: 'yy-mm-dd'
+jQuery ->
+  $('#student_start_date').datepicker
       dateFormat: 'yy-mm-dd'
-    $('#student_start_date').datepicker
-        dateFormat: 'yy-mm-dd'
-    $('#student_restart_date').datepicker
-        dateFormat: 'yy-mm-dd'
-    $('#student_return_date').datepicker
-        dateFormat: 'yy-mm-dd'
+jQuery ->
+  $('#student_restart_date').datepicker
+      dateFormat: 'yy-mm-dd'
+jQuery ->
+  $('#student_return_date').datepicker
+      dateFormat: 'yy-mm-dd'
 
+jQuery ->
+  $('#creditsModal').modal('hide')
+
+jQuery ->
+  $('#creditsModal form :submit').click ->

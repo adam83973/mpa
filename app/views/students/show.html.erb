@@ -18,3 +18,24 @@
 <span class="row">
   <%= render 'student_comment_feed'%>
 </span>
+
+<div id="creditsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-    labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Redeem Credits.</h3>
+  </div>
+
+  <div class="modal-body">
+    <center>
+     <h3>How many credits are you spending?</h3>
+     <%= @credits %>
+     <%= simple_form_for :credits, url: 'update_credits', remote: true do |f| %>
+       <%= f.error_notification %>
+       <%= f.input :credits, label: false %>
+       <%= f.input :id, as: :hidden, :input_html => { value: @student.id } %>
+       <%= f.button :submit, class: "m-btn" %>
+     <% end %>
+     <br>
+   </center>
+ </div>
+</div>

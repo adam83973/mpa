@@ -41,6 +41,12 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def redeem_credit(creds)
+    credits = creds.to_i
+    credits = - credits
+      increment!(:credits,  credits)
+  end
+
   def calculate_rank(experience_point)
     ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
   end
