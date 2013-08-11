@@ -35,6 +35,3 @@ jQuery ->
 
 jQuery ->
   $('#creditsModal').modal('hide')
-
-jQuery ->
-  $('#creditsModal form :submit').click ->
