@@ -127,7 +127,7 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -149,11 +149,15 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:credits][:id])
     @credits = params[:credits][:credits]
 
-    @student.redeem_credit(@credits)
+    if @student.credits >= @credits.to_i
+      @student.redeem_credit(@credits)
 
-    respond_to do |format|
-      format.json { render json: @student }
-      format.js
+      respond_to do |format|
+        format.json { render json: @student }
+        format.js
+      end
+    else
+        @response = "Student does not have enough credits."
     end
   end
 
