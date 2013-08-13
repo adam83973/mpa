@@ -17,7 +17,7 @@
 
 <p>
   <b>Last Updated:</b>
-  <%= @experience_point.updated_at %>
+  <%= @experience_point.updated_at.localtime.strftime("%A, %B %e, %l:%M %p") %>
 </p>
 
 <% if @experience_point.comment? %>
