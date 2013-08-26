@@ -5,13 +5,14 @@ class OfferingsController < ApplicationController
   # GET /offerings.json
   def index
     if current_user.employee?
-      @offerings = Offering.all
+      @offerings = Offering.order(:id)
       @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
       @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @offerings }
+        format.csv { send_data @offerings.to_csv }
       end
     else
       redirect_to root_path
@@ -94,8 +95,20 @@ class OfferingsController < ApplicationController
     end
   end
 
-  def import
-    Offering.import(params[:file])
-    redirect_to offerings_path, notice: "Offerings imported."
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |student|
+        csv << offering.attributes.values_at(*column_names)
+      end
+    end
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      offering = find_by_id(row["id"]) || new
+      offering.attributes = row.to_hash.slice(*accessible_attributes)
+      offering.save!
+    end
   end
 end
