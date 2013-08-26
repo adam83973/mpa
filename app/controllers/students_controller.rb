@@ -46,7 +46,18 @@ class StudentsController < ApplicationController
         end
       end
 
+    #Tags negative comments to allow styling in student show
+      @student_xp_comments = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
       @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
+
+        @student_xp_comments.each do |xp|
+          if xp.points == 0 && xp.experience_id != 3
+            xp[:negative] = 1
+          else
+            xp[:negative] = 0
+          end
+        end
+
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
       @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
 
