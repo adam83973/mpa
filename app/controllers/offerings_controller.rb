@@ -106,7 +106,7 @@ class OfferingsController < ApplicationController
 
   def import
     Offering.import(params[:file])
-    redirect_to students_path, notice: "Offerings imported/updated."
+    redirect_to offerings_path, notice: "Offerings imported/updated."
   end
 
 end
