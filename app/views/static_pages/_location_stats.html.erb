@@ -19,7 +19,7 @@
     <% if @user_location.offerings.count == 0 %>
       <p><em>There are no students enrolled.</em></p>
     <% else %>
-    <%= @active_student_count / @user_location.offerings.count %>
+    <%= @active_student_count / @user_location.offerings.where("active = ?", true).count %>
     <% end %>
   </p>
 </div>
