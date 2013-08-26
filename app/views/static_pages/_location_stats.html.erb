@@ -4,7 +4,7 @@
   </div>
   <p>
     <b># of Offerings: </b>
-    <%= @user_location.offerings.count %>
+    <%= @user_location.offerings.where("active = ?", true).count %>
   </p>
   <p>
     <b># of Students: </b>
