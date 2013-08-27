@@ -2,8 +2,12 @@
 <% else %>
 <h3>New Students</h3>
   <% @new_students_location.each do |student| %>
-    <% student.offerings.each do |offering| %>
-  <p><b><%= link_to "#{student.full_name}", student %></b> is starting in: <b><%= offering.offering_name %></b></p>
+    <% if student.attended_first_class? %>
+
+    <% else %>
+      <% student.offerings.each do |offering| %>
+        <p><b><%= link_to "#{student.full_name}", student %></b> is starting in: <b><%= offering.offering_name %></b></p>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
