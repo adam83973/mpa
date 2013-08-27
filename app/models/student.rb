@@ -114,7 +114,8 @@ class Student < ActiveRecord::Base
   end
 
 #checks to see if student has attended first class
-  def attended?
+  def attended_first_class?
+    !experience_points.empty?
   end
 
 
