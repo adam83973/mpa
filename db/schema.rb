@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712144828) do
+ActiveRecord::Schema.define(:version => 20130829111810) do
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(:version => 20130712144828) do
     t.datetime "updated_at",  :null => false
     t.string   "grade"
   end
+
+  create_table "courses_problems", :id => false, :force => true do |t|
+    t.integer "problem_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_problems", ["problem_id", "course_id"], :name => "index_courses_problems_on_problem_id_and_course_id"
 
   create_table "experience_points", :force => true do |t|
     t.integer  "experience_id"
@@ -101,6 +108,31 @@ ActiveRecord::Schema.define(:version => 20130712144828) do
   end
 
   add_index "offerings_users", ["user_id", "offering_id"], :name => "index_offerings_users_on_user_id_and_offering_id"
+
+  create_table "problems", :force => true do |t|
+    t.string   "title"
+    t.string   "desc"
+    t.string   "strategies"
+    t.string   "source"
+    t.string   "answer"
+    t.string   "methods"
+    t.string   "variations"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "problems_strategies", :id => false, :force => true do |t|
+    t.integer "problem_id"
+    t.integer "strategy_id"
+  end
+
+  add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
+
+  create_table "strategies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "students", :force => true do |t|
     t.string   "first_name"

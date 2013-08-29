@@ -1,0 +1,47 @@
+<p>
+  <h2>Problem: <%= @problem.title %></h2>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @problem.desc %>
+</p>
+
+<p>
+  <b>For Ranks:</b><br />
+  <% @problem.courses.each do |course|%>
+    <%= course.course_name %><br />
+  <% end %>
+</p>
+
+<p>
+  <b>Strategies Used:</b><br />
+  <% @problem.strategies.each do |strategy|%>
+    <%= strategy.name %><br />
+  <% end %>
+</p>
+
+<p>
+  <b>Answer:</b>
+  <%= @problem.answer %>
+</p>
+
+<p>
+  <b>Methods:</b>
+  <%= @problem.methods %>
+</p>
+
+<p>
+  <b>Variations:</b>
+  <%= @problem.variations %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%= @problem.source %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_problem_path(@problem) %> |
+<%= link_to 'Back', problems_path %>
