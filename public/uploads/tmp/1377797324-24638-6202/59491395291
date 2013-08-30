@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>(Mathhombre) Miscellanea: Photo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    <meta name="apple-itunes-app" content="app-id=305343404,app-argument=tumblr://x-callback-url/photo?referrer=smart-app-banner">
+    <link type="text/css" rel="stylesheet" media="screen" href="http://assets.tumblr.com/assets/styles/blue_bar.css?_v=73959bba43848a75ee665e5f859754dc">
+<link type="text/css" rel="stylesheet" media="screen" href="http://assets.tumblr.com/assets/styles/single_media.css?_v=de30b7b3db95749af52c7f1169ab6bd7">
+<script type="text/javascript" src="http://assets.tumblr.com/assets/scripts/single_media_image.js?_v=01cb44584294d2dcf859e15ca6a9bd3e"></script>
+</head>
+<body class="single_image ">
+    
+    <div id="nav_image" class="blue_bar dark_gray">
+        <a href="http://mathhombre.tumblr.com/post/59491395291/people-like-the-pentagons-so-i-thought-i-would" class="title">
+            <span id="back_to_blog"></span>
+            <img class="avatar" src="http://24.media.tumblr.com/avatar_e71b2702d26d_40.png" alt="" />
+            <h1 class="blog_title">(Mathhombre) Miscellanea</h1>
+        </a>
+        <div id="register" class="nav_right">
+                        <iframe scrolling="no" frameborder="0" id="tumblr_controls" src="http://assets.tumblr.com/assets/html/archive_iframe.html?_v=ab5479c2d72334d220b4c2d23f96686b&amp;src=http%3A%2F%2Fmathhombre.tumblr.com%2Fimage%2F59491395291&amp;name=mathhombre" width="400" height="28" style="border:0; background-color:transparent; overflow:hidden; " allowtransparency="true"></iframe>        </div>
+    </div>
+    <div id="save_image" class="hide-off-screen">
+        <form id="save_form" method="post" target="save_iframe"><input type="hidden" name="dl" value="1"></form>
+        <iframe id="save_iframe" name="save_iframe" frameborder="0" width="1" height="1"></iframe>
+    </div>
+
+<div id="content">
+    <div id="content-wrapper">
+        <img id="content-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="http://24.media.tumblr.com/9940a1cd133442658554bb8f52319ae9/tumblr_ms71qyqPak1qmfh36o1_1280.gif" data-height="609" data-width="747">
+    </div>
+</div>
+<div id="loader" class="Knight-Rider-loader centered"><div class="Knight-Rider-bar"></div><div class="Knight-Rider-bar"></div><div class="Knight-Rider-bar"></div></div>
+    
+<iframe src="http://assets.tumblr.com/analytics.html?b2d0bf74e4eb4f2754656bc8af6444f2" scrolling="no" width="1" height="1" frameborder="0" style="background-color:transparent; overflow:hidden; position:absolute; top:0; left:0 z-index:9999;" id="ga_target"></iframe>
+
+    <script>
+        var COMSCORE = true;
+        window.setTimeout(function() {
+            var analytics_frame = document.getElementById('ga_target');
+            analytics_frame.contentWindow.postMessage('enable_comscore;' + window.location, analytics_frame.src.split('/analytics.html')[0]);
+        }, 1000);
+    </script>
+
+
+
+    <script type="text/javascript">
+      var _qevents = _qevents || [];
+
+      (function() {
+       var elem = document.createElement('script');
+
+       elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+       elem.async = true;
+       elem.type = "text/javascript";
+       var scpt = document.getElementsByTagName('script')[0];
+       scpt.parentNode.insertBefore(elem, scpt);
+      })();
+    </script>
+    <script type="text/javascript">
+        _qevents.push( { qacct: 'p-19UtqE8ngoZbM' } );
+    </script>
+    <noscript>
+        <div style="display: none;"><img src="//pixel.quantserve.com/pixel/'p-19UtqE8ngoZbM'.gif" height="1" width="1" alt="Quantcast"/></div>
+    </noscript>
+
+
+    <script type="text/javascript">!function(s){s.src='http://www.tumblr.com/impixu?T=1377797324&J=eyJ0eXBlIjoidXJsIiwidXJsIjoiaHR0cDpcL1wvbWF0aGhvbWJyZS50dW1ibHIuY29tXC9pbWFnZVwvNTk0OTEzOTUyOTEiLCJyZXF0eXBlIjowfQ==&U=EPJJIOKAND&K=d376d5e44a139a90e10a497b3c230d7cf0148e1cd8012f7167a628645bc24495&R='.replace(/&R=[^&$]*/,'').concat('&R='+escape(document.referrer)).slice(0,2000).replace(/%.?.?$/,'');}(new Image());</script><noscript><img style="position:absolute;z-index:-3334;top:0px;left:0px;visibility:hidden;" src="http://www.tumblr.com/impixu?T=1377797324&J=eyJ0eXBlIjoidXJsIiwidXJsIjoiaHR0cDpcL1wvbWF0aGhvbWJyZS50dW1ibHIuY29tXC9pbWFnZVwvNTk0OTEzOTUyOTEiLCJyZXF0eXBlIjowLCJub3NjcmlwdCI6MX0=&U=EPJJIOKAND&K=859f5ebc96c05ad5ca46bf5321bc6193cd503a9608118e7e6a749feb76d9a12e&R="></noscript></body>
+</html>

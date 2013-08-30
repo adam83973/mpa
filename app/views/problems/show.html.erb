@@ -1,24 +1,28 @@
+<div class="hero-unit">
+<h1><%= @problem.title %></h1>
+<table class="table table-condensed">
+  <tr>
+    <td style="width:250px;">
+      <% if @problem.image_url %>
+        <%= link_to image_tag(@problem.image_url(:thumb)), @problem.image.url %>
+      <% end %>
+    </td>
+    <td>
+      <b>Appropriate For:</b><br />
+      <% @problem.courses.each do |course|%>
+        <%= course.course_name %><br />
+      <% end %>
+    </td>
+    <td>
+      <b>Potential Strategies:</b><br />
+      <% @problem.strategies.each do |strategy|%>
+        <%= strategy.name %><br />
+      <% end %>
+    </td>
+  </tr>
+</table>
 <p>
-  <h2>Problem: <%= @problem.title %></h2>
-</p>
-
-<p>
-  <b>Description:</b>
   <%= @problem.desc %>
-</p>
-
-<p>
-  <b>For Ranks:</b><br />
-  <% @problem.courses.each do |course|%>
-    <%= course.course_name %><br />
-  <% end %>
-</p>
-
-<p>
-  <b>Strategies Used:</b><br />
-  <% @problem.strategies.each do |strategy|%>
-    <%= strategy.name %><br />
-  <% end %>
 </p>
 
 <p>
@@ -27,7 +31,7 @@
 </p>
 
 <p>
-  <b>Methods:</b>
+  <b>Solutions:</b>
   <%= @problem.methods %>
 </p>
 
@@ -40,8 +44,7 @@
   <b>Source:</b>
   <%= @problem.source %>
 </p>
+</div>
 
-
-
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+<%= link_to 'Edit', edit_problem_path(@problem), class: 'm-btn' %>
+<%= link_to 'Back', problems_path, class: 'm-btn' %>
