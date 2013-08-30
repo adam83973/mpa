@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /problems
   # GET /problems.json
   def index
