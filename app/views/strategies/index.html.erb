@@ -1,6 +1,6 @@
-<h1>Listing strategies</h1>
+<h1>Strategies</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
     <th></th>
@@ -20,4 +20,8 @@
 
 <br />
 
-<%= link_to 'New Strategy', new_strategy_path %>
+<% if signed_in? && current_user.admin? %>
+  <p>
+    <%= link_to 'New Strategy', new_strategy_path, class: "m-btn green" %>
+  </p>
+<% end %>

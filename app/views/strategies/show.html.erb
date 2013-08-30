@@ -1,10 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @strategy.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_strategy_path(@strategy) %> |
-<%= link_to 'Back', strategies_path %>
+<h1><%= @strategy.name %></h1>
+  
+<%= link_to 'Edit', edit_strategy_path(@strategy), class: 'm-btn' %>
+<%= link_to 'Back', strategies_path, class: 'm-btn' %>
