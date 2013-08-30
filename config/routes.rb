@@ -1,5 +1,11 @@
 MathPlus::Application.routes.draw do
 
+  resources :strategies
+
+
+  resources :problems
+
+
   root to: 'static_pages#home'
 
   resources :devise
