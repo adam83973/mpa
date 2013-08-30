@@ -1,33 +1,44 @@
-<h1>Listing problems</h1>
+<h1>99 Problems</h1>
 
-<table>
+<table id="problems" class="display">
+<thead>
   <tr>
     <th>Title</th>
-    <th>Desc</th>
-    <th>Source</th>
-    <th>Answer</th>
-    <th>Methods</th>
-    <th>Variations</th>
+    <th>Image</th>
+    <th>Strategies</th>
+    <th>Classes</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
+</thead>
+<tbody>
 <% @problems.each do |problem| %>
   <tr>
     <td><%= problem.title %></td>
-    <td><%= problem.desc %></td>
-    <td><%= problem.source %></td>
-    <td><%= problem.answer %></td>
-    <td><%= problem.methods %></td>
-    <td><%= problem.variations %></td>
+    <td><% if problem.image_url %>
+        <%= link_to image_tag(problem.image_url(:thumb)), problem.image.url %>
+        <% end %>
+    </td>
+    <td>
+        <% problem.strategies.each do |strategy| %>
+        <%= strategy.name %><br />
+        <% end %>
+    </td>
+    <td>
+        <% problem.courses.each do |course| %>
+        <%= course.course_name %><br />
+        <% end %>
+    </td>
     <td><%= link_to 'Show', problem %></td>
     <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
     <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Problem', new_problem_path %>
+<%= link_to 'New Problem', new_problem_path, class: 'm-btn green' %>
+<br /><br />
