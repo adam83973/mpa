@@ -1,21 +1,21 @@
 <%= simple_form_for(@problem) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div class="form-horizontal">
     <%= f.input :title %>
-    <%= f.input :desc, as: :text, :input_html => { :rows => 5 } %>
-    <%= f.input :source %>
-    <%= f.association :courses, label_method: :course_name, as: :check_boxes %>
-    <%= f.association :strategies, label_method: :name, as: :check_boxes %>
+    <%= f.input :desc, label: 'Question & Description', as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :source, :input_html => { :class => 'span8' } %>
+    <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.association :strategies, label_method: :name, as: :check_boxes, item_wrapper_class: 'inline' %>
     <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @problem.image? %>
     <%= image_tag(@problem.image_url(:thumb)) if @problem.image? %>
     <% if !@problem.image? %>
       <%= f.input :image, as: :file, label: "Upload Image" %>
-      <%= f.input :remote_image_url, label: "Or Copy Image from URL" %>
+      <%= f.input :remote_image_url, label: "Or Copy Image from URL", :input_html => { :class => 'span8'} %>
     <% end %>
-    <%= f.input :answer %>
-    <%= f.input :methods %>
-    <%= f.input :variations %>
+    <%= f.input :answer, :input_html => { :class => 'span8' } %>
+    <%= f.input :methods, as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :variations, as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
   </div>
 
   <div class="form-actions">
