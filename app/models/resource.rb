@@ -1,7 +1,8 @@
 class Resource < ActiveRecord::Base
-  attr_accessible :filename, :content_type, :file_size, :file
+  attr_accessible :filename, :content_type, :file_size, :file, :problem_ids
 
-  has_many :problems, :through => :resourcing, :source => :resourceable, :source_type => "Problems"
+  has_many :problems, :through => :resourcings, :source => :resourceable, :source_type => "Problem"
+  has_many :resourcings
 
   mount_uploader :file, FileUploader
 

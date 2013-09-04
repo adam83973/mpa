@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903201800) do
+ActiveRecord::Schema.define(:version => 20130904020452) do
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
@@ -136,6 +136,14 @@ ActiveRecord::Schema.define(:version => 20130903201800) do
     t.string   "content_type"
     t.float    "file_size"
     t.string   "file"
+  end
+
+  create_table "resourcings", :force => true do |t|
+    t.integer  "resource_id"
+    t.integer  "resourceable_id"
+    t.string   "resourceable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "strategies", :force => true do |t|
