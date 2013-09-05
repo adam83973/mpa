@@ -1,39 +1,18 @@
-<h1>Resources</h1>
+<h1>Resource Gallery</h1>
 
-<% if signed_in? && current_user.admin? %>
-  <p>
-    <%= link_to 'New Resource', new_resource_path, class: 'm-btn green' %>
-  </p>
+<div id="resources">
+  <%= render @resources %>
+</div>
+<div class="clear"></div>
+
+<%= form_for Resource.new do |f| %>
+  <%= f.label :file, "Upload resources:" %>
+  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
 <% end %>
 
-<table id="resources" class="display">
-<thead>
-  <tr>
-    <th>Filename</th>
-    <th>Thumbnail</th>
-    <th>Type</th>
-    <th>Size (Kb)</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-<tbody>
-<% @resources.each do |resource| %>
-  <tr>
-    <td><%= resource.filename %></td>
-    <td><% if resource.file_url %>
-        <%= link_to image_tag(resource.file_url(:thumb)), resource.file.url %>
-        <% end %>
-    </td>
-    <td><%= resource.content_type %></td>
-    <td><%= resource.file_size.to_i / 1024 %></td>
-    <td><%= link_to 'Show', resource %></td>
-    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-    <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
-
-<br />
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>

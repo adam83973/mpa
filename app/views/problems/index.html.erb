@@ -46,10 +46,3 @@
 
 <br />
 
-<% if signed_in? && current_user.admin? %>
-  <p>
-    <%= link_to 'New Problem', new_problem_path, class: 'm-btn green' %>
-  </p>
-<% end %>
-
-<br /><br />

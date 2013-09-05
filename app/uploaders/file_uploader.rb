@@ -6,6 +6,10 @@ class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
+  # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility
+  include Sprockets::Helpers::RailsHelper
+  include Sprockets::Helpers::IsolatedHelper
+
   # Choose what kind of storage to use for this uploader:
   # storage :file
   storage :fog
@@ -36,7 +40,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb, :if => :image? do
-    process :resize_to_limit => [200, 200]
+    process :resize_to_fit => [200, 200]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -53,7 +57,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
 protected
   def image?(new_file)
-    new_file.content_type.start_with? 'image'
+    (new_file.content_type.start_with? 'image') || (new_file.content_type.include? 'pdf')
   end
 
 end

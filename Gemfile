@@ -38,6 +38,7 @@ group :assets do
   gem "selectivizr-rails", "~> 1.0.1"
   gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-fileupload-rails'
 end
 
 group :production do
