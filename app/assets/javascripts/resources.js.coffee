@@ -19,3 +19,5 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.bar').css('width', progress + '%')
+
+  $('#resource_problem_ids').chosen()

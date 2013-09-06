@@ -1,12 +1,7 @@
 <h1>Resource Gallery</h1>
 
-<div id="resources">
-  <%= render @resources %>
-</div>
-<div class="clear"></div>
-
+<b>Drag images or PDFs to Upload them to Resources Database</b>
 <%= form_for Resource.new do |f| %>
-  <%= f.label :file, "Upload resources:" %>
   <%= f.file_field :file, multiple: true, name: "resource[file]" %>
 <% end %>
 
@@ -16,3 +11,8 @@
   <div class="progress"><div class="bar" style="width: 0%"></div></div>
 </div>
 </script>
+<hr />
+<div id="resources">
+  <%= render @resources %>
+</div>
+<div class="clear"></div>
