@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Filename:</b>
+  <%= @resource.filename %><br />
+  <%= link_to image_tag(@resource.file_url(:thumb)), @resource.file.url %>
+</p>
+
+<p>
+  <b>Associated to Problem(s):</b><br />
+  <% @resource.problems.each do |problem| %>
+  	<%= problem.title %>
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_resource_path(@resource), class: 'm-btn' %>
+<%= link_to 'Back', resources_path, class: 'm-btn' %>

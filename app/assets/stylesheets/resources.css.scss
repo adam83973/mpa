@@ -1,0 +1,23 @@
+// Place all the styles related to the Resources controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.resource_thumb {
+  border: solid 1px #CCC;
+  padding: 10px;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  height: 250px;
+
+  .name {
+    padding-top: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .actions {
+    font-size: 12px;
+    text-align: center;
+    color: #777;
+  }
+}

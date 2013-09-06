@@ -44,6 +44,17 @@
   <b>Source:</b>
   <%= @problem.source %>
 </p>
+
+<p>
+  <b>Resources:</b><br />
+  <% @problem.resources.each do |resource| %>
+    <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
+  <% end %>
+</p>
+
+
+
+
 </div>
 
 <%= link_to 'Edit', edit_problem_path(@problem), class: 'm-btn' %>

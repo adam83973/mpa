@@ -1,0 +1,18 @@
+<h1>Resource Gallery</h1>
+
+<div id="resources">
+  <%= render @resources %>
+</div>
+<div class="clear"></div>
+
+<%= form_for Resource.new do |f| %>
+  <%= f.label :file, "Upload resources:" %>
+  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>

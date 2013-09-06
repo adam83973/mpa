@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130831010652) do
+ActiveRecord::Schema.define(:version => 20130904020452) do
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
@@ -128,6 +128,23 @@ ActiveRecord::Schema.define(:version => 20130831010652) do
   end
 
   add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
+
+  create_table "resources", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "filename"
+    t.string   "content_type"
+    t.float    "file_size"
+    t.string   "file"
+  end
+
+  create_table "resourcings", :force => true do |t|
+    t.integer  "resource_id"
+    t.integer  "resourceable_id"
+    t.string   "resourceable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "strategies", :force => true do |t|
     t.string   "name"
