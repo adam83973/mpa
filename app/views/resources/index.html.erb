@@ -1,17 +1,28 @@
 <h1>Resource Gallery</h1>
 
-<b>Drag images or PDFs to Upload them to Resources Database</b>
-<%= form_for Resource.new do |f| %>
-  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
-<% end %>
+<div class="well">
+	<b>Drag and drop images or PDFs to add them to Resources</b>
+	<%= form_for Resource.new do |f| %>
+	  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
+	<% end %>
 
-<script id="template-upload" type="text/x-tmpl">
-<div class="upload">
-  {%=o.name%}
-  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+	<script id="template-upload" type="text/x-tmpl">
+	<div class="upload">
+	  {%=o.name%}
+	  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+	</div>
+	</script>
+
+	<div id="uploads">
+	  <%= render @uploads if @uploads %>
+	</div>
+	<div class="clear"></div>
 </div>
-</script>
+
 <hr />
+
+<%= will_paginate @resources %>
+
 <div id="resources">
   <%= render @resources %>
 </div>
