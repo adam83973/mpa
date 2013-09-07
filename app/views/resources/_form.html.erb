@@ -2,11 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-horizontal">
-	<%= f.input :filename, label: "File Name" %>
-    <%= image_tag(@resource.file_url(:thumb)) if @resource.file? %>
     <% if !@resource.file? %>
 		  <%= f.input :file, as: :file, label: "Upload File" %>
 	  <% end %>
+    <%= f.input :filename, label: "File Name" %>
     <%= f.association :problems, label_method: :title, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
   </div>
 

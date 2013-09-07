@@ -1,18 +1,39 @@
-<h1>Resource Gallery</h1>
+<h1>Resources</h1>
 
-<div id="resources">
-  <%= render @resources %>
+<div class="row">
+	<div class="span8">
+		<div class="well">
+			<b>Drag and drop images or PDFs to add them to Resources</b>
+			<%= form_for Resource.new do |f| %>
+			  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
+			<% end %>
+
+			<script id="template-upload" type="text/x-tmpl">
+			<div class="upload">
+			  {%=o.name%}
+			  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+			</div>
+			</script>
+
+			<div id="uploads">
+			  <%= render @uploads if @uploads %>
+			</div>
+		</div>
+	</div>
+	<div class="span4">
+		<%= form_tag resources_path, :method => 'get' do %>
+			<%= text_field_tag :search, params[:search] %><br />
+			<%= submit_tag "Search", name: nil, class: 'm-btn' %>
+		<% end %>
+	</div>
 </div>
-<div class="clear"></div>
 
-<%= form_for Resource.new do |f| %>
-  <%= f.label :file, "Upload resources:" %>
-  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
-<% end %>
+<div class="row">
+	<div class="span12">
+		<%= will_paginate @resources %>
 
-<script id="template-upload" type="text/x-tmpl">
-<div class="upload">
-  {%=o.name%}
-  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+		<div id="resources">
+		  <%= render @resources %>
+		</div>
+	</div>
 </div>
-</script>

@@ -1,4 +1,6 @@
-<h1>Editing resource</h1>
+<h1>Edit Resource</h1>
+
+<%= link_to image_tag(@resource.file_url(:thumb)), @resource.file.url %><br /><br />
 
 <%= render 'form' %>
 

@@ -2,13 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-#jQuery ->
-#	$("#resources").dataTable
-#      "bPaginate": true,   #hide pagination control
-#      "bFilter": true,     #hide filter control
-#      "bJQueryUI": true
-
 jQuery ->
+	$("#resources").dataTable
+      "bPaginate": true,   #hide pagination control
+      "bFilter": true,     #hide filter control
+      "bJQueryUI": true
+
   $('#new_resource').fileupload
     dataType: "script"
     add: (e, data) ->
@@ -19,3 +18,5 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.bar').css('width', progress + '%')
+
+  $('#resource_problem_ids').chosen()

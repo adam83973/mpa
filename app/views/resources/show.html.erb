@@ -1,15 +1,12 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Filename:</b>
-  <%= @resource.filename %><br />
+  <h3><%= @resource.filename %></h2>
   <%= link_to image_tag(@resource.file_url(:thumb)), @resource.file.url %>
 </p>
 
 <p>
   <b>Associated to Problem(s):</b><br />
   <% @resource.problems.each do |problem| %>
-  	<%= problem.title %>
+  	<%= problem.title %><br />
   <% end %>
 </p>
 
