@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-	$("#resources").dataTable
+	$("#resources_table").dataTable
       "bPaginate": true,   #hide pagination control
       "bFilter": true,     #hide filter control
       "bJQueryUI": true
