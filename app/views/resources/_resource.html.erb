@@ -1,8 +1,8 @@
 <div class="resource_thumb">
   <div class="name"><%= resource.filename %></div>
   <div class="actions">
-    <%= link_to "edit", edit_resource_path(resource) %> |
-    <%= link_to "remove", resource, :confirm => 'Are you sure?', :method => :delete %>
+    <%= link_to "Edit", edit_resource_path(resource) %> |
+    <%= link_to "Remove", resource, :confirm => 'Are you sure?', :method => :delete %>
   </div>
   <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource if resource.file? %></div>
 </div>

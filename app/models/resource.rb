@@ -10,17 +10,13 @@ class Resource < ActiveRecord::Base
   before_create :default_name
   before_save :update_file_attributes
 
-  #one convenient method to pass jq_upload the necessary information
-  # def to_jq_upload
-  #   {
-  #     "name" => read_attribute(:file),
-  #     "size" => file.size,
-  #     "url" => file.url,
-  #     "thumbnail_url" => file.thumb.url,
-  #     "delete_url" => id,
-  #     "delete_type" => "DELETE" 
-  #   }
-  # end
+  def self.search(search)
+    if search
+      where('filename LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
 
   private
   

@@ -2,7 +2,6 @@
   <%= f.error_notification %>
 
   <div class="form-horizontal">
-    <%= image_tag(@resource.file_url(:thumb)) if @resource.file? %>
     <% if !@resource.file? %>
 		  <%= f.input :file, as: :file, label: "Upload File" %>
 	  <% end %>
