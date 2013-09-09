@@ -1,5 +1,7 @@
 class StrategiesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_employee
+
   # GET /strategies
   # GET /strategies.json
   def index

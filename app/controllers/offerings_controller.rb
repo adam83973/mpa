@@ -1,5 +1,6 @@
 class OfferingsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_admin
 
   # GET /offerings
   # GET /offerings.json

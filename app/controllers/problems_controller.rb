@@ -1,5 +1,7 @@
 class ProblemsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_employee
+
   # GET /problems
   # GET /problems.json
   def index
