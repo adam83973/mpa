@@ -87,6 +87,7 @@
     </p>
 
     <p>
+      <%= link_to "Edit User", edit_user_path(@user), class: "m-btn"%>
       <%= render 'shared/nav_buttons' %>
 
       <% if @user.parent? %>

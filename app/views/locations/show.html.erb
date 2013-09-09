@@ -52,9 +52,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @location.offerings.count %></td>
-              <td><%= @location.students.count %></td>
-              <td><%= @location.students.count / @location.offerings.count %></td>
+              <td><%= @location.offerings.where("active = ?", true).count %></td>
+              <td><%= @location.students.where("status = ?", "Active").count %></td>
+              <td><%= @location.students.where("status = ?", "Active").count / @location.offerings.where("active = ?", true).count %></td>
             </tr>
           </tbody>
         </table>
