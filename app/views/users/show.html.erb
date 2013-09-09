@@ -100,10 +100,10 @@
 </div>
 
 <div class="row">
-  <% unless current_user.parent? || current_user.teacher? %>
+  <% if current_user.admin? %>
   <div class="span8">
-    <% if @user.infusion_id != nil %>
-    <%= render 'billing' %>
+    <% if @user.role == "Parent" && @user.infusion_id != nil %>
+      <%= render 'billing' %>
     <% end %>
   </div>
   <% end %>
