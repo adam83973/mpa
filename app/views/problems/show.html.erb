@@ -1,49 +1,56 @@
 <div class="hero-unit">
-<h1><%= @problem.title %></h1>
-<table class="table table-condensed">
-  <tr>
-    <td style="width:250px;">
-      <% if @problem.image_url %>
-        <%= link_to image_tag(@problem.image_url(:thumb)), @problem.image.url %>
-      <% end %>
-    </td>
-    <td>
-      <b>Appropriate For:</b><br />
-      <% @problem.courses.each do |course|%>
-        <%= course.course_name %><br />
-      <% end %>
-    </td>
-    <td>
-      <b>Potential Strategies:</b><br />
-      <% @problem.strategies.each do |strategy|%>
-        <%= strategy.name %><br />
-      <% end %>
-    </td>
-  </tr>
-</table>
-<p>
-  <%= @problem.desc %>
-</p>
+  <h1><%= @problem.title %></h1>
+  <table class="table table-condensed">
+    <tr>
+      <td style="width:250px;">
+        <% if @problem.image_url %>
+          <%= link_to image_tag(@problem.image_url(:thumb)), @problem.image.url %>
+        <% end %>
+      </td>
+      <td>
+        <b>Appropriate For:</b><br />
+        <% @problem.courses.each do |course|%>
+          <%= course.course_name %><br />
+        <% end %>
+      </td>
+      <td>
+        <b>Potential Strategies:</b><br />
+        <% @problem.strategies.each do |strategy|%>
+          <%= strategy.name %><br />
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <%= @problem.desc %>
+  </p>
 
-<p>
-  <b>Answer:</b>
-  <%= @problem.answer %>
-</p>
+  <p>
+    <b>Answer:</b>
+    <%= @problem.answer %>
+  </p>
 
-<p>
-  <b>Solutions:</b>
-  <%= @problem.methods %>
-</p>
+  <p>
+    <b>Solutions:</b>
+    <%= @problem.methods %>
+  </p>
 
-<p>
-  <b>Variations:</b>
-  <%= @problem.variations %>
-</p>
+  <p>
+    <b>Variations:</b>
+    <%= @problem.variations %>
+  </p>
 
-<p>
-  <b>Source:</b>
-  <%= @problem.source %>
-</p>
+  <p>
+    <b>Source:</b>
+    <%= @problem.source %>
+  </p>
+
+  <p>
+    <b>Resources:</b><br />
+    <% @problem.resources.each do |resource| %>
+      <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
+    <% end %>
+  </p>
 </div>
 
 <%= link_to 'Edit', edit_problem_path(@problem), class: 'm-btn' %>

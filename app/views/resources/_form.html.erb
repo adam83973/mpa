@@ -1,0 +1,15 @@
+<%= simple_form_for(@resource) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-horizontal">
+    <% if !@resource.file? %>
+		  <%= f.input :file, as: :file, label: "Upload File" %>
+	  <% end %>
+    <%= f.input :filename, label: "File Name" %>
+    <%= f.association :problems, label_method: :title, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -20,6 +20,7 @@ gem 'client_side_validations-simple_form'
 gem 'css3-microsoft-metro-buttons-rails'
 gem 'coffee-rails', '~> 3.2.1'
 gem 'infusionsoft', git: 'git://github.com/nateleavitt/infusionsoft.git'
+gem 'will_paginate'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -38,6 +39,8 @@ group :assets do
   gem "selectivizr-rails", "~> 1.0.1"
   gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-fileupload-rails'
+  gem 'chosen-rails'
 end
 
 group :production do
