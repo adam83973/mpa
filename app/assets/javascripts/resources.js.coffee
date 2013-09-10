@@ -20,3 +20,4 @@ jQuery ->
         data.context.find('.bar').css('width', progress + '%')
 
   $('#resource_problem_ids').chosen()
+  $('#resource_activity_ids').chosen()

@@ -10,6 +10,12 @@
   <% end %>
 </p>
 
+<p>
+  <b>Associated to Activity(s):</b><br />
+  <% @resource.activities.each do |activity| %>
+  	<%= activity.title %><br />
+  <% end %>
+</p>
 
 <%= link_to 'Edit', edit_resource_path(@resource), class: 'm-btn' %>
 <%= link_to 'Back', resources_path, class: 'm-btn' %>

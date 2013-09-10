@@ -1,0 +1,52 @@
+<div class="hero-unit">
+  <h1><%= @activity.title %></h1>
+  <table class="table table-condensed">
+    <tr>
+      <td style="width:250px;">
+        <% if @activity.image_url %>
+          <%= link_to image_tag(@activity.image_url(:thumb)), @activity.image.url %>
+        <% end %>
+      </td>
+      <td>
+        <b>Appropriate For:</b><br />
+        <% @activity.courses.each do |course|%>
+          <%= course.course_name %><br />
+        <% end %>
+      </td>
+      <td>
+        <b>Resources:</b><br />
+        <% @activity.resources.each do |resource| %>
+          <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <b>Objective / Description:</b><br />
+    <%= @activity.objective %>
+  </p>
+
+  <p>
+    <b>Setup / Materials:</b><br />
+    <%= @activity.setup %>
+  </p>
+
+  <p>
+    <b>Instructions / Guidelines:</b><br />
+    <%= @activity.content %>
+  </p>
+
+  <p>
+    <b>Variations:</b><br />
+    <%= @activity.variations %>
+  </p>
+
+  <p>
+    <b>Source:</b>
+    <%= @activity.source %>
+  </p>
+
+</div>
+
+<%= link_to 'Edit', edit_activity_path(@activity), class: 'm-btn' %>
+<%= link_to 'Back', activities_path, class: 'm-btn' %>

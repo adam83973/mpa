@@ -1,4 +1,7 @@
 class InfusionPagesController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :authorize_admin
+
   def home
   	if params[:search]
   		# get contacts with matching last name

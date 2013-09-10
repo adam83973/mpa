@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_admin
 
 
 
@@ -93,4 +94,7 @@ class CoursesController < ApplicationController
     Course.import(params[:file])
     redirect_to courses_path, notice: "Course imported."
   end
+
 end
+
+

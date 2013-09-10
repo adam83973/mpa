@@ -1,4 +1,6 @@
 class BindersController < ActionController::Base
+  before_filter :authenticate_user!
+  before_filter :authorize_employee
 
   def briefcase
     @student = Student.find(params[:student])

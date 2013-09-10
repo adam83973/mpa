@@ -1,0 +1,41 @@
+<h1>Activities & Games</h1>
+
+<% if signed_in? && current_user.employee? %>
+  <p>
+    <%= link_to 'New Activity/Game', new_activity_path, class: 'm-btn green' %>
+  </p>
+<% end %>
+
+<table id="activities" class="display">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Classes</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @activities.each do |activity| %>
+          <tr>
+            <td><%= activity.title %></td>
+            <td><% if activity.image_url %>
+                <%= link_to image_tag(activity.image_url(:thumb)), activity.image.url %>
+            <% end %>
+            </td>
+            <td>
+                <% activity.courses.each do |course| %>
+                    <%= course.course_name %><br />
+                <% end %>
+            </td>
+            <td><%= link_to 'Show', activity %></td>
+            <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+            <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br />

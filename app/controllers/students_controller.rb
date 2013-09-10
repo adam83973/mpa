@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_employee, except: :show
 
   # GET /students
   # GET /students.json
