@@ -13,25 +13,31 @@
           <%= course.course_name %><br />
         <% end %>
       </td>
+      <td>
+        <b>Resources:</b><br />
+        <% @activity.resources.each do |resource| %>
+          <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
+        <% end %>
+      </td>
     </tr>
   </table>
   <p>
-    <b>Objective:</b>
+    <b>Objective / Description:</b><br />
     <%= @activity.objective %>
   </p>
 
   <p>
-    <b>Setup / Materials:</b>
+    <b>Setup / Materials:</b><br />
     <%= @activity.setup %>
   </p>
 
   <p>
-    <b>Content:</b>
+    <b>Instructions / Guidelines:</b><br />
     <%= @activity.content %>
   </p>
 
   <p>
-    <b>Variations:</b>
+    <b>Variations:</b><br />
     <%= @activity.variations %>
   </p>
 
@@ -40,12 +46,6 @@
     <%= @activity.source %>
   </p>
 
-  <p>
-    <b>Resources:</b><br />
-    <% @activity.resources.each do |resource| %>
-      <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
-    <% end %>
-  </p>
 </div>
 
 <%= link_to 'Edit', edit_activity_path(@activity), class: 'm-btn' %>

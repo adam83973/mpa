@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-  attr_accessible :content, :objective, :source, :title, :variations, :course_ids, :image, :remove_image, :remote_image_url, :resource_ids
+  attr_accessible :content, :objective, :source, :title, :variations, :course_ids, :image, :remove_image, :remote_image_url, :resource_ids, :setup
 
   has_many :resourcings, :as => :resourceable
   has_many :resources, :through => :resourcings
