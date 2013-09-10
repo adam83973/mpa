@@ -1,4 +1,4 @@
-class BindersController < ActionController::Base
+class BindersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_employee
 
