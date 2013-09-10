@@ -1,8 +1,14 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!
 
+
+
   # GET /courses
   # GET /courses.json
+  def employee?
+    employee?
+  end
+
   def index
     @courses = Course.all
 
