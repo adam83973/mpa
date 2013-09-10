@@ -1,4 +1,4 @@
-class BindersController < ApplicationController
+class BindersController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :authorize_employee
 
@@ -22,6 +22,12 @@ class BindersController < ApplicationController
       @offerings = @student.offerings.where("course_id > ?", 6)
       @second_offering = @offerings.first
     end
+  end
+
+  private
+
+  def authorize_employee
+    redirect_to root_path unless current_user && current_user.employee?
   end
 end
 
