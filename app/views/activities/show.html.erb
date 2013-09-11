@@ -13,40 +13,45 @@
           <%= course.course_name %><br />
         <% end %>
       </td>
-      <td>
-        <b>Resources:</b><br />
-        <% @activity.resources.each do |resource| %>
-          <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
-        <% end %>
-      </td>
     </tr>
   </table>
   <p>
     <b>Objective / Description:</b><br />
-    <%= @activity.objective %>
+    <%= simple_format(@activity.objective) %>
   </p>
 
   <p>
     <b>Setup / Materials:</b><br />
-    <%= @activity.setup %>
+    <%= simple_format(@activity.setup) %>
   </p>
 
   <p>
     <b>Instructions / Guidelines:</b><br />
-    <%= @activity.content %>
+    <%= simple_format(@activity.content) %>
   </p>
 
   <p>
     <b>Variations:</b><br />
-    <%= @activity.variations %>
+    <%= simple_format(@activity.variations) %>
   </p>
 
   <p>
     <b>Source:</b>
-    <%= @activity.source %>
+    <%= simple_format(@activity.source) %>
   </p>
 
+  <p>
+    <b>Resources:</b>
+    <% @activity.resources.each do |resource| %>
+      <div class="resource_thumb" style="background:white;">
+        <div class="name"><%= resource.filename %></div>
+        <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource.file.url, :target => "_blank" %></div>
+      </div>
+    <% end %>
+  </p>
+  <div style="clear:both;"></div>
 </div>
 
 <%= link_to 'Edit', edit_activity_path(@activity), class: 'm-btn' %>
-<%= link_to 'Back', activities_path, class: 'm-btn' %>
+<%= link_to 'All Activities', activities_path, class: 'm-btn' %>
+<%= link_to 'Destroy', @activity, method: :delete, data: { confirm: 'Are you sure?' }, class: 'm-btn red' %>

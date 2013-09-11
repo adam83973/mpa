@@ -22,36 +22,42 @@
     </tr>
   </table>
   <p>
-    <%= @problem.desc %>
+    <b>Description:</b>
+    <%= simple_format(@problem.desc) %>
   </p>
 
   <p>
     <b>Answer:</b>
-    <%= @problem.answer %>
+    <%= simple_format(@problem.answer) %>
   </p>
 
   <p>
     <b>Solutions:</b>
-    <%= @problem.methods %>
+    <%= simple_format(@problem.methods) %>
   </p>
 
   <p>
     <b>Variations:</b>
-    <%= @problem.variations %>
+    <%= simple_format(@problem.variations) %>
   </p>
 
   <p>
     <b>Source:</b>
-    <%= @problem.source %>
+    <%= simple_format(@problem.source) %>
   </p>
 
   <p>
-    <b>Resources:</b><br />
+    <b>Resources:</b>
     <% @problem.resources.each do |resource| %>
-      <%= link_to "#{resource.filename}", resource.file.url, :target => "_blank" %><br />
+      <div class="resource_thumb" style="background:white;">
+        <div class="name"><%= resource.filename %></div>
+        <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource.file.url, :target => "_blank" %></div>
+      </div>
     <% end %>
   </p>
+  <div style="clear:both;"></div>
 </div>
 
 <%= link_to 'Edit', edit_problem_path(@problem), class: 'm-btn' %>
-<%= link_to 'Back', problems_path, class: 'm-btn' %>
+<%= link_to 'All Problems', problems_path, class: 'm-btn' %>
+<%= link_to 'Destroy', @problem, method: :delete, data: { confirm: 'Are you sure?' }, class: 'm-btn red' %>
