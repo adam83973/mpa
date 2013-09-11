@@ -1,6 +1,6 @@
 class ExperiencePointsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_filter :authorize_employee, except: :show
 
   # GET /experience_points
   # GET /experience_points.json
