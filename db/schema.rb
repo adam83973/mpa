@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910032458) do
+ActiveRecord::Schema.define(:version => 20130912133113) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(:version => 20130910032458) do
   create_table "activities_courses", :id => false, :force => true do |t|
     t.integer "activity_id"
     t.integer "course_id"
+  end
+
+  create_table "activities_standards", :id => false, :force => true do |t|
+    t.integer "activity_id"
+    t.integer "standard_id"
   end
 
   create_table "courses", :force => true do |t|
@@ -139,6 +144,11 @@ ActiveRecord::Schema.define(:version => 20130910032458) do
     t.string   "image"
   end
 
+  create_table "problems_standards", :id => false, :force => true do |t|
+    t.integer "problem_id"
+    t.integer "standard_id"
+  end
+
   create_table "problems_strategies", :id => false, :force => true do |t|
     t.integer "problem_id"
     t.integer "strategy_id"
@@ -161,6 +171,15 @@ ActiveRecord::Schema.define(:version => 20130910032458) do
     t.string   "resourceable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "standards", :force => true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "course_id"
   end
 
   create_table "strategies", :force => true do |t|

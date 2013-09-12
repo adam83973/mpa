@@ -9,3 +9,4 @@ jQuery ->
       "bJQueryUI": true
 
     $('#activity_resource_ids').chosen()
+	$('#activity_standard_ids').chosen()

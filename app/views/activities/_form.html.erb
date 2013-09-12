@@ -7,6 +7,7 @@
     <%= f.input :setup, label: 'Setup / Materials', as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
     <%= f.input :content, label: 'Instructions / Guidelines', as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
     <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
     <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
     <%= f.input :variations, as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
     <%= f.input :source, :input_html => { :class => 'span8' } %>

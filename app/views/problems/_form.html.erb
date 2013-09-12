@@ -7,6 +7,8 @@
     <%= f.input :source, :input_html => { :class => 'span8' } %>
     <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
     <%= f.association :strategies, label_method: :name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+
     <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
     <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @problem.image? %>
     <%= image_tag(@problem.image_url(:thumb)) if @problem.image? %>

@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
   has_many :offerings
   has_many :lessons
   has_many :grades
+  has_many :standards
   has_and_belongs_to_many :problems
 
   def self.import(file)

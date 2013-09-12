@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-	$("#problems").dataTable
+	$("#standards").dataTable
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
       "bJQueryUI": true
-
-    $('#problem_resource_ids').chosen()
-    $('#problem_standard_ids').chosen()
+  	
+  	$('#standard_problem_ids').chosen()
+  	$('#standard_activity_ids').chosen()

@@ -1,0 +1,36 @@
+<h1>Standards</h1>
+
+<% if signed_in? && current_user.employee? %>
+  <p>
+    <%= link_to 'New Standard', new_standard_path, class: 'm-btn green' %>
+  </p>
+<% end %>
+
+<table id="standards" class="display">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Course</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @standards.each do |standard| %>
+      <tr>
+        <td><%= standard.name %></td>
+        <td><%= standard.category %></td>
+        <td><%= standard.description %></td>
+        <td><%= standard.course.course_name %></td>
+        <td><%= link_to 'Show', standard %></td>
+        <td><%= link_to 'Edit', edit_standard_path(standard) %></td>
+        <td><%= link_to 'Destroy', standard, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />

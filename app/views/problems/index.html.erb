@@ -13,6 +13,7 @@
     <th>Image</th>
     <th>Strategies</th>
     <th>Classes</th>
+    <th>Standards</th>
     <th></th>
     <th></th>
     <th></th>
@@ -34,6 +35,11 @@
     <td>
         <% problem.courses.each do |course| %>
           <%= course.course_name %><br />
+        <% end %>
+    </td>
+    <td>
+        <% problem.standards.each do |standard| %>
+          <%= standard.name %><br />
         <% end %>
     </td>
     <td><%= link_to 'Show', problem %></td>

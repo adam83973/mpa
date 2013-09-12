@@ -1,0 +1,19 @@
+<p>
+  <b>Standard:</b>
+  <%= @standard.name %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @standard.category %>
+</p>
+
+<p>
+  <b>Description:</b><br />
+  <%= simple_format(@standard.description) %>
+</p>
+
+
+<%= link_to 'Edit', edit_standard_path(@standard), class: 'm-btn' %>
+<%= link_to 'All Standards', standards_path, class: 'm-btn' %>
+<%= link_to 'Destroy', @standard, method: :delete, data: { confirm: 'Are you sure?' }, class: 'm-btn red' %>

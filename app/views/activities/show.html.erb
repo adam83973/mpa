@@ -13,6 +13,12 @@
           <%= course.course_name %><br />
         <% end %>
       </td>
+      <td>
+        <b>Standards:</b><br />
+        <% @activity.standards.each do |standard|%>
+          <%= standard.name %><br />
+        <% end %>
+      </td>
     </tr>
   </table>
   <p>
