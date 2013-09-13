@@ -12,10 +12,9 @@
           <th>Name</th>
           <th>Week</th>
           <th>Course</th>
+          <th>Standard</th>
           <th>Assignment</th>
           <th>Assignment key</th>
-          <th>Assessment</th>
-          <th>Assessment key</th>
           <th></th>
         </tr>
   </thead>
@@ -24,12 +23,11 @@
       <tr>
         <td><%= link_to lesson.name, lesson %></td>
         <td><%= lesson.week %></td>
-        <td><%= lesson.course.course_name %></td>
+        <td><%= lesson.standard.course.course_name if lesson.standard %></td>
+        <td><%= lesson.standard.name if lesson.standard %></td>
         <td><a href="<%= lesson.assignment %>"target="_blank"> Assignment </a></td>
         <td><a href="<%= lesson.assignment_key %>"target="_blank"> Assignment Key </a></td>
-        <td><%= lesson.assessment %></td>
-        <td><%= lesson.assessment_key %></td>
-        <td><%= link_to 'Show', lesson %></td>
+        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
       </tr>
     <% end %>
   </tbody>

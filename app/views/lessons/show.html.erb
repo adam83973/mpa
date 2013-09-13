@@ -11,8 +11,13 @@
 </p>
 
 <p>
+  <b>Standard:</b>
+  <%= @lesson.standard.name if @lesson.standard %>
+</p>
+
+<p>
   <b>Course:</b>
-  <%= @lesson.course.course_name %>
+  <%= @lesson.standard.course.course_name if @lesson.standard %>
 </p>
 
 <p>

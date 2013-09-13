@@ -1,9 +1,9 @@
 class Course < ActiveRecord::Base
   attr_accessible :course_name, :description, :grade
+
   has_many :offerings
-  has_many :lessons
-  has_many :grades
   has_many :standards
+  has_many :lessons, through: :standards
   has_and_belongs_to_many :problems
 
   def self.import(file)

@@ -1,21 +1,10 @@
 <%= simple_form_for(@grade) do |f| %>
-  <% if @grade.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @grade.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-    <%= f.input :student_id %><br />
-    <%= f.input :course_id %><br />
-    <%= f.input :lesson_id %><br />
-    <%= f.input :assessment %><br />
-    <%= f.input :score, collection: 1...5 %><br />
+  <div class="form-horizontal">
+    <%= f.association :student, label_method: :full_name %><br />
+    <%= f.association :lesson, label_method: :title %><br />
+    <%= f.input :score, collection: 1...4 %><br />
     <%= f.button :submit %>
   </div>
 <% end %>

@@ -2,22 +2,12 @@
 
 <p>
   <b>Student:</b>
-  <%= @grade.student_id %>
-</p>
-
-<p>
-  <b>Course:</b>
-  <%= @grade.course_id %>
+  <%= @grade.student.full_name %>
 </p>
 
 <p>
   <b>Lesson:</b>
-  <%= @grade.lesson_id %>
-</p>
-
-<p>
-  <b>Assessment:</b>
-  <%= @grade.assessment %>
+  <%= @grade.lesson.title %>
 </p>
 
 <p>
