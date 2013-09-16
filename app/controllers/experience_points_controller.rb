@@ -57,6 +57,10 @@ class ExperiencePointsController < ApplicationController
     @experience_point = ExperiencePoint.new(params[:experience_point])
     @credits = @student.calculate_credit(@experience_point)
     @student_level = @student.calculate_rank(@experience_point)
+    
+    #session[:student_ids] ||= []
+    #session[:student_ids] << @student.id
+    class_session.add_student(@student)
 
     if params[:experience_point][:experience_id] == "2"
       respond_to do |format|

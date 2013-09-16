@@ -1,3 +1,13 @@
+Students: <%= class_session.students %><br />
+Week: <%= class_session.week %><br />
+Offering: <%= class_session.offering %>
+
+<%= simple_form_for(:class_session, url: class_sessions_path, action: :create) do |f| %>
+  <%= f.input :week %>
+  <%= f.input :offering %>
+  <%= f.submit "Start Class", class: "btn btn-large btn-primary" %>
+<% end %>
+
 <!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
 
 <h3><%= @user.first_name %>'s <%= "Class".pluralize(@user.offerings.count)%></h3>

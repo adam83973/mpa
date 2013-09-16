@@ -9,4 +9,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless current_user && current_user.employee?
   end
 
+  private
+
+	def class_session
+	  @class_session ||= ClassSession.new(session)
+	end
+	helper_method :class_session
+
 end

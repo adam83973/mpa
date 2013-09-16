@@ -83,6 +83,11 @@ class StudentsController < ApplicationController
         end
       end
 
+      #get grades for student
+      @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
+
+      @grades = Grade.where("student_id = ?", @student.id)
+
       if signed_in?
         respond_to do |format|
           format.html # show.html.erb

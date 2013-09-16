@@ -1,0 +1,39 @@
+<h3>Mastery</h3>
+
+<div class="accordion" id="accordion4">
+  <div class="accordion-group square">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseThree">
+        Grades: <%= @student.grades.count %>
+      </a>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <div class="tscroll student-grades">
+          <div class="a-achievements">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>Course</td>
+                  <td>Standard</td>
+                  <td>Lesson</td>
+                  <td>Mastery</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @student.grades.each do |grade| %>
+                  <tr>
+                    <td><%= grade.lesson.standard.course.course_name %></td>
+                    <td><%= grade.lesson.standard.name %></td>
+                    <td><%= grade.lesson.name %></td>
+                    <td><%= grade.score %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

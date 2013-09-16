@@ -1,10 +1,10 @@
 MathPlus::Application.routes.draw do
 
+  resources :class_sessions, only: [:new, :create, :destroy]
+
   resources :standards
 
-
   resources :activities
-
 
   resources :resources
 
