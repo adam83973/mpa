@@ -1,13 +1,19 @@
-Students: <%= class_session.students %><br />
-Week: <%= class_session.week %><br />
-Offering: <%= class_session.offering %>
-
-<%= simple_form_for(:class_session, url: class_sessions_path, action: :create) do |f| %>
-  <%= f.input :week %>
-  <%= f.input :offering %>
-  <%= f.submit "Start Class", class: "btn btn-large btn-primary" %>
+<%= form_tag class_sessions_path, method: :post do %>
+  <%= text_field_tag :week, params[:week] %>
+  <%= collection_select :offering, :id, @user_offerings, :id, :offering_name %>
+  <%= submit_tag "Start Class", class: "m-btn green" %>
+<% end %>
+<%= form_tag class_sessions_path, action: :destroy do %>
+  <%= submit_tag "End Class", class: "m-btn red" %>
+<% end %>
+<h4>In Session: <%= Offering.find(class_session.offering).offering_name%> | Week: <%= class_session.week %></h4>
+<b>Students in Attendance:</b><br />
+<% class_session.students.each do |student_id| %>
+  <%= Student.find(student_id).full_name %><br />
 <% end %>
 
+
+<hr />
 <!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
 
 <h3><%= @user.first_name %>'s <%= "Class".pluralize(@user.offerings.count)%></h3>

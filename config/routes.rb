@@ -1,6 +1,6 @@
 MathPlus::Application.routes.draw do
 
-  resources :class_sessions, only: [:new, :create, :destroy]
+  resources :class_sessions
 
   resources :standards
 
