@@ -1,6 +1,10 @@
-<h1>Editing problem</h1>
-
-<%= render 'form' %>
+<% if @problem.activity_type.downcase == 'problem' %>
+	<h1>Edit Problem</h1>
+	<%= render 'problem_form' %>
+<% else %>
+	<h1>Edit Activity / Game</h1>
+	<%= render 'activity_form' %>
+<% end %>
 
 <%= link_to 'Show', @problem %> |
 <%= link_to 'Back', problems_path %>
