@@ -5,11 +5,12 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = Activity.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @activities }
+      format.csv { send_data @activities.to_csv }
     end
   end
 
@@ -83,4 +84,10 @@ class ActivitiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    Activity.import(params[:file])
+    redirect_to activities_path, notice: "Activities imported."
+  end
+
 end

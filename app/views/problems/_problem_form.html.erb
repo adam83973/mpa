@@ -1,0 +1,27 @@
+<%= simple_form_for(@problem) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-horizontal">
+    <%= f.input :activity_type, as: :hidden, :input_html => { :value => 'Problem' } %>
+    <%= f.input :title, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :desc, label: 'Question & Description', as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :answer, :input_html => { :class => 'span8' } %>
+    <%= f.input :methods, label: 'Solutions', as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.association :strategies, label_method: :name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.input :variations, as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
+    <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+    <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @problem.image? %>
+    <%= image_tag(@problem.image_url(:thumb)) if @problem.image? %>
+    <% if !@problem.image? %>
+      <%= f.input :image, as: :file, label: "Upload Image" %>
+      <%= f.input :remote_image_url, label: "Or Copy Image from URL", :input_html => { :class => 'span8'} %>
+    <% end %>
+    <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+    <%= f.input :source, :input_html => { :class => 'span8' } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
