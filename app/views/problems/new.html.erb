@@ -1,4 +1,4 @@
-<% if params[:type] == 'problem' %>
+<% if params[:type] == 'problem' || params[:problem][:activity_type] == 'Problem' %>
 	<h1>New Problem</h1>
 	<%= render 'problem_form' %>
 <% else %>
