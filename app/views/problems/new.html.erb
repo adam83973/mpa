@@ -1,7 +1,10 @@
-<% if params[:type] == 'problem' || params[:problem][:activity_type] == 'Problem' %>
+<% if params[:type] == 'problem' %>
 	<h1>New Problem</h1>
 	<%= render 'problem_form' %>
-<% else %>
+<% elsif params[:problem] && params[:problem][:activity_type] == 'Problem' %>
+	<h1>New Problem</h1>
+	<%= render 'problem_form' %>
+<% else params[:type] == 'activity' %>
 	<h1>New Activity / Game</h1>
 	<%= render 'activity_form' %>
 <% end %>
