@@ -12,7 +12,7 @@
         <%= f.input :student_id %><br />
         <%= f.input :lesson_id %><br />
         <%= f.input :score, collection: 1...4%><br />
-        <%= f.input :comment, input_html: { rows: 2 } %>
+        <%# f.input :comment, input_html: { rows: 2 } %>
         <%= f.button :submit, id: "add-grade", disabled: :disabled %>
       </div>
       <% end %>
