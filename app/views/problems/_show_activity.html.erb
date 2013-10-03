@@ -1,0 +1,59 @@
+<div class="hero-unit">
+  <h1><%= @problem.title %></h1>
+  <table class="table table-condensed">
+    <tr>
+      <td style="width:250px;">
+        <% if @problem.image_url %>
+          <%= link_to image_tag(@problem.image_url(:thumb)), @problem.image.url %>
+        <% end %>
+      </td>
+      <td>
+        <b>Appropriate For:</b><br />
+        <% @problem.courses.each do |course|%>
+          <%= course.course_name %><br />
+        <% end %>
+      </td>
+      <td>
+        <b>Standards:</b><br />
+        <% @problem.standards.each do |standard|%>
+          <%= standard.name %><br />
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <b>Objective / Description:</b><br />
+    <%= simple_format(@problem.desc) %>
+  </p>
+
+  <p>
+    <b>Setup / Materials:</b><br />
+    <%= simple_format(@problem.setup) %>
+  </p>
+
+  <p>
+    <b>Instructions / Guidelines:</b><br />
+    <%= simple_format(@problem.methods) %>
+  </p>
+
+  <p>
+    <b>Variations:</b><br />
+    <%= simple_format(@problem.variations) %>
+  </p>
+
+  <p>
+    <b>Source:</b>
+    <%= simple_format(@problem.source) %>
+  </p>
+
+  <p>
+    <b>Resources:</b>
+    <% @problem.resources.each do |resource| %>
+      <div class="resource_thumb" style="background:white;">
+        <div class="name"><%= resource.filename %></div>
+        <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource.file.url, :target => "_blank" %></div>
+      </div>
+    <% end %>
+  </p>
+  <div style="clear:both;"></div>
+</div>

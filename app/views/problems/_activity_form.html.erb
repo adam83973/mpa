@@ -2,11 +2,13 @@
   <%= f.error_notification %>
 
   <div class="form-horizontal">
-    <%= f.input :title, :input_html => { :rows => 8, :class => 'span8' } %>
-    <%= f.input :desc, label: 'Question & Description', as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
-    <%= f.input :source, :input_html => { :class => 'span8' } %>
+    <%= f.input :activity_type, collection: ['Game', 'Activity'], :selected => 'Game' %>
+    <%= f.input :title, :input_html => { :class => 'span8' } %>
+    <%= f.input :desc, label: 'Objective & Description', as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :setup, label: 'Setup / Materials', as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
+    <%= f.input :methods, label: 'Instructions / Guidelines', as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
+    <%= f.input :variations, as: :text, :input_html => { :rows => 4, :class => 'span8' } %>
     <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
-    <%= f.association :strategies, label_method: :name, as: :check_boxes, item_wrapper_class: 'inline' %>
     <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
 
     <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
@@ -16,12 +18,10 @@
       <%= f.input :image, as: :file, label: "Upload Image" %>
       <%= f.input :remote_image_url, label: "Or Copy Image from URL", :input_html => { :class => 'span8'} %>
     <% end %>
-    <%= f.input :answer, :input_html => { :class => 'span8' } %>
-    <%= f.input :methods, as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
-    <%= f.input :variations, as: :text, :input_html => { :rows => 8, :class => 'span8' } %>
+    <%= f.input :source, :input_html => { :class => 'span8' } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, 'Create Activity / Game', class: 'm-btn green' %>
   </div>
 <% end %>

@@ -1,8 +1,9 @@
-<h1>99 Problems</h1>
+<h1>Problems / Acitivities / Games</h1>
 
 <% if signed_in? && current_user.employee? %>
   <p>
-    <%= link_to 'New Problem', new_problem_path, class: 'm-btn green' %>
+    <%= link_to 'New Problem', new_problem_path(params.merge(:type => 'problem')), class: 'm-btn green' %>
+    <%= link_to 'New Activity/Game', new_problem_path(params.merge(:type => 'activity')), class: 'm-btn green' %>
   </p>
 <% end %>
 
@@ -14,6 +15,7 @@
     <th>Strategies</th>
     <th>Classes</th>
     <th>Standards</th>
+    <th>Type</th>
     <th></th>
     <th></th>
     <th></th>
@@ -42,6 +44,7 @@
           <%= standard.name %><br />
         <% end %>
     </td>
+    <td><%= problem.activity_type %></td>
     <td><%= link_to 'Show', problem %></td>
     <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
     <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -50,12 +53,13 @@
 </tbody>
 </table>
 
-<br />
-
 <% if signed_in? && current_user.admin? %>
-  <p>
-    <%= link_to 'New Problem', new_problem_path, class: 'm-btn green' %>
-  </p>
+<h3> Import Activities</h3>
+  <%= form_tag import_problems_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import", class: 'm-btn' %>
+  <% end %>
 <% end %>
 
-<br /><br />
+
+<br />

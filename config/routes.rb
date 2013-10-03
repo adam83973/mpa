@@ -4,13 +4,17 @@ MathPlus::Application.routes.draw do
 
   resources :standards
 
-  resources :activities
+  resources :activities do
+    collection { post :import }
+  end
 
   resources :resources
 
   resources :strategies
 
-  resources :problems
+  resources :problems do
+    collection { post :import }
+  end
 
   root to: 'static_pages#home'
 
@@ -21,7 +25,6 @@ MathPlus::Application.routes.draw do
       get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
-
 
   # match "register" => "users#new", :as => :user_registration
 

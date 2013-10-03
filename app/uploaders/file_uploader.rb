@@ -40,6 +40,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb, :if => :image? do
+    process :cover
     process :convert => :jpg
     process :resize_to_fit => [200, 200]
     process :convert => :jpg
@@ -52,6 +53,13 @@ class FileUploader < CarrierWave::Uploader::Base
   def set_content_type_img(*args)
     self.file.instance_variable_set(:@content_type, "image/jpeg")
   end
+
+  def cover 
+    manipulate! do |frame, index|
+      frame if index.zero?
+    end
+  end
+
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

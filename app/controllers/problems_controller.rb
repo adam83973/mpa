@@ -83,4 +83,10 @@ class ProblemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    Problem.import(params[:file])
+    redirect_to problems_path, notice: "Activities / Problems imported."
+  end
+
 end
