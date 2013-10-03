@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
       # if @user.offerings?
         @experience_point = ExperiencePoint.new
         @grade = Grade.new
+        @offerings = Offering.order(:course_id)
         @user_offerings = @user.offerings
         @user_location = @user.location
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)

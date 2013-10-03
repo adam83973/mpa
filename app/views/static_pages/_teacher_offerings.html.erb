@@ -4,7 +4,7 @@
   <h3>Start Class!</h3>
     <%= form_tag(controller: "class_sessions", action: "start_class", method: "post") do %>
       <%= label_tag "Class" %>
-      <%= collection_select :offering, :id, @user_offerings, :id, :offering_name %>
+      <%= collection_select :offering, :id, @offerings, :id, :offering_name %>
       <%= label_tag "Week" %>
       <%= text_field_tag :week, params[:week] %>
       <p>
