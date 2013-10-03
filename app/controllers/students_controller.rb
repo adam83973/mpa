@@ -170,11 +170,10 @@ class StudentsController < ApplicationController
       @student.redeem_credit(@credits)
 
       respond_to do |format|
-        format.json { render json: @student }
+        format.html { redirect_to @student, notice: "#{@student.full_name} spent #{@credits} credits." }
+        format.json { render json: @credits }
         format.js
       end
-    else
-        @response = "Student does not have enough credits."
     end
   end
 

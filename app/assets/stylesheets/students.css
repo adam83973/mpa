@@ -3,7 +3,8 @@
 
 .studentname{
   background-color: #f1f1f1;
-  padding-right: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
   padding-top:4px;
   padding-bottom:10px;
   position: relative;
@@ -36,6 +37,8 @@
 .a-achievements{
   margin: 15px;
   padding-left: 5px;
+  height: 200px;
+  overflow: auto;
 }
 
 .student-button{

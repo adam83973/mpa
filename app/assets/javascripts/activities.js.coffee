@@ -8,5 +8,5 @@ jQuery ->
       "bFilter": true,     #hide filter control
       "bJQueryUI": true
 
-    $('#activity_resource_ids').chosen()
+  $('#activity_resource_ids').chosen()
 	$('#activity_standard_ids').chosen()

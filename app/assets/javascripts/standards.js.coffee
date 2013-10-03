@@ -7,6 +7,7 @@ jQuery ->
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
       "bJQueryUI": true
-  	
-  	$('#standard_problem_ids').chosen()
-  	$('#standard_activity_ids').chosen()
+
+  $('#standard_problem_ids').chosen()
+
+  $('#standard_activity_ids').chosen()

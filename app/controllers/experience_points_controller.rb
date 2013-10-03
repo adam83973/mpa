@@ -54,14 +54,17 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points.json
   def create
     @student = Student.find(params[:experience_point][:student_id])
+    @student_json = @student.to_json
     @experience_point = ExperiencePoint.new(params[:experience_point])
     @credits = @student.calculate_credit(@experience_point)
     @student_level = @student.calculate_rank(@experience_point)
-    
-    #session[:student_ids] ||= []
-    #session[:student_ids] << @student.id
+    @response = @student.to_json
+
+    #add student attendance from teacher home page
     class_session.add_student(@student)
 
+    #add credits and special redirect when attendance is taken
+    #add .js response for ajax
     if params[:experience_point][:experience_id] == "2"
       respond_to do |format|
         if @experience_point.save
@@ -69,19 +72,16 @@ class ExperiencePointsController < ApplicationController
                 @student.add_credit(@credits)
           end
 
-          if @student.rank.nil?
+          if @student.rank.nil? || @student_level > 0
             @student.update_rank
           end
 
-          if @student_level > 0
-            @student.update_rank
-          end
-
-          format.html { redirect_to new_experience_point_path(:attendance => '2'), notice: "Attendance added for #{@student.first_name}." }
-
+          format.html { redirect_to root_path, notice: "Attendance added for #{@student.first_name}." }
+          format.js
           format.json { render json: @experience_point, status: :created, location: @experience_point }
+
         else
-          format.html { render action: "new" }
+          format.html { render root_path }
           format.json { render json: @experience_point.errors, status: :unprocessable_entity }
         end
       end
@@ -95,16 +95,11 @@ class ExperiencePointsController < ApplicationController
                 @student.add_credit(@credits)
           end
 
-          if @student.rank.nil?
-            @student.update_rank
-          end
-
-          if @student_level > 0
+          if @student.rank.nil? || @student_level > 0
             @student.update_rank
           end
 
           format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
-
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else
           format.html { render action: "new" }

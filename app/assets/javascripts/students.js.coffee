@@ -8,30 +8,51 @@ jQuery ->
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-jQuery ->
   $("#inactivestudents").dataTable
       bPaginate: true,  #hide pagination control
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-jQuery ->
   $("#allstudents").dataTable
       bPaginate: true,  #hide pagination control
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-jQuery ->
   $('#student_birth_date').datepicker
     dateFormat: 'yy-mm-dd'
-jQuery ->
+
   $('#student_start_date').datepicker
       dateFormat: 'yy-mm-dd'
-jQuery ->
+
   $('#student_restart_date').datepicker
       dateFormat: 'yy-mm-dd'
-jQuery ->
+
   $('#student_return_date').datepicker
       dateFormat: 'yy-mm-dd'
 
-jQuery ->
   $('#creditsModal').modal('hide')
+
+  $("#credits_form")
+  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $studentCredits = parseInt($('#totalCredits').data('totalcredits'))
+    $creditsRedeeming = $('#credits_credits').val()
+    $submitButton.attr( 'data-origText',  $submitButton.val() )
+    $submitButton.val( "Submitting..." )
+    if $studentCredits < $creditsRedeeming
+      alert 'Student does not have enough credits.'
+      xhr.abort()
+      $submitButton.val( $submitButton.data('origtext') )
+  .bind 'ajax:success', (evt, data, status, xhr) ->
+    $form = $(this)
+    $form[0].reset()
+    alert "Credits Redeemed!"
+  .bind 'ajax:complete', (evt, xhr, status) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.val( $submitButton.data('origtext') )
+  .bind 'ajax:error', (evt, xhr, status, error) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.val( $submitButton.data('origtext') )
+    $form = $(this)
+    alert "Credits #{error}!"
+    $form[0].reset()

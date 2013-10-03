@@ -4,6 +4,6 @@
 
 jQuery ->
 	$("#users").dataTable
-      "bPaginate": true,  #hide pagination control
-      "bFilter": true,     #hide filter control
-      "bJQueryUI": true
+    "bPaginate": true,  #hide pagination control
+    "bFilter": true,     #hide filter control
+    "bJQueryUI": true

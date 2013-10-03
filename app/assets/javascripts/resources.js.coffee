@@ -18,11 +18,12 @@ jQuery ->
           $('#new_resource').append(data.context)
           data.submit()
         else
-          alert("#{file.name} is not an image or pdf file.")  
+          alert("#{file.name} is not an image or pdf file.")
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.bar').css('width', progress + '%')
 
   $('#resource_problem_ids').chosen()
+
   $('#resource_activity_ids').chosen()

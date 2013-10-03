@@ -53,3 +53,33 @@
 .nav-font{
 	font-family: Arial;
 }
+
+.students_attending{
+	margin: 5px;
+	background-color: #e4e4e4;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border-color: #7f7f7f;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid white;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.padding{
+	padding-right: 10px;
+}
+
+.modal-body-grades{
+	max-height: 1000px;
+	padding-top: 20px
+}
+

@@ -4,6 +4,10 @@
   <p>
     <%= link_to 'New Standard', new_standard_path, class: 'm-btn green' %>
   </p>
+  <p>
+    Download:
+    <%= link_to "CSV", standards_path(format: "csv") %>
+  </p>
 <% end %>
 
 <table id="standards" class="display">
@@ -33,4 +37,10 @@
   </tbody>
 </table>
 
-<br />
+<% if signed_in? && current_user.admin? %>
+<h3> Import Standards</h3>
+  <%= form_tag import_standards_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>

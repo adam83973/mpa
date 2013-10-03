@@ -5,11 +5,12 @@ class StandardsController < ApplicationController
   # GET /standards
   # GET /standards.json
   def index
-    @standards = Standard.all
+    @standards = Standard.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @standards }
+      format.csv { send_data @standards.to_csv }
     end
   end
 
@@ -82,5 +83,10 @@ class StandardsController < ApplicationController
       format.html { redirect_to standards_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Standard.import(params[:file])
+    redirect_to standards_path, notice: "Standards imported."
   end
 end

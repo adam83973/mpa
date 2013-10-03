@@ -1,0 +1,21 @@
+<% if class_session.in_session? %>
+<h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
+<h4>Week: <%= class_session.week %></h4>
+   <%= link_to "Today's Lesson", @todays_lesson if @todays_lesson %>
+<% if class_session.students == [] %>
+  <p>Take attendance to add students to class!</p>
+<% else %>
+<p><b>Students in Attendance:</b></p>
+<ul>
+  <% class_session.students.each do |student_id| %>
+    <div class="students_attending">
+      <li>
+        <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
+        <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right" %>
+        <%= link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
+      </li>
+    </div>
+  <% end %>
+</ul>
+<% end %>
+<% end %>

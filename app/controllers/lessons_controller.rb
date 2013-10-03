@@ -5,11 +5,12 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lessons }
+      format.csv { send_data @lessons.to_csv }
     end
   end
 

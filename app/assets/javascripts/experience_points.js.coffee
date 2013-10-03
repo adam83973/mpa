@@ -9,7 +9,6 @@ jQuery ->
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-jQuery ->
   $('#experience_point_experience_id').change ->
     $.ajax
       type: 'POST'

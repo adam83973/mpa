@@ -1,43 +1,28 @@
-Students: <%= class_session.students %><br />
-Week: <%= class_session.week %><br />
-Offering: <%= class_session.offering %>
-
-<%= simple_form_for(:class_session, url: class_sessions_path, action: :create) do |f| %>
-  <%= f.input :week %>
-  <%= f.input :offering %>
-  <%= f.submit "Start Class", class: "btn btn-large btn-primary" %>
+<% if class_session.in_session? %>
+<% else %>
+<div class="classform">
+  <h3>Start Class!</h3>
+    <%= form_tag(controller: "class_sessions", action: "start_class", method: "post") do %>
+      <%= label_tag "Class" %>
+      <%= collection_select :offering, :id, @user_offerings, :id, :offering_name %>
+      <%= label_tag "Week" %>
+      <%= text_field_tag :week, params[:week] %>
+      <p>
+        <%= submit_tag "Start Class", id: :startclass, disabled: :disabled, class: "m-btn green" %>
+      </p>
+</div>
+  <% end %>
 <% end %>
 
-<!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
 
-<h3><%= @user.first_name %>'s <%= "Class".pluralize(@user.offerings.count)%></h3>
-<div class="accordion" id="accordion2">
- <% @user_offerings.each do |offering| %>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=offering.id.humanize.capitalize%>">
-        <%= offering.offering_name %>
-      </a>
-    </div>
-    <div id="collapse<%=offering.id.humanize.capitalize%>" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <table class= "table table-striped table-hover table-bordered">
-          <tr>
-            <th> <%= link_to "Student Name", :sort => "Name" %> </th>
-            <th> <%= link_to "XP", :sort => "points" %> </th>
-          </tr>
-            <% offering.students.each do |student| %>
-              <tr>
-                <td><%= link_to student.full_name, student %></td>
-                <td><%= student.xp_total %></td>
-              </tr>
-            <% end %>
-        </table>
-        <center>
-          <%= link_to "#{offering.course.course_name} Course Lessons", offering.course, class: "btn btn-small" %>
-        </center>
-      </div>
-    </div>
-  </div>
- <% end %>  
+<div id='class_in_session'>
+  <%= render 'class_in_session' %>
 </div>
+
+<%= render 'attendance_modal' %>
+
+<%= render 'grades_modal' %>
+
+<%= render 'attendance_grades_buttons' %>
+
+<%= render 'teachers_offerings' %>

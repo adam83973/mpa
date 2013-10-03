@@ -63,6 +63,10 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  post "class_sessions/start_class"
+  get "class_sessions/end_class"
+  get "class_sessions/remove_student"
+
   get "binders/briefcase"
   get "binders/middleschool"
 

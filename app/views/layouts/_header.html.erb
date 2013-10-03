@@ -14,6 +14,13 @@
           <ul class="nav pull-right ul-padding">
 
             <% if signed_in? %>
+
+            <% if current_user.parent? %>
+            <li id="fat-menu">
+              <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
+            </li>
+            <% end %>
+
             <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
             <%= render 'layouts/nav_links' %>
             <% end %>
