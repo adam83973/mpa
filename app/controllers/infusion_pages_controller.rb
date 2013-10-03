@@ -33,6 +33,12 @@ class InfusionPagesController < ApplicationController
     @credit_card.delete_if {|i| i["Status"] == 2}
     # check to see if parent exists in app user table. returns empty array if no match found
     @app_user = User.where("infusion_id = ?", params[:ContactId]).first
+
+    if params[:NewCustomer]
+      Infusionsoft.contact_add_to_group(params[:Id], 1648)
+      flash[:notice] = "New Customer Sequence Started"
+    end
+
     if !@app_user
        @candidates = User.where("first_name =? AND last_name = ?", @user["FirstName"], @user["LastName"])
     end
@@ -44,7 +50,8 @@ class InfusionPagesController < ApplicationController
   	# get the infusionsoft user id from the hash
   	user_update_id = params[:Id]
   	# remove key,value pairs from hash
-  	@user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action)
+
+  	@user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
   	result = Infusionsoft.contact_update(user_update_id, @user_update)
   	if result
   		flash[:notice] = "Contact Updated"

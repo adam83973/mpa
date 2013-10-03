@@ -40,8 +40,12 @@
 				<label class="control-label">Zip </label>
 				<div class="controls"><%= text_field_tag :PostalCode, @user["PostalCode"] %></div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">New Customer</label>
+				<div class="controls"><%= check_box_tag :NewCustomer, false %></div>
+			</div>
 			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-small' %>
-		<% end %>	
+		<% end %>
 	</div>
 	<div class="span6">
 		<h4>Active Credit Cards</h4>
@@ -99,7 +103,7 @@
 	<div class="span12">
 		<h4>Link to Parent in MPA App</h4>
 		<% if @app_user %>
-			Linked to <%= @app_user.first_name %> <%= @app_user.last_name %> | 
+			Linked to <%= @app_user.first_name %> <%= @app_user.last_name %> |
 			<%= link_to 'Edit', edit_user_path(@app_user), :target => "_blank" %> |
 			<%= link_to 'Show', user_path(@app_user), :target => "_blank" %>
 		<% else %>
