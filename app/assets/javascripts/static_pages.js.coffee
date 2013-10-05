@@ -40,6 +40,14 @@ jQuery ->
                           .on('mouseover', 'a:not(:nth-child(2))', -> $(this).css({'color':'black'}))
                           .on('mouseleave', 'a:not(:nth-child(2))', -> $(this).css({'color':'#0088cc'}))
 
+  #remove student without reload
+  $('.student_attending')
+  .bind 'ajax:success', (evt, data, status, xhr) ->
+    confirm 'Are you sure you want to remove this student?'
+  .bind 'ajax:complete', (evt, xhr, status) ->
+    $(this).hide 'fade'
+  # .bind 'ajax:error', (evt, xhr, status, error) ->
+
 # Hide form on close. ---
   $classform = $('.classform')
   $classform.on('click', ':submit'
