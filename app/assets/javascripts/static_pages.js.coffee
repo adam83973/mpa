@@ -1,8 +1,4 @@
 # ---- Attendance Modal ----------------
-  # Hide attendance modal and reload page. ---
-# .on('click', 'button', ->
-#     $(this).hide()
-#     location.reload())
 # Handle ajax events ---
 jQuery ->
   $("#attendance_form")
@@ -25,7 +21,6 @@ jQuery ->
     $form[0].reset()
 
 # Autofocus student_id field on attendanceModal show ---
-
   $("#attendanceModal").on 'shown', ->
     $(this).find("[autofocus]:first").focus()
 
@@ -35,17 +30,26 @@ jQuery ->
 
 # ---- Students Attending ----------------
   # Update styling to attending students on mouse over and leave. ---
-  $('.students_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
+  $('.student_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
                           .on('mouseleave', -> $(this).css({ "background-color":"##e4e4e4"; "border":"1px solid white"}))
                           .on('mouseover', 'a:not(:nth-child(2))', -> $(this).css({'color':'black'}))
                           .on('mouseleave', 'a:not(:nth-child(2))', -> $(this).css({'color':'#0088cc'}))
 
   #remove student without reload
   $('.student_attending')
-  .bind 'ajax:success', (evt, data, status, xhr) ->
-    confirm 'Are you sure you want to remove this student?'
+  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+    studentName = $(this).data('studentname')
+    if not confirm "Are you sure you want to remove #{studentName}?"
+      xhr.abort()
+      alert "#{studentName} was not removed from class."
+  # .bind 'ajax:success', (evt, data, status, xhr) ->
+  #   alert 'Student removed from class.'
   .bind 'ajax:complete', (evt, xhr, status) ->
+    studentName = $(this).data('studentname')
+    alert "#{studentName} was removed from class."
     $(this).hide 'fade'
+
+  # Add code to cancel if user rejects confirm.
   # .bind 'ajax:error', (evt, xhr, status, error) ->
 
 # Hide form on close. ---
