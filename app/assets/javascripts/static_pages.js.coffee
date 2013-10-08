@@ -68,6 +68,16 @@ jQuery ->
         $("#startclass").removeAttr "disabled"
 
 # ---- Grades modal ----------------
+  $('#grade_experience_point_attributes_comment').on 'keypress', ->
+    comment = $('#grade_experience_point_attributes_comment').val()
+    $('#grade_comment').val(comment)
+
+  $('#grade_experience_point_attributes_experience_id').on 'change', ->
+    $.ajax
+      type: 'POST'
+      url: "/experience_points/points_lookup"
+      data: experience_id: $('#grade_experience_point_attributes_experience_id').val()
+      success: (result) -> $('#grade_experience_point_attributes_points').val(result)
 
   # Reset grades form when closed. ---
   $('#gradesModal :button').on( 'click', ->
@@ -78,9 +88,10 @@ jQuery ->
     $('#gradesModal').slideUp())
 
   # Add student's information to grades modal when link is clicked from student in list. ---
-  $('.students_attending').on( 'click', 'a', ->
+  $('.student_attending').on( 'click', 'a', ->
     student_id = $(this).data('student-id')
     week = $(this).data('week')
+    $('#grade_experience_point_attributes_student_id').val(student_id)
     $('#grade_student_id').val(student_id)
     $('#grade_lesson_id').val(week))
 

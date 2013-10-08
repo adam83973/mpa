@@ -5,14 +5,21 @@
   </div>
   <center>
     <div class="modal-body-grades">
-      <%= simple_form_for(@grade, remote: true) do |f| %>
+      <%= simple_form_for :grade, url: {action: :create, controller: :grades}, html: { id: 'grade_form'} do |f| %>
       <%= f.error_notification %>
 
       <div class="form-horizontal">
-        <%= f.input :student_id %><br />
-        <%= f.input :lesson_id %><br />
-        <%= f.input :score, collection: 1...4%><br />
-        <%# f.input :comment, input_html: { rows: 2 } %>
+        <%= f.input :student_id %>
+        <%= f.input :lesson_id %>
+        <%= f.input :score, collection: 1...4%>
+        <%= f.simple_fields_for :experience_point_attributes do |xp| %>
+          <%= xp.input :student_id %>
+          <%= xp.input :experience_id, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
+          <%= xp.input :points %>
+          <%= xp.input :comment, as: :text, input_html: { rows: 5, value: "" } %>
+          <%= xp.input :user_id, input_html: { value: "#{current_user.id}" } %>
+        <% end %>
+        <%= f.input :comment, as: :hidden %>
         <%= f.button :submit, id: "add-grade", disabled: :disabled %>
       </div>
       <% end %>

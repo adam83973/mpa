@@ -3,8 +3,8 @@ class StaticPagesController < ApplicationController
     if signed_in?
       @user = current_user
       # if @user.offerings?
-        @experience_point = ExperiencePoint.new
         @grade = Grade.new
+        @experience_point = ExperiencePoint.new
         @offerings = Offering.order(:course_id)
         @user_offerings = @user.offerings
         @user_location = @user.location

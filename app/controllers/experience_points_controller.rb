@@ -60,12 +60,15 @@ class ExperiencePointsController < ApplicationController
     @student_level = @student.calculate_rank(@experience_point)
     @response = @student.to_json
 
-    #add student attendance from teacher home page
-    class_session.add_student(@student)
-
     #add credits and special redirect when attendance is taken
     #add .js response for ajax
     if params[:experience_point][:experience_id] == "2"
+
+      #add student attendance from teacher home page
+      if class_session.in_session?
+       class_session.add_student(@student)
+      end
+
       respond_to do |format|
         if @experience_point.save
           if @credits > 0

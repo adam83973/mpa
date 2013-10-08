@@ -41,10 +41,11 @@ class GradesController < ApplicationController
   # POST /grades.json
   def create
     @grade = Grade.new(params[:grade])
+    @student = Student.find(params[:grade][:student_id])
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to @grade, notice: 'Grade was successfully created.' }
+        format.html { redirect_to root_url, notice: "Grade was successfully created for #{@student.full_name}." }
         format.json { render json: @grade, status: :created, location: @grade }
         format.js
       else

@@ -8,6 +8,7 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :user
   belongs_to :student
   belongs_to :experience
+  belongs_to :grade, dependent: :destroy
 
   after_save :update_student_xp
   after_update :update_student_xp
