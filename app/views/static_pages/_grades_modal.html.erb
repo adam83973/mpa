@@ -14,7 +14,7 @@
         <%= f.input :score, collection: 1...4%>
         <%= f.simple_fields_for :experience_point_attributes do |xp| %>
           <%= xp.input :student_id %>
-          <%= xp.input :experience_id, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
+          <%= xp.input :experience_id, label: "Homework Score", collection: Experience.where("category = ? OR category = ?", 'Homework', 'Assessment'), label_method: :name %>
           <%= xp.input :points %>
           <%= xp.input :comment, as: :text, input_html: { rows: 5, value: "" } %>
           <%= xp.input :user_id, input_html: { value: "#{current_user.id}" } %>
