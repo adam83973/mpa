@@ -21,10 +21,10 @@
                 </tr>
               </thead>
               <tbody>
-                <% @student.grades.each do |grade| %>
+                <% @student.grades.order('updated_at DESC').each do |grade| %>
                   <tr>
-                    <td><%= grade.lesson.standard.course.course_name %></td>
-                    <td><%= grade.lesson.standard.name %></td>
+                    <td><%= grade.lesson.standard.course.course_name if grade.lesson.standard %></td>
+                    <td><%= grade.lesson.standard.name if grade.lesson.standard %></td>
                     <td><%= grade.lesson.name %></td>
                     <td><%= grade.score %></td>
                   </tr>

@@ -1,5 +1,3 @@
-<%= @student.full_name %>
-
 <div class="row-fluid">
   <%= render 'student_stats' %>
 </div>
@@ -15,12 +13,14 @@
   <div class="span8 achievements">
     <%= render 'student_achievements' %><br />
     <%= render 'robotics_achievements' %>
-   <!--  <%= render 'student_grades' %> -->
+    <%= render 'student_grades' %>
   </div>
 </div>
 <span class="row">
   <%= render 'student_comment_feed'%>
 </span>
+
+<%= render '/static_pages/grades_modal' %>
 
 <div id="creditsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-    labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">

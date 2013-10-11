@@ -1,7 +1,12 @@
 <div id="gradesModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
+  <div class="modal-header" style='padding-bottom:20px'>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Name the grade...</h3>
+    <span class="student_id" hidden='true' style="color:#bfbfbf">Select the student whose grade you are entering</span>
+    <span class="lesson_id" hidden='true' style="color:#bfbfbf">The name of the lesson should match the name of the assignment you're grading.</span>
+    <span class="score" hidden='true' style="color:#bfbfbf">Level of Mastery. 1 = Not Mastered; 3 = Mastered.</span>
+    <span class="homework_score" hidden='true' style="color:#bfbfbf">Measure of Completeness. Extra points for Perfect!</span>
+    <span class="comment" hidden='true' style="color:#bfbfbf">Say something nice! Comment is attached to Achievement and Grade.</span>
   </div>
   <center>
     <div class="modal-body-grades">
@@ -9,15 +14,15 @@
       <%= f.error_notification %>
 
       <div class="form-horizontal">
-        <%= f.input :student_id %>
-        <%= f.input :lesson_id %>
+        <%= f.input :student_id, collection: Student.order(:id), label_method: :full_name %>
+        <%= f.input :lesson_id, collection: Lesson.order(:id) %>
         <%= f.input :score, collection: 1...4%>
         <%= f.simple_fields_for :experience_point_attributes do |xp| %>
-          <%= xp.input :student_id %>
+          <%= xp.input :student_id, as: :hidden %>
           <%= xp.input :experience_id, label: "Homework Score", collection: Experience.where("category = ? OR category = ?", 'Homework', 'Assessment'), label_method: :name %>
           <%= xp.input :points %>
           <%= xp.input :comment, as: :text, input_html: { rows: 5, value: "" } %>
-          <%= xp.input :user_id, input_html: { value: "#{current_user.id}" } %>
+          <%= xp.input :user_id, input_html: { value: "#{current_user.id}" }, as: :hidden %>
         <% end %>
         <%= f.input :comment, as: :hidden %>
         <%= f.button :submit, id: "add-grade", disabled: :disabled %>

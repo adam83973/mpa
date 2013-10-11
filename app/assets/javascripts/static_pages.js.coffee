@@ -68,6 +68,42 @@ jQuery ->
         $("#startclass").removeAttr "disabled"
 
 # ---- Grades modal ----------------
+  $('#grade_student_id')
+                        .on('mouseover', ->
+                          $('.modal-header').find('span.student_id').prop('hidden', false)
+                          $('.modal-header').css('padding-bottom','0px'))
+                        .on('mouseleave', ->
+                          $('.modal-header').find('span.student_id').prop('hidden', true)
+                          $('.modal-header').css('padding-bottom','20px'))
+  $('#grade_lesson_id')
+                        .on('mouseover', ->
+                          $('.modal-header').find('span.lesson_id').prop('hidden', false)
+                          $('.modal-header').css('padding-bottom','0px'))
+                        .on('mouseleave', ->
+                          $('.modal-header').find('span.lesson_id').prop('hidden', true)
+                          $('.modal-header').css('padding-bottom','20px'))
+  $('#grade_score')
+                        .on('mouseover', ->
+                          $('.modal-header').find('span.score').prop('hidden', false)
+                          $('.modal-header').css('padding-bottom','0px'))
+                        .on('mouseleave', ->
+                          $('.modal-header').find('span.score').prop('hidden', true)
+                          $('.modal-header').css('padding-bottom','20px'))
+  $('#grade_experience_point_attributes_experience_id')
+                        .on('mouseover', ->
+                          $('.modal-header').find('span.homework_score').prop('hidden', false)
+                          $('.modal-header').css('padding-bottom','0px'))
+                        .on('mouseleave', ->
+                          $('.modal-header').find('span.homework_score').prop('hidden', true)
+                          $('.modal-header').css('padding-bottom','20px'))
+  $('#grade_experience_point_attributes_comment')
+                        .on('mouseover', ->
+                          $('.modal-header').find('span.comment').prop('hidden', false)
+                          $('.modal-header').css('padding-bottom','0px'))
+                        .on('mouseleave', ->
+                          $('.modal-header').find('span.comment').prop('hidden', true)
+                          $('.modal-header').css('padding-bottom','20px'))
+
   $('#grade_experience_point_attributes_comment').on 'keypress', ->
     comment = $('#grade_experience_point_attributes_comment').val()
     $('#grade_comment').val(comment)
@@ -91,9 +127,10 @@ jQuery ->
   $('.student_attending').on( 'click', 'a', ->
     student_id = $(this).data('student-id')
     week = $(this).data('week')
+    lesson = $(this).data('lesson')
     $('#grade_experience_point_attributes_student_id').val(student_id)
     $('#grade_student_id').val(student_id)
-    $('#grade_lesson_id').val(week))
+    $('#grade_lesson_id').val(lesson))
 
 # Disable submit button until input fields are populated. ---
   $(".modal-body-grades :input").on "keypress change", ->
