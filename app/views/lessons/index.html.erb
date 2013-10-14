@@ -38,4 +38,11 @@
     <% end %>
   </tbody>
 </table>
-<br />
+
+<% if signed_in? && current_user.admin? %>
+<h3> Import Lessons</h3>
+  <%= form_tag import_lessons_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>

@@ -181,5 +181,4 @@ class StudentsController < ApplicationController
     Student.import(params[:file])
     redirect_to students_path, notice: "Students imported."
   end
-
 end

@@ -13,6 +13,14 @@ class Lesson < ActiveRecord::Base
   	end
   end
 
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      lesson = find_by_id(row["id"]) || new
+      lesson.attributes = row.to_hash.slice(*accessible_attributes)
+      lesson.save!
+    end
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names

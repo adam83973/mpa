@@ -84,4 +84,9 @@ class LessonsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    Lesson.import(params[:file])
+    redirect_to lessons_path, notice: "Lessons imported."
+  end
 end
