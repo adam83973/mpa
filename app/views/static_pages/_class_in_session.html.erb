@@ -13,9 +13,9 @@
           <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
           <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
           <% if @todays_lesson%>
-            <%= link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
+            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
           <% else %>
-            <%= link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
+            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
           <% end%>
         </li>
       </div>
