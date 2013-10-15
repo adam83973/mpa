@@ -52,17 +52,23 @@ jQuery ->
   # Add code to cancel if user rejects confirm.
   # .bind 'ajax:error', (evt, xhr, status, error) ->
 
-# Hide form on close. ---
+  # Hide form on close. ---
   $classform = $('.classform')
   $classform.on('click', ':submit'
-    -> $classform.slideUp())
+      -> $classform.slideUp())
 
-# Disable start class button until offering and week are selected. ---
+  $week = $('#week')
+  $week.on 'keypress', ->
+     if isNaN($week.val())
+       alert 'Numbers only!'
+
+  # Disable start class button until offering and week are selected. ---
   $('.classform :input').on "keypress change", ->
     empty = false
     $(".classform :input").each ->
       empty = true if $(this).val() is ""
-      if empty
+      $week = $('#week')
+      if empty or isNaN($week.val())
         $("#startclass").attr "disabled", "disabled"
       else
         $("#startclass").removeAttr "disabled"
