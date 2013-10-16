@@ -22,22 +22,12 @@
 
 <p>
   <b>Assignment:</b>
-  <a href="<%= @lesson.assignment %>"> <%= @lesson.name %> </a>
+  <%= link_to Resource.find(@lesson.assignment).filename %>
 </p>
 
 <p>
   <b>Assignment key:</b>
-  <a href="<%= @lesson.assignment_key %>"> <%= @lesson.name %> Key </a>
-</p>
-
-<p>
-  <b>Assesment:</b>
-  <a href="<%= @lesson.assessment %>"> Assessment </a>
-</p>
-
-<p>
-  <b>Assesment Key:</b>
-  <a href="<%= @lesson.assessment_key %>"> Assessment Key</a>
+  <!-- Insert lesson key information. -->
 </p>
 
 

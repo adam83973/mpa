@@ -1,12 +1,15 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week
+  attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week, :resource_ids
+
+  has_many :resourcings, as: :resourceable
+  has_many :resources, through: :resourcings
 
   belongs_to :standard
   has_many :grades
 
 
   def title
-  	if standard
+  	if standar
       standard.course.course_name + "-" + week.to_s + ": " + name
     else
       week.to_s + ": " + name
