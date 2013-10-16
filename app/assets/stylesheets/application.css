@@ -70,10 +70,10 @@ table {
 border-left: 3px solid #ffff00;
 }
 .m-btn.black-stripe {
-border-left: 3px solid black;
+    border-left: 3px solid black;
 }
 .m-btn.orange-stripe {
-border-left: 3px solid #ff6600;
+    border-left: 3px solid #ff6600;
 }
 .m-btn{
     background-color: #999999;
