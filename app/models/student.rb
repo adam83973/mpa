@@ -113,6 +113,16 @@ class Student < ActiveRecord::Base
     class_ids.include?(11)
   end
 
+  def in_math_class?
+    math_class = false
+    offerings.each do |offering|
+      if offering.course.id < 9
+        math_class = true
+      end
+    end
+    math_class
+  end
+
 #checks to see if student has attended first class
   def attended_first_class?
     !experience_points.empty?

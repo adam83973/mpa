@@ -11,14 +11,11 @@
     </div>
   <% end %>
 
-  
+
     <%= f.input :name %>
     <%= f.input :week %>
     <%= f.association :standard, label_method: :name %>
-    <%= f.input :assignment %>
-    <%= f.input :assignment_key %>
-    <%= f.input :assessment %>
-    <%= f.input :assessment_key %>
+    <%= f.input :assignment, as: :select, collection: Resource.where("content_type = ?", "application/pdf"), label_method: :filename %>
     <%= f.submit %>
 
 <% end %>

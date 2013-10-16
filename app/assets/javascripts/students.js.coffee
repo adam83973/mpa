@@ -1,12 +1,11 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 jQuery ->
-	$("#students").dataTable
-      bPaginate: true,  #hide pagination control
-      bFilter: true,     #hide filter control
-      bJQueryUI: true
+	$("#students_table").dataTable
+      "bPaginate": true,  #hide pagination control
+      "bFilter": true,     #hide filter control
+      "bJQueryUI": true
 
   $("#inactivestudents").dataTable
       bPaginate: true,  #hide pagination control
@@ -19,18 +18,25 @@ jQuery ->
       bJQueryUI: true
 
   $('#student_birth_date').datepicker
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear: true
 
   $('#student_start_date').datepicker
-      dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd'
 
   $('#student_restart_date').datepicker
-      dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd'
 
   $('#student_return_date').datepicker
-      dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd'
 
   $('#creditsModal').modal('hide')
+
+  $('#gradesModalButton').on 'click', ->
+    student_id = $('#studentId').data('studentid')
+    $('#grade_student_id').val(student_id)
+    $('#grade_experience_point_attributes_student_id').val(student_id)
 
   $("#credits_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->

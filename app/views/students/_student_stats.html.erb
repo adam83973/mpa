@@ -3,7 +3,9 @@
     <div class="span4">
       <h2><%= @student.full_name %></h2>
       <p>
-        <h3>ID: <%= @student.id %></h3>
+        <div id="studentId" data-studentId="<%= @student.id %>">
+          <h3>ID: <%= @student.id %></h3>
+        </div>
       </p>
       <p>
         <h3>Total XP: <%= @student.xp_total %></h3>
@@ -31,8 +33,9 @@
         </div>
       </center>
       <p>Next Level: <em><%= @student.next_rank %></em></p>
+    </div>
       <div class="row">
        <%= render 'student_toolbar' %></div>
      </div>
-   </div>
+
  </div>

@@ -1,9 +1,10 @@
 class Resource < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  attr_accessible :filename, :content_type, :file_size, :file, :problem_ids, :activity_ids
+  attr_accessible :filename, :content_type, :file_size, :file, :problem_ids, :activity_ids, :lesson_ids
 
-  has_many :problems, :through => :resourcings, :source => :resourceable, :source_type => "Problem"
+  #has_many :problems, :through => :resourcings, :source => :resourceable, :source_type => "Problem"
   has_many :activities, :through => :resourcings, :source => :resourceable, :source_type => "Activity"
+  has_many :lessons, :through => :resourcings, :source => :resourceable, :source_type => "Lesson"
   has_many :resourcings
 
   mount_uploader :file, FileUploader
@@ -12,7 +13,7 @@ class Resource < ActiveRecord::Base
   before_save :update_file_attributes
 
   private
-  
+
   def default_name
     self.filename ||= File.basename(file.filename, '.*').titleize
   end

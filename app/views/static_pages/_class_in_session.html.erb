@@ -1,7 +1,7 @@
 <% if class_session.in_session? %>
   <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
   <h4>Week: <%= class_session.week %></h4>
-     <%= link_to "Today's Lesson", @todays_lesson if @todays_lesson %>
+     <%# link_to "Today's Lesson", @todays_lesson if @todays_lesson %>
   <% if class_session.students == [] %>
     <p>Take attendance to add students to class!</p>
   <% else %>
