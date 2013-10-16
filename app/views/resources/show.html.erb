@@ -5,16 +5,24 @@
 
 <p>
   <b>Associated to Problem(s):</b><br />
-  <% @resource.problems.each do |problem| %>
-  	<%= problem.title %><br />
-  <% end %>
+  <% if @resource.problems %>
+    <% @resource.problems.each do |problem| %>
+    	<%= problem.title %><br />
+    <% end %>
+  <% else %>
+    "There are no problems associated with this resource."
+  <% end%>
 </p>
 
 <p>
   <b>Associated to Activity(s):</b><br />
-  <% @resource.activities.each do |activity| %>
-  	<%= activity.title %><br />
+  <% if @resource.activities %>
+    <% @resource.activities.each do |activity| %>
+    <%= activity.title %><br />
   <% end %>
+  <% else %>
+    "There are no activities associated with this resource."
+  <% end%>
 </p>
 
 <%= link_to 'Edit', edit_resource_path(@resource), class: 'm-btn' %>

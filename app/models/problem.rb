@@ -4,7 +4,7 @@ class Problem < ActiveRecord::Base
 
   validates_presence_of :title, :activity_type
   validates :title, uniqueness: true
-  
+
   has_many :resourcings, :as => :resourceable
   has_many :resources, :through => :resourcings
 

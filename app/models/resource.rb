@@ -2,7 +2,7 @@ class Resource < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   attr_accessible :filename, :content_type, :file_size, :file, :problem_ids, :activity_ids, :lesson_ids
 
-  #has_many :problems, :through => :resourcings, :source => :resourceable, :source_type => "Problem"
+  has_many :problems, :through => :resourcings, :source => :resourceable, :source_type => "Problem"
   has_many :activities, :through => :resourcings, :source => :resourceable, :source_type => "Activity"
   has_many :lessons, :through => :resourcings, :source => :resourceable, :source_type => "Lesson"
   has_many :resourcings
