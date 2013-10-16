@@ -3,16 +3,6 @@
   <%= link_to image_tag(@resource.file_url(:thumb)), @resource.file.url %>
 </p>
 
-<p>
-  <b>Associated to Problem(s):</b><br />
-  <% if @resource.problems %>
-    <% @resource.problems.each do |problem| %>
-    	<%= problem.title %><br />
-    <% end %>
-  <% else %>
-    "There are no problems associated with this resource."
-  <% end%>
-</p>
 
 <p>
   <b>Associated to Activity(s):</b><br />

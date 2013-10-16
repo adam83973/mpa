@@ -4,3 +4,7 @@
 jQuery ->
 	$('#lessons').dataTable
 		"bJQueryUI": true
+
+  $('#lesson_assignment').chosen()
+
+  $('#lesson_assignment_key').chosen()
