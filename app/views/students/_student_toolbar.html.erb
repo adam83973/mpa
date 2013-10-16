@@ -4,18 +4,18 @@
     <ul class="nav ul-padding inline">
       <%if current_user.employee? %>
       <li>
-        <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red" %>
+        <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red-stripe" %>
       </li>
       <li>
-        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "m-btn blue"%>
+        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "m-btn blue-stripe"%>
       </li>
       <li>
-        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple" } %>
+        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple-stripe" } %>
       </li>
-      <li><%= link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn", id: "gradesModalButton"%></li>
+      <li><%# link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn yellow-stripe", id: "gradesModalButton"%></li>
       <% if @agent_offering %>
       <li>
-        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn green" } %>
+        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn green-stripe" } %>
       </li>
       <% end %>
 

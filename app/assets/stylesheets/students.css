@@ -2,12 +2,13 @@
 /* Student Show page */
 
 .studentname{
-  background-color: #f1f1f1;
+  background-color:;
   padding-right: 20px;
   padding-left: 20px;
   padding-top:4px;
   padding-bottom:10px;
   position: relative;
+  border-bottom: solid 1px #afafaf;
 }
 
 

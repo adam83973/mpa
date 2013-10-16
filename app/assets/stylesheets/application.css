@@ -64,3 +64,11 @@ table {
     margin: 1em 0;
     clear: both;
 }
+
+ /*---m-button edits/overrides---*/
+ .m-btn.yellow-stripe {
+border-left: 3px solid #ffff00;
+}
+.m-btn{
+    background-color: #999999;
+}

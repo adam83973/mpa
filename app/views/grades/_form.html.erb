@@ -3,7 +3,7 @@
 
   <div class="form-horizontal">
     <%= f.association :student, label_method: :full_name %><br />
-    <%= f.association :lesson, label_method: :title %><br />
+    <%= f.association :lesson, label_method: :name %><br />
     <%= f.input :score, collection: 1...4 %><br />
     <%= f.button :submit %>
   </div>

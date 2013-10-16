@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
+  $('#gradesModalButton').on 'click', ->
+    student_id = $('#studentId').data('studentid')
+    $('#grade_student_id').val(student_id)
+    $('#grade_experience_point_attributes_student_id').val(student_id)
+
 	$("#students").dataTable
       bPaginate: true,  #hide pagination control
       bFilter: true,     #hide filter control
@@ -19,7 +24,9 @@ jQuery ->
       bJQueryUI: true
 
   $('#student_birth_date').datepicker
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear: true
 
   $('#student_start_date').datepicker
       dateFormat: 'yy-mm-dd'
