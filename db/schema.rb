@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016215358) do
+ActiveRecord::Schema.define(:version => 20131016220712) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -97,7 +97,6 @@ ActiveRecord::Schema.define(:version => 20131016215358) do
     t.text     "assessment"
     t.text     "assessment_key"
     t.integer  "standard_id"
-    t.text     "activities"
   end
 
   create_table "locations", :force => true do |t|
