@@ -9,7 +9,17 @@
     <li><%= link_to "New Class", new_offering_path %></li>
     <li><%= link_to "New Course", courses_path %></li>
     <li><%= link_to "New Standard", standards_path %></li>
+
     <li class="divider"></li>
+
+    <li class="dropdown-submenu">
+      <a href="#">Locations</a>
+      <ul class="dropdown-menu">
+        <% Location.all.each do |location| %>
+          <li><%= link_to location.name, location %></li>
+        <% end %>
+      </ul>
+    </li>
     <li><%= link_to "Billing", '/infusion_pages/home' %></li>
   </ul>
 </li>
