@@ -23,6 +23,11 @@ class StaticPagesController < ApplicationController
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings_count = @user_location.offerings.where("active = ?", true).count
           @new_students_location = @user_location.students.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
+            @new_students_location.each do |student|
+              if student.attended_first_class?
+                @new_students_location.delete_if { |ns| ns["id"] == student.id }
+              end
+            end
           @student_restart = @user_location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
           @student_return = @user_location.students.where("status = ? AND return_date < ?", "Hold", 20.days.from_now)
         end

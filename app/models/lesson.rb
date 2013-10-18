@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings
 
-  has_and_belongs_to_many :lessons
+  has_and_belongs_to_many :activities
   belongs_to :standard
   has_many :grades
 
