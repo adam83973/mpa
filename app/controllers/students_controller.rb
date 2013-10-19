@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
 
     if current_user.employee? || current_user.id == @student.user_id
   # Sets instance variable for student offering, used to print binder
@@ -49,7 +50,7 @@ class StudentsController < ApplicationController
 
     #Tags negative comments to allow styling in student show
       @student_xp_comments = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
-      @student_comment_feed = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
+      @student_comment_feed = @student_xp_comments
 
         @student_xp_comments.each do |xp|
           if xp.points == 0 && xp.experience_id != 3

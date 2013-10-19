@@ -6,22 +6,22 @@
 <center>
   <div class="modal-body">
      <%= simple_form_for @experience_point,
-                          url: url_for( action: :create, controller: :experience_points ),
-                          method: :post,
-                          html: { id: 'attendance_form'},
-                          remote: true do |f| %>
-        <%= f.error_notification %>
+        url: url_for( action: :create, controller: :experience_points ),
+        method: :post,
+        html: { id: 'attendance_form'},
+        remote: true do |f| %>
+      <%= f.error_notification %>
 
-        <div class="form-inputs">
-          <%= f.input :student_id, autofocus: true %>
-          <%= f.input :experience_id, :input_html => { :value => '2'}, as: :hidden, label: "Achievement ID" %>
-          <%= f.input :points, as: :hidden, :input_html => { :value => '20'} %>
-          <%= f.input :comment, as: :hidden, hidden: true, :input_html => { :rows => 2, :value => "Week #{class_session.week} attendance" } %>
-          <%= f.input :user_id, as: :hidden, :input_html => { :value => "#{current_user.id}" } %>
-        </div>
-          <%= f.button :submit, "Add to Class", class: "m-btn" %>
-      <% end %>
-      <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
+      <div class="form-inputs">
+        <%= f.input :student_id, autofocus: true %>
+        <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
+        <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
+        <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week} attendance" } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+      </div>
+        <%= f.button :submit, "Add to Class", class: "m-btn" %>
+    <% end %>
+    <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
   </div>
 </center>
 </div>

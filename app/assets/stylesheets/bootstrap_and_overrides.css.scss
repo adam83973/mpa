@@ -9,10 +9,24 @@ body { padding-top: 80px; }
     background-color: #3d75f4;
 }
 
+.progress{
+  .bar{
+    background-color:#3399cc;
+    background-image: none;
+  }
+
+  .square{
+    -webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+            border-radius: 0px;
+    background-color: #3d75f4;
+  }
+}
+
 .accordion-group.square{
   -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
 }
 
 .accordion-inner {
@@ -30,6 +44,12 @@ body { padding-top: 80px; }
 }
 
 .alert{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+}
+
+.btn{
   -webkit-border-radius: 0px;
      -moz-border-radius: 0px;
           border-radius: 0px;
