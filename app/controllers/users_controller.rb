@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(:id)
+    @users = User.includes(:location)
 
     if current_user.employee?
 
