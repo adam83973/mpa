@@ -1,5 +1,5 @@
 <div id="student">
-  <div class="studentname">
+  <div class="studentname row">
     <div class="span4">
       <h2><%= @student.full_name %></h2>
       <p>
@@ -22,20 +22,21 @@
       </p>
       <% end %>
     </div>
-
-    <div class="rank">
-      <p>
-        <h3>Current level: <em><%= @student.rank %> </em></h3>
-      </p>
-      <div class="progress square center ">
-        <center>
-          <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
-        </div>
-      </center>
-      <p>Next Level: <em><%= @student.next_rank %></em></p>
+    <% if @student.in_math_class? %>
+      <div class="rank">
+        <p>
+          <h3>Current level: <em><%= @student.rank %> </em></h3>
+        </p>
+        <div class="progress square">
+          <center>
+            <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
+          </div>
+        </center>
+        <p>Next Level: <em><%= @student.next_rank %></em></p>
+      </div>
+    <% end %>
+    <div class="row">
+       <%= render 'student_toolbar' %>
     </div>
-      <div class="row">
-       <%= render 'student_toolbar' %></div>
-     </div>
-
- </div>
+  </div>
+</div>
