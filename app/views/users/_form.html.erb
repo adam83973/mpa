@@ -1,5 +1,5 @@
 <% if params[:infusion_id] %>
-  <%= simple_form_for @user, :validate => true do |f| %>
+  <%= simple_form_for @user, validate: true do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -12,8 +12,8 @@
     </div>
   <% end %>
     <% if params[:first_name] %>
-      <%= f.input :first_name, :input_html: { value: params[:first_name]} %>
-      <%= f.input :last_name, :input_html: { value: params[:last_name]} %>
+      <%= f.input :first_name, input_html: { value: params[:first_name]} %>
+      <%= f.input :last_name, input_html: { value: params[:last_name]} %>
       <%= f.input :phone, input_html: { value: params[:phone]} %>
       <%= f.input :email, input_html: { value: params[:email]} %>
     <% else %>
@@ -25,7 +25,7 @@
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
     <% if current_user.employee? %>
-      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', :input_html => { :value => params[:infusion_id]}  %>
+      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { value: params[:infusion_id]}  %>
       <%= f.input :passion %>
       <%= f.input :shirt_size %>
       <%= f.association :location, label_method: :name %>
