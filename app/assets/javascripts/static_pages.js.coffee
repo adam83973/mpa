@@ -64,7 +64,6 @@ jQuery ->
 
   # Disable start class button until offering and week are selected. ---
   $('.classform :input').on "keypress change", ->
-    console.log("alert")
     empty = false
     $(".classform :input").each ->
       empty = true if $(this).val() is ""
