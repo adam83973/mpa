@@ -54,8 +54,8 @@ jQuery ->
 
   # Hide form on close. ---
   $classform = $('.classform')
-  $classform.on('click', ':submit'
-      -> $classform.slideUp())
+  $classform.on 'click', ':submit', ->
+    $classform.slideUp()
 
   $week = $('#week')
   $week.on 'keypress', ->
@@ -64,14 +64,15 @@ jQuery ->
 
   # Disable start class button until offering and week are selected. ---
   $('.classform :input').on "keypress change", ->
+    console.log("alert")
     empty = false
     $(".classform :input").each ->
       empty = true if $(this).val() is ""
       $week = $('#week')
       if empty or isNaN($week.val())
-        $("#startclass").attr "disabled", "disabled"
+        $("#startclass").prop "disabled", true
       else
-        $("#startclass").removeAttr "disabled"
+        $("#startclass").prop "disabled", false
 
 # ---- Grades modal ----------------
   $('#grade_student_id')
