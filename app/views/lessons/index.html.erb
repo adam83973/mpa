@@ -31,8 +31,8 @@
         <td><%= lesson.week %></td>
         <td><%= lesson.standard.course.course_name if lesson.standard %></td>
         <td><%= lesson.standard.name if lesson.standard %></td>
-        <td><a href="<%= lesson.assignment %>"target="_blank"> Assignment </a></td>
-        <td><a href="<%= lesson.assignment_key %>"target="_blank"> Assignment Key </a></td>
+        <td></td>
+        <td></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
       </tr>
     <% end %>
