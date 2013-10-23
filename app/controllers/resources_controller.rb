@@ -5,11 +5,12 @@ class ResourcesController < ApplicationController
   # GET /resources
   # GET /resources.json
   def index
-    @resources = Resource.all
+    @resources = Resource.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @resources }
+      format.csv { send_data @resources.to_csv }
     end
   end
 
@@ -84,5 +85,10 @@ class ResourcesController < ApplicationController
       format.html { redirect_to resources_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Resource.import(params[:file])
+    redirect_to resources_path, notice: "Resources imported."
   end
 end
