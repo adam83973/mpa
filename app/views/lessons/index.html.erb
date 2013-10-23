@@ -20,7 +20,7 @@
           <th>Course</th>
           <th>Standard</th>
           <th>Assignment</th>
-          <th>Assignment key</th>
+          <th>Assignment Key</th>
           <th></th>
         </tr>
   </thead>
@@ -31,8 +31,8 @@
         <td><%= lesson.week %></td>
         <td><%= lesson.standard.course.course_name if lesson.standard %></td>
         <td><%= lesson.standard.name if lesson.standard %></td>
-        <td></td>
-        <td></td>
+        <td><%= link_to "Assignment", Resource.find(lesson.assignment) if lesson.assignment && lesson.assignment != '' && lesson.assignment != nil  %></td>
+        <td><%= link_to "Assignment Key", Resource.find(lesson.assignment_key) if lesson.assignment_key && lesson.assignment_key != '' && lesson.assignment_key != nil  %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
       </tr>
     <% end %>

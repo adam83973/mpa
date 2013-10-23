@@ -27,7 +27,7 @@
 
 <p>
   <b>Assignment key:</b>
-  <!-- Insert lesson key information. -->
+  <%= link_to Resource.find(@lesson.assignment_key).filename, Resource.find(@lesson.assignment) if @lesson.assignment_key %>
 </p>
 
 
