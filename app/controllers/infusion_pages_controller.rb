@@ -208,6 +208,5 @@ class InfusionPagesController < ApplicationController
 
   def audit
     @active_students = Student.find_all_by_status('Active')
-    
   end
 end
