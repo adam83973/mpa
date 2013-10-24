@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/nateleavitt/infusionsoft.git
-  revision: 4d38eb5071db325a8489754a2731c775703bddf2
-  specs:
-    infusionsoft (1.1.6)
-
-GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 494f752b8eb8350f33841c822a67d014c869219f
   specs:
@@ -104,6 +98,7 @@ GEM
     hike (1.2.3)
     humanize (1.1.0)
     i18n (0.6.5)
+    infusionsoft (1.1.6)
     journey (1.0.4)
     jquery-fileupload-rails (0.4.1)
       actionpack (>= 3.1)
@@ -205,7 +200,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   fog
   humanize
-  infusionsoft!
+  infusionsoft (~> 1.1.5)
   jquery-datatables-rails!
   jquery-fileupload-rails
   jquery-rails
