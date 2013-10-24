@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
       payment_details.merge!( status: invoice[0]["Status"] )
       return payment_details
     else
-      return "Infusionsoft ID Not Present"
+      return nil
     end
   end
 
