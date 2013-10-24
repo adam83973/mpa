@@ -6,11 +6,5 @@ jQuery ->
 		"bJQueryUI": true
 
   $('#lesson_assignment').chosen()
-<<<<<<< HEAD
   $('#lesson_assignment_key').chosen()
-=======
-
-  $('#lesson_assignment_key').chosen()
-
->>>>>>> activitieslessons
   $('#lesson_activity_ids').chosen()
