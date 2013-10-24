@@ -206,6 +206,7 @@ class InfusionPagesController < ApplicationController
     redirect_to :back
   end
 
-  def camps
+  def audit
+    @active_students = Student.find_all_by_status('Active')
   end
 end

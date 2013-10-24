@@ -128,6 +128,10 @@ class Student < ActiveRecord::Base
     !experience_points.empty?
   end
 
+#checks to see if when student last attended class
+  def last_date_attended
+    experience_points.where("experience_id = ?", 2).last
+  end
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

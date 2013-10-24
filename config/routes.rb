@@ -91,6 +91,7 @@ MathPlus::Application.routes.draw do
   get "infusion_pages/update_subscription"
   get "infusion_pages/end_subscription"
   get "infusion_pages/delete_user"
+  get "infusion_pages/audit"
 
   # devise_scope :user do
   #   root to: "users#index", constraints: :user.signed_in?

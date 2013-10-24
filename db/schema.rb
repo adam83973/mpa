@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20131018142931) do
     t.text     "assessment"
     t.text     "assessment_key"
     t.integer  "standard_id"
+    t.text     "activities"
   end
 
   create_table "locations", :force => true do |t|
@@ -170,7 +171,6 @@ ActiveRecord::Schema.define(:version => 20131018142931) do
   add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
 
   create_table "resources", :force => true do |t|
-    t.string   "resource"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "filename"
