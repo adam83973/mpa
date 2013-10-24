@@ -14,16 +14,9 @@
     <%= f.input :name %>
     <%= f.input :week %>
     <%= f.association :standard, label_method: :name %>
-<<<<<<< HEAD
     <%= f.input :assignment, as: :select, collection: Resource.where("category = ?", "Assignments"), label_method: :filename %>
     <%= f.input :assignment_key, as: :select, collection: Resource.where("category = ?", "Assignment Keys"), label_method: :filename %>
-    <%= f.association :activities, label_method: :title, :input_html => { :class => 'span4' } %>
-    <%= f.submit %>
-=======
-    <%= f.input :assignment, as: :select, collection: Resource.where("content_type = ?", "application/pdf"), label_method: :filename %>
-    <%= f.input :assignment_key, as: :select, collection: Resource.where("content_type = ?", "application/pdf"), label_method: :filename %>
-    <%= f.association :activities, label_method: :title, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+    <%= f.association :problems, label_method: :title, input_html: { class: 'span4' } %>
     <%= f.button :submit, class: "m-btn" %>
->>>>>>> activitieslessons
 
 <% end %>
