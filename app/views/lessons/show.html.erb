@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @lesson.name %>
+  <h2><%= @lesson.name %></h2>
 </p>
 
 <p>
@@ -22,7 +21,9 @@
 
 <p>
   <b>Assignment:</b>
+  <% if @lesson.assignment != '' %>
   <%= link_to Resource.find(@lesson.assignment).filename, Resource.find(@lesson.assignment) %>
+  <% end %>
 </p>
 
 <p>

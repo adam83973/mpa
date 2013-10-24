@@ -10,7 +10,7 @@ class Lesson < ActiveRecord::Base
 
 
   def title
-  	if standar
+  	if standard
       standard.course.course_name + "-" + week.to_s + ": " + name
     else
       week.to_s + ": " + name
