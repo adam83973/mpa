@@ -20,10 +20,10 @@
 					<td><%= link_to student.user.full_name, student.user %></td>
 					<td><%= student.locations[0].name %></td>
 					<td><%= student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
-					<% if student.user.infusion_id && student.user.last_payment %>
-						<td><%= student.user.last_payment[:pay_date] %></td>
-						<td><%= number_to_currency(student.user.last_payment[:total_paid]) %></td>
-						<td><%= raw student.user.last_payment[:status] %></td>
+					<% if student.user.infusion_id %>
+						<td><%= student.user.last_payment[:pay_date] if student.user.last_payment[:pay_date] %></td>
+						<td><%= number_to_currency(student.user.last_payment[:total_paid]) if student.user.last_payment[:pay_date] %></td>
+						<td><%= raw student.user.last_payment[:status] if student.user.last_payment[:pay_date] %></td>
 					<% else %>
 						<td>N/A</td>
 						<td>N/A</td>
