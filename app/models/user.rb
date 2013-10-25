@@ -58,11 +58,14 @@ class User < ActiveRecord::Base
           i["Status"] = "<span class='label label-success'>Paid</span>"
         end
       end
+      unless invoice == nil
         payment_details = Hash.new
         payment_details.merge!( pay_date: invoice[0]["DateCreated"].to_date().strftime("%b-%d-%y") )
         payment_details.merge!( total_paid: invoice[0]["TotalPaid"] )
         payment_details.merge!( status: invoice[0]["Status"] )
-        payment_details
+
+        return payment_details
+      end
     else
       return nil
     end
