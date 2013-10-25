@@ -47,8 +47,7 @@ class User < ActiveRecord::Base
   def last_payment
     if self.infusion_id && self.role == 'Parent'
       invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => self.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
-      if invoice = []
-      else
+      if invoice.any?
         invoice.each do |i|
           if i["PayStatus"] == 0
             i["Status"] = "<span class='label label-important'>Unpaid</span>"
@@ -67,6 +66,7 @@ class User < ActiveRecord::Base
         payment_details.merge!( status: invoice[0]["Status"] )
 
         payment_details
+      else
       end
     else
       return nil
