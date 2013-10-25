@@ -98,7 +98,7 @@ GEM
     hike (1.2.3)
     humanize (1.1.0)
     i18n (0.6.5)
-    infusionsoft (1.1.6)
+    infusionsoft (1.1.7b)
     journey (1.0.4)
     jquery-fileupload-rails (0.4.1)
       actionpack (>= 3.1)
@@ -200,7 +200,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   fog
   humanize
-  infusionsoft (~> 1.1.5)
+  infusionsoft (~> 1.1.7b)
   jquery-datatables-rails!
   jquery-fileupload-rails
   jquery-rails

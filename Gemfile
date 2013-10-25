@@ -19,7 +19,7 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'css3-microsoft-metro-buttons-rails'
 gem 'coffee-rails', '~> 3.2.1'
-gem 'infusionsoft', '~> 1.1.5'
+gem 'infusionsoft', '~> 1.1.7b'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
