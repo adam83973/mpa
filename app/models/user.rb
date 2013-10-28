@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
 
   attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids
-  attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size, :infusion_id
+  attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion, :phone, :role, :shirt_size, :infusion_id, :last_payment
 
   attr_accessor :current_password
 
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
     ["Parent"].include?(self.role)
   end
 
-  def last_payment
+  def last_payment_infusion
     if self.infusion_id && self.role == 'Parent'
       invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => self.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
       if invoice.any?

@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20131022195700) do
-=======
-ActiveRecord::Schema.define(:version => 20131018142931) do
->>>>>>> activitieslessons
+ActiveRecord::Schema.define(:version => 20131028154446) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -101,7 +97,6 @@ ActiveRecord::Schema.define(:version => 20131018142931) do
     t.text     "assessment"
     t.text     "assessment_key"
     t.integer  "standard_id"
-    t.text     "activities"
   end
 
   create_table "locations", :force => true do |t|
@@ -171,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20131018142931) do
   add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
 
   create_table "resources", :force => true do |t|
+    t.string   "resource"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "filename"
@@ -260,6 +256,7 @@ ActiveRecord::Schema.define(:version => 20131018142931) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "infusion_id"
+    t.string   "last_payment"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
