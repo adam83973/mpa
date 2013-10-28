@@ -42,6 +42,10 @@
         <%= @user.infusion_id %>
       </p>
       <p>
+        Last Payment:
+        <%= @user.last_payment_infusion[0]["TotalPaid"].to_int.to_dollars %>
+      </p>
+      <p>
         <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
       </p>
       <p>

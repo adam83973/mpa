@@ -46,28 +46,28 @@ class User < ActiveRecord::Base
 
   def last_payment_infusion
     if self.infusion_id && self.role == 'Parent'
-      invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => self.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
-      if invoice.any?
-        invoice.each do |i|
-          if i["PayStatus"] == 0
-            i["Status"] = "<span class='label label-important'>Unpaid</span>"
-          elsif i["RefundStatus"] == 1
-            i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
-          elsif i["RefundStatus"] == 2
-            i["Status"] = "<span class='label label-warning'>Full Refund</span>"
-          else
-            i["Status"] = "<span class='label label-success'>Paid</span>"
-          end
-        end
+      JSON::parse(last_payment)
+      # if invoice.any?
+      #   invoice.each do |i|
+      #     if i["PayStatus"] == 0
+      #       i["Status"] = "<span class='label label-important'>Unpaid</span>"
+      #     elsif i["RefundStatus"] == 1
+      #       i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+      #     elsif i["RefundStatus"] == 2
+      #       i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+      #     else
+      #       i["Status"] = "<span class='label label-success'>Paid</span>"
+      #     end
+      #   end
 
-        payment_details = Hash.new
-        payment_details.merge!( pay_date: invoice[0]["DateCreated"].to_date().strftime("%b-%d-%y") )
-        payment_details.merge!( total_paid: invoice[0]["TotalPaid"] )
-        payment_details.merge!( status: invoice[0]["Status"] )
+      #   payment_details = Hash.new
+      #   payment_details.merge!( pay_date: invoice[0]["DateCreated"].to_date().strftime("%b-%d-%y") )
+      #   payment_details.merge!( total_paid: invoice[0]["TotalPaid"] )
+      #   payment_details.merge!( status: invoice[0]["Status"] )
 
-        payment_details
-      else
-      end
+      #   payment_details
+      # else
+      # end
     else
       return nil
     end
