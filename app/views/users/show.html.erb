@@ -1,4 +1,4 @@
-<div class="row">
+ <div class="row">
   <div class="span4">
     <p>
       <b>First name:</b>
@@ -43,7 +43,7 @@
       </p>
       <p>
         Last Payment Amount:
-        <%= @user.last_payment_infusion[0]["TotalPaid"] if @user.last_payment_infusion %>
+        <%= @user.last_payment_infusion[0]["TotalPaid"] if @user.last_payment_infusion.any? %>
       </p>
       <p>
         <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
