@@ -21,8 +21,12 @@
 					<td><%= student.locations[0].name if student.locations %></td>
 					<td><%= student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
 					<% if student.user.infusion_id %>
-						<td><%= student.user.last_payment unless student.user.last_payment == nil %></td>
-						<td><%= number_to_currency(student.user.last_payment[:TotalPaid]) unless student.user.last_payment == nil %></td>
+						<td>
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["month"] unless student.user.last_payment == nil %>/
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["day"] unless student.user.last_payment == nil %>/
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] unless student.user.last_payment == nil %>
+						</td>
+						<td><%= number_to_currency(student.user.last_payment_infusion[0]["TotalPaid"]) unless student.user.last_payment_infusion == nil %></td>
 						<td><%# raw student.user.last_payment[:status] unless student.user.last_payment == nil %></td>
 					<% else %>
 						<td>N/A</td>
