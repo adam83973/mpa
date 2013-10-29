@@ -43,7 +43,7 @@
       </p>
       <p>
         Last Payment Amount:
-        <%= @user.last_payment_infusion[0]["TotalPaid"] if @user.last_payment_infusion.any? %>
+        <%= @user.last_payment_infusion[0]["TotalPaid"] if @user.last_payment_infusion.any? || @user.last_payment_infusion == nil %>
       </p>
       <p>
         <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
