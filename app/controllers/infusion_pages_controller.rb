@@ -207,6 +207,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @active_students = Student.last(10)
+    @active_students = Student.order(:id)
   end
 end

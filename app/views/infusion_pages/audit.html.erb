@@ -26,7 +26,7 @@
 							<%# student.user.last_payment_infusion[0]["DateCreated"]["day"] unless student.user.last_payment == nil %>/
 							<%# student.user.last_payment_infusion[0]["DateCreated"]["year"] unless student.user.last_payment == nil %>
 						</td>
-						<td><%= number_to_currency(student.user.last_payment_infusion[0]["TotalPaid"]) unless student.user.last_payment_infusion == nil %></td>
+						<td><%= student.user.last_payment_infusion %></td>
 						<td><%# raw student.user.last_payment[:status] unless student.user.last_payment == nil %></td>
 					<% else %>
 						<td>N/A</td>
