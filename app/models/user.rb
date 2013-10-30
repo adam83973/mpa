@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def last_payment_infusion
-    if self.infusion_id && self.role == 'Parent' && !last_payment.nil?
+    if self.infusion_id && self.role == 'Parent' && !self.last_payment.nil?
       JSON::parse(last_payment)
       # if invoice.any?
       #   invoice.each do |i|
