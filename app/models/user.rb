@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
       # else
       # end
     else
-      return nil
+      return []
     end
   end
 
