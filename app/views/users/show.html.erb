@@ -41,10 +41,7 @@
         <b>Infusionsoft Id:</b>
         <%= @user.infusion_id %>
       </p>
-      <p>
-        Last Payment Amount:
-        <%= @user.last_payment_infusion if @user.last_payment %>
-      </p>
+
       <p>
         <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
       </p>
