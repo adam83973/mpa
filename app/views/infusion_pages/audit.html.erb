@@ -20,13 +20,13 @@
 					<td><%= link_to student.user.full_name, student.user %></td>
 					<td><%= student.locations[0].name if student.locations.any? %></td>
 					<td><%= student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
-					<% if student.user.infusion_id && student.user.last_payment %>
+					<% if student.user.infusion_id %>
 						<td>
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["month"] if student.user.last_payment %>/
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["day"] if student.user.last_payment %>/
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] if student.user.last_payment %>
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["month"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["day"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
+							<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] if student.user.last_payment_infusion.any? && student.user.last_payment %>
 						</td>
-						<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? %></td>
+						<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
 						<td><%# raw student.user.last_payment[:status] unless student.user.last_payment == nil %></td>
 					<% else %>
 						<td>No Infusion Id</td>
