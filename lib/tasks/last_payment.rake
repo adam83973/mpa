@@ -15,7 +15,7 @@ def update_last_payment
         query_to_json = query.to_json
           parent.update_attributes last_payment: query_to_json
       else
-        parent.update_attributes last_payment: "No Infusion Id".to_json
+        parent.update_attributes last_payment: [].to_json
       end
     rescue
       if count > 3
