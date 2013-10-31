@@ -9,7 +9,7 @@
 					<th>Location</th>
 					<th>Last Date Attended</th>
 					<th>Last Bill Date</th>
-					<th>Last Pmt</th>
+					<th>Last Inv. Amount</th>
 					<th>Pmt Status</th>
 				</tr>
 			</thead>
@@ -27,7 +27,7 @@
 							<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] if student.user.last_payment_infusion.any? && student.user.last_payment %>
 						</td>
 						<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
-						<td><%# raw student.user.last_payment[:status] unless student.user.last_payment == nil %></td>
+						<td><%= raw payment_status(student.user.last_payment) if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
 					<% else %>
 						<td>No Infusion Id</td>
 						<td>No Infusion Id</td>

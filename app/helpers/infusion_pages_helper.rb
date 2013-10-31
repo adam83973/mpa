@@ -22,4 +22,16 @@ module InfusionPagesHelper
 			"none"
 		end
 	end
+
+	def payment_status(last_payment)
+		if last_payment[0]["PayStatus"] == 0
+        "<span class='label label-important'>Unpaid</span>"
+      elsif last_payment[0]["RefundStatus"] == 1
+        "<span class='label label-warning'>Partial Refund</span>"
+      elsif last_payment[0]["RefundStatus"] == 2
+        "<span class='label label-warning'>Full Refund</span>"
+      else
+        "<span class='label label-success'>Paid</span>"
+      end
+	end
 end
