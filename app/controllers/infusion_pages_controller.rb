@@ -26,21 +26,28 @@ class InfusionPagesController < ApplicationController
   end
 
   def edit # requires params[:ContactId]
-    @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])
-    # check for credit cards associated to ContactId and render on edit page
-    @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
-    # remove all deleted cards from @credit_card array
-    @credit_card.delete_if {|i| i["Status"] == 2}
-    # check to see if parent exists in app user table. returns empty array if no match found
-    @app_user = User.where("infusion_id = ?", params[:ContactId]).first
+    count = 0
+    begin
+      @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])
+      # check for credit cards associated to ContactId and render on edit page
+      @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
+      # remove all deleted cards from @credit_card array
+      @credit_card.delete_if {|i| i["Status"] == 2}
+      # check to see if parent exists in app user table. returns empty array if no match found
+      @app_user = User.where("infusion_id = ?", params[:ContactId]).first
 
-    if params[:NewCustomer]
-      Infusionsoft.contact_add_to_group(params[:Id], 1648)
-      flash[:notice] = "New Customer Sequence Started"
-    end
+      if params[:NewCustomer]
+        Infusionsoft.contact_add_to_group(params[:Id], 1648)
+        flash[:notice] = "New Customer Sequence Started"
+      end
 
-    if !@app_user
-       @candidates = User.where("first_name =? AND last_name = ?", @user["FirstName"], @user["LastName"])
+      if !@app_user
+         @candidates = User.where("first_name =? AND last_name = ?", @user["FirstName"], @user["LastName"])
+      end
+    rescue
+      if count < 3
+        retry
+      end
     end
   end
 
