@@ -1,5 +1,5 @@
  <div class="row">
-  <div class="span4">
+  <div class="span5">
     <p>
       <b>First name:</b>
       <%= @user.first_name %>
@@ -88,10 +88,11 @@
 
     <p>
       <%= link_to "Edit User", edit_user_path(@user), class: "m-btn"%>
+
       <%= render 'shared/nav_buttons' %>
 
       <% if @user.parent? %>
-      <%= link_to "Add Student", { :controller => "students", :action => "new", :user_id => @user.id }, { :class => "m-btn blue" } %>
+      <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "m-btn blue" } %>
       <% end %>
     </p>
 
@@ -101,7 +102,7 @@
 
 <div class="row">
   <% if current_user.admin? %>
-  <div class="span8">
+  <div class="span7">
     <% if @user.role == "Parent" && @user.infusion_id != nil %>
       <%= render 'billing' %>
     <% end %>
