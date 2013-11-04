@@ -11,7 +11,6 @@
 					<th>Last Bill Date</th>
 					<th>Last Inv. Amount</th>
 					<th>Pmt Status</th>
-					<th>Last Payment</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,9 +28,7 @@
 						</td>
 						<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
 						<td><%= raw payment_status(student.user.last_payment_infusion[0]["PayStatus"], student.user.last_payment_infusion[0]["RefundStatus"]) if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
-						<td><%= student.user.last_payment_infusion if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
 					<% else %>
-						<td>No Infusion Id</td>
 						<td>No Infusion Id</td>
 						<td>No Infusion Id</td>
 						<td>No Infusion Id</td>
