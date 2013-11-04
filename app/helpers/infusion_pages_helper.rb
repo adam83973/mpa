@@ -31,8 +31,7 @@ module InfusionPagesHelper
     elsif refundstatus == 2
       "<span class='label label-warning'>Full Refund</span>"
     else
-      user.last_payment[0]
-      #"<span class='label label-success'>Paid</span>"
+      "<span class='label label-success'>Paid</span>"
     end
 	end
 end
