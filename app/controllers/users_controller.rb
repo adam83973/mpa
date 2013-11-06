@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.includes(:location)
+    @parents = User.where("role=?", "Parent").includes(:location)
 
     if current_user.employee?
 
@@ -135,6 +136,26 @@ class UsersController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def deactivate
+    @user = User.find(params[:id])
+
+    if @user.active = true
+      @user.update_attributes active: false
+    end
+
+    if @user.students
+      students = @user.students
+      students.each do |student|
+        student.update_attributes status: "Inactive"
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: "#{@user.full_name} and their student(s) have been deactivated." }
+      format.json { head :no_content }
     end
   end
 

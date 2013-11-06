@@ -44,30 +44,21 @@ class User < ActiveRecord::Base
     ["Parent"].include?(self.role)
   end
 
+  # def deactivate
+  #   if self.active = true
+  #     self.toggle(:active)
+  #   end
+  #   if self.students
+  #     students = self.students
+  #     students.each do |each|
+  #       student.update_attributes status: "Inactive"
+  #     end
+  #   end
+  # end
+
   def last_payment_infusion
     if self.infusion_id && self.role == 'Parent' && !self.last_payment.nil?
       JSON::parse(last_payment)
-      # if invoice.any?
-      #   invoice.each do |i|
-      #     if i["PayStatus"] == 0
-      #       i["Status"] = "<span class='label label-important'>Unpaid</span>"
-      #     elsif i["RefundStatus"] == 1
-      #       i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
-      #     elsif i["RefundStatus"] == 2
-      #       i["Status"] = "<span class='label label-warning'>Full Refund</span>"
-      #     else
-      #       i["Status"] = "<span class='label label-success'>Paid</span>"
-      #     end
-      #   end
-
-      #   payment_details = Hash.new
-      #   payment_details.merge!( pay_date: invoice[0]["DateCreated"].to_date().strftime("%b-%d-%y") )
-      #   payment_details.merge!( total_paid: invoice[0]["TotalPaid"] )
-      #   payment_details.merge!( status: invoice[0]["Status"] )
-
-      #   payment_details
-      # else
-      # end
     else
       return []
     end
