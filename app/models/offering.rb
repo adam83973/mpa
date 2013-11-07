@@ -26,7 +26,7 @@ class Offering < ActiveRecord::Base
     tech_class_ids = [11, 12, 15, 16]
     if math_class_ids.include?(self.course.id) && 10 - total_students <= 0
       true
-    elsif self.id == 10 && 15 - total_students <= 0
+    elsif self.course.id == 10 && 15 - total_students <= 0
       true
     elsif tech_class_ids.include?(self.course.id) && 8 - total_students <= 0
       true
