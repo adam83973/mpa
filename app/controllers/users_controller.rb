@@ -154,7 +154,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "#{@user.full_name} and their student(s) have been deactivated." }
+      format.html { redirect_to users_url(users: :parents), notice: "#{@user.full_name} and their student(s) have been deactivated." }
       format.json { head :no_content }
     end
   end
