@@ -79,7 +79,9 @@
     <tbody>
       <% @location_offerings.each do |offering| %>
         <tr>
-          <td><%= offering.course.course_name%></td>
+          <td>
+            <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
+          </td>
           <td><%= offering.course.grade if offering.course.grade %></td>
           <td><%= offering.day%> / <%= offering.time.strftime("%I:%M %p")%></td>
           <td>
