@@ -20,6 +20,21 @@ class Offering < ActiveRecord::Base
       self.students.find_all_by_status("Active").count
   end
 
+  def at_capacity?
+    total_students = returning_students_count + active_students_count
+    math_class_ids = (1..10).to_a << 13 << 17
+    tech_class_ids = [11, 12, 15, 16]
+    if math_class_ids.include?(self.id) && total_students - 10 == 0
+      true
+    elsif self.id == 10 && total_students - 15 == 0
+      true
+    elsif tech_class_ids.include?(self.id) && total_students - 8 == 0
+      true
+    else
+      false
+    end
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names
