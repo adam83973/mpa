@@ -1,4 +1,4 @@
-<div class="row">
+><div class="row">
   <div class="span8">
     <p>
       <b>Name:</b>
@@ -83,7 +83,7 @@
             <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
           </td>
           <td><%= offering.course.grade if offering.course.grade %></td>
-          <td><%= offering.day%> / <%= offering.time.strftime("%I:%M %p")%></td>
+          <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
           <td>
             <% offering.users.each do |user| %>
               <% if user.role == "Teacher" %>
