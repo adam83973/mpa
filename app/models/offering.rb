@@ -35,6 +35,9 @@ class Offering < ActiveRecord::Base
     end
   end
 
+  def students_wait_listed?
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names

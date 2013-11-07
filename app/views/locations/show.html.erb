@@ -72,6 +72,8 @@
         <th>Day/Time</th>
         <th>Teacher</th>
         <th>Classroom</th>
+        <th># Students</th>
+        <th>Open Spots</th>
       </tr>
     </thead>
     <tbody>
@@ -90,6 +92,15 @@
           <td>
             <%= offering.classroom %>
           </td>
+          <td><%= offering.active_students_count + offering.returning_students_count %></td>
+            <td>
+              <% if offering.course_id <= 10 %>
+                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
+              <% elsif [11, 12].include?(offering.course_id) %>
+                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
+              <% elsif offering.course_id > 13 %>
+              <% end %>
+            </td>
         </tr>
       <% end %>
     </tbody>
