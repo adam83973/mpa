@@ -78,7 +78,11 @@ ul{
 	padding-right: 10px;
 }
 
-.modal-body-grades{
+.modal-body-stats{
+	margin:10px;
+}
+
+.modal-body-grades .modal-body-stats{
 	max-height: 1000px;
 	padding-top: 20px
 }
