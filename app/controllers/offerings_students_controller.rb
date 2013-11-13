@@ -17,8 +17,12 @@ class OfferingsStudentsController < ApplicationController
   end
 
   def student_name(offeringsstudents)
-    student = Student.find(offeringsstudents)
+      student = Student.find(offeringsstudents)
+  end
 
+  def destroy
+    @offerings_student = OfferingsStudent.where("offering_id = ?", params[:offering_id])
+    @offerings_student.destroy
   end
 end
 

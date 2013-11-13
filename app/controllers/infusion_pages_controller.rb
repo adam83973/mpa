@@ -214,6 +214,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @active_students = Student.order(:id)
+    @active_students = Student.where("status = ?", "Active").order(:last_name)
   end
 end
