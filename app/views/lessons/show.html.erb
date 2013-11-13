@@ -21,18 +21,14 @@
 
 <p>
   <b>Assignment:</b>
-<<<<<<< HEAD
-  <%= link_to Resource.find(@lesson.assignment).filename, Resource.find(@lesson.assignment) if @lesson.assignment %>
-=======
   <% if @lesson.assignment != '' %>
-  <%= link_to Resource.find(@lesson.assignment).filename, Resource.find(@lesson.assignment) %>
+  <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment) %>
   <% end %>
->>>>>>> activitieslessons
 </p>
 
 <p>
   <b>Assignment key:</b>
-  <%= link_to Resource.find(@lesson.assignment_key).filename, Resource.find(@lesson.assignment) if @lesson.assignment_key %>
+  <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment) if @lesson.assignment_key %>
 </p>
 
 
