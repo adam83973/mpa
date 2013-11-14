@@ -31,6 +31,9 @@ jQuery ->
   $('#student_return_date').datepicker
     dateFormat: 'yy-mm-dd'
 
+  $('#student_end_date').datepicker
+    dateFormat: 'yy-mm-dd'
+
   $('#creditsModal').modal('hide')
 
   $('#gradesModalButton').on 'click', ->

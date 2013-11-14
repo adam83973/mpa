@@ -26,6 +26,7 @@
       <%= f.input :credits %><br />
       <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
       <%= f.input :birth_date, as: :string %>
+      <%= f.input :end_date, as: :string %>
       <%= f.button :submit, class: "m-btn" %>
   <% end %>
 <% else %>
@@ -56,6 +57,7 @@
       <%= f.input :credits %><br />
       <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
       <%= f.input :birth_date, as: :string %>
+      <%= f.input :end_date, as: :string %>
       <%= f.button :submit, class: "m-btn" %>
   <% end %>
 <% end %>

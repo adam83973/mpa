@@ -1,5 +1,5 @@
-><div class="row">
-  <div class="span8">
+<div class="row">
+  <div class="span6">
     <p>
       <b>Name:</b>
       <%= @location.name %>
@@ -8,6 +8,7 @@
     <p>
       <b>Address:</b>
       <%= @location.address %>
+      <%= Date.today %>
     </p>
 
     <p>
@@ -40,7 +41,7 @@
 
   <% if signed_in? %>
     <% if current_user.admin?%>
-      <div class= "span4">
+      <div class= "span6">
         <h2><%= @location.name%> Stats</h2>
         <table class="table table-bordered">
           <thead>
@@ -48,6 +49,8 @@
               <th># of Offerings</th>
               <th># of Students</th>
               <th>Avg. Student/Offering</th>
+              <th>Students Added (30 days)</th>
+              <th>Students Dropped (30 days)</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +58,8 @@
               <td><%= @location_offerings.count %></td>
               <td><%= @total_location_students_count %></td>
               <td><%= @total_location_students_count  / @location_offerings.count %></td>
+              <td><%= @location.students_added_last_30.count %></td>
+              <td><%= @location.students_dropped_last_30.count %></td>
             </tr>
           </tbody>
         </table>

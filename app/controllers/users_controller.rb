@@ -150,6 +150,7 @@ class UsersController < ApplicationController
       students = @user.students
       students.each do |student|
         student.update_attributes status: "Inactive"
+        student.update_attributes end_date: Date.today
       end
     end
 
