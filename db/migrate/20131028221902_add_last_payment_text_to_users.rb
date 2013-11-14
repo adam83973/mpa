@@ -1,5 +1,7 @@
 class AddLastPaymentTextToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :last_payment, :text
+    unless column_exists? :users, :last_payment
+      add_column :users, :last_payment, :text
+    end
   end
 end
