@@ -23,7 +23,6 @@ class StaticPagesController < ApplicationController
             end
         end
         if @user_location
-          @active_student_count = @user_location.students.where("status = ?", "Active").count
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings_count = @user_location.offerings.where("active = ?", true).count
           @new_students_location = @user_location.students.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq

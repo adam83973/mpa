@@ -12,6 +12,18 @@ class Location < ActiveRecord::Base
     self.students.where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)
   end
 
+  def active_students
+      self.students.where("status = ?", "Active") if self.students
+  end
+
+  def restarting_students
+      self.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
+  end
+
+  def active_offerings
+      self.offerings.where("active = ?", true) if self.offerings
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       location = find_by_id(row["id"]) || new

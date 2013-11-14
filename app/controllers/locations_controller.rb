@@ -17,10 +17,9 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @location = Location.find(params[:id])
-    @location_offerings = @location.offerings.where("active = ?", true).order('course_id asc')
-    @location_students = @location.students.where("status = ?", "Active")
-    @location_students_restarting = @location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
-    @total_location_students_count = @location_students.count + @location_students_restarting.count
+    @location_students_restarting = @location.restarting_students
+    @total_location_students_count = @location.active_students.count + @location_students_restarting.count
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @location }

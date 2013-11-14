@@ -8,7 +8,7 @@
   </p>
   <p>
     <b># of Students: </b>
-    <%= @active_student_count + @student_restart.count %>
+    <%= @user_location.active_students.count + @student_restart.count %>
   </p>
   <p>
     <b># of Students On Hold: </b>
@@ -19,7 +19,7 @@
     <% if @user_location.offerings.count == 0 %>
       <p><em>There are no students enrolled.</em></p>
     <% else %>
-      <% @active_student_count / @location_offerings_count %>
+      <%= @user_location.active_students.count / @user_location.active_offerings.count %>
     <% end %>
   </p>
 </div>

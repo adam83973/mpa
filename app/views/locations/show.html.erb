@@ -54,9 +54,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @location_offerings.count %></td>
+              <td><%= @location.active_offerings.count %></td>
               <td><%= @total_location_students_count %></td>
-              <td><%= @total_location_students_count  / @location_offerings.count %></td>
+              <td><%= @location.active_students.count  / @location.active_offerings.count %></td>
               <td><%= @location.students_added_last_30.count %></td>
               <td><%= @location.students_dropped_last_30.count %></td>
             </tr>
@@ -81,7 +81,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @location_offerings.each do |offering| %>
+      <% @location.active_offerings.order(:course_id).each do |offering| %>
         <tr>
           <td>
             <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
