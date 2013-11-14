@@ -2,6 +2,9 @@ class StaticPagesController < ApplicationController
 
   def home
     if signed_in?
+      if current_user.parent?
+        flash[:notice] = "Bonus code is 'active25'"
+      end
       @user = current_user
       # if @user.offerings?
         @grade = Grade.new
@@ -34,11 +37,8 @@ class StaticPagesController < ApplicationController
         end
     end
 
-    if params[:search]
-      @users_search = User.search(params[:search])
-    else
-      @user_search = []
-    end
+    params[:search] ? @users_search = User.search(params[:search]) : @user_search = []
+
   end
 end
 
