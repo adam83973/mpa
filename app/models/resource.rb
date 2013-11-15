@@ -14,12 +14,12 @@ class Resource < ActiveRecord::Base
 
   def is_lesson?
     default_name
-    !!(self.filename =~ /(?<course>\w+.\w+)\s(?<week>\d)\s-{1}\s(?<lesson>\b\w*)/)
+    !!(self.filename =~ /(?<course>\w+.\w+)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*)/)
   end
 
   def is_lesson_key?
     default_name
-    !!(self.filename =~ /(?<course>\w+.\w+).(?<week>\d)\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/)
+    !!(self.filename =~ /(?<course>\w+.\w+).(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/)
   end
 
   private
