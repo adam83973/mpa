@@ -61,7 +61,7 @@
 <% if signed_in? && current_user.try(:admin?) %>
 <h3> Import Resource </h3>
 <p style="color:red;">(CAUTION: Only for editing attributes! This is not for uploading files.)</p>
-  <%= form_tag import_offerings_path, multipart: true do %>
+  <%= form_tag import_resources_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>
   <% end %>
