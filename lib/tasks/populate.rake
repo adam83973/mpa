@@ -4,14 +4,14 @@ namespace :db do
     make_users
     make_locations
     make_courses
-    make_lessons
+    # make_lessons
     make_experiences
   end
 end
 
 def make_users
   admin = User.create!(first_name:            "Travis",
-                       last_name:             "Kendall",
+                       last_name:             "Sperry",
                        role:                  "Admin",
                        phone:                 "(614) 260-6162",
                        location_id:           "2",
@@ -19,6 +19,7 @@ def make_users
                        password:              "password",
                        password_confirmation: "password")
   admin.toggle!(:admin)
+  admin.toggle!(:active)
 
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
@@ -30,6 +31,7 @@ def make_users
                         password_confirmation:"password")
 
   admin1.toggle!(:admin)
+  admin1.toggle!(:active)
 
   admin2 = User.create!(first_name:           "Madison",
                         last_name:            "Corna",
@@ -129,10 +131,12 @@ end
 
 def make_experiences
   Experience.create!(name:              "Homework",
+                     points:            20,
                      category:          "Tasks",
                      content:           "This is the everyday stuff anybody can do this.")
 
   Experience.create!(name:              "Attendance",
+                     points:            20,
                      category:          "Tasks",
                      content:           "This is the everyday stuff anybody can do this.")
 end
@@ -142,18 +146,10 @@ def make_lessons
     name = "Lesson- #{n+1}"
     week = "#{n+1}"
     course_id  = "1"
-    assignment  = "https://www.dropbox.com/s/nagajhz3zq909bj/Recruit%201%20-%20Read%20Write%20Digits%200-9.pdf"
-    assignment_key  = "https://www.dropbox.com/s/076q0byftiqkvih/Recruit%201%20-%20Read%20Write%20Digits%200-9%20KEY.pdf"
-    assessment = "#"
-    assessment_key = "#"
 
     Lesson.create!(name:                 name,
                    week:                  week,
-                   course_id:             course_id,
-                   assignment:            assignment,
-                   assignment_key:        assignment_key,
-                   assessment:            assessment,
-                   assessment_key:        assessment_key)
+                   course_id:             course_id)
   end
 end
 

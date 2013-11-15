@@ -2,11 +2,10 @@
 
 <h1><%= yield(:title)%></h1>
 
-<% if signed_in? && current_user.admin? %>
-  <p>
-    <%= link_to 'New Course', new_course_path, class: "btn btn-success" %>
-  </p>
-<% end %>
+<p>
+  Download:
+  <%= link_to "CSV", offerings_students_path(format: "csv") %>
+</p>
 
 <table class="table table-striped">
   <tr>

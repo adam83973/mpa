@@ -3,11 +3,12 @@ class OfferingsStudentsController < ApplicationController
   before_filter :authorize_admin
 
   def index
-    @offeringsstudents = OfferingsStudent.all
+    @offeringsstudents = OfferingsStudent.order(:student_id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @offeringsstudents }
+      format.csv { send_data @offeringsstudents.to_csv }
     end
   end
 
