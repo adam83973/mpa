@@ -58,6 +58,10 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  resources :courses do
+    collection { post :import }
+  end
+
   resources :problems do
     collection { post :import }
   end

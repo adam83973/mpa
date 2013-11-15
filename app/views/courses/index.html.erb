@@ -6,6 +6,10 @@
   <p>
     <%= link_to 'New Course', new_course_path, class: "m-btn green" %>
   </p>
+  <p>
+    Download:
+    <%= link_to "CSV", courses_path(format: "csv") %>
+  </p>
 <% end %>
 
 <table class="table table-striped">

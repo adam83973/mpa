@@ -11,11 +11,12 @@ class CoursesController < ApplicationController
   end
 
   def index
-    @courses = Course.all
+    @courses = Course.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @courses }
+      format.csv { send_data @courses.to_csv }
     end
   end
 
