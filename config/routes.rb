@@ -46,6 +46,10 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  resources :resources do
+    collection { post :import }
+  end
+
   resources :offerings_students do
     collection { post :import }
   end
