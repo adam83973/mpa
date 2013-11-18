@@ -11,6 +11,7 @@ class Resource < ActiveRecord::Base
 
   before_create :default_name
   before_save :update_file_attributes
+  after_save :resource_to_lesson
 
   def is_lesson?
     default_name
@@ -23,6 +24,33 @@ class Resource < ActiveRecord::Base
   end
 
   private
+
+  def add_resource_to_lesson
+    if self.is_lesson?
+      r = lesson_regex.match(self.filename)
+      if r
+        lessons = Lesson.where("week = ?", "#{r[:week]}")
+        lessons.each do |lesson|
+          if lesson.standard.course.course_name == r[:course]
+            lesson.assignment ||= self.id
+            lesson.save
+          end
+        end
+      end
+    elsif self.is_lesson_key?
+      l = key_regex.match(self.filename)
+      if l
+        lessons = Lesson.where("week = ?", "#{l[:week]}")
+        lessons.each do |lesson|
+          if lesson.standard.course.course_name == l[:course]
+            lesson.assignment_key ||= self.id
+            lesson.save
+          end
+        end
+      end
+    else
+    end
+  end
 
   def default_name
     self.filename ||= File.basename(file.filename, '.*').gsub("_", " ")
