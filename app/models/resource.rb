@@ -11,7 +11,7 @@ class Resource < ActiveRecord::Base
 
   before_create :default_name
   before_save :update_file_attributes
-  after_save :resource_to_lesson
+  after_save :add_resource_to_lesson
 
   def is_lesson?
     default_name
@@ -26,6 +26,8 @@ class Resource < ActiveRecord::Base
   private
 
   def add_resource_to_lesson
+    lesson_regex = /(?<course>\w+.\w+)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*)/
+    key_regex = /(?<course>\w+.\w+).(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/
     if self.is_lesson?
       r = lesson_regex.match(self.filename)
       if r
