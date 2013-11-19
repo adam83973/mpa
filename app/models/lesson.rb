@@ -1,10 +1,9 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week, :resource_ids, :activity_ids, :course_id
+  attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week, :resource_ids, :problem_ids, :course_id
 
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings
-
-  has_and_belongs_to_many :activities
+  has_and_belongs_to_many :problems
   belongs_to :standard
   has_many :grades
 

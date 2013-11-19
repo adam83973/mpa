@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114180904) do
+ActiveRecord::Schema.define(:version => 20131119171336) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -97,6 +97,11 @@ ActiveRecord::Schema.define(:version => 20131114180904) do
     t.text     "assessment"
     t.text     "assessment_key"
     t.integer  "standard_id"
+  end
+
+  create_table "lessons_problems", :id => false, :force => true do |t|
+    t.integer "lesson_id"
+    t.integer "problem_id"
   end
 
   create_table "locations", :force => true do |t|

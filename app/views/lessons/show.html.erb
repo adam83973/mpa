@@ -31,6 +31,17 @@
   <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment) if @lesson.assignment_key %>
 </p>
 
+<p>
+  <b>Activities/Games/Problems:</b>
+  <% if @lesson.problems %>
+  <% @lesson.problems.each do |problem| %>
+  <%= link_to "#{problem.title}", problem %>
+  <% end %>
+  <% else %>
+    There are no activities associated with this lesson.
+  <% end %>
+</p>
+
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
 <%= link_to 'Back', lessons_path %>

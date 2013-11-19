@@ -7,4 +7,4 @@ jQuery ->
 
   $('#lesson_assignment').chosen()
   $('#lesson_assignment_key').chosen()
-  $('#lesson_activity_ids').chosen()
+  $('#lesson_problem_ids').chosen()

@@ -21,6 +21,23 @@ class StaticPagesController < ApplicationController
                 @todays_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id
               end
             end
+            if class_session.week.to_i - 1 == 0
+              @last_weeks_lessons = Lesson.where("week = ?", "48")
+              @last_weeks_lessons.each do |lesson|
+                if lesson.standard
+                  if Offering.find(class_session.offering).course_id == 1
+                    nil
+                  else
+                    @last_weeks_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id.to_i - 1
+                  end
+                end
+              end
+            else
+              @last_weeks_lessons = Lesson.where("week = ?", "#{class_session.week.to_i - 1}")
+              @last_weeks_lessons.each do |lesson|
+                @last_weeks_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id
+              end
+            end
         end
         if @user_location
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count

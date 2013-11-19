@@ -1,25 +1,46 @@
 <% if class_session.in_session? %>
-  <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
+<h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
+<div class="lesson_activities row-fluid">
   <h4>Week: <%= class_session.week %></h4>
-     <%= link_to "Today's Lesson", @todays_lesson if @todays_lesson %>
-  <% if class_session.students == [] %>
-    <p>Take attendance to add students to class!</p>
-  <% else %>
-  <p><b>Students in Attendance:</b></p>
-  <ul>
-    <% class_session.students.each do |student_id| %>
-      <div id='student_<%= student_id %>' class="student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
-        <li class='student_<%= student_id %>'>
-          <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
-          <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
-          <% if @todays_lesson%>
-            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
-          <% else %>
-            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
-          <% end%>
-        </li>
-      </div>
+  <div class="span3 lesson">
+    <p>Lesson:</p>
+    <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if @todays_lesson.assignment %>
+  </div>
+  <div class="span3 key">
+    <p>Key:</p>
+    <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
+      <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@todays_lesson.assignment_key).file.url %>
+    <% else %>
+      There is no key for this lesson.
     <% end %>
-  </ul>
+  </div>
+  <div class="span3 activities">
+    <p>Activities:</p>
+    <% if @todays_lesson.problems %>
+      <% @todays_lesson.problems.each do |problem| %>
+        - <%= link_to "#{problem.title}", problem %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% if class_session.students == [] %>
+  <p>Take attendance to add students to class!</p>
+<% else %>
+  <p><b>Students in Attendance:</b></p>
+<ul>
+  <% class_session.students.each do |student_id| %>
+  <div id='student_<%= student_id %>' class="student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
+    <li class='student_<%= student_id %>'>
+      <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
+      <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
+      <% if @todays_lesson%>
+      <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
+      <% else %>
+      <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
+      <% end%>
+    </li>
+  </div>
   <% end %>
+</ul>
+<% end %>
 <% end %>
