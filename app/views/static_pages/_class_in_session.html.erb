@@ -18,7 +18,7 @@
   </div>
   <div class="span3 activities">
     <p>Activities:</p>
-    <% if @todays_lesson.problems %>
+    <% if @todays_lesson && @todays_lesson.problems %>
       <% @todays_lesson.problems.each do |problem| %>
         - <%= link_to "#{problem.title}", problem %>
       <% end %>
