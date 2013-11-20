@@ -79,7 +79,18 @@ class ResourcesController < ApplicationController
   # DELETE /resources/1.json
   def destroy
     @resource = Resource.find(params[:id])
+    @lessons = Lesson.where('assignment = ? OR assignment_key = ?', @resource.id, @resource.id)
+
+    @lessons.each do |lesson|
+      if @resource.is_lesson?
+        lesson.update_attributes assignment: nil
+      elsif @resource.is_lesson_key?
+        lesson.update_attributes assignment_key: nil
+      else
+      end
+    end
     @resource.destroy
+
 
     respond_to do |format|
       format.html { redirect_to resources_url }
