@@ -28,24 +28,24 @@ class Resource < ActiveRecord::Base
   def add_resource_to_lesson
     lesson_regex = /(?<course>\w+.\w+)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*)/
     key_regex = /(?<course>\w+.\w+).(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/
-    if self.is_lesson?
-      r = lesson_regex.match(self.filename)
-      if r
-        lessons = Lesson.where("week = ?", "#{r[:week]}")
-        lessons.each do |lesson|
-          if lesson.standard.course.course_name == r[:course]
-            lesson.assignment ||= self.id
-            lesson.save
-          end
-        end
-      end
-    elsif self.is_lesson_key?
+    if self.is_lesson_key?
       l = key_regex.match(self.filename)
       if l
         lessons = Lesson.where("week = ?", "#{l[:week]}")
         lessons.each do |lesson|
           if lesson.standard.course.course_name == l[:course]
             lesson.assignment_key ||= self.id
+            lesson.save
+          end
+        end
+      end
+    elsif self.is_lesson?
+      r = lesson_regex.match(self.filename)
+      if r
+        lessons = Lesson.where("week = ?", "#{r[:week]}")
+        lessons.each do |lesson|
+          if lesson.standard.course.course_name == r[:course]
+            lesson.assignment ||= self.id
             lesson.save
           end
         end
