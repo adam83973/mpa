@@ -11,3 +11,6 @@ jQuery ->
   $('#problem_resource_ids').chosen()
 
   $('#problem_standard_ids').chosen()
+
+  $('#problem_lesson_ids').chosen()
+
