@@ -15,7 +15,7 @@ class ClassSessionsController < ApplicationController
 
   def remove_student
     @student = Student.find(params[:student_id])
-    @experience_points = @student.experience_points.where("experience_id = ?", 2)
+    @experience_points = @student.experience_points.where("experience_id = ? AND created_at = ?", 2, Date.today)
     @attendance_xp = @experience_points.last
     class_session.remove_student(params[:student_id])
       @attendance_xp.destroy

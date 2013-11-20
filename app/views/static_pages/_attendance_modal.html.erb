@@ -16,7 +16,7 @@
         <%= f.input :student_id, autofocus: true %>
         <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
         <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
-        <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. #{offering_name_lookup(class_session.offering)}  " } %>
+        <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
         <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
       </div>
         <%= f.button :submit, "Add to Class", class: "m-btn" %>
