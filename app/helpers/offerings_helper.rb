@@ -6,4 +6,12 @@ module OfferingsHelper
       "<span class='label label-success pull-right'>Open</span>"
     end
   end
+
+  def offering_name_lookup(id)
+    if id
+      Offering.find(id).offering_name
+    else
+      nil
+    end
+  end
 end
