@@ -34,7 +34,7 @@
 
 <%if ["Teacher", "Teaching Assistant"].include?(current_user.role) || current_user.admin? %>
   <p>
-    <%= link_to 'Edit', edit_experience_point_path(@experience_point), class: "btn btn-primary" %> <%= link_to 'Destroy', @experience_point, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <%= link_to 'Edit', edit_experience_point_path(@experience_point), class: "m-btn" %> <%= link_to 'Destroy', @experience_point, method: :delete, data: { confirm: 'Are you sure?' }, class: "m-btn red" %>
   </p>
 <% end %>
 

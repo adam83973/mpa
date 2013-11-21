@@ -3,8 +3,8 @@
 <h1><%= yield(:title)%></h1>
 
 <p>
-  <%= link_to "Inactive Students", students_path(:students => :in_active) %> |
-  <%= link_to "All Students", students_path(:students => :all) %>
+  <%= link_to "Inactive Students", students_path(students: :in_active) %> |
+  <%= link_to "All Students", students_path(students: :all) %>
 </p>
 
 <table id="students_table" class="display">
