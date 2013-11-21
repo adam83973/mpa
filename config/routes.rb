@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :videos
+
+
   root to: 'static_pages#home'
 
   resources :class_sessions, only: [:new, :create, :destroy]

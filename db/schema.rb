@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131119171336) do
+ActiveRecord::Schema.define(:version => 20131121185959) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -269,5 +269,13 @@ ActiveRecord::Schema.define(:version => 20131119171336) do
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token", :unique => true
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "videos", :force => true do |t|
+    t.string   "title"
+    t.text     "url"
+    t.integer  "lesson_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

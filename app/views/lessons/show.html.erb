@@ -42,6 +42,17 @@
   <% end %>
 </p>
 
+<p>
+  <b>Videos:</b>
+</p>
+
+  <% @lesson.videos.each do |video| %>
+    <p>
+      <%=raw YouTubeAddy.youtube_embed_url("#{video.url}",420,315) if video.url %>
+    </p>
+  <% end %>
+
+
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
 <%= link_to 'Back', lessons_path %>
