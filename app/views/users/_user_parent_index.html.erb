@@ -42,7 +42,7 @@
       <td><%= link_to 'Show', parent, :target => "_blank" %></td>
       <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_user_path(parent), :target => "_blank" %></td>
-      <td><%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: parent.id }, method: :post, data: { confirm: 'Are you sure?' } if parent.active? %></td>
+      <td><%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: parent.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' } if parent.active? %></td>
       <% end %>
     </tr>
     <% end %>

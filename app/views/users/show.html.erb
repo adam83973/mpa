@@ -1,5 +1,5 @@
  <div class="row">
-  <div class="span5">
+  <div class="span6">
     <p>
       <b>First name:</b>
       <%= @user.first_name %>
@@ -93,6 +93,7 @@
 
       <% if @user.parent? %>
       <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "m-btn blue" } %>
+      <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'm-btn red' if @user.active? %>
       <% end %>
     </p>
 
@@ -102,7 +103,7 @@
 
 <div class="row">
   <% if current_user.admin? %>
-  <div class="span7">
+  <div class="span6">
     <% if @user.role == "Parent" && @user.infusion_id != nil %>
       <%= render 'billing' %>
     <% end %>
