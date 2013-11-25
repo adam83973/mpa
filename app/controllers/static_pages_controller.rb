@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       if current_user.parent?
-        flash[:notice] = "Bonus code is 'active25'"
+        flash[:notice] = "Read this! Bonus code is 'active25'. Go to this <a href='http://www.mathplusacademy.com/events/category/holiday-camps/'>link</a> to register for Winter Camps and save!".html_safe
       end
       @user = current_user
       # if @user.offerings?
