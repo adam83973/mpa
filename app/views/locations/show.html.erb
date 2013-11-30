@@ -42,6 +42,11 @@
     <% if current_user.admin?%>
       <div class= "span6">
         <h2><%= @location.name%> Stats</h2>
+        <p>
+          <%= @location.address %>
+          <%= @location.address %>
+          <%= @location.address %>
+        </p>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -68,7 +73,7 @@
 </div>
 
 <div class="row">
-  <table class="table table-bordered">
+  <table class="table table-bordered span12">
     <thead>
       <tr>
         <th>Class</th>
@@ -112,3 +117,6 @@
     </tbody>
   </table>
 </div>
+
+<h3>Enrollment Stats</h3>
+<div id="location-enrollment" class="" data-recruit = "<%= @recruit_count %>" data-tech = "<%= @tech_count %>" data-operative = "<%= @operative_count %>" data-analyst = "<%= @analyst_count %>" data-agent = "<%= @agent_count %>" data-specialops = "<%= @specialops_count %>" data-prealgebra = "<%= @prealgebra_count %>" data-algebra = "<%= @algebra_count %>" data-mmathteam = "<%= @m_math_team_count %>" data-emathteam = "<%= @e_math_team_count %>" data-chess = "<%= @chess_club_count %>" data-lego = "<%= @lego_robotics_count %>"> </div>

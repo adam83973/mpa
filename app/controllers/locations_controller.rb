@@ -20,6 +20,49 @@ class LocationsController < ApplicationController
     @location_students_restarting = @location.restarting_students
     @total_location_students_count = @location.active_students.count + @location_students_restarting.count
 
+    @offerings = @location.offerings
+    @recruit_count = 0
+    @tech_count = 0
+    @operative_count = 0
+    @analyst_count = 0
+    @agent_count = 0
+    @specialops_count = 0
+    @prealgebra_count = 0
+    @algebra_count = 0
+    @e_math_team_count = 0
+    @m_math_team_count = 0
+    @chess_club_count = 0
+    @lego_robotics_count = 0
+
+    @offerings.each do |offering|
+      if offering.course_id == 1
+        @recruit_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 2
+        @tech_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 3
+        @operative_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 4
+        @analyst_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 5
+        @agent_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 6
+        @specialops_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 7
+        @prealgebra_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 8
+        @algebra_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 10
+        @chess_club_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 11
+        @lego_robotics_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 13
+        @e_math_team_count += offering.students.where("status = ?", "Active").count
+      elsif offering.course_id == 17
+        @m_math_team_count += offering.students.where("status = ?", "Active").count
+      else
+      end
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @location }

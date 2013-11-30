@@ -17,6 +17,8 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require chosen-jquery
 //= require bootstrap
+//= require raphael
+//= require morris
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require dataTables/jquery.dataTables
