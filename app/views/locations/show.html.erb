@@ -1,52 +1,16 @@
 <div class="row">
-  <div class="span6">
-    <p>
-      <b>Name:</b>
-      <%= @location.name %>
-    </p>
-
-    <p>
-      <b>Address:</b>
-      <%= @location.address %>
-    </p>
-
-    <p>
-      <b>City:</b>
-      <%= @location.city %>
-    </p>
-
-    <p>
-      <b>State:</b>
-      <%= @location.state %>
-    </p>
-
-    <p>
-      <b>Zip:</b>
-      <%= @location.zip %>
-    </p>
-
-    <p>
-      <b>Franchise:</b>
-      <%= @location.franchise %>
-    </p>
-
-    <% if signed_in? %>
-      <% if current_user.admin?%>
-        <%= link_to 'Edit', edit_location_path(@location) %> |
-        <%= link_to 'Back', locations_path %>
-      <% end %>
-    <% end %>
-  </div>
-
   <% if signed_in? %>
     <% if current_user.admin?%>
       <div class= "span6">
-        <h2><%= @location.name%> Stats</h2>
+        <h2><%= @location.name%> Location</h2>
         <p>
-          <%= @location.address %>
-          <%= @location.address %>
-          <%= @location.address %>
+          <%= @location.address %>,
+          <%= @location.city %>,
+          <%= @location.state %>
+          <%= @location.zip %>
         </p>
+        <%= link_to 'Edit', edit_location_path(@location) %> |
+        <%= link_to 'Back', locations_path %>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -118,5 +82,7 @@
   </table>
 </div>
 
-<h3>Enrollment Stats</h3>
+<% if signed_in? and current_user.admin? %>
+<h3>Enrollment Totals By Class</h3>
 <div id="location-enrollment" class="" data-recruit = "<%= @recruit_count %>" data-tech = "<%= @tech_count %>" data-operative = "<%= @operative_count %>" data-analyst = "<%= @analyst_count %>" data-agent = "<%= @agent_count %>" data-specialops = "<%= @specialops_count %>" data-prealgebra = "<%= @prealgebra_count %>" data-algebra = "<%= @algebra_count %>" data-mmathteam = "<%= @m_math_team_count %>" data-emathteam = "<%= @e_math_team_count %>" data-chess = "<%= @chess_club_count %>" data-lego = "<%= @lego_robotics_count %>"> </div>
+<% end %>
