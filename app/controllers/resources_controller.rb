@@ -5,7 +5,7 @@ class ResourcesController < ApplicationController
   # GET /resources
   # GET /resources.json
   def index
-    @resources = Resource.order(:id)
+    @resources = Resource.includes(:content_type, :problem_ids, :category, :lesson_ids, :file_name)
 
     respond_to do |format|
       format.html # index.html.erb
