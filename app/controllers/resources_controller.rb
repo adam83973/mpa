@@ -93,7 +93,7 @@ class ResourcesController < ApplicationController
 
 
     respond_to do |format|
-      format.html { redirect_to resources_url }
+      format.html { redirect_to lessons_url }
       format.json { head :no_content }
     end
   end
