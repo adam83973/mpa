@@ -16,7 +16,7 @@
             <th> <%= link_to "Student Name", :sort => "Name" %> </th>
             <th> <%= link_to "XP", :sort => "points" %> </th>
           </tr>
-            <% offering.students.each do |student| %>
+            <% offering.students.where("status = ?", "Active").each do |student| %>
               <tr>
                 <td><%= link_to student.full_name, student %></td>
                 <td><%= student.xp_total %></td>
