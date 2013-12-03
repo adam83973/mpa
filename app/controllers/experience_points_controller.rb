@@ -5,7 +5,7 @@ class ExperiencePointsController < ApplicationController
   # GET /experience_points
   # GET /experience_points.json
   def index
-    @experience_points = ExperiencePoint.includes(:student, :user)
+    @experience_points = ExperiencePoint.includes(:student, :user, :experience)
 
     respond_to do |format|
       format.html # index.html.erb
