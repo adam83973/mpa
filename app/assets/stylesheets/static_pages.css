@@ -1,8 +1,13 @@
 .welcomescreen{
-	background-color: #f1f1f1;
-	height: auto;
+	background: url('maya.jpg');
+	background-position: center;
+	background-size: 1000px 667px;
+	background-repeat: no-repeat;
+	height: 600px;
 	padding-top: 30px;
 	padding-bottom: 30px;
+	margin-top: 0;
+	padding-left: 11em;
 }
 
 .user_search{
