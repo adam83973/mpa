@@ -31,12 +31,12 @@ class User < ActiveRecord::Base
   end
 
   def teacher?
-    ["Teacher", "Teaching Assistant"].include?(self.role)
+    ["Teacher", "Teaching Assistant", "Robotics Instructor", "Programming Instructor", "Chess Instructor"].include?(self.role)
   end
 
   def employee?
     if self.role
-      ["Teacher", "Teaching Assistant", "Admin"].include?(self.role)
+      ["Teacher", "Teaching Assistant", "Admin", "Robotics Instructor", "Programming Instructor", "Chess Instructor"].include?(self.role)
     end
   end
 
