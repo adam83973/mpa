@@ -1,0 +1,9 @@
+<h2>Enter Code</h2>
+
+<%= form_tag(controller: "static_pages", action: "mission_lookup") do %>
+<%= label_tag "Code" %>
+<%= text_field_tag :code %>
+<p>
+  <%= submit_tag "Sumbit Your Code", id: :startclass, class: "m-btn green" %>
+</p>
+<% end %>

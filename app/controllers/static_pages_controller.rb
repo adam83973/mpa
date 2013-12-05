@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  skip_before_filter :authorize_active, only: [:enter_code, :mission_lookup]
 
   def home
     if signed_in?
@@ -56,5 +57,27 @@ class StaticPagesController < ApplicationController
     params[:search] ? @users_search = User.search(params[:search]) : @user_search = []
 
   end
+
+  def enter_code
+  end
+
+  def mission_lookup
+    @code = params[:code]
+    @decoded = Base64.decode64(@code)
+
+    if !!(@decoded =~ /\b\d+\b/)
+      @mission = Experience.find(@decoded)
+    end
+
+    if @mission && @mission.category == "Robotics"
+      redirect_to @mission, notice: 'Code Accepted.'
+    else
+      redirect_to code_path, flash: { alert: "Invalid Code!" }
+    end
+
+    rescue ActiveRecord::RecordNotFound
+      redirect_to code_url, flash: { alert: "Invalid Code!" }
+  end
+
 end
 

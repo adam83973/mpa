@@ -1,7 +1,8 @@
 class ExperiencesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_filter :authenticate_user!, except: [:show]
+  before_filter :authorize_employee, except: [:show]
 
+  skip_before_filter :authorize_active, only: :show
   # GET /experiences
   # GET /experiences.json
   def index
