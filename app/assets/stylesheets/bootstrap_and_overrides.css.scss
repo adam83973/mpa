@@ -1,6 +1,22 @@
 @import "bootstrap";
-body { padding-top: 80px; }
+body {
+  padding-top: 80px;
+  font-weight: 200;
+}
+
 @import "bootstrap-responsive";
+
+.brand{
+    font-weight: 100;
+}
+
+h1, h2, h3, h4, li {
+  font-weight: 200;
+}
+
+b{
+  font-weight: 300;
+}
 
 .progress.square{
   -webkit-border-radius: 0px;
