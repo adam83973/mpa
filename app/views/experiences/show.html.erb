@@ -24,9 +24,18 @@
   <%= @experience.content.html_safe %>
 </p>
 
+  <%= link_to image_tag(@experience.image_url(:thumb)), @experience.image.url if @experience.image_url %>
+
 <p>
-  <%= image_tag @experience.image_url if @experience.image_url %>
+  <b>Resources:</b>
+  <% @experience.resources.each do |resource| %>
+    <div class="resource_thumb" style="background:white;">
+      <div class="name"><%= resource.filename %></div>
+      <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource.file.url, :target => "_blank" %></div>
+    </div>
+  <% end %>
 </p>
+<div style="clear:both;"></div>
 
 <%= link_to 'Edit', edit_experience_path(@experience) %> |
 <%= link_to 'Back', experiences_path %>
