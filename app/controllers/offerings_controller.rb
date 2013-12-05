@@ -37,6 +37,7 @@ class OfferingsController < ApplicationController
     if current_user.employee?
       @offering = Offering.new
       @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
+      @all_teachers = User.where("role  = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor').order('last_name asc')
 
       respond_to do |format|
         format.html # new.html.erb
