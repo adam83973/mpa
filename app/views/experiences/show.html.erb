@@ -17,7 +17,7 @@
   <%= @experience.category %>
 </p>
 
-<% if signed_in? && current_user.admin? %>
+<% if signed_in? && current_user.employee? %>
 <p>
   <b>Secret Code:</b>
   <%= Base64.encode64(@experience.id.to_s) if @experience.category && @experience.category == "Robotics" %>
