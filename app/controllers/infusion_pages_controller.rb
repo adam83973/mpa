@@ -36,11 +36,6 @@ class InfusionPagesController < ApplicationController
       # check to see if parent exists in app user table. returns empty array if no match found
       @app_user = User.where("infusion_id = ?", params[:ContactId]).first
 
-      if params[:NewCustomer]
-        Infusionsoft.contact_add_to_group(params[:Id], 1648)
-        flash[:notice] = "New Customer Sequence Started"
-      end
-
       if !@app_user
          @candidates = User.where("first_name =? AND last_name = ?", @user["FirstName"], @user["LastName"])
       end
@@ -61,11 +56,24 @@ class InfusionPagesController < ApplicationController
     begin
   	   @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
   	  result = Infusionsoft.contact_update(user_update_id, @user_update)
+
+      if !!(params[:NewCustomer].to_i)
+        Infusionsoft.contact_add_to_group(user_update_id, 1648)
+      end
     rescue
-      count < 3 ? retry : ""
+      if count < 3
+        count = count + 1
+        retry
+      end
     end
 
-    result ? flash[:notice] = "Contact Updated" : flash[:error] = "Contact Update Failed"
+    if result && !!(params[:NewCustomer].to_i)
+      flash[:notice] = "New Customer Sequence Started"
+    elsif result
+      flash[:notice] = "Contact Updated"
+    else
+      flash[:error] = "Contact Update Failed"
+    end
 
     redirect_to :back
   end
