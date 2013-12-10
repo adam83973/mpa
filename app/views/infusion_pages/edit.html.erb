@@ -41,8 +41,8 @@
 				<div class="controls"><%= text_field_tag :PostalCode, @user["PostalCode"] %></div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">New Customer</label>
-				<div class="controls"><%= check_box_tag :NewCustomer, false %></div>
+				<label class="control-label">Launch New Customer Sequence</label>
+				<div class="controls"><%= check_box_tag :NewCustomer %></div>
 			</div>
 			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-small' %>
 		<% end %>
