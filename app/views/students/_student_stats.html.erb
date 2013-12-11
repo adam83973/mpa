@@ -1,5 +1,5 @@
 <div id="student">
-  <div class="studentname row">
+  <div class="studentname">
     <div class="span4">
       <h2><%= @student.full_name %></h2>
       <p>
@@ -23,7 +23,7 @@
       <% end %>
     </div>
     <% if @student.in_math_class? %>
-      <div class="rank">
+      <div class="rank span8">
         <p>
           <h3>Current level: <em><%= @student.rank %> </em></h3>
         </p>

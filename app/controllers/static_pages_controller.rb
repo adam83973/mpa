@@ -4,7 +4,15 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       if current_user.parent?
-        flash[:notice] = "Go to this <a href='http://www.mathplusacademy.com/engineering-lab/'>link</a> to lock in the low rate of $117 for for Engineering Lab! Normal rate is $137. (Powell customers only, offer ends 12/15)".html_safe
+
+      if Time.now < "20131216000001".to_datetime
+        flash[:notice] = "Go to this <a href='http://www.mathplusacademy.com/engineering-lab/'>link</a> to lock in the low rate of $117 for for Engineering Lab! Normal rate is $137. (Powell customers only, offer ends 12/15/13)".html_safe
+      end
+
+      if Time.now > "20131216000001".to_datetime
+        flash[:notice] = "FREE EVENT 1/4/2014! Tell your friends! Go to this <a href='http://www.mathplusacademy.com/event/techsploration-2/'>link</a> to find out more!".html_safe
+      end
+
       end
       @user = current_user
       # if @user.offerings?
