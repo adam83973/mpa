@@ -89,7 +89,7 @@ class ExperiencesController < ApplicationController
   end
 
   def import
-    Student.import(params[:file])
+    Experience.import(params[:file])
     redirect_to experiences_path, notice: "Experiences imported."
   end
 end
