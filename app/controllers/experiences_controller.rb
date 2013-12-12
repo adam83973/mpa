@@ -6,11 +6,12 @@ class ExperiencesController < ApplicationController
   # GET /experiences
   # GET /experiences.json
   def index
-    @experiences = Experience.all
+    @experiences = Experience.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @experiences }
+      format.csv { send_data @experiences.to_csv }
     end
   end
 
@@ -85,5 +86,10 @@ class ExperiencesController < ApplicationController
       format.html { redirect_to experiences_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Student.import(params[:file])
+    redirect_to experiences_path, notice: "Experiences imported."
   end
 end

@@ -4,6 +4,10 @@
 
 <% if current_user.admin? %>
   <p>
+    Download:
+    <%= link_to "CSV", experiences_path(format: "csv") %>
+  </p>
+  <p>
     <%= link_to 'New Achievement', new_experience_path, class: "m-btn green" %>
   </p>
 <% end %>
@@ -45,5 +49,10 @@
   </tbody>
 </table>
 
-<br />
-
+<% if signed_in? && current_user.admin? %>
+<h3> Import Experiences</h3>
+  <%= form_tag import_experiences_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>
