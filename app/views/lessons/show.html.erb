@@ -20,7 +20,7 @@
 <p>
   <b>Assignment:</b>
   <% if @lesson.assignment %>
-  <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment == '#' %>
+  <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment == '#' || @lesson.assignment == "" %>
   <% end %>
 </p>
 
