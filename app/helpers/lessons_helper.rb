@@ -1,5 +1,5 @@
 module LessonsHelper
   def resource_lookup(id)
-    Resource.find(id) unless id == nil
+    Resource.find(id) unless id == nil || id == ''
   end
 end
