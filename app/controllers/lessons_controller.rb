@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.includes(:standard)
+    @lessons = Lesson.includes(:standard).order(id: :asc)
 
     respond_to do |format|
       format.html # index.html.erb
