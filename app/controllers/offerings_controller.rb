@@ -27,7 +27,7 @@ class OfferingsController < ApplicationController
 
     @parent_emails = Array.new
 
-    @offering.students.each do |student|
+    @offering.students.where("status=?", "Active").each do |student|
       @parent_emails << "#{student.user.email}" + "\n "
     end
 
