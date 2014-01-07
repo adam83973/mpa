@@ -5,7 +5,7 @@
 <% if current_user.admin?%>
 <p>
   Download:
-  <%= link_to "CSV", lessons_path(format: "csv") %>
+  <%= link_to "CSV", lessons_path(format: "csv", id: @offering.id) %>
 </p>
 <p>
   <%= link_to 'New Lesson', new_lesson_path, class: "m-btn green" %>

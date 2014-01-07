@@ -88,7 +88,7 @@ MathPlus::Application.routes.draw do
   get "class_sessions/end_class"
   get "class_sessions/remove_student"
   get "binders/briefcase"
-  get "binders/middleschool"
+  get "offerings/email_class"
 
   get "infusion_pages/home"
   get "infusion_pages/edit"

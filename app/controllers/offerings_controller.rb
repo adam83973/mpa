@@ -25,9 +25,16 @@ class OfferingsController < ApplicationController
   def show
     @offering = Offering.find(params[:id])
 
+    @parent_emails = Array.new
+
+    @offering.students.each do |student|
+      @parent_emails << "#{student.user.email}" + "\n "
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @offering }
+      format.csv { send_data @parent_emails.join }
     end
   end
 
