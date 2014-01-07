@@ -1,7 +1,7 @@
 <div class="attendance_grades_buttons">
 <% unless !class_session.in_session? %>
   <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "m-btn red" } %>
-  <%= link_to "Take Attendace", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "m-btn blue"%>
+  <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "m-btn blue"%>
   <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, class: "m-btn", id: "studentStatsModalButton"%>
 <% end %>
  <!--  <%= link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn", id: "gradesModalButton"%> -->

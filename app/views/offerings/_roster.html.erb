@@ -9,7 +9,7 @@
 <% @offering.students.where("status = ? OR status = ?", "Active", "Hold").order("status asc").each do |student| %>
   <tr>
     <td><%= link_to student.full_name, student %></td>
-    <td><%= link_to student.user.full_name, student.user %></td>
+    <td><%= link_to student.user.email, student.user.email %></td>
     <td><%= student.status %>
       <% if student.status == "Hold" && student.restart_date %>
         (<%=  student.restart_date.strftime("%m/%d/%Y") %> restart)
