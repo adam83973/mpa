@@ -28,13 +28,13 @@ class OfferingsController < ApplicationController
     @parent_emails = Array.new
 
     @offering.students.where("status=?", "Active").each do |student|
-      @parent_emails << "#{student.user.email}" + "\n "
+      @parent_emails << "#{student.user.full_name} <#{student.user.email}>," + "\n"
     end
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @offering }
-      format.csv { send_data @parent_emails.join }
+      format.csv { send_data @offering.parent_email_to_csv }
     end
   end
 

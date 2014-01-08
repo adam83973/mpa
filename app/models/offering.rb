@@ -47,6 +47,16 @@ class Offering < ActiveRecord::Base
     end
   end
 
+  def parent_email_to_csv
+    CSV.generate do |csv|
+      students.each do |student|
+        email = Array.new
+        email << "#{student.user.full_name} <#{student.user.email}>,"
+        csv << email
+      end
+    end
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       offering = find_by_id(row["id"]) || new
