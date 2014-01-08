@@ -25,12 +25,6 @@ class OfferingsController < ApplicationController
   def show
     @offering = Offering.find(params[:id])
 
-    @parent_emails = Array.new
-
-    @offering.students.where("status=?", "Active").each do |student|
-      @parent_emails << "#{student.user.full_name} <#{student.user.email}>," + "\n"
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @offering }
