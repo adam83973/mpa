@@ -25,7 +25,7 @@
             <tr>
               <td><%= @location.active_offerings.count %></td>
               <td><%= @total_location_students_count %></td>
-              <td><%= @location.active_students.count  / @location.active_offerings.count %></td>
+              <td><%= (@location.active_students.count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
               <td><%= @location.students_added_last_30.count %></td>
               <td><%= @location.students_dropped_last_30.count %></td>
             </tr>
