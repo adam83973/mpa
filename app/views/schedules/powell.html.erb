@@ -29,7 +29,7 @@
             <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
           </td>
           <td><%= offering.course.grade if offering.course.grade %></td>
-          <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
+          <td><%= offering.day + " / " + offering.time.strftime("%I:%M %p") %></td></td>
           <td>
             <% offering.users.each do |user| %>
               <% if user.role == "Teacher" %>
