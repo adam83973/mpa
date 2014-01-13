@@ -1,5 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Math Plus Academy - <%= yield(:title) || "Inspiring kids to do great things" %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
+    <%= favicon_link_tag '/MP-Shield.png', rel: 'apple-touch-icon', type: 'image/png'  %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
 <div class="row">
-  <table class="table table-bordered span12">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>Class</th>
