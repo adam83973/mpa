@@ -1,8 +1,8 @@
 <div class="row">
+  <h2><%= @location.name%> Location</h2>
   <% if signed_in? %>
     <% if current_user.admin?%>
       <div class= "span6">
-        <h2><%= @location.name%> Location</h2>
         <p>
           <%= @location.address %>,
           <%= @location.city %>,
@@ -75,8 +75,10 @@
           </td>
           <td><%= offering.active_students_count + offering.returning_students_count %></td>
             <td>
-              <% if offering.course_id <= 10 %>
+              <% if offering.course_id < 10 %>
                 <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
+              <% elsif [10].include?(offering.course_id) %>
+                <%= 15 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif [11, 12].include?(offering.course_id) %>
                 <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
               <% elsif [13, 17].include?(offering.course_id) %>

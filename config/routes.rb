@@ -90,6 +90,8 @@ MathPlus::Application.routes.draw do
   get "binders/briefcase"
   get "binders/middleschool"
   get "offerings/email_class"
+  get "schedules/powell"
+  get "schedules/new_albany"
 
   get "infusion_pages/home"
   get "infusion_pages/edit"
