@@ -1,38 +1,40 @@
+
+
 <div class="row">
   <h2><%= @location.name%> Location</h2>
   <% if signed_in? %>
-    <% if current_user.admin?%>
-      <div class= "span6">
-        <p>
-          <%= @location.address %>,
-          <%= @location.city %>,
-          <%= @location.state %>
-          <%= @location.zip %>
-        </p>
-        <%= link_to 'Edit', edit_location_path(@location) %> |
-        <%= link_to 'Back', locations_path %>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th># of Offerings</th>
-              <th># of Students</th>
-              <th>Avg. Student/Offering</th>
-              <th>Students Added (30 days)</th>
-              <th>Students Dropped (30 days)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @location.active_offerings.count %></td>
-              <td><%= @total_location_students_count %></td>
-              <td><%= (@location.active_students.count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
-              <td><%= @location.students_added_last_30.count %></td>
-              <td><%= @location.students_dropped_last_30.count %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
+  <% if current_user.admin?%>
+  <div class= "span6">
+    <p>
+      <%= @location.address %>,
+      <%= @location.city %>,
+      <%= @location.state %>
+      <%= @location.zip %>
+    </p>
+    <%= link_to 'Edit', edit_location_path(@location) %> |
+    <%= link_to 'Back', locations_path %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th># of Offerings</th>
+          <th># of Students</th>
+          <th>Avg. Student/Offering</th>
+          <th>Students Added (30 days)</th>
+          <th>Students Dropped (30 days)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @location.active_offerings.count %></td>
+          <td><%= @total_location_students_count %></td>
+          <td><%= (@location.active_students.count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
+          <td><%= @location.students_added_last_30.count %></td>
+          <td><%= link_to "#{@location.students_dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
   <% end %>
 </div>
 
@@ -51,43 +53,43 @@
     </thead>
     <tbody>
       <% @location.active_offerings.order(:course_id).each do |offering| %>
-        <tr>
-          <td>
-            <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
-          </td>
-          <td><%= offering.course.grade if offering.course.grade %></td>
-          <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
-          <td>
-            <% offering.users.each do |user| %>
-              <% if user.role == "Teacher" %>
-                <%= user.full_name %>
-              <% elsif user.role == "Programming Instructor"%>
-                <%= user.full_name %>
-              <% elsif user.role == "Robotics Instructor"%>
-                <%= user.full_name %>
-              <% elsif user.role == "Chess Instructor"%>
-                <%= user.full_name %>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <%= offering.classroom %>
-          </td>
-          <td><%= offering.active_students_count + offering.returning_students_count %></td>
-            <td>
-              <% if offering.course_id < 10 %>
-                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [10].include?(offering.course_id) %>
-                <%= 15 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [13, 17].include?(offering.course_id) %>
-                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [15, 16].include?(offering.course_id) %>
-                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-              <% end %>
-            </td>
-        </tr>
+      <tr>
+        <td>
+          <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
+        </td>
+        <td><%= offering.course.grade if offering.course.grade %></td>
+        <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
+        <td>
+          <% offering.users.each do |user| %>
+          <% if user.role == "Teacher" %>
+          <%= user.full_name %>
+          <% elsif user.role == "Programming Instructor"%>
+          <%= user.full_name %>
+          <% elsif user.role == "Robotics Instructor"%>
+          <%= user.full_name %>
+          <% elsif user.role == "Chess Instructor"%>
+          <%= user.full_name %>
+          <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= offering.classroom %>
+        </td>
+        <td><%= offering.active_students_count + offering.returning_students_count %></td>
+        <td>
+          <% if offering.course_id < 10 %>
+          <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
+          <% elsif [10].include?(offering.course_id) %>
+          <%= 15 - (offering.active_students_count + offering.returning_students_count) %>
+          <% elsif [11, 12].include?(offering.course_id) %>
+          <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
+          <% elsif [13, 17].include?(offering.course_id) %>
+          <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
+          <% elsif [15, 16].include?(offering.course_id) %>
+          <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
+          <% end %>
+        </td>
+      </tr>
       <% end %>
     </tbody>
   </table>
@@ -99,37 +101,66 @@
 <div id="location-enrollment" class="" data-recruit = "<%= @recruit_count %>" data-tech = "<%= @tech_count %>" data-operative = "<%= @operative_count %>" data-analyst = "<%= @analyst_count %>" data-agent = "<%= @agent_count %>" data-specialops = "<%= @specialops_count %>" data-prealgebra = "<%= @prealgebra_count %>" data-algebra = "<%= @algebra_count %>" data-mmathteam = "<%= @m_math_team_count %>" data-emathteam = "<%= @e_math_team_count %>" data-chess = "<%= @chess_club_count %>" data-lego = "<%= @lego_robotics_count %>"> </div>
 
 <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Recruit</th>
-              <th>Tech</th>
-              <th>Operative</th>
-              <th>Analyst</th>
-              <th>Agents</th>
-              <th>Secial Ops</th>
-              <th>Pre-Algebra</th>
-              <th>Algebra</th>
-              <th>E. Math Team</th>
-              <th>M.S. Math Team</th>
-              <th>Chess</th>
-              <th>Robotics</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @recruit_count %></td>
-              <td><%= @tech_count %></td>
-              <td><%= @operative_count %></td>
-              <td><%= @analyst_count %></td>
-              <td><%= @agent_count %></td>
-              <td><%= @specialops_count %></td>
-              <td><%= @prealgebra_count %></td>
-              <td><%= @algebra_count %></td>
-              <td><%= @e_math_team_count %></td>
-              <td><%= @m_math_team_count %></td>
-              <td><%= @chess_club_count %></td>
-              <td><%= @lego_robotics_count %></td>
-            </tr>
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th>Recruit</th>
+      <th>Tech</th>
+      <th>Operative</th>
+      <th>Analyst</th>
+      <th>Agents</th>
+      <th>Secial Ops</th>
+      <th>Pre-Algebra</th>
+      <th>Algebra</th>
+      <th>E. Math Team</th>
+      <th>M.S. Math Team</th>
+      <th>Chess</th>
+      <th>Robotics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @recruit_count %></td>
+      <td><%= @tech_count %></td>
+      <td><%= @operative_count %></td>
+      <td><%= @analyst_count %></td>
+      <td><%= @agent_count %></td>
+      <td><%= @specialops_count %></td>
+      <td><%= @prealgebra_count %></td>
+      <td><%= @algebra_count %></td>
+      <td><%= @e_math_team_count %></td>
+      <td><%= @m_math_team_count %></td>
+      <td><%= @chess_club_count %></td>
+      <td><%= @lego_robotics_count %></td>
+    </tr>
+  </tbody>
+</table>
 <% end %>
+
+<div id="dropsModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header" style='padding-bottom:20px'>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Students Dropped Last 30</h3>
+  </div>
+  <div class="modal-body-drops">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Classes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @location.students_dropped_last_30.each do |student| %>
+          <tr>
+            <td><%= student.full_name %><td>
+            <td>
+              <% student.offerings.each do |offering| %>
+                <%= offering.offering_name + " " %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

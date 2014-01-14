@@ -6,13 +6,18 @@ class UsersController < ApplicationController
   def index
     @users = User.includes(:location)
     @parents = User.where("role=?", "Parent").includes(:location)
+    @active_parents = User.where("role=? AND active=?", "Parent", true)
 
     if current_user.employee?
 
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @users }
-        format.csv { send_data @users.to_csv }
+        if params[:email]
+          format.csv { send_data @active_parents.parent_email_to_csv }
+        else
+          format.csv { send_data @users.to_csv }
+        end
       end
     else
       redirect_to root_path

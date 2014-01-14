@@ -80,4 +80,14 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def self.parent_email_to_csv
+    CSV.generate do |csv|
+      all.each do |parent|
+        email = Array.new
+        email << "#{parent.full_name} <#{parent.email}>,"
+        csv << email
+      end
+    end
+  end
 end

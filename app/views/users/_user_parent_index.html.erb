@@ -1,6 +1,12 @@
 <% title "Parents" %>
 
+
+
 <h1><%= yield(:title)%></h1>
+
+<p>
+  <%= link_to "Email Active Parents", users_path(format: :csv, email: :parents) %>
+</p>
 
 <p>
   <%= link_to "All Users", users_path(:users => :all) %>
