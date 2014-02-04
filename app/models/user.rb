@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   def employee?
     if self.role
-      ["Teacher", "Teaching Assistant", "Admin", "Robotics Instructor", "Programming Instructor", "Chess Instructor"].include?(self.role)
+      ["Admin", "Teacher", "Teaching Assistant", "Robotics Instructor", "Programming Instructor", "Chess Instructor"].include?(self.role)
     end
   end
 

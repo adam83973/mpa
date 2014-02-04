@@ -18,13 +18,35 @@
           </tr>
             <% offering.students.where("status = ?", "Active").each do |student| %>
               <tr>
-                <td><%= link_to student.full_name, student %></td>
+                <td>
+                  <% if class_session.in_session? %>
+                    <% unless class_session.students.include?(student.id)%>
+                      <%= simple_form_for @experience_point,
+                          url: url_for( action: :create, controller: :experience_points ),
+                          method: :post,
+                          html: { class: 'class_attendance_form'},
+                          remote: true do |f| %>
+                        <%= f.error_notification %>
+
+                        <div class="form-inputs">
+                          <%= f.input :student_id, input_html: { value: student.id}, as: :hidden %>
+                          <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
+                          <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
+                          <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
+                          <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+                        </div>
+                          <%= f.button :submit, "Add to Class", class: "m-btn sm" %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= link_to student.full_name, student %>
+                </td>
                 <td><%= student.xp_total %></td>
               </tr>
             <% end %>
         </table>
         <center>
-          <%= link_to "#{offering.course.course_name} Course Lessons", offering.course, class: "btn btn-small" %>
+          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "m-btn red" %>
         </center>
       </div>
     </div>

@@ -15,12 +15,10 @@ class ClassSessionsController < ApplicationController
 
   def remove_student
     @student = Student.find(params[:student_id])
-    @experience_points = @student.experience_points.where("experience_id = ? AND created_at = ?", 2, Date.today)
+    @experience_points = @student.experience_points.where("experience_id = ?", 2)
     @attendance_xp = @experience_points.last
     class_session.remove_student(params[:student_id])
-      @attendance_xp.destroy
-
-      redirect_to root_url, notice: "#{@student.first_name} was removed from class."
+    @attendance_xp.destroy
   end
 
   def end_class

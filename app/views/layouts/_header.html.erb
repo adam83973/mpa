@@ -24,7 +24,7 @@
             </li>
             <% end %>
 
-            <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
+            <%if current_user.teacher? || current_user.admin? %>
             <%= render 'layouts/nav_links' %>
             <% end %>
 

@@ -14,7 +14,7 @@ class OfferingsUsersController < ApplicationController
 
   def import
     OfferingsUser.import(params[:file])
-    redirect_to offerings_students_path, notice: "Students imported."
+    redirect_to offerings_users_path, notice: "User Class Assignment imported."
   end
 
   def user_name(offeringsstudents)

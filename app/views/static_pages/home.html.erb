@@ -7,23 +7,23 @@
 
     <section>
      <%= render 'shared/user_info' %>
-   </section>
+    </section>
 
    <%if current_user.employee? %>
 
-   <section>
-    <%= render 'clock_in' %>
-  </section>
+    <section>
+      <%= render 'clock_in' %>
+    </section>
 
-  <section>
-    <% if current_user.admin? %>
-    <%= render 'location_stats' %>
-    <% end %>
-  </section>
+    <section>
+      <% if current_user.admin? %>
+      <%= render 'location_stats' %>
+      <% end %>
+    </section>
 
-  <section>
-    <%= render 'shared/user_search' %>
-  </section>
+    <section>
+      <%= render 'shared/user_search' %>
+    </section>
 
   <% end %>
 </aside>

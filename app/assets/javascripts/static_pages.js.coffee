@@ -35,6 +35,19 @@ jQuery ->
                           .on('mouseover', 'a:not(:nth-child(2))', -> $(this).css({'color':'black'}))
                           .on('mouseleave', 'a:not(:nth-child(2))', -> $(this).css({'color':'#0088cc'}))
 
+  #add student through button on class roll
+  $(".class_attendance_form")
+  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.attr( 'data-origText',  $submitButton.val() )
+    $submitButton.val( "Submitting..." )
+  .bind 'ajax:success', (evt, data, status, xhr) ->
+    $form = $(this)
+    alert "Student Added!"
+  .bind 'ajax:complete', (evt, xhr, status) ->
+    $form = $(this)
+    $form.hide()
+
   #remove student without reload
   $('.student_attending')
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
