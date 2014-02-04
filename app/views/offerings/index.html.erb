@@ -33,7 +33,7 @@
         <% @offerings.each do |offering| %>
           <tr>
             <td><%= offering.id %></td>
-            <td><%= link_to offering.course.course_name, offering.course, :target => "_blank" %></td>
+            <td><%= link_to offering.course.course_name, offering.course, :target => "_blank" if offering.course %></td>
             <td><%= link_to offering.location.name, offering.location, :target => "_blank" %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>

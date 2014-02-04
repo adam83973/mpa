@@ -3,9 +3,9 @@ namespace :db do
   task populate: :environment do
     make_users
     make_locations
-    make_courses
+    # make_courses
     # make_lessons
-    make_experiences
+    # make_experiences
   end
 end
 
@@ -15,7 +15,7 @@ def make_users
                        role:                  "Admin",
                        phone:                 "(614) 260-6162",
                        location_id:           "2",
-                       email:                 "tkendalls@aol.com",
+                       email:                 "director@mathplusacademy.com",
                        password:              "password",
                        password_confirmation: "password")
   admin.toggle!(:admin)
@@ -24,7 +24,7 @@ def make_users
   admin1 = User.create!(first_name:           "Raj",
                         last_name:            "Shah",
                         role:                 "Admin",
-                        phone:                 "(614) 787-4741",
+                        phone:                "(614) 787-4741",
                         location_id:          "1",
                         email:                "raj@mathplusacademy.com",
                         password:             "password",
