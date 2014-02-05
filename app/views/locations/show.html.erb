@@ -1,5 +1,3 @@
-
-
 <div class="row">
   <h2><%= @location.name%> Location</h2>
   <% if signed_in? %>
@@ -61,15 +59,7 @@
         <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
         <td>
           <% offering.users.each do |user| %>
-          <% if user.role == "Teacher" %>
-          <%= user.full_name %>
-          <% elsif user.role == "Programming Instructor"%>
-          <%= user.full_name %>
-          <% elsif user.role == "Robotics Instructor"%>
-          <%= user.full_name %>
-          <% elsif user.role == "Chess Instructor"%>
-          <%= user.full_name %>
-          <% end %>
+            <%= teacher_name_by_role user %>
           <% end %>
         </td>
         <td>
@@ -77,17 +67,7 @@
         </td>
         <td><%= offering.active_students_count + offering.returning_students_count %></td>
         <td>
-          <% if offering.course_id < 10 %>
-          <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-          <% elsif [10].include?(offering.course_id) %>
-          <%= 15 - (offering.active_students_count + offering.returning_students_count) %>
-          <% elsif [11, 12].include?(offering.course_id) %>
-          <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-          <% elsif [13, 17].include?(offering.course_id) %>
-          <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-          <% elsif [15, 16].include?(offering.course_id) %>
-          <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-          <% end %>
+          <%= open_spots offering %>
         </td>
       </tr>
       <% end %>
