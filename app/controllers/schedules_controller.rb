@@ -1,11 +1,11 @@
 class SchedulesController < ActionController::Base
   def powell
-    @powell = Location.find(1)
-    @offerings = @powell.offerings
+    @location = Location.find(1)
+    @offerings = @location.offerings
   end
 
   def new_albany
-    @new_albany = Location.find(2)
-    @offerings = @new_albany.offerings
+    @location = Location.find(2)
+    @offerings = @location.offerings
   end
 end

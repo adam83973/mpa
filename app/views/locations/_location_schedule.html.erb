@@ -1,0 +1,38 @@
+<div class="row">
+  <table class="table table-bordered span12">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Grade</th>
+        <th>Day/Time</th>
+        <th>Teacher</th>
+        <th>Classroom</th>
+        <th># Students</th>
+        <th>Open Spots</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @location.active_offerings.order(:course_id).each do |offering| %>
+      <tr>
+        <td>
+          <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
+        </td>
+        <td><%= offering.course.grade if offering.course.grade %></td>
+        <td><%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %></td>
+        <td>
+          <% offering.users.each do |user| %>
+            <%= teacher_name_by_role user %>
+          <% end %>
+        </td>
+        <td>
+          <%= offering.classroom %>
+        </td>
+        <td><%= offering.active_students_count + offering.returning_students_count %></td>
+        <td>
+          <%= open_spots offering %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
