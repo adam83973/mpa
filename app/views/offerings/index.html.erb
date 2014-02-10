@@ -54,7 +54,7 @@
               <% end %>
             </td>
             <td><%= offering.active_students_count + offering.returning_students_count %></td>
-            <td><%= open_spots offerings %></td>
+            <td><%= open_spots offering %></td>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering, :target => "_blank" %></td>
             <% if signed_in? && current_user.try(:admin?) %>
