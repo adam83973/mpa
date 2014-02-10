@@ -54,14 +54,7 @@
               <% end %>
             </td>
             <td><%= offering.active_students_count + offering.returning_students_count %></td>
-            <td>
-              <% if offering.course_id <= 10 %>
-                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif offering.course_id > 13 %>
-              <% end %>
-            </td>
+            <td><%= open_spots offerings %></td>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering, :target => "_blank" %></td>
             <% if signed_in? && current_user.try(:admin?) %>
