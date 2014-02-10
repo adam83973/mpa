@@ -23,7 +23,9 @@ module OfferingsHelper
           schedule << "<li> #{offering.offering_name} </li>"
           schedule << "<ul>"
           offering.users.each do |teacher|
-            schedule << "<li><em>#{teacher.full_name}</em></li>"
+            if teacher.active?
+              schedule << "<li><em>#{teacher.full_name}</em></li>"
+            end
           end
           schedule << "</ul>"
         end

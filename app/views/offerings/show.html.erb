@@ -8,7 +8,7 @@
     Teachers:
       <% if @offering.users.any? %>
         <% @offering.users.each do |teacher| %>
-          <%= teacher.full_name %>
+          <%= teacher.full_name if teacher.active? %>
         <% end %>
         <% else %>
           <em> no teachers assigned</em>
