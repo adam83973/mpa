@@ -21,6 +21,11 @@ module OfferingsHelper
       offerings.each do |offering|
         if offering.day == Time.now.strftime('%A') && offering.classroom == cr
           schedule << "<li> #{offering.offering_name} </li>"
+          schedule << "<ul>"
+          offering.users.each do |teacher|
+            schedule << "<li><em>#{teacher.full_name}</em></li>"
+          end
+          schedule << "</ul>"
         end
       end
     schedule << "</ul>"
