@@ -29,13 +29,17 @@
 </aside>
 
 <div class="span8">
-  <div id="results"><%= render 'shared/user_search_results' %></div>
+  <div id="results">
+    <%= render 'shared/user_search_results' %>
+  </div>
 
     <%if current_user.employee? %>
 
       <%= render 'new_student_feed' %>
 
       <% if current_user.admin? %>
+
+        <%= render 'daily_schedule' %>
 
         <%= render 'on_hold' %>
 
@@ -62,6 +66,6 @@
 
 <% else %>
 
-<%= render 'login_screen' %>
+  <%= render 'login_screen' %>
 
 <% end %>

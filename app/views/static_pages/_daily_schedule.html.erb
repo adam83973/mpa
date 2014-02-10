@@ -1,0 +1,19 @@
+<div class='daily-schedule'>
+    <% if @todays_offering_by_location.empty? %>
+     <b>No Classes Scheduled.</b>
+    <% else %>
+     <h2><%= current_user.location.name %> Schedule for <%= Time.now.strftime('%A') %></h2>
+     <p>
+        <b>Classroom A:</b>
+        <%= schedule_by_classroom("A", @todays_offering_by_location).html_safe if @todays_offering_by_location%>
+     </p>
+     <p>
+        <b>Classroom B:</b>
+        <%= schedule_by_classroom("B", @todays_offering_by_location).html_safe if @todays_offering_by_location%>
+     </p>
+     <p>
+        <b>Classroom C:</b>
+        <%= schedule_by_classroom("C", @todays_offering_by_location).html_safe if @todays_offering_by_location%>
+     </p>
+     <% end %>
+</div>

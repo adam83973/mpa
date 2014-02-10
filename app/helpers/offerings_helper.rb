@@ -14,4 +14,16 @@ module OfferingsHelper
       nil
     end
   end
+
+  def schedule_by_classroom(cr, offerings)
+    schedule = []
+    schedule << "<ul>"
+      offerings.each do |offering|
+        if offering.day == Time.now.strftime('%A') && offering.classroom == cr
+          schedule << "<li> #{offering.offering_name} </li>"
+        end
+      end
+    schedule << "</ul>"
+    schedule.join
+  end
 end
