@@ -27,8 +27,8 @@ class Resource < ActiveRecord::Base
   private
 
   def add_resource_to_lesson
-    lesson_regex = /(?<course>\w+.\w+)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*)/
-    key_regex = /(?<course>\w+.\w+).(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/
+    lesson_regex = /(?<course>\w+.\w+.\w+)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w.\w.*)/
+    key_regex = /(?<course>\w+.\w+.\w+).(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w*).*(?<key>\bKEY\b)/
     if self.is_lesson_key?
       l = key_regex.match(self.filename)
       if l
