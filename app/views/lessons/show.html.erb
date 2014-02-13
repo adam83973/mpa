@@ -33,7 +33,7 @@
   <b>Additional Resources:</b>
   <% if @lesson.resources %>
     <% @lesson.resources.each do |resource| %>
-      <%= link_to "#{resource.filename}", resource %>
+      <p>- <%= link_to "#{resource.filename}", resource %></p>
     <% end %>
   <% else %>
     There are no additional resources associated with this lesson.
@@ -44,7 +44,7 @@
   <b>Activities/Games/Problems:</b>
   <% if @lesson.problems %>
     <% @lesson.problems.each do |problem| %>
-      <%= link_to "#{problem.title}", problem %>
+      <p>- <%= link_to "#{problem.title}", problem %></p>
     <% end %>
   <% else %>
     There are no activities associated with this lesson.
