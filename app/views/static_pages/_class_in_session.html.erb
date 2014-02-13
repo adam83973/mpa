@@ -17,10 +17,15 @@
     <% end %>
   </div>
   <div class="span3 activities">
-    <p>Activities:</p>
+    <p>Activities/Additional Resources:</p>
     <% if @todays_lesson && @todays_lesson.problems %>
       <% @todays_lesson.problems.each do |problem| %>
         <p>- <%= link_to "#{problem.title}", problem %></p>
+      <% end %>
+    <% end %>
+    <% if @todays_lesson && @todays_lesson.resources %>
+      <% @todays_lesson.resources.each do |resource| %>
+        <p>- <%= link_to "#{resource.title}", resource %></p>
       <% end %>
     <% end %>
   </div>
