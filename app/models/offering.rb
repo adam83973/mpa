@@ -8,6 +8,10 @@ class Offering < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :students
 
+  def name
+    course.course_name
+  end
+
   def offering_name
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
