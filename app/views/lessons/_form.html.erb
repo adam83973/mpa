@@ -16,6 +16,7 @@
     <%= f.association :standard, label_method: :name %>
     <%= f.input :assignment, as: :select, collection: Resource.where("category = ?", "Assignments"), label_method: :filename %>
     <%= f.input :assignment_key, as: :select, collection: Resource.where("category = ?", "Assignment Keys"), label_method: :filename %>
+    <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
     <%= f.association :problems, label: "Activites", label_method: :title, input_html: { class: 'span4' } %>
     <%= f.button :submit, class: "m-btn" %>
 

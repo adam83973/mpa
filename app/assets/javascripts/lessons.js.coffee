@@ -8,3 +8,4 @@ jQuery ->
   $('#lesson_assignment').chosen()
   $('#lesson_assignment_key').chosen()
   $('#lesson_problem_ids').chosen()
+  $('#lesson_resource_ids').chosen()
