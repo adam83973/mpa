@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121185959) do
+ActiveRecord::Schema.define(:version => 20140213203255) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -87,6 +87,18 @@ ActiveRecord::Schema.define(:version => 20131121185959) do
     t.string   "grade_type"
   end
 
+  create_table "leads", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "stage_id"
+    t.text     "student_information"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
   create_table "lessons", :force => true do |t|
     t.string   "name"
     t.integer  "week"
@@ -114,6 +126,16 @@ ActiveRecord::Schema.define(:version => 20131121185959) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "time"
+  end
+
+  create_table "notes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "lead_id"
+    t.boolean  "due"
+    t.date     "due_date"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "offerings", :force => true do |t|
@@ -187,6 +209,12 @@ ActiveRecord::Schema.define(:version => 20131121185959) do
     t.string   "resourceable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "stages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "standards", :force => true do |t|

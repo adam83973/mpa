@@ -1,5 +1,14 @@
 MathPlus::Application.routes.draw do
 
+  resources :notes
+
+
+  resources :stages
+
+
+  resources :leads
+
+
   resources :videos
 
 

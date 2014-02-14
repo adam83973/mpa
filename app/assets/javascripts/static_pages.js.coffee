@@ -1,6 +1,40 @@
-# ---- Attendance Modal ----------------
-# Handle ajax events ---
+# ---- Admin Page ----------------
+# Hide schedule from admin view
 jQuery ->
+  $("#hide_schedule").on 'click', ->
+    if $("#hide_schedule").text() is "hide schedule"
+      $(".daily-schedule").slideUp()
+      $("#hide_schedule").text('show schedule')
+    else if $("#hide_schedule").text() is "show schedule"
+      $(".daily-schedule").slideDown()
+      $("#hide_schedule").text('hide schedule')
+
+
+# ---- Lead Modal ----------------
+# Handle attendance ajax events ---
+  $("#new_lead")
+  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.attr( 'data-origText',  $submitButton.val() )
+    $submitButton.val( "Submitting..." )
+  .bind 'ajax:success', (evt, data, status, xhr) ->
+    $form = $(this)
+    $form[0].reset()
+    alert "Lead Added!"
+  .bind 'ajax:complete', (evt, xhr, status) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.val( $submitButton.data('origtext') )
+    $("#leadModal").modal('hide')
+  .bind 'ajax:error', (evt, xhr, status, error) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $submitButton.val( $submitButton.data('origtext') )
+    $form = $(this)
+    alert "Lead #{error}!"
+    $form[0].reset()
+
+
+# ---- Attendance Modal ----------------
+# Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')

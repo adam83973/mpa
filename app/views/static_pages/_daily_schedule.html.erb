@@ -1,3 +1,8 @@
+<% if !@todays_offering_by_location.empty? %>
+    <h3><%= current_user.location.name %> Schedule</h3>
+    <%= link_to "hide schedule", "javascript:void(0)", id: "hide_schedule" %>
+<% end %>
+
 <div class='daily-schedule'>
     <% if @todays_offering_by_location.empty? %>
      <b>No Classes Scheduled.</b>

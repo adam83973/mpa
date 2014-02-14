@@ -35,15 +35,46 @@
 
     <%if current_user.employee? %>
 
-      <%= render 'new_student_feed' %>
+      <div class="row">
+        <div class="span5">
+          <%= render 'new_student_feed' %>
+        </div>
+        <div class="span3">
+          <%= render 'on_hold' %>
+        </div>
+      </div>
+      <hr>
 
       <% if current_user.admin? %>
 
         <%= render 'daily_schedule' %>
 
-        <%= render 'on_hold' %>
-
       <% end %>
+
+      <hr>
+
+      <h3>Lead Management</h3>
+
+      <div class="row">
+        <div class="span4">
+          <div class="new_leads">
+            <h4><u>New Leads</u></h4>
+            <ul>
+              <% current_user.leads.each do |lead| %>
+                <div id="lead<%= lead.id %>" draggable="true" data-id="<%= lead.id %>">
+                  <%= link_to "#{lead.full_name}", lead%>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+          <p class="pull-right"><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
+        </div>
+        <div class="span4">
+          <div class="leads">
+            <h4><u>Leads</u></h4>
+          </div>
+        </div>
+      </div>
 
     <% end %>
 
@@ -69,3 +100,36 @@
   <%= render 'login_screen' %>
 
 <% end %>
+
+<div id="leadModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Add New Lead!</h3>
+  </div>
+  <div class="modal-body">
+     <%= simple_form_for @lead,
+        url: url_for( action: :create, controller: :leads ),
+        method: :post,
+        html: { id: 'new_lead'},
+        remote: true do |f| %>
+      <%= f.error_notification %>
+
+      <div class="row">
+      <div class="form-inputs">
+        <div class="span3">
+          <%= f.input :first_name %>
+          <%= f.input :last_name %>
+          <%= f.input :phone %>
+          <%= f.input :email %>
+        </div>
+        <div class="span3">
+          <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+          <%= f.association :stage %>
+          <%= f.input :student_information, input_html: { rows: 5 } %>
+        </div>
+      </div>
+      </div>
+        <%= f.button :submit, "Add Lead!", class: "m-btn" %>
+    <% end %>
+  </div>
+</div>

@@ -128,3 +128,25 @@ ul{
 	padding-top: 20px
 }
 
+.new_leads{
+	border: solid lightgray 1px;
+	margin-bottom: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+.leads{
+	border: solid lightgray 1px;
+	margin-bottom: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+#leadModal{
+	width: 700px;
+	.modal-body{
+		padding-left: 50px;
+	}
+}
