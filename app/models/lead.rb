@@ -8,4 +8,8 @@ class Lead < ActiveRecord::Base
   def full_name
     first_name + " " + last_name
   end
+
+  def update_stage(id)
+    update_column(:stage_id, id.to_i)
+  end
 end

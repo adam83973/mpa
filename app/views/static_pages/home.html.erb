@@ -49,9 +49,7 @@
 
         <%= render 'daily_schedule' %>
 
-      <% end %>
-
-      <hr>
+        <hr>
 
       <h3>Lead Management</h3>
 
@@ -61,8 +59,8 @@
             <h4><u>New Leads</u></h4>
             <ul>
               <% current_user.leads.each do |lead| %>
-                <div id="lead<%= lead.id %>" draggable="true" data-id="<%= lead.id %>">
-                  <%= link_to "#{lead.full_name}", lead%>
+                <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
+                  <li><%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %></li>
                 </div>
               <% end %>
             </ul>
@@ -70,11 +68,63 @@
           <p class="pull-right"><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
         </div>
         <div class="span4">
-          <div class="leads">
-            <h4><u>Leads</u></h4>
+          <div class="leads" id="appointment_scheduled">
+            <h4><u>Appointment Shceduled</u></h4>
+            <p></p>
+          </div>
+          <div class="leads" id="assessment_completed">
+            <h4><u>Assessment Completed</u></h4>
+            <p></p>
+          </div>
+          <div class="leads" id="trial_offered">
+            <h4><u>Trial Offered</u></h4>
+            <p></p>
+          </div>
+          <div class="leads" id="won">
+            <h4><u>Won</u></h4>
+            <p></p>
+          </div>
+          <div class="leads" id="lost">
+            <h4><u>Lost</u></h4>
+            <p></p>
           </div>
         </div>
       </div>
+
+      <div id="leadModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Add New Lead!</h3>
+        </div>
+        <div class="modal-body">
+           <%= simple_form_for @lead,
+              url: url_for( action: :create, controller: :leads ),
+              method: :post,
+              html: { id: 'new_lead'},
+              remote: true do |f| %>
+            <%= f.error_notification %>
+
+            <div class="row">
+            <div class="form-inputs">
+              <div class="span3">
+                <%= f.input :first_name %>
+                <%= f.input :last_name %>
+                <%= f.input :phone %>
+                <%= f.input :email %>
+              </div>
+              <div class="span3">
+                <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+                <%= f.association :stage %>
+                <%= f.input :student_information, input_html: { rows: 5 } %>
+              </div>
+            </div>
+            </div>
+              <%= f.button :submit, "Add Lead!", class: "m-btn" %>
+          <% end %>
+        </div>
+      </div>
+
+      <% end %>
 
     <% end %>
 
@@ -100,36 +150,3 @@
   <%= render 'login_screen' %>
 
 <% end %>
-
-<div id="leadModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Add New Lead!</h3>
-  </div>
-  <div class="modal-body">
-     <%= simple_form_for @lead,
-        url: url_for( action: :create, controller: :leads ),
-        method: :post,
-        html: { id: 'new_lead'},
-        remote: true do |f| %>
-      <%= f.error_notification %>
-
-      <div class="row">
-      <div class="form-inputs">
-        <div class="span3">
-          <%= f.input :first_name %>
-          <%= f.input :last_name %>
-          <%= f.input :phone %>
-          <%= f.input :email %>
-        </div>
-        <div class="span3">
-          <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
-          <%= f.association :stage %>
-          <%= f.input :student_information, input_html: { rows: 5 } %>
-        </div>
-      </div>
-      </div>
-        <%= f.button :submit, "Add Lead!", class: "m-btn" %>
-    <% end %>
-  </div>
-</div>

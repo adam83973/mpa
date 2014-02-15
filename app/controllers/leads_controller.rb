@@ -80,4 +80,15 @@ class LeadsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def update_stage
+    @lead = Lead.find(params[:id].last)
+    @stage = Stage.where("name = ?", params[:stage].humanize.split.map(&:capitalize).join(' ')).first
+
+    @lead.update_stage(@stage.id)
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end

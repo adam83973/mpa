@@ -30,6 +30,7 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
+  post 'leads/update_stage', to: 'leads#update_stage'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
   post 'students/update_credits', to: 'students#update_credits'
   post 'users/deactivate/:id', to: 'users#deactivate'

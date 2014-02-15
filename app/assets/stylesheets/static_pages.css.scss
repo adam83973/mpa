@@ -137,11 +137,16 @@ ul{
 }
 
 .leads{
+	width: 100%;
+	height: 70px;
 	border: solid lightgray 1px;
 	margin-bottom: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 10px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.leads.over {
+  border: 2px dashed #000;
 }
 
 #leadModal{
@@ -149,4 +154,20 @@ ul{
 	.modal-body{
 		padding-left: 50px;
 	}
+}
+
+#appointment_scheduled{
+	background-color: #99ccff;
+}
+
+#assessment_completed{
+	background-color: #ffffcc;
+}
+
+#won{
+	background-color: #ccffcc;
+}
+
+#lost{
+	background-color: #ffcccc;
 }
