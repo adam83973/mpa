@@ -25,7 +25,7 @@
     <% end %>
     <% if @todays_lesson && @todays_lesson.resources %>
       <% @todays_lesson.resources.each do |resource| %>
-        <p>- <%= link_to "#{resource.title}", resource %></p>
+        <p>- <%= link_to "#{resource.filename}", resource %></p>
       <% end %>
     <% end %>
   </div>
