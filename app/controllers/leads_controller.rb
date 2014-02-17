@@ -82,10 +82,19 @@ class LeadsController < ApplicationController
   end
 
   def update_stage
-    @lead = Lead.find(params[:id].last)
+    @lead = Lead.find(params[:id])
     @stage = Stage.where("name = ?", params[:stage].humanize.split.map(&:capitalize).join(' ')).first
 
     @lead.update_stage(@stage.id)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def stage_list
+    @leads = Lead.where("stage_id = ?", params[:stage_id])
+    @stage = Stage.find(params[:stage_id])
 
     respond_to do |format|
       format.js

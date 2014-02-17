@@ -6,9 +6,6 @@ MathPlus::Application.routes.draw do
   resources :stages
 
 
-  resources :leads
-
-
   resources :videos
 
 
@@ -30,6 +27,7 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
+  get 'leads/stage_list', to: 'leads#stage_list'
   post 'leads/update_stage', to: 'leads#update_stage'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
   post 'students/update_credits', to: 'students#update_credits'
@@ -37,6 +35,8 @@ MathPlus::Application.routes.draw do
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'mission_lookup', to: 'static_pages#mission_lookup'
   get 'code', to: 'static_pages#enter_code'
+
+  resources :leads
 
   resources :students do
     collection { post :import }

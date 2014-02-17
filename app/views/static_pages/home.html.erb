@@ -52,20 +52,42 @@
         <hr>
 
       <h3>Lead Management</h3>
-
+      <div id="lead_stages">
+        <ul class="nav nav-pills">
+          <li class="dropdown">
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#">
+                Lead Stages
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "New Leads", "javascript:void(0)", data: { stageid: 6 } %></li>
+              <li><%= link_to "Appointment Scheduled", "javascript:void(0)", data: { stageid: 1 } %></li>
+              <li><%= link_to "Appointment Missed", "javascript:void(0)", data: { stageid: 7 } %></li>
+              <li><%= link_to "Assesment Completed", "javascript:void(0)", data: { stageid: 2 } %></li>
+              <li><%= link_to "Trial Offered", "javascript:void(0)", data: { stageid: 3 } %></li>
+              <li><%= link_to "Won", "javascript:void(0)", data: { stageid: 4 } %></li>
+              <li><%= link_to "Lost", "javascript:void(0)", data: { stageid: 5 } %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
       <div class="row">
         <div class="span4">
-          <div class="new_leads">
-            <h4><u>New Leads</u></h4>
-            <ul>
-              <% current_user.leads.each do |lead| %>
-                <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
-                  <li><%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %></li>
-                </div>
-              <% end %>
-            </ul>
+          <div id="stage_list">
+            <div class="new stages">
+              <h4><u>New Leads</u></h4>
+              <ul>
+                <% current_user.leads.where("stage_id = ?", 6).each do |lead| %>
+                  <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
+                    <li><%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %></li>
+                  </div>
+                <% end %>
+              </ul></br>
+              <p><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
+            </div>
           </div>
-          <p class="pull-right"><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
         </div>
         <div class="span4">
           <div class="leads" id="appointment_scheduled">

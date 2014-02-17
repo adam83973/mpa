@@ -7,7 +7,7 @@
     <%= f.input :phone %>
     <%= f.input :email %>
     <%= f.input :user_id %>
-    <%= f.input :stage_id %>
+    <%= f.association :stage, label_method: :name %>
     <%= f.input :student_information %>
   </div>
 

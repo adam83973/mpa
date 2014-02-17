@@ -1,7 +1,4 @@
 jQuery ->
-  # $('.new_leads').find('ul').append('<div id="lead<%= @lead.id %>" draggable="true" class="ui-draggable" data-id="<%= @lead.id %>">
-  # <li><%= link_to "#{@lead.full_name}", @lead%> - Stage: <%= @lead.stage.name %></li>
-  # </div>')
   $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages">
     <h4><u><%= @stage.name %></u></h4>
     <ul>
@@ -34,6 +31,3 @@ drop =
       url: "/leads/update_stage"
       data: { id: received_id, stage: dragged_id }
       success: (result) ->
-
-
-

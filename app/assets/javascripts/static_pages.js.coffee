@@ -21,6 +21,9 @@ jQuery ->
     $form = $(this)
     $form[0].reset()
     alert "Lead Added!"
+    setTimeout ->
+      location.reload()
+    , 1000
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
