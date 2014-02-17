@@ -19,7 +19,7 @@
             <tbody>
                 <% if Time.now.saturday? %>
                 <tr>
-                    <td> 11:30</td>
+                    <td> 9:30</td>
                     <% @todays_offering_by_location.each do |offering|%>
                         <% if offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "A" %>
                             <td>
@@ -57,11 +57,13 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
                 <tr>
-                    <td>11:30</td>
+                    <td>10:30</td>
                     <% @todays_offering_by_location.each do |offering|%>
                         <% if offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "A" %>
                             <td>
@@ -99,6 +101,8 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
@@ -141,11 +145,13 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
                 <tr>
-                    <td>11:30</td>
+                    <td>12:30</td>
                     <% @todays_offering_by_location.each do |offering|%>
                         <% if offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "A" %>
                             <td>
@@ -183,6 +189,8 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
@@ -226,6 +234,8 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
@@ -268,6 +278,8 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
@@ -310,6 +322,8 @@
                                     <% end %>
                                 </ul>
                             </td>
+                        <% else %>
+                            <td></td>
                         <% end %>
                     <% end %>
                 </tr>
