@@ -285,8 +285,10 @@
                 </tr>
                 <tr>
                     <td>6:30</td>
+                    <% offering = false %>
                     <% @todays_offering_by_location.each do |offering|%>
                         <% if offering.time.strftime("%l:%M") == " 6:30" && offering.classroom == "A" %>
+                        <% offering = true %>
                             <td>
                                 <p><b><%= offering.name %></b></p>
                                 <u>Teachers:</u>
@@ -299,6 +301,7 @@
                                 </ul>
                             </td>
                         <% elsif offering.time.strftime("%l:%M") == " 6:30" && offering.classroom == "B" %>
+                        <% offering = true %>
                             <td>
                                 <p><b><%= offering.name %></b></p>
                                 <u>Teachers:</u>
@@ -311,6 +314,7 @@
                                 </ul>
                             </td>
                         <% elsif offering.time.strftime("%l:%M") == " 6:30" && offering.classroom == "C" %>
+                        <% offering = true %>
                             <td>
                                 <p><b><%= offering.name %></b></p>
                                 <u>Teachers:</u>
@@ -322,7 +326,8 @@
                                     <% end %>
                                 </ul>
                             </td>
-                        <% else %>
+                        <% end %>
+                        <% if !offering %>
                             <td></td>
                         <% end %>
                     <% end %>
