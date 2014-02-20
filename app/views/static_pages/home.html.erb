@@ -147,6 +147,7 @@
                 <%= f.input :last_name %>
                 <%= f.input :phone %>
                 <%= f.input :email %>
+                <%= f.input :appointment_date, as: :string %>
               </div>
               <div class="span3">
                 <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>

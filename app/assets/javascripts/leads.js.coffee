@@ -7,3 +7,6 @@ jQuery ->
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
       "bJQueryUI": true
+
+  $('#lead_appointment_date').datepicker
+    dateFormat: 'yy-mm-dd'
