@@ -101,15 +101,19 @@
         </div>
         <div class="span4">
           <div class="leads" id="appointment_scheduled">
-            <h4><u>Appointment Shceduled</u></h4>
+            <h4><u>Appointment Scheduled: <%= Lead.active_stage_count("Appointment Scheduled", current_user.id)%></u></h4>
+            <p></p>
+          </div>
+          <div class="leads" id="appointment_missed">
+            <h4><u>Appointment Missed: <%= Lead.active_stage_count("Appointment Missed", current_user.id)%></u></h4>
             <p></p>
           </div>
           <div class="leads" id="assessment_completed">
-            <h4><u>Assessment Completed</u></h4>
+            <h4><u>Assessment Completed: <%= Lead.active_stage_count("Assessment Completed", current_user.id)%></u></h4>
             <p></p>
           </div>
           <div class="leads" id="trial_offered">
-            <h4><u>Trial Offered</u></h4>
+            <h4><u>Trial Offered: <%= Lead.active_stage_count("Trial Offered", current_user.id)%></u></h4>
             <p></p>
           </div>
           <div class="leads" id="won">
