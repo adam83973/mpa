@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :current_password
 
+  has_many :notes
   belongs_to :location
   has_many :students, :through => :offerings
   has_many :students

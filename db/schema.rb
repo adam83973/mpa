@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140217145316) do
+ActiveRecord::Schema.define(:version => 20140219182101) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -135,8 +135,10 @@ ActiveRecord::Schema.define(:version => 20140217145316) do
     t.boolean  "due"
     t.date     "due_date"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "notable_id"
+    t.string   "notable_type"
   end
 
   create_table "offerings", :force => true do |t|

@@ -35,6 +35,15 @@
   <%= @lead.student_information %>
 </p>
 
+<p>
+  <b>Notes:</b>
+  <ul>
+  <% @lead.notes.each do |note| %>
+    <li> <%= note.content %> (by: <%= note.user.full_name%>) </li>
+  <% end %>
+  </ul>
+</p>
+
 
 <%= link_to 'Edit', edit_lead_path(@lead) %> |
 <%= link_to 'Back', leads_path %>

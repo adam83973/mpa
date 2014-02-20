@@ -130,9 +130,27 @@ ul{
 
 .stages{
 	border: solid lightgray 1px;
-	margin-bottom: 10px;
+	margin-top: 10px;
 	padding-right: 10px;
 	padding-left: 10px;
+	.ui-draggable{
+
+	}
+}
+
+.lead_toolbar{
+	margin-bottom: 5px;
+	background-color: lightgray;
+	padding: 10px;
+	overflow: hidden;
+	form {
+		margin-bottom: 0;
+		margin-left: 35px;
+	}
+	textarea{
+		height:100px;
+		width: 300px;
+	}
 }
 
 .leads{
@@ -142,6 +160,20 @@ ul{
 	margin-bottom: 10px;
 	text-align: center;
 	vertical-align: middle;
+}
+
+#stage_list div[id^="lead"]{
+	border: solid 1px lightgray;
+	padding: 10px;
+	margin-top: 5px;
+}
+
+.note-button{
+	line-height: 4px;
+	font-size: 12px;
+	width: 45px;
+	height: 20px;
+	margin-top: 0;
 }
 
 .leads.over {

@@ -12,6 +12,7 @@ class StaticPagesController < ApplicationController
       @user = current_user
       # if @user.offerings?
         @lead = Lead.new
+        @note = Note.new
         @grade = Grade.new
         @experience_point = ExperiencePoint.new
         @offerings = Offering.order(:course_id)

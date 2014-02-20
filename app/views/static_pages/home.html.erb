@@ -81,7 +81,17 @@
               <ul>
                 <% current_user.leads.where("stage_id = ?", 6).each do |lead| %>
                   <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
-                    <li><%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %></li>
+                    <li>
+                      <div class="row">
+                        <div class="span3">
+                          <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
+                        </div>
+                        <%= link_to "javascript:void(0)", class: "stage_attr" do %>
+                          <i class="icon icon-plus pull-right"></i>
+                        <% end %>
+                      </div>
+                    </li>
+                    <div class="lead_toolbar">This is the toolbar.</div>
                   </div>
                 <% end %>
               </ul></br>
