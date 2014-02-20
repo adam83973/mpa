@@ -141,23 +141,23 @@
             <%= f.error_notification %>
 
             <div class="row">
-            <div class="form-inputs">
-              <div class="span3">
-                <%= f.input :first_name %>
-                <%= f.input :last_name %>
-                <%= f.input :phone %>
-                <%= f.input :email %>
-                <%= f.input :appointment_date, as: :string %>
-              </div>
-              <div class="span3">
-                <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
-                <%= f.association :stage %>
-                <%= f.input :student_information, input_html: { rows: 5 } %>
-                <%= f.input :active %>
+              <div class="form-inputs">
+                <div class="span3">
+                  <%= f.input :first_name %>
+                  <%= f.input :last_name %>
+                  <%= f.input :phone %>
+                  <%= f.input :email %>
+                  <%= f.input :appointment_date, as: :string %>
+                </div>
+                <div class="span3">
+                  <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+                  <%= f.association :stage %>
+                  <%= f.input :student_information, input_html: { rows: 5 } %>
+                  <%= f.input :active %>
+                </div>
               </div>
             </div>
-            </div>
-              <%= f.button :submit, "Add Lead!", class: "m-btn" %>
+              <%= f.button :submit, "Add Lead!", class: "m-btn green" %>
           <% end %>
         </div>
       </div>

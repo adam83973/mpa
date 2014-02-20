@@ -182,8 +182,14 @@ ul{
 
 #leadModal{
 	width: 700px;
+	height: 525px;
 	.modal-body{
 		padding-left: 50px;
+		height: 525px;
+		overflow: auto;
+	}
+	form{
+		margin-bottom: 0;
 	}
 }
 
