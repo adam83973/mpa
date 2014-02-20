@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_filter :authorize_employee
+
   # GET /notes
   # GET /notes.json
   def index

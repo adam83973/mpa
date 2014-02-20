@@ -1,4 +1,7 @@
 class LeadsController < ApplicationController
+
+  before_filter :authorize_admin
+
   # GET /leads
   # GET /leads.json
   def index
