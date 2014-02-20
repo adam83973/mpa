@@ -2,6 +2,7 @@ class Lead < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :phone, :stage_id, :student_information, :user_id, :active
 
   belongs_to :user
+  belongs_to :location
   belongs_to :stage
 
   has_many  :notes, as: :notable

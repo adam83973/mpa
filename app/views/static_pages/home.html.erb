@@ -151,6 +151,7 @@
                 </div>
                 <div class="span3">
                   <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+                  <%= f.association :location, label_method: :name %>
                   <%= f.association :stage %>
                   <%= f.input :student_information, input_html: { rows: 5 } %>
                   <%= f.input :active %>

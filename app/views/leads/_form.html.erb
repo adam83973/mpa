@@ -6,7 +6,8 @@
     <%= f.input :last_name %>
     <%= f.input :phone %>
     <%= f.input :email %>
-    <%= f.input :user_id %>
+    <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+    <%= f.association :location, label_method: :name %>
     <%= f.input :appointment_date, as: :string %>
     <%= f.association :stage, label_method: :name %>
     <%= f.input :student_information %>
