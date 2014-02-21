@@ -21,8 +21,8 @@
         <td><%= lead.last_name %></td>
         <td><%= lead.phone %></td>
         <td><%= lead.email %></td>
-        <td><%= lead.user.full_name %></td>
-        <td><%= lead.stage.name %></td>
+        <td><%= lead.user.full_name if lead.user %></td>
+        <td><%= lead.stage.name if lead.stage %></td>
         <td><%= lead.active? %></td>
         <td><%= link_to 'Show', lead %></td>
         <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
