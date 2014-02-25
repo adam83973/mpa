@@ -2,7 +2,7 @@ jQuery ->
   $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages">
     <h4><u><%= @stage.name %></u></h4>
     <ul>
-    <% current_user.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
+    <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
     <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
     <li>

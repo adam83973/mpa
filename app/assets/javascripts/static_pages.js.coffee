@@ -10,6 +10,16 @@ jQuery ->
       $("#hide_schedule").text('hide schedule')
 
 
+# ---- Leads JS ----------------
+# Hide Show Lead Note Form ---
+  $('.stage_attr').on "click", ->
+    $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
+    if $lead_toolbar.css("display") is "none"
+      $lead_toolbar.slideDown()
+    else
+      $lead_toolbar.slideUp()
+
+
 # ---- Lead Modal ----------------
 # Handle attendance ajax events ---
   $("#new_lead")
@@ -35,6 +45,8 @@ jQuery ->
     alert "Lead #{error}!"
     $form[0].reset()
 
+  $('#stage_list').find('.lead_toolbar').each ->
+    $(this).css("display", "none")
 
 # ---- Attendance Modal ----------------
 # Handle attendance ajax events ---

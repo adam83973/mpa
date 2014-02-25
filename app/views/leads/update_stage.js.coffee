@@ -2,7 +2,7 @@ jQuery ->
   $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages">
     <h4><u><%= @stage.name %></u></h4>
     <ul>
-    <% current_user.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
+    <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
     <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
     <li>
@@ -32,6 +32,32 @@ jQuery ->
     <% if @stage.id == 6 %>
     <p><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
     <% end %>
+    </div>')
+
+  $("#stage_droppable").html(
+    '<div class="leads" id="appointment_scheduled">
+    <h4><u>Appointment Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></u></h4>
+    <p></p>
+    </div>
+    <div class="leads" id="appointment_missed">
+    <h4><u>Appointment Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></u></h4>
+    <p></p>
+    </div>
+    <div class="leads" id="assessment_completed">
+    <h4><u>Assessment Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></u></h4>
+    <p></p>
+    </div>
+    <div class="leads" id="trial_offered">
+    <h4><u>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></u></h4>
+    <p></p>
+    </div>
+    <div class="leads" id="won">
+    <h4><u>Won</u></h4>
+    <p></p>
+    </div>
+    <div class="leads" id="lost">
+    <h4><u>Lost</u></h4>
+    <p></p>
     </div>')
 
   $('#stage_list').find('.lead_toolbar').each ->

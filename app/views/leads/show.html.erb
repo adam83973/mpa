@@ -22,12 +22,12 @@
 
 <p>
   <b>User:</b>
-  <%= @lead.user.full_name %>
+  <%= @lead.user ? @lead.user.full_name : "There is no one asigned to this lead. Please assign someone to this lead." %>
 </p>
 
 <p>
   <b>Stage:</b>
-  <%= @lead.stage.name %>
+  <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
 </p>
 
 <p>

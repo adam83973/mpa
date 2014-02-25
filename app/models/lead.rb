@@ -15,7 +15,7 @@ class Lead < ActiveRecord::Base
     update_column(:stage_id, id.to_i)
   end
 
-  def self.active_stage_count(stage_name, user_id)
-    self.where('stage_id = ? AND user_id = ? AND active = ?', Stage.where('name = ?', stage_name), user_id, true).count
+  def self.active_stage_count(stage_name, location_id)
+    self.where('stage_id = ? AND active = ? AND location_id = ?', Stage.where('name = ?', stage_name), true, location_id).count
   end
 end
