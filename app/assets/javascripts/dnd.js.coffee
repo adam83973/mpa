@@ -6,13 +6,9 @@ jQuery ->
   onDrop = (e) ->
     e.preventDefault()
 
-  # $(".leads")
-  #   .bind('dragenter', ignoreDrag)
-  #   .bind('dragover', ignoreDrag)
-  #   .bind('drop', onDrop)
-
-  $('div[id^="lead"]', '#stage_list').draggable ->
-    $dragged = $(this)
+  $('div[id^="lead"]', '#stage_list').each ->
+    $(this).draggable
+      revert: "invalid"
   $(".leads").droppable drop: (event, ui) ->
     $dropP = $(this).find("p")
     $dropP.html( "Lead Updated!" )

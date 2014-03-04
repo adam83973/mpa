@@ -4,7 +4,7 @@ jQuery ->
     <ul>
     <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
-    <div id="lead<%= lead.id %>" class="ui-draggable" draggable="true" data-id="<%= lead.id %>">
+    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>">
     <li>
     <div class="row">
     <div class="span3">
@@ -44,8 +44,9 @@ jQuery ->
     else
       $lead_toolbar.slideUp()
 
-  $('div[id^="lead"]', '#stage_list').draggable ->
-    $dragged = $(this)
+  $('div[id^="lead"]', '#stage_list').each ->
+    $(this).draggable
+      revert: "invalid"
   $(".leads").droppable drop: (event, ui) ->
     $dropP = $(this).find("p")
     $dropP.html( "Lead Updated!" )
