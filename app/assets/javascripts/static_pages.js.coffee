@@ -19,7 +19,6 @@ jQuery ->
     else
       $lead_toolbar.slideUp()
 
-
 # ---- Lead Modal ----------------
 # Handle attendance ajax events ---
   $("#new_lead")

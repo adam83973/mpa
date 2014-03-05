@@ -80,6 +80,7 @@
               <h4><u>New</u></h4>
               <ul>
                 <% current_user.location.leads.where("stage_id = ?", 6).each do |lead| %>
+
                   <div class="lead_group">
                     <div id="lead<%= lead.id %>" data-id="<%= lead.id %>">
                       <li>
@@ -95,7 +96,7 @@
                     </div> <!-- /.ui-draggable -->
                     <div class="lead_toolbar" style="display:none;">
                       <div class="row">
-                        <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
+                        <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true, html: { id: "new_note#{lead.id}" } do |f| %>
                         <%= f.input :content, input_html: { rows: 0, cols: 0 } %>
                         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
                         <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>

@@ -1,2 +1,0 @@
-jQuery ->
-  alert "Note Added!"
