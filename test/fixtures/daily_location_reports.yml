@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  location_id: 1
+  parent_logins: 1
+  drop_count: 1
+  add_count: 1
+
+two:
+  location_id: 1
+  parent_logins: 1
+  drop_count: 1
+  add_count: 1

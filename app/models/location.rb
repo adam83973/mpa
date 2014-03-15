@@ -4,6 +4,7 @@ class Location < ActiveRecord::Base
   has_many :users
   has_many :leads
   has_many :students, :through => :offerings
+  has_many :daily_location_reports
 
   def students_added_last_30
     self.students.where("start_date < ? and start_date > ?", Date.today, 30.days.ago)
