@@ -1,42 +1,85 @@
 <div id="student">
-  <div class="studentname">
-    <div class="span4">
-      <h2><%= @student.full_name %></h2>
-      <p>
-        <div id="studentId" data-studentId="<%= @student.id %>">
-          <h3>ID: <%= @student.id %></h3>
-        </div>
-      </p>
-      <p>
-        <h3>Total XP: <%= @student.xp_total %></h3>
-      </p>
-      <p>
-        <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
-          <h3>Total Credits: <%= @student.credits %></h3>
-        </div>
-      </p>
-      <%if current_user.employee? %>
-      <p>
-        <b>Parent:</b>
-        <%= link_to @student.parent_name, @student.user %>
-      </p>
-      <% end %>
-    </div>
-    <% if @student.in_math_class? %>
-      <div class="rank span8">
-        <p>
-          <h3>Current level: <em><%= @student.rank %> </em></h3>
-        </p>
-        <div class="progress square">
-          <center>
-            <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
+  <div class="studentinfo">
+    <div class="row-fluid">
+      <div class="span3 studentname" style="text-align:center;">
+        <h2><%= @student.full_name %></h2>
+        <div id="totalCredits" style="text-align:center;position:relative;" data-totalCredits="<%= @student.credits %>">
+          <div class="circle-text" style="margin:0 auto;">
+            <div>
+              <h5 style="margin-bottom:10px;">Total Credits</h5>
+              <h2 style="font-size:4em;"><%= @student.credits %></h1>
+            </div>
           </div>
-        </center>
-        <p>Next Level: <em><%= @student.next_rank %></em></p>
+        </div>
+        <p>
+          <div id="studentId" data-studentId="<%= @student.id %>">
+            <h3>ID: <%= @student.id %></h3>
+          </div>
+        </p>
+        <%if current_user.employee? %>
+        <p>
+          <b>Parent:</b>
+          <%= link_to @student.parent_name, @student.user %>
+        </p>
+        <% end %>
       </div>
-    <% end %>
-    <div class="row">
-       <%= render 'student_toolbar' %>
+      <div style="text-align:center;" class="span9">
+        <% if @student.in_math_class? %>
+          <div style="text-align:center;" class="pull-left">
+            <h2>Math</h2>
+            <input disabled value="5" class="math-dial">
+            <p>Math XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <% if @student.in_robotics_class? %>
+          <div style="text-align:center;padding-left:15px;" class="pull-left">
+            <h2>Robotics</h2>
+            <input disabled value="5" class="robotics-dial">
+            <p>Robotics XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <% if @student.in_engineering_class? %>
+          <div style="text-align:center;padding-left:15px;" class="pull-left">
+            <h2>Engineering</h2>
+            <input disabled value="5" class="engineering-dial">
+            <p>Engineering XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <% if @student.in_programming_class? %>
+          <div style="text-align:center;padding-left:15px;" class="pull-left">
+            <h2>Programming</h2>
+            <input disabled value="5" class="dial">
+            <p>Programming XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <% if @student.in_e_math_team_class? %>
+          <div style="text-align:center;padding-left:15px;" class="pull-left">
+            <h2>Math Team</h2>
+            <input disabled value="5" class="dial">
+            <p>Math Team XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <% if @student.in_m_math_team_class? %>
+          <div style="text-align:center;padding-left:15px;" class="pull-right">
+            <h2>Math Team</h2>
+            <input disabled value="5" class="dial">
+            <p>Math Team XP: </p>
+            <p>400xp to Level 100</p>
+          </div>
+        <% end %>
+
+        <%= render 'student_toolbar' %>
+      </div>
     </div>
   </div>
 </div>

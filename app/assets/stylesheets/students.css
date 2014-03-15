@@ -1,19 +1,21 @@
 
 /* Student Show page */
 
-.studentname{
-  padding-right: 20px;
-  padding-top:4px;
-  padding-bottom:10px;
+.studentinfo{
   border-bottom: solid 1px #afafaf;
+}
+
+.studentname{
+  border-right: solid 1px #afafaf;
+  margin-bottom: 15px;
 }
 
 .paddingtop15{
   padding-top: 15px;
 }
 
-.rank{
-	padding-top: 15px;
+.student_tool_button{
+  margin: 15px 0 15px 0;
 }
 
 .parentinfo{
@@ -59,6 +61,40 @@
 
 .achievementcompleted{
   color: #17ce00
+}
+
+.level{
+  line-height: 70px;
+}
+
+.circle-text {
+    width:150px;
+    text-align: center;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 150px;
+    height:150px;
+    -webkit-box-shadow: inset 0px 0px 0px 20px rgba(169,169,171,1);
+    -moz-box-shadow: inset 0px 0px 0px 20px rgba(169,169,171,1);
+    box-shadow: inset 0px 0px 0px 20px rgba(169,169,171,1);
+    background: lightgray;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:35px;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:black;
+}
+.circle-text div h1{
+  margin: 5px;
 }
 
 

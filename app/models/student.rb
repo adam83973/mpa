@@ -109,14 +109,30 @@ class Student < ActiveRecord::Base
   end
 
 #returns true if student is robotics student
-  def robotics
+  def in_robotics_class?
     class_ids.include?(11)
+  end
+
+  def in_engineering_class?
+    class_ids.include?(18)
+  end
+
+  def in_programming_class?
+    class_ids.include?(15)
+  end
+
+  def in_e_math_team_class?
+    class_ids.include?(13)
+  end
+
+  def in_m_math_team_class?
+    class_ids.include?(17)
   end
 
   def in_math_class?
     math_class = false
     offerings.each do |offering|
-      if offering.course.id < 9
+      if offering.course_id < 9
         math_class = true
       end
     end

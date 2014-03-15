@@ -65,3 +65,29 @@ jQuery ->
     $form = $(this)
     alert "Credits #{error}!"
     $form[0].reset()
+
+  $("type1").height($(".circleBase").height())
+
+  $(".math-dial").knob
+    thickness: ".4"
+    width: "150"
+    height: "150"
+    readOnly: true
+    inputColor: "black"
+    font: "Helvetica"
+    fontWeight: 100
+    fgColor: "#ffff00"
+    format: ->
+      "L 99"
+
+  $(".robotics-dial").knob
+    thickness: ".4"
+    width: "150"
+    height: "150"
+    readOnly: true
+    inputColor: "black"
+    font: "Helvetica"
+    fontWeight: 100
+    fgColor: "#cc0000"
+    format: ->
+      "L 99"
