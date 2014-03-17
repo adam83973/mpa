@@ -1,0 +1,2 @@
+class DailyLocationReportsController < ApplicationController
+end

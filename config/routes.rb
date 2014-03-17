@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :daily_location_reports
+
+
   resources :notes
 
 
