@@ -30,7 +30,7 @@
 
                         <div class="form-inputs">
                           <%= f.input :student_id, input_html: { value: student.id}, as: :hidden %>
-                          <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
+                          <%= f.input :experience_id, input_html: { value: Experience.where("category = ? AND name LIKE ?", "Robotics", "%Attendance%").first.id }, label: "Achievement ID" %>
                           <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
                           <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
                           <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
@@ -46,7 +46,7 @@
             <% end %>
         </table>
         <center>
-          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "m-btn red" %>
+          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "m-btn red" if class_session.in_session? %>
         </center>
       </div>
     </div>
