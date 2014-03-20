@@ -25,6 +25,16 @@ class Student < ActiveRecord::Base
     experience_points.sum(:points)
   end
 
+  def xp_sum_by_category(cat)
+    total = 0
+    experience_points.each do |xp|
+      if xp.experience.category == cat
+        total += xp.points
+      end
+    end
+    total
+  end
+
   def calculate_xp
     update_column(:xp_total, xp_sum)
   end

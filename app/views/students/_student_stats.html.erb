@@ -51,6 +51,7 @@
             <h2>Math</h2>
             <input disabled value="5" class="math-dial">
             <p>Math XP: </p>
+            <p>Total: <%= @student.xp_sum_by_category("Math")%></p>
             <p>400xp to Level 100</p>
           </div>
         <% end %>
@@ -60,6 +61,7 @@
             <h2>Robotics</h2>
             <input disabled value="5" class="robotics-dial">
             <p>Robotics XP: </p>
+            <p>Total: <%= @student.xp_sum_by_category("Robotics")%></p>
             <p>400xp to Level 100</p>
           </div>
         <% end %>
