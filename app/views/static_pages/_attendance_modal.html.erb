@@ -1,27 +1,29 @@
-<div id="attendanceModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">You can't have a class without students!</h3>
-  </div>
-<center>
-  <div class="modal-body">
-     <%= simple_form_for @experience_point,
-        url: url_for( action: :create, controller: :experience_points ),
-        method: :post,
-        html: { id: 'attendance_form'},
-        remote: true do |f| %>
-      <%= f.error_notification %>
+<% if class_session.in_session? %>
+  <div id="attendanceModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">You can't have a class without students!</h3>
+    </div>
+    <center>
+      <div class="modal-body">
+         <%= simple_form_for @experience_point,
+            url: url_for( action: :create, controller: :experience_points ),
+            method: :post,
+            html: { id: 'attendance_form'},
+            remote: true do |f| %>
+          <%= f.error_notification %>
 
-      <div class="form-inputs">
-        <%= f.input :student_id, autofocus: true %>
-        <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
-        <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
-        <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+          <div class="form-inputs">
+            <%= f.input :student_id, autofocus: true %>
+            <%= f.input :experience_id, input_html: { value: Experience.where("category = ? AND name LIKE ?", Offering.find(class_session.offering).type, "%Attendance%").first.id }, as: :hidden, label: "Achievement ID" %>
+            <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
+            <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+          </div>
+            <%= f.button :submit, "Add to Class", class: "m-btn" %>
+        <% end %>
+        <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
       </div>
-        <%= f.button :submit, "Add to Class", class: "m-btn" %>
-    <% end %>
-    <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
+    </center>
   </div>
-</center>
-</div>
+<% end %>

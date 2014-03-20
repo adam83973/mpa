@@ -24,6 +24,26 @@ class Offering < ActiveRecord::Base
       self.students.find_all_by_status("Active").count
   end
 
+  def type
+    id = self.course_id
+    case id
+    when 1..9
+      "Math"
+    when 10
+      "Chess"
+    when 11
+      "Robotics"
+    when 13 || 17
+      "Math Team"
+    when 15
+      "Programming"
+    when 18
+      "Engineering"
+    else
+      ""
+    end
+  end
+
   def at_capacity?
     total_students = returning_students_count + active_students_count
     math_class_ids = (1..10).to_a << 13 << 17

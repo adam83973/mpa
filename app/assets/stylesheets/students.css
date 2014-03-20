@@ -8,6 +8,7 @@
 .studentname{
   border-right: solid 1px #afafaf;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .paddingtop15{
@@ -67,9 +68,16 @@
   line-height: 70px;
 }
 
+/*Student Stats Credits*/
+
+#totalCredits{
+  text-align: center;
+  position: relative;
+}
 .circle-text {
     width:150px;
     text-align: center;
+    margin: 0 auto;
 }
 .circle-text:after {
     content: "";
@@ -93,8 +101,12 @@
     text-align:center;
     color:black;
 }
-.circle-text div h1{
-  margin: 5px;
+.circle-text div h2{
+  font-size: 4em;
+  font-weight: 100;
 }
-
+.circle-text div h4{
+  font-size: 0.9em;
+  margin-top: 13px;
+}
 
