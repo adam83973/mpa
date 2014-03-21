@@ -68,7 +68,7 @@ jQuery ->
 
   $("type1").height($(".circleBase").height())
 
-  $(".math-dial").knob
+  $("#math-dial").knob
     thickness: ".4"
     width: "150"
     height: "150"
@@ -78,9 +78,9 @@ jQuery ->
     fontWeight: 100
     fgColor: "#ffff00"
     format: ->
-      "L 99"
+      "L #{$("#math-dial").data("level")}"
 
-  $(".robotics-dial").knob
+  $("#robotics-dial").knob
     thickness: ".4"
     width: "150"
     height: "150"
@@ -90,4 +90,4 @@ jQuery ->
     fontWeight: 100
     fgColor: "#cc0000"
     format: ->
-      "L 99"
+      "L #{$("#robotics-dial").data("level")}"
