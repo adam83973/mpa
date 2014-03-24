@@ -3,7 +3,12 @@
     <h3>Search</h3>
     <label>Find another Employee or Parent:</label>
     <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
+    <div class="hidden-phone hidden-tablet">
   	  <%= text_field_tag :search, params[:search] %><br />
+    </div>
+    <div class="hidden-desktop">
+      <%= text_field_tag :search, params[:search], class: "span3" %><br />
+    </div>
     	  <%= button_tag(type: "submit", class: "m-btn blue") do %>
         	Search <i class="icon-search icon-white"></i>
     	  <% end %>

@@ -110,3 +110,12 @@
   margin-top: 13px;
 }
 
+#attendanceModal .chosen-drop{
+  height: 170px;
+  overflow: hidden;
+}
+
+#attendanceModal .modal-body{
+  height: 225px;
+}
+
