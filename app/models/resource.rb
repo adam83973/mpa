@@ -14,6 +14,8 @@ class Resource < ActiveRecord::Base
   before_save :update_file_attributes
   after_save :add_resource_to_lesson
 
+  CATEGORIES = ["Assignments", "Assignment Keys", "Miscelaneous", "Problem", "Games"]
+
   def is_lesson?
     default_name
     !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w.\w.*)/)
