@@ -91,7 +91,6 @@ jQuery ->
     $submitButton.val( "Submitting..." )
   .bind 'ajax:success', (evt, data, status, xhr) ->
     $form = $(this)
-    alert "Student Added!"
   .bind 'ajax:complete', (evt, xhr, status) ->
     $form = $(this)
     $form.hide()

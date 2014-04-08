@@ -142,7 +142,7 @@ class Student < ActiveRecord::Base
   def in_math_class?
     math_class = false
     offerings.each do |offering|
-      if offering.course_id < 9
+      if offering.course_id < 9 || offering.course_id == 13 || offering.course_id == 17
         math_class = true
       end
     end

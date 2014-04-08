@@ -93,15 +93,6 @@
           </div>
         <% end %>
 
-        <% if @student.in_m_math_team_class? %>
-          <div style="text-align:center;padding-left:15px;" class="pull-right">
-            <h2>Math Team</h2>
-            <input disabled value="5" class="dial">
-            <p>Math Team XP: </p>
-            <p>400xp to Level 100</p>
-          </div>
-        <% end %>
-
         <%= render 'student_toolbar' %>
       </div>
     </div>
