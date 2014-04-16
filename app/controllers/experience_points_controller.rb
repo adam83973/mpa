@@ -70,7 +70,7 @@ class ExperiencePointsController < ApplicationController
 
     #add credits and special redirect when attendance is taken
     #add .js response for ajax
-    if @exp.include?(params[:experience_point][:experience_id].to_i)
+    if @exp.include?(params[:experience_point][:experience_id])
 
       #add student attendance from teacher home page
       if class_session.in_session?
@@ -80,7 +80,7 @@ class ExperiencePointsController < ApplicationController
       respond_to do |format|
         if @experience_point.save
           if @credits > 0
-                @student.add_credit(@credits)
+            @student.add_credit(@credits)
           end
 
           if @student.rank.nil? || @student_level > 0

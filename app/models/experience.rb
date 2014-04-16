@@ -9,6 +9,8 @@ class Experience < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  CATEGORY = [ "Mathematics", "Engineering", "Chess", "In-Class", "Homework", "Mastery Website", "School", "Programming"]
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       experience = find_by_id(row["id"]) || new

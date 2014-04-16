@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :points %>
-    <%= f.input :category, as: :select, collection:[ "Math", "Robotics", "Chess", "In-Class", "Homework", "Mastery Website", "School", "Engineering", "Programming", "Math Team"] %>
+    <%= f.input :category, as: :select, collection: Experience::CATEGORY %>
     <%= f.input :content, as: :text, :input_html => { :rows => 5 } %>
     <%= f.association :resources, label_method: :filename %>
     <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @experience.image? %>

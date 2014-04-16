@@ -71,23 +71,23 @@ def make_users
                         password:             "password",
                         password_confirmation:"password")
 
-  User.create!(first_name:                    "Ved",
-                        last_name:            "Shelat",
-                        role:                 "Teaching Assistant",
-                        phone:                "614-425-2986",
-                        location_id:          "1",
-                        email:                "veds99@yahoo.com",
-                        password:             "password",
-                        password_confirmation:"password")
+  User.create!(first_name:           "Ved",
+               last_name:            "Shelat",
+               role:                 "Teaching Assistant",
+               phone:                "614-425-2986",
+               location_id:          "1",
+               email:                "veds99@yahoo.com",
+               password:             "password",
+               password_confirmation:"password")
 
-  User.create!(first_name:                    "John",
-                        last_name:            "Doe",
-                        role:                 "Parent",
-                        phone:                "(614) 555-1212",
-                        location_id:          "1",
-                        email:                "parent@mathplusacademy.com",
-                        password:             "password",
-                        password_confirmation:"password")
+User.create!(first_name:           "John",
+             last_name:            "Doe",
+             role:                 "Parent",
+             phone:                "(614) 555-1212",
+             location_id:          "1",
+             email:                "parent@mathplusacademy.com",
+             password:             "password",
+             password_confirmation:"password")
 
 end
 

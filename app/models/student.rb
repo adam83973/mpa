@@ -26,13 +26,13 @@ class Student < ActiveRecord::Base
   end
 
   def xp_sum_by_category(cat)
-    total = 0
+    t = 0
     experience_points.each do |xp|
       if xp.experience.category == cat
-        total += xp.points
+        t += xp.points
       end
     end
-    total
+    t
   end
 
   def calculate_xp
@@ -123,20 +123,22 @@ class Student < ActiveRecord::Base
     class_ids.include?(11)
   end
 
-  def in_engineering_class?
-    class_ids.include?(18)
+  def is_engineer?
+    class_ids.include?(11) || class_ids.include?(18)
   end
 
-  def in_programming_class?
+  def is_mathematician?
+    math_class = false
+    offerings.each do |offering|
+      if offering.course_id < 9 || offering.course_id == 13 || offering.course_id == 17
+        math_class = true
+      end
+    end
+    math_class
+  end
+
+  def is_programmer?
     class_ids.include?(15)
-  end
-
-  def in_e_math_team_class?
-    class_ids.include?(13)
-  end
-
-  def in_m_math_team_class?
-    class_ids.include?(17)
   end
 
   def in_math_class?

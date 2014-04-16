@@ -28,13 +28,13 @@ class Offering < ActiveRecord::Base
     id = self.course_id
     case id
     when 1..9
-      "Math"
+      "Mathematics"
     when 10
       "Chess"
     when 11
-      "Robotics"
+      "Engineering"
     when 13 || 17
-      "Math Team"
+      "Mathematics"
     when 15
       "Programming"
     when 18

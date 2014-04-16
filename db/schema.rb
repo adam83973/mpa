@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140321001336) do
+ActiveRecord::Schema.define(:version => 20140416181653) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -253,8 +253,8 @@ ActiveRecord::Schema.define(:version => 20140321001336) do
     t.string   "last_name"
     t.date     "birth_date"
     t.date     "start_date"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "user_id"
     t.string   "rank"
     t.integer  "credits"
@@ -263,8 +263,9 @@ ActiveRecord::Schema.define(:version => 20140321001336) do
     t.date     "restart_date"
     t.date     "return_date"
     t.date     "end_date"
-    t.integer  "math_level",     :default => 0
-    t.integer  "robotics_level", :default => 0
+    t.integer  "math_level",   :default => 0
+    t.integer  "eng_level",    :default => 0
+    t.integer  "prog_level",   :default => 0
   end
 
   create_table "time_punches", :force => true do |t|

@@ -6,22 +6,24 @@
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
           <div class="circle-text">
             <div>
-              <h4>Total Credits</h4>
-              <h2><%= @student.credits %></h1>
+              <h1 style="float:center;">Credits</h1>
+              <h2><%= @student.credits %></h2>
             </div>
           </div>
         </div>
-        <p>
-          <div id="studentId" data-studentId="<%= @student.id %>">
-            <h3>ID: <%= @student.id %></h3>
-          </div>
-        </p>
-        <%if current_user.employee? %>
-        <p>
-          <b>Parent:</b>
-          <%= link_to @student.parent_name, @student.user %>
-        </p>
-        <% end %>
+        <% if current_user.employee? %>
+          <p>
+            <div id="studentId" data-studentId="<%= @student.id %>">
+              <h3>ID: <%= @student.id %></h3>
+            </div>
+          </p>
+          <p>
+            <b>Parent:</b>
+            <%= link_to @student.parent_name, @student.user %>
+          </p>
+       <% else %>
+          <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
+       <% end %>
       </div>
       <div class="span3 hidden-desktop hidden-tablet" style="text-align:center;">
         <h2><%= @student.full_name %></h2>
@@ -33,62 +35,46 @@
             </div>
           </div>
         </div>
+        <% if current_user.employee? %>
         <p>
           <div id="studentId" data-studentId="<%= @student.id %>">
             <h3>ID: <%= @student.id %></h3>
           </div>
         </p>
-        <%if current_user.employee? %>
         <p>
           <b>Parent:</b>
           <%= link_to @student.parent_name, @student.user %>
         </p>
+        <% else %>
+          <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
         <% end %>
       </div>
       <div style="text-align:center;" class="span9">
-        <% if @student.in_math_class? %>
+        <% if @student.is_mathematician? %>
           <div style="text-align:center;" class="pull-left">
-            <h2>Math</h2>
-            <input disabled id="math-dial" value="<%= @student.math_level %>" data-level="<%= @student.math_level %>">
-            <p>Math XP: </p>
-            <p>Total: <%= @student.xp_sum_by_category("Math")%></p>
+            <h2>Mathematician</h2>
+            <input disabled id="mathematician-dial" value="<%= @student.math_level %>" data-level="<%= @student.math_level %>">
+            <p>XP: <%= @student.xp_sum_by_category("Mathematics")%></p>
             <p>400xp to Level 100</p>
           </div>
         <% end %>
-
-        <% if @student.in_robotics_class? %>
+        <!-- Engineering student information -->
+        <% if @student.is_engineer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Robotics</h2>
-            <input disabled id="robotics-dial" value="<%= @student.robotics_level %>" data-level="<%= @student.math_level %>">
+            <h2>Engineer</h2>
+            <input disabled id="engineer-dial" value="<%= @student.eng_level %>" data-level="<%= @student.eng_level %>">
             <p>Robotics XP: </p>
-            <p>Total: <%= @student.xp_sum_by_category("Robotics")%></p>
+            <p>Total: <%= @student.xp_sum_by_category("Engineering")%></p>
             <p>400xp to Level 100</p>
           </div>
         <% end %>
-
-        <% if @student.in_engineering_class? %>
+        <!-- Programming student information -->
+        <% if @student.is_programmer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Engineering</h2>
-            <input disabled value="5" class="engineering-dial">
-            <p>Engineering XP: </p>
-            <p>400xp to Level 100</p>
-          </div>
-        <% end %>
-
-        <% if @student.in_programming_class? %>
-          <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Programming</h2>
-            <input disabled value="5" class="dial">
+            <h2>Programmer</h2>
+            <input disabled id="programmer-dial" value="<%= @student.prog_level %>" data-level="<%= @student.prog_level %>">
             <p>Programming XP: </p>
-            <p>400xp to Level 100</p>
-          </div>
-        <% end %>
-
-        <% if @student.in_e_math_team_class? %>
-          <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Math Team</h2>
-            <input disabled value="5" class="dial">
-            <p>Math Team XP: </p>
+            <p>Total: <%= @student.xp_sum_by_category("Programming")%></p>
             <p>400xp to Level 100</p>
           </div>
         <% end %>
