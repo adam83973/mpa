@@ -12,6 +12,7 @@ class Student < ActiveRecord::Base
   has_many :courses, :through => :offerings
   has_many :experience_points, dependent: :destroy
   has_and_belongs_to_many :offerings
+  has_and_belongs_to_many :occupations
 
   def full_name
       first_name + " " + last_name
@@ -23,6 +24,16 @@ class Student < ActiveRecord::Base
 
   def xp_sum
     experience_points.sum(:points)
+  end
+
+  def xp_sum_by_category(cat)
+    t = 0
+    experience_points.each do |xp|
+      if xp.experience.category == cat
+        t += xp.points
+      end
+    end
+    t
   end
 
   def calculate_xp
@@ -109,14 +120,32 @@ class Student < ActiveRecord::Base
   end
 
 #returns true if student is robotics student
-  def robotics
+  def in_robotics_class?
     class_ids.include?(11)
+  end
+
+  def is_engineer?
+    class_ids.include?(11) || class_ids.include?(18)
+  end
+
+  def is_mathematician?
+    math_class = false
+    offerings.each do |offering|
+      if offering.course_id < 9 || offering.course_id == 13 || offering.course_id == 17
+        math_class = true
+      end
+    end
+    math_class
+  end
+
+  def is_programmer?
+    class_ids.include?(15)
   end
 
   def in_math_class?
     math_class = false
     offerings.each do |offering|
-      if offering.course.id < 9
+      if offering.course_id < 9 || offering.course_id == 13 || offering.course_id == 17
         math_class = true
       end
     end
