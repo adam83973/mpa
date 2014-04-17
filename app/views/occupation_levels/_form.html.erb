@@ -1,0 +1,15 @@
+<%= simple_form_for(@occupation_level) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :level %>
+    <%= f.input :points %>
+    <%= f.input :rewards %>
+    <%= f.input :prevleges %>
+    <%= f.input :notes %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

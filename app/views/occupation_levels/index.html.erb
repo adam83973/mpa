@@ -1,0 +1,31 @@
+<h1>Listing occupation_levels</h1>
+
+<table>
+  <tr>
+    <th>Level</th>
+    <th>Points</th>
+    <th>Rewards</th>
+    <th>Prevleges</th>
+    <th>Notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @occupation_levels.each do |occupation_level| %>
+  <tr>
+    <td><%= occupation_level.level %></td>
+    <td><%= occupation_level.points %></td>
+    <td><%= occupation_level.rewards %></td>
+    <td><%= occupation_level.prevleges %></td>
+    <td><%= occupation_level.notes %></td>
+    <td><%= link_to 'Show', occupation_level %></td>
+    <td><%= link_to 'Edit', edit_occupation_level_path(occupation_level) %></td>
+    <td><%= link_to 'Destroy', occupation_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Occupation level', new_occupation_level_path %>

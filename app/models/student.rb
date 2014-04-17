@@ -12,6 +12,7 @@ class Student < ActiveRecord::Base
   has_many :courses, :through => :offerings
   has_many :experience_points, dependent: :destroy
   has_and_belongs_to_many :offerings
+  has_and_belongs_to_many :occupations
 
   def full_name
       first_name + " " + last_name
