@@ -3,6 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.association :occupation, label_method: :title %>
     <%= f.input :points %>
     <%= f.input :category, as: :select, collection: Experience::CATEGORY %>
     <%= f.input :content, as: :text, :input_html => { :rows => 5 } %>

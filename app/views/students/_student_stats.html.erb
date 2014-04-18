@@ -9,8 +9,8 @@
               <h1 style="float:center;">Credits</h1>
               <h2><%= @student.credits %></h2>
             </div>
-          </div>
-        </div>
+          </div><!--/.circle-text -->
+        </div><!--/#totalCredits -->
         <% if current_user.employee? %>
           <p>
             <div id="studentId" data-studentId="<%= @student.id %>">
@@ -24,7 +24,7 @@
        <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
        <% end %>
-      </div>
+     </div><!--/.span3 .studentname hidden-phone -->
       <div class="span3 hidden-desktop hidden-tablet" style="text-align:center;">
         <h2><%= @student.full_name %></h2>
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
@@ -33,13 +33,14 @@
               <h4>Total Credits</h4>
               <h2><%= @student.credits %></h1>
             </div>
-          </div>
-        </div>
+          </div><!--/.circle-text -->
+        </div><!--/#totalCredits -->
+
         <% if current_user.employee? %>
         <p>
           <div id="studentId" data-studentId="<%= @student.id %>">
             <h3>ID: <%= @student.id %></h3>
-          </div>
+          </div><!-- /#studentId -->
         </p>
         <p>
           <b>Parent:</b>
@@ -48,39 +49,68 @@
         <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
         <% end %>
-      </div>
+      </div><!--/.span3 .hidden-desktop hidden-tablet -->
       <div style="text-align:center;" class="span9">
+
+        <!-- Engineering student information -->
         <% if @student.is_mathematician? %>
           <div style="text-align:center;" class="pull-left">
             <h2>Mathematician</h2>
-            <input disabled id="mathematician-dial" value="<%= @student.math_level %>" data-level="<%= @student.math_level %>">
-            <p>XP: <%= @student.xp_sum_by_category("Mathematics")%></p>
-            <p>400xp to Level 100</p>
-          </div>
+            <input
+              disabled
+              id="mathematician-dial"
+              value="<%= ((@student.xp_sum_by_occupation("Mathematician").to_f/@student.next_level("Mathematician").points.to_f)*100).to_i %>"
+              data-level="<%= @student.current_level("Mathematician") %>"
+            >
+            <p>
+              XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
+            </p>
+            <p>
+              <%= @student.points_to_next_level("Mathematician") %>xp to Level <%= @student.next_level("Mathematician").level %>
+            </p>
+          </div> <!--/.pull-left -->
         <% end %>
+
         <!-- Engineering student information -->
         <% if @student.is_engineer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
             <h2>Engineer</h2>
-            <input disabled id="engineer-dial" value="<%= @student.eng_level %>" data-level="<%= @student.eng_level %>">
-            <p>Robotics XP: </p>
-            <p>Total: <%= @student.xp_sum_by_category("Engineering")%></p>
-            <p>400xp to Level 100</p>
-          </div>
+            <input
+              disabled
+              id="engineer-dial"
+              value="<%= ((@student.xp_sum_by_occupation("Engineer").to_f/@student.next_level("Engineer").points.to_f)*100).to_i %>"
+              data-level="<%= @student.current_level("Engineer") %>"
+            >
+            <p>
+              XP: <%= @student.xp_sum_by_occupation("Engineer")%>
+            </p>
+            <p>
+              <%= @student.points_to_next_level("Engineer") %>xp to Level <%= @student.next_level("Engineer").level %>
+            </p>
+          </div><!--/.pull-left -->
         <% end %>
+
         <!-- Programming student information -->
         <% if @student.is_programmer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
             <h2>Programmer</h2>
-            <input disabled id="programmer-dial" value="<%= @student.prog_level %>" data-level="<%= @student.prog_level %>">
-            <p>Programming XP: </p>
-            <p>Total: <%= @student.xp_sum_by_category("Programming")%></p>
-            <p>400xp to Level 100</p>
-          </div>
+            <input
+              disabled
+              id="programmer-dial"
+              value="<%= ((@student.xp_sum_by_occupation("Programmer").to_f/@student.next_level("Programmer").points.to_f)*100).to_i %>"
+              data-level="<%= @student.current_level("Programmer") %>"
+            >
+            <p>
+              XP: <%= @student.xp_sum_by_occupation("Programmer")%>
+            </p>
+            <p>
+              <%= @student.points_to_next_level("Programmer") %>xp to Level <%= @student.next_level("Programmer").level %>
+            </p>
+          </div><!--/.pull-left -->
         <% end %>
 
         <%= render 'student_toolbar' %>
-      </div>
-    </div>
-  </div>
-</div>
+      </div><!--/.span9 -->
+    </div><!--/.row-fluid -->
+  </div><!--/.studentinfo -->
+</div><!--/#student -->

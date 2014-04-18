@@ -3,9 +3,10 @@
 <table>
   <tr>
     <th>Level</th>
+    <th>Occupation</th>
     <th>Points</th>
     <th>Rewards</th>
-    <th>Prevleges</th>
+    <th>Privileges</th>
     <th>Notes</th>
     <th></th>
     <th></th>
@@ -15,9 +16,10 @@
 <% @occupation_levels.each do |occupation_level| %>
   <tr>
     <td><%= occupation_level.level %></td>
+    <td><%= occupation_level.occupation.title %></td>
     <td><%= occupation_level.points %></td>
     <td><%= occupation_level.rewards %></td>
-    <td><%= occupation_level.prevleges %></td>
+    <td><%= occupation_level.privileges %></td>
     <td><%= occupation_level.notes %></td>
     <td><%= link_to 'Show', occupation_level %></td>
     <td><%= link_to 'Edit', edit_occupation_level_path(occupation_level) %></td>

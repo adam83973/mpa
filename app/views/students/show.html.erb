@@ -13,7 +13,7 @@
   <div class="span8 achievements">
     <%= render 'student_achievements' %><br />
     <%= render 'robotics_achievements' %>
-    <%= render 'student_grades' if current_user.admin? && @student.in_math_class? %>
+    <%= render 'student_grades' if current_user.admin? && @student.is_mathematician? %>
   </div>
 </div>
 <span class="row">

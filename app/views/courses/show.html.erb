@@ -1,4 +1,7 @@
  <h2><%= @course.course_name %></h2>
+ <p>
+ Student type: <%= @course.occupation.title.pluralize %>
+ </p>
    <% if current_user.admin?%>
     <p><%= link_to 'Edit', edit_course_path(@course) %></p>
    <% end %>

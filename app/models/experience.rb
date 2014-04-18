@@ -1,15 +1,26 @@
 class Experience < ActiveRecord::Base
-  attr_accessible :category, :content, :name, :points, :image, :remove_image, :resource_ids, :remote_image_url
+  attr_accessible :category, :content, :name, :points, :image, :remove_image,
+                  :resource_ids, :remote_image_url, :occupation_id
 
   validates_presence_of :points, :category, :name
 
   has_many :experience_points
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings
+  belongs_to :occupation
 
   mount_uploader :image, ImageUploader
 
-  CATEGORY = [ "Mathematics", "Engineering", "Chess", "In-Class", "Homework", "Mastery Website", "School", "Programming"]
+  CATEGORY = [
+              "Mathematics",
+              "Engineering",
+              "Chess",
+              "In-Class",
+              "Homework",
+              "Mastery Website",
+              "School",
+              "Programming"
+             ]
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

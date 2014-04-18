@@ -5,6 +5,7 @@ class Offering < ActiveRecord::Base
 
   belongs_to :location
   belongs_to :course
+  has_one :occupation, through: :course
   has_and_belongs_to_many :users
   has_and_belongs_to_many :students
 
