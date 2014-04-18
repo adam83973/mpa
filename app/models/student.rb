@@ -37,7 +37,7 @@ class Student < ActiveRecord::Base
   def xp_sum_by_occupation(cat)
     t = 0
     experience_points.each do |xp|
-      if xp.experience.occupation.title == cat
+      if xp.experience.occupation && xp.experience.occupation.title == cat
         t += xp.points
       end
     end
