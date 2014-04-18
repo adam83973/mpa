@@ -1,28 +1,33 @@
 
 /* Student Show page */
 
-.studentname{
-  padding-right: 20px;
-  padding-top:4px;
-  padding-bottom:10px;
+.studentinfo{
   border-bottom: solid 1px #afafaf;
+}
+
+.studentname{
+  border-right: solid 1px #afafaf;
+  margin-bottom: 15px;
+  padding-right: 20px;
+  text-align: center;
 }
 
 .paddingtop15{
   padding-top: 15px;
 }
 
-.rank{
-	padding-top: 15px;
+.student_tool_button{
+  margin: 15px 0 15px 0;
 }
 
 .parentinfo{
 	padding-top: 1px;
 }
 
-.achievements{
+.achievements.span8{
 	border-left: solid 1px #afafaf;
 	padding-left: 40px;
+  margin-left: 0;
 }
 
 .robotics-achievements{
@@ -61,4 +66,60 @@
   color: #17ce00
 }
 
+.level{
+  line-height: 70px;
+}
 
+/*Student Stats Credits*/
+
+#totalCredits{
+  text-align: center;
+  position: relative;
+}
+.circle-text {
+    width:150px;
+    text-align: center;
+    margin: 0 auto;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 150px;
+    height:150px;
+    -webkit-box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
+    -moz-box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
+    box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:35px;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:black;
+}
+.circle-text div h2{
+  font-size: 4em;
+  font-weight: 100;
+}
+.circle-text div h1{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#attendanceModal .chosen-drop{
+  height: 170px;
+  overflow: hidden;
+}
+
+#attendanceModal .modal-body{
+  height: 225px;
+}
+
+.class_list{
+  padding-right:40px;
+}

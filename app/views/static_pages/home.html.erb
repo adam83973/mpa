@@ -40,7 +40,7 @@
           <%= render 'new_student_feed' %>
         </div>
         <div class="span3">
-          <%= render 'on_hold' %>
+          <%= render 'on_hold' unless current_user.teacher? %>
         </div>
       </div>
       <hr>
@@ -51,131 +51,7 @@
 
         <hr>
 
-      <h3>Lead Management</h3>
-      <div id="lead_stages">
-        <ul class="nav nav-pills">
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-               data-toggle="dropdown"
-               href="#">
-                Lead Stages
-                <b class="caret"></b>
-              </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "New Leads", "javascript:void(0)", data: { stageid: 6 } %></li>
-              <li><%= link_to "Appointment Scheduled", "javascript:void(0)", data: { stageid: 1 } %></li>
-              <li><%= link_to "Appointment Missed", "javascript:void(0)", data: { stageid: 7 } %></li>
-              <li><%= link_to "Assesment Completed", "javascript:void(0)", data: { stageid: 2 } %></li>
-              <li><%= link_to "Trial Offered", "javascript:void(0)", data: { stageid: 3 } %></li>
-              <li><%= link_to "Won", "javascript:void(0)", data: { stageid: 4 } %></li>
-              <li><%= link_to "Lost", "javascript:void(0)", data: { stageid: 5 } %></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="row">
-        <div class="span4">
-          <div id="stage_list">
-            <div class="new stages">
-              <h4><u>New</u></h4>
-              <ul>
-                <% current_user.location.leads.where("stage_id = ?", 6).each do |lead| %>
-
-                  <div class="lead_group">
-                    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>">
-                      <li>
-                        <div class="row">
-                          <div class="span3">
-                            <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
-                          </div> <!-- /span3 -->
-                          <%= link_to "javascript:void(0)", class: "stage_attr" do %>
-                          <i class="icon icon-plus pull-right"></i>
-                        <% end %>
-                        </div> <!-- /.row -->
-                      </li>
-                    </div> <!-- /.ui-draggable -->
-                    <div class="lead_toolbar" style="display:none;">
-                      <div class="row">
-                        <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
-                        <%= f.input :content, input_html: { rows: 0, cols: 0 } %>
-                        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-                        <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
-                        <%= f.button :submit, class: "m-btn note-button green" %>
-                        <% end %>
-                      </div> <!-- /.row -->
-                    </div> <!-- /.lead_toolbar -->
-                  </div> <!-- /.lead_group -->
-                <% end %>
-              </ul></br>
-                <p><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
-            </div>
-          </div>
-        </div>
-        <div class="span4">
-          <div id="stage_droppable">
-            <div class="leads" id="appointment_scheduled">
-              <h4><u>Appointment Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></u></h4>
-              <p></p>
-            </div>
-            <div class="leads" id="appointment_missed">
-              <h4><u>Appointment Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></u></h4>
-              <p></p>
-            </div>
-            <div class="leads" id="assessment_completed">
-              <h4><u>Assessment Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></u></h4>
-              <p></p>
-            </div>
-            <div class="leads" id="trial_offered">
-              <h4><u>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></u></h4>
-              <p></p>
-            </div>
-            <div class="leads" id="won">
-              <h4><u>Won</u></h4>
-              <p></p>
-            </div>
-            <div class="leads" id="lost">
-              <h4><u>Lost</u></h4>
-              <p></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="leadModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">Add New Lead!</h3>
-        </div>
-        <div class="modal-body">
-           <%= simple_form_for @lead,
-              url: url_for( action: :create, controller: :leads ),
-              method: :post,
-              html: { id: 'new_lead'},
-              remote: true do |f| %>
-            <%= f.error_notification %>
-
-            <div class="row">
-              <div class="form-inputs">
-                <div class="span3">
-                  <%= f.input :first_name %>
-                  <%= f.input :last_name %>
-                  <%= f.input :phone %>
-                  <%= f.input :email %>
-                  <%= f.input :appointment_date, as: :string %>
-                </div>
-                <div class="span3">
-                  <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
-                  <%= f.association :location, label_method: :name %>
-                  <%= f.association :stage %>
-                  <%= f.input :student_information, input_html: { rows: 5 } %>
-                  <%= f.input :active %>
-                </div>
-              </div>
-            </div>
-              <%= f.button :submit, "Add Lead!", class: "m-btn green" %>
-          <% end %>
-        </div>
-      </div>
+        <%= render 'lead_management' %>
 
       <% end %>
 

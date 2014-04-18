@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140220172634) do
+ActiveRecord::Schema.define(:version => 20140417190753) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
   create_table "courses", :force => true do |t|
     t.string   "course_name"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "grade"
+    t.integer  "occupation_id"
   end
 
   create_table "courses_problems", :id => false, :force => true do |t|
@@ -54,6 +55,16 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
   end
 
   add_index "courses_problems", ["problem_id", "course_id"], :name => "index_courses_problems_on_problem_id_and_course_id"
+
+  create_table "daily_location_reports", :force => true do |t|
+    t.integer  "location_id"
+    t.integer  "parent_logins"
+    t.integer  "drop_count"
+    t.integer  "add_count"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "total_enrollment"
+  end
 
   create_table "experience_points", :force => true do |t|
     t.integer  "experience_id"
@@ -70,10 +81,11 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
     t.string   "name"
     t.string   "category"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "points"
     t.string   "image"
+    t.integer  "occupation_id"
   end
 
   create_table "grades", :force => true do |t|
@@ -142,6 +154,24 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
     t.datetime "updated_at",   :null => false
     t.integer  "notable_id"
     t.string   "notable_type"
+  end
+
+  create_table "occupation_levels", :force => true do |t|
+    t.integer  "level"
+    t.integer  "points"
+    t.text     "rewards"
+    t.text     "privileges"
+    t.text     "notes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "occupation_id"
+  end
+
+  create_table "occupations", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "offerings", :force => true do |t|
@@ -243,8 +273,8 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
     t.string   "last_name"
     t.date     "birth_date"
     t.date     "start_date"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "user_id"
     t.string   "rank"
     t.integer  "credits"
@@ -253,6 +283,9 @@ ActiveRecord::Schema.define(:version => 20140220172634) do
     t.date     "restart_date"
     t.date     "return_date"
     t.date     "end_date"
+    t.integer  "math_level",   :default => 0
+    t.integer  "eng_level",    :default => 0
+    t.integer  "prog_level",   :default => 0
   end
 
   create_table "time_punches", :force => true do |t|

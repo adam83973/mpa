@@ -60,9 +60,17 @@ class ExperiencePointsController < ApplicationController
     @student_level = @student.calculate_rank(@experience_point)
     @response = @student.to_json
 
+    # find ids of experiences that are related to attendance
+    @attendance_exps = Experience.where("name LIKE ?", "%Attendance%")
+    @exp = []
+    @attendance_exps.each do |exp|
+      @exp << exp.id
+    end
+
+
     #add credits and special redirect when attendance is taken
     #add .js response for ajax
-    if params[:experience_point][:experience_id] == "2"
+    if @exp.include?(params[:experience_point][:experience_id])
 
       #add student attendance from teacher home page
       if class_session.in_session?
@@ -72,7 +80,7 @@ class ExperiencePointsController < ApplicationController
       respond_to do |format|
         if @experience_point.save
           if @credits > 0
-                @student.add_credit(@credits)
+            @student.add_credit(@credits)
           end
 
           if @student.rank.nil? || @student_level > 0

@@ -5,6 +5,7 @@ class Offering < ActiveRecord::Base
 
   belongs_to :location
   belongs_to :course
+  has_one :occupation, through: :course
   has_and_belongs_to_many :users
   has_and_belongs_to_many :students
 
@@ -22,6 +23,26 @@ class Offering < ActiveRecord::Base
 
   def active_students_count
       self.students.find_all_by_status("Active").count
+  end
+
+  def type
+    id = self.course_id
+    case id
+    when 1..9
+      "Mathematics"
+    when 10
+      "Chess"
+    when 11
+      "Engineering"
+    when 13 || 17
+      "Mathematics"
+    when 15
+      "Programming"
+    when 18
+      "Engineering"
+    else
+      ""
+    end
   end
 
   def at_capacity?

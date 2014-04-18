@@ -9,6 +9,7 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :student
   belongs_to :experience
   belongs_to :grade, dependent: :destroy
+  has_one :occupation, through: :experience
 
   after_save :update_student_xp
   after_update :update_student_xp

@@ -1,5 +1,8 @@
 class Student < ActiveRecord::Base
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id, :start_date, :xp_total, :credits, :rank, :active, :status, :restart_date, :return_date, :end_date
+
+  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
+                  :start_date, :xp_total, :credits, :rank, :active, :status,
+                  :restart_date, :return_date, :end_date
 
   validates_presence_of :first_name, :last_name, :user_id
 
@@ -10,9 +13,12 @@ class Student < ActiveRecord::Base
   has_many :experiences, :through => :experience_points
   has_many :locations, :through => :offerings
   has_many :courses, :through => :offerings
+  has_many :occupations, :through => :courses
   has_many :experience_points, dependent: :destroy
   has_and_belongs_to_many :offerings
   has_and_belongs_to_many :occupations
+
+  #-----Student attributes-----
 
   def full_name
       first_name + " " + last_name
@@ -22,14 +28,16 @@ class Student < ActiveRecord::Base
       user.first_name + " " + user.last_name
   end
 
+  #-----Student XP-----
+
   def xp_sum
     experience_points.sum(:points)
   end
 
-  def xp_sum_by_category(cat)
+  def xp_sum_by_occupation(cat)
     t = 0
     experience_points.each do |xp|
-      if xp.experience.category == cat
+      if xp.experience.occupation.title == cat
         t += xp.points
       end
     end
@@ -39,6 +47,8 @@ class Student < ActiveRecord::Base
   def calculate_xp
     update_column(:xp_total, xp_sum)
   end
+
+  #-----Student Credits-----
 
   def calculate_credit(experience_point)
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
@@ -57,6 +67,8 @@ class Student < ActiveRecord::Base
     credits = - credits
       increment!(:credits,  credits)
   end
+
+  #-----Student rank-----
 
   def calculate_rank(experience_point)
     ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
@@ -119,11 +131,14 @@ class Student < ActiveRecord::Base
     self.offerings.map{|h| h['course_id'].to_i}
   end
 
+  #-----Student Occupation-----
+
 #returns true if student is robotics student
   def in_robotics_class?
     class_ids.include?(11)
   end
 
+<<<<<<< HEAD
   def is_engineer?
     class_ids.include?(11) || class_ids.include?(18)
   end
@@ -146,11 +161,66 @@ class Student < ActiveRecord::Base
     math_class = false
     offerings.each do |offering|
       if offering.course_id < 9 || offering.course_id == 13 || offering.course_id == 17
+=======
+  def is_mathematician?
+    math_class = false
+    offerings.each do |offering|
+      if offering.occupation.id == 1 # 1 = id for Mathematician
+>>>>>>> gamification
         math_class = true
       end
     end
     math_class
   end
+
+  def is_engineer?
+    engineering_class = false
+    offerings.each do |offering|
+      if offering.occupation.id == 2 # 2 = id for Engineer
+        engineering_class = true
+      end
+    end
+    engineering_class
+  end
+
+  def is_programmer?
+    programming_class = false
+    offerings.each do |offering|
+      if offering.occupation.id == 3 # 1 = id for Programmer
+        programming_class = true
+      end
+    end
+    programming_class
+  end
+
+  #-----Student Levels-----
+
+  def current_level(occupation_name)
+    points = xp_sum_by_occupation(occupation_name)
+    current_level = 0
+    occupation = Occupation.where("title=?", occupation_name).first
+    occupation.occupation_levels.each do |level|
+      if level.points < current_level
+        current_level = level.level
+      end
+    end
+    current_level
+  end
+
+  def points_to_next_level(occupation_name)
+    occupation_id = Occupation.where("title=?", occupation_name).first.id
+    next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
+    points = next_level.points - xp_sum_by_occupation(occupation_name)
+    points
+  end
+
+  def next_level(occupation_name)
+    occupation_id = Occupation.where("title=?", occupation_name).first.id
+    next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
+    next_level
+  end
+
+  #-----Student Administration-----
 
 #checks to see if student has attended first class
   def attended_first_class?
@@ -161,6 +231,22 @@ class Student < ActiveRecord::Base
   def last_date_attended
     experience_points.where("experience_id = ?", 2).last
   end
+
+  def hold_date_status
+    if self.status == "Hold" && self.return_date != nil
+        "#{self.return_date.strftime("%D")} Returning"
+    elsif self.status == "Hold" && self.restart_date != nil
+        "#{self.restart_date.strftime("%D")} Restarting"
+    elsif self.status == "Hold" && self.restart_date.nil? && return_date.nil?
+        "Add date"
+    else
+      ""
+    end
+  end
+
+
+
+  #-----Student Attendance-----
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
@@ -176,18 +262,6 @@ class Student < ActiveRecord::Base
       all.each do |student|
         csv << student.attributes.values_at(*column_names)
       end
-    end
-  end
-
-  def hold_date_status
-    if self.status == "Hold" && self.return_date != nil
-        "#{self.return_date.strftime("%D")} Returning"
-    elsif self.status == "Hold" && self.restart_date != nil
-        "#{self.restart_date.strftime("%D")} Restarting"
-    elsif self.status == "Hold" && self.restart_date.nil? && return_date.nil?
-        "Add date"
-    else
-      ""
     end
   end
 end

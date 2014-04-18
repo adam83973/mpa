@@ -1,0 +1,16 @@
+<%= simple_form_for(@occupation_level) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :occupation, label_metod: :title %>
+    <%= f.input :level, as: :select, collection: (1..15).to_a %>
+    <%= f.input :points, as: :string %>
+    <%= f.input :rewards, input_html: { rows: 5 } %>
+    <%= f.input :privileges, input_html: { rows: 5 } %>
+    <%= f.input :notes, input_html: { rows: 5 } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-success" %>
+  </div>
+<% end %>

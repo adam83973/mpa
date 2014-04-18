@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Level:</b>
+  <%= @occupation_level.level %>
+</p>
+
+<p>
+  <b>Points:</b>
+  <%= @occupation_level.points %>
+</p>
+
+<p>
+  <b>Rewards:</b>
+  <%= @occupation_level.rewards %>
+</p>
+
+<p>
+  <b>Prevleges:</b>
+  <%= @occupation_level.prevleges %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @occupation_level.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_occupation_level_path(@occupation_level) %> |
+<%= link_to 'Back', occupation_levels_path %>

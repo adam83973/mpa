@@ -1,5 +1,14 @@
 MathPlus::Application.routes.draw do
 
+  resources :occupations
+
+
+  resources :occupation_levels
+
+
+  resources :daily_location_reports
+
+
   resources :notes
 
 

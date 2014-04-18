@@ -36,11 +36,13 @@ jQuery ->
 
   $('#creditsModal').modal('hide')
 
+  # Passes information to grades modal when modal is launched.
   $('#gradesModalButton').on 'click', ->
     student_id = $('#studentId').data('studentid')
     $('#grade_student_id').val(student_id)
     $('#grade_experience_point_attributes_student_id').val(student_id)
 
+  # Credit form submission events/redeems credits from student's account.
   $("#credits_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
@@ -65,3 +67,50 @@ jQuery ->
     $form = $(this)
     alert "Credits #{error}!"
     $form[0].reset()
+
+  $("type1").height($(".circleBase").height())
+
+  $("#mathematician-dial").knob
+    thickness: ".4"
+    width: "150"
+    height: "150"
+    readOnly: true
+    inputColor: "black"
+    font: "Helvetica"
+    fontWeight: 100
+    fgColor: "#29ABE2"
+    format: ->
+      "L #{$("#mathematician-dial").data("level")}"
+
+  $("#engineer-dial").knob
+    thickness: ".4"
+    width: "150"
+    height: "150"
+    readOnly: true
+    inputColor: "black"
+    font: "Helvetica"
+    fontWeight: 100
+    fgColor: "#8CC63F"
+    format: ->
+      "L #{$("#engineer-dial").data("level")}"
+
+  $("#programmer-dial").knob
+    thickness: ".4"
+    width: "150"
+    height: "150"
+    readOnly: true
+    inputColor: "black"
+    font: "Helvetica"
+    fontWeight: 100
+    fgColor: "#F7931E"
+    format: ->
+      "L #{$("#programmer-dial").data("level")}"
+
+  $("#attendanceModal").bind "show", ->
+    # enable chosen js
+    $('.chosen-select').chosen
+      allow_single_deselect: true
+      no_results_text: 'No results matched'
+      width: '200px'
+
+

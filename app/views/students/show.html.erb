@@ -3,7 +3,7 @@
 </div>
 
 <div class="row-fluid paddingtop15">
-  <div class="span3">
+  <div class="span3 class_list">
     <%= render 'student_class_list' %><br />
     <p>
       <%= render 'shared/nav_buttons' %>
@@ -13,7 +13,7 @@
   <div class="span8 achievements">
     <%= render 'student_achievements' %><br />
     <%= render 'robotics_achievements' %>
-    <%= render 'student_grades' if current_user.admin? && @student.in_math_class? %>
+    <%= render 'student_grades' if current_user.admin? && @student.is_mathematician? %>
   </div>
 </div>
 <span class="row">

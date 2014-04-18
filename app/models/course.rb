@@ -1,10 +1,11 @@
 class Course < ActiveRecord::Base
-  attr_accessible :course_name, :description, :grade
+  attr_accessible :course_name, :description, :grade, :occupation_id
 
   has_many :offerings
   has_many :standards
   has_many :lessons, through: :standards
   has_and_belongs_to_many :problems
+  belongs_to :occupation
 
   def self.to_csv
     CSV.generate do |csv|
