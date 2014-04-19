@@ -1,11 +1,10 @@
 <form>
-
-    <h3>Search</h3>
-    <label>Find another Employee or Parent:</label>
-    <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
-      <%= text_field_tag :search, params[:search], class: "span2" %><br />
-      <%= button_tag(type: "submit", class: "m-btn blue") do %>
-      	Search <i class="icon-search icon-white"></i>
-  	  <% end %>
-    <% end %>
+  <h3>Search</h3>
+  <label>Find another Employee or Parent:</label>
+  <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
+    <%= text_field_tag :search, params[:search], class: "span2" %><br />
+    <%= button_tag(type: "submit", class: "m-btn blue") do %>
+    	Search <i class="icon-search icon-white"></i>
+	  <% end %>
+  <% end %>
 </form>

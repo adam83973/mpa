@@ -14,7 +14,7 @@
 
 <p>
   <b>Occupation:</b>
-  <%= @experience.occupation.title %>
+  <%= @experience.occupation.title if @experience.occupation %>
 </p>
 
 <p>
