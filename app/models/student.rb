@@ -16,7 +16,6 @@ class Student < ActiveRecord::Base
   has_many :occupations, :through => :courses
   has_many :experience_points, dependent: :destroy
   has_and_belongs_to_many :offerings
-  has_and_belongs_to_many :occupations
 
   #-----Student attributes-----
 

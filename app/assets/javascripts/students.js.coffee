@@ -2,6 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
+	$(document).ready ->
+		dial.load()
+
+	$(window).bind "unload", ->
+		dial.load()
+
 	$("#students_table").dataTable
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
@@ -70,41 +76,43 @@ jQuery ->
 
   $("type1").height($(".circleBase").height())
 
-  $("#mathematician-dial").knob
-    thickness: ".4"
-    width: "150"
-    height: "150"
-    readOnly: true
-    inputColor: "black"
-    font: "Helvetica"
-    fontWeight: 100
-    fgColor: "#29ABE2"
-    format: ->
-      "L #{$("#mathematician-dial").data("level")}"
+  dial =
+		load: ->
+			$("#mathematician-dial").knob
+		    thickness: ".4"
+		    width: "150"
+		    height: "150"
+		    readOnly: true
+		    inputColor: "black"
+		    font: "Helvetica"
+		    fontWeight: 100
+		    fgColor: "#29ABE2"
+		    format: ->
+		      "L #{$("#mathematician-dial").data("level")}"
 
-  $("#engineer-dial").knob
-    thickness: ".4"
-    width: "150"
-    height: "150"
-    readOnly: true
-    inputColor: "black"
-    font: "Helvetica"
-    fontWeight: 100
-    fgColor: "#8CC63F"
-    format: ->
-      "L #{$("#engineer-dial").data("level")}"
+		  $("#engineer-dial").knob
+		    thickness: ".4"
+		    width: "150"
+		    height: "150"
+		    readOnly: true
+		    inputColor: "black"
+		    font: "Helvetica"
+		    fontWeight: 100
+		    fgColor: "#8CC63F"
+		    format: ->
+		      "L #{$("#engineer-dial").data("level")}"
 
-  $("#programmer-dial").knob
-    thickness: ".4"
-    width: "150"
-    height: "150"
-    readOnly: true
-    inputColor: "black"
-    font: "Helvetica"
-    fontWeight: 100
-    fgColor: "#F7931E"
-    format: ->
-      "L #{$("#programmer-dial").data("level")}"
+		  $("#programmer-dial").knob
+		    thickness: ".4"
+		    width: "150"
+		    height: "150"
+		    readOnly: true
+		    inputColor: "black"
+		    font: "Helvetica"
+		    fontWeight: 100
+		    fgColor: "#F7931E"
+		    format: ->
+		      "L #{$("#programmer-dial").data("level")}"
 
   $("#attendanceModal").bind "show", ->
     # enable chosen js
@@ -112,5 +120,3 @@ jQuery ->
       allow_single_deselect: true
       no_results_text: 'No results matched'
       width: '200px'
-
-
