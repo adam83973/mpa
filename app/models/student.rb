@@ -172,8 +172,8 @@ class Student < ActiveRecord::Base
   def current_level(occupation_name)
     points = xp_sum_by_occupation(occupation_name)
     current_level = 0
-    occupation = Occupation.where("title=?", occupation_name).first
-    occupation.occupation_levels.each do |level|
+    occupation = Occupation.find_by_title(occupation_name)
+    occupation.occupation_levels.order(:level).each do |level|
       if level.points <= points
         current_level = level.level
       end
@@ -184,7 +184,6 @@ class Student < ActiveRecord::Base
   def current_level_obj(occupation_name)
     occupation_id = Occupation.find_by_title(occupation_name).id
     current_level_obj = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
-    current_level_obj
   end
 
   def points_to_next_level(occupation_name)
@@ -198,6 +197,10 @@ class Student < ActiveRecord::Base
     occupation_id = Occupation.where("title=?", occupation_name).first.id
     next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
     next_level
+  end
+
+  def percentage_of_level_completed(occupation_name)
+    (((xp_sum_by_occupation(occupation_name).to_f - current_level_obj(occupation_name).points.to_f)/(next_level(occupation_name).points.to_f - current_level_obj(occupation_name).points.to_f))*100).to_i
   end
 
   def update_level(occupation_name)

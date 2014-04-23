@@ -1,3 +1,4 @@
+
 <div id="student">
   <div class="studentinfo">
     <div class="row-fluid">
@@ -60,7 +61,7 @@
               disabled
               id="mathematician-dial"
               value="<%= (((@student.xp_sum_by_occupation("Mathematician").to_f - @student.current_level_obj("Mathematician").points.to_f)/(@student.next_level("Mathematician").points.to_f - @student.current_level_obj("Mathematician").points.to_f))*100).to_i %>"
-              data-level="<%= @student.current_level("Mathematician") %>"
+              data-level="<%= @student.math_level %>"
             >
             <p>
               XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
