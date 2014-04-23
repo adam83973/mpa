@@ -78,13 +78,14 @@ class ExperiencePointsController < ApplicationController
 
       respond_to do |format|
         if @experience_point.save
+          # add credits to students account based on earned xp
           if @credits > 0
             @student.add_credit(@credits)
           end
 
-          if @student.rank.nil? || @student_level > 0
-            @student.update_rank
-          end
+
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) :
+
 
           format.html { redirect_to student_path(@student), notice: "Attendance added for #{@student.first_name}." }
           format.js

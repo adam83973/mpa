@@ -76,6 +76,7 @@ jQuery ->
 
   $("type1").height($(".circleBase").height())
 
+	# Initiate jQuery Knob
   dial =
 		load: ->
 			$("#mathematician-dial").knob

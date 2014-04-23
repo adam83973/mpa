@@ -86,9 +86,9 @@
     display: block;
     width: 150px;
     height:150px;
-    -webkit-box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
-    -moz-box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
-    box-shadow: inset 0px 0px 0px 15px rgba(247, 250, 30, 1);
+    -webkit-box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
+    -moz-box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
+    box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;

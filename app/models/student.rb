@@ -194,6 +194,12 @@ class Student < ActiveRecord::Base
     next_level
   end
 
+  def update_level(occupation_name)
+    occupation_id = Occupation.where("title=?", occupation_name).first.id
+    next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
+    next_level
+  end
+
   #-----Student Administration-----
 
 #checks to see if student has attended first class
