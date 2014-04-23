@@ -181,6 +181,11 @@ class Student < ActiveRecord::Base
     current_level
   end
 
+  def current_level_obj(occupation_name)
+    occupation_id = Occupation.where("title=?", occupation_name).first.id
+    current_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
+  end
+
   def points_to_next_level(occupation_name)
     occupation_id = Occupation.where("title=?", occupation_name).first.id
     next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
@@ -195,9 +200,17 @@ class Student < ActiveRecord::Base
   end
 
   def update_level(occupation_name)
-    occupation_id = Occupation.where("title=?", occupation_name).first.id
-    next_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name) + 1).first
-    next_level
+    occupation = Occupation.where("title=?", occupation_name).first
+    case occupation_name
+    when "Mathematician"
+      update_column(:math_level, current_level(occupation_name).to_i)
+    when "Engineer"
+      update_column(:eng_level, current_level(occupation_name).to_i)
+    when "Programmer"
+      update_column(:prog_level, current_level(occupation_name).to_i)
+    else
+      true
+    end
   end
 
   #-----Student Administration-----

@@ -83,9 +83,8 @@ class ExperiencePointsController < ApplicationController
             @student.add_credit(@credits)
           end
 
-
-          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) :
-
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
 
           format.html { redirect_to student_path(@student), notice: "Attendance added for #{@student.first_name}." }
           format.js
@@ -106,9 +105,8 @@ class ExperiencePointsController < ApplicationController
                 @student.add_credit(@credits)
           end
 
-          if @student.rank.nil? || @student_level > 0
-            @student.update_rank
-          end
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
 
           format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
@@ -124,13 +122,8 @@ class ExperiencePointsController < ApplicationController
                 @student.add_credit(@credits)
           end
 
-          if @student.rank.nil?
-            @student.update_rank
-          end
-
-          if @student_level > 0
-            @student.update_rank
-          end
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
 
           format.html { redirect_to student_path(@student), notice: "Experience point was successfully created." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
@@ -150,6 +143,10 @@ class ExperiencePointsController < ApplicationController
 
     respond_to do |format|
       if @experience_point.update_attributes(params[:experience_point])
+
+        # update level for occupation based on experience point's occupation relation
+        @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
+
         format.html { redirect_to student_path(@student), notice: 'Experience point was successfully updated.' }
         format.json { head :no_content }
       else
@@ -165,13 +162,12 @@ class ExperiencePointsController < ApplicationController
     @experience_point = ExperiencePoint.find(params[:id])
     @student = Student.find(@experience_point.student_id)
     @credits = ((@student.xp_sum - @experience_point.points)/100 - ((@student.xp_sum)/100))
-    @calculate_rank = ((@student.xp_sum - @experience_point.points)/1000 - ((@student.xp_sum)/1000))
     @student.add_credit(@credits)
 
-    if @calculate_rank < 0
-      @student.decrease_rank
-    end
     @experience_point.destroy
+
+    # update level for occupation based on experience point's occupation relation
+    @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
 
     respond_to do |format|
       format.html { redirect_to student_path(@student), notice: 'Experience point was successfully destroyed.' }
