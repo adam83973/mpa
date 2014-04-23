@@ -182,8 +182,9 @@ class Student < ActiveRecord::Base
   end
 
   def current_level_obj(occupation_name)
-    occupation_id = Occupation.where("title=?", occupation_name).first.id
-    current_level = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
+    occupation_id = Occupation.find_by_title(occupation_name).id
+    current_level_obj = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
+    current_level_obj
   end
 
   def points_to_next_level(occupation_name)

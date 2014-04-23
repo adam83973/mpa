@@ -16,4 +16,4 @@ jQuery ->
       data: experience_id: $('#experience_point_experience_id').val()
       success: (result) -> $('#experience_point_points').val(result)
 
-  $('#experience_point_experience_id').chosen()
+  $('.xp_chosen').chosen()
