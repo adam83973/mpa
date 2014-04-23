@@ -60,7 +60,7 @@
             <input
               disabled
               id="mathematician-dial"
-              value="<%= (((@student.xp_sum_by_occupation("Mathematician").to_f - @student.current_level_obj("Mathematician").points.to_f)/(@student.next_level("Mathematician").points.to_f - @student.current_level_obj("Mathematician").points.to_f))*100).to_i %>"
+              value="<%= @student.percentage_of_level_completed("Mathematician") %>"
               data-level="<%= @student.math_level %>"
             >
             <p>
@@ -79,8 +79,8 @@
             <input
               disabled
               id="engineer-dial"
-              value="<%= ((@student.xp_sum_by_occupation("Engineer").to_f/@student.next_level("Engineer").points.to_f)*100).to_i %>"
-              data-level="<%= @student.current_level("Engineer") %>"
+              value="<%= @student.percentage_of_level_completed("Engineer") %>"
+              data-level="<%= @student.eng_level %>"
             >
             <p>
               XP: <%= @student.xp_sum_by_occupation("Engineer")%>
@@ -98,8 +98,8 @@
             <input
               disabled
               id="programmer-dial"
-              value="<%= ((@student.xp_sum_by_occupation("Programmer").to_f/@student.next_level("Programmer").points.to_f)*100).to_i %>"
-              data-level="<%= @student.current_level("Programmer") %>"
+              value="<%= @student.percentage_of_level_completed("Programmer") %>"
+              data-level="<%= @student.prog_level %>"
             >
             <p>
               XP: <%= @student.xp_sum_by_occupation("Programmer")%>
