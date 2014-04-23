@@ -86,7 +86,7 @@ class ExperiencePointsController < ApplicationController
             @student.update_rank
           end
 
-          format.html { redirect_to root_path, notice: "Attendance added for #{@student.first_name}." }
+          format.html { redirect_to student_path(@student), notice: "Attendance added for #{@student.first_name}." }
           format.js
           format.json { render json: @experience_point, status: :created, location: @experience_point }
 

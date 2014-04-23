@@ -2,6 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :active, as: :boolean, label: false, inline_label: true %>
     <%= f.input :name %>
     <%= f.association :occupation, label_method: :title %>
     <%= f.input :points %>

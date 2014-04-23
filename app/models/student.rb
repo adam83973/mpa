@@ -174,7 +174,7 @@ class Student < ActiveRecord::Base
     current_level = 0
     occupation = Occupation.where("title=?", occupation_name).first
     occupation.occupation_levels.each do |level|
-      if level.points < current_level
+      if level.points <= points
         current_level = level.level
       end
     end

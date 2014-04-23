@@ -1,6 +1,6 @@
 class Experience < ActiveRecord::Base
   attr_accessible :category, :content, :name, :points, :image, :remove_image,
-                  :resource_ids, :remote_image_url, :occupation_id
+                  :resource_ids, :remote_image_url, :occupation_id, :active
 
   validates_presence_of :points, :category, :name
 
