@@ -4,20 +4,22 @@ jQuery ->
     <ul>
     <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
-    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>">
+    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" style="padding:5px 10px 0px 10px;">
     <li>
-    <div class="row">
-    <div class="span3">
+    <div class="row-fluid">
+    <div class="span9">
     <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
     </div>
+    <div class="span3">
     <%= link_to "javascript:void(0)", class: "stage_attr" do %>
     <i class="icon icon-plus pull-right"></i>
     <% end %>
     </div>
+    </div>
     </li>
     </div>
     <div class="lead_toolbar">
-    <div class="row">
+    <div class="row-fluid">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
     <%= f.input :content, input_html: { rows: 0, cols: 0 } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>

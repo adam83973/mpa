@@ -14,6 +14,10 @@
 	}
 }
 
+footer{
+	margin-top:50px;
+}
+
 .m-btn{
 	font-weight: 200;
 }
@@ -181,10 +185,11 @@ ul{
 }
 
 #leadModal{
-	width: auto;
-	height: 525px;
+	max-width: 600px;
+	min-height: 530px;
 	.modal-body{
 		padding-left: 50px;
+		padding-bottom: 30px;
 		min-height: 500px;
 		max-height: 0;
 		overflow: auto;
