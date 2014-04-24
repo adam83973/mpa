@@ -15,28 +15,32 @@
 
             <% if signed_in? %>
 
-            <% if current_user.parent? %>
-            <li id="fat-menu">
-              <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
+              <% if current_user.parent? %>
+              <li id="fat-menu">
+                <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
+              </li>
+              <li id="fat-menu">
+                <a href="http://hq.mathplusacademy.com"> Math Plus HQ </a>
+              </li>
+              <% end %>
+
+              <%if current_user.teacher? || current_user.admin? %>
+              <%= render 'layouts/nav_links' %>
+              <% end %>
+
+              <% if current_user.admin? %>
+              <%= render 'layouts/admin_tasks' %>
+              <% end %>
+
+              <%= render 'layouts/nav_dropdown' %>
+
+            <li>
+              <%= render 'shared/user_search' %>
             </li>
-            <li id="fat-menu">
-              <a href="http://hq.mathplusacademy.com"> Math Plus HQ </a>
-            </li>
-            <% end %>
-
-            <%if current_user.teacher? || current_user.admin? %>
-            <%= render 'layouts/nav_links' %>
-            <% end %>
-
-            <% if current_user.admin? %>
-            <%= render 'layouts/admin_tasks' %>
-            <% end %>
-
-            <%= render 'layouts/nav_dropdown' %>
 
             <% else %>
 
-            <li><%= link_to "Sign in", new_user_session_path %></li>
+              <li><%= link_to "Sign in", new_user_session_path %></li>
 
             <% end %>
           </ul>

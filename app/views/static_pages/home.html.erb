@@ -2,75 +2,41 @@
 
 <%= render 'first_login_password' %>
 
-<div class="row">
-  <aside class="span3 user-info">
-
-    <section>
-     <%= render 'shared/user_info' %>
-    </section>
-
-   <%if current_user.employee? %>
-
-    <section>
-      <%= render 'clock_in' %>
-    </section>
-
-    <section>
-      <% if current_user.admin? %>
-      <%= render 'location_stats' %>
-      <% end %>
-    </section>
-
-    <section>
-      <%= render 'shared/user_search' %>
-    </section>
-
-  <% end %>
-</aside>
-
-<div class="span8">
-  <div id="results">
-    <%= render 'shared/user_search_results' %>
-  </div>
-
-    <%if current_user.employee? %>
-
-      <div class="row">
-        <div class="span5">
-          <%= render 'new_student_feed' %>
+<div class="row-fluid">
+  <div class="span12">
+    <div id="results">
+      <%= render 'shared/user_search_results' %>
+    </div>
+      <%if current_user.employee? %>
+        <div class="row">
+          <div class="span5">
+            <%= render 'new_student_feed' %>
+          </div>
+          <div class="span3">
+            <%= render 'on_hold' unless current_user.teacher? %>
+          </div>
         </div>
-        <div class="span3">
-          <%= render 'on_hold' unless current_user.teacher? %>
-        </div>
-      </div>
-      <hr>
-
-      <% if current_user.admin? %>
-
-        <%= render 'daily_schedule' %>
-
-        <hr>
-
-        <%= render 'lead_management' %>
+        <% if current_user.admin? %>
+          <%= render 'daily_schedule' %>
+          <hr>
+          <div>
+            <%= render 'lead_management' %>
+          </div>
+        <% end %>
 
       <% end %>
 
-    <% end %>
+      <%if current_user.teacher? %>
 
-    <%if current_user.teacher? %>
+        <%= render 'teacher_offerings' %>
 
-      <%= render 'teacher_offerings' %>
+        <%= render 'activity_feed' %>
 
-      <%= render 'activity_feed' %>
+      <% end %>
 
-    <% end %>
-
-    <% if current_user.parent? %>
-
-      <%= render 'parent_students' %>
-
-    <% end %>
-
+      <% if current_user.parent? %>
+        <%= render 'parent_students' %>
+      <% end %>
   </div>
 </div>
 

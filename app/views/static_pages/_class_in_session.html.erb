@@ -1,6 +1,6 @@
 <% if class_session.in_session? %>
   <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
-  <div class="lesson_activities row-fluid">
+  <div class="lesson_activities row ">
     <h4>Week: <%= class_session.week %></h4>
     <div class="span3 lesson">
       <p>Lesson:</p>

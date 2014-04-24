@@ -2,30 +2,30 @@
   <% if @users_search.empty? %>
     No results found.
     <div class="pull-right">
-        <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
-          <%= hidden_field_tag :search, '' %>
-            <%= button_tag(type: "submit", class: "m-btn red") do %>
-              Reset Search <i class="icon-remove icon-white"></i>
-          <% end %>
+      <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
+        <%= hidden_field_tag :search, '' %>
+        <%= button_tag(type: "submit", class: "m-btn red") do %>
+          Reset Search <i class="icon-remove icon-white"></i>
         <% end %>
-      </div>
+      <% end %>
+    </div>
   <% elsif params[:search] == '' %>
   <% else %>
     <h3>Results</h3>
     <div class="pull-right">
-        <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
-          <%= hidden_field_tag :search, '' %>
-            <%= button_tag(type: "submit", class: "m-btn red") do %>
-              Reset Search <i class="icon-remove icon-white"></i>
-          <% end %>
+      <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
+        <%= hidden_field_tag :search, '' %>
+        <%= button_tag(type: "submit", class: "m-btn red") do %>
+          Reset Search <i class="icon-remove icon-white"></i>
         <% end %>
-      </div>
+      <% end %>
+    </div>
     <% @users_search.each do |user|%>
       <div class="user_search">
         <p><strong><%= link_to user.full_name, user %></strong></p>
         <p><%= user.email %></p>
         <p><%= user.phone %></p>
-    </div>
+      </div>
     <% end %>
   <% end %>
 <% end %>
