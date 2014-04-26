@@ -15,8 +15,8 @@
     <div class="container">
       <% flash.each do |type, message| %>
         <div class="alert alert-<%= flash_class type %>">
-            <button class="close" data-dismiss="alert">&times;</button>
-            <%= message %>
+          <button class="close" data-dismiss="alert">&times;</button>
+          <%= message %>
         </div>
       <% end %>
 
@@ -30,5 +30,3 @@
     <%= javascript_include_tag "application" %>
   </body>
 </html>
-
-

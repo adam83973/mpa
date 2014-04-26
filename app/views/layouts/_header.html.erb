@@ -24,18 +24,14 @@
               </li>
               <% end %>
 
-              <%if current_user.teacher? || current_user.admin? %>
-              <%= render 'layouts/nav_links' %>
-              <% end %>
+              <%= render 'layouts/nav_links' if current_user.teacher? || current_user.admin? %>
 
-              <% if current_user.admin? %>
-              <%= render 'layouts/admin_tasks' %>
-              <% end %>
+              <%= render 'layouts/admin_tasks' if current_user.admin? %>
 
               <%= render 'layouts/nav_dropdown' %>
 
             <li>
-              <%= render 'shared/user_search' %>
+              <%= render 'shared/user_search' if current_user.employee? %>
             </li>
 
             <% else %>
