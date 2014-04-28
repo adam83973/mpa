@@ -25,6 +25,12 @@ class Offering < ActiveRecord::Base
       self.students.find_all_by_status("Active").count
   end
 
+  def self.search(search)
+    if search
+      joins(:course).where('lower(courses.course_name) LIKE ?', "%#{search.downcase}%")
+    end
+  end
+
   def type
     id = self.course_id
     case id

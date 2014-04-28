@@ -61,8 +61,11 @@ class StaticPagesController < ApplicationController
         end
     end
 
-    params[:search] ? @users_search = User.search(params[:search]) : @user_search = []
-
+    if params[:search]
+      @users_search = User.search(params[:search])
+      @offerings_search = Offering.search(params[:search])
+      @students_search = Student.search(params[:search])
+    end
   end
 
   def enter_code
@@ -87,4 +90,3 @@ class StaticPagesController < ApplicationController
   end
 
 end
-

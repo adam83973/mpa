@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   def self.search(search)
     if search
-       @users_search = User.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%").limit(15)
+       where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%")
     end
   end
 

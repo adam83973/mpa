@@ -27,6 +27,12 @@ class Student < ActiveRecord::Base
       user.first_name + " " + user.last_name
   end
 
+  def self.search(search)
+    if search
+      where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%")
+    end
+  end
+
   #-----Student XP-----
 
   def xp_sum
