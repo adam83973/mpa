@@ -20,7 +20,7 @@ jQuery ->
       $lead_toolbar.slideUp()
 
 # ---- Lead Modal ----------------
-# Handle attendance ajax events ---
+# Handle lead ajax events ---
   $("#new_lead")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
@@ -43,6 +43,9 @@ jQuery ->
     $form = $(this)
     alert "Lead #{error}!"
     $form[0].reset()
+
+# ---- Lead Modal ----------------
+# Handle note ajax events --- see note.js.coffee
 
   $('#stage_list').find('.lead_toolbar').each ->
     $(this).css("display", "none")

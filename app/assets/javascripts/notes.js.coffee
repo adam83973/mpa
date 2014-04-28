@@ -4,7 +4,9 @@
 
 # ---- Lead Notes ----------------
 # Handle notes ajax events ---
-$("#new_note")
+# ---- Lead Modal ----------------
+# Handle lead ajax events ---
+  $("#new_note")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.attr( 'data-origText',  $submitButton.val() )
@@ -16,7 +18,8 @@ $("#new_note")
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
-    $("#leadModal").modal('hide')
+    $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
+    $lead_toolbar.slideUp()
   .bind 'ajax:error', (evt, xhr, status, error) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
