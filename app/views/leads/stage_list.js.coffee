@@ -21,7 +21,7 @@ jQuery ->
     <div class="lead_toolbar">
     <div class="row-fluid">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
-    <%= f.input :content, input_html: { rows: 0, cols: 0 } %>
+    <%= f.input :content, input_html: { style: "width:auto;" } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
     <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
     <%= f.button :submit, class: "m-btn note-button green" %>
