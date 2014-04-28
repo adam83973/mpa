@@ -1,13 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>First name:</b>
-  <%= @lead.first_name %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @lead.last_name %>
+  <h3><u>Lead</u></h3>
+  <h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
 </p>
 
 <p>
@@ -30,16 +25,25 @@
   <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
 </p>
 
-<p>
-  <b>Student information:</b>
-  <%= @lead.student_information %>
-</p>
+<% unless @lead.student_information == "" %>
+  <p>
+    <b>Student information:</b>
+    <%= @lead.student_information %>
+  </p>
+<% end %>
 
 <p>
-  <b>Notes:</b>
+  <h3>Notes</h3>
   <ul>
   <% @lead.notes.each do |note| %>
-    <li> <%= note.content %> (by: <%= note.user.full_name%>) </li>
+    <li>
+      <div class="note">
+        <p>
+          <%= note.content %>
+        </p>
+        <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
+      </div>
+    </li>
   <% end %>
   </ul>
 </p>
