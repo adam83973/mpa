@@ -1,6 +1,7 @@
  <div class="row">
   <div class="span12">
     <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
+      <%= link_to "Edit User", edit_user_path(@user), class: "m-btn mini pull-right"%>
     <hr>
     <p>
       <b>Email:</b>
@@ -58,8 +59,6 @@
     </p>
 
     <p>
-      <%= link_to "Edit User", edit_user_path(@user), class: "m-btn"%>
-
       <%= render 'shared/nav_buttons' %>
 
       <% if @user.parent? %>
