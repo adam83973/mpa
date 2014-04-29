@@ -57,12 +57,14 @@
         <% if @student.is_mathematician? %>
           <div style="text-align:center;" class="pull-left">
             <h2>Mathematician</h2>
-            <input
-              disabled
-              id="mathematician-dial"
-              value="<%= @student.percentage_of_level_completed("Mathematician") %>"
-              data-level="<%= @student.math_level %>"
-            >
+            <%# link_to(Occupation.find_by_title("Mathematician")) do %>
+              <input
+                disabled
+                id="mathematician-dial"
+                value="<%= @student.percentage_of_level_completed("Mathematician") %>"
+                data-level="<%= @student.math_level %>"
+              >
+            <%# end %>
             <p>
               XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
             </p>

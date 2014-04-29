@@ -1,9 +1,9 @@
 class ExperiencePoint < ActiveRecord::Base
   attr_accessible :experience_id, :points, :student_id, :experience_point, :user_id, :comment
 
-  validates_presence_of :experience_id, :student_id
+  validates_presence_of :experience_id, :student_id, :comment
 
-  validate :experience_id_exists, :comment_exists
+  validate :experience_id_exists
 
   belongs_to :user
   belongs_to :student

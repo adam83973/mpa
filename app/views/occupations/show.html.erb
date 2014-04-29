@@ -9,13 +9,5 @@
 </p>
 </br>
 <p>
-  <ul>
-    <% @occupation.occupation_levels.order(:level).each do |level|  %>
-    <li class="levels">
-       <h2>Level <%= level.level %></h2>
-       XP: <%= level.points %></br>
-       <b>Reward:</b> <%= level.rewards %>
-    </li>
-    <% end %>
-  </ul>
+  <%= render 'occupations_levels' occupation: @occupation %>
 </p>
