@@ -57,14 +57,14 @@
         <% if @student.is_mathematician? %>
           <div style="text-align:center;" class="pull-left">
             <h2>Mathematician</h2>
-            <%# link_to(Occupation.find_by_title("Mathematician")) do %>
+            <%= link_to("#mathematicianModal", data: {toggle: :modal}) do %>
               <input
                 disabled
                 id="mathematician-dial"
                 value="<%= @student.percentage_of_level_completed("Mathematician") %>"
                 data-level="<%= @student.math_level %>"
               >
-            <%# end %>
+            <% end %>
             <p>
               XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
             </p>
@@ -78,12 +78,14 @@
         <% if @student.is_engineer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
             <h2>Engineer</h2>
+            <%= link_to("#engineerModal", data: {toggle: :modal}) do %>
             <input
               disabled
               id="engineer-dial"
               value="<%= @student.percentage_of_level_completed("Engineer") %>"
               data-level="<%= @student.eng_level %>"
             >
+            <% end %>
             <p>
               XP: <%= @student.xp_sum_by_occupation("Engineer")%>
             </p>
@@ -97,12 +99,14 @@
         <% if @student.is_programmer? %>
           <div style="text-align:center;padding-left:15px;" class="pull-left">
             <h2>Programmer</h2>
+            <%= link_to("#programmerModal", data: {toggle: :modal}) do %>
             <input
               disabled
               id="programmer-dial"
               value="<%= @student.percentage_of_level_completed("Programmer") %>"
               data-level="<%= @student.prog_level %>"
             >
+            <% end %>
             <p>
               XP: <%= @student.xp_sum_by_occupation("Programmer")%>
             </p>
