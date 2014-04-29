@@ -17,3 +17,4 @@ jQuery ->
       success: (result) -> $('#experience_point_points').val(result)
 
   $('.xp_chosen').chosen()
+  $('#experience_point_student_id').chosen()
