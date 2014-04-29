@@ -51,6 +51,7 @@ MathPlus::Application.routes.draw do
 
   resources :students do
     collection { post :import }
+    resources :notes
   end
 
   resources :experiences do

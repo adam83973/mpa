@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @note = Note.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
 
     if current_user.employee? || current_user.id == @student.user_id

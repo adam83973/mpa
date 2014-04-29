@@ -42,7 +42,11 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    @notable = Lead.find(params[:lead_id])
+    if params[:student_id]
+      @notable = Student.find(params[:student_id])
+    elsif params[:lead_id]
+      @notable = Lead.find(params[:lead_id])
+    end
     @note = @notable.notes.build(params[:note])
 
     respond_to do |format|

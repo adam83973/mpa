@@ -1,0 +1,18 @@
+<div class="row-fuild">
+  <%= simple_form_for [@student, Note.new], remote: true do |f| %>
+    <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
+    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+    <%= f.button :submit, class: "m-btn note-button green" %>
+  <% end %>
+
+  <% @student.notes.each do |note| %>
+    <li>
+      <div class="note">
+        <p>
+          <%= note.content %>
+        </p>
+        <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
+      </div>
+    </li>
+    <% end %>
+</div>

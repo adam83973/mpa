@@ -15,6 +15,7 @@ class Student < ActiveRecord::Base
   has_many :courses, :through => :offerings
   has_many :occupations, :through => :courses
   has_many :experience_points, dependent: :destroy
+  has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
 
   #-----Student attributes-----

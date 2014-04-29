@@ -1,6 +1,6 @@
 class OccupationsController < ApplicationController
-  
-  before_filter :authorize_admin
+
+  before_filter :authorize_admin, except: [ :show ]
   # GET /occupations
   # GET /occupations.json
   def index

@@ -20,6 +20,8 @@
   <%= render 'student_comment_feed'%>
 </span>
 
+<%= render 'student_notes' if current_user.employee? %>
+
 <%= render '/static_pages/grades_modal' %>
 
 <div id="creditsModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">

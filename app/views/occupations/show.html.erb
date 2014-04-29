@@ -1,15 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Title:</b>
-  <%= @occupation.title %>
+  <h2><%= @occupation.title %></h2>
 </p>
 
+<hr>
+
 <p>
-  <b>Description:</b>
   <%= @occupation.description %>
 </p>
-
-
-<%= link_to 'Edit', edit_occupation_path(@occupation) %> |
-<%= link_to 'Back', occupations_path %>
+</br>
+<p>
+  <ul>
+    <% @occupation.occupation_levels.order(:level).each do |level|  %>
+    <li class="levels">
+       <h2>Level <%= level.level %></h2>
+       XP: <%= level.points %></br>
+       <b>Reward:</b> <%= level.rewards %>
+    </li>
+    <% end %>
+  </ul>
+</p>
