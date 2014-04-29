@@ -4,7 +4,7 @@
 		  <%= f.error_notification %>
 
 		  <div class="form-inputs">
-		  	<%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
+		  	<%= f.association :student, label_method: :full_name, :selected => params[:student], input_html: {class: "xp_chosen"}  %>
 		    <%= f.association :experience, ollection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
 		    <%= f.input :points %>
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
@@ -20,7 +20,7 @@
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
-		    <%= f.association :student, label_method: :full_name, :autofocus => true %>
+		    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 			    <%= f.association :experience, :selected => params[:attendance], label: "Achievement ID", input_html: {class: "xp_chosen"} %>
 			    <%= f.input :points, :input_html => { :value => '20'} %>
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
@@ -34,7 +34,7 @@
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
-		    <%= f.association :student, label_method: :full_name, :autofocus => true %>
+		    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 			    <%= f.association :experience, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
 			    <%= f.input :points %>
 			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
@@ -48,7 +48,7 @@
 		  <%= f.error_notification %>
 
 		  <div class="form-inputs">
-		    <%= f.association :student, label_method: :full_name, :autofocus => true %>
+		    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 				<%= f.association :experience, collection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
 		    <%= f.input :points %>
 		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>

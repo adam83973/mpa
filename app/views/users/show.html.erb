@@ -1,8 +1,13 @@
  <div class="row">
   <div class="span12">
+
     <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
       <%= link_to "Edit User", edit_user_path(@user), class: "m-btn mini pull-right"%>
     <hr>
+  </div>
+  </div>
+    <div class="row">
+  <div class="span8">
     <p>
       <b>Email:</b>
       <%= @user.email %>
@@ -13,62 +18,61 @@
       <%= @user.phone %>
     </p>
 
-    <!-- displays each student for user -->
-    <% if @user.role  == "Parent" %>
-      <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
-      <p>
-        <% @user.students.each do |student| %>
-          <h4> <%= link_to student.full_name, student %></h4>
-          <% student.offerings.each do |offering| %>
-            <p><%= link_to offering.offering_name, offering %></p>
-          <% end %>
-        <% end %>
-      </p>
-    <% end %>
-    <% unless current_user.parent? || current_user.teacher? %>
-
-    <!-- displays each student for user -->
-
-    <% if @user.role  == "Parent" %>
-      <% if @user.infusion_id != nil %>
-      <p>
-        <b>Infusionsoft Id:</b>
-        <%= @user.infusion_id %>&nbsp &nbsp
-        <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'm-btn mini purple-stripe' %>
-        <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'm-btn mini blue-stripe' %>
-      </p>
-      <% else %>
-        <p>
-          <b>Infusionsoft Id is Undefined</b>
-        </p>
-      <% end %>
-    <% end %>
     <p>
       <b>Location:</b>
       <%= @user.location.name if @user.location %>
     </p>
-    <% if @user.admin? %>
+
+    <!-- displays each student for user -->
+    <%= render 'parents_students' %>
+
+    <% unless current_user.parent? || current_user.teacher? %>
+
+      <!-- billing information -->
+
+      <%= render 'billing_information' %>
+
+      <% if @user.admin? %>
+        <p>
+          <b>Admin:</b>
+          <%= @user.admin %>
+        </p>
+      <% end %>
       <p>
-        <b>Admin:</b>
-        <%= @user.admin %>
+        <b>Active:</b>
+        <%= @user.active %>
+      </p>
+
+      <p>
+        <%= render 'shared/nav_buttons' %>
+
+        <% if @user.parent? %>
+        <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "m-btn blue" } %>
+        <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'm-btn red' if @user.active? %>
+        <% end %>
       </p>
     <% end %>
-    <p>
-      <b>Active:</b>
-      <%= @user.active %>
-    </p>
-
-    <p>
-      <%= render 'shared/nav_buttons' %>
-
-      <% if @user.parent? %>
-      <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "m-btn blue" } %>
-      <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'm-btn red' if @user.active? %>
-      <% end %>
-    </p>
-
   </div>
-  <% end %>
+  <div class="span4">
+    <div class="row-fuild">
+      <%= simple_form_for [@user, Note.new], remote: true do |f| %>
+        <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+        <%= f.button :submit, class: "m-btn note-button green" %>
+      <% end %>
+
+      <% @user.notes.each do |note| %>
+        <li>
+          <div class="note">
+            <p>
+              <%= note.content %>
+            </p>
+            <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
+          </div>
+        </li>
+    <% end %>
+</div>
+  </div>
 </div>
 
 <div class="row">

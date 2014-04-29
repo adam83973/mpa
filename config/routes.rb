@@ -60,6 +60,7 @@ MathPlus::Application.routes.draw do
 
   resources :users do
     collection { post :import }
+    resources :notes
   end
 
   resources :locations do

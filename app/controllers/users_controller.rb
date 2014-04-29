@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @note = Note.new
 
     if current_user.employee? || current_user.id == @user.id
       ########
