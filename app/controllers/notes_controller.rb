@@ -44,9 +44,13 @@ class NotesController < ApplicationController
   def create
     if params[:student_id]
       @notable = Student.find(params[:student_id])
+      @student = @notable
     elsif params[:lead_id]
       @notable = Lead.find(params[:lead_id])
       @lead = @notable
+    elsif params[:user_id]
+      @notable = User.find(params[:user_id])
+      @user = @notable
     end
     @note = @notable.notes.build(params[:note])
 

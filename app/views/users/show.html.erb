@@ -61,16 +61,9 @@
         <%= f.button :submit, class: "m-btn note-button green" %>
       <% end %>
 
-      <% @user.notes.each do |note| %>
-        <li>
-          <div class="note">
-            <p>
-              <%= note.content %>
-            </p>
-            <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
-          </div>
-        </li>
-    <% end %>
+    <div id="user_note">
+      <%= render 'user_notes' %>
+    </div>
 </div>
   </div>
 </div>
