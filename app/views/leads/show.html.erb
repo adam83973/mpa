@@ -32,20 +32,23 @@
   </p>
 <% end %>
 
+
+
 <p>
   <h3>Notes</h3>
-  <ul>
-  <% @lead.notes.each do |note| %>
-    <li>
-      <div class="note">
-        <p>
-          <%= note.content %>
-        </p>
-        <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
-      </div>
-    </li>
-  <% end %>
-  </ul>
+
+  <div class="row-fuild">
+    <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
+      <%= f.input :content, input_html: { style: "width:auto;", rows: 4 } %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+      <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
+      <%= f.button :submit, class: "m-btn note-button green", id: "lead_note" %>
+    <% end %>
+  </div> <!-- /.row -->
+
+  <div id="lead_notes">
+    <%= render 'lead_notes' %>
+  </div>
 </p>
 
 <p>
