@@ -1,13 +1,13 @@
- <div class="row">
+<div class="row-fluid">
   <div class="span12">
 
     <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
       <%= link_to "Edit User", edit_user_path(@user), class: "m-btn mini pull-right"%>
     <hr>
   </div>
-  </div>
-    <div class="row">
-  <div class="span8">
+</div>
+<div class="row-fluid">
+  <div class="span6">
     <p>
       <b>Email:</b>
       <%= @user.email %>
@@ -31,6 +31,11 @@
       <!-- billing information -->
 
       <%= render 'billing_information' %>
+      <% if current_user.admin? %>
+          <% if @user.role == "Parent" && @user.infusion_id != nil %>
+            <%= render 'billing' %>
+          <% end %>
+      <% end %>
 
       <% if @user.admin? %>
         <p>
@@ -53,27 +58,20 @@
       </p>
     <% end %>
   </div>
-  <div class="span4">
-    <div class="row-fuild">
-      <%= simple_form_for [@user, Note.new], remote: true do |f| %>
-        <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-        <%= f.button :submit, class: "m-btn note-button green" %>
-      <% end %>
-
-    <div id="user_note">
-      <%= render 'user_notes' %>
-    </div>
-</div>
-  </div>
-</div>
-
-<div class="row">
+  <div class="span2"></div>
   <% if current_user.admin? %>
-  <div class="span6">
-    <% if @user.role == "Parent" && @user.infusion_id != nil %>
-      <%= render 'billing' %>
-    <% end %>
-  </div>
+    <div class="span4">
+      <div class="row-fuild">
+        <%= simple_form_for [@user, Note.new], remote: true do |f| %>
+          <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
+          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+          <%= f.button :submit, class: "m-btn note-button green" %>
+        <% end %>
+
+        <div id="user_note">
+          <%= render 'user_notes' %>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
