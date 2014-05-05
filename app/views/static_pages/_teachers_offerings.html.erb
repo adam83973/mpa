@@ -10,7 +10,7 @@
       </a>
     </div>
     <div id="collapse<%=offering.id.humanize.capitalize%>" class="accordion-body collapse">
-      <div class="accordion-inner">
+      <div class="accordion-inner class_offering">
         <table class= "table table-striped table-hover table-bordered">
           <tr>
             <th> <%= link_to "Student Name", :sort => "Name" %> </th>
@@ -35,7 +35,7 @@
                           <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
                           <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
                         </div>
-                          <%= f.button :submit, "Add to Class", class: "m-btn sm" %>
+                          <%= f.button :submit, "Add to Class", class: "m-btn mini add_to_class" %>
                       <% end %>
                     <% end %>
                   <% end %>
