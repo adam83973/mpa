@@ -84,4 +84,11 @@ class OccupationLevelsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+  def import
+    OccupationLevel.import(params[:file])
+    redirect_to occupation_levels_path, notice: "Levels imported."
+  end
 end
