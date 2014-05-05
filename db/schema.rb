@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140423142424) do
+ActiveRecord::Schema.define(:version => 20140505174523) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -163,9 +163,10 @@ ActiveRecord::Schema.define(:version => 20140423142424) do
     t.text     "rewards"
     t.text     "privileges"
     t.text     "notes"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "occupation_id"
+    t.integer  "bonus_credits", :default => 0
   end
 
   create_table "occupations", :force => true do |t|

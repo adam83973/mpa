@@ -5,6 +5,7 @@
     <%= f.association :occupation, label_metod: :title %>
     <%= f.input :level, as: :select, collection: (0..15).to_a %>
     <%= f.input :points, as: :string %>
+    <%= f.input :bonus_credits, as: :string %>
     <%= f.input :rewards, input_html: { rows: 5 } %>
     <%= f.input :privileges, input_html: { rows: 5 } %>
     <%= f.input :notes, input_html: { rows: 5 } %>
