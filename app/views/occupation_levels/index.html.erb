@@ -1,4 +1,15 @@
-<h1>Listing occupation_levels</h1>
+<h1>Levels</h1>
+
+<% if signed_in? && current_user.admin? %>
+  <p>
+    <%= link_to 'New Occupation level', new_occupation_level_path, class: "m-btn green" %>  </p>
+  <p>
+    Download:
+    <%= link_to "CSV", occupation_levels_path(format: "csv") %>
+  </p>
+<% end %>
+
+<br />
 
 <table>
   <tr>
@@ -27,7 +38,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Occupation level', new_occupation_level_path %>

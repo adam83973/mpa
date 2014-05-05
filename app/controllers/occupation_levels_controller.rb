@@ -1,15 +1,16 @@
 class OccupationLevelsController < ApplicationController
 
   before_filter :authorize_admin
-  
+
   # GET /occupation_levels
   # GET /occupation_levels.json
   def index
-    @occupation_levels = OccupationLevel.all
+    @occupation_levels = OccupationLevel.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @occupation_levels }
+        format.csv { send_data @occupation_levels.to_csv }
     end
   end
 

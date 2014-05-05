@@ -250,7 +250,7 @@ class Student < ActiveRecord::Base
 
 
 
-  #-----Student Attendance-----
+  #-----Student Information Management-----
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
