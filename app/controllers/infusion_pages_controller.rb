@@ -18,7 +18,7 @@ class InfusionPagesController < ApplicationController
   		newcontact = Infusionsoft.contact_add(data)
       if newcontact.nil?
         flash[:error] = "Unable to create new contact."
-      else
+      elset
         flash[:notice] = "New contact created."
         redirect_to infusion_pages_edit_path(ContactId: newcontact)
       end
@@ -29,6 +29,7 @@ class InfusionPagesController < ApplicationController
     count = 0
     begin
       @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])
+      @user_attibutes =
       # check for credit cards associated to ContactId and render on edit page
       @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
       # remove all deleted cards from @credit_card array
@@ -225,6 +226,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @active_students = Student.where("status = ?", "Active").order(:last_name)
+    @active_students = Student.where("status = ?", "Active").includes(:user, :offerings, :experience_points).order(:last_name)
   end
 end

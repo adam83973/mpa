@@ -1,61 +1,72 @@
-<p id="notice"><%= notice %></p>
+<div class="row-fluid">
+  <div class="span6">
+    <p>
+      <h3><u>Lead</u></h3>
+      <h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
+    </p>
 
-<p>
-  <h3><u>Lead</u></h3>
-  <h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
-</p>
+    <p>
+      <b>Phone:</b>
+      <%= @lead.phone %>
+    </p>
 
-<p>
-  <b>Phone:</b>
-  <%= @lead.phone %>
-</p>
+    <p>
+      <b>Email:</b>
+      <%= @lead.email %>
+    </p>
 
-<p>
-  <b>Email:</b>
-  <%= @lead.email %>
-</p>
+    <p>
+      <b>User:</b>
+      <%= @lead.user ? @lead.user.full_name : "There is no one asigned to this lead. Please assign someone to this lead." %>
+    </p>
 
-<p>
-  <b>User:</b>
-  <%= @lead.user ? @lead.user.full_name : "There is no one asigned to this lead. Please assign someone to this lead." %>
-</p>
+    <p>
+      <b>Stage:</b>
+      <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
+    </p>
 
-<p>
-  <b>Stage:</b>
-  <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
-</p>
-
-<% unless @lead.student_information == "" %>
-  <p>
-    <b>Student information:</b>
-    <%= @lead.student_information %>
-  </p>
-<% end %>
-
-
-
-<p>
-  <h3>Notes</h3>
-
-  <div class="row-fuild">
-    <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
-      <%= f.input :content, input_html: { style: "width:auto;", rows: 4 } %>
-      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-      <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
-      <%= f.button :submit, class: "m-btn note-button green", id: "lead_note" %>
+    <% unless @lead.student_information == "" %>
+      <p>
+        <b>Student information:</b>
+        <%= @lead.student_information %>
+      </p>
     <% end %>
-  </div> <!-- /.row -->
 
-  <div id="lead_notes">
-    <%= render 'lead_notes' %>
+    <p>
+      <b>Active:</b>
+      <%= @lead.active? %>
+    </p>
+
+    <%= link_to("/infusion_pages/home?first_name=#{@lead.first_name}&last_name=#{@lead.last_name}&phone=#{@lead.phone}&email=#{@lead.email}", class: "m-btn green" ) do %>
+      Convert to Customer <i class="icon icon-arrow-right icon-white"></i>
+    <% end %>
+    <br>
+    <br>
+    <p>
+      <%= link_to 'Edit', edit_lead_path(@lead) %> |
+      <%= link_to 'Back', leads_path %>
+    </p>
   </div>
-</p>
 
-<p>
-  <b>Active:</b>
-  <%= @lead.active? %>
-</p>
+  <div class="span1">
+  </div>
 
+  <div class="span4">
+  <p>
+    <h3>Notes</h3>
 
-<%= link_to 'Edit', edit_lead_path(@lead) %> |
-<%= link_to 'Back', leads_path %>
+    <div class="row-fuild">
+      <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
+        <%= f.input :content, input_html: { style: "width:auto;", rows: 4 } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+        <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
+        <%= f.button :submit, class: "m-btn note-button green", id: "lead_note" %>
+      <% end %>
+    </div> <!-- /.row -->
+
+    <div id="lead_notes">
+      <%= render 'lead_notes' %>
+    </div>
+  </p>
+  </div>
+</div>
