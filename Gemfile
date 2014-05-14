@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.18'
 gem 'simple_form'
 gem 'devise'
 gem 'devise_invitable'
@@ -10,7 +10,7 @@ gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
 gem 'carrierwave'
-gem 'rmagick'
+gem 'rmagick', :require => false
 gem 'newrelic_rpm'
 gem 'fog'
 gem 'morrisjs-rails'
