@@ -43,9 +43,9 @@ MathPlus::Application.configure do
     domain: 'app.mathplusacademy.com',
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'info@mathplusacademy.com', # you can use ordinary gmail username here
-    password: 'mathplus'   # you can use your gmail password here, but don't push the changes
+    user_name: ENV['MPA_INFO_GMAIL_USERNAME'], # you can use ordinary gmail username here
+    password: ENV['MPA_INFO_GMAIL_PASSWORD']   # you can use your gmail password here, but don't push the changes
   }
 
-   config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
+   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

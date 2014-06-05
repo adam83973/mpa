@@ -13,16 +13,17 @@ task hold_status: :environment do
      @user_tags = @response["Groups"].split(",")
      #if user does not have any tags related to hold status
      #it adds the first tag of the sequence
-     if (@user_tags & @groups).empty?
-       Infusionsoft.contact_add_to_group(infusion_id, "1738")
-     elsif !(@user_tags & @groups).empty? && (@user_tags & @groups).include?("1732")
+    #  if (@user_tags & @groups).empty?
+    #    Infusionsoft.contact_add_to_group(infusion_id, "1738")
+    #  elsif !(@user_tags & @groups).empty? && (@user_tags & @groups).include?("1732")
        #runs when customer opts to return
-       Infusionsoft.contact_remove_from_group(infusion_id, "1738") #remove return from hold tag
-       student.update_attributes({ hold_status: 2 }) #change hold status
-     elsif !(@user_tags & @groups).empty? && (@user_tags & @groups).include?("1734")
-       #runs when customer opts to quit
-       Infusionsoft.contact_remove_from_group(infusion_id, "1738") #remove return from hold tag
-       student.update_attributes({ restart_date: nil, hold_status: 3, end_date: Date.today }) #remove restart date/change
+      #  Infusionsoft.contact_remove_from_group(infusion_id, "1738") #remove return from hold tag
+      #  student.update_attributes({ hold_status: 2 }) #change hold status
+    #  elsif !(@user_tags & @groups).empty? && (@user_tags & @groups).include?("1734")
+    #    #runs when customer opts to quit
+    #    Infusionsoft.contact_remove_from_group(infusion_id, "1738") #remove return from hold tag
+    #    student.update_attributes({ restart_date: nil, hold_status: 3, end_date: Date.today }) #remove restart date/change
+
      end
    end
   end
