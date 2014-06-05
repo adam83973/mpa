@@ -2,7 +2,7 @@ class Student < ActiveRecord::Base
 
   attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
                   :start_date, :xp_total, :credits, :rank, :active, :status,
-                  :restart_date, :return_date, :end_date
+                  :restart_date, :return_date, :end_date, :hold_status
 
   validates_presence_of :first_name, :last_name, :user_id
 
@@ -17,6 +17,8 @@ class Student < ActiveRecord::Base
   has_many :experience_points, dependent: :destroy
   has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
+
+  HOLD_STATUSES = %w(Waiting Emailed Returning Quiting)
 
   #-----Student attributes-----
 

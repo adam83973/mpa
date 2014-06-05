@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505174523) do
+ActiveRecord::Schema.define(:version => 20140604182023) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(:version => 20140505174523) do
     t.integer  "math_level",   :default => 0
     t.integer  "eng_level",    :default => 0
     t.integer  "prog_level",   :default => 0
+    t.integer  "hold_status"
   end
 
   create_table "time_punches", :force => true do |t|

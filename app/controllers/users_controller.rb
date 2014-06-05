@@ -148,17 +148,7 @@ class UsersController < ApplicationController
   def deactivate
     @user = User.find(params[:id])
 
-    if @user.active = true
-      @user.update_attributes active: false
-    end
-
-    if @user.students
-      students = @user.students
-      students.each do |student|
-        student.update_attributes status: "Inactive"
-        student.update_attributes end_date: Date.today
-      end
-    end
+    @user.deactivate
 
     respond_to do |format|
       format.html { redirect_to users_url(users: :parents), notice: "#{@user.full_name} and their student(s) have been deactivated." }

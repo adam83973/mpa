@@ -59,6 +59,19 @@ class User < ActiveRecord::Base
   #   end
   # end
 
+  def deactivate
+    if active
+      update_attributes active: false
+    end
+
+    if students
+      students.each do |student|
+        student.update_attributes status: "Inactive"
+        student.update_attributes end_date: Date.today
+      end
+    end
+  end
+
   def last_payment_infusion
     if self.infusion_id && self.role == 'Parent' && !self.last_payment.nil?
       JSON::parse(last_payment)

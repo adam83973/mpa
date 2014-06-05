@@ -17,6 +17,11 @@
       <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name %>
       <%= f.input :start_date, as: :string %>
       <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
+      <# if @student.hold_status || @student.hold_status == "" %>
+        <# f.input :hold_status, collection: Student::HOLD_STATUSES.zip((0..3).to_a), input_html: { style: "display:block;" }, label_html: { style: "display:block;" } %>
+      <# else %>
+        <# f.input :hold_status, collection: Student::HOLD_STATUSES.zip((0..3).to_a), input_html: { style: "display:none;" }, label_html: { style: "display:none;" } %>
+      <# end %>
       <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
       <%= f.input :return_date, as: :string, placeholder: "Tentative return date." %>
       <%= f.label :offerings %>
@@ -48,6 +53,11 @@
       <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name %>
       <%= f.input :start_date, as: :string %>
       <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
+      <% if @student.hold_status || @student.hold_status == "" %>
+        <%= f.input :hold_status, collection: Student::HOLD_STATUSES.zip((0..3).to_a), input_html: { style: "display:block;" }, label_html: { style: "display:block;" } %>
+      <% else %>
+        <%= f.input :hold_status, collection: Student::HOLD_STATUSES.zip((0..3).to_a), input_html: { style: "display:none;" }, label_html: { style: "display:none;" } %>
+      <% end %>
       <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
       <%= f.input :return_date, as: :string, placeholder: "Tentative return date." %>
       <%= f.label :offerings %>

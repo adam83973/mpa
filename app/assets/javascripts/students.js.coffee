@@ -8,6 +8,17 @@ jQuery ->
 	$(window).bind "unload", ->
 		dial.load()
 
+	#show hold status label and select box if hold is selected for student status
+	# $('#student_status').on 'change', ->
+	# 	if $(this).val() is "Hold"
+	# 		$('.student_hold_status select').css('display','block')
+	# 		$('.student_hold_status label').css('display','block')
+	# 		$('#student_hold_status').val(0) #defaults value to waiting when status is set to hold
+	# 	else
+	# 		$('.student_hold_status select').css('display','none')
+	# 		$('.student_hold_status label').css('display','none')
+	# 		$('#student_hold_status').val("")
+	
 	$("#students_table").dataTable
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
