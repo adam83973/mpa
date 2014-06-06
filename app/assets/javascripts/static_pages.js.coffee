@@ -79,6 +79,9 @@ jQuery ->
     $(this).hide()
     location.reload()
 
+# ---- Start Class ----------------
+  $('#offering_id').chosen()
+
 # ---- Students Attending ----------------
   # Update styling to attending students on mouse over and leave. ---
   $('.student_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
