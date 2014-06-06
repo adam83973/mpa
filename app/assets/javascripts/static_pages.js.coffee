@@ -79,9 +79,6 @@ jQuery ->
     $(this).hide()
     location.reload()
 
-# ---- Start Class ----------------
-  $('#offering_id').chosen()
-
 # ---- Students Attending ----------------
   # Update styling to attending students on mouse over and leave. ---
   $('.student_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
@@ -117,6 +114,8 @@ jQuery ->
 
   # Add code to cancel if user rejects confirm.
   # .bind 'ajax:error', (evt, xhr, status, error) ->
+# ---- Start Class ----------------
+  $('#offering_id').chosen()
 
   # Hide form on close. ---
   $classform = $('.classform')
@@ -129,15 +128,15 @@ jQuery ->
        alert 'Numbers only!'
 
   # Disable start class button until offering and week are selected. ---
-  $('.classform :input').on "keypress change", ->
+  $('.classform #week').on "keypress", ->
     empty = false
-    $(".classform :input").each ->
-      empty = true if $(this).val() is ""
-      $week = $('#week')
-      if empty or isNaN($week.val())
-        $("#startclass").prop "disabled", true
-      else
-        $("#startclass").prop "disabled", false
+    $week = $('#week')
+    # $(".classform :input").each ->
+    empty = true if $week.val() is ""
+    if empty or isNaN($week.val())
+      $("#startclass").prop "disabled", true
+    else
+      $("#startclass").prop "disabled", false
 
 # ---- Grades modal ----------------
   $('#grade_student_id')
