@@ -23,7 +23,7 @@ task hold_status: :environment do
     #    #runs when customer opts to quit
     #    Infusionsoft.contact_remove_from_group(infusion_id, "1738") #remove return from hold tag
     #    student.update_attributes({ restart_date: nil, hold_status: 3, end_date: Date.today }) #remove restart date/change
-     end
+    #  end
    end
   end
 end
