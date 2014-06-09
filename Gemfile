@@ -33,6 +33,7 @@ gem "youtube_addy", "~> 1.0.2"
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
+  gem 'letter_opener'
 end
 
 

@@ -37,6 +37,9 @@ MathPlus::Application.configure do
 
   config.action_mailer.perform_deliveries = true
 
+  #user letter_opener gem to preview sent emails
+  config.action_mailer.delivery_method = :letter_opener
+
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
