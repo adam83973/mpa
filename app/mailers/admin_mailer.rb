@@ -5,6 +5,8 @@ class AdminMailer < ActionMailer::Base
     @user = student.user
     @student = student
 
-    
+    mail(
+      to: @user.email
+      )
   end
 end
