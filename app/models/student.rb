@@ -233,9 +233,9 @@ class Student < ActiveRecord::Base
     !experience_points.empty?
   end
 
-#checks to see if when student last attended class
+#checks to see when student last attended class returns xp object
   def last_date_attended
-    experience_points.where("experience_id = ?", 2).last
+    experience_points.joins(:experience).where("name LIKE ?", "Attendance%").max_by {|xp| xp.created_at}
   end
 
   def hold_date_status
