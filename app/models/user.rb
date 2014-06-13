@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
   def deactivate
     if active
       update_attributes active: false
+      Infusionsoft.contact_add_to_group(infusion_id, 1648)
     end
 
     if students

@@ -24,6 +24,7 @@ def deactivate_parents
   parents.each do |p|
     unless p.active_students?
       p.update_attribute :active, false
+      Infusionsoft.contact_add_to_group(p.infusion_id, 1648)
     end
   end
 end
