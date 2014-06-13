@@ -43,8 +43,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  #parent methods
   def parent?
     ["Parent"].include?(self.role)
+  end
+
+  def active_students?
+    students.any? { |s| s.status == "Active" }
   end
 
   # def deactivate
