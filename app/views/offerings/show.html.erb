@@ -3,7 +3,7 @@
     <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
 
     <p>
-      <%= link_to "Email Parents", offering_path(format: :csv) %>
+      <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
     </p>
      <h3>
       Teachers:
@@ -25,4 +25,3 @@
     <%= render 'offerings/roster' %>
   <% end %>
 </div>
-
