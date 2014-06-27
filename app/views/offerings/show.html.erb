@@ -17,7 +17,7 @@
     <% if current_user.employee? %>
       <%= link_to 'Edit', edit_offering_path(@offering) %> |
     <% end %>
-    <%= link_to 'Back', offerings_path %>
+    <%= link_to 'Back', offerings_path if current_user.employee? %>
   </div>
 
   <% if current_user.employee?%>
