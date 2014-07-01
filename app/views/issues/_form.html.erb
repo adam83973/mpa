@@ -4,7 +4,12 @@
   <div class="form-inputs">
     <%= f.input :name, placeholder: "Clever name to describe issue." %>
     <%= f.input :summary, input_html: { rows: 5 }, placeholder: "Brief description of the issue." %>
-    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+    <% if current_user.admin? %>
+      <%= f.input :user_id %>
+    <% else %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+    <% end %>
+    <%= f.input :resolved if current_user.admin? %>
     <%= f.input :priority, as: :select, collection: Issue::PRIORITY_LEVELS.zip((0..2).to_a) %>
     <% if current_user.admin? %>
       <%= f.input :status, as: :select, collection: Issue::STATUS_LEVELS.zip((0..4).to_a) %>
