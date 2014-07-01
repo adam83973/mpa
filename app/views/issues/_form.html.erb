@@ -9,7 +9,7 @@
     <% if current_user.admin? %>
       <%= f.input :status, as: :select, collection: Issue::STATUS_LEVELS.zip((0..2).to_a) %>
     <% else %>
-      <%= f.input :status, as: :hidden, collection: Issue::STATUS_LEVELS.zip((0..2).to_a) %>
+      <%= f.input :status, as: :hidden, collection: Issue::STATUS_LEVELS.zip((0..4).to_a) %>
     <% end %>
     <%= f.input :resolved if current_user.admin? %>
   </div>

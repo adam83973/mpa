@@ -6,5 +6,5 @@ class Issue < ActiveRecord::Base
   validates_presence_of :name, :summary, :status, :user_id
 
   PRIORITY_LEVELS = %w(Low Medium High)
-  STATUS_LEVELS = %w(New Acknowledged Confirmed Assigned Resolved Closed)
+  STATUS_LEVELS = %w(New Acknowledged Confirmed Assigned Closed)
 end

@@ -47,6 +47,7 @@ class IssuesController < ApplicationController
     respond_to do |format|
       if @issue.save
         AdminMailer.issue_notification(@issue).deliver
+        AdminMailer.issue_submission_notification(@issue).deliver
         format.html { redirect_to root_path, notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
       else
@@ -63,6 +64,9 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
+        if @issue.resolved? && @issue.status == 4
+          issue_closed_notification(@issue).deliver
+        end
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
       else

@@ -1,0 +1,18 @@
+<h1>You're issue has been received!</h1>
+
+<p>
+  Thank you for submitting this. We will work to get this issue resolved as fast
+  as possible.
+<p>
+
+<p>
+  <u><%= @issue.name %></u>
+</p>
+
+<p>
+  <%= @issue.summary %>
+</p>
+
+<p>
+  Priority Level: <%= Issue::PRIORITY_LEVELS[@issue.priority.to_i] %>
+</p>
