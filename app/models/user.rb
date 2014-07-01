@@ -44,9 +44,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def active_employees
+    where("role != ? AND active = ?", "Parent", true)
+  end
+
   #parent methods
   def parent?
     ["Parent"].include?(self.role)
+  end
+
+  def active_parents
+    where("role = ? AND active = ?", "Parent", true)
   end
 
   def active_students?

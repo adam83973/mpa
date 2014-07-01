@@ -3,6 +3,10 @@
 <h1><%= yield(:title)%></h1>
 
 <p>
+  <%= mail_to "#{@active_employees_emails.join}", "Email Active Employees" if current_user.admin? %>
+</p>
+
+<p>
   <%= link_to "Filter Parents", users_path(:users => :parents) %>
 </p>
 

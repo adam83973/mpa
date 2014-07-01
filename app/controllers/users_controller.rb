@@ -6,7 +6,10 @@ class UsersController < ApplicationController
   def index
     @users = User.includes(:location)
     @parents = User.where("role=?", "Parent").includes(:location)
-    @active_parents = User.where("role=? AND active=?", "Parent", true)
+    @active_parents = User.where("role = ? AND active = ?", "Parent", true)
+    @active_employees = User.where("role != ? AND active = ?", "Parent", true)
+    @active_employees_emails = []
+    @active_employees.each {|ae| @active_employees_emails << ae.email + ","}
 
     if current_user.employee?
 
