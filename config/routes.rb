@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :issues
+
+
   resources :occupations
 
 

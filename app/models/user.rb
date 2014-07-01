@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :students, :through => :offerings
   has_many :students
   has_many :leads
+  has_many :issues
   has_many :experience_points
   has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
