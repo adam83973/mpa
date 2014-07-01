@@ -23,6 +23,17 @@
       <%= @user.location.name if @user.location %>
     </p>
 
+    <% if @user.teacher? && current_user.admin? %>
+      <p>
+        <b>Offerings:</b>
+        <ul>
+        <% @user.offerings.each do |off| %>
+          <li><%= off.offering_name %></li>
+        <% end %>
+        <ul>
+      </p>
+    <% end %>
+
     <!-- displays each student for user -->
     <%= render 'parents_students' %>
 
