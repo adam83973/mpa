@@ -46,6 +46,7 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
+        AdminMailer.issue_notification(@issue).deliver
         format.html { redirect_to root_path, notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
       else

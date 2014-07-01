@@ -7,6 +7,14 @@ class AdminMailer < ActionMailer::Base
 
     mail(
       to: @user.email
-      )
+    )
+  end
+
+  def issue_notification(issue)
+    @issue = issue
+    @user = User.find(issue.user_id)
+    mail(
+      to: "director@mathplusacademy.com"
+    )
   end
 end
