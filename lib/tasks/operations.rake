@@ -6,13 +6,27 @@ namespace :operations do
   end
 end
 
+def start_hold
+  #change students with start_hold_date, and restart_date to
+  # have a status of hold
+  students = Student.where("start_hold_date = ?", Date.today)
+
+  #cycle through students and set status to hold if student has end date for current day
+  students.each do |student|
+    if student.start_hold_date == Date.today && student.status == "Active"
+      #set status to inactive
+      student.update_attribute :status, "Hold"
+    end
+  end
+end
+
 def end_date
   #pull all students with end date equal to curent day's date
   students = Student.where("end_date = ?", Date.today)
 
   #cycle through students and set status to inactive if student has end date for current day
   students.each do |student|
-    if student.end_date == Date.today && student.status = "Active"
+    if student.end_date == Date.today && student.status == "Active"
       #set status to inactive
       student.update_attribute :status, "Inactive"
     end
@@ -24,7 +38,8 @@ def deactivate_parents
   parents.each do |p|
     unless p.active_students?
       p.update_attribute :active, false
-      Infusionsoft.contact_add_to_group(p.infusion_id, 1648)
+      #add logic to allow opt out of drop campaign
+      #Infusionsoft.contact_add_to_group(p.infusion_id, 1648)
     end
   end
 end
