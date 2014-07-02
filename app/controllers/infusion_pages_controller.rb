@@ -18,7 +18,7 @@ class InfusionPagesController < ApplicationController
   		newcontact = Infusionsoft.contact_add(data)
       if newcontact.nil?
         flash[:error] = "Unable to create new contact."
-      elset
+      else
         flash[:notice] = "New contact created."
         redirect_to infusion_pages_edit_path(ContactId: newcontact)
       end

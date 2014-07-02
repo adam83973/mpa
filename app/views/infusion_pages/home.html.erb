@@ -1,10 +1,10 @@
 <h3>Is the family already in Infusionsoft?</h3>
 Enter first few letters of last name:
 <%= form_tag({}, {:method => :get, class: 'form-search'}) do %>
-<p>
-	<%= text_field_tag :search, params[:search] || params[:last_name] %>
-	<%= submit_tag "Search", :name => nil, class: 'btn' %>
-</p>
+	<p>
+		<%= text_field_tag :search, params[:search] || params[:last_name] %>
+		<%= submit_tag "Search", :name => nil, class: 'btn' %>
+	</p>
 <% end %>
 
 <% unless @contacts.nil? %>
