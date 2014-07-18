@@ -17,6 +17,7 @@
           <th># of Offerings</th>
           <th># of Students</th>
           <th>Avg. Student/Offering</th>
+          <th>Future Adds</th>
           <th>Students Added (30 days)</th>
           <th>Students Dropped (30 days)</th>
         </tr>
@@ -26,6 +27,7 @@
           <td><%= @location.active_offerings.count %></td>
           <td><%= @total_location_students_count %></td>
           <td><%= (@location.active_students.count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
+          <td><%= @location_future_adds.count %></td>
           <td><%= @location.students_added_last_30.count %></td>
           <td><%= link_to "#{@location.students_dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
         </tr>

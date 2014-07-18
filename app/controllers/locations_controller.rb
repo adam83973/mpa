@@ -18,7 +18,8 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
     @location_students_restarting = @location.restarting_students
-    @total_location_students_count = @location.active_students.count + @location_students_restarting.count
+    @total_location_students_count = @location.active_students.count
+    @location_future_adds = @location.future_adds
 
     @offerings = @location.offerings
     @recruit_count = 0
