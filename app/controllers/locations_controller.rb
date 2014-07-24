@@ -17,9 +17,9 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @location = Location.find(params[:id])
-    @location_students_restarting = @location.restarting_students
-    @total_location_students_count = @location.active_students.count
-    @location_future_adds = @location.future_adds
+    @location_students_restarting = @location.students.restarting
+    @total_location_students_count = @location.students.active.count
+    @location_future_adds = @location.students.future_adds
 
     @offerings = @location.offerings
     @recruit_count = 0
@@ -37,29 +37,29 @@ class LocationsController < ApplicationController
 
     @offerings.each do |offering|
       if offering.course_id == 1
-        @recruit_count += offering.students.where("status = ?", "Active").count
+        @recruit_count += offering.students.active.count
       elsif offering.course_id == 2
-        @tech_count += offering.students.where("status = ?", "Active").count
+        @tech_count += offering.students.active.count
       elsif offering.course_id == 3
-        @operative_count += offering.students.where("status = ?", "Active").count
+        @operative_count += offering.students.active.count
       elsif offering.course_id == 4
-        @analyst_count += offering.students.where("status = ?", "Active").count
+        @analyst_count += offering.students.active.count
       elsif offering.course_id == 5
-        @agent_count += offering.students.where("status = ?", "Active").count
+        @agent_count += offering.students.active.count
       elsif offering.course_id == 6
-        @specialops_count += offering.students.where("status = ?", "Active").count
+        @specialops_count += offering.students.active.count
       elsif offering.course_id == 7
-        @prealgebra_count += offering.students.where("status = ?", "Active").count
+        @prealgebra_count += offering.students.active.count
       elsif offering.course_id == 8
-        @algebra_count += offering.students.where("status = ?", "Active").count
+        @algebra_count += offering.students.active.count
       elsif offering.course_id == 10
-        @chess_club_count += offering.students.where("status = ?", "Active").count
+        @chess_club_count += offering.students.active.count
       elsif offering.course_id == 11
-        @lego_robotics_count += offering.students.where("status = ?", "Active").count
+        @lego_robotics_count += offering.students.active.count
       elsif offering.course_id == 13
-        @e_math_team_count += offering.students.where("status = ?", "Active").count
+        @e_math_team_count += offering.students.active.count
       elsif offering.course_id == 17
-        @m_math_team_count += offering.students.where("status = ?", "Active").count
+        @m_math_team_count += offering.students.active.count
       else
       end
     end

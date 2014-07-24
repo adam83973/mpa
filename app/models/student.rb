@@ -18,6 +18,12 @@ class Student < ActiveRecord::Base
   has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
 
+  scope :active, lambda{where("status = ?", "Active")}
+  scope :future_adds, lambda{where("start_date > ?", Date.today)}
+  scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
+  scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
+  scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
+
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting)
 
   #-----Student attributes-----

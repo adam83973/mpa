@@ -6,25 +6,27 @@ class Location < ActiveRecord::Base
   has_many :students, :through => :offerings
   has_many :daily_location_reports
 
-  def future_adds
-    self.students.where("start_date > ?", Date.today)
-  end
 
-  def students_added_last_30
-    self.students.where("start_date < ? and start_date > ?", Date.today, 30.days.ago)
-  end
 
-  def students_dropped_last_30
-    self.students.where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)
-  end
+  # def future_adds
+  #   self.students.where("start_date > ?", Date.today)
+  # end
 
-  def active_students
-      self.students.where("status = ?", "Active") if self.students
-  end
+  # def students_added_last_30
+  #   self.students.where("start_date < ? and start_date > ?", Date.today, 30.days.ago)
+  # end
 
-  def restarting_students
-      self.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
-  end
+  # def students_dropped_last_30
+  #   self.students.where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)
+  # end
+
+  # def active_students
+  #     self.students.where("status = ?", "Active") if self.students
+  # end
+
+  # def restarting_students
+  #     self.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
+  # end
 
   def active_offerings
       self.offerings.where("active = ?", true) if self.offerings
