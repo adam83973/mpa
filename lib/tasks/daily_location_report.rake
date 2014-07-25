@@ -8,7 +8,7 @@ end
 def daily_batch
   locations = Location.all
   locations.each do |location|
-    @student_count = location.active_students.count
+    @student_count = location.students.active.count
     @parent_sign_in_count = User.where("current_sign_in_at >= ? AND role = ? AND location_id = ?", Time.now.beginning_of_day, "Parent", location.id).count
     @student_drops = location.students.where("end_date = ?", Time.now.beginning_of_day.to_date).count
     @student_adds = location.students.where("start_date = ?", Time.now.beginning_of_day.to_date).count

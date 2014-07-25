@@ -9,15 +9,17 @@ jQuery ->
 		dial.load()
 
 	#show hold status label and select box if hold is selected for student status
-	$('#student_status').on 'change', ->
-		if $(this).val() is "Hold"
-			$('.student_hold_status select').css('display','block')
-			$('.student_hold_status label').css('display','block')
-			$('#student_hold_status').val(0) #defaults value to waiting when status is set to hold
-		else
-			$('.student_hold_status select').css('display','none')
-			$('.student_hold_status label').css('display','none')
-			$('#student_hold_status').val("")
+	# $('#student_status').on 'change', ->
+	# 	if $(this).val() is "Hold"
+	# 		$('.student_hold_status select').css('display','block')
+	# 		$('.student_hold_status label').css('display','block')
+	# 		$('#student_hold_status').val(0) #defaults value to waiting when status is set to hold
+	# 	else
+	# 		$('.student_hold_status select').css('display','none')
+	# 		$('.student_hold_status label').css('display','none')
+	# 		$('#student_hold_status').val("")
+	$("#student_offering_ids").chosen() #add chosen to student new offerings select
+	$("#student_user_id").chosen() #add chosen to student new offerings select
 
 	$("#students_table").dataTable
       "bPaginate": true,  #hide pagination control

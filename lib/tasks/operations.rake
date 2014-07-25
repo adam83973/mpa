@@ -13,9 +13,10 @@ def start_hold
 
   #cycle through students and set status to hold if student has end date for current day
   students.each do |student|
-    if student.start_hold_date == Date.today && student.status == "Active"
-      #set status to inactive
+    if student.start_hold_date <= Date.today && student.status == "Active"
+      #set status to hold
       student.update_attribute :status, "Hold"
+      student.update_attribute :hold_status, 0
     end
   end
 end

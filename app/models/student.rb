@@ -4,7 +4,7 @@ class Student < ActiveRecord::Base
                   :start_date, :xp_total, :credits, :rank, :active, :status,
                   :restart_date, :return_date, :end_date, :hold_status
 
-  validates_presence_of :first_name, :last_name, :user_id
+  validates_presence_of :first_name, :last_name, :user_id, :start_date
 
   belongs_to :user
   belongs_to :location
@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
-  HOLD_STATUSES = %w(Waiting Emailed Returning Quiting)
+  HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
 
   #-----Student attributes-----
 
