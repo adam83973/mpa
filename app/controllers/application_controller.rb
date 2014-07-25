@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize_active
 
   def authorize_admin
-    redirect_to root_path, :flash => {:alert => "Insufficient rights!"} unless current_user && current_user.admin?
+    redirect_to root_path, :flash => {:alert => "Not authorized."} unless current_user && current_user.admin?
   end
 
   def authorize_employee

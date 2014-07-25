@@ -18,7 +18,7 @@
   </div>
   <div class="span4">
       <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name if params[:user_id] %>
-      <%= f.association :user, collection: User.where(:role => "Parent", :active => true).order('last_name asc'), label_method: :full_name unless params[:user_id] %>
+      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name unless params[:user_id] %>
       <%= f.input :start_date, as: :string, label: "Start Date" %>
       <%= f.input :status, collection: ["Active","Hold","Inactive"], as: :hidden %>
       <%= f.input :credits, input_html: { val: 1 } %>

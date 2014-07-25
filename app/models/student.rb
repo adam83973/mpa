@@ -24,6 +24,8 @@ class Student < ActiveRecord::Base
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
+  before_save :active_status
+
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
 
   #-----Student attributes-----
@@ -232,7 +234,7 @@ class Student < ActiveRecord::Base
     end
   end
 
-  #-----Student Administration-----
+#-----Student Administration-----
 
 #checks to see if student has attended first class
   def attended_first_class?
@@ -256,7 +258,11 @@ class Student < ActiveRecord::Base
     end
   end
 
-
+  def active_status
+    if start_date == Date.today
+      self.status = "Active"
+    end
+  end
 
   #-----Student Information Management-----
 
