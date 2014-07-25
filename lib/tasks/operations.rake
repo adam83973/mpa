@@ -1,4 +1,5 @@
 namespace :operations do
+  #Rake task runs at end of day.
   desc "Perform various maintenance tasks."
   task maintenance: :environment do
     end_date
@@ -17,6 +18,19 @@ def start_hold
       #set status to hold
       student.update_attribute :status, "Hold"
       student.update_attribute :hold_status, 0
+    end
+  end
+end
+
+def start_date
+  #pull all students with start date equal to curent day's date
+  students = Student.where("start_date = ?", Date.tomorrow)
+
+  #cycle through students and set status to active if student has start date for current day
+  students.each do |student|
+    if student.start_date == Date.tomorrow && student.status == "Inactive"
+      #set status to Active
+      student.update_attribute :status, "Active"
     end
   end
 end

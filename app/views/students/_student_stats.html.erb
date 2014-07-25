@@ -20,7 +20,7 @@
           </p>
           <p>
             <b>Parent:</b>
-            <%= link_to @student.parent_name, @student.user %>
+            <%= link_to @student.parent_name, @student.user %><%= student_status(@student).html_safe%>
           </p>
        <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
@@ -45,7 +45,7 @@
         </p>
         <p>
           <b>Parent:</b>
-          <%= link_to @student.parent_name, @student.user %>
+          <%= link_to @student.parent_name, @student.user %><%= student_status(@student).html_safe%>
         </p>
         <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>

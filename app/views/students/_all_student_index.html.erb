@@ -51,7 +51,7 @@
       <td><em>no email on file</em></td>
       <%end%>
       <% if student.status %>
-      <td><%= student.status %></td>
+      <td><%= student_status(student).html_safe %></td>
       <% else %>
       <td><em>update student status</em></td>
       <%end%>
