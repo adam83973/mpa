@@ -1,27 +1,41 @@
-<%= simple_form_for @student, :validate => true do |f| %>
-  <% if @student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+<div class="row-fluid">
+  <div class="span4">
+  <%= simple_form_for @student, :validate => true do |f| %>
+    <% if @student.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-      <% @student.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name if params[:user_id] %>
-    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name unless params[:user_id] %>
-    <%= f.input :start_date, as: :string %>
-    <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
-    <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
-    <%= f.association :offerings, collection: Offering.all(order: 'course_id'), as: :select, label_method: :offering_name, item_wrapper_class: 'inline', :input_html => { :class => 'span9' } %>
-    <%= f.input :credits %><br />
-    <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
-    <%= f.input :birth_date, as: :string %>
-    <%= f.input :end_date, as: :string %>
-    <%= f.input :return_date, as: :string, label: "Possible Return Date", placeholder: "Tentative return date." %>
-    <%= f.button :submit, class: "m-btn" %>
+        <ul>
+        <% @student.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+      <%= f.input :birth_date, as: :string, label: "Birth Date" %>
+  </div>
+  <div class="span4">
+      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name if params[:user_id] %>
+      <%= f.association :user, collection: User.where(:role => "Parent", :active => true).order('last_name asc'), label_method: :full_name unless params[:user_id] %>
+      <%= f.input :start_date, as: :string, label: "Start Date" %>
+      <%= f.input :status, collection: ["Active","Hold","Inactive"], as: :hidden %>
+      <%= f.input :credits, input_html: { val: 1 } %>
+  </div>
+  <div class="span4">
+      <h4><u>Only for current students</u></h4>
+      <%=
+        f.input :restart_date, as: :string, placeholder: "Date for billing to restart.",
+        label: "Restart Date",
+        tooltip: "This date holds student's place in class and restarts billing on
+        this date. If unsure of restart DO NOT enter a date here, select an
+        END DATE and POSSIBLE RETURN DATE."
+      %>
+      <%= f.input :end_date, as: :string %>
+      <%= f.input :return_date, as: :string, label: "Possible Return Date", placeholder: "Tentative return date." %>
+  </div>
+</div>
+<%= f.association :offerings, collection: Offering.all(order: 'course_id'), as: :select, label_method: :offering_name, item_wrapper_class: 'inline', :input_html => { :class => 'span6' } %>
+<%= f.button :submit, class: "m-btn green" %>
 <% end %>

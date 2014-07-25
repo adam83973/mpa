@@ -12,3 +12,23 @@ jQuery ->
     "bPaginate": true,  #hide pagination control
     "bFilter": true,     #hide filter control
     "bJQueryUI": true
+
+	# User Form View
+	$("#user_role").on "change", ->
+		if $(this).val() is "Parent"
+			$(".user_passion").hide()
+			$(".user_shirt_size").hide()
+			$(".user_has_key").hide()
+			$(".user_admin").hide()
+		else
+			$(".user_infusion_id").hide()
+			$(".user_passion").show()
+			$(".user_shirt_size").show()
+			$(".user_has_key").show()
+			$(".user_admin").show()
+
+	$("#user_role").on "change", ->
+		if !($(this).val() is "Admin")
+			$(".user_admin").hide()
+		else
+			$(".user_admin").show()

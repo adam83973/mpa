@@ -69,6 +69,8 @@
 .level{
   line-height: 70px;
 }
+/* Student Form page */
+
 
 /*Student Stats Credits*/
 
@@ -86,12 +88,12 @@
     display: block;
     width: 150px;
     height:150px;
-    -webkit-box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
-    -moz-box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
-    box-shadow: inset 0px 0px 0px 15px rgba(238, 255, 13, 1);
-    border-radius: 50%;
+    -webkit-box-shadow: inset 0 0 0 15px rgba(238, 255, 13, 1);
+    -moz-box-shadow: inset 0 0 0px 15px rgba(238, 255, 13, 1);
+    box-shadow: inset 0 0 0 15px rgba(238, 255, 13, 1);
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
+    border-radius: 50%;
 }
 .circle-text div {
     float:left;

@@ -11,3 +11,5 @@
 //= require rails.validations.simple_form
 //= require dataTables/jquery.dataTables
 //= require_tree .
+
+$('body').tooltip({ selector: "[data-toggle~='tooltip']"})
