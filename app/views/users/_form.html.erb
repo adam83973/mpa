@@ -66,19 +66,19 @@
       <%= f.input :email %>
       <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' if current_user.employee? %>
   </div>
-    <div class="span4">
-      <% if current_user.employee? %>
-        <%= f.input :passion %>
-        <%= f.input :shirt_size %>
-        <%= f.association :location, label_method: :name %>
-        <%= f.input :has_key %>
-        <%= f.input :admin if current_user.admin? %>
-      <% end %>
-    </div>
-    <div class="span4">
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-      <%= f.input :active if current_user.admin? %>
+  <div class="span4">
+    <% if current_user.employee? %>
+      <%= f.input :passion %>
+      <%= f.input :shirt_size %>
+      <%= f.association :location, label_method: :name %>
+      <%= f.input :has_key %>
+      <%= f.input :admin if current_user.admin? %>
+    <% end %>
+  </div>
+  <div class="span4">
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.input :active if current_user.admin? %>
   </div>
 </div>
 <%= f.button :submit, class: "m-btn green pull-right" %>
