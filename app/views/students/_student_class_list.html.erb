@@ -1,3 +1,18 @@
+<% if current_user.employee? %>
+	<% if @student.status && @student.status == "Active" %>
+		<p><%= @student.first_name %> is <%= student_status(@student).html_safe%></p>
+	<% elsif @student.status && @student.status == "Hold" %>
+		<p>
+			<%= @student.first_name %> is on <%= student_status(@student).html_safe%>
+		</p>
+		<p>
+			Return: <b><%= @student.restart_date.strftime("%a, %b %e, %Y") %></b>
+		</p>
+	<% else %>
+		<p><%= @student.first_name %> is <%= student_status(@student).html_safe%></p>
+	<% end %>
+<% end %>
+
 <h3>Classes:</h3>
 
 <p>

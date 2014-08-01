@@ -2,7 +2,8 @@ class Student < ActiveRecord::Base
 
   attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
                   :start_date, :xp_total, :credits, :rank, :active, :status,
-                  :restart_date, :return_date, :end_date, :hold_status
+                  :restart_date, :return_date, :end_date, :hold_status,
+                  :start_hold_date
 
   validates_presence_of :first_name, :last_name, :user_id, :start_date
 
@@ -25,6 +26,8 @@ class Student < ActiveRecord::Base
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
   before_save :active_status
+  before_save :hold_status
+  before_save :inactive_status
 
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
 
@@ -259,8 +262,22 @@ class Student < ActiveRecord::Base
   end
 
   def active_status
-    if start_date == Date.today
+    if start_date && start_date <= Date.today && start_date > Date.today - 7.days
       self.status = "Active"
+    else
+      "false"
+    end
+  end
+
+  def hold_status
+    if start_hold_date && start_hold_date <= Date.today && start_hold_date > Date.today - 7.days
+       self.status = "Hold"
+    end
+  end
+
+  def inactive_status
+    if end_date && end_date <= Date.today && end_date > Date.today - 7.days
+      self.status = "Inactive"
     end
   end
 

@@ -47,6 +47,9 @@ jQuery ->
   $('#student_restart_date').datepicker
     dateFormat: 'yy-mm-dd'
 
+	$("#student_start_hold_date").datepicker
+		dateFormat: 'yy-mm-dd'
+
   $('#student_return_date').datepicker
     dateFormat: 'yy-mm-dd'
 
