@@ -4,6 +4,7 @@ namespace :operations do
   task maintenance: :environment do
     start_date
     start_hold
+    restart_date
     end_date
     deactivate_parents
   end
@@ -24,11 +25,24 @@ def start_hold
   end
 end
 
+def restart_date
+  #pull all students with restart date equal to tomorrows date
+  students = Student.where("restart_date = ?", Date.tomorrow)
+
+  #cycle through students and set status to active if student has restart date for the next day
+  students.each do |student|
+    if student.restart_date == Date.tomorrow
+      #set status to Active
+      student.update_attribute :status, "Active"
+    end
+  end
+end
+
 def start_date
   #pull all students with start date equal to tomorrows date
   students = Student.where("start_date = ?", Date.tomorrow)
 
-  #cycle through students and set status to active if student has start date for current day
+  #cycle through students and set status to active if student has start date for the next day
   students.each do |student|
     if student.start_date == Date.tomorrow && student.status == "Inactive"
       #set status to Active
