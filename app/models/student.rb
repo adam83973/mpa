@@ -28,6 +28,7 @@ class Student < ActiveRecord::Base
   before_save :active_status
   before_save :hold_status
   before_save :inactive_status
+  before_save :restart_active_status
 
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
 
@@ -264,6 +265,16 @@ class Student < ActiveRecord::Base
   def active_status
     if start_date && start_date <= Date.today && start_date > Date.today - 7.days
       self.status = "Active"
+    else
+      "false"
+    end
+  end
+
+  def restart_active_status
+    if restart_date && restart_date <= Date.today && restart_date > Date.today - 7.days
+      if self.status == "Hold" || self.status == "Inactive"
+        self.status = "Active"
+      end
     else
       "false"
     end
