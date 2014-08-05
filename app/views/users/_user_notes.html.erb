@@ -1,4 +1,4 @@
-<% unless @students || @lead %>
+<% unless @student || @lead %>
   <% @user.notes.order("created_at DESC").each do |note| %>
     <li>
       <div class="note">
