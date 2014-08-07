@@ -26,7 +26,9 @@
 
 <p>
   <b>Assignment key:</b>
-  <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+  <% if @lesson.assignment_key %>
+    <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+  <% end %>
 </p>
 
 <p>
@@ -66,4 +68,3 @@
 <%= link_to 'Edit', edit_lesson_path(@lesson), class: "m-btn" %>
 <%= link_to 'Back', lessons_path, class: "m-btn" %>
 <%= link_to 'Add Video', new_video_path(lesson_id: "#{@lesson.id}"), class: "m-btn blue" %>
-
