@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
                   :start_hold_date
 
   validates_presence_of :first_name, :last_name, :user_id, :start_date
+  #validate presence of offerings
 
   belongs_to :user
   belongs_to :location
