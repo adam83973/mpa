@@ -1,25 +1,16 @@
 MathPlus::Application.routes.draw do
 
+  resources :reports
   resources :issues
-
-
   resources :occupations
-
 
   resources :occupation_levels do
     collection { post :import }
   end
 
-
   resources :daily_location_reports
-
-
   resources :notes
-
-
   resources :stages
-
-
   resources :videos
 
 
@@ -41,6 +32,8 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
+  get 'reports/', to: 'reports#new'
+  post 'reports/display', to: 'reports#show'
   get 'leads/stage_list', to: 'leads#stage_list'
   post 'leads/update_stage', to: 'leads#update_stage'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'

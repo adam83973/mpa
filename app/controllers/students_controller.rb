@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    @student = Student.find(params[:id])
+    @student = Student.joins(:experience_points).find(params[:id])
     @note = Note.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all

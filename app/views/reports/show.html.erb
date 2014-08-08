@@ -1,0 +1,18 @@
+<h4>
+  <%= pluralize_without_count(@students.count, "Student") %> with
+  <%= Report::TYPE[params[:query][:type].to_i] %>
+  between
+  <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
+  end
+  <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
+</h4>
+<p>
+  <b>Count:</b> <%= @students.count %>
+</p>
+<ul>
+  <% @students.each do |s| %>
+    <li>
+      <%= link_to s.full_name, s %>
+    </li>
+  <% end %>
+</ul>
