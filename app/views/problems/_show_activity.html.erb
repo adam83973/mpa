@@ -55,5 +55,16 @@
       </div>
     <% end %>
   </p>
+
+  <% if @problem.lessons %>
+    <p>
+      <b>Lessons associated with this problem:</b>
+      <ul>
+        <% @problem.lessons.each do |l| %>
+          <li><%= l.name %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
   <div style="clear:both;"></div>
 </div>
