@@ -5,6 +5,9 @@
   <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
   end
   <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
+  <% if params[:query][:status] %>
+    and a status of <%= params[:query][:status] %>
+  <% end %>
 </h4>
 <p>
   <b>Count:</b> <%= @students.count %>
@@ -12,7 +15,10 @@
 <ul>
   <% @students.each do |s| %>
     <li>
-      <%= link_to s.full_name, s %>
+      <%= link_to s.full_name, s %> | <%= student_status(s).html_safe %> , <b>Last Payment:</b>
+      (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+      <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+      <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
     </li>
   <% end %>
 </ul>

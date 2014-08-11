@@ -31,6 +31,7 @@ class Student < ActiveRecord::Base
   before_save :inactive_status
   before_save :restart_active_status
 
+  STATUSES = %w(Active Hold Inactive)
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
 
   #-----Student attributes-----
