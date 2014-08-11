@@ -15,7 +15,8 @@ class ReportsController < ApplicationController
           Date.parse(params[:query][:end_date_range]),
           params[:query][:status])
       else
-        @students = Student.where
+        @students = Student.where(:status => params[:query][:status])
+      end
     else
       @students = Student.where("
         #{Report::TYPE[params[:query][:type].to_i].downcase.tr(' ', '_')} >= ? AND
