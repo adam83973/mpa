@@ -5,7 +5,7 @@
   <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
   end
   <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
-  <% if params[:query][:status] %>
+  <% if params[:query][:status] != '' %>
     and a status of <%= params[:query][:status] %>
   <% end %>
 </h4>
