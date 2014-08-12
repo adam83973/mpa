@@ -53,7 +53,7 @@
                 <em>No teachers assigned.</em>
               <% end %>
             </td>
-            <td><%= offering.active_students_count + offering.returning_students_count %></td>
+            <td><%= roster_count offering %></td>
             <td><%= open_spots offering %></td>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering, :target => "_blank" %></td>

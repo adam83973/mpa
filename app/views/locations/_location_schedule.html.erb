@@ -27,7 +27,7 @@
         <td>
           <%= offering.classroom %>
         </td>
-        <td><%= offering.students.active.count + offering.students.restarting.count + offering.students.future_adds.count %></td>
+        <td><%= roster_count offering %></td>
         <td>
           <%= open_spots offering %>
         </td>

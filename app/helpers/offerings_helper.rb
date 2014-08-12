@@ -34,17 +34,21 @@ module OfferingsHelper
     schedule.join
   end
 
+  def roster_count(offering)
+    offering.students.active.count + offering.students.restarting.count + offering.students.future_adds.count
+  end
+
   def open_spots(offering)
     if offering.course_id < 10
-      10 - (offering.active_students_count + offering.returning_students_count)
+      10 - (roster_count(offering))
     elsif [10].include?(offering.course_id)
-      14 - (offering.active_students_count + offering.returning_students_count)
+      14 - (roster_count(offering))
     elsif [11, 12].include?(offering.course_id)
-      8 - (offering.active_students_count + offering.returning_students_count)
+      8 - (roster_count(offering))
     elsif [13, 17].include?(offering.course_id)
-      10 - (offering.active_students_count + offering.returning_students_count)
+      10 - (roster_count(offering))
     elsif [15, 16, 18].include?(offering.course_id)
-      8 - (offering.active_students_count + offering.returning_students_count)
+      8 - (roster_count(offering))
     end
   end
 end
