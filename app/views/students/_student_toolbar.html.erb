@@ -12,7 +12,7 @@
       <li>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple-stripe student_tool_button" } %>
       </li>
-      <li><%= link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn yellow-stripe student_tool_button", id: "gradesModalButton"%></li>
+      <!-- <li><%# link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn yellow-stripe student_tool_button", id: "gradesModalButton"%></li> -->
       <% if @agent_offering %>
       <li>
         <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn black-stripe student_tool_button" } %>
