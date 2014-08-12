@@ -1,24 +1,48 @@
 <h4>
+  <% if @students.count == 0 %>
+  No students
+  <% end %>
   <%= pluralize_without_count(@students.count, "Student") %> with
-  <%= Report::TYPE[params[:query][:type].to_i] %>
-  between
-  <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
-  end
-  <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
-  <% if params[:query][:status] != '' %>
-    and a status of <%= params[:query][:status] %>
+  <% if !(params[:query][:type].empty?) %>
+    <%= Report::TYPE[params[:query][:type].to_i] %>
+    between
+    <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
+    end
+    <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
+  <% end %>
+  <% if !(params[:query][:student_status].empty?) %>
+    <% if !(params[:query][:type].empty?) %>
+      and a
+    <% end %>
+    status of <%= Student::STATUSES[params[:query][:student_status].to_i] %>
   <% end %>
 </h4>
 <p>
   <b>Count:</b> <%= @students.count %>
 </p>
-<ul>
-  <% @students.each do |s| %>
-    <li>
-      <%= link_to s.full_name, s %> | <%= student_status(s).html_safe %> , <b>Last Payment:</b>
-      (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
-      <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
-      <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
-    </li>
-  <% end %>
-</ul>
+  <table class="table">
+    <thead>
+      <th>Student</th>
+      <th>Status</th>
+      <th>Last Payment Date</th>
+    </thead>
+    <% @students.each do |s| %>
+    <tr>
+      <td>
+        <%= link_to s.full_name, s %>
+      </td>
+      <td align="center">
+        <%= student_status(s).html_safe %>
+      </td>
+      <td align="center">
+      <% if s.user.last_payment_infusion.any? && s.user.last_payment && s.user.last_payment_infusion[0]["DateCreated"]["month"] %>
+        (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+        <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+        <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
+      <% else %>
+        No last payment on file
+      <% end %>
+    </td>
+    </tr>
+    <% end %>
+  </table>
