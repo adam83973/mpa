@@ -242,6 +242,10 @@ class Student < ActiveRecord::Base
 
 #-----Student Administration-----
 
+def is_inactive?
+  self.status == "Inactive"
+end
+
 #checks to see if student has attended first class
   def attended_first_class?
     !experience_points.empty?

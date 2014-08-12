@@ -36,9 +36,10 @@
     <p><b>Students in Attendance:</b></p>
     <ul>
       <% class_session.students.each do |student_id| %>
-        <div id='student_<%= student_id %>' class="student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
+        <div id='student_<%= student_id %>' class="student_attending <% if Student.find(student_id).is_inactive? %>inactive<% end %>" data-studentname="<%= Student.find(student_id).full_name %>">
           <li class='student_<%= student_id %>'>
             <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
+            <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
             <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
             <% if @todays_lesson%>
             <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
