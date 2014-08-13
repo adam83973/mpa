@@ -1,19 +1,25 @@
 /*
- *= require_self
- *= require bootstrap_and_overrides
- *= require font-awesome
  *= require jquery-ui
  *= require chosen
  *= require dataTables/jquery.dataTables
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require dataTables/extras/dataTables.responsive
  *= require normalize-rails
- *= require_tree
+ *= require locations
+ *= require notes
+ *= require occupations
+ *= require offerings
+ *= require resources
+ *= require static_pages
+ *= require students
  */
 
 @import "compass";
+@import "font-awesome";
+$baseFontFamily: 'FontAwesome';
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap_and_overrides";
 
 
 // .push, footer {

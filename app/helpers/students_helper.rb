@@ -6,7 +6,7 @@ module StudentsHelper
     when "Hold"
       "<span class='label label-warning'>Hold</span>"
     else
-      "<span class='label label-important'>Inactive</span>"
+      "<span class='label label-danger'>Inactive</span>"
     end
   end
 end

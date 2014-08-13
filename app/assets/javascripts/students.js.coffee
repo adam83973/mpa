@@ -8,64 +8,34 @@ jQuery ->
 	$(window).bind "unload", ->
 		dial.load()
 
-	#show hold status label and select box if hold is selected for student status
-	# $('#student_status').on 'change', ->
-	# 	if $(this).val() is "Hold"
-	# 		$('.student_hold_status select').css('display','block')
-	# 		$('.student_hold_status label').css('display','block')
-	# 		$('#student_hold_status').val(0) #defaults value to waiting when status is set to hold
-	# 	else
-	# 		$('.student_hold_status select').css('display','none')
-	# 		$('.student_hold_status label').css('display','none')
-	# 		$('#student_hold_status').val("")
-	$("#student_offering_ids").chosen() #add chosen to student new offerings select
-	$("#student_user_id").chosen() #add chosen to student new offerings select
+	$("#student_offering_ids").chosen()
+	$("#student_user_id").chosen()
 
-	$("#students_table").dataTable
-      "bPaginate": true,  #hide pagination control
-      "bFilter": true,     #hide filter control
-      "bJQueryUI": true
+	$('#student_birth_date').datepicker
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true,
+		changeYear:true
 
-  $("#inactivestudents").dataTable
-      bPaginate: true,  #hide pagination control
-      bFilter: true,     #hide filter control
-      bJQueryUI: true
-
-  $(".datatableBS3").dataTable
-			pagingType: "simple",
-		  sPaginationType: "bootstrap"
-		  # Setup for responsive datatables helper.
-		  bAutoWidth: false
-		  bStateSave: false
-
-  $('#student_birth_date').datepicker
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: true
-
-  $('#student_start_date').datepicker
+	$('#student_start_date').datepicker
     dateFormat: 'yy-mm-dd'
 
-  $('#student_restart_date').datepicker
+	$('#student_restart_date').datepicker
     dateFormat: 'yy-mm-dd'
 
 	$("#student_start_hold_date").datepicker
 		dateFormat: 'yy-mm-dd'
 
-  $('#student_return_date').datepicker
-    dateFormat: 'yy-mm-dd'
+	$('#student_return_date').datepicker
+  	dateFormat: 'yy-mm-dd'
 
-  $('#student_end_date').datepicker
+	$('#student_end_date').datepicker
     dateFormat: 'yy-mm-dd'
-
   $('#creditsModal').modal('hide')
-
   # Passes information to grades modal when modal is launched.
   $('#gradesModalButton').on 'click', ->
     student_id = $('#studentId').data('studentid')
     $('#grade_student_id').val(student_id)
     $('#grade_experience_point_attributes_student_id').val(student_id)
-
   # Credit form submission events/redeems credits from student's account.
   $("#credits_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->

@@ -1,236 +1,236 @@
-// .welcomescreen{
-// 	background: url('maya.jpg');
-// 	background-position: center;
-// 	background-size: 1000px 667px;
-// 	background-repeat: no-repeat;
-// 	height: 600px;
-// 	padding-top: 30px;
-// 	padding-bottom: 30px;
-// 	margin-top: 0;
-// 	padding-left: 13%;
-//
-// 	h1{
-// 		font-weight: 200;
-// 	}
-// }
-//
-// footer{
-// 	margin-top:50px;
-// }
-//
-//
-// .user_search{
-// 	border-bottom: solid 1px #ddd;
-// 	padding: 5px;
-// }
-//
-// .user-info{
-// 	border-right: solid 1px #ebebeb;
-// 	padding: 15px;
-// }
-//
-// .user_info_role{
-// 	padding-bottom: 10px
-// }
-//
-// .activity_feed{
-// 	border: solid 1px #ebebeb;
-// 	-webkit-border-radius: 5px;
-// 	-moz-border-radius: 5px;
-// 	border-radius: 5px;padding-top: 5px;
-// 	padding-bottom: 5px;
-// 	padding-left: 20px;
-// 	height: 200px;
-// 	overflow: auto;
-//
-// }
-//
-// .location-stats{
-// 	background-color: #ededed;
-// 	-webkit-border-radius: 0px;
-// 	-moz-border-radius: 0px;
-// 	border-radius: 0px;
-// 	padding-top: 5px;
-// 	padding-bottom: 5px;
-// 	padding-left: 20px;
-// }
-//
-// .location-name{
-// 	border-bottom: solid 1px #000000;
-// 	padding: 5px;
-// }
-//
-// .attendance_grades_buttons{
-// 	padding-bottom: 10px;
-// }
-//
-// .nav-font{
-// 	font-family: Arial;
-// }
-//
-// .lesson_activities{
-// 	border: solid #cccccc 1px;
-// 	padding-right: 20px;
-//   padding-left: 20px;
-//   padding-top:4px;
-//   padding-bottom:10px;
-//   position: relative;
-//   margin: 10px;}
-//
-// .lesson{
-// 	margin: 10px;
-// 	background-color: #cccccc;
-// 	padding: 10px
-// }
-//
-// .key{
-// 	margin: 10px;
-// 	background-color: #cccccc;
-// 	padding: 10px
-// }
-//
-// .activities{
-// 	margin: 10px;
-// 	background-color: #cccccc;
-// 	padding: 10px
-// }
-//
-// .student_attending{
-// 	margin: 5px;
-// 	background-color: #e4e4e4;
-// 	-webkit-border-radius: 0px;
-// 	-moz-border-radius: 0px;
-// 	border-radius: 0px;
-// 	border-color: #7f7f7f;
-// 	padding-top: 5px;
-// 	padding-bottom: 5px;
-// 	padding-left: 10px;
-// 	padding-right: 10px;
-// 	border: 1px solid white;
-// }
-//
-// .class_offering{
-// 	form{
-// 		display: inline;
-// 		margin: 0;
-// 		.m-btn{
-// 			margin: 0 10px 0 0;
-// 			height: 20px;
-// 		}
-// 	}
-// 	a{
-// 		display: inline;
-// 	}
-// }
-//
-// ul{
-// 	list-style-type: none;
-// 	padding: 0;
-// 	margin: 0;
-// }
-//
-// .padding{
-// 	padding-right: 10px;
-// }
-//
-// .modal-body-stats{
-// 	margin:10px;
-// }
-//
-// .modal-body-grades .modal-body-stats{
-// 	max-height: 1000px;
-// 	padding-top: 20px
-// }
-//
-// .stages{
-// 	border: solid lightgray 1px;
-// 	margin-top: 10px;
-// 	padding-right: 10px;
-// 	padding-left: 10px;
-// 	.ui-draggable{
-//
-// 	}
-// }
-//
-// .lead_toolbar{
-// 	margin-bottom: 5px;
-// 	background-color: lightgray;
-// 	padding: 10px;
-// 	overflow: hidden;
-// 	form {
-// 		margin-bottom: 0;
-// 		margin-left: 20px;
-// 	}
-// 	textarea{
-// 		height:100px;
-// 		width: 300px;
-// 	}
-// }
-//
-// .leads{
-// 	width: 100%;
-// 	height: 70px;
-// 	border: solid lightgray 1px;
-// 	margin-bottom: 10px;
-// 	text-align: center;
-// 	vertical-align: middle;
-// }
-//
-// #stage_list div[id^="lead"]{
-// 	border: solid 1px lightgray;
-// 	padding: 10px;
-// 	margin-top: 5px;
-// }
-//
-// .note-button{
-// 	line-height: 4px;
-// 	font-size: 12px;
-// 	width: 45px;
-// 	height: 20px;
-// 	margin-top: 0;
-// }
-//
-// .leads.over {
-//   border: 2px dashed #000;
-// }
-//
-// #leadModal{
-// 	max-width: 600px;
-// 	min-height: 530px;
-// 	.modal-body{
-// 		padding-left: 50px;
-// 		padding-bottom: 30px;
-// 		min-height: 500px;
-// 		max-height: 0;
-// 		overflow: auto;
-// 	}
-// 	form{
-// 		margin-bottom: 0;
-// 	}
-// }
-//
-// #appointment_scheduled{
-// 	background-color: #99ccff;
-// }
-//
-// #assessment_completed{
-// 	background-color: #ffffcc;
-// }
-//
-// #won{
-// 	background-color: #ccffcc;
-// }
-//
-// #lost{
-// 	background-color: #ffcccc;
-// }
-//
-// .fat-menu{
-// 	.m-btn{
-// 		padding: 8px 14px 8px 14px;
-// 	}
-// }
-//
-// .inactive{
-// 	background-color: #d74242;
-// }
+.welcomescreen{
+	background: url('maya.jpg');
+	background-position: center;
+	background-size: 1000px 667px;
+	background-repeat: no-repeat;
+	height: 600px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-top: 0;
+	padding-left: 13%;
+
+	h1{
+		font-weight: 200;
+	}
+}
+
+footer{
+	margin-top:50px;
+}
+
+
+.user_search{
+	border-bottom: solid 1px #ddd;
+	padding: 5px;
+}
+
+.user-info{
+	border-right: solid 1px #ebebeb;
+	padding: 15px;
+}
+
+.user_info_role{
+	padding-bottom: 10px
+}
+
+.activity_feed{
+	border: solid 1px #ebebeb;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	height: 200px;
+	overflow: auto;
+
+}
+
+.location-stats{
+	background-color: #ededed;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+}
+
+.location-name{
+	border-bottom: solid 1px #000000;
+	padding: 5px;
+}
+
+.attendance_grades_buttons{
+	padding-bottom: 10px;
+}
+
+.nav-font{
+	font-family: Arial;
+}
+
+.lesson_activities{
+	border: solid #cccccc 1px;
+	padding-right: 20px;
+  padding-left: 20px;
+  padding-top:4px;
+  padding-bottom:10px;
+  position: relative;
+  margin: 10px;}
+
+.lesson{
+	margin: 10px;
+	background-color: #cccccc;
+	padding: 10px
+}
+
+.key{
+	margin: 10px;
+	background-color: #cccccc;
+	padding: 10px
+}
+
+.activities{
+	margin: 10px;
+	background-color: #cccccc;
+	padding: 10px
+}
+
+.student_attending{
+	margin: 5px;
+	background-color: #e4e4e4;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border-color: #7f7f7f;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid white;
+}
+
+.class_offering{
+	form{
+		display: inline;
+		margin: 0;
+		.m-btn{
+			margin: 0 10px 0 0;
+			height: 20px;
+		}
+	}
+	a{
+		display: inline;
+	}
+}
+
+ul{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.padding{
+	padding-right: 10px;
+}
+
+.modal-body-stats{
+	margin:10px;
+}
+
+.modal-body-grades .modal-body-stats{
+	max-height: 1000px;
+	padding-top: 20px
+}
+
+.stages{
+	border: solid lightgray 1px;
+	margin-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	.ui-draggable{
+
+	}
+}
+
+.lead_toolbar{
+	margin-bottom: 5px;
+	background-color: lightgray;
+	padding: 10px;
+	overflow: hidden;
+	form {
+		margin-bottom: 0;
+		margin-left: 20px;
+	}
+	textarea{
+		height:100px;
+		width: 300px;
+	}
+}
+
+.leads{
+	width: 100%;
+	height: 70px;
+	border: solid lightgray 1px;
+	margin-bottom: 10px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#stage_list div[id^="lead"]{
+	border: solid 1px lightgray;
+	padding: 10px;
+	margin-top: 5px;
+}
+
+.note-button{
+	line-height: 4px;
+	font-size: 12px;
+	width: 45px;
+	height: 20px;
+	margin-top: 0;
+}
+
+.leads.over {
+  border: 2px dashed #000;
+}
+
+#leadModal{
+	max-width: 600px;
+	min-height: 530px;
+	.modal-body{
+		padding-left: 50px;
+		padding-bottom: 30px;
+		min-height: 500px;
+		max-height: 0;
+		overflow: auto;
+	}
+	form{
+		margin-bottom: 0;
+	}
+}
+
+#appointment_scheduled{
+	background-color: #99ccff;
+}
+
+#assessment_completed{
+	background-color: #ffffcc;
+}
+
+#won{
+	background-color: #ccffcc;
+}
+
+#lost{
+	background-color: #ffcccc;
+}
+
+.fat-menu{
+	.m-btn{
+		padding: 8px 14px 8px 14px;
+	}
+}
+
+.inactive{
+	background-color: #d74242;
+}

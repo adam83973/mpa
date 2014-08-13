@@ -38,3 +38,9 @@
 jQuery ->
   $('body').tooltip
     selector: "[data-toggle~='tooltip']"
+
+  $("#datatable").dataTable
+    pagingType: "simple_numbers"
+    bPaginate: true  #hide pagination control
+    bFilter: true    #hide filter control
+    bJQueryUI: true

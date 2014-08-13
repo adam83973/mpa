@@ -4,11 +4,6 @@ body {
   font-weight: 200;
 }
 
-.brand{
-    font-weight: 100;
-    margin-top: 4px;
-}
-
 h1, h2, h3, h4, li {
   font-weight: 200;
 }
@@ -17,58 +12,44 @@ b{
   font-weight: 300;
 }
 
-// .progress.square{
-//   -webkit-border-radius: 0px;
-//      -moz-border-radius: 0px;
-//     border-radius: 0px;
-//     background-color: #3d75f4;
-// }
-//
-// .progress{
-//   .bar{
-//     background-color:#3399cc;
-//     background-image: none;
-//   }
-//
-//   .square{
-//     -webkit-border-radius: 0px;
-//        -moz-border-radius: 0px;
-//             border-radius: 0px;
-//     background-color: #3d75f4;
-//   }
-// }
-//
-// .accordion-group.square{
-//   -webkit-border-radius: 0px;
-//      -moz-border-radius: 0px;
-//           border-radius: 0px;
-// }
-//
-// .accordion-inner {
-//   padding: 15px 15px;
-//   border-top: 1px solid #e5e5e5;
-// }
-//
-// .accordion {
-//   margin-bottom: 10px;
-// }
-//
-// .accordion-inner {
-//   padding: 10px 10px 10px 10px;
-//   border-top: 1px solid #e5e5e5;
-// }
-//
-// .alert{
-//   -webkit-border-radius: 0px;
-//      -moz-border-radius: 0px;
-//           border-radius: 0px;
-// }
-//
-// .btn{
-//   -webkit-border-radius: 0px;
-//      -moz-border-radius: 0px;
-//           border-radius: 0px;
-// }
+.accordion-group.square{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+}
+
+.accordion-inner {
+  padding: 15px 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+.accordion-inner {
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.alert{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+          width: 100%;
+}
+
+.btn{
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+.checkbox input[type="checkbox"]{
+  position: relative;
+  margin: 0 10px 0 0;
+
+}
 //
 // .dropdown-submenu, .dropdown-menu, select, textarea, input[type="text"],
 // input[type="password"], input[type="datetime"], input[type="datetime-local"],

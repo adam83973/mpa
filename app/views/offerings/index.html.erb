@@ -3,14 +3,14 @@
 <h1><%= yield(:title)%></h1>
 
 <p>
-  <%= link_to 'New Class', new_offering_path, class: "m-btn green" %>
+  <%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
 </p>
 <p>
   Download:
   <%= link_to "CSV", offerings_path(format: "csv") %>
 </p>
 
-<table id="offerings" class="display">
+<table id="datatable" class="display">
     <thead>
       <tr>
         <th>ID</th>
@@ -70,6 +70,7 @@
 <h3> Import Classes</h3>
   <%= form_tag import_offerings_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
+    <br>
+    <%= submit_tag "Import", class: "btn btn-default" %>
   <% end %>
 <% end %>

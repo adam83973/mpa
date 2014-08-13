@@ -3,16 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-	$("#users").dataTable
-    "bPaginate": true,  #hide pagination control
-    "bFilter": true,     #hide filter control
-    "bJQueryUI": true
-
-  $("#parents").dataTable
-    "bPaginate": true,  #hide pagination control
-    "bFilter": true,     #hide filter control
-    "bJQueryUI": true
-
 	# User Form View
 	$("#user_role").on "change", ->
 		if $(this).val() is "Parent"
