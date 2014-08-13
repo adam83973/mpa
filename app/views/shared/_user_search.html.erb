@@ -1,6 +1,8 @@
-<%= form_tag root_path, :method => 'get', :id => "users_search", class: "form-search" do %>
-  <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "input-medium search-query" %>
-  <%= button_tag(type: "submit", class: "m-btn blue", style: "padding:8px 14px 8px 14px;") do %>
-    <i class="icon-search icon-white"></i>
+<li>
+  <%= form_tag root_path, :method => 'get', :id => "users_search", class: "navbar-form navbar-left", role: "search" do %>
+    <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "form-control" %>
+    <%= button_tag(type: "submit", class: "btn btn-default") do %>
+      <i class="icon-search"></i>
+    <% end %>
   <% end %>
-<% end %>
+</li>

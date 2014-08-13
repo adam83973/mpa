@@ -31,10 +31,12 @@ jQuery ->
       bFilter: true,     #hide filter control
       bJQueryUI: true
 
-  $("#allstudents").dataTable
-      bPaginate: true,  #hide pagination control
-      bFilter: true,     #hide filter control
-      bJQueryUI: true
+  $(".datatableBS3").dataTable
+			pagingType: "simple",
+		  sPaginationType: "bootstrap"
+		  # Setup for responsive datatables helper.
+		  bAutoWidth: false
+		  bStateSave: false
 
   $('#student_birth_date').datepicker
     dateFormat: 'yy-mm-dd',

@@ -1,10 +1,8 @@
-@import "bootstrap";
+
 body {
   padding-top: 80px;
   font-weight: 200;
 }
-
-@import "bootstrap-responsive";
 
 .brand{
     font-weight: 100;
@@ -19,73 +17,73 @@ b{
   font-weight: 300;
 }
 
-.progress.square{
-  -webkit-border-radius: 0px;
-     -moz-border-radius: 0px;
-    border-radius: 0px;
-    background-color: #3d75f4;
-}
-
-.progress{
-  .bar{
-    background-color:#3399cc;
-    background-image: none;
-  }
-
-  .square{
-    -webkit-border-radius: 0px;
-       -moz-border-radius: 0px;
-            border-radius: 0px;
-    background-color: #3d75f4;
-  }
-}
-
-.accordion-group.square{
-  -webkit-border-radius: 0px;
-     -moz-border-radius: 0px;
-          border-radius: 0px;
-}
-
-.accordion-inner {
-  padding: 15px 15px;
-  border-top: 1px solid #e5e5e5;
-}
-
-.accordion {
-  margin-bottom: 10px;
-}
-
-.accordion-inner {
-  padding: 10px 10px 10px 10px;
-  border-top: 1px solid #e5e5e5;
-}
-
-.alert{
-  -webkit-border-radius: 0px;
-     -moz-border-radius: 0px;
-          border-radius: 0px;
-}
-
-.btn{
-  -webkit-border-radius: 0px;
-     -moz-border-radius: 0px;
-          border-radius: 0px;
-}
-
-.dropdown-submenu, .dropdown-menu, select, textarea, input[type="text"],
-input[type="password"], input[type="datetime"], input[type="datetime-local"],
-input[type="date"], input[type="month"], input[type="time"], input[type="week"],
-input[type="number"], input[type="email"], input[type="url"], input[type="search"],
-input[type="tel"], input[type="color"], .uneditable-input{
-  -webkit-border-radius: 0px;
-          border-top-right-radius: 0px;
-          border-top-left-radius: 0px;
-          border-bottom-left-radius: 0px;
-          border-bottom-right-radius: 0px
-}
-
-.alert-success {
-  color: #468847;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-}
+// .progress.square{
+//   -webkit-border-radius: 0px;
+//      -moz-border-radius: 0px;
+//     border-radius: 0px;
+//     background-color: #3d75f4;
+// }
+//
+// .progress{
+//   .bar{
+//     background-color:#3399cc;
+//     background-image: none;
+//   }
+//
+//   .square{
+//     -webkit-border-radius: 0px;
+//        -moz-border-radius: 0px;
+//             border-radius: 0px;
+//     background-color: #3d75f4;
+//   }
+// }
+//
+// .accordion-group.square{
+//   -webkit-border-radius: 0px;
+//      -moz-border-radius: 0px;
+//           border-radius: 0px;
+// }
+//
+// .accordion-inner {
+//   padding: 15px 15px;
+//   border-top: 1px solid #e5e5e5;
+// }
+//
+// .accordion {
+//   margin-bottom: 10px;
+// }
+//
+// .accordion-inner {
+//   padding: 10px 10px 10px 10px;
+//   border-top: 1px solid #e5e5e5;
+// }
+//
+// .alert{
+//   -webkit-border-radius: 0px;
+//      -moz-border-radius: 0px;
+//           border-radius: 0px;
+// }
+//
+// .btn{
+//   -webkit-border-radius: 0px;
+//      -moz-border-radius: 0px;
+//           border-radius: 0px;
+// }
+//
+// .dropdown-submenu, .dropdown-menu, select, textarea, input[type="text"],
+// input[type="password"], input[type="datetime"], input[type="datetime-local"],
+// input[type="date"], input[type="month"], input[type="time"], input[type="week"],
+// input[type="number"], input[type="email"], input[type="url"], input[type="search"],
+// input[type="tel"], input[type="color"], .uneditable-input{
+//   -webkit-border-radius: 0px;
+//           border-top-right-radius: 0px;
+//           border-top-left-radius: 0px;
+//           border-bottom-left-radius: 0px;
+//           border-bottom-right-radius: 0px
+// }
+//
+// .alert-success {
+//   color: #468847;
+//   background-color: #dff0d8;
+//   border-color: #d6e9c6;
+// }

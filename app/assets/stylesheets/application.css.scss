@@ -1,0 +1,34 @@
+/*
+ *= require_self
+ *= require bootstrap_and_overrides
+ *= require font-awesome
+ *= require jquery-ui
+ *= require chosen
+ *= require dataTables/jquery.dataTables
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require dataTables/extras/dataTables.responsive
+ *= require normalize-rails
+ *= require_tree
+ */
+
+@import "compass";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+// .push, footer {
+// 	height: 63px;
+// }
+//
+// .tscroll{
+//  	overflow: auto;
+// }
+//
+// .ul-padding{
+// 	padding-top: 10px;
+// }
+//
+// table {
+//     margin: 1em 0;
+//     clear: both;
+// }
