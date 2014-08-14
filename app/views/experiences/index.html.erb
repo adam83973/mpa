@@ -8,7 +8,7 @@
     <%= link_to "CSV", experiences_path(format: "csv") %>
   </p>
   <p>
-    <%= link_to 'New Achievement', new_experience_path, class: "m-btn green" %>
+    <%= link_to 'New Achievement', new_experience_path, class: "btn btn-success" %>
   </p>
 <% end %>
 
@@ -53,6 +53,7 @@
 <h3> Import Experiences</h3>
   <%= form_tag import_experiences_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
+    <br>
+    <%= submit_tag "Import", class: "btn btn-default" %>
   <% end %>
 <% end %>

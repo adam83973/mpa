@@ -1,6 +1,6 @@
 <% if params[:infusion_id] %>
-<div class="row-fluid">
-  <div class="span4">
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
   <%= simple_form_for @user, validate: true do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -26,7 +26,7 @@
       <%= f.input :email %>
     <% end %>
   </div>
-  <div class="span4">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <% if current_user.employee? %>
       <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]}  %>
       <%= f.input :passion %>
@@ -37,7 +37,7 @@
       <%= f.input :active if current_user.admin? %>
     <% end %>
   </div>
-  <div class="span4">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
   </div>
@@ -45,8 +45,8 @@
     <%= f.button :submit, class: "m-btn" %>
   <% end %>
 <% else %>
-<div class="row-fluid">
-  <div class="span4">
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
   <%= simple_form_for @user, :validate => true do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
@@ -70,7 +70,7 @@
         <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' if current_user.employee? %>
       <% end %>
   </div>
-  <div class="span4">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <% if current_user.employee? %>
       <%= f.input :passion %>
       <%= f.input :shirt_size %>
@@ -79,12 +79,12 @@
       <%= f.input :admin if current_user.admin? %>
     <% end %>
   </div>
-  <div class="span4">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
     <%= f.input :active if current_user.admin? %>
   </div>
 </div>
-<%= f.button :submit, class: "m-btn green pull-right" %>
+<%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
 <% end %>
 <% end %>

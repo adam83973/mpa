@@ -2,8 +2,8 @@
 
 <% if signed_in? && current_user.employee? %>
   <p>
-    <%= link_to 'New Problem', new_problem_path(params.merge(:type => 'problem')), class: 'm-btn green' %>
-    <%= link_to 'New Activity/Game', new_problem_path(params.merge(:type => 'activity')), class: 'm-btn green' %>
+    <%= link_to 'New Problem', new_problem_path(params.merge(:type => 'problem')), class: 'btn btn-success' %>
+    <%= link_to 'New Activity/Game', new_problem_path(params.merge(:type => 'activity')), class: 'btn btn-success' %>
   </p>
 <% end %>
 
@@ -57,7 +57,8 @@
 <h3> Import Activities</h3>
   <%= form_tag import_problems_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import", class: 'm-btn' %>
+    <br>
+    <%= submit_tag "Import", class: 'btn btn-default' %>
   <% end %>
 <% end %>
 

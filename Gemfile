@@ -39,8 +39,6 @@ end
 
 group :assets do
   gem 'sass-rails'
-  gem 'sprockets-rails'
-  gem 'sprockets'
   gem 'bootstrap-sass'
   gem 'font-awesome-rails', '~> 4.0.3.1'
   gem 'normalize-rails'

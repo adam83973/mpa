@@ -7,7 +7,7 @@ class StudentsController < ApplicationController
   def index
     if current_user.employee?
       @students = Student.includes(:user, :offerings)
-      @active_students = Student.find_all_by_status('Active')
+      @active_students = Student.active
       @inactive_students = Student.where("status = ? OR status = ?", "Inactive", "Hold")
       # @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
       # @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")

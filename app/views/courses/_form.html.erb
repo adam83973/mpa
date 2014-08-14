@@ -1,20 +1,24 @@
-<%= simple_form_for(@course) do |f| %>
-  <% if @course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for(@course) do |f| %>
+      <% if @course.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
 
-      <ul>
-      <% @course.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @course.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-    <%= f.input :course_name %>
-    <%= f.association :occupation, label_method: :title %>
-    <%= f.input :grade %>
-    <%= f.input :description, input_html: { rows: 5 } %>
-    <%= f.button :submit, class: "m-btn" %>
+        <%= f.input :course_name %>
+        <%= f.association :occupation, label_method: :title %>
+        <%= f.input :grade %>
+        <%= f.input :description, input_html: { rows: 5 } %>
+        <%= f.button :submit, class: "btn btn-lg btn-success" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

@@ -1,6 +1,8 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/draggable
+//= require jquery-ui/droppable
+//= require jquery-ui/datepicker
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require chosen-jquery
@@ -44,3 +46,5 @@ jQuery ->
     bPaginate: true  #hide pagination control
     bFilter: true    #hide filter control
     bJQueryUI: true
+
+  $(".chosen").chosen()

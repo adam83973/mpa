@@ -1,5 +1,8 @@
 /*
- *= require jquery-ui
+ *= require jquery-ui/core
+ *= require jquery-ui/menu
+ *= require jquery-ui/accordion
+ *= require jquery-ui/tooltip
  *= require chosen
  *= require dataTables/jquery.dataTables
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
@@ -16,8 +19,6 @@
 
 @import "compass";
 @import "font-awesome";
-$baseFontFamily: 'FontAwesome';
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap_and_overrides";
 

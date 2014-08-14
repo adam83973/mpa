@@ -58,6 +58,7 @@
 <p style="color:red;">(CAUTION: Only for editing attributes! This is not for uploading files.)</p>
   <%= form_tag import_resources_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
+    <br>
+    <%= submit_tag "Import", class: "btn btn-default" %>
   <% end %>
 <% end %>
