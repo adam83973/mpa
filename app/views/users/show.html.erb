@@ -1,14 +1,7 @@
-<div class="row-fluid">
-  <div class="span12">
-
-    <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
-      <%= link_to "Edit User", edit_user_path(@user), class: "m-btn mini pull-right"%>
-    <hr>
-  </div>
-</div>
-<div class="row-fluid">
-  <div class="span6">
-    <p>
+<div class="row">
+  <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+    <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>) <%= user_status(@user).html_safe %>
+    <p style="margin-top:10px;">
       <b>Email:</b>
       <%= @user.email %>
     </p>
@@ -17,6 +10,21 @@
       <b>Phone:</b>
       <%= @user.phone %>
     </p>
+  </div>
+  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <ul class="pull-right">
+        <li><%= link_to "Edit User", edit_user_path(@user), class: "btn btn-default"%></li>
+        <% if @user.parent? %>
+          <li><%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "btn btn-success student_tool_button" } %></li>
+          <li><%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'btn btn-warning student_tool_button' if @user.active? %></li>
+        <% end %>
+      </ul>
+  </div>
+</div>
+
+    <hr>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
     <p>
       <b>Location:</b>
@@ -54,31 +62,21 @@
           <%= @user.admin %>
         </p>
       <% end %>
-      <p>
-        <b>Active:</b>
-        <%= @user.active %>
-      </p>
 
       <p>
         <%= render 'shared/nav_buttons' %>
-
-        <% if @user.parent? %>
-        <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "m-btn blue" } %>
-        <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'm-btn red' if @user.active? %>
-        <% end %>
       </p>
     <% end %>
   </div>
-  <div class="span2"></div>
+  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
   <% if current_user.admin? %>
-    <div class="span4">
-      <div class="row-fuild">
-        <%= simple_form_for [@user, Note.new], remote: true do |f| %>
-          <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
-          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-          <%= f.button :submit, class: "m-btn note-button green" %>
-        <% end %>
-
+    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+      <%= simple_form_for [@user, Note.new], remote: true do |f| %>
+        <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+        <%= f.button :submit, class: "btn btn-xs btn-success" %>
+      <% end %>
+      <div class="notes">
         <div id="user_note">
           <%= render 'user_notes' %>
         </div>

@@ -1,10 +1,14 @@
-<div class="row-fuild">
-  <%= simple_form_for [@student, Note.new], remote: true do |f| %>
-    <%= f.input :content, label: "Add note...", input_html: { style: "width:auto;", rows: 4 } %>
-    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-    <%= f.button :submit, class: "m-btn note-button green" %>
-  <% end %>
-  <div id="student_note">
-    <%= render 'students_notes' %>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for [@student, Note.new], remote: true do |f| %>
+      <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+      <%= f.button :submit, class: "btn btn-xs btn-success" %>
+    <% end %>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 notes">
+    <div id="student_note">
+      <%= render 'students_notes' %>
+    </div>
   </div>
 </div>

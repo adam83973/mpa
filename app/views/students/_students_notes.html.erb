@@ -1,12 +1,16 @@
 <% unless @lead || @user %>
-  <% @student.notes.includes(:user).order("created_at DESC").each do |note| %>
-    <li>
-      <div class="note">
-        <p>
-          <%= note.content %>
-        </p>
-        <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
-      </div>
-    </li>
-  <% end %>
+  <ul class="list-unstyled">
+    <% @student.notes.includes(:user).order("created_at DESC").each do |note| %>
+      <li>
+        <div class="well well-sm">
+          <p>
+            "<%= note.content %>"
+          </p>
+          <p class="text-right">
+            <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
+          </p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

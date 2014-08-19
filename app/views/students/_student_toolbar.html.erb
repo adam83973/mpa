@@ -4,13 +4,13 @@
     <ul class="nav ul-padding">
       <%if current_user.employee? %>
         <li>
-          <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-blue student_tool_button" %>
+          <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
         </li>
         <li>
-          <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-success student_tool_button"%>
+          <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-green student_tool_button"%>
         </li>
         <li>
-          <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-gray student_tool_button" } %>
+          <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
         </li>
         <% if @agent_offering %>
         <li>

@@ -1,6 +1,13 @@
 .note{
   border: 1px solid gray;
-  padding: 10px 10px 10px 10px;
+  padding: 0 10px 10px 10px;
   margin-bottom: 5px;
-  max-width: 400px;
+  width: 100%;
+}
+
+.notes{
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 20px 0 0 0;
 }

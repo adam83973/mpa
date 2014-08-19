@@ -8,11 +8,11 @@
       <%= render 'shared/user_search_results' %>
     </div>
       <%if current_user.employee? %>
-        <div class="row-fluid">
-          <div class="span5">
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
             <%= render 'new_student_feed' %>
           </div>
-          <div class="span3">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <%= render 'on_hold' unless current_user.teacher? %>
           </div>
         </div>

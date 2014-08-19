@@ -176,10 +176,8 @@ ul{
 	vertical-align: middle;
 }
 
-#stage_list div[id^="lead"]{
-	border: solid 1px lightgray;
-	padding: 10px;
-	margin-top: 5px;
+#stage_list .well{
+	margin-bottom: 10px;
 }
 
 .note-button{
@@ -194,23 +192,12 @@ ul{
   border: 2px dashed #000;
 }
 
-#leadModal{
-	max-width: 600px;
-	min-height: 530px;
-	.modal-body{
-		padding-left: 50px;
-		padding-bottom: 30px;
-		min-height: 500px;
-		max-height: 0;
-		overflow: auto;
-	}
-	form{
-		margin-bottom: 0;
-	}
-}
-
 #appointment_scheduled{
 	background-color: #99ccff;
+}
+
+#appointment_missed{
+	background-color: #a69dff;
 }
 
 #assessment_completed{

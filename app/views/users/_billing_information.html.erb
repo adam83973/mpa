@@ -3,8 +3,8 @@
   <p>
     <b>Infusionsoft Id:</b>
     <%= @user.infusion_id %>&nbsp &nbsp
-    <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'm-btn mini purple-stripe' %>
-    <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'm-btn mini blue-stripe' %>
+    <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-xs btn-warning' %>
+    <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-xs btn-primary' %>
   </p>
   <% else %>
     <p>

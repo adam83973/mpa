@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.includes(:location)
+    @users = User.includes(:location, :notes)
     @parents = User.where("role=?", "Parent").includes(:location)
     @active_parents = User.where("role = ? AND active = ?", "Parent", true)
     @active_employees = User.where("role != ? AND active = ?", "Parent", true)

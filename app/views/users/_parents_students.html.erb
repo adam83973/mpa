@@ -3,7 +3,7 @@
   <p>
     <% @user.students.each do |student| %>
       <h4> <%= link_to student.full_name, student %></h4>
-      <% student.offerings.each do |offering| %>
+      <% student.offerings.includes(:course, :location).each do |offering| %>
         <p><%= link_to offering.offering_name, offering %></p>
       <% end %>
     <% end %>
