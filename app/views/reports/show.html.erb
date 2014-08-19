@@ -25,8 +25,9 @@
       <th>Student</th>
       <th>Status</th>
       <th>Last Payment Date</th>
+      <th>Parent's Infusion ID</th>
     </thead>
-    <% @students.each do |s| %>
+    <% @students.includes(:user).each do |s| %>
     <tr>
       <td>
         <%= link_to s.full_name, s %>
@@ -42,6 +43,9 @@
       <% else %>
         No last payment on file
       <% end %>
+    </td>
+    <td>
+      <%= s.user.infusion_id ? s.user.infusion_id : "no id on file" %>
     </td>
     </tr>
     <% end %>
