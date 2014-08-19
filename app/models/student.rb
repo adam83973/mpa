@@ -56,9 +56,17 @@ class Student < ActiveRecord::Base
     experience_points.sum(:points)
   end
 
+  def last_attendance_xp
+    experience_points.joins(:experience).where("name LIKE ?", "%Attendance%").last
+  end
+
+  def last_assignment_xp
+    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").last
+  end
+
   def xp_sum_by_occupation(cat)
     t = 0
-    experience_points.each do |xp|
+    experience_points.includes(:experience).each do |xp|
       if xp.experience.occupation && xp.experience.occupation.title == cat
         t += xp.points
       end
@@ -162,7 +170,7 @@ class Student < ActiveRecord::Base
 
   def is_mathematician?
     math_class = false
-    offerings.each do |offering|
+    offerings.includes(:occupation).each do |offering|
       if offering.occupation.id == 1 # 1 = id for Mathematician
         math_class = true
       end
@@ -172,7 +180,7 @@ class Student < ActiveRecord::Base
 
   def is_engineer?
     engineering_class = false
-    offerings.each do |offering|
+    offerings.includes(:occupation).each do |offering|
       if offering.occupation.id == 2 # 2 = id for Engineer
         engineering_class = true
       end
@@ -182,7 +190,7 @@ class Student < ActiveRecord::Base
 
   def is_programmer?
     programming_class = false
-    offerings.each do |offering|
+    offerings.includes(:occupation).each do |offering|
       if offering.occupation.id == 3 # 1 = id for Programmer
         programming_class = true
       end

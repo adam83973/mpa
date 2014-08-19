@@ -5,8 +5,7 @@ class StaticPagesController < ApplicationController
     if signed_in?
       if current_user.parent?
         if Time.now > "20131216000001".to_datetime && Time.now < "20140615000001".to_datetime
-          flash[:notice] = "Summer Camp registration is OPEN! Follow this
-          <a href='http://summercamps.mathplusacademy.com'>link</a> and use this coupon code 'APP10' to save $10 per camp!".html_safe
+          #add time sensitive flashes for parents...
         end
       end
       @user = current_user
@@ -15,7 +14,7 @@ class StaticPagesController < ApplicationController
         @note = Note.new
         @grade = Grade.new
         @experience_point = ExperiencePoint.new
-        @offerings = Offering.order(:course_id)
+        @offerings = Offering.includes(:course).includes(:users).order(:course_id)
         @user_offerings = @user.offerings
         @user_location = @user.location
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
@@ -48,7 +47,7 @@ class StaticPagesController < ApplicationController
         if @user_location
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
-          @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
+          @todays_offering_by_location = Offering.includes(:users).includes(:course).where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
           @new_students_location = @user_location.students.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
             @new_students_location.each do |student|

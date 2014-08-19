@@ -1,0 +1,6 @@
+<%= form_tag root_path, :method => 'get', :id => "users_search" do %>
+  <%= hidden_field_tag :search, '' %>
+  <%= button_tag(type: "submit", class: "btn btn-sm btn-danger") do %>
+    Reset Search  <i class="fa fa-times"></i>
+  <% end %>
+<% end %>

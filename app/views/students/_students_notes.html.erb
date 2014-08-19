@@ -1,5 +1,5 @@
 <% unless @lead || @user %>
-  <% @student.notes.order("created_at DESC").each do |note| %>
+  <% @student.notes.includes(:user).order("created_at DESC").each do |note| %>
     <li>
       <div class="note">
         <p>

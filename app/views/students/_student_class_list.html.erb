@@ -16,7 +16,7 @@
 <h3>Classes:</h3>
 
 <p>
-	<% @student.offerings.each do |offering| %>
+	<% @student.offerings.includes(:course, :location).each do |offering| %>
 	    <%= link_to offering.offering_name, offering %> <br />
 	<% end %>
 </p>

@@ -1,5 +1,5 @@
-<div class="row">
-  <table class="table table-bordered span12">
+<div class="table-responsive">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>Class</th>
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @location.active_offerings.order(:course_id).each do |offering| %>
+      <% @location.active_offerings.includes(:users).order(:course_id).each do |offering| %>
       <tr>
         <td>
           <%= offering.course.course_name%><%= raw offering_capacity(offering)%>

@@ -1,8 +1,8 @@
 
 <div id="student">
   <div class="studentinfo">
-    <div class="row-fluid">
-      <div class="span3 studentname hidden-phone">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs">
         <h2><%= @student.full_name %></h2>
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
           <div class="circle-text">
@@ -16,17 +16,17 @@
           <p>
             <div id="studentId" data-studentId="<%= @student.id %>">
               <h3>ID: <%= @student.id %></h3>
-            </div>
+            </div><!--/.<%= @student.id %> -->
           </p>
           <p>
             <b>Parent:</b>
             <%= link_to @student.parent_name, @student.user %>
           </p>
        <% else %>
-          <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
+          <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
        <% end %>
-     </div><!--/.span3 .studentname hidden-phone -->
-      <div class="span3 hidden-desktop hidden-tablet" style="text-align:center;">
+     </div><!--/.col-lg-3 col-md-3 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->
+      <div class="col-lg-3 hidden-lg hidden-md text-center">
         <h2><%= @student.full_name %></h2>
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
           <div class="circle-text">
@@ -48,76 +48,74 @@
           <%= link_to @student.parent_name, @student.user %>
         </p>
         <% else %>
-          <div style="min-width:260px;min-height:40px;" class="hidden-phone hidden-tablet"></div>
+          <div style="min-width:260px;min-height:40px;" class="hidden-sm hidden-xs"></div>
         <% end %>
-      </div><!--/.span3 .hidden-desktop hidden-tablet -->
-      <div style="text-align:center;" class="span9">
-
+      </div><!--/.col-lg-3 hidden-lg hidden-md text-center -->
+      <div class="text-center col-lg-9 col-md-9 col-sm-12 col-xs-12">
         <!-- Mathematics student information -->
-        <% if @student.is_mathematician? %>
-          <div style="text-align:center;" class="pull-left">
-            <h2>Mathematician</h2>
-            <%= link_to("#mathematicianModal", data: {toggle: :modal}) do %>
+          <% if @student.is_mathematician? %>
+            <div class="text-center col-lg-3">
+              <h2>Mathematician</h2>
+              <%= link_to("#mathematicianModal", data: {toggle: :modal}) do %>
+                <input
+                  disabled
+                  id="mathematician-dial"
+                  value="<%= @student.percentage_of_level_completed("Mathematician") %>"
+                  data-level="<%= @student.math_level %>"
+                >
+              <% end %>
+              <p>
+                XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
+              </p>
+              <p>
+                <%= @student.points_to_next_level("Mathematician") %>xp to Level <%= @student.next_level("Mathematician").level %>
+              </p>
+            </div> <!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
+          <% end %>
+
+          <!-- Engineering student information -->
+          <% if @student.is_engineer? %>
+            <div class="text-center col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <h2>Engineer</h2>
+              <%= link_to("#engineerModal", data: {toggle: :modal}) do %>
               <input
                 disabled
-                id="mathematician-dial"
-                value="<%= @student.percentage_of_level_completed("Mathematician") %>"
-                data-level="<%= @student.math_level %>"
+                id="engineer-dial"
+                value="<%= @student.percentage_of_level_completed("Engineer") %>"
+                data-level="<%= @student.eng_level %>"
               >
-            <% end %>
-            <p>
-              XP: <%= @student.xp_sum_by_occupation("Mathematician")%>
-            </p>
-            <p>
-              <%= @student.points_to_next_level("Mathematician") %>xp to Level <%= @student.next_level("Mathematician").level %>
-            </p>
-          </div> <!--/.pull-left -->
-        <% end %>
+              <% end %>
+              <p>
+                XP: <%= @student.xp_sum_by_occupation("Engineer")%>
+              </p>
+              <p>
+                <%= @student.points_to_next_level("Engineer") %>xp to Level <%= @student.next_level("Engineer").level %>
+              </p>
+            </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
+          <% end %>
 
-        <!-- Engineering student information -->
-        <% if @student.is_engineer? %>
-          <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Engineer</h2>
-            <%= link_to("#engineerModal", data: {toggle: :modal}) do %>
-            <input
-              disabled
-              id="engineer-dial"
-              value="<%= @student.percentage_of_level_completed("Engineer") %>"
-              data-level="<%= @student.eng_level %>"
-            >
-            <% end %>
-            <p>
-              XP: <%= @student.xp_sum_by_occupation("Engineer")%>
-            </p>
-            <p>
-              <%= @student.points_to_next_level("Engineer") %>xp to Level <%= @student.next_level("Engineer").level %>
-            </p>
-          </div><!--/.pull-left -->
-        <% end %>
-
-        <!-- Programming student information -->
-        <% if @student.is_programmer? %>
-          <div style="text-align:center;padding-left:15px;" class="pull-left">
-            <h2>Programmer</h2>
-            <%= link_to("#programmerModal", data: {toggle: :modal}) do %>
-            <input
-              disabled
-              id="programmer-dial"
-              value="<%= @student.percentage_of_level_completed("Programmer") %>"
-              data-level="<%= @student.prog_level %>"
-            >
-            <% end %>
-            <p>
-              XP: <%= @student.xp_sum_by_occupation("Programmer")%>
-            </p>
-            <p>
-              <%= @student.points_to_next_level("Programmer") %>xp to Level <%= @student.next_level("Programmer").level %>
-            </p>
-          </div><!--/.pull-left -->
-        <% end %>
-
+          <!-- Programming student information -->
+          <% if @student.is_programmer? %>
+            <div class="text-center col-lg-3">
+              <h2>Programmer</h2>
+              <%= link_to("#programmerModal", data: {toggle: :modal}) do %>
+              <input
+                disabled
+                id="programmer-dial"
+                value="<%= @student.percentage_of_level_completed("Programmer") %>"
+                data-level="<%= @student.prog_level %>"
+              >
+              <% end %>
+              <p>
+                XP: <%= @student.xp_sum_by_occupation("Programmer")%>
+              </p>
+              <p>
+                <%= @student.points_to_next_level("Programmer") %>xp to Level <%= @student.next_level("Programmer").level %>
+              </p>
+            </div><!--/.pull-left -->
+          <% end %>
         <%= render 'student_toolbar' %>
       </div><!--/.span9 -->
-    </div><!--/.row-fluid -->
+    </div><!--/.row -->
   </div><!--/.studentinfo -->
 </div><!--/#student -->

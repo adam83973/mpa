@@ -5,7 +5,7 @@ class StandardsController < ApplicationController
   # GET /standards
   # GET /standards.json
   def index
-    @standards = Standard.order(:id)
+    @standards = Standard.includes(:course).order(:id)
 
     respond_to do |format|
       format.html # index.html.erb

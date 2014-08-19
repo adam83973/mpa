@@ -51,4 +51,16 @@ MathPlus::Application.configure do
   }
 
    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+   config.after_initialize do
+     Bullet.enable = true
+     Bullet.alert = true
+     Bullet.bullet_logger = false
+     Bullet.console = true
+     Bullet.growl = false
+     Bullet.rails_logger = false
+     Bullet.bugsnag = false
+     Bullet.airbrake = false
+     Bullet.add_footer = false
+   end
 end

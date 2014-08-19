@@ -3,27 +3,26 @@
   <nav>
     <ul class="nav ul-padding">
       <%if current_user.employee? %>
-      <li>
-        <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red-stripe student_tool_button" %>
-      </li>
-      <li>
-        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "m-btn blue-stripe student_tool_button"%>
-      </li>
-      <li>
-        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple-stripe student_tool_button" } %>
-      </li>
-      <!-- <li><%# link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn yellow-stripe student_tool_button", id: "gradesModalButton"%></li> -->
-      <% if @agent_offering %>
-      <li>
-        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn black-stripe student_tool_button" } %>
-      </li>
-      <% end %>
+        <li>
+          <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-blue student_tool_button" %>
+        </li>
+        <li>
+          <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-success student_tool_button"%>
+        </li>
+        <li>
+          <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-gray student_tool_button" } %>
+        </li>
+        <% if @agent_offering %>
+        <li>
+          <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+        </li>
+        <% end %>
 
-      <% if @second_offering %>
-      <li>
-        <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "m-btn orange-stripe" } %>
-      </li>
-      <% end %>
+        <% if @second_offering %>
+        <li>
+          <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+        </li>
+        <% end %>
       <% end %>
     </ul>
   </nav>

@@ -1,19 +1,18 @@
-<div class="row-fluid">
+<div class="row">
   <%= render 'student_stats' %>
 </div>
 
-<div class="row-fluid paddingtop15">
-  <div class="span3 class_list">
+<div class="row paddingtop15">
+  <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 class_list">
     <%= render 'student_class_list' %><br />
     <p>
       <%= render 'shared/nav_buttons' %>
     </p>
   </div>
 
-  <div class="span8 achievements">
+  <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 achievements">
     <%= render 'student_achievements' %><br />
     <%= render 'robotics_achievements' %>
-    <%# render 'student_grades' if current_user.admin? && @student.is_mathematician? %>
   </div>
 </div>
 <span class="row">
@@ -26,10 +25,4 @@
 
 <%= render 'credits_modal' %>
 
-<% @occupations.each do |occupation| %>
-  <div id="<%= occupation.title.downcase %>Modal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-body">
-     <%= render '/occupations/occupations_levels', occupation: occupation %>
-  </div>
-</div>
-<% end %>
+<%= render 'occupation_modals' %>
