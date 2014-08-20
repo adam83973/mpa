@@ -1,30 +1,29 @@
 <% if class_session.in_session? %>
-  <div id="attendanceModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">You can't have a class without students!</h3>
-    </div>
-    <center>
-      <br>
+  <div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">You can't have a class without students!</h4>
+      </div>
       <div class="modal-body">
          <%= simple_form_for @experience_point,
             url: url_for( action: :create, controller: :experience_points ),
             method: :post,
             html: { id: 'attendance_form'},
             remote: true do |f| %>
-          <%= f.error_notification %>
-
-          <div class="form-inputs">
-            <%= f.association :student, input_html: { class: "chosen-select"}, label_method: :full_name %>
+            <%= f.error_notification %>
+            <%= f.association :student, label_method: :full_name, input_html: { class: "chzn" } %>
             <%= f.input :experience_id, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", Offering.find(class_session.offering).course.occupation_id, "%Attendance%").first.id }, as: :hidden, label: "Achievement ID" %>
             <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
             <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
-          </div>
-            <%= f.button :submit, "Add to Class", class: "m-btn" %>
+            <%= f.button :submit, "Add to Class", class: "btn btn-success" %>
+            <br>
         <% end %>
-        <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
       </div>
-    </center>
-  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <% end %>

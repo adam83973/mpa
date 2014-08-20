@@ -1,30 +1,30 @@
 jQuery ->
-  $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages">
+  $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages well well-lg">
     <h4><u><%= @stage.name %></u></h4>
     <ul>
     <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
-    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" style="padding:5px 10px 0px 10px;">
+    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" class="well well-sm" style="z-index:1;">
     <li>
-    <div class="row-fluid">
-    <div class="span9">
+    <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
     <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
     </div>
-    <div class="span3">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
     <%= link_to "javascript:void(0)", class: "stage_attr" do %>
-    <i class="icon icon-plus pull-right"></i>
+    <i class="fa fa-plus pull-right"></i>
     <% end %>
     </div>
     </div>
     </li>
     </div>
     <div class="lead_toolbar">
-    <div class="row-fluid">
+    <div class="row">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
-    <%= f.input :content, input_html: { style: "width:auto;" } %>
+    <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
     <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
-    <%= f.button :submit, class: "m-btn note-button green" %>
+    <%= f.button :submit, class: "btn btn-success btn-xs" %>
     <% end %>
     </div>
     </div>
@@ -37,27 +37,27 @@ jQuery ->
     </div>')
 
   $("#stage_droppable").html(
-    '<div class="leads" id="appointment_scheduled">
+    '<div class="leads well well-sm text-center" id="appointment_scheduled">
     <h4><u>Appointment Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></u></h4>
     <p></p>
     </div>
-    <div class="leads" id="appointment_missed">
+    <div class="leads well well-sm text-center" id="appointment_missed">
     <h4><u>Appointment Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></u></h4>
     <p></p>
     </div>
-    <div class="leads" id="assessment_completed">
+    <div class="leads well well-sm text-center" id="assessment_completed">
     <h4><u>Assessment Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></u></h4>
     <p></p>
     </div>
-    <div class="leads" id="trial_offered">
+    <div class="leads well well-sm text-center" id="trial_offered">
     <h4><u>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></u></h4>
     <p></p>
     </div>
-    <div class="leads" id="won">
+    <div class="leads well well-sm text-center" id="won">
     <h4><u>Won</u></h4>
     <p></p>
     </div>
-    <div class="leads" id="lost">
+    <div class="leads well well-sm text-center" id="lost">
     <h4><u>Lost</u></h4>
     <p></p>
     </div>')

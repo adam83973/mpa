@@ -1,5 +1,5 @@
-<div class="row-fluid">
-  <div class="span6">
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <p>
       <h3><u>Lead</u></h3>
       <h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
@@ -48,25 +48,22 @@
     </p>
   </div>
 
-  <div class="span1">
+  <div class="col-lg-1 col-md-1">
   </div>
 
-  <div class="span4">
-  <p>
-    <h3>Notes</h3>
-
-    <div class="row-fuild">
-      <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
-        <%= f.input :content, input_html: { style: "width:auto;", rows: 4 } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-        <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
-        <%= f.button :submit, class: "m-btn note-button green", id: "lead_note" %>
-      <% end %>
-    </div> <!-- /.row -->
-
-    <div id="lead_notes">
-      <%= render 'lead_notes' %>
-    </div>
-  </p>
+  <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+    <p>
+      <h3>Notes</h3>
+        <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
+          <%= f.input :content, input_html: { style: "width:100%;", rows: 4 } %>
+          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+          <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
+          <%= f.button :submit, class: "btn btn-success btn-xs", id: "lead_note" %>
+        <% end %>
+        <br>
+      <div id="lead_notes" class="notes">
+        <%= render 'lead_notes' %>
+      </div>
+    </p>
   </div>
 </div>

@@ -48,3 +48,4 @@ jQuery ->
     bJQueryUI: true
 
   $(".chosen").chosen()
+  $(".chosen-select").chosen()

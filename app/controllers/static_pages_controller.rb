@@ -14,13 +14,13 @@ class StaticPagesController < ApplicationController
         @note = Note.new
         @grade = Grade.new
         @experience_point = ExperiencePoint.new
-        @offerings = Offering.includes(:course).includes(:users).order(:course_id)
-        @user_offerings = @user.offerings
+        @offerings = Offering.includes(:course, :location).order(:course_id)
+        @user_offerings = @user.offerings.includes(:course, :location)
         @user_location = @user.location
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
         @user_activity_feed = ExperiencePoint.where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
         if current_user.teacher? && class_session.in_session?
-          @lessons = Lesson.where("week = ?", "#{class_session.week}")
+          @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")
             @lessons.each do |lesson|
               if lesson.standard
                 @todays_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id
@@ -38,7 +38,7 @@ class StaticPagesController < ApplicationController
                 end
               end
             else
-              @last_weeks_lessons = Lesson.where("week = ?", "#{class_session.week.to_i - 1}")
+              @last_weeks_lessons = Lesson.includes(:standard).where("week = ?", "#{class_session.week.to_i - 1}")
               @last_weeks_lessons.each do |lesson|
                 @last_weeks_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id
               end
@@ -47,7 +47,7 @@ class StaticPagesController < ApplicationController
         if @user_location
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
-          @todays_offering_by_location = Offering.includes(:users).includes(:course).where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
+          @todays_offering_by_location = Offering.includes(:course, :location).where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
           @new_students_location = @user_location.students.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
             @new_students_location.each do |student|

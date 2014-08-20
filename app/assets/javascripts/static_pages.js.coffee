@@ -51,6 +51,9 @@ jQuery ->
     $(this).css("display", "none")
 
 # ---- Attendance Modal ----------------
+  $('#attendanceModal').on 'shown.bs.modal', ->
+    $('.chzn', this).chosen()
+
 # Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->

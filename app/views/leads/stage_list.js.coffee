@@ -1,30 +1,30 @@
 jQuery ->
-  $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages">
+  $('#stage_list').html('<div class="<%= @stage.name.downcase %> stages well well-lg">
     <h4><u><%= @stage.name %></u></h4>
     <ul>
     <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
     <div class="lead_group">
-    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" style="padding:5px 10px 0px 10px;">
+    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" class="well well-sm" style="z-index:1;">
     <li>
-    <div class="row-fluid">
-    <div class="span9">
+    <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
     <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
     </div>
-    <div class="span3">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
     <%= link_to "javascript:void(0)", class: "stage_attr" do %>
-    <i class="icon icon-plus pull-right"></i>
+    <i class="fa fa-plus pull-right"></i>
     <% end %>
     </div>
     </div>
     </li>
     </div>
     <div class="lead_toolbar">
-    <div class="row-fluid">
+    <div class="row">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
-    <%= f.input :content, input_html: { style: "width:auto;" } %>
+    <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
     <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
-    <%= f.button :submit, class: "m-btn note-button green" %>
+    <%= f.button :submit, class: "btn btn-success btn-xs" %>
     <% end %>
     </div>
     </div>
