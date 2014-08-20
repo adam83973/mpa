@@ -7,7 +7,6 @@ class ReportsController < ApplicationController
     @params = params[:query]
 
     if !(params[:query][:type].empty?) && (params[:query][:start_date_range].empty? || params[:query][:end_date_range].empty?)
-      @var = true
       redirect_to new_report_path, notice: "You must enter a date range."
     else
       if params[:query][:student_status] != ""

@@ -45,7 +45,7 @@
       <% end %>
     </td>
     <td>
-      <%= s.user.infusion_id ? s.user.infusion_id : "no id on file" %>
+      <%= ( s.user && s.user.infusion_id ) ? s.user.infusion_id : "no id on file" %>
     </td>
     </tr>
     <% end %>
