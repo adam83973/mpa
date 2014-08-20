@@ -36,12 +36,16 @@
         <%= student_status(s).html_safe %>
       </td>
       <td align="center">
-      <% if s.user.last_payment_infusion.any? && s.user.last_payment && s.user.last_payment_infusion[0]["DateCreated"]["month"] %>
-        (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
-        <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
-        <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
+      <% if s.user %>
+        <% if s.user.last_payment_infusion.any? && s.user.last_payment && s.user.last_payment_infusion[0]["DateCreated"]["month"] %>
+          (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+          <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+          <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
+        <% else %>
+          No last payment on file
+        <% end %>
       <% else %>
-        No last payment on file
+        "This student does not have a parent!"
       <% end %>
     </td>
     <td>
