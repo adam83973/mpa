@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def active_students?
-    students.any? { |s| s.status == "Active" }
+    students.any? { |s| s.status == "Active" || s.start_date >= Date.today }
   end
 
   # def deactivate
