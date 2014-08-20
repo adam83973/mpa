@@ -19,14 +19,12 @@ jQuery ->
     </li>
     </div>
     <div class="lead_toolbar">
-    <div class="row">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
     <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
     <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
     <%= f.button :submit, class: "btn btn-success btn-xs" %>
     <% end %>
-    </div>
     </div>
     </div>
     <% end %>
@@ -62,26 +60,26 @@ jQuery ->
     <p></p>
     </div>')
 
-  $("#new_note")
-  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.attr( 'data-origText',  $submitButton.val() )
-    $submitButton.val( "Submitting..." )
-  .bind 'ajax:success', (evt, data, status, xhr) ->
-    $form = $(this)
-    $form[0].reset()
-    alert "Note Added!"
-  .bind 'ajax:complete', (evt, xhr, status) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.val( $submitButton.data('origtext') )
-    $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
-    $lead_toolbar.slideUp()
-  .bind 'ajax:error', (evt, xhr, status, error) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.val( $submitButton.data('origtext') )
-    $form = $(this)
-    alert "Note #{error}!"
-    $form[0].reset()
+  $(".new_note").each ->
+    $(this).bind 'ajax:beforeSend', (evt, xhr, settings) ->
+      $submitButton = $(this).find('input[name="commit"]')
+      $submitButton.attr( 'data-origText',  $submitButton.val() )
+      $submitButton.val( "Submitting..." )
+    .bind 'ajax:success', (evt, data, status, xhr) ->
+      $form = $(this)
+      $form[0].reset()
+      alert "Note Added!"
+    .bind 'ajax:complete', (evt, xhr, status) ->
+      $submitButton = $(this).find('input[name="commit"]')
+      $submitButton.val( $submitButton.data('origtext') )
+      $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
+      $lead_toolbar.slideUp()
+    .bind 'ajax:error', (evt, xhr, status, error) ->
+      $submitButton = $(this).find('input[name="commit"]')
+      $submitButton.val( $submitButton.data('origtext') )
+      $form = $(this)
+      alert "Note #{error}!"
+      $form[0].reset()
 
   $('#stage_list').find('.lead_toolbar').each ->
     $(this).css("display", "none")
