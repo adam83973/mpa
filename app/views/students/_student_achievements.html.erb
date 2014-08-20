@@ -1,42 +1,42 @@
- <h3>Achievements</h3>
-
-<div class="accordion" id="accordion2">
-  <div class="accordion-group square">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        Achievements Total: <%= @student.experience_points.count %>
-      </a>
+<h3>Achievements</h3>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Achievements Total: <%= @student.experience_points.count %>
+        </a>
+      </h4>
     </div>
-    <div id="collapseOne" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <div class="tscroll robotics-achievements">
-          <div class="a-achievements">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Experience</th>
-                  <th>Date Earned</th>
-                  <th>Last Updated</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @student.experience_points.order("updated_at desc").each do |xp| %>
-                <tr>
-                  <td><%= link_to "#{xp.experience.name}", experience_point_path(xp) %></td>
-                  <td><%= xp.created_at.strftime("%B #{xp.created_at.day.ordinalize}, %Y") %></td>
-                  <td><%= xp.updated_at.strftime("%B #{xp.updated_at.day.ordinalize}, %Y") %></td>
-                  <td><%= xp.points %></td>
-                  <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
-                  <td><%= link_to "x", xp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  <% else %>
-                  <td></td>
-                  <% end %>
-                </tr>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="tscroll a-achievements">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Experience</th>
+                <th>Date Earned</th>
+                <th>Last Updated</th>
+                <th>Points</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.experience_points.order("updated_at desc").each do |xp| %>
+              <tr>
+                <td><%= link_to "#{xp.experience.name}", experience_point_path(xp) %></td>
+                <td><%= xp.created_at.strftime("%B #{xp.created_at.day.ordinalize}, %Y") %></td>
+                <td><%= xp.updated_at.strftime("%B #{xp.updated_at.day.ordinalize}, %Y") %></td>
+                <td><%= xp.points %></td>
+                <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
+                <td><%= link_to "x", xp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% else %>
+                <td></td>
                 <% end %>
-              </tbody>
-            </table>
-          </div>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

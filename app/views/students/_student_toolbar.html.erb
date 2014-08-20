@@ -1,6 +1,5 @@
-
-<div class="pull-right">
-  <nav>
+<div class="hidden-sm hidden-xs">
+  <div class="pull-right">
     <ul class="nav ul-padding">
       <%if current_user.employee? %>
         <li>
@@ -25,5 +24,31 @@
         <% end %>
       <% end %>
     </ul>
-  </nav>
+  </div>
+</div>
+<div class="hidden-lg hidden-md">
+  <ul class="nav list-inline">
+    <%if current_user.employee? %>
+      <li>
+        <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
+      </li>
+      <li>
+        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-green student_tool_button"%>
+      </li>
+      <li>
+        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
+      </li>
+      <% if @agent_offering %>
+      <li>
+        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+      </li>
+      <% end %>
+
+      <% if @second_offering %>
+      <li>
+        <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+      </li>
+      <% end %>
+    <% end %>
+  </ul>
 </div>

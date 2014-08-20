@@ -15,9 +15,12 @@
     <%= render 'robotics_achievements' %>
   </div>
 </div>
-<span class="row">
-  <%= render 'student_comment_feed'%>
-</span>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+    <%= render 'student_comment_feed'%>
+  </div>
+</div>
 
 <%= render 'student_notes' if current_user.employee? %>
 

@@ -6,7 +6,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">You can't have a class without students!</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
          <%= simple_form_for @experience_point,
             url: url_for( action: :create, controller: :experience_points ),
             method: :post,
@@ -19,8 +19,8 @@
             <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
             <%= f.button :submit, "Add to Class", class: "btn btn-success" %>
-            <br>
         <% end %>
+        <br>
         <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
       </div>
     </div><!-- /.modal-content -->

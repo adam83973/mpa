@@ -29,7 +29,7 @@
       <tr>
         <td><%= link_to lesson.name, lesson %></td>
         <td><%= lesson.week %></td>
-        <td><%= lesson.standard.course.course_name if lesson.standard %></td>
+        <td><%= lesson.course.course_name if lesson.standard %></td>
         <td><%= lesson.standard.name if lesson.standard %></td>
         <td><%= link_to "Assignment", Resource.find(lesson.assignment) if lesson.assignment && lesson.assignment != '' && lesson.assignment != nil  %></td>
         <td><%= link_to "Assignment Key", Resource.find(lesson.assignment_key) if lesson.assignment_key && lesson.assignment_key != '' && lesson.assignment_key != nil  %></td>

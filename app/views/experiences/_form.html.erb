@@ -1,20 +1,28 @@
 <div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <%= simple_form_for @experience, :validate => true, :html => {:mutlipart => true} do |f| %>
       <%= f.error_notification %>
       <%= f.input :active, as: :boolean, label: false, inline_label: true %>
       <%= f.input :name %>
       <%= f.association :occupation, label_method: :title %>
       <%= f.input :points %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :category, as: :select, collection: Experience::CATEGORY %>
       <%= f.input :content, as: :text, :input_html => { :rows => 5 } %>
-      <%= f.association :resources, label_method: :filename %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <%= f.association :resources, as: :select, label_method: :filename, input_html: {class: :xp_chosen} %>
       <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @experience.image? %>
       <%= image_tag(@experience.image_url) if @experience.image? %>
       <p>
         <%= f.input :image, as: :file, label: "Upload Image" unless @experience.image? %>
       </p>
-      <%= f.button :submit, class: "btn btn-lg btn-success" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
   <% end %>
   </div>
 </div>

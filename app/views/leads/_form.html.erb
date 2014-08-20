@@ -1,20 +1,26 @@
-<%= simple_form_for(@lead) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :phone %>
-    <%= f.input :email %>
-    <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
-    <%= f.association :location, label_method: :name %>
-    <%= f.input :appointment_date, as: :string %>
-    <%= f.association :stage, label_method: :name %>
-    <%= f.input :student_information %>
-    <%= f.input :active %>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for(@lead) do |f| %>
+      <%= f.error_notification %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :phone %>
+        <%= f.input :email %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
+        <%= f.association :location, label_method: :name %>
+        <%= f.input :appointment_date, as: :string %>
+        <%= f.association :stage, label_method: :name %>
   </div>
-<% end %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <%= f.input :student_information, input_html: { rows: 10 } %>
+        <%= f.input :active %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    <% end %>
+  </div>
+</div>

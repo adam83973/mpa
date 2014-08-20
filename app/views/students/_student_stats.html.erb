@@ -2,7 +2,7 @@
 <div id="student">
   <div class="studentinfo">
     <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs">
+      <div class="col-lg-3 col-md-12 studentname hidden-md hidden-sm hidden-xs">
         <h2><%= @student.full_name %></h2>
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
           <div class="circle-text">
@@ -25,14 +25,14 @@
        <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
        <% end %>
-     </div><!--/.col-lg-3 col-md-3 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->
-      <div class="col-lg-3 hidden-lg hidden-md text-center">
+     </div><!--/.col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->
+      <div class="col-sm-12 col-xs-12 hidden-lg text-center">
         <h2><%= @student.full_name %></h2>
         <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
           <div class="circle-text">
             <div>
               <h4>Total Credits</h4>
-              <h2><%= @student.credits %></h1>
+              <h2><%= @student.credits %></h2>
             </div>
           </div><!--/.circle-text -->
         </div><!--/#totalCredits -->
@@ -51,10 +51,10 @@
           <div style="min-width:260px;min-height:40px;" class="hidden-sm hidden-xs"></div>
         <% end %>
       </div><!--/.col-lg-3 hidden-lg hidden-md text-center -->
-      <div class="text-center col-lg-9 col-md-9 col-sm-12 col-xs-12">
+      <div class="text-center col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <!-- Mathematics student information -->
           <% if @student.is_mathematician? %>
-            <div class="text-center col-lg-3">
+            <div class="text-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
               <h2>Mathematician</h2>
               <%= link_to("#mathematicianModal", data: {toggle: :modal}) do %>
                 <input
@@ -75,7 +75,7 @@
 
           <!-- Engineering student information -->
           <% if @student.is_engineer? %>
-            <div class="text-center col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="text-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
               <h2>Engineer</h2>
               <%= link_to("#engineerModal", data: {toggle: :modal}) do %>
               <input

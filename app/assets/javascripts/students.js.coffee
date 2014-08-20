@@ -51,7 +51,8 @@ jQuery ->
   .bind 'ajax:success', (evt, data, status, xhr) ->
     $form = $(this)
     $form[0].reset()
-    alert "Credits Redeemed!"
+    alert "Credits Redeemed! Please note student account with
+    credits before purchase, credits spent, and what was redeemed."
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )

@@ -1,11 +1,11 @@
 jQuery ->
   $('#creditsModal').modal('hide')
-  $('#totalCredits').delay(1000).replaceWith('<div id="totalCredits" style="text-align:center;" data-totalCredits="<%= @student.credits %>">
-    <div class="circle-text">
-    <div>
-    <h4 style="margin-bottom:20px;">Total Credits</h4>
-    <h1 style="font-size:5em;"><%= @student.credits %></h1>
-    </div>
-    </div>
-    </div>')
+  $('#totalCredits').delay(1000).replaceWith('<div id="totalCredits" data-totalCredits="<%= @student.credits %>">
+  <div class="circle-text">
+  <div>
+  <h1 style="float:center;">Credits</h1>
+  <h2><%= @student.credits %></h2>
+  </div>
+  </div><!--/.circle-text -->
+  </div><!--/#totalCredits -->')
   $('#creditsModal form')[0].reset()

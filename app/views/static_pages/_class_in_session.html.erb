@@ -44,10 +44,10 @@
       <p>Take attendance to add students to class!</p>
     <% else %>
       <p><b>Students in Attendance:</b></p>
-      <ul>
+      <ul id="sortable">
         <% class_session.students.each do |student_id| %>
-          <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %>" data-studentname="<%= Student.find(student_id).full_name %>">
-            <li class='student_<%= student_id %>'>
+          <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %> student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
+            <li class='student_<%= student_id %> '>
               <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
               <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
               <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>

@@ -83,11 +83,6 @@ jQuery ->
     location.reload()
 
 # ---- Students Attending ----------------
-  # Update styling to attending students on mouse over and leave. ---
-  $('.student_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
-                          .on('mouseleave', -> $(this).css({ "background-color":"##e4e4e4"; "border":"1px solid white"}))
-                          .on('mouseover', 'a:not(:nth-child(2))', -> $(this).css({'color':'black'}))
-                          .on('mouseleave', 'a:not(:nth-child(2))', -> $(this).css({'color':'#0088cc'}))
 
   #add student through button on class roll
   $(".class_attendance_form")
@@ -131,15 +126,15 @@ jQuery ->
        alert 'Numbers only!'
 
   # Disable start class button until offering and week are selected. ---
-  $('.classform #week').on "keypress", ->
+  $('.classform #week').on "keyup", ->
     empty = false
     $week = $('#week')
     # $(".classform :input").each ->
     empty = true if $week.val() is ""
     if empty or isNaN($week.val())
-      $("#startclass").prop "disabled", true
+      $("#startclass").attr("disabled")
     else
-      $("#startclass").prop "disabled", false
+      $("#startclass").removeAttr("disabled")
 
 # ---- Grades modal ----------------
   $('#grade_student_id')

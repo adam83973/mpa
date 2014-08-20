@@ -7,7 +7,7 @@
 	  <% end %>
     <%= f.input :filename, label: "File Name" %>
     <%= f.input :category, as: :select, label: "Category", collection: Resource::CATEGORIES %>
-    <%= f.association :problems, label: 'Connect to Problems/Activities', label_method: :title, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+    <%= f.association :problems, label: 'Connect to Problems/Activities', label_method: :title, item_wrapper_class: 'inline' %>
   </div>
 
   <div class="form-actions">

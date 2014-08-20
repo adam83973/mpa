@@ -2,11 +2,11 @@
 
 <%= render 'first_login_password' %>
 
+<div id="results">
+  <%= render 'shared/user_search_results' %>
+</div>
 <div class="row">
   <div class="col-lg-12">
-    <div id="results">
-      <%= render 'shared/user_search_results' %>
-    </div>
       <%if current_user.employee? %>
         <div class="row">
           <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">

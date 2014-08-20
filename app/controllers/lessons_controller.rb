@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.includes(:standard)
+    @lessons = Lesson.includes(:standard, :course)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.includes(:standard).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

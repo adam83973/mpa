@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
       end
 
     #Tags negative comments to allow styling in student show
-      @student_xp_comments = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
+      @student_xp_comments = ExperiencePoint.includes(:user).where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
       @student_comment_feed = @student_xp_comments
 
         @student_xp_comments.each do |xp|

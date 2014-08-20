@@ -14,6 +14,7 @@
 			  </div>
 			    <%= f.button :submit, class: "btn btn-lg btn-success" %>
 			<% end %>
+			<br>
 			<p>
 		  	  <%= render '/students/nav_buttons' %>
 			</p>
@@ -44,7 +45,8 @@
 				  </div>
 				    <%= f.button :submit, class: "btn btn-success btn-lg" %>
 				<% end %>
-				<a href="/" class="m-btn red">Done with grading...</a>
+				<br>
+				<a href="/" class="btn btn-lg btn-danger">Done with grading...</a>
 		<% else %>
 			<%= simple_form_for @experience_point, :validate => true do |f| %>
 			  <%= f.error_notification %>

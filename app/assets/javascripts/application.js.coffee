@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/sortable
 //= require jquery-ui/draggable
 //= require jquery-ui/droppable
 //= require jquery-ui/datepicker
@@ -49,3 +50,5 @@ jQuery ->
 
   $(".chosen").chosen()
   $(".chosen-select").chosen()
+  $( "#sortable" ).sortable()
+  $( "#sortable" ).disableSelection()
