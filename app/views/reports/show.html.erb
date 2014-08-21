@@ -53,7 +53,7 @@
       <%= ( s.user && s.user.infusion_id ) ? s.user.infusion_id : "no id on file" %>
     </td>
     <td>
-      <%= s.user ? s.user.active_subscription? : "no id on file" %>
+      <%= s.user ? s.user.active_subscription : "no id on file" %>
     </td>
     </tr>
     <% end %>
