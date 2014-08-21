@@ -21,7 +21,7 @@ class LocationsController < ApplicationController
     @total_location_students_count = @location.students.active.count
     @location_future_adds = @location.students.future_adds
 
-    @offerings = @location.offerings.includes(:course)
+    @offerings = @location.offerings
     @recruit_count = 0
     @tech_count = 0
     @operative_count = 0
@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
     @chess_club_count = 0
     @lego_robotics_count = 0
 
-    @offerings.includes(:course).each do |offering|
+    @offerings.each do |offering|
       if offering.course_id == 1
         @recruit_count += offering.students.active.count
       elsif offering.course_id == 2
@@ -70,7 +70,7 @@ class LocationsController < ApplicationController
     @enrollment_total = @recruit_count + @tech_count + @operative_count + @analyst_count + @agent_count +
                         @specialops_count + @prealgebra_count + @algebra_count + @geometry_count +
                         @e_math_team_count + @m_math_team_count + @chess_club_count + @lego_robotics_count
-                        
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @location }
