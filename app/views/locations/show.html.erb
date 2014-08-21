@@ -83,7 +83,7 @@
 <% end %>
 </div>
 </div>
-<div id="dropsModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
+<!-- <div id="dropsModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header" style='padding-bottom:20px'>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Students Dropped Last 30</h3>
@@ -110,4 +110,37 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+
+<div class="modal fade" id="dropsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Students Dropped Last 30</h4>
+      </div>
+      <div class="modal-body text-center">
+        <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Classes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @location.students.dropped_last_30.each do |student| %>
+          <tr>
+            <td><%= student.full_name %><td>
+            <td>
+              <% student.offerings.includes(:course).includes(:location).each do |offering| %>
+                <%= offering.offering_name + " " %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
