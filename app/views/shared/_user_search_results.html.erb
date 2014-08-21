@@ -31,7 +31,7 @@
         <% @students_search.each do |student|%>
           <div class="user_search">
             <p><strong><%= link_to student.first_name + " " + student.last_name, student %></strong> (Student)</p>
-            <%= student_status(@student).html_safe%>
+            <%= student_status(student).html_safe%>
           </div>
         <% end %>
         <% @offerings_search.each do |offering|%>
