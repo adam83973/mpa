@@ -16,9 +16,9 @@ def update_last_payment
           parent.update_attributes last_payment: query_to_json
 
         if parent.active_subscription?
-          parent.update_attribute active_subscription: true
+          parent.update_attributes active_subscription: true
         else
-          parent.update_attribute active_subscription: false
+          parent.update_attributes active_subscription: false
         end
       else
         parent.update_attributes last_payment: [].to_json
