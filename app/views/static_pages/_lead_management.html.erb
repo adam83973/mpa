@@ -2,7 +2,7 @@
 <div id="lead_stages">
   <ul class="nav nav-pills">
     <li class="dropdown">
-      <a class="dropdown-toggle"
+      <a class="btn btn-default dropdown-toggle"
          data-toggle="dropdown"
          href="#">
           Lead Stages
@@ -20,6 +20,7 @@
     </li>
   </ul>
 </div>
+<br>
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div id="stage_list">
@@ -60,30 +61,7 @@
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div id="stage_droppable">
-      <div class="leads well well-sm text-center" id="appointment_scheduled">
-        <h4><u>Appointment Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></u></h4>
-        <p></p>
-      </div><!-- /.leads -->
-      <div class="leads well well-sm text-center" id="appointment_missed">
-        <h4><u>Appointment Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></u></h4>
-        <p></p>
-      </div><!-- /.leads -->
-      <div class="leads well well-sm text-center" id="assessment_completed">
-        <h4><u>Assessment Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></u></h4>
-        <p></p>
-      </div><!-- /.leads -->
-      <div class="leads well well-sm text-center" id="trial_offered">
-        <h4><u>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></u></h4>
-        <p></p>
-      </div><!-- /.leads -->
-      <div class="leads well well-sm text-center" id="won">
-        <h4><u>Won</u></h4>
-        <p></p>
-      </div><!-- /.leads -->
-      <div class="leads well well-sm text-center" id="lost">
-        <h4><u>Lost</u></h4>
-        <p></p>
-      </div><!-- /.leads -->
+      <%= render 'droppable_stages' %>
     </div><!-- /#stage_droppable -->
   </div><!-- /.span4 -->
 </div><!-- /.row -->

@@ -24,14 +24,16 @@
         <% @users_search.each do |user|%>
           <div class="user_search">
             <p><strong><%= link_to user.full_name, user %></strong></p>
-            <p><%= user.email %></p>
+            <p><%= mail_to user.email, user.email %></p>
             <p><%= user.phone %></p>
           </div>
         <% end %>
         <% @students_search.each do |student|%>
           <div class="user_search">
-            <p><strong><%= link_to student.first_name + " " + student.last_name, student %></strong> (Student)</p>
+            <p>
+              <strong><%= link_to student.first_name + " " + student.last_name, student %></strong> (Student)
             <%= student_status(student).html_safe%>
+            </p>
           </div>
         <% end %>
         <% @offerings_search.each do |offering|%>

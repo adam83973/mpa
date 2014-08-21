@@ -21,6 +21,9 @@ jQuery ->
   $('.dropdown-menu', '#lead_stages').on 'click', 'a', ->
     stage.select($(this).data("stageid"))
 
+  $('.leads').on 'click', 'a', ->
+    stage.select($(this).data("stageid"))
+
 stage=
   select: (stage_id) ->
     $.ajax

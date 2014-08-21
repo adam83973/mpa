@@ -36,29 +36,37 @@ jQuery ->
 
   $("#stage_droppable").html(
     '<div class="leads well well-sm text-center" id="appointment_scheduled">
-    <h4><u>Appointment Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></u></h4>
+    <%= link_to "javascript:void(0)", data: { stageid: 1 } do %>
+    <h4>Appointments Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></h4>
+    <% end %>
     <p></p>
-    </div>
+    </div><!-- /.leads -->
     <div class="leads well well-sm text-center" id="appointment_missed">
-    <h4><u>Appointment Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></u></h4>
+    <%= link_to "javascript:void(0)", data: { stageid: 7 } do %>
+    <h4>Appointments Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></h4>
+    <% end %>
     <p></p>
-    </div>
+    </div><!-- /.leads -->
     <div class="leads well well-sm text-center" id="assessment_completed">
-    <h4><u>Assessment Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></u></h4>
+    <%= link_to "javascript:void(0)", data: { stageid: 2 } do %>
+    <h4>Assessments Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></h4>
+    <% end %>
     <p></p>
-    </div>
+    </div><!-- /.leads -->
     <div class="leads well well-sm text-center" id="trial_offered">
-    <h4><u>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></u></h4>
+    <%= link_to "javascript:void(0)", data: { stageid: 3 } do %>
+    <h4>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></h4>
+    <% end %>
     <p></p>
-    </div>
+    </div><!-- /.leads -->
     <div class="leads well well-sm text-center" id="won">
     <h4><u>Won</u></h4>
     <p></p>
-    </div>
+    </div><!-- /.leads -->
     <div class="leads well well-sm text-center" id="lost">
     <h4><u>Lost</u></h4>
     <p></p>
-    </div>')
+    </div><!-- /.leads -->')
 
   $(".new_note").each ->
     $(this).bind 'ajax:beforeSend', (evt, xhr, settings) ->
@@ -102,6 +110,16 @@ jQuery ->
     setTimeout ->
       $dropP.fadeOut()
     , 2000
+
+  $('.leads').on 'click', 'a', ->
+    stage.select($(this).data("stageid"))
+
+stage=
+  select: (stage_id) ->
+    $.ajax
+      type: 'GET'
+      url: "/leads/stage_list"
+      data: {stage_id: stage_id}
 
 drop =
   update: (dragged_id, received_id) ->
