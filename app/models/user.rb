@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
 
+  scope :active, lambda{where("active = ?", true)}
+
   def full_name
       first_name + " " + last_name
   end
@@ -83,6 +85,14 @@ class User < ActiveRecord::Base
         student.update_attributes status: "Inactive"
         student.update_attributes end_date: Date.today
       end
+    end
+  end
+
+  # Infusionsoft administration
+  def active_subscription?
+    if self.parent?
+      active_subscriptions = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+      active_subscriptions.any? { |s| s["Status"] == "Active" }
     end
   end
 

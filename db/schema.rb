@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140801173724) do
+ActiveRecord::Schema.define(:version => 20140820215536) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(:version => 20140801173724) do
     t.string   "invited_by_type"
     t.integer  "infusion_id"
     t.text     "last_payment"
+    t.boolean  "active_subscription",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

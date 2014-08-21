@@ -20,7 +20,7 @@
           </p>
           <p>
             <b>Parent:</b>
-            <%= link_to @student.parent_name, @student.user %>
+            <%= link_to @student.parent_name, @student.user %> (<%= mail_to @student.user.email, @student.user.email, target: "_blank" %>)
           </p>
        <% else %>
           <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>

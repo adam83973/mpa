@@ -2,7 +2,7 @@
   <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
   <p>
     <% @user.students.each do |student| %>
-      <h4> <%= link_to student.full_name, student %></h4>
+      <h4 style="display:inline;"><%= link_to student.full_name, student %></h4> -- <%= link_to "Edit", edit_student_path(student), class: "btn btn-default btn-xs" %>
       <% student.offerings.includes(:course, :location).each do |offering| %>
         <p><%= link_to offering.offering_name, offering %></p>
       <% end %>

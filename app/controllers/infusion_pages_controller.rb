@@ -94,6 +94,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def subscription
+    @user = User.where("infusion_id = ?", params[:ContactId].to_i).first
     count = 0
     begin
       # get active subscriptions from Infusiosoft

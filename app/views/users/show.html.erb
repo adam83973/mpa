@@ -3,7 +3,7 @@
     <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>) <%= user_status(@user).html_safe %>
     <p style="margin-top:10px;">
       <b>Email:</b>
-      <%= @user.email %>
+      <%= mail_to @user.email, @user.email %>
     </p>
 
     <p>

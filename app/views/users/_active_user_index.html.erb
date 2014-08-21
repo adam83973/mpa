@@ -1,4 +1,4 @@
-<% title "All Users" %>
+<% title "Active Users" %>
 
 <h1><%= yield(:title)%></h1>
 
@@ -7,11 +7,11 @@
 </p>
 
 <p>
-  <%= link_to "Active Users", users_path %>
+  <%= link_to "Filter Parents", users_path(:users => :parents) %>
 </p>
 
 <p>
-  <%= link_to "Filter Parents", users_path(:users => :parents) %>
+  <%= link_to "All Users", users_path(:users => :all) %>
 </p>
 
 <% if current_user.admin? %>
@@ -43,7 +43,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @active_users.each do |user| %>
     <tr>
       <td><%= user.id %></td>
       <td><%= user.first_name %></td>
