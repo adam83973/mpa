@@ -1,0 +1,43 @@
+<h3>Enrollment Totals By Class</h3>
+
+  <div id="location-enrollment" class="" data-recruit = "<%= @recruit_count %>" data-tech = "<%= @tech_count %>" data-operative = "<%= @operative_count %>" data-analyst = "<%= @analyst_count %>" data-agent = "<%= @agent_count %>" data-specialops = "<%= @specialops_count %>" data-prealgebra = "<%= @prealgebra_count %>" data-algebra = "<%= @algebra_count %>" data-mmathteam = "<%= @m_math_team_count %>" data-emathteam = "<%= @e_math_team_count %>" data-chess = "<%= @chess_club_count %>" data-lego = "<%= @lego_robotics_count %>"> </div>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Recruit</th>
+          <th>Tech</th>
+          <th>Operative</th>
+          <th>Analyst</th>
+          <th>Agents</th>
+          <th>Secial Ops</th>
+          <th>Pre-Algebra</th>
+          <th>Algebra</th>
+          <th>Geometry</th>
+          <th>E. Math Team</th>
+          <th>M.S. Math Team</th>
+          <th>Chess</th>
+          <th>Robotics</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @recruit_count %></td>
+          <td><%= @tech_count %></td>
+          <td><%= @operative_count %></td>
+          <td><%= @analyst_count %></td>
+          <td><%= @agent_count %></td>
+          <td><%= @specialops_count %></td>
+          <td><%= @prealgebra_count %></td>
+          <td><%= @algebra_count %></td>
+          <td><%= @geometry_count %></td>
+          <td><%= @e_math_team_count %></td>
+          <td><%= @m_math_team_count %></td>
+          <td><%= @chess_club_count %></td>
+          <td><%= @lego_robotics_count %></td>
+          <td><%= @enrollment_total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
