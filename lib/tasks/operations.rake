@@ -34,6 +34,10 @@ def restart_date
     if student.restart_date == Date.tomorrow
       #set status to Active
       student.update_attribute :status, "Active"
+      if !student.user.active?
+      #make sure student's parent is active, if not, set parent status to active
+        student.user.update_attribute :active, true
+      end
     end
   end
 end
@@ -47,6 +51,10 @@ def start_date
     if student.start_date == Date.tomorrow && student.status == "Inactive"
       #set status to Active
       student.update_attribute :status, "Active"
+      #make sure student's parent is active, if not, set parent status to active
+      if !student.user.active?
+        student.user.update_attribute :active, true
+      end
     end
   end
 end
@@ -67,6 +75,7 @@ end
 def deactivate_parents
   parents = User.where("role = ? AND active = ?", "Parent", true)
   parents.each do |p|
+    #parent is not dectivated if student has a future start_date or a restart_date
     unless p.active_students?
       p.update_attribute :active, false
       #add logic to allow opt out of drop campaign
