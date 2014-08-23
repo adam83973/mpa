@@ -14,7 +14,7 @@
 
             <%= render 'on_hold' unless current_user.teacher? || ( @student_restart.empty? && @student_return.empty? ) %>
 
-            <%= render 'user_notes' %>
+            <%= render 'user_notes' if current_user.admin? %>
           </div>
         </div>
         <% if current_user.admin? %>
