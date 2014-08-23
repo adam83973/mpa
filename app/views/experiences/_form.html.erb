@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= simple_form_for @experience, :validate => true, :html => {:mutlipart => true} do |f| %>
+    <%= simple_form_for @experience, :html => {:mutlipart => true} do |f| %>
       <%= f.error_notification %>
       <%= f.input :active, as: :boolean, label: false, inline_label: true %>
       <%= f.input :name %>

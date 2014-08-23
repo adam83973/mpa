@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<% if params[:student]%>
-			<%= simple_form_for @experience_point, :validate => true do |f| %>
+			<%= simple_form_for @experience_point do |f| %>
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
@@ -33,7 +33,7 @@
 				<% end %>
 				<a href="/" class="btn btn-lg btn-danger">Done with attendance...</a>
 		<% elsif params[:homework] %>
-			<%= simple_form_for @experience_point, :validate => true do |f| %>
+			<%= simple_form_for @experience_point do |f| %>
 				  <%= f.error_notification %>
 
 				  <div class="form-inputs">
@@ -48,7 +48,7 @@
 				<br>
 				<a href="/" class="btn btn-lg btn-danger">Done with grading...</a>
 		<% else %>
-			<%= simple_form_for @experience_point, :validate => true do |f| %>
+			<%= simple_form_for @experience_point do |f| %>
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
