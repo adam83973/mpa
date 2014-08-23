@@ -246,6 +246,24 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
     width: 100%!important;
 }
 
+// .dashboard > [class^="col-"] {
+//     padding-top: 10px;
+//     padding-bottom: 10px;
+//     background-color: #ffffff;
+//     border: 1px solid #ddd;
+//     background-color: rgba(255, 255, 255,.15);
+//     border: 1px solid rgba(86,61,124,.2);
+//     border-radius: 3px;
+//     margin: 2px;
+// }
+
+.dashboard{
+  h3{
+    margin-top: 0;
+  }
+}
+
+
 //
 // .dropdown-submenu, .dropdown-menu, select, textarea, input[type="text"],
 // input[type="password"], input[type="datetime"], input[type="datetime-local"],

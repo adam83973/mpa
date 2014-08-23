@@ -1,5 +1,6 @@
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <% unless @student_restart.empty? && @student_return.empty? %>
-  <h3>On Hold</h3>
+  <h3 class="text-center">On Hold</h3>
 <% end %>
 
 <% unless @student_restart.empty? %>
@@ -17,3 +18,4 @@
     <%= ret.return_date.strftime("%D") %></p>
   <% end %>
 <% end %>
+</div>
