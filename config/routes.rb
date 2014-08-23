@@ -38,6 +38,7 @@ MathPlus::Application.routes.draw do
   post 'leads/update_stage', to: 'leads#update_stage'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
   post 'students/update_credits', to: 'students#update_credits'
+  post 'notes/completed', to: 'notes#completed'
   post 'users/deactivate/:id', to: 'users#deactivate'
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'mission_lookup', to: 'static_pages#mission_lookup'

@@ -5,7 +5,7 @@
     <% if student.attended_first_class? %>
 
     <% else %>
-      <% student.offerings.each do |offering| %>
+      <% student.offerings.includes(:course, :location).each do |offering| %>
         <p><b><%= link_to "#{student.full_name}", student %></b> is starting in: <b><%= offering.offering_name %></b></p>
       <% end %>
     <% end %>

@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :current_password
 
-  has_many :notes
+  has_many :notings, class_name: "Note", foreign_key: "user_id"
   belongs_to :location
   has_many :students, :through => :offerings
   has_many :students

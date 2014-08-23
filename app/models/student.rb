@@ -256,7 +256,8 @@ end
 
 #checks to see if student has attended first class
   def attended_first_class?
-    !experience_points.empty?
+    # !experience_points.empty?
+    experience_points.any? { |xp| xp.created_at >= start_date }
   end
 
 #checks to see when student last attended class returns xp object

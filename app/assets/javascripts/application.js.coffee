@@ -52,3 +52,7 @@ jQuery ->
   $(".chosen-select").chosen()
   $( "#sortable" ).sortable()
   $( "#sortable" ).disableSelection()
+  $( "#datepicker" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true

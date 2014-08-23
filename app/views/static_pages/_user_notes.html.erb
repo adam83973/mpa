@@ -1,0 +1,27 @@
+<h3>Needs Action: <%= @user_action_needed.count %></h3>
+<div class="notes">
+  <ul class="list-unstyled">
+    <% @user_action_needed.each do |note| %>
+      <li>
+        <div class="well well-sm">
+          <p>
+            "<%= note.content %>"
+          </p>
+          <hr style="margin:0 0 10px 0;">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="checkbox" style="margin:0;">
+                <label>
+                  <%= check_box_tag "complete", "#{note.id}" %> Completed
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <%= note.user.full_name%> (<%= note.created_at.strftime("%D")%>)
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

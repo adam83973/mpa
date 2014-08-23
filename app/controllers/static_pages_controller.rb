@@ -17,6 +17,8 @@ class StaticPagesController < ApplicationController
         @offerings = Offering.includes(:course, :location).order(:course_id)
         @user_offerings = @user.offerings.includes(:course, :location)
         @user_location = @user.location
+        @user_notes = @user.notes
+        @user_action_needed = @user.notings.where("completed = ? AND action_date <= ?", false, Date.today).includes(:user)
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
         @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
         if current_user.teacher? && class_session.in_session?
@@ -49,7 +51,7 @@ class StaticPagesController < ApplicationController
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
           @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
-          @new_students_location = @user_location.students.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
+          @new_students_location = @user_location.students.includes(:experience_points).where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
             @new_students_location.each do |student|
               if student.attended_first_class?
                 @new_students_location.delete_if { |ns| ns["id"] == student.id }

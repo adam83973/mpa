@@ -82,6 +82,19 @@ class NotesController < ApplicationController
     end
   end
 
+  # PUT /notes/completed
+  def completed
+    @user = current_user
+    @note = Note.find(params[:id])
+    @user_action_needed = @user.notings.where("completed = ? AND action_date <= ?", false, Date.today).includes(:user)
+
+    if @note.update_attribute :completed, true
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy

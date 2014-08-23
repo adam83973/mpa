@@ -21,6 +21,7 @@ jQuery ->
     <div class="lead_toolbar">
     <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
     <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
+    <%= f.input :action_date, as: :string, input_html: { id: :datepicker } %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
     <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
     <%= f.button :submit, class: "btn btn-success btn-xs" %>
@@ -88,6 +89,11 @@ jQuery ->
       $form = $(this)
       alert "Note #{error}!"
       $form[0].reset()
+
+  $( "#datepicker" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
 
   $('#stage_list').find('.lead_toolbar').each ->
     $(this).css("display", "none")
