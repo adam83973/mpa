@@ -73,6 +73,7 @@
     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
       <%= simple_form_for [@user, Note.new], remote: true do |f| %>
         <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+        <%= f.input :action_date, as: :string, input_html: { id: :datepicker } if current_user.admin? %>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
         <%= f.button :submit, class: "btn btn-xs btn-success" %>
       <% end %>
