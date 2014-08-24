@@ -1,0 +1,153 @@
+
+/* Student Show page */
+
+.studentinfo{
+  border-bottom: solid 1px #afafaf;
+}
+
+.studentname{
+  border-right: solid 1px #afafaf;
+  margin-bottom: 15px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.paddingtop15{
+  padding-top: 15px;
+}
+
+.student_tool_button{
+  margin: 15px 0 15px 0;
+}
+
+.parentinfo{
+	padding-top: 1px;
+}
+
+.achievements.span8{
+	border-left: solid 1px #afafaf;
+	padding-left: 40px;
+  margin-left: 0;
+}
+
+.robotics-achievements{
+  background-color: #f1f1f1;
+  padding-bottom: 40px;
+}
+
+.r-achievements{
+  margin: 15px;
+  padding-left: 10px;
+}
+
+.a-achievements{
+  margin: 15px;
+  padding-left: 5px;
+  height: 200px;
+  overflow: auto;
+}
+
+.student-button{
+	padding-bottom: 50px;
+}
+
+/*.studentofferings{
+  -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border: solid 1px #cecece;
+    border-radius: 5px;
+  padding-left: 10px;
+  height: 200px;
+  overflow: scroll;
+}*/
+
+.achievementcompleted{
+  color: #17ce00
+}
+
+.level{
+  line-height: 70px;
+}
+/* Student Form page */
+
+
+/*Student Stats Credits*/
+.studentinfo{
+  h2{
+    margin:0;
+  }
+}
+
+#totalCredits{
+  text-align: center;
+  position: relative;
+  h3 {
+    margin:0;
+  }
+}
+
+
+@media only screen and (min-width : 992px) {
+  .student-occupations div:nth-child(2){
+    margin: 0 20px 0 20px;
+  }
+}
+
+@media only screen and (max-width : 768px) {
+  .student-occupations div{
+    margin: 15px 0 15px 0;
+  }
+}
+
+.studentinfo{
+  h3 {
+    margin:0;
+  }
+}
+.circle-text {
+    width:150px;
+    text-align: center;
+    margin: 0 auto;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 150px;
+    height:150px;
+    background-color: #fffc57;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:35px;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:black;
+}
+.circle-text div h2{
+  margin-top: 0;
+  font-size: 4em;
+  font-weight: 100;
+}
+.circle-text div h1{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#attendanceModal .chosen-drop{
+  height: 170px;
+  overflow: hidden;
+}
+
+#attendanceModal .modal-body{
+  height: 225px;
+}
+
+.class_list{
+  padding-right:40px;
+}

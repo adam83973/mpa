@@ -1,7 +1,12 @@
 <% @occupations.each do |occupation| %>
-  <div id="<%= occupation.title.downcase %>Modal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-body">
-       <%= render '/occupations/occupations_levels', occupation: occupation %>
-    </div>
-  </div>
+<div class="modal fade" id="<%= occupation.title.downcase %>Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <%= render '/occupations/occupations_levels', occupation: occupation %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <% end %>
+

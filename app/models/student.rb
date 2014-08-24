@@ -212,6 +212,17 @@ class Student < ActiveRecord::Base
     current_level
   end
 
+  def current_level_by_occupation(occupation_name)
+    case occupation_name
+    when "mathematician"
+      math_level
+    when "engineer"
+      eng_level
+    when "programmer"
+      prog_level
+    end
+  end
+
   def current_level_obj(occupation_name)
     occupation_id = Occupation.find_by_title(occupation_name).id
     current_level_obj = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first

@@ -1,19 +1,17 @@
-<div class="col-lg-3 col-md-12 studentname hidden-md hidden-sm hidden-xs">
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname ">
   <h2><%= @student.full_name %></h2>
+  <div style="width:100%;" class="text-center">
+    <%= image_tag("girl-avatar.png", size: "175x175") %>
+  </div>
   <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
-    <div class="circle-text">
-      <div>
-        <h1 style="float:center;">Credits</h1>
-        <h2><%= @student.credits %></h2>
-      </div>
-    </div><!--/.circle-text -->
+    <h3>Credits: <%= @student.credits %></h3>
   </div><!--/#totalCredits -->
   <% if current_user.employee? %>
-    <p>
-      <div id="studentId" data-studentId="<%= @student.id %>">
-        <h3>ID: <%= @student.id %></h3>
-      </div><!--/.<%= @student.id %> -->
-    </p>
+
+    <div id="studentId" data-studentId="<%= @student.id %>">
+      <h3>ID: <%= @student.id %></h3>
+    </div><!--/.<%= @student.id %> -->
+
     <p>
       <b>Parent:</b>
       <%= link_to @student.parent_name, @student.user %> (<%= mail_to @student.user.email, @student.user.email, target: "_blank" %>)
@@ -22,28 +20,3 @@
     <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
  <% end %>
 </div><!--/.col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->
-<div class="col-sm-12 col-xs-12 hidden-lg text-center">
-  <h2><%= @student.full_name %></h2>
-  <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
-    <div class="circle-text">
-      <div>
-        <h4>Total Credits</h4>
-        <h2><%= @student.credits %></h2>
-      </div>
-    </div><!--/.circle-text -->
-  </div><!--/#totalCredits -->
-
-  <% if current_user.employee? %>
-  <p>
-    <div id="studentId" data-studentId="<%= @student.id %>">
-      <h3>ID: <%= @student.id %></h3>
-    </div><!-- /#studentId -->
-  </p>
-  <p>
-    <b>Parent:</b>
-    <%= link_to @student.parent_name, @student.user %>
-  </p>
-  <% else %>
-    <div style="min-width:260px;min-height:40px;" class="hidden-sm hidden-xs"></div>
-  <% end %>
-</div><!--/.col-lg-3 hidden-lg hidden-md text-center -->
