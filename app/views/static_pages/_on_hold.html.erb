@@ -3,8 +3,9 @@
   <h3 class="text-center">On Hold</h3>
 <% end %>
 
-<% unless @student_restart.empty? %>
+<% if !@student_restart.empty? || @student_return.empty? %>
 <div class="new_students">
+<% unless @student_restart.empty? %>
   <h4>Students with billing restarting: </h4>
   <% @student_restart.each do |restart| %>
   <p><%= link_to restart.full_name, restart %> -
@@ -18,6 +19,7 @@
   <p><%= link_to ret.full_name, ret %> -
     <%= ret.return_date.strftime("%D") %></p>
   <% end %>
+<% end %>
 </div>
 <% end %>
 </div>
