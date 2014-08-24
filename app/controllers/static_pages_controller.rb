@@ -49,7 +49,7 @@ class StaticPagesController < ApplicationController
         if @user_location
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
-          @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
+          @todays_offering_by_location = Offering.includes(:course, :users).where("active = ? AND location_id = ?", true, @user_location.id).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
           @new_students_location = @user_location.students.includes(:experience_points).where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
             @new_students_location.each do |student|

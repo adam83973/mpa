@@ -21,7 +21,7 @@
                 <tr>
                     <td> 9:30</td>
                     <% i = false %>
-                    <% @todays_offering_by_location.includes(:course).includes(:users).each do |offering|%>
+                    <% @todays_offering_by_location.each do |offering|%>
                         <% if offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "A" %>
                         <% i = true %>
                             <td>
