@@ -4,6 +4,7 @@
 <% end %>
 
 <% unless @student_restart.empty? %>
+<div class="new_students">
   <h4>Students with billing restarting: </h4>
   <% @student_restart.each do |restart| %>
   <p><%= link_to restart.full_name, restart %> -
@@ -17,5 +18,6 @@
   <p><%= link_to ret.full_name, ret %> -
     <%= ret.return_date.strftime("%D") %></p>
   <% end %>
+</div>
 <% end %>
 </div>
