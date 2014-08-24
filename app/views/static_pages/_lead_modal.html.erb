@@ -20,14 +20,14 @@
             <%= f.input :last_name %>
             <%= f.input :phone %>
             <%= f.input :email %>
-            <%= f.input :appointment_date, as: :string %>
+            <%= f.input :appointment_date, as: :string, input_html: { id: :datepicker } %>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <%= f.association :user, collection: User.where("role = ? AND active =?", "Admin", true), label_method: :full_name %>
             <%= f.association :location, label_method: :name %>
             <%= f.association :stage %>
             <%= f.input :student_information, input_html: { rows: 5 } %>
-            <%= f.input :active %>
+            <%= f.input :active, as: :hidden %>
           </div>
         </div>
       </div>

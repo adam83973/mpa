@@ -33,6 +33,7 @@ class Student < ActiveRecord::Base
 
   STATUSES = %w(Active Hold Inactive)
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
+  RESET_DATE = Date.parse('2014-8-24') #date to start count for gamification
 
   #-----Student attributes-----
 
@@ -66,7 +67,7 @@ class Student < ActiveRecord::Base
 
   def xp_sum_by_occupation(cat)
     t = 0
-    experience_points.includes(:experience, :occupation).each do |xp|
+    experience_points.where( "created_at > ?", Student::RESET_DATE ).includes(:experience, :occupation).each do |xp|
       if xp.occupation && xp.occupation.title == cat
         t += xp.points
       end

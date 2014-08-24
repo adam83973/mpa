@@ -7,36 +7,36 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-      <%if current_user.employee? %>
-        <div class="row">
-          <div class="dashboard">
-            <%= render 'new_student_feed' unless @new_students_location.empty? %>
+    <%if current_user.employee? %>
+      <div class="row">
+        <div class="dashboard">
+          <%= render 'new_student_feed' unless @new_students_location.empty? %>
 
-            <%= render 'on_hold' unless current_user.teacher? || ( @student_restart.empty? && @student_return.empty? ) %>
+          <%= render 'on_hold' unless current_user.teacher? || ( @student_restart.empty? && @student_return.empty? ) %>
 
-            <%= render 'user_notes' if current_user.admin? %>
-          </div>
+          <%= render 'user_notes' if current_user.admin? %>
         </div>
-        <% if current_user.admin? %>
-          <hr>
-          <%= render 'daily_schedule' %>
-          <hr>
-          <%= render 'lead_management' %>
-        <% end %>
-
+      </div>
+      <% if current_user.admin? %>
+        <hr>
+        <%= render 'daily_schedule' %>
+        <hr>
+        <%= render 'lead_management' %>
       <% end %>
 
-      <%if current_user.teacher? %>
+    <% end %>
 
-        <%= render 'teacher_offerings' %>
+    <%if current_user.teacher? %>
 
-        <%= render 'activity_feed' %>
+      <%= render 'teacher_offerings' %>
 
-      <% end %>
+      <%= render 'activity_feed' %>
 
-      <% if current_user.parent? %>
-        <%= render 'parent_students' %>
-      <% end %>
+    <% end %>
+
+    <% if current_user.parent? %>
+      <%= render 'parent_students' %>
+    <% end %>
   </div>
 </div>
 
