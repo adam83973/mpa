@@ -18,9 +18,10 @@
       <% if student.status == "Hold" && student.return_date %>
         (<%=  student.return_date.strftime("%m/%d/%Y") %> return)
       <% end %>
-
-      <% if student.start_date > Date.today && student.start_date %>
+      <% if student.start_date %>
+      <% if student.start_date > Date.today %>
         (<%=  student.start_date.strftime("%m/%d/%Y") %> start)
+      <% end %>
       <% end %>
       </td>
   </tr>
