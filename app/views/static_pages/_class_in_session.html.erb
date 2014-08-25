@@ -9,34 +9,40 @@
       <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
         <div class="well well-sm">
           <p>Lesson:</p>
-          <% if @todays_lesson && @todays_lesson.assignment %>
-            <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if @todays_lesson.assignment %>w
-          <% end %>
+          <div class="text-center">
+            <% if @todays_lesson && @todays_lesson.assignment %>
+              <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if @todays_lesson.assignment %>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
         <div class="well well-sm">
           <p>Key:</p>
-          <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
-            <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
-          <% else %>
-            There is no key for this lesson.
-          <% end %>
+          <div class="text-center">
+            <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
+              <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
+            <% else %>
+              There is no key for this lesson.
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="well well-sm">
           <p>Activities/Additional Resources:</p>
-          <% if @todays_lesson && @todays_lesson.problems %>
-            <% @todays_lesson.problems.each do |problem| %>
-              <p>- <%= link_to "#{problem.title}", problem %></p>
+          <div class="text-center">
+            <% if @todays_lesson && @todays_lesson.problems %>
+              <% @todays_lesson.problems.each do |problem| %>
+                <p>- <%= link_to "#{problem.title}", problem %></p>
+              <% end %>
             <% end %>
-          <% end %>
-          <% if @todays_lesson && @todays_lesson.resources %>
-            <% @todays_lesson.resources.each do |resource| %>
-              <p>- <%= link_to "#{resource.filename}", resource %></p>
+            <% if @todays_lesson && @todays_lesson.resources %>
+              <% @todays_lesson.resources.each do |resource| %>
+                <p>- <%= link_to "#{resource.filename}", resource %></p>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
