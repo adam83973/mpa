@@ -10,7 +10,7 @@
   <tr>
     <td><%= link_to student.full_name, student %></td>
     <td><% if student.user %><%= link_to student.user.email, student.user %><% end %></td>
-    <td><%= student_status(student) %>
+    <td><%= student_status(student).html_safe %>
       <% if student.status == "Hold" && student.restart_date %>
         (<%=  student.restart_date.strftime("%m/%d/%Y") %> restart)
       <% end %>
