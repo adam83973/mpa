@@ -5,7 +5,7 @@
     disabled
     id="<%= occupation %>-dial"
     value="<%= @student.percentage_of_level_completed(occupation.capitalize) %>"
-    data-level="<%= @student.current_level_by_occupation(occupation.capitalize) %>"
+    data-level="<%= @student.current_level_by_occupation(occupation) %>"
   >
   <% end %>
   <h3 style="margin-top:20px;">
