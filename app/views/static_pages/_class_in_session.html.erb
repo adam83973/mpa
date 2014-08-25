@@ -1,6 +1,7 @@
 <% if class_session.in_session? %>
-    <div class="well well-lg center-block">
-      <div class="row">
+<hr>
+  <div class="well well-lg center-block">
+    <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
         <h4>Week: <%= class_session.week %></h4>
@@ -15,45 +16,47 @@
       </div>
       <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
         <div class="well well-sm">
-        <p>Key:</p>
-        <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
-          <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
-        <% else %>
-          There is no key for this lesson.
-        <% end %>
+          <p>Key:</p>
+          <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
+            <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
+          <% else %>
+            There is no key for this lesson.
+          <% end %>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="well well-sm">
-        <p>Activities/Additional Resources:</p>
-        <% if @todays_lesson && @todays_lesson.problems %>
-          <% @todays_lesson.problems.each do |problem| %>
-            <p>- <%= link_to "#{problem.title}", problem %></p>
+          <p>Activities/Additional Resources:</p>
+          <% if @todays_lesson && @todays_lesson.problems %>
+            <% @todays_lesson.problems.each do |problem| %>
+              <p>- <%= link_to "#{problem.title}", problem %></p>
+            <% end %>
           <% end %>
-        <% end %>
-        <% if @todays_lesson && @todays_lesson.resources %>
-          <% @todays_lesson.resources.each do |resource| %>
-            <p>- <%= link_to "#{resource.filename}", resource %></p>
+          <% if @todays_lesson && @todays_lesson.resources %>
+            <% @todays_lesson.resources.each do |resource| %>
+              <p>- <%= link_to "#{resource.filename}", resource %></p>
+            <% end %>
           <% end %>
-        <% end %>
         </div>
       </div>
-      </div>
     </div>
-    <% if class_session.students == [] %>
-      <p>Take attendance to add students to class!</p>
-    <% else %>
-      <p><b>Students in Attendance:</b></p>
-      <ul id="sortable">
-        <% class_session.students.each do |student_id| %>
-          <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %> student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
-            <li class='student_<%= student_id %> '>
-              <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
-              <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
-              <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
-            </li>
-          </div>
-        <% end %>
-      </ul>
-    <% end %>
+  </div>
+  <% if class_session.students == [] %>
+    <hr>
+    <p>Take attendance to add students to class!</p>
+  <% else %>
+    <hr>
+    <p><b>Students in Attendance:</b></p>
+    <ul id="sortable">
+      <% class_session.students.each do |student_id| %>
+        <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %> student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
+          <li class='student_<%= student_id %> '>
+            <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
+            <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
+            <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>

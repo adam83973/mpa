@@ -22,6 +22,7 @@ class StaticPagesController < ApplicationController
         @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
         if current_user.teacher?
           @user_offerings = @user.offerings.includes(:course, :location)
+          @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC")
         end
         if current_user.teacher? && class_session.in_session?
           @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")

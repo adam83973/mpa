@@ -1,25 +1,25 @@
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-<% unless @student_restart.empty? && @student_return.empty? %>
-  <h3 class="text-center">On Hold</h3>
-<% end %>
-
-<% if !@student_restart.empty? || @student_return.empty? %>
-<div class="new_students">
-<% unless @student_restart.empty? %>
-  <h4>Students with billing restarting: </h4>
-  <% @student_restart.each do |restart| %>
-  <p><%= link_to restart.full_name, restart %> -
-    <%= restart.restart_date.strftime("%D") %></p>
+  <% unless @student_restart.empty? && @student_return.empty? %>
+    <h3 class="text-center">On Hold</h3>
   <% end %>
-<% end %>
 
-<% unless @student_return.empty? %>
-<h4>Students possibly returning:</h4>
-  <% @student_return.each do |ret| %>
-  <p><%= link_to ret.full_name, ret %> -
-    <%= ret.return_date.strftime("%D") %></p>
+  <% if !@student_restart.empty? || @student_return.empty? %>
+    <div class="new_students">
+      <% unless @student_restart.empty? %>
+        <h4>Students with billing restarting: </h4>
+        <% @student_restart.each do |restart| %>
+        <p><%= link_to restart.full_name, restart %> -
+          <%= restart.restart_date.strftime("%D") %></p>
+        <% end %>
+      <% end %>
+
+      <% unless @student_return.empty? %>
+      <h4>Students possibly returning:</h4>
+        <% @student_return.each do |ret| %>
+        <p><%= link_to ret.full_name, ret %> -
+          <%= ret.return_date.strftime("%D") %></p>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
-</div>
-<% end %>
 </div>
