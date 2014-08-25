@@ -1,27 +1,26 @@
 
-  <div class="well well-lg">
-    <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
+<div class="well well-lg">
+  <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
 
-    <p>
-      <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
-    </p>
-     <h3>
-      Teachers:
-        <% if @offering.users.any? %>
-          <% @offering.users.each do |teacher| %>
-            <%= teacher.full_name if teacher.active? %>
-          <% end %>
-          <% else %>
-            <em> no teachers assigned</em>
-        <% end %></h3>
-    <% if current_user.employee? %>
-      <%= link_to 'Edit', edit_offering_path(@offering) %> |
-    <% end %>
-    <%= link_to 'Back', offerings_path if current_user.employee? %>
-  </div>
-
-  <% if current_user.employee?%>
-    <br />
-    <%= render 'offerings/roster' %>
+  <p>
+    <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
+  </p>
+   <h3>
+    Teachers:
+      <% if @offering.users.any? %>
+        <% @offering.users.each do |teacher| %>
+          <%= teacher.full_name if teacher.active? %>
+        <% end %>
+        <% else %>
+          <em> no teachers assigned</em>
+      <% end %></h3>
+  <% if current_user.employee? %>
+    <%= link_to 'Edit', edit_offering_path(@offering) %> |
   <% end %>
+  <%= link_to 'Back', offerings_path if current_user.employee? %>
 </div>
+
+<% if current_user.employee?%>
+  <br />
+  <%= render 'offerings/roster' if @offering.students %>
+<% end %>
