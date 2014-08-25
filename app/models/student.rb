@@ -68,7 +68,7 @@ class Student < ActiveRecord::Base
   def xp_sum_by_occupation(cat)
     t = 0
     experience_points.where( "created_at > ?", Student::RESET_DATE ).includes(:experience, :occupation).each do |xp|
-      if xp.occupation && xp.occupation.title == cat
+      if xp.occupation && xp.occupation.title == cat.capitalize
         t += xp.points
       end
     end
