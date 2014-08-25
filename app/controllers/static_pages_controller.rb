@@ -59,8 +59,8 @@ class StaticPagesController < ApplicationController
                 @new_students_location.delete_if { |ns| ns["id"] == student.id }
               end
             end
-          @student_restart = @user_location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
-          @student_return = @user_location.students.where("status = ? AND return_date < ?", "Hold", 20.days.from_now)
+          @student_restart = @user_location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now).order("restart_date ASC")
+          @student_return = @user_location.students.where("return_date < ?", 20.days.from_now).order("return_date ASC")
         end
     end
 
