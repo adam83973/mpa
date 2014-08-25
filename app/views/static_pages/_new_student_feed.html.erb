@@ -3,7 +3,7 @@
   <% else %>
     <h3 class="text-center">New Students: <%= @new_students_location.count %></h3>
     <div class="new_students">
-      <% @new_students_location.each do |student| %>
+      <% @new_students_location.order("start_date ASC").each do |student| %>
         <% if student.attended_first_class? %>
 
         <% else %>
