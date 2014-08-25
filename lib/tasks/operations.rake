@@ -27,11 +27,11 @@ end
 
 def restart_date
   #pull all students with restart date equal to tomorrows date
-  students = Student.where("restart_date = ?", Date.tomorrow)
+  students = Student.where("restart_date = ?", Date.today)
 
   #cycle through students and set status to active if student has restart date for the next day
   students.each do |student|
-    if student.restart_date == Date.tomorrow
+    if student.restart_date == Date.today
       #set status to Active
       student.update_attribute :status, "Active"
       if !student.user.active?
@@ -43,12 +43,13 @@ def restart_date
 end
 
 def start_date
-  #pull all students with start date equal to tomorrows date
-  students = Student.where("start_date = ?", Date.tomorrow)
+  #script run
+  #pull all students with start date equal to todays date
+  students = Student.where("start_date = ?", Date.today)
 
-  #cycle through students and set status to active if student has start date for the next day
+  #cycle through students and set status to active if student has start date for current day
   students.each do |student|
-    if student.start_date == Date.tomorrow && student.status == "Inactive"
+    if student.start_date == Date.today && student.status == "Inactive"
       #set status to Active
       student.update_attribute :status, "Active"
       #make sure student's parent is active, if not, set parent status to active
