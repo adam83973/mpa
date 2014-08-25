@@ -19,7 +19,7 @@
         (<%=  student.return_date.strftime("%m/%d/%Y") %> return)
       <% end %>
 
-      <% if student.start_date > Date.today %>
+      <% if student.start_date > Date.today && student.start_date %>
         (<%=  student.start_date.strftime("%m/%d/%Y") %> start)
       <% end %>
       </td>
