@@ -35,7 +35,7 @@
                           <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
                           <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
                         </div>
-                          <%= f.button :submit, "Add to Class", class: "m-btn mini add_to_class" %>
+                          <%= f.button :submit, "Add to Class", class: "btn btn-xs btn-default" %>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -46,7 +46,7 @@
             <% end %>
         </table>
         <center>
-          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "m-btn red" if class_session.in_session? %>
+          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "btn btn-large btn-danger" if class_session.in_session? %>
         </center>
       </div>
     </div>
