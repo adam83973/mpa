@@ -3,7 +3,7 @@
     <%= simple_form_for(@note) do |f| %>
       <%= f.error_notification %>
 
-      <%= f.association :user %>
+      <%= f.association :user, label_method: :full_name, input_html: { class: :chosen } %>
       <%= f.input :lead_id %>
       <%= f.input :action_date, as: :string, input_html: { id: "datepicker" } %>
       <%= f.input :content, input_html: { rows: 3 } %>

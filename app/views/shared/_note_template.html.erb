@@ -1,0 +1,31 @@
+<%= link_to note.notable do %>
+  <div class="well well-sm">
+    <p>
+      "<%= note.content %>"
+        <div class="text-right">
+          <%= link_to "Edit", edit_note_path(note), class: "btn btn-xs btn-default" if note.created_at - 14.days < Date.today || current_user.admin? %>
+          <%= link_to 'Delete', note, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" if current_user.admin? && note.created_at - 14.days < Date.today %>
+        </div>
+     </p>
+    <hr style="margin:0 0 10px 0;">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <% if note.action_date && (note.action_date <= Date.today) && !note.completed %>
+          <div class="checkbox" style="margin:0;">
+            <label style="padding-left:0;">
+              <%= check_box_tag "complete", "#{note.id}" %> Completed
+            </label>
+          </div>
+        <% elsif note.action_date && note.action_date > Date.today %>
+          <span> <i data-toggle="tooltip" data-placement="right" title="Action Date: <%= note.action_date.strftime("%D") %>" class="fa fa-clock-o"></i> </span>
+        <% else %>
+        <% end %>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="text-right">
+          <%= note.user.full_name%> (<%= note.created_at.strftime("%D")%>)
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

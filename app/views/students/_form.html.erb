@@ -27,17 +27,11 @@
       <h4><u>Only If Billing Is Restarting</u></h4>
       <%=
         f.input :start_hold_date, as: :string, placeholder: "Date the student will go on hold.",
-        label: "Date to Start Hold",
-        tooltip: "This reserves the date when the student will go on hold. ONLY
-        add this date if student's billing is restarting. Otherwise, select an END DATE
-        and POSSIBLE RETURN DATE."
+        label: "Date to Start Hold", input_html: { data: { toggle: "tooltip", placement: "top" }, title: "This reserves the date when the student will go on hold. ONLY add this date if student's billing is restarting. Otherwise, select an END DATE and POSSIBLE RETURN DATE."  }
       %>
       <%=
         f.input :restart_date, as: :string, placeholder: "Date for billing to restart.",
-        label: "Restart Date",
-        tooltip: "This date holds student's place in class and restarts billing on
-        this date. If unsure of restart DO NOT enter a date here, select an
-        END DATE and POSSIBLE RETURN DATE."
+        label: "Restart Date", input_html: { data: { toggle: "tooltip", placement: "top" }, title: "This date holds student's place in class and restarts billing on this date. If unsure of restart DO NOT enter a date here, select an END DATE and POSSIBLE RETURN DATE."  }
       %>
       <hr>
       <h4><u>If Billing Is NOT Restarting</u></h4>

@@ -1,15 +1,8 @@
 <% unless @student || @user %>
   <ul class="list-unstyled">
-    <% @lead.notes.order("created_at DESC").each do |note| %>
+    <% @lead.notes.includes(:notable, :user).order("created_at DESC").each do |note| %>
       <li>
-        <div class="well well-sm">
-          <p>
-            "<%= note.content %>"
-          </p>
-          <p class="text-right">
-            <%= note.user.full_name%> (<%= note.created_at.strftime("%B %d, %Y")%>)
-          </p>
-        </div>
+        <%= render '/shared/note_template', note: note %>
       </li>
     <% end %>
   </ul>
