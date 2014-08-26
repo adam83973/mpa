@@ -1,0 +1,20 @@
+<div class="hidden-sm hidden-xs">
+  <div class="pull-right">
+    <ul class="nav ul-padding">
+       <li><%= link_to "Edit User", edit_user_path(@user), class: "btn btn-default"%></li>
+        <% if @user.parent? %>
+          <li><%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "btn btn-success student_tool_button" } %></li>
+          <li><%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'btn btn-warning student_tool_button' if @user.active? %></li>
+        <% end %>
+    </ul>
+  </div>
+</div>
+<div class="hidden-lg hidden-md">
+  <ul class="nav list-inline">
+     <li><%= link_to "Edit User", edit_user_path(@user), class: "btn btn-default"%></li>
+        <% if @user.parent? %>
+          <li><%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "btn btn-success student_tool_button" } %></li>
+          <li><%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'btn btn-warning student_tool_button' if @user.active? %></li>
+        <% end %>
+  </ul>
+</div>
