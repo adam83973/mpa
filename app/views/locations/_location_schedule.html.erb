@@ -7,8 +7,10 @@
         <th>Day/Time</th>
         <th>Teacher</th>
         <th>Classroom</th>
-        <th># Students</th>
-        <th>Open Spots</th>
+        <% if current_user.employee? %>
+          <th># Students</th>
+          <th>Open Spots</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -27,10 +29,14 @@
         <td>
           <%= offering.classroom %>
         </td>
-        <td><%= roster_count offering %></td>
+        <% if current_user.employee? %>
+        <td>
+          <%= roster_count offering %>
+        </td>
         <td>
           <%= open_spots offering %>
         </td>
+        <% end %>
       </tr>
       <% end %>
     </tbody>
