@@ -7,7 +7,7 @@
         <th>Day/Time</th>
         <th>Teacher</th>
         <th>Classroom</th>
-        <% if current_user.employee? %>
+        <% if current_user && current_user.employee? %>
           <th># Students</th>
           <th>Open Spots</th>
         <% end %>
@@ -29,7 +29,7 @@
         <td>
           <%= offering.classroom %>
         </td>
-        <% if current_user.employee? %>
+        <% if current_user && current_user.employee? %>
         <td>
           <%= roster_count offering %>
         </td>
