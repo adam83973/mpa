@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>User</th>
-    <th>Lead</th>
+    <th>Location</th>
     <th>Due</th>
     <th>Due date</th>
     <th>Content</th>
@@ -15,7 +15,7 @@
 <% @notes.each do |note| %>
   <tr>
     <td><%= note.user_id %></td>
-    <td><%= note.lead_id %></td>
+    <td><%= note.location.name %></td>
     <td><%= note.completed %></td>
     <td><%= note.action_date %></td>
     <td><%= note.content %></td>
