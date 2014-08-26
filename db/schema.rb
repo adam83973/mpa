@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140824200932) do
+ActiveRecord::Schema.define(:version => 20140826192306) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(:version => 20140824200932) do
 
   create_table "notes", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "lead_id"
     t.text     "content"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
@@ -166,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20140824200932) do
     t.string   "notable_type"
     t.boolean  "completed",    :default => false
     t.date     "action_date"
+    t.integer  "location_id"
   end
 
   create_table "occupation_levels", :force => true do |t|
@@ -324,7 +324,7 @@ ActiveRecord::Schema.define(:version => 20140824200932) do
     t.string   "passion"
     t.string   "shirt_size"
     t.boolean  "has_key"
-    t.boolean  "active"
+    t.boolean  "active",                               :default => true
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
     t.integer  "location_id"

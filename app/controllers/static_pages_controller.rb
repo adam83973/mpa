@@ -17,7 +17,8 @@ class StaticPagesController < ApplicationController
         # @offerings = Offering.includes(:course, :location).order(:course_id)
         @user_location = @user.location
         @user_notes = @user.notes
-        @user_action_needed = @user.notings.includes(:user).where("completed = ? AND action_date <= ?", false, Date.today).includes(:user)
+        @user_action_needed = []
+        @user_action_needed << @user.notings.includes(:user).where("completed = ? AND action_date <= ?", false, Date.today)
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
         @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
         if current_user.teacher?
@@ -50,6 +51,8 @@ class StaticPagesController < ApplicationController
             end
         end
         if @user_location
+          @user_action_needed << @user_location.notes
+          @user_action_needed.uniq
           @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
           @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).includes(:course, :users).reject{|hash| hash[:day] != Time.now.strftime('%A') }

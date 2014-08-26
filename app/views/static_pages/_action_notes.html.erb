@@ -3,7 +3,7 @@
     <h3 class="text-center">Needs Action: <%= @user_action_needed.count %></h3>
     <div class="notes">
       <ul class="list-unstyled">
-        <% @user_action_needed.includes(:notable).each do |note| %>
+        <% @user_action_needed.each do |note| %>
           <li>
             <%= render '/shared/note_template', note: note %>
           </li>

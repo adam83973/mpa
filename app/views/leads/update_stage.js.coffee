@@ -19,13 +19,7 @@ jQuery ->
     </li>
     </div>
     <div class="lead_toolbar">
-    <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
-    <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
-    <%= f.input :action_date, as: :string, input_html: { id: :datepicker } %>
-    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-    <%= f.input :lead_id, as: :hidden, input_html: { value: lead.id } %>
-    <%= f.button :submit, class: "btn btn-success btn-xs" %>
-    <% end %>
+    <%= escape_javascript(render "/shared/lead_note_form", lead: lead) %>
     </div>
     </div>
     <% end %>
