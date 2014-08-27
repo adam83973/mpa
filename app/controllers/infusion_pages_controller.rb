@@ -58,8 +58,9 @@ class InfusionPagesController < ApplicationController
   	   @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
   	  result = Infusionsoft.contact_update(user_update_id, @user_update)
 
-      if !!(params[:NewCustomer].to_i)
+      if params[:NewCustomer]
         Infusionsoft.contact_add_to_group(user_update_id, 1648)
+        new_customer = true
       end
     rescue
       if count < 3
@@ -68,7 +69,7 @@ class InfusionPagesController < ApplicationController
       end
     end
 
-    if result && !!(params[:NewCustomer].to_i)
+    if result && params[:NewCustomer] == "true"
       flash[:notice] = "New Customer Sequence Started"
     elsif result
       flash[:notice] = "Contact Updated"

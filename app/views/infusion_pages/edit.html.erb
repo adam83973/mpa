@@ -32,7 +32,7 @@
 				<%= text_field_tag :PostalCode, @user["PostalCode"], class:"form-control" %>
 				<br>
 				<label class="control-label">Launch New Customer Sequence</label>
-				<%= check_box_tag :NewCustomer, class:"form-control" %>
+				<%= check_box_tag :NewCustomer, true, false, {} %>
 				<br>
 				<br>
 			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-success' %>
