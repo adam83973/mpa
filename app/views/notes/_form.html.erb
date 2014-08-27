@@ -4,7 +4,7 @@
       <%= f.error_notification %>
 
       <%= f.association :user, label_method: :full_name, input_html: { class: :chosen } %>
-      <%= f.input :lead_id %>
+      <%= f.association :location, label_method: :name %>
       <%= f.input :action_date, as: :string, input_html: { id: "datepicker" } %>
       <%= f.input :content, input_html: { rows: 3 } %>
       <%= f.input :completed %>
