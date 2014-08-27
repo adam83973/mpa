@@ -71,6 +71,7 @@ class StaticPagesController < ApplicationController
       @users_search = User.search(params[:search])
       @offerings_search = Offering.search(params[:search])
       @students_search = Student.search(params[:search])
+      @leads_search = Lead.search(params[:search])
     end
   end
 
