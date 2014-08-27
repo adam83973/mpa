@@ -64,11 +64,10 @@
                 <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note brocast to all admins at specified location." } %>
               </div>
             </div>
-                <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-                <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
-                <%= f.button :submit, class: "btn btn-success btn-xs", id: "lead_note" %>
-              <% end %>
-              <br>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.button :submit, class: "btn btn-success btn-xs", id: "lead_note" %>
+          <% end %>
+          <br>
       <div id="lead_notes" class="notes">
         <%= render 'lead_notes' %>
       </div>
