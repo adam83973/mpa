@@ -44,7 +44,7 @@ class Resource < ActiveRecord::Base
     if self.is_lesson_key?
       l = key_regex.match(self.filename)
       if l
-        lessons = Lesson.where("week = ?", "#{l[:week]}")
+        lessons = Lesson.includes(:standard).where("week = ?", "#{l[:week]}")
         lessons.each do |lesson|
           if lesson.standard.course.course_name == l[:course]
             lesson.assignment_key ||= self.id
