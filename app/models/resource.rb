@@ -18,12 +18,22 @@ class Resource < ActiveRecord::Base
 
   def is_lesson?
     default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w.\w.*)/)
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*)/)
   end
 
   def is_lesson_key?
     default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w.\w.*).*(?<key>\bKEY\b)/)
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<key>\bKEY\b)/)
+  end
+
+  def is_inclass?
+    default_name
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.*).*(?<in-class>\[\bIN-CLASS\b\])/)
+  end
+
+  def is_teacher_resource?
+    default_name
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<teacher-resource>\[\s*\bTEACHER RESOURCE\b\s*\])/)
   end
 
   private
