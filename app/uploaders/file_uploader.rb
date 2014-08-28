@@ -4,7 +4,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility
   include Sprockets::Helpers::RailsHelper
@@ -45,9 +45,10 @@ class FileUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [200, 200]
     process :convert => :jpg
     process :set_content_type_img
-    def full_filename (for_file = model.source.file)
-      super.chomp(File.extname(super)) + '.jpg'
-    end
+  end
+
+  def full_filename (for_file = model.source.file)
+    super.chomp(File.extname(super)) + '.jpg'
   end
 
   def set_content_type_img(*args)

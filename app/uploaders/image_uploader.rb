@@ -43,9 +43,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :convert => :jpg
     process :resize_to_fit => [200, 200]
     process :set_content_type_img
-    def full_filename (for_file = model.source.file)
-      super.chomp(File.extname(super)) + '.jpg'
-    end
+  end
+
+  def full_filename (for_file = model.source.file)
+    super.chomp(File.extname(super)) + '.jpg'
   end
 
   def set_content_type_img(*args)

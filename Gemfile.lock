@@ -250,7 +250,7 @@ DEPENDENCIES
   populator
   rails (= 3.2.18)
   rails_12factor
-  rmagick (= 2.13.2)
+  rmagick
   sass-rails
   selectivizr-rails (~> 1.0.1)
   simple_form
