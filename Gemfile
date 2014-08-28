@@ -13,7 +13,7 @@ gem 'populator'
 gem 'humanize'
 gem 'jquery-slimscroll-rails'
 gem 'carrierwave'
-gem 'rmagick', :require => false
+gem 'rmagick', '2.13.2', :require => 'RMagick'
 gem 'newrelic_rpm'
 gem 'fog'
 gem 'jquery-rails'
