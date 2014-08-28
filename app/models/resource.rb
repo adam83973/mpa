@@ -14,7 +14,7 @@ class Resource < ActiveRecord::Base
   before_save :update_file_attributes
   after_save :add_resource_to_lesson
 
-  CATEGORIES = ["Assignments", "Assignment Keys", "Miscelaneous", "Problem", "Games"]
+  CATEGORIES = ["Assignments", "Assignment Keys", "Teacher Resource", "In-Class", "Miscelaneous", "Problem", "Games"]
 
   def is_lesson?
     default_name
@@ -28,12 +28,12 @@ class Resource < ActiveRecord::Base
 
   def is_inclass?
     default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.*).*(?<in-class>\[\bIN-CLASS\b\])/)
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.*).*(?<in-class>\bIN-CLASS\b)/)
   end
 
   def is_teacher_resource?
     default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<teacher-resource>\[\s*\bTEACHER RESOURCE\b\s*\])/)
+    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<teacher-resource>\s*\bTEACHER RESOURCE\b\s*)/)
   end
 
   private
@@ -46,9 +46,19 @@ class Resource < ActiveRecord::Base
       if l
         lessons = Lesson.includes(:standard).where("week = ?", "#{l[:week]}")
         lessons.each do |lesson|
-          if lesson.standard.course.course_name == l[:course]
+          if lesson.course_name == l[:course]
             lesson.assignment_key ||= self.id
             lesson.save
+          end
+        end
+      end
+    elsif self.is_teacher_resource? || self.is_inclass?
+      r = lesson_regex.match(self.filename)
+      if r
+        lessons = Lesson.where("week = ?", "#{r[:week]}")
+        lessons.each do |lesson|
+          if lesson.course_name == r[:course]
+            lesson.resources << self
           end
         end
       end
@@ -57,7 +67,7 @@ class Resource < ActiveRecord::Base
       if r
         lessons = Lesson.where("week = ?", "#{r[:week]}")
         lessons.each do |lesson|
-          if lesson.standard.course.course_name == r[:course]
+          if lesson.course_name == r[:course]
             lesson.assignment ||= self.id
             lesson.save
           end
@@ -80,6 +90,10 @@ class Resource < ActiveRecord::Base
       self.file_size = file.file.size
       if is_lesson? && is_lesson_key?
         self.category = "Assignment Keys"
+      elsif is_lesson? && is_teacher_resource?
+        self.category = "Teacher Resource"
+      elsif is_lesson? && is_inclass?
+        self.category = "In-Class"
       elsif is_lesson?
         self.category = "Assignments"
       else
@@ -104,5 +118,4 @@ class Resource < ActiveRecord::Base
       resource.save!
     end
   end
-
 end
