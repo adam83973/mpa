@@ -1,6 +1,11 @@
 # ---- Admin Page ----------------
 # Hide schedule from admin view
 jQuery ->
+  $( ".datepicker" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
+
   $("#hide_schedule").on 'click', ->
     if $("#hide_schedule").text() is "hide schedule"
       $(".daily-schedule").slideUp()
@@ -16,6 +21,10 @@ jQuery ->
     $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
     if $lead_toolbar.css("display") is "none"
       $lead_toolbar.slideDown()
+      $( ".datepicker" ).datepicker
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear:true
     else
       $lead_toolbar.slideUp()
 

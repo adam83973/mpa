@@ -25,6 +25,17 @@
       alert "Note #{error}!"
       $form[0].reset()
 
+  # ---- Leads JS ----------------
+  # Hide Show Note Info ---
+  $('.note_info_toggle').on "click", ->
+    $note_info = $(this).closest('.well').find('.note_info')
+    if $note_info.css("display") is "none"
+      $note_info.slideDown()
+      $(this).find(".fa-angle-double-down").removeClass("fa-angle-double-down").addClass("fa-angle-double-up")
+    else
+      $note_info.slideUp()
+      $(this).find(".fa-angle-double-up").removeClass("fa-angle-double-up").addClass("fa-angle-double-down")
+
   #click listener to mark note completed when checkbox is clicked
   $(".notes #complete").on "click", ->
     if confirm "Has this task been completed?"

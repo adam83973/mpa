@@ -28,26 +28,7 @@
         <h4><u>New</u></h4>
         <ul>
           <% current_user.location.leads.includes(:stage).where("stage_id = ?", 6).each do |lead| %>
-
-            <div class="lead_group">
-              <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" class="well well-sm" style="z-index:1;">
-                <li>
-                  <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                      <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
-                    </div> <!-- /span9 -->
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                      <%= link_to "javascript:void(0)", class: "stage_attr" do %>
-                        <i class="fa fa-plus pull-right"></i>
-                      <% end %>
-                    </div>
-                  </div> <!-- /.row -->
-                </li>
-              </div> <!-- /.ui-draggable -->
-              <div class="lead_toolbar" style="display:none;">
-                  <%= render '/shared/lead_note_form', lead: lead %>
-              </div> <!-- /.lead_toolbar -->
-            </div> <!-- /.lead_group -->
+            <%= render 'lead_group', lead: lead %>
           <% end %>
         </ul></br>
           <p><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
