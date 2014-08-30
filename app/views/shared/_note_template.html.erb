@@ -44,7 +44,7 @@
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
           <div class="text-center">
             <%=  mail_to(note.notable.user.email)  if note.notable.class.name == "Student" %>
-            <%= mail_to(note.notable.user.email) if note.notable.class.name == "User" || note.notable.class.name == "Lead" %>
+            <%= mail_to(note.notable.email) if note.notable.class.name == "User" || note.notable.class.name == "Lead" %>
           </div>
         </div>
       </div><!-- /.row -->
