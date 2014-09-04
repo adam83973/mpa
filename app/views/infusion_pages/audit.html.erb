@@ -20,18 +20,24 @@
 					<td><%= student.user ? (link_to student.user.full_name, student.user, :target => "_blank") : "Add parent to student record!" %></td>
 					<td><%= student.locations[0].name if student.locations.any? %></td>
 					<td><%= student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
-					<% if student.user.infusion_id %>
-						<td>
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["month"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["day"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
-							<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] if student.user.last_payment_infusion.any? && student.user.last_payment %>
-						</td>
-						<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
-						<td><%= raw payment_status(student.user.last_payment_infusion[0]["PayStatus"], student.user.last_payment_infusion[0]["RefundStatus"]) if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
+					<% if student.user %>
+						<% if student.user.infusion_id %>
+							<td>
+								<%= student.user.last_payment_infusion[0]["DateCreated"]["month"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
+								<%= student.user.last_payment_infusion[0]["DateCreated"]["day"] if student.user.last_payment_infusion.any? && student.user.last_payment %>/
+								<%= student.user.last_payment_infusion[0]["DateCreated"]["year"] if student.user.last_payment_infusion.any? && student.user.last_payment %>
+							</td>
+							<td><%= student.user.last_payment_infusion[0]["InvoiceTotal"] if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
+							<td><%= raw payment_status(student.user.last_payment_infusion[0]["PayStatus"], student.user.last_payment_infusion[0]["RefundStatus"]) if student.user.last_payment_infusion.any? && student.user.last_payment %></td>
+						<% else %>
+							<td>No Infusion Id</td>
+							<td>No Infusion Id</td>
+							<td>No Infusion Id</td>
+						<% end %>
 					<% else %>
-						<td>No Infusion Id</td>
-						<td>No Infusion Id</td>
-						<td>No Infusion Id</td>
+							<td>Add parent to student record.</td>
+							<td>Add parent to student record.</td>
+							<td>Add parent to student record.</td>
 					<% end %>
 				</tr>
 				<% end %>
