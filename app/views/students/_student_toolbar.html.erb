@@ -13,13 +13,13 @@
         </li>
         <% if @agent_offering %>
         <li>
-          <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+          <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id, :offering => 1 }, { :class => "btn btn-black student_tool_button" } %>
         </li>
         <% end %>
 
         <% if @second_offering %>
         <li>
-          <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+          <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id, :offering => 1 }, { :class => "btn btn-black student_tool_button" } %>
         </li>
         <% end %>
       <% end %>

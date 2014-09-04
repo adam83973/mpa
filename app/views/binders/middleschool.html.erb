@@ -48,13 +48,13 @@
 <body>
       <div class="studentname"><%= @student.full_name %></div>
 
-      <div class="classname"><%= @second_offering.course.course_name %></div>
+      <div class="classname"><%= @offering.course.course_name %></div>
 
       <div class="barcode"> *<%= @student.id %>* </div>
 
-      <div class="day">Day: <%= @second_offering.day %> </div>
+      <div class="day">Day: <%= @offering.day %> </div>
 
-      <div class="time">Time: <%= @second_offering.time.strftime("%I:%M %p") %> </div>
+      <div class="time">Time: <%= @offering.time.strftime("%I:%M %p") %> </div>
 
-      <div class="classroom">Classroom: <%= @second_offering.classroom %> </div>
+      <div class="classroom">Classroom: <%= @offering.classroom %> </div>
 </body>
