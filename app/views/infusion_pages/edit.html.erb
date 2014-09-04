@@ -74,9 +74,9 @@
 				<label class="control-label">Credit Card Number </label>
 				<%= text_field_tag :CardNumber, nil, class:"form-control" %>
 				<label class="control-label">Expiration Month </label>
-				<%= text_field_tag :ExpirationMonth, nil, class:"form-control" %>
+				<%= select_tag 'ExpirationMonth', options_for_select((1..12).to_a), include_blank: true, class: "form-control", type: "text" %>
 				<label class="control-label">Expiration Year </label>
-				<%= text_field_tag :ExpirationYear, nil, class:"form-control" %>
+				<%= select_year Date.today, { start_year: Date.today.year, max_years_allowed: 8 }, { class: "form-control", id: "ExpirationYear", name: "ExpirationYear", type: "text"  } %>
 				<br>
 			<%= submit_tag "Add CC", :name => nil, class: 'btn btn-success' %>
 		<% end %>
