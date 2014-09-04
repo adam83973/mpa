@@ -22,54 +22,6 @@ class LocationsController < ApplicationController
     @location_future_adds = @location.students.future_adds
 
     @offerings = @location.offerings
-    @recruit_count = 0
-    @tech_count = 0
-    @operative_count = 0
-    @analyst_count = 0
-    @agent_count = 0
-    @specialops_count = 0
-    @prealgebra_count = 0
-    @algebra_count = 0
-    @geometry_count = 0
-    @e_math_team_count = 0
-    @m_math_team_count = 0
-    @chess_club_count = 0
-    @lego_robotics_count = 0
-
-    @offerings.each do |offering|
-      if offering.course_id == 1
-        @recruit_count += offering.students.active.count
-      elsif offering.course_id == 2
-        @tech_count += offering.students.active.count
-      elsif offering.course_id == 3
-        @operative_count += offering.students.active.count
-      elsif offering.course_id == 4
-        @analyst_count += offering.students.active.count
-      elsif offering.course_id == 5
-        @agent_count += offering.students.active.count
-      elsif offering.course_id == 6
-        @specialops_count += offering.students.active.count
-      elsif offering.course_id == 7
-        @prealgebra_count += offering.students.active.count
-      elsif offering.course_id == 8
-        @algebra_count += offering.students.active.count
-      elsif offering.course_id == 9
-        @geometry_count += offering.students.active.count
-      elsif offering.course_id == 10
-        @chess_club_count += offering.students.active.count
-      elsif offering.course_id == 11
-        @lego_robotics_count += offering.students.active.count
-      elsif offering.course_id == 13
-        @e_math_team_count += offering.students.active.count
-      elsif offering.course_id == 17
-        @m_math_team_count += offering.students.active.count
-      else
-      end
-    end
-
-    @enrollment_total = @recruit_count + @tech_count + @operative_count + @analyst_count + @agent_count +
-                        @specialops_count + @prealgebra_count + @algebra_count + @geometry_count +
-                        @e_math_team_count + @m_math_team_count + @chess_club_count + @lego_robotics_count
 
     respond_to do |format|
       format.html # show.html.erb
