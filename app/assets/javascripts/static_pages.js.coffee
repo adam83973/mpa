@@ -97,6 +97,7 @@ jQuery ->
   $(".class_attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
+    $('div[id^="accordion"]').find('input[name="commit"]').attr("disabled", "disabled")
     $submitButton.attr( 'data-origText',  $submitButton.val() )
     $submitButton.val( "Submitting..." )
   .bind 'ajax:success', (evt, data, status, xhr) ->
@@ -104,6 +105,7 @@ jQuery ->
   .bind 'ajax:complete', (evt, xhr, status) ->
     $form = $(this)
     $form.hide()
+    $('div[id^="accordion"]').find('input[name="commit"]').removeAttr("disabled")
 
   #remove student without reload
   $('.student_attending')

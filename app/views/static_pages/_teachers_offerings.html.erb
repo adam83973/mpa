@@ -1,55 +1,57 @@
 <!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
 
 <h3><%= @user.first_name %>'s <%= "Class".pluralize(@user.offerings.count)%></h3>
-<div class="accordion" id="accordion2">
- <% @user_offerings.each do |offering| %>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=offering.id.humanize.capitalize%>">
-        <%= offering.offering_name %>
-      </a>
-    </div>
-    <div id="collapse<%=offering.id.humanize.capitalize%>" class="accordion-body collapse">
-      <div class="accordion-inner class_offering">
-        <table class= "table table-striped table-hover table-bordered">
-          <tr>
-            <th> <%= link_to "Student Name", :sort => "Name" %> </th>
-            <th> <%= link_to "XP", :sort => "points" %> </th>
-          </tr>
-            <% offering.students.where("status = ?", "Active").each do |student| %>
-              <tr>
-                <td>
-                  <% if class_session.in_session? %>
-                    <% unless class_session.students.include?(student.id) || offering.course_id != Offering.find(class_session.offering).course_id %>
-                      <%= simple_form_for @experience_point,
-                          url: url_for( action: :create, controller: :experience_points ),
-                          method: :post,
-                          html: { class: 'class_attendance_form'},
-                          remote: true do |f| %>
-                        <%= f.error_notification %>
+ <% @user_offerings.each_with_index do |offering, i| %>
+  <div class="panel-group" id="accordion<%= i %>">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<%= i %>" href="#collapse<%=offering.id.humanize.capitalize%>">
+            <%= offering.offering_name %>
+          </a>
+         </h4>
+      </div>
+      <div id="collapse<%=offering.id.humanize.capitalize%>" class="panel-collapse collapse">
+        <div class="panel-body class_offering">
+          <table class= "table table-striped table-hover table-bordered">
+            <tr>
+              <th> <%= link_to "Student Name", :sort => "Name" %> </th>
+              <th> <%= link_to "XP", :sort => "points" %> </th>
+            </tr>
+              <% offering.students.where("status = ?", "Active").each do |student| %>
+                <tr>
+                  <td>
+                    <% if class_session.in_session? %>
+                      <% unless class_session.students.include?(student.id) || offering.course_id != Offering.find(class_session.offering).course_id %>
+                        <%= simple_form_for @experience_point,
+                            url: url_for( action: :create, controller: :experience_points ),
+                            method: :post,
+                            html: { class: 'class_attendance_form'},
+                            remote: true do |f| %>
+                          <%= f.error_notification %>
 
-                        <div class="form-inputs">
-                          <%= f.input :student_id, input_html: { value: student.id }, as: :hidden %>
-                          <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", Offering.find(class_session.offering).course.occupation_id, "%Attendance%").first.id }, label: "Achievement ID" %>
-                          <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
-                          <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
-                          <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
-                        </div>
-                          <%= f.button :submit, "Add to Class", class: "btn btn-xs btn-default" %>
+                          <div class="form-inputs">
+                            <%= f.input :student_id, input_html: { value: student.id }, as: :hidden %>
+                            <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", Offering.find(class_session.offering).course.occupation_id, "%Attendance%").first.id }, label: "Achievement ID" %>
+                            <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
+                            <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
+                            <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+                          </div>
+                            <%= f.button :submit, "Add to Class", class: "btn btn-xs btn-default" %>
+                        <% end %>
                       <% end %>
                     <% end %>
-                  <% end %>
-                  <%= link_to student.full_name, student %>
-                </td>
-                <td><%= student.xp_total %></td>
-              </tr>
-            <% end %>
-        </table>
-        <center>
-          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "btn btn-large btn-danger" if class_session.in_session? %>
-        </center>
+                    <%= link_to student.full_name, student %>
+                  </td>
+                  <td><%= student.xp_total %></td>
+                </tr>
+              <% end %>
+          </table>
+          <center>
+            <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "btn btn-large btn-danger" if class_session.in_session? %>
+          </center>
+        </div>
       </div>
     </div>
   </div>
  <% end %>
-</div>
