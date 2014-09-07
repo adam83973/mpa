@@ -43,7 +43,6 @@ class FileUploader < CarrierWave::Uploader::Base
     process :cover
     process :convert => :jpg
     process :resize_to_fit => [200, 200]
-    process :convert => :jpg
     process :set_content_type_img
     def full_filename (for_file = model.source.file)
       super.chomp(File.extname(super)) + '.jpg'
@@ -54,7 +53,7 @@ class FileUploader < CarrierWave::Uploader::Base
     self.file.instance_variable_set(:@content_type, "image/jpeg")
   end
 
-  def cover 
+  def cover
     manipulate! do |frame, index|
       frame if index.zero?
     end

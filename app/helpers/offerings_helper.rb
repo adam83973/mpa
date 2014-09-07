@@ -51,4 +51,17 @@ module OfferingsHelper
       8 - (roster_count(offering))
     end
   end
+
+  def offering_binder_cover(course_id, offering_id, student_id)
+    case course_id
+    when 1..6
+      "<div class='text-right' style='padding:5px 0 0 0;'><a href=/binders/briefcase?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a></div>"
+    when 7..9
+      "<div class='text-right style='padding:5px 0 0 0;'><a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a></div>"
+    when 13, 17
+      "<div class='text-right style='padding:5px 0 0 0;'><a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a></div>"
+    else
+      ""
+    end
+  end
 end

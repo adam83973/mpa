@@ -1,6 +1,11 @@
 # ---- Admin Page ----------------
 # Hide schedule from admin view
 jQuery ->
+  $( ".datepicker" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
+
   $("#hide_schedule").on 'click', ->
     if $("#hide_schedule").text() is "hide schedule"
       $(".daily-schedule").slideUp()
@@ -16,6 +21,10 @@ jQuery ->
     $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
     if $lead_toolbar.css("display") is "none"
       $lead_toolbar.slideDown()
+      $( ".datepicker" ).datepicker
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear:true
     else
       $lead_toolbar.slideUp()
 
@@ -88,6 +97,7 @@ jQuery ->
   $(".class_attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
+    $('div[id^="accordion"]').find('input[name="commit"]').attr("disabled", "disabled")
     $submitButton.attr( 'data-origText',  $submitButton.val() )
     $submitButton.val( "Submitting..." )
   .bind 'ajax:success', (evt, data, status, xhr) ->
@@ -95,6 +105,7 @@ jQuery ->
   .bind 'ajax:complete', (evt, xhr, status) ->
     $form = $(this)
     $form.hide()
+    $('div[id^="accordion"]').find('input[name="commit"]').removeAttr("disabled")
 
   #remove student without reload
   $('.student_attending')

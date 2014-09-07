@@ -56,13 +56,19 @@
       <h3>Notes</h3>
         <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
           <%= f.input :content, input_html: { style: "width:100%;", rows: 4 } %>
-          <%= f.input :action_date, as: :string, input_html: { id: :datepicker } if current_user.admin? %>
-          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-          <%= f.input :lead_id, as: :hidden, input_html: { value: @lead.id } %>
-          <%= f.button :submit, class: "btn btn-success btn-xs", id: "lead_note" %>
-        <% end %>
-        <br>
-      <div id="lead_notes" class="notes">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.input :action_date, as: :string, input_html: { id: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note brocast to all admins at specified location." } %>
+              </div>
+            </div>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.button :submit, class: "btn btn-success btn-xs", id: "lead_note" %>
+          <% end %>
+          <br>
+      <div id="notes" class="notes">
         <%= render 'lead_notes' %>
       </div>
     </p>

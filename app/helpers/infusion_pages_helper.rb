@@ -25,7 +25,7 @@ module InfusionPagesHelper
 
 	def payment_status(paystatus, refundstatus)
 		if paystatus == 0
-      "<span class='label label-important'>Unpaid</span>"
+      "<span class='label label-danger'>Unpaid</span>"
     elsif refundstatus == 1
       "<span class='label label-warning'>Partial Refund</span>"
     elsif refundstatus == 2

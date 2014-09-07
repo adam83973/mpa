@@ -141,9 +141,11 @@ ul{
 
 .lead_toolbar{
 	margin-bottom: 5px;
-	background-color: lightgray;
+	background-color: #d3d3d3;
 	padding: 10px;
 	overflow: hidden;
+	border: 1px solid #afafaf;
+	border-radius: 3px;
 	textarea{
 		height:100px;
 		width: 300px;

@@ -1,46 +1,8 @@
 <div class="row">
   <div class= "col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <h2><%= @location.name%> Location</h2>
-    <p>
-      <%= @location.address %>,
-      <%= @location.city %>,
-      <%= @location.state %>
-      <%= @location.zip %>
-    </p>
-    <% if signed_in? %>
-      <% if current_user.admin?%>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th># of Offerings</th>
-              <th># of Students</th>
-              <th>Avg. Student/Offering</th>
-              <th>Future Adds</th>
-              <th>Restarting Next 20</th>
-              <th>Students Added (30 days)</th>
-              <th>Students Dropped (30 days)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @location.active_offerings.count %></td>
-              <td><%= @total_location_students_count %></td>
-              <td><%= (@total_location_students_count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
-              <td><%= link_to "#{@location_future_adds.count}", "#futureAddsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.restarting.count}", "#restartingModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.added_last_30.count}", "#addsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
-            </tr>
-          </tbody>
-        </table>
-      <% end %>
-    <% end %>
+    <%= render 'location_stats' %>
 
     <%= render 'location_schedule' %>
-
-    <% if signed_in? and current_user.admin? %>
-      <%= render 'enrollment_totals_by_class' %>
-    <% end %>
   </div>
 </div>
 

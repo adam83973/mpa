@@ -10,6 +10,16 @@ jQuery ->
   </ul>
   </div>')
 
+  $('#notes').html('<div class="notes">
+  <ul class="list-unstyled">
+  <% @user_action_needed.each do |note| %>
+  <li>
+  <%= escape_javascript(render "/shared/note_template", note: note) %>
+  </li>
+  <% end %>
+  </ul>
+  </div>')
+
   #click listener to mark note completed when checkbox is clicked
   $(".notes #complete").on "click", ->
     if confirm "Has this task been completed?"

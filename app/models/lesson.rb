@@ -18,6 +18,14 @@ class Lesson < ActiveRecord::Base
   	end
   end
 
+  def course_name
+    if standard
+      standard.course.course_name
+    else
+      week.to_s + ": " + name
+    end
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       lesson = find_by_id(row["id"]) || new

@@ -18,4 +18,21 @@
     text-decoration: none;
     color: black
   }
+  .well-sm{
+    padding: 0;
+
+  }
+}
+
+.note_info{
+  display: none;
+  width: 100%;
+  background:#afafaf;
+  padding: 10px 0 10px 0;
+  border: 1px solid #9b9b9b;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  div[class^="col-"]{
+    padding: 0 5px 0 5px;
+  }
 }

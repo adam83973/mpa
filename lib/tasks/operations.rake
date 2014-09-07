@@ -34,7 +34,7 @@ def restart_date
     if student.restart_date == Date.today
       #set status to Active
       student.update_attribute :status, "Active"
-      if !student.user.active?
+      if student.user && !(student.user.active?)
       #make sure student's parent is active, if not, set parent status to active
         student.user.update_attribute :active, true
       end
@@ -53,7 +53,7 @@ def start_date
       #set status to Active
       student.update_attribute :status, "Active"
       #make sure student's parent is active, if not, set parent status to active
-      if !student.user.active?
+      if student.user && !(student.user.active?)
         student.user.update_attribute :active, true
       end
     end

@@ -3,25 +3,7 @@ jQuery ->
     <h4><u><%= @stage.name %></u></h4>
     <ul>
     <% current_user.location.leads.where("stage_id = ?", "#{ @stage.id }").each do |lead| %>
-    <div class="lead_group">
-    <div id="lead<%= lead.id %>" data-id="<%= lead.id %>" class="well well-sm" style="z-index:1;">
-    <li>
-    <div class="row">
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-    <%= link_to "#{lead.full_name}", lead%> - Stage: <%= lead.stage.name %>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-    <%= link_to "javascript:void(0)", class: "stage_attr" do %>
-    <i class="fa fa-plus pull-right"></i>
-    <% end %>
-    </div>
-    </div>
-    </li>
-    </div>
-    <div class="lead_toolbar">
-    <%= escape_javascript(render "/shared/lead_note_form", lead: lead) %>
-    </div>
-    </div>
+    <%= escape_javascript(render "/shared/lead_group", lead: lead) %>
     <% end %>
     </ul></br>
     <% if @stage.id == 6 %>
@@ -84,11 +66,6 @@ jQuery ->
       alert "Note #{error}!"
       $form[0].reset()
 
-  $( "#datepicker" ).datepicker
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear:true
-
   $('#stage_list').find('.lead_toolbar').each ->
     $(this).css("display", "none")
 
@@ -96,6 +73,10 @@ jQuery ->
     $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
     if $lead_toolbar.css("display") is "none"
       $lead_toolbar.slideDown()
+      $( ".datepicker" ).datepicker
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear:true
     else
       $lead_toolbar.slideUp()
 
