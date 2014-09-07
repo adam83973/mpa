@@ -50,6 +50,7 @@ class InfusionPagesController < ApplicationController
   def update
   	# put all user params into an instance variable hash
   	@user_update = params
+    @new_customer = params[:NewCustomer]
   	# get the infusionsoft user id from the hash
   	user_update_id = params[:Id]
   	# remove key,value pairs from hash
@@ -58,7 +59,7 @@ class InfusionPagesController < ApplicationController
   	   @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
   	  result = Infusionsoft.contact_update(user_update_id, @user_update)
 
-      if params[:NewCustomer]
+      if @new_customer
         Infusionsoft.contact_add_to_group(user_update_id, 1648)
         new_customer = true
       end
@@ -69,12 +70,12 @@ class InfusionPagesController < ApplicationController
       end
     end
 
-    if result && params[:NewCustomer] == "true"
+    if result && new_customer
       flash[:notice] = "New Customer Sequence Started"
     elsif result
       flash[:notice] = "Contact Updated"
     else
-      flash[:error] = "Contact Update Failed"
+      flash[:alert] = "Contact Update Failed"
     end
 
     redirect_to :back
