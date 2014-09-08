@@ -21,7 +21,7 @@
         </td>
         <td><%= offering.course.grade if offering.course.grade %></td>
         <td>
-          <% if current_user.employee? %>
+          <% if current_user && current_user.employee? %>
             <%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering %>
           <% else %>
             <%= "#{offering.day} / #{offering.time.strftime("%I:%M %p")}" %>
