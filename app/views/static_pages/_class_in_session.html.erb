@@ -20,7 +20,7 @@
         <div class="well well-sm">
           <p>Key:</p>
           <div class="text-center">
-            <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key %>
+            <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key && !(@last_weeks_lesson.assignment_key.empty?) %>
               <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
             <% else %>
               There is no key for this lesson.
