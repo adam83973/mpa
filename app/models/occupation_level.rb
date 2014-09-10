@@ -1,7 +1,10 @@
 class OccupationLevel < ActiveRecord::Base
-  attr_accessible :level, :notes, :points, :privileges, :rewards, :occupation_id, :bonus_credits
+  attr_accessible :level, :notes, :points, :privileges, :rewards, :occupation_id, :bonus_credits,
+                  :image, :remove_image, :remote_image_url
 
   belongs_to :occupation
+
+  mount_uploader :image, ImageUploader
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

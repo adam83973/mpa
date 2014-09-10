@@ -83,6 +83,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_account
+    @user = User.includes(:students).find(40)
+    count = 0
+    begin
+      results = Infusionsoft.contact_load(@user.infusion_id, [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])
+      if results.empty?
+      else
+        @infusion_info = OpenStruct.new(results)
+      end
+    rescue
+      if count < 3
+        count += 1
+        retry
+      end
+    end
+  end
+
   # GET /users/new
   # GET /users/new.json
   def new

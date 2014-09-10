@@ -30,6 +30,10 @@
   <%= @occupation_level.notes %>
 </p>
 
+<p>
+  <%= image_tag(@occupation_level.image_url, size: "200x200") if @occupation_level.image? %>
+</p>
+
 
 <%= link_to 'Edit', edit_occupation_level_path(@occupation_level) %> |
 <%= link_to 'Back', occupation_levels_path %>
