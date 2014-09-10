@@ -15,7 +15,7 @@
 <% @notes.each do |note| %>
   <tr>
     <td><%= note.user_id %></td>
-    <td><%= note.location.name %></td>
+    <td><%= note.location.name if note.location %></td>
     <td><%= note.completed %></td>
     <td><%= note.action_date %></td>
     <td><%= note.content %></td>

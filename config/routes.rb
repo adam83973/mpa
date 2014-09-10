@@ -30,6 +30,7 @@ MathPlus::Application.routes.draw do
     as :user do
       get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
+      put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
   get 'reports/', to: 'reports#new'
@@ -58,7 +59,10 @@ MathPlus::Application.routes.draw do
   end
 
   resources :users do
-    collection { post :import }
+    collection do
+      post :import
+      get :my_account
+    end
     resources :notes
   end
 

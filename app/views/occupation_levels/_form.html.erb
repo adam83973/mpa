@@ -1,17 +1,21 @@
-<%= simple_form_for(@occupation_level) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <%= simple_form_for(@occupation_level) do |f| %>
+    <%= f.error_notification %>
     <%= f.association :occupation, label_metod: :title %>
     <%= f.input :level, as: :select, collection: (0..15).to_a %>
     <%= f.input :points, as: :string %>
     <%= f.input :bonus_credits, as: :string %>
-    <%= f.input :rewards, input_html: { rows: 5 } %>
-    <%= f.input :privileges, input_html: { rows: 5 } %>
-    <%= f.input :notes, input_html: { rows: 5 } %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-success" %>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <%= f.input :rewards, input_html: { rows: 2 } %>
+    <%= f.input :privileges, input_html: { rows: 2 } %>
+    <%= f.input :notes, input_html: { rows: 2 } %>
   </div>
-<% end %>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    <% end %>
+  </div>
+</div>
