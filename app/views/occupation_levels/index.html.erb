@@ -11,38 +11,41 @@
 
 <br />
 
-<table>
-  <tr>
-    <th>Level</th>
-    <th>Occupation</th>
-    <th>Points</th>
-    <th>Rewards</th>
-    <th>Privileges</th>
-    <th>Notes</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-  <% @occupation_levels.each do |occupation_level| %>
+<table id="datatable" class="display">
+  <thead>
     <tr>
-      <td><%= occupation_level.level %></td>
-      <td><%= occupation_level.occupation.title %></td>
-      <td><%= occupation_level.points %></td>
-      <td><%= occupation_level.rewards %></td>
-      <td><%= occupation_level.privileges %></td>
-      <td><%= occupation_level.notes %></td>
-      <td><%= link_to 'Show', occupation_level %></td>
-      <td><%= link_to 'Edit', edit_occupation_level_path(occupation_level) %></td>
-      <td><%= link_to 'Destroy', occupation_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <th>Level</th>
+      <th>Occupation</th>
+      <th>Points</th>
+      <th>Rewards</th>
+      <th>Privileges</th>
+      <th>Notes</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @occupation_levels.each do |occupation_level| %>
+      <tr>
+        <td><%= occupation_level.level %></td>
+        <td><%= occupation_level.occupation.title %></td>
+        <td><%= occupation_level.points %></td>
+        <td><%= occupation_level.rewards %></td>
+        <td><%= occupation_level.privileges %></td>
+        <td><%= occupation_level.notes %></td>
+        <td><%= link_to 'Show', occupation_level %></td>
+        <td><%= link_to 'Edit', edit_occupation_level_path(occupation_level) %></td>
+        <td><%= link_to 'Destroy', occupation_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <% if signed_in? && current_user.admin? %>
 <h3> Import Levels</h3>
   <%= form_tag import_occupation_levels_path, multipart: true do %>
-    <%= file_field_tag :file %>
+    <%= file_field_tag :file %><br>
     <%= submit_tag "Import" %>
   <% end %>
 <% end %>

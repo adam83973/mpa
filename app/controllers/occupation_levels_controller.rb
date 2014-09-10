@@ -5,7 +5,7 @@ class OccupationLevelsController < ApplicationController
   # GET /occupation_levels
   # GET /occupation_levels.json
   def index
-    @occupation_levels = OccupationLevel.order(:id)
+    @occupation_levels = OccupationLevel.includes(:occupation).order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
