@@ -1,5 +1,5 @@
 jQuery ->
-  $('#user_action_needed').html('<h3>Needs Action: <%= @user_action_needed.count %></h3>
+  $('#user_action_needed').html('<h3 class="text-center">Needs Action: <%= @user_action_needed.count %></h3>
   <div class="notes">
   <ul class="list-unstyled">
   <% @user_action_needed.each do |note| %>

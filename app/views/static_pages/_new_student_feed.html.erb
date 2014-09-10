@@ -1,7 +1,10 @@
-<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-  <% if @new_students_location.empty? %>
-  <% else %>
-    <h3 class="text-center">New Students: <%= @new_students_location.count %></h3>
+<% if @new_students_location.empty? %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <h3 class="text-center">New Students: <i class="fa fa-frown-o"></i></h3>
+  </div>
+<% else %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <h3 class="text-center">New Students: <%= @new_students_location.reject{|student| student.attended_first_class? }.count %></h3>
     <div class="new_students">
       <% @new_students_location.order("start_date ASC").each do |student| %>
         <% if student.attended_first_class? %>
@@ -13,5 +16,5 @@
         <% end %>
       <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

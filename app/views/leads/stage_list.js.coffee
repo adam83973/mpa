@@ -39,7 +39,7 @@ jQuery ->
     $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
     if $lead_toolbar.css("display") is "none"
       $lead_toolbar.slideDown()
-      $( ".datepicker" ).datepicker
+      $lead_toolbar.find('input[id^="note_action_date"]').datepicker
         dateFormat: 'yy-mm-dd',
         changeMonth: true,
         changeYear:true

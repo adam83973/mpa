@@ -8,7 +8,7 @@
   <%if current_user.employee? %>
     <div class="row">
       <div class="dashboard">
-        <%= render 'new_student_feed' unless @new_students_location.empty? %>
+        <%= render 'new_student_feed' %>
 
         <%= render 'on_hold' unless current_user.teacher? || ( @student_restart.empty? && @student_return.empty? ) %>
 
