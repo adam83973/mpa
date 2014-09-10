@@ -7,12 +7,12 @@ jQuery ->
     changeYear:true
 
   $("#hide_schedule").on 'click', ->
-    if $("#hide_schedule").text() is "hide schedule"
+    if $("#hide_schedule").text() is "Hide Schedule"
       $(".daily-schedule").slideUp()
-      $("#hide_schedule").text('show schedule')
-    else if $("#hide_schedule").text() is "show schedule"
+      $("#hide_schedule").text('Show Schedule')
+    else if $("#hide_schedule").text() is "Show Schedule"
       $(".daily-schedule").slideDown()
-      $("#hide_schedule").text('hide schedule')
+      $("#hide_schedule").text('Hide Schedule')
 
 
 # ---- Leads JS ----------------
