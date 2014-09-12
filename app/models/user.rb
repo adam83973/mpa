@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many :experience_points
   has_many  :notes, as: :notable
   has_and_belongs_to_many :offerings
+  has_many :enrollment_changings, class_name: "EnrollmentChangeRequest", foreign_key: "user_id"
+  has_many :enrollment_change_requests, class_name: "EnrollmentChangeRequest", foreign_key: "admin_id"
 
   scope :active, lambda{where("active = ?", true)}
 

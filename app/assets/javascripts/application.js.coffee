@@ -35,6 +35,7 @@
 //= require static_pages
 //= require students
 //= require users
+//= require enrollment_change_requests
 
 jQuery ->
   $('body').tooltip
@@ -51,6 +52,10 @@ jQuery ->
   $( "#sortable" ).sortable()
   $( "#sortable" ).disableSelection()
   $( "#datepicker" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
+  $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear:true

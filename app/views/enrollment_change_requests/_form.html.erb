@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <%= simple_form_for(@enrollment_change_request) do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :user_id, as: :hidden, input_html: { value: params[:parent_id] } %>
+    <%= f.input :student_id, as: :hidden, input_html: { value: params[:student_id] } %>
+    <%= f.input :type, as: :select, collection: EnrollmentChangeRequest::TYPE.zip((0..1).to_a) %>
+    <div id="hold_dates" style="display:none;">
+      <%= f.input :hold_start_date, as: :hidden, as: :string, label: "Date To Start Hold", input_html: { class: "datepicker" } %>
+      <%= f.input :hold_return_date, as: :hidden, label: "Date Student Will Return", as: :string, input_html: { class: "datepicker" } %>
+    </div>
+    <div id="termination_date" style="display:none;">
+      <%= f.input :end_date, as: :hidden, as: :string, input_html: { class: "datepicker" } %>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="well well-lg" id="type_suggestions">
+      <h2>What Type of Change Are You Making?</h2>
+      <h3>Is it a hold?</h3>
+      <p>
+        Putting an enrollment on hold means that you will be returning in the next 3 months. This 'hold' holds a spot for your student until they return. Billing will restart on the indicated return date.
+      </p>
+      <p>
+        By placing a hold on your account you will not forfeit your deposit.
+      </p>
+      <h3>Is it a termination?</h3>
+      <p>
+        Termination of enrollment will result in a lost deposit and will not guarantee a spot for you student in the dropped class, should you decide to return.
+      </p>
+    </div>
+    <div class="well well-lg" id="hold_date_suggestions" style="display:none">
+      <h2>Fill in the dates.</h2>
+      <h3>Date to Start Hold</h3>
+      <p>
+        This would be the first day after the last class your student will be attending before the go on hold.
+      </p>
+      <h3>Return Date</h3>
+      <p>
+        Select a date that is one or two days before your student plans on returning.
+      </p>
+    </div>
+    <%= f.input :reason_id, as: :hidden, collection: EnrollmentChangeRequest::REASONS.zip((0..3).to_a) %>
+    <%= f.input :other_reason, as: :hidden, input_html: { rows: 4 } %>
+    <%= f.input :restart_billing_authorization, as: :hidden, label: "Approval To Restart Billing", hint: "Selecting this box means that you understand your billing will restart on the return date you specified." %>
+  </div>
+</div>
+<div class="row">
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-lg btn-success pull-right", value: "Submit Request", style: "display:none;" %>
+  </div>
+<% end %>
+</div>

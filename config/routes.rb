@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :enrollment_change_requests
+
+
   resources :reports
   resources :issues
   resources :occupations

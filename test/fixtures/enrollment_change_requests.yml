@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  admin_id: 1
+  status: 1
+  hold_start_date: 2014-09-12
+  hold_return_date: 2014-09-12
+  end_date: 2014-09-12
+  reason_ids: MyString
+  other_reason: MyText
+  restart_billing_authorization: false
+  student_id: 1
+
+two:
+  user_id: 1
+  admin_id: 1
+  status: 1
+  hold_start_date: 2014-09-12
+  hold_return_date: 2014-09-12
+  end_date: 2014-09-12
+  reason_ids: MyString
+  other_reason: MyText
+  restart_billing_authorization: false
+  student_id: 1

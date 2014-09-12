@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140910173743) do
+ActiveRecord::Schema.define(:version => 20140912155457) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(:version => 20140910173743) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "total_enrollment"
+  end
+
+  create_table "enrollment_change_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "admin_id"
+    t.integer  "status",                        :default => 0
+    t.date     "hold_start_date"
+    t.date     "hold_return_date"
+    t.date     "end_date"
+    t.string   "reason_id"
+    t.text     "other_reason"
+    t.boolean  "restart_billing_authorization"
+    t.integer  "student_id"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "type"
   end
 
   create_table "experience_points", :force => true do |t|

@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @enrollment_change_request.user_id %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%= @enrollment_change_request.admin_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @enrollment_change_request.status %>
+</p>
+
+<p>
+  <b>Hold start date:</b>
+  <%= @enrollment_change_request.hold_start_date %>
+</p>
+
+<p>
+  <b>Hold return date:</b>
+  <%= @enrollment_change_request.hold_return_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @enrollment_change_request.end_date %>
+</p>
+
+<p>
+  <b>Reason ids:</b>
+  <%= @enrollment_change_request.reason_ids %>
+</p>
+
+<p>
+  <b>Other reason:</b>
+  <%= @enrollment_change_request.other_reason %>
+</p>
+
+<p>
+  <b>Restart billing authorization:</b>
+  <%= @enrollment_change_request.restart_billing_authorization %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @enrollment_change_request.student_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_enrollment_change_request_path(@enrollment_change_request) %> |
+<%= link_to 'Back', enrollment_change_requests_path %>
