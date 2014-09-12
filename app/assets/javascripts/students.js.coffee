@@ -69,40 +69,41 @@ jQuery ->
   dial =
 		load: ->
 			$("#mathematician-dial").knob
-		    thickness: ".4"
+		    thickness: ".2"
 		    width: "150"
 		    height: "150"
 		    readOnly: true
 		    inputColor: "black"
 		    font: "Helvetica"
 		    fontWeight: 100
-		    fgColor: "#29ABE2"
-		    format: ->
-		      "L #{$("#mathematician-dial").data("level")}"
+		    fgColor: "#7d2622"
 
 		  $("#engineer-dial").knob
-		    thickness: ".4"
+		    thickness: ".2"
 		    width: "150"
 		    height: "150"
 		    readOnly: true
 		    inputColor: "black"
 		    font: "Helvetica"
 		    fontWeight: 100
-		    fgColor: "#8CC63F"
-		    format: ->
-		      "L #{$("#engineer-dial").data("level")}"
+		    fgColor: "#470c5f"
 
 		  $("#programmer-dial").knob
-		    thickness: ".4"
+		    thickness: ".2"
 		    width: "150"
 		    height: "150"
 		    readOnly: true
 		    inputColor: "black"
 		    font: "Helvetica"
 		    fontWeight: 100
-		    fgColor: "#F7931E"
-		    format: ->
-		      "L #{$("#programmer-dial").data("level")}"
+		    fgColor: "#f77c32"
+        #set delay to allow dom elements to load
+      setTimeout ( ->
+        $("#mathematician-dial").parent("div").addClass("outside")
+        $("#engineer-dial").parent("div").addClass("outside")
+        $("#programmer-dial").parent("div").addClass("outside")
+      ), 100
+
 
   $("#attendanceModal").bind "show", ->
     # enable chosen js

@@ -1,17 +1,20 @@
-<div class="text-center col-lg-3 col-md-12 col-sm-12 col-xs-12 well well-sm">
+<div style="position:relative; z-index:2;" class="text-center col-lg-3 col-md-12 col-sm-12 col-xs-12 well well-sm">
   <h2 style="margin-bottom:20px;"> <%= occupation.capitalize %> </h2>
-  <%= link_to("##{occupation}Modal", data: {toggle: :modal}) do %>
-  <input
-    disabled
-    id="<%= occupation %>-dial"
-    value="<%= @student.percentage_of_level_completed(occupation.capitalize) %>"
-    data-level="<%= @student.current_level_by_occupation(occupation) %>"
-  >
-  <% end %>
+    <input
+      disabled
+      id="<%= occupation %>-dial" class="outside"
+      value="<%= @student.percentage_of_level_completed(occupation.capitalize) %>"
+      data-level="<%= @student.current_level_by_occupation(occupation) %>"
+      data-displayInput="false"
+    >
+    <%= image_tag(@student.current_level_obj(occupation.capitalize).image, size: "120x120", class: "inside")%>
   <h3 style="margin-top:20px;">
     XP: <%= @student.xp_sum_by_occupation(occupation.capitalize)%>
   </h3>
   <h3>
-    <%= @student.points_to_next_level(occupation.capitalize) %>xp to Level <%= @student.next_level(occupation.capitalize).level %>
+    <%= @student.points_to_next_level(occupation.capitalize) %>xp to
+    <%= link_to("##{occupation}Modal", data: {toggle: :modal}) do %>
+     Level <%= @student.next_level(occupation.capitalize).level %>
+    <% end %>
   </h3>
 </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->

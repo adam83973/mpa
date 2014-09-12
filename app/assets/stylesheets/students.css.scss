@@ -151,3 +151,17 @@
 .class_list{
   padding-right:40px;
 }
+
+/*Student Occuption Dials*/
+
+.inside{
+    position:absolute;
+    top:77px;
+    left:47px;
+    z-index:1;
+}
+
+.outside{
+    position:relative;
+    z-index:2;
+}
