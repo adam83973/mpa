@@ -84,7 +84,7 @@ class UsersController < ApplicationController
   end
 
   def my_account
-    @user = User.includes(:students).find(40)
+    @user = User.includes(:students).find(params[:id])
     count = 0
     begin
       results = Infusionsoft.contact_load(@user.infusion_id, [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])

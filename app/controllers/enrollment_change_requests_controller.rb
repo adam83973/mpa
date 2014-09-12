@@ -25,6 +25,7 @@ class EnrollmentChangeRequestsController < ApplicationController
   # GET /enrollment_change_requests/new.json
   def new
     @enrollment_change_request = EnrollmentChangeRequest.new
+    @student = Student.find(params[:student_id])
 
     respond_to do |format|
       format.html # new.html.erb

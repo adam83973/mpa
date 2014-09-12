@@ -39,7 +39,7 @@
                 <% end %>
               </div>
               <div class="col-lg-6">
-                <%= link_to "#" do%>
+                <%= link_to new_enrollment_change_request_path(student_id: student.id, parent_id: @user.id) do%>
                   <h5 class="text-center">Update Enrollment</h5>
                 <% end %>
               </div>

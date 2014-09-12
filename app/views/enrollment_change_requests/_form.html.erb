@@ -1,5 +1,6 @@
+<p>Student Name: <%= @student.full_name %></p>
 <div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
   <%= simple_form_for(@enrollment_change_request) do |f| %>
     <%= f.error_notification %>
     <%= f.input :user_id, as: :hidden, input_html: { value: params[:parent_id] } %>
@@ -13,7 +14,18 @@
       <%= f.input :end_date, as: :hidden, as: :string, input_html: { class: "datepicker" } %>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <div id="reason_id" style="display:none;">
+      <%= f.input :reason_id, collection: EnrollmentChangeRequest::REASONS.zip((0..3).to_a) %>
+    </div>
+    <div id="other_reason" style="display:none;">
+      <%= f.input :other_reason, input_html: { rows: 4 } %>
+    </div>
+    <div id="billing_authorization" style="display:none;">
+      <%= f.input :restart_billing_authorization, label: "Approval To Restart Billing", hint: "Selecting this box means that you understand your billing will restart on the return date you specified." %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <div class="well well-lg" id="type_suggestions">
       <h2>What Type of Change Are You Making?</h2>
       <h3>Is it a hold?</h3>
@@ -24,29 +36,52 @@
         By placing a hold on your account you will not forfeit your deposit.
       </p>
       <h3>Is it a termination?</h3>
-      <p>
-        Termination of enrollment will result in a lost deposit and will not guarantee a spot for you student in the dropped class, should you decide to return.
+      <p style="color:red;">
+        Termination of enrollment will result in a lost deposit. Should you decide to return, we cannot guarantee a spot for you student.
       </p>
     </div>
     <div class="well well-lg" id="hold_date_suggestions" style="display:none">
       <h2>Fill in the dates.</h2>
-      <h3>Date to Start Hold</h3>
+      <h3>Date To Start Hold</h3>
       <p>
-        This would be the first day after the last class your student will be attending before the go on hold.
+       The day after the last class your student will be attending.
       </p>
       <h3>Return Date</h3>
       <p>
         Select a date that is one or two days before your student plans on returning.
       </p>
     </div>
-    <%= f.input :reason_id, as: :hidden, collection: EnrollmentChangeRequest::REASONS.zip((0..3).to_a) %>
-    <%= f.input :other_reason, as: :hidden, input_html: { rows: 4 } %>
-    <%= f.input :restart_billing_authorization, as: :hidden, label: "Approval To Restart Billing", hint: "Selecting this box means that you understand your billing will restart on the return date you specified." %>
+    <div class="well well-lg" id="termination_date_suggestions" style="display:none">
+      <h2>Fill in the termination date.</h2>
+      <h3>Date To Terminate</h3>
+      <p>
+       The day after the last class your student will be attending.
+      </p>
+    </div>
+    <div class="well well-lg" id="reason_suggestions" style="display:none">
+      <h2>Please Select a Reason For Enrollment Change.</h2>
+      <p>
+       This information will help us make adjustments to our program to better meet our customer's needs.
+      </p>
+    </div>
+    <div class="well well-lg" id="authorize_billing_suggestions" style="display:none">
+      <h2>Authorize Billing</h2>
+      <p>
+       If you do not want authorize restart of billing please reset form and select termination.
+      </p>
+    </div>
+    <div class="well well-lg" id="submit_suggestions" style="display:none">
+      <h2>Submit Request</h2>
+      <p>Thank you for taking the time to submit this request.</p>
+    </div>
   </div>
 </div>
 <div class="row">
-  <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-lg btn-success pull-right", value: "Submit Request", style: "display:none;" %>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="form-actions">
+      <%= link_to("Reset Form", "javascript:void(0)", class: "btn btn-lg btn-danger pull-right", id: "enrollment_change_request_reset") %>
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right", id: "enrollment_change_request_submit", value: "Submit Request", style: "display:none; margin-right:10px;" %>
+    </div>
   </div>
 <% end %>
 </div>
