@@ -8,10 +8,10 @@
     <%= f.input :type, as: :select, collection: EnrollmentChangeRequest::TYPE.zip((0..1).to_a) %>
     <div id="hold_dates" style="display:none;">
       <%= f.input :hold_start_date, as: :hidden, as: :string, label: "Date To Start Hold", input_html: { class: "datepicker" } %>
-      <%= f.input :hold_return_date, as: :hidden, label: "Date Student Will Return", as: :string, input_html: { class: "datepicker" } %>
+      <%= f.input :hold_return_date, as: :hidden, label: "Date Student Will Return", as: :string, input_html: { class: "" } %>
     </div>
     <div id="termination_date" style="display:none;">
-      <%= f.input :end_date, as: :hidden, as: :string, input_html: { class: "datepicker" } %>
+      <%= f.input :end_date, as: :hidden, as: :string, hint: "Date must be at least 30 days from today.", placeholder: "Please note the month before selecting a date." %>
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">

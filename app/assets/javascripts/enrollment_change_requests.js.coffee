@@ -10,12 +10,18 @@ $('#enrollment_change_request_type').on 'change', ->
     $('#hold_date_suggestions').show() # show help for filling in date fields
     $('#termination_date_suggestions').hide() # hide sugestions if type selection has changed
     $('#termination_date').hide() # hide dates if type selection has changed
+    $('#enrollment_change_request_hold_return_date').attr('disabled', 'disabled')
   else if $(this).val() is "1"
     $('#type_suggestions').hide() # hide suggestions for type when type is selected
     $('#hold_date_suggestions').hide() # hide dates if type selection has changed
     $('#hold_dates').hide() # hide dates if type selection has changed
     $('#termination_date_suggestions').show() # show help for filling in date fields
     $('#termination_date').show() # show field for hold dates
+    $('#enrollment_change_request_end_date').datepicker
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      minDate: (+30)
 
 $('#enrollment_change_request_hold_return_date').on 'change', ->
   if $('#enrollment_change_request_hold_start_date').val() is ""
@@ -46,6 +52,16 @@ $('#enrollment_change_request_hold_start_date').on 'change', ->
     $('#billing_authorization').show()
     $('#hold_date_suggestions').hide() # show help for filling in date fields
     $('#reason_suggestions').show() # show help for filling in date fields
+  else
+    $('#enrollment_change_request_hold_return_date').removeAttr('disabled')
+    minDate = new Date($('#enrollment_change_request_hold_start_date').val())
+    daysToAdd = "2"
+    $('#enrollment_change_request_hold_return_date').datepicker
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      minDate: new Date(minDate.getTime()+(2*24*60*60*1000))
+      maxDate: new Date(minDate.getTime()+(95*24*60*60*1000))
 
 $('#enrollment_change_request_reason_id').on 'change', ->
   if $('#enrollment_change_request_reason_id').val() is "3" and $('#enrollment_change_request_type').val() is "0"
@@ -72,6 +88,14 @@ $('#enrollment_change_request_restart_billing_authorization').on 'change', ->
 
 $('#enrollment_change_request_reset').on 'click', ->
   location.reload()
+
+# Custom datepicker options for form date fields
+
+$('#enrollment_change_request_hold_start_date').datepicker
+  dateFormat: 'yy-mm-dd',
+  changeMonth: true,
+  changeYear: true,
+  minDate: 0
 
 
 ###*
