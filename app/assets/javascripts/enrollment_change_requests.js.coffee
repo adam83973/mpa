@@ -19,6 +19,7 @@ $authorize_billing_suggestions = $('#authorize_billing_suggestions')
 $submit_suggestions = $('#submit_suggestions')
 $enrollment_change_request_submit = $('#enrollment_change_request_submit')
 
+# logic for when change request type is selected
 $enrollment_change_request_type.on 'change', ->
   if $(this).val() is ""
     alert "Please make a selection" # alert user to make selection of hold or termination
@@ -42,6 +43,7 @@ $enrollment_change_request_type.on 'change', ->
       changeYear: true,
       minDate: (+30)
 
+# logic for when hold return date is added. disable type select box
 $enrollment_change_request_hold_return_date.on 'change', ->
   if $enrollment_change_request_hold_start_date.val() is ""
     alert "Please select a date for the hold to begin."
@@ -53,6 +55,8 @@ $enrollment_change_request_hold_return_date.on 'change', ->
     $hold_date_suggestions.hide() # show help for filling in date fields
     $reason_suggestions.show() # show help for filling in date fields
 
+# logic for termination whe end date is entered. disable the date field and the type select.
+# remove disable attr from possible return date. Invalid date logic to ensure correct date is entered.
 $enrollment_change_request_end_date.on 'change', ->
   if $enrollment_change_request_end_date.val() is ""
     alert "Please select a date for the hold to begin."
@@ -71,6 +75,9 @@ $enrollment_change_request_end_date.on 'change', ->
       changeYear: true,
       minDate: new Date(new Date($enrollment_change_request_end_date.val()).getTime()+(2*24*60*60*1000))
 
+# logic for hold when start date is entered. set to handle scenario when restart date is entered first.
+# remove disabled attr from return field and initialize datepicker for return field with restricted date
+# range greater than current day but no more than three months from current day.
 $enrollment_change_request_hold_start_date.on 'change', ->
   if not isValidDate($enrollment_change_request_hold_start_date.val())
     alert "Date to start hold is not a valid date. yyyy-mm-dd"
