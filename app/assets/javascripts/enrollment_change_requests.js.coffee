@@ -1,102 +1,134 @@
 # ------- EnrollmentChangeRequest javascript -------
 # logic to controll completion of form
-$('#enrollment_change_request_type').on 'change', ->
+$enrollment_change_request_type = $('#enrollment_change_request_type')
+$hold_dates = $('#hold_dates')
+$type_suggestions = $('#type_suggestions')
+$hold_date_suggestions = $('#hold_date_suggestions')
+$termination_date_suggestions = $('#termination_date_suggestions')
+$termination_date = $('#termination_date')
+$enrollment_change_request_hold_return_date = $('#enrollment_change_request_hold_return_date')
+$enrollment_change_request_end_date = $('#enrollment_change_request_end_date')
+$enrollment_change_request_hold_start_date = $('#enrollment_change_request_hold_start_date')
+$reason_id = $('#reason_id')
+$billing_authorization = $('#billing_authorization')
+$hold_date_suggestions = $('#hold_date_suggestions')
+$reason_suggestions = $('#reason_suggestions')
+$enrollment_change_request_reason_id = $('#enrollment_change_request_reason_id')
+$other_reason = $('#other_reason')
+$authorize_billing_suggestions = $('#authorize_billing_suggestions')
+$submit_suggestions = $('#submit_suggestions')
+$enrollment_change_request_submit = $('#enrollment_change_request_submit')
+
+$enrollment_change_request_type.on 'change', ->
   if $(this).val() is ""
     alert "Please make a selection" # alert user to make selection of hold or termination
   else if $(this).val() is "0"
     # if hold is selected
-    $('#hold_dates').show() # show field for hold dates
-    $('#type_suggestions').hide() # hide suggestions for type when type is selected
-    $('#hold_date_suggestions').show() # show help for filling in date fields
-    $('#termination_date_suggestions').hide() # hide sugestions if type selection has changed
-    $('#termination_date').hide() # hide dates if type selection has changed
-    $('#enrollment_change_request_hold_return_date').attr('disabled', 'disabled')
+    $hold_dates.show() # show field for hold dates
+    $type_suggestions.hide() # hide suggestions for type when type is selected
+    $hold_date_suggestions.show() # show help for filling in date fields
+    $termination_date_suggestions.hide() # hide sugestions if type selection has changed
+    $termination_date.hide() # hide dates if type selection has changed
+    $enrollment_change_request_hold_return_date.attr('disabled', 'disabled')
   else if $(this).val() is "1"
-    $('#type_suggestions').hide() # hide suggestions for type when type is selected
-    $('#hold_date_suggestions').hide() # hide dates if type selection has changed
-    $('#hold_dates').hide() # hide dates if type selection has changed
-    $('#termination_date_suggestions').show() # show help for filling in date fields
-    $('#termination_date').show() # show field for hold dates
-    $('#enrollment_change_request_end_date').datepicker
+    $type_suggestions.hide() # hide suggestions for type when type is selected
+    $hold_date_suggestions.hide() # hide dates if type selection has changed
+    $hold_dates.hide() # hide dates if type selection has changed
+    $termination_date_suggestions.show() # show help for filling in date fields
+    $termination_date.show() # show field for hold dates
+    $enrollment_change_request_end_date.datepicker
       dateFormat: 'yy-mm-dd',
       changeMonth: true,
       changeYear: true,
       minDate: (+30)
 
-$('#enrollment_change_request_hold_return_date').on 'change', ->
-  if $('#enrollment_change_request_hold_start_date').val() is ""
+$enrollment_change_request_hold_return_date.on 'change', ->
+  if $enrollment_change_request_hold_start_date.val() is ""
     alert "Please select a date for the hold to begin."
-  else if not isValidDate($('#enrollment_change_request_hold_start_date').val())
+  else if not isValidDate($enrollment_change_request_hold_start_date.val())
     alert "Date to start hold is not a valid date. yyyy-mm-dd"
   else
-    $('#reason_id').show()
-    $('#billing_authorization').show()
-    $('#hold_date_suggestions').hide() # show help for filling in date fields
-    $('#reason_suggestions').show() # show help for filling in date fields
+    $reason_id.show()
+    $billing_authorization.show()
+    $hold_date_suggestions.hide() # show help for filling in date fields
+    $reason_suggestions.show() # show help for filling in date fields
 
-$('#enrollment_change_request_end_date').on 'change', ->
-  if $('#enrollment_change_request_end_date').val() is ""
+$enrollment_change_request_end_date.on 'change', ->
+  if $enrollment_change_request_end_date.val() is ""
     alert "Please select a date for the hold to begin."
-  else if not isValidDate($('#enrollment_change_request_end_date').val())
+  else if not isValidDate($enrollment_change_request_end_date.val())
     alert "End is not a valid date. yyyy-mm-dd"
   else
-    $('#reason_id').show()
-    $('#termination_date_suggestions').hide() # show help for filling in date fields
-    $('#reason_suggestions').show() # show help for filling in date fields
+    $(this).attr('disabled', 'disabled')
+    $enrollment_change_request_type.attr('disabled', 'disabled')
+    $('#enrollment_change_request_possible_return_date').removeAttr('disabled')
+    $reason_id.show()
+    $termination_date_suggestions.hide() # show help for filling in date fields
+    $reason_suggestions.show() # show help for filling in date fields
+    $('#enrollment_change_request_possible_return_date').datepicker
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      minDate: new Date(new Date($enrollment_change_request_end_date.val()).getTime()+(2*24*60*60*1000))
 
-$('#enrollment_change_request_hold_start_date').on 'change', ->
-  if not isValidDate($('#enrollment_change_request_hold_start_date').val())
+$enrollment_change_request_hold_start_date.on 'change', ->
+  if not isValidDate($enrollment_change_request_hold_start_date.val())
     alert "Date to start hold is not a valid date. yyyy-mm-dd"
-  else if isValidDate($('#enrollment_change_request_hold_start_date').val()) and isValidDate($('#enrollment_change_request_hold_return_date').val())
-    $('#reason_id').show()
-    $('#billing_authorization').show()
-    $('#hold_date_suggestions').hide() # show help for filling in date fields
-    $('#reason_suggestions').show() # show help for filling in date fields
+  else if isValidDate($enrollment_change_request_hold_start_date.val()) and isValidDate($enrollment_change_request_hold_return_date.val())
+    $enrollment_change_request_type.attr('disabled', 'disabled')
+    $reason_id.show()
+    $billing_authorization.show()
+    $hold_date_suggestions.hide() # show help for filling in date fields
+    $reason_suggestions.show() # show help for filling in date fields
   else
-    $('#enrollment_change_request_hold_return_date').removeAttr('disabled')
-    minDate = new Date($('#enrollment_change_request_hold_start_date').val())
+    $enrollment_change_request_type.attr('disabled', 'disabled')
+    $enrollment_change_request_hold_return_date.removeAttr('disabled')
+    minDate = new Date($enrollment_change_request_hold_start_date.val())
     daysToAdd = "2"
-    $('#enrollment_change_request_hold_return_date').datepicker
+    $enrollment_change_request_hold_return_date.datepicker
       dateFormat: 'yy-mm-dd',
       changeMonth: true,
       changeYear: true,
       minDate: new Date(minDate.getTime()+(2*24*60*60*1000))
       maxDate: new Date(minDate.getTime()+(95*24*60*60*1000))
 
-$('#enrollment_change_request_reason_id').on 'change', ->
-  if $('#enrollment_change_request_reason_id').val() is "3" and $('#enrollment_change_request_type').val() is "0"
-    $('#other_reason').show()
-    $('#authorize_billing_suggestions').show()
-    $('#reason_suggestions').hide() # hide help for filling in date fields
-  else if $('#enrollment_change_request_reason_id').val() is "3" and $('#enrollment_change_request_type').val() is "1"
-    $('#other_reason').show()
-    $('#reason_suggestions').hide() # hide help for filling in date fields
-    $('#submit_suggestions').show()
-    $('#enrollment_change_request_submit').show()
-  else if $('#enrollment_change_request_type').val() is "1"
-    $('#reason_suggestions').hide() # hide help for filling in date fields
-    $('#submit_suggestions').show()
-    $('#enrollment_change_request_submit').show()
+$enrollment_change_request_reason_id.on 'change', ->
+  if $enrollment_change_request_reason_id.val() is "3" and $enrollment_change_request_type.val() is "0"
+    $other_reason.show()
+    $authorize_billing_suggestions.show()
+    $reason_suggestions.hide() # hide help for filling in date fields
+  else if $enrollment_change_request_reason_id.val() is "3" and $enrollment_change_request_type.val() is "1"
+    $other_reason.show()
+    $reason_suggestions.hide() # hide help for filling in date fields
+    $submit_suggestions.show()
+    $enrollment_change_request_submit.show()
+    $('#customer_experience').show()
+  else if $enrollment_change_request_type.val() is "1"
+    $reason_suggestions.hide() # hide help for filling in date fields
+    $submit_suggestions.show()
+    $enrollment_change_request_submit.show()
+    $('#customer_experience').show()
   else
-    $('#authorize_billing_suggestions').show()
-    $('#reason_suggestions').hide() # hide help for filling in date fields
+    $other_reason.hide()
+    $authorize_billing_suggestions.show()
+    $reason_suggestions.hide() # hide help for filling in date fields
 
+# Show submit button after billing authorization is accepted.
 $('#enrollment_change_request_restart_billing_authorization').on 'change', ->
   $(this).attr("disabled", "disabled")
   if $(this).val() is "1"
-    $('#enrollment_change_request_submit').show()
+    $enrollment_change_request_submit.show()
 
 $('#enrollment_change_request_reset').on 'click', ->
   location.reload()
 
 # Custom datepicker options for form date fields
 
-$('#enrollment_change_request_hold_start_date').datepicker
+$enrollment_change_request_hold_start_date.datepicker
   dateFormat: 'yy-mm-dd',
   changeMonth: true,
   changeYear: true,
   minDate: 0
-
 
 ###*
 isValidDate(str)

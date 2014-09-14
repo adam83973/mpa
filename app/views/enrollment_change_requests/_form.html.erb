@@ -11,7 +11,8 @@
       <%= f.input :hold_return_date, as: :hidden, label: "Date Student Will Return", as: :string, input_html: { class: "" } %>
     </div>
     <div id="termination_date" style="display:none;">
-      <%= f.input :end_date, as: :hidden, as: :string, hint: "Date must be at least 30 days from today.", placeholder: "Please note the month before selecting a date." %>
+      <%= f.input :end_date, as: :string, hint: "Date must be at least 30 days from today.", placeholder: "Please note the month before selecting a date." %>
+      <%= f.input :possible_return_date, as: :string, input_html: { disabled: "disabled" } %>
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -73,6 +74,10 @@
     <div class="well well-lg" id="submit_suggestions" style="display:none">
       <h2>Submit Request</h2>
       <p>Thank you for taking the time to submit this request.</p>
+      <div id="customer_experience" style="display:none">
+        <h4>Tell Us About Your Experience</h4>
+        <%= f.input :customer_experience, label: false, input_html: { rows: 3 } %>
+      </div>
     </div>
   </div>
 </div>
