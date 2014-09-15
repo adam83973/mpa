@@ -41,7 +41,7 @@ $enrollment_change_request_type.on 'change', ->
       dateFormat: 'yy-mm-dd',
       changeMonth: true,
       changeYear: true,
-      minDate: (+30)
+      minDate: (+14)
 
 # logic for when hold return date is added. disable type select box
 $enrollment_change_request_hold_return_date.on 'change', ->
