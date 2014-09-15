@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     @issues = Issue.includes(:user).all
-    @open_issues = Issue.where("resolved = ?", true).includes(:user).all
+    @open_issues = Issue.where("resolved = ?", false).includes(:user).all
 
     respond_to do |format|
       format.html # index.html.erb
