@@ -1,6 +1,8 @@
 MathPlus::Application.routes.draw do
 
-  resources :enrollment_change_requests
+  resources :enrollment_change_requests do
+    collection { get :email }
+  end
 
 
   resources :reports

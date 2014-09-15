@@ -1,4 +1,6 @@
 class EnrollmentChangeRequestsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :authorize_employee, except: [:new, :create]
   # GET /enrollment_change_requests
   # GET /enrollment_change_requests.json
   def index
@@ -67,6 +69,18 @@ class EnrollmentChangeRequestsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @enrollment_change_request.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def email
+    @user =  User.find(params[:parent_id])
+    @student =  Student.find(params[:student_id])
+
+    result = EnrollmentChangeMailer::enrollment_change_request(@user, @student).deliver
+    if result
+      redirect_to :back, notice: "Enrollment change request sent to #{@user.full_name}, for #{@student.full_name}."
+    else
+      redirect_to :back, notice: "Something must have gone wrong. Check the user's email and resend."
     end
   end
 

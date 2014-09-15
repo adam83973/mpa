@@ -3,6 +3,7 @@
   <p>
     <% @user.students.each do |student| %>
       <h4 style="display:inline;"><%= link_to student.full_name, student %></h4> -- <%= link_to "Edit", edit_student_path(student), class: "btn btn-default btn-xs" %>
+        <%= link_to "Enrollment Change", email_enrollment_change_requests_path(student_id: student.id, parent_id: @user.id), { class: "btn btn-default btn-xs", data: { confirm: "Are you sure? This action sends an email to the parent." } } if current_user.admin? %>
       <% student.offerings.includes(:course, :location).each do |offering| %>
         <p><%= link_to offering.offering_name, offering %></p>
       <% end %>
