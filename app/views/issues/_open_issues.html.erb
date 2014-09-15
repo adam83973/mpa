@@ -1,0 +1,42 @@
+<h1>Open Issues</h1>
+
+<%= link_to "All Issues", issues_path(all_issues: true) %>
+
+<table id="issues" class="display">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Summary</th>
+      <th>Submitted By</th>
+      <th>Priority</th>
+      <th>Resolved</th>
+      <th>Status</th>
+      <% if current_user.admin? %>
+        <th></th>
+        <th></th>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @open_issues.each do |issue| %>
+      <tr>
+        <td><%= issue.name %></td>
+        <td><%= issue.summary %></td>
+        <td><%= issue.user.full_name %></td>
+        <td><%= Issue::PRIORITY_LEVELS[issue.priority.to_i] %></td>
+        <td><%= issue.resolved %></td>
+        <td><%= Issue::STATUS_LEVELS[issue.status.to_i] %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Show', issue %></td>
+          <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+          <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Issue', new_issue_path %>
