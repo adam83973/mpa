@@ -65,7 +65,7 @@ class IssuesController < ApplicationController
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
         if @issue.resolved? && @issue.status == 4
-          IssuesMailer.issue_closed_notification(@issue).deliver
+          IssueMailer.issue_closed_notification(@issue).deliver
         end
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
