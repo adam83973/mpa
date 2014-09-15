@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all
+    @issues = Issue.includes(:user).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,8 +46,8 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        AdminMailer.issue_notification(@issue).deliver
-        AdminMailer.issue_submission_notification(@issue).deliver
+        IssueMailer.issue_notification(@issue).deliver
+        IssueMailer.issue_submission_notification(@issue).deliver
         format.html { redirect_to root_path, notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
       else
