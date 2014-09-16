@@ -6,7 +6,7 @@
       <%= f.input :action_date, as: :string, input_html: { id: "note_action_date_#{lead.id}", class: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note brocast to all admins at specified location." } %>
+      <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
     </div>
   </div>
   <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
