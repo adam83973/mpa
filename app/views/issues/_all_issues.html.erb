@@ -1,6 +1,11 @@
 <h1>All Issues</h1>
 
+<br>
+
 <%= link_to "Open Issues", issues_path(open_issues: true) %>
+
+<br>
+<br>
 
 <table id="issues" class="display">
   <thead>
@@ -39,4 +44,4 @@
 
 <br />
 
-<%= link_to 'New Issue', new_issue_path %>
+<%= link_to 'New Issue', new_issue_path, class: "btn btn-lg btn-success" %>

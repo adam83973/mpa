@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :enrollment_change_requests, class_name: "EnrollmentChangeRequest", foreign_key: "admin_id"
 
   scope :active, lambda{where("active = ?", true)}
+  scope :employees, lambda{where("role = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor').where(active: true).order('last_name asc')}
 
   def full_name
       first_name + " " + last_name
