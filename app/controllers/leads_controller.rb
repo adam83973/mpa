@@ -85,10 +85,10 @@ class LeadsController < ApplicationController
 
   def update_stage
     @lead = Lead.find(params[:id])
-    @stage = Stage.where("name = ?", @lead.stage).first
+    @stage = Stage.where("name = ?", @lead.stage.name).first
+    @new_stage = Stage.where("name = ?", params[:stage].humanize.split.map(&:capitalize).join(' ')).first
     @note = Note.new
-    @old_lead = @lead
-    @lead.update_stage(@stage.id)
+    @lead.update_stage(@new_stage.id)
 
     respond_to do |format|
       format.js
