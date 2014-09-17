@@ -47,6 +47,7 @@ class EnrollmentChangeRequestsController < ApplicationController
 
     respond_to do |format|
       if @enrollment_change_request.save
+        # Send ecr_received email and update ecr submission_confirmation_email attribute to true if submission_confirmation_email hasn't been sent.
         format.html { redirect_to @enrollment_change_request, notice: 'Enrollment change request was successfully created.' }
         format.json { render json: @enrollment_change_request, status: :created, location: @enrollment_change_request }
       else
@@ -63,7 +64,17 @@ class EnrollmentChangeRequestsController < ApplicationController
 
     respond_to do |format|
       if @enrollment_change_request.update_attributes(params[:enrollment_change_request])
-        format.html { redirect_to @enrollment_change_request, notice: 'Enrollment change request was successfully updated.' }
+        # Send ecr_processed email and update ecr processed_confirmation_email attribute to true if
+        # processed_confirmation_email hasn't been sent and ecr status is 1 ("completed")
+        #
+        # if !(@enrollment_change_request.processed_confirmation_email?) && @enrollment_change_request.status == 1
+        #   EnrollmentChangeMailer::ecr_received(@enrollment_change_request).deliver
+        #   email_notice = "Email confirmation sent."
+        # else
+        #   email_notice = ""
+        # end
+
+        format.html { redirect_to @enrollment_change_request, notice: 'Enrollment change request was successfully updated.' + email_notice }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
