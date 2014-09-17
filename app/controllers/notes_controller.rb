@@ -84,9 +84,20 @@ class NotesController < ApplicationController
 
   # PUT /notes/completed
   def completed
-    @user = current_user
+    @current_user = current_user
     @note = Note.find(params[:id])
-    @user_action_needed = @user.notings.where("completed = ? AND action_date <= ?", false, Date.today).includes(:user)
+
+    if @note.notable_type == "Lead"
+      @lead = Lead.find(@note.notable_id)
+    elsif @note.notable_type == "Student"
+      @student = Student.find(@note.notable_id)
+    elsif @note.notable_type == "User"
+      @user = User.find(@note.notable_id)
+    end
+
+    @user_action_needed = [] #user notings are added to this array as well as location leads
+    @current_user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note }
+    @current_user.location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
 
     if @note.update_attribute :completed, true
       respond_to do |format|
