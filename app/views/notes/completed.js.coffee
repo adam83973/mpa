@@ -11,8 +11,8 @@ jQuery ->
     </ul>
     </div>')
 
-  if document.getElementById("user_notes")
-    $('#user_notes').html('<%= escape_javascript(render "/users/user_notes") %>')
+  if document.getElementById("user_note")
+    $('#user_note').html('<%= escape_javascript(render "/users/user_notes") %>')
 
   if document.getElementById("lead_notes")
     $('#lead_notes').html('<%= escape_javascript(render "/leads/lead_notes") %>')
