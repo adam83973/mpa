@@ -11,6 +11,9 @@
         <li>
           <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
         </li>
+        <li>
+          <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => @student.id }, { :class => "btn btn-yellow student_tool_button" } if !(@student.attended_first_class) %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -27,17 +30,9 @@
       <li>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
       </li>
-      <% if @agent_offering %>
       <li>
-        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
+        <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => @student.id }, { :class => "btn btn-yellow student_tool_button" } if !(@student.attended_first_class) %>
       </li>
-      <% end %>
-
-      <% if @second_offering %>
-      <li>
-        <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "btn btn-black student_tool_button" } %>
-      </li>
-      <% end %>
     <% end %>
   </ul>
 </div>

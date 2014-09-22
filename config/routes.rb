@@ -46,6 +46,7 @@ MathPlus::Application.routes.draw do
   post 'students/update_credits', to: 'students#update_credits'
   post 'notes/completed', to: 'notes#completed'
   post 'users/deactivate/:id', to: 'users#deactivate'
+  get 'students/attended_first_class', to: 'students#attended_first_class'
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'mission_lookup', to: 'static_pages#mission_lookup'
   get 'code', to: 'static_pages#enter_code'
@@ -55,7 +56,9 @@ MathPlus::Application.routes.draw do
   end
 
   resources :students do
-    collection { post :import }
+    collection do
+      post :import
+    end
     resources :notes
   end
 

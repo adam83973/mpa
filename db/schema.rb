@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140922160623) do
+ActiveRecord::Schema.define(:version => 20140922183140) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(:version => 20140922160623) do
     t.integer  "mathematics_xp",       :default => 0
     t.integer  "engineering_xp",       :default => 0
     t.integer  "programmer_xp",        :default => 0
-    t.boolean  "attended_first_class"
+    t.boolean  "attended_first_class", :default => false
   end
 
   create_table "time_punches", :force => true do |t|

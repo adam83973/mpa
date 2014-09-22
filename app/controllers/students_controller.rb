@@ -180,6 +180,14 @@ class StudentsController < ApplicationController
     end
   end
 
+  def attended_first_class
+    @student = Student.find(params[:id])
+
+    if @student.update_attribute :attended_first_class, true
+      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+    end
+  end
+
   def import
     Student.import(params[:file])
     redirect_to students_path, notice: "Students imported."
