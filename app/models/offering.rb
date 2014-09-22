@@ -13,6 +13,10 @@ class Offering < ActiveRecord::Base
     course.course_name
   end
 
+  def offering_name_dashboard
+      course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+  end
+
   def offering_name
       course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end

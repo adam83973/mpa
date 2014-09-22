@@ -56,7 +56,11 @@ class StaticPagesController < ApplicationController
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
           @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).includes(:course, :users).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
+          #Pull students that are or have started in +/- 6 days from today.
           @new_students_location = @user_location.students.includes(:experience_points).where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
+          #Pull students that are or have started in +/- 6 days from today.
+          @new_students_today_location = @user_location.students.includes(:experience_points).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
+          @restarting_students_today_location = @user_location.students.includes(:experience_points).where("restart_date <= ?", 1.day.from_now).uniq
             @new_students_location.each do |student|
               if student.attended_first_class?
                 @new_students_location.delete_if { |ns| ns["id"] == student.id }

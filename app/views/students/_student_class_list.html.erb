@@ -18,7 +18,9 @@
 <p>
 	<% @student.offerings.includes(:course, :location).each do |offering| %>
 	    <%= link_to offering.offering_name, offering %><br>
- 			<%= offering_binder_cover(offering.course_id, offering.id, @student.id).html_safe %>
+	    <div class='text-right' style='padding:5px 0 0 0;'>
+ 				<%= offering_binder_cover(offering.course_id, offering.id, @student.id).html_safe %>
+ 		  </div>
 	    <hr>
 	<% end %>
 </p>
