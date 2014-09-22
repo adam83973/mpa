@@ -28,6 +28,7 @@
                       <% end %>
                       <span>
                         <%= offering_binder_cover(offering.course_id, offering.id, student.id).html_safe %>
+                        <%= link_to "Edit", edit_student_path(student), class: "btn btn-default btn-xs", :target => "_blank" %>
                       </span>
                     </p>
                 <% end %>
@@ -44,6 +45,7 @@
                       <% end %>
                       <span>
                         <%= offering_binder_cover(offering.course_id, offering.id, student.id).html_safe %>
+                        <%= link_to "Edit", edit_student_path(student), class: "btn btn-default btn-xs", :target => "_blank" %>
                       </span>
                     </p>
                 <% end %>
