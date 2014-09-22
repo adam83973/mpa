@@ -34,7 +34,7 @@
   <%= @experience.content.html_safe %>
 </p>
 
-  <%= link_to image_tag(@experience.image_url(:thumb)), @experience.image.url if @experience.image_url %>
+  <%= link_to image_tag(@experience.image_url(:thumb), size: "100"), @experience.image.url if @experience.image_url %>
 
 <p>
   <b>Resources:</b>
