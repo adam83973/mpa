@@ -55,11 +55,11 @@ module OfferingsHelper
   def offering_binder_cover(course_id, offering_id, student_id)
     case course_id
     when 1..6
-      "<a href=/binders/briefcase?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a>"
+      "<a href=/binders/briefcase?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs' target='_blank'>Binder Cover</a>"
     when 7..9
-      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a>"
+      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs' target='_blank'>Binder Cover</a>"
     when 13, 17
-      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs'>Binder Cover</a>"
+      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-default btn-xs' target='_blank'>Binder Cover</a>"
     else
       ""
     end
