@@ -36,6 +36,7 @@
 //= require students
 //= require users
 //= require enrollment_change_requests
+//= require leads
 
 jQuery ->
   $('body').tooltip
