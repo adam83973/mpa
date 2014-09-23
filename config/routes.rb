@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :registrations
+
+
   resources :enrollment_change_requests do
     collection { get :email }
   end

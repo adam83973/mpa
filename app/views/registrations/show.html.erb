@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start date:</b>
+  <%= @registration.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @registration.end_date %>
+</p>
+
+<p>
+  <b>Hold date:</b>
+  <%= @registration.hold_date %>
+</p>
+
+<p>
+  <b>Trial date:</b>
+  <%= @registration.trial_date %>
+</p>
+
+<p>
+  <b>Attended first class:</b>
+  <%= @registration.attended_first_class %>
+</p>
+
+<p>
+  <b>Attended trial:</b>
+  <%= @registration.attended_trial %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @registration.student_id %>
+</p>
+
+<p>
+  <b>Offering:</b>
+  <%= @registration.offering_id %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%= @registration.admin_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @registration.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_registration_path(@registration) %> |
+<%= link_to 'Back', registrations_path %>
