@@ -1,25 +1,5 @@
 <h3>Lead Management</h3>
-<div id="lead_stages">
-  <ul class="nav nav-pills">
-    <li class="dropdown">
-      <a class="btn btn-default dropdown-toggle"
-         data-toggle="dropdown"
-         href="#">
-          Lead Stages
-          <b class="caret"></b>
-        </a>
-      <ul class="dropdown-menu">
-        <li><%= link_to "New Leads", "javascript:void(0)", data: { stageid: 6 } %></li>
-        <li><%= link_to "Appointment Scheduled", "javascript:void(0)", data: { stageid: 1 } %></li>
-        <li><%= link_to "Appointment Missed", "javascript:void(0)", data: { stageid: 7 } %></li>
-        <li><%= link_to "Assesment Completed", "javascript:void(0)", data: { stageid: 2 } %></li>
-        <li><%= link_to "Trial Offered", "javascript:void(0)", data: { stageid: 3 } %></li>
-        <li><%= link_to "Won", "javascript:void(0)", data: { stageid: 4 } %></li>
-        <li><%= link_to "Lost", "javascript:void(0)", data: { stageid: 5 } %></li>
-      </ul>
-    </li>
-  </ul>
-</div>
+<p><%= link_to "New Lead", "#leadModal", data: {toggle: :modal}, class: "btn btn-md btn-success" %></p>
 <br>
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -28,10 +8,9 @@
         <h4><u>New</u></h4>
         <ul>
           <% current_user.location.leads.includes(:stage).where("stage_id = ?", 6).each do |lead| %>
-            <%= render 'lead_group', lead: lead %>
+            <%= render '/shared/lead_group', lead: lead %>
           <% end %>
         </ul></br>
-          <p><%= link_to "Add Lead", "#leadModal", data: {toggle: :modal} %></p>
       </div>
     </div>
   </div>

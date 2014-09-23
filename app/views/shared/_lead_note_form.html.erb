@@ -1,4 +1,9 @@
 <p><u>Student Notes:</u> <%= lead.student_information == "" ? "No student information." : lead.student_information %></p>
+<p>
+  <u>Last Note:</u>
+  <%= lead.notes.last ? lead.notes.last.content : "None" %>
+  <%= lead.notes.last ? "(#{lead.notes.last.created_at.strftime("%D")})" : "" %>
+</p>
 <%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
   <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
   <div class="row">
