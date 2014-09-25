@@ -7,7 +7,7 @@ class Registration < ActiveRecord::Base
   belongs_to :location
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
 
-  scope :active, lambda{where("status = ?", "Active")}
+  scope :active, lambda{where("status = ?", "1")}
   scope :future_adds, lambda{where("start_date > ? AND status = ?", Date.today, "Inactive")}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}

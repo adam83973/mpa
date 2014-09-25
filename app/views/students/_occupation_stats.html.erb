@@ -7,7 +7,7 @@
       data-level="<%= @student.current_level_by_occupation(occupation) %>"
       data-displayInput="false"
     >
-    <%= image_tag(@student.current_level_obj(occupation.capitalize).image, size: "120x120", class: "inside")%>
+    <%= image_tag(@student.current_level_obj(occupation.capitalize).image, size: "115x115", class: "inside")%>
   <h3 style="margin-top:20px;">
     XP: <%= @student.xp_sum_by_occupation(occupation.capitalize)%>
   </h3>
