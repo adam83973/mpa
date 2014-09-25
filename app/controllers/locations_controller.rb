@@ -17,9 +17,9 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @location = Location.find(params[:id])
-    @location_students_restarting = @location.students.restarting
-    @total_location_students_count = @location.students.active.count
-    @location_future_adds = @location.students.future_adds
+    @location_students_restarting = @location.registrations.restarting
+    @total_location_students_count = @location.registrations.active.count
+    @location_future_adds = @location.registrations.future_adds
 
     @offerings = @location.offerings
 

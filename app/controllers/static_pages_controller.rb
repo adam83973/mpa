@@ -52,21 +52,20 @@ class StaticPagesController < ApplicationController
         end
         if @user_location
           @user_location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)} #add location notes to user_action needed
-          @hold_student_count = @user_location.students.find_all_by_status("Hold").count
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
           @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).includes(:course, :users).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_location = @user_location.students.includes(:experience_points).where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
+          @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_today_location = @user_location.students.includes(:experience_points).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
-          @restarting_students_today_location = @user_location.students.includes(:experience_points).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
+          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
+          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
             @new_students_location.each do |student|
               if student.attended_first_class?
                 @new_students_location.delete_if { |ns| ns["id"] == student.id }
               end
             end
-          @student_restart = @user_location.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now).order("restart_date ASC")
+          @student_restart = @user_location.students.where("student.status = ? AND restart_date < ?", "Hold", 20.days.from_now).order("restart_date ASC")
           @student_return = @user_location.students.where("return_date < ?", 20.days.from_now).order("return_date ASC")
         end
     end

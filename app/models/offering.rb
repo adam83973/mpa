@@ -7,7 +7,9 @@ class Offering < ActiveRecord::Base
   belongs_to :course
   has_one :occupation, through: :course
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :students
+  has_many :registrations
+  has_many :students, through: :registrations
+  # has_and_belongs_to_many :students
 
   def name
     course.course_name
@@ -22,11 +24,11 @@ class Offering < ActiveRecord::Base
   end
 
   def returning_students_count
-      self.students.where("status = ? AND restart_date is NOT NULL", "Hold").count
+      self.registrations.where("status = ? AND restart_date is NOT NULL", "Hold").count
   end
 
   def active_students_count
-      self.students.find_all_by_status("Active").count
+      self.registrations.where("status = ?","Active").count
   end
 
   def self.search(search)

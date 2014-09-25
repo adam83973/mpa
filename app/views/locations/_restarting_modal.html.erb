@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.students.restarting.uniq.each do |student| %>
+        <% @location.registrations.restarting.uniq.each do |student| %>
           <tr>
             <td><%= student.full_name %><td>
             <td>

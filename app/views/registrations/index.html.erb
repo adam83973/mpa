@@ -1,39 +1,42 @@
 <h1>Listing registrations</h1>
 
-<table>
-  <tr>
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Hold date</th>
-    <th>Trial date</th>
-    <th>Attended first class</th>
-    <th>Attended trial</th>
-    <th>Student</th>
-    <th>Offering</th>
-    <th>Admin</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @registrations.each do |registration| %>
-  <tr>
-    <td><%= registration.start_date %></td>
-    <td><%= registration.end_date %></td>
-    <td><%= registration.hold_date %></td>
-    <td><%= registration.trial_date %></td>
-    <td><%= registration.attended_first_class %></td>
-    <td><%= registration.attended_trial %></td>
-    <td><%= registration.student_id %></td>
-    <td><%= registration.offering_id %></td>
-    <td><%= registration.admin_id %></td>
-    <td><%= registration.status %></td>
-    <td><%= link_to 'Show', registration %></td>
-    <td><%= link_to 'Edit', edit_registration_path(registration) %></td>
-    <td><%= link_to 'Destroy', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table id="datatable" class="display">
+   <thead>
+     <tr>
+       <th>Start date</th>
+       <th>End date</th>
+       <th>Hold date</th>
+       <th>Trial date</th>
+       <th>Attended first class</th>
+       <th>Attended trial</th>
+       <th>Student</th>
+       <th>Offering</th>
+       <th>Admin</th>
+       <th>Status</th>
+       <th></th>
+       <th></th>
+       <th></th>
+     </tr>
+   </thead>
+<tbody>
+    <% @registrations.each do |registration| %>
+      <tr>
+        <td><%= registration.start_date %></td>
+        <td><%= registration.end_date %></td>
+        <td><%= registration.hold_date %></td>
+        <td><%= registration.trial_date %></td>
+        <td><%= registration.attended_first_class %></td>
+        <td><%= registration.attended_trial %></td>
+        <td><%= registration.student_id %></td>
+        <td><%= registration.offering_id %></td>
+        <td><%= registration.admin_id %></td>
+        <td><%= registration.status %></td>
+        <td><%= link_to 'Show', registration %></td>
+        <td><%= link_to 'Edit', edit_registration_path(registration) %></td>
+        <td><%= link_to 'Destroy', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+</tbody>
 </table>
 
 <br />

@@ -35,7 +35,7 @@ module OfferingsHelper
   end
 
   def roster_count(offering)
-    offering.students.active.count + offering.students.restarting.count + offering.students.future_adds.count
+    offering.registrations.active.count + offering.registrations.restarting.count + offering.registrations.future_adds.count
   end
 
   def open_spots(offering)

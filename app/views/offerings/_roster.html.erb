@@ -3,27 +3,12 @@
   <tr>
     <th>Student</th>
     <th>Parent</th>
-    <th>Status</th>
   </tr>
 
 <% @offering.students.where("status = ? OR status = ? OR start_date >= ?", "Active", "Hold", Date.today).order("status asc").each do |student| %>
   <tr>
     <td><%= link_to student.full_name, student %></td>
     <td><% if student.user %><%= link_to student.user.email, student.user %><% end %></td>
-    <td><%= student_status(student).html_safe %>
-      <% if student.status == "Hold" && student.restart_date %>
-        (<%=  student.restart_date.strftime("%m/%d/%Y") %> restart)
-      <% end %>
-
-      <% if student.status == "Hold" && student.return_date %>
-        (<%=  student.return_date.strftime("%m/%d/%Y") %> return)
-      <% end %>
-      <% if student.start_date %>
-      <% if student.start_date > Date.today %>
-        (<%=  student.start_date.strftime("%m/%d/%Y") %> start)
-      <% end %>
-      <% end %>
-      </td>
   </tr>
 <% end %>
 </table>

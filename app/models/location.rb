@@ -6,7 +6,8 @@ class Location < ActiveRecord::Base
   has_many :offerings
   has_many :users
   has_many :leads
-  has_many :students, :through => :offerings
+  has_many :registrations
+  has_many :students, :through => :registrations
   has_many :daily_location_reports
 
 

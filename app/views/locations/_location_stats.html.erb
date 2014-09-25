@@ -25,9 +25,9 @@
               <td><%= @total_location_students_count %></td>
               <td><%= (@total_location_students_count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
               <td><%= link_to "#{@location_future_adds.count}", "#futureAddsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.restarting.count}", "#restartingModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.added_last_30.count}", "#addsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.students.dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
+              <td><%= link_to "#{@location.registrations.restarting.count}", "#restartingModal", data: {toggle: :modal} %></td>
+              <td><%= link_to "#{@location.registrations.added_last_30.count}", "#addsModal", data: {toggle: :modal} %></td>
+              <td><%= link_to "#{@location.registrations.dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
             </tr>
           </tbody>
         </table>

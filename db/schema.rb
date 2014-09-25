@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140922183140) do
+ActiveRecord::Schema.define(:version => 20140923220136) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -262,6 +262,23 @@ ActiveRecord::Schema.define(:version => 20140922183140) do
 
   add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
 
+  create_table "registrations", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "hold_date"
+    t.date     "trial_date"
+    t.boolean  "attended_first_class", :default => false
+    t.boolean  "attended_trial",       :default => false
+    t.integer  "student_id"
+    t.integer  "offering_id"
+    t.integer  "admin_id"
+    t.integer  "status",               :default => 1
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "location_id"
+    t.date     "restart_date"
+  end
+
   create_table "resources", :force => true do |t|
     t.string   "resource"
     t.datetime "created_at",   :null => false
@@ -306,14 +323,12 @@ ActiveRecord::Schema.define(:version => 20140922183140) do
     t.string   "first_name"
     t.string   "last_name"
     t.date     "birth_date"
-    t.date     "start_date"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "user_id"
     t.string   "rank"
     t.integer  "credits"
     t.integer  "xp_total"
-    t.string   "status",               :default => "Inactive"
     t.date     "restart_date"
     t.date     "return_date"
     t.date     "end_date"
@@ -325,7 +340,9 @@ ActiveRecord::Schema.define(:version => 20140922183140) do
     t.integer  "mathematics_xp",       :default => 0
     t.integer  "engineering_xp",       :default => 0
     t.integer  "programmer_xp",        :default => 0
-    t.boolean  "attended_first_class", :default => false
+    t.string   "status"
+    t.date     "start_date"
+    t.boolean  "attended_first_class"
   end
 
   create_table "time_punches", :force => true do |t|

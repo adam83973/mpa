@@ -18,7 +18,9 @@ class Student < ActiveRecord::Base
   has_many :occupations, :through => :courses
   has_many :experience_points, dependent: :destroy
   has_many  :notes, as: :notable
-  has_and_belongs_to_many :offerings
+  # has_and_belongs_to_many :offerings
+  has_many :registrations
+  has_many :offerings, :through => :registrations
 
   scope :active, lambda{where("status = ?", "Active")}
   scope :future_adds, lambda{where("start_date > ? AND status = ?", Date.today, "Inactive")}
@@ -26,10 +28,10 @@ class Student < ActiveRecord::Base
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
-  before_save :active_status
-  before_save :hold_status
-  before_save :inactive_status
-  before_save :restart_active_status
+  # before_save :active_status
+  # before_save :hold_status
+  # before_save :inactive_status
+  # before_save :restart_active_status
 
   STATUSES = %w(Active Hold Inactive)
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting

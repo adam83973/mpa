@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.students.future_adds.uniq.each do |student| %>
+        <% @location.registrations.future_adds.uniq.each do |student| %>
           <tr>
             <td><%= student.full_name %><td>
             <td>
