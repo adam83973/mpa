@@ -18,11 +18,11 @@
               <th> <%= link_to "Student Name", :sort => "Name" %> </th>
               <th> <%= link_to "XP", :sort => "points" %> </th>
             </tr>
-              <% offering.students.where("status = ?", "Active").each do |student| %>
+              <% offering.registrations.where("status = ?", "1").each do |registration| %>
                 <tr>
                   <td>
                     <% if class_session.in_session? %>
-                      <% unless class_session.students.include?(student.id) || offering.course_id != Offering.find(class_session.offering).course_id %>
+                      <% unless class_session.students.include?(registration.student_id) || registration.offering.course_id != Offering.find(class_session.offering).course_id %>
                         <%= simple_form_for @experience_point,
                             url: url_for( action: :create, controller: :experience_points ),
                             method: :post,
@@ -31,7 +31,7 @@
                           <%= f.error_notification %>
 
                           <div class="form-inputs">
-                            <%= f.input :student_id, input_html: { value: student.id }, as: :hidden %>
+                            <%= f.input :student_id, input_html: { value: registration.student_id }, as: :hidden %>
                             <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", Offering.find(class_session.offering).course.occupation_id, "%Attendance%").first.id }, label: "Achievement ID" %>
                             <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
                             <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
@@ -41,9 +41,9 @@
                         <% end %>
                       <% end %>
                     <% end %>
-                    <%= link_to student.full_name, student %>
+                    <%= link_to registration.student.full_name, registration.student %>
                   </td>
-                  <td><%= student.xp_total %></td>
+                  <td><%= registration.student.xp_total %></td>
                 </tr>
               <% end %>
           </table>
