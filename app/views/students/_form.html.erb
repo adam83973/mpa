@@ -39,6 +39,10 @@
       <%= f.input :return_date, as: :string, label: "Possible Return Date", placeholder: "Tentative return date." %>
   </div>
 </div>
-<%= f.association :offerings, collection: Offering.includes(:course, :location).all(order: 'course_id'), label_method: :offering_name, item_wrapper_class: 'inline', :input_html => { :class => 'col-lg-12 col-sm-12 col-sm-12 col-xs-12' } %>
-<%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+<div class="row">
+  <%= f.association :offerings, collection: Offering.includes(:course, :location).all(order: 'course_id'), label_method: :offering_name, item_wrapper_class: 'inline', :input_html => { :class => 'col-lg-12 col-sm-12 col-sm-12 col-xs-12' } %>
+<div class="row">
+</div>
+  <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+</div>
 <% end %>
