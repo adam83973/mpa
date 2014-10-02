@@ -6,6 +6,7 @@ class Registration < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
+  has_one :opportunity
 
   scope :active, lambda{where("status = ?", "1")}
   scope :future_adds, lambda{where("start_date > ? AND status = ?", Date.today, "Inactive")}
@@ -13,5 +14,5 @@ class Registration < ActiveRecord::Base
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
-  STATUSES = ["Trial", "Active", "Hold", "Inactive", "Waitlisted"]
+  STATUSES = ["Active", "Hold", "Inactive", "New"]
 end

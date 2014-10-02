@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :opportunities
+
+
   resources :registrations
 
 

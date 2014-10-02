@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140923220136) do
+ActiveRecord::Schema.define(:version => 20141002172611) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -235,6 +235,28 @@ ActiveRecord::Schema.define(:version => 20140923220136) do
 
   add_index "offerings_users", ["user_id", "offering_id"], :name => "index_offerings_users_on_user_id_and_offering_id"
 
+  create_table "opportunities", :force => true do |t|
+    t.integer  "registration_id"
+    t.integer  "student_id"
+    t.integer  "admin_id"
+    t.integer  "offering_id"
+    t.boolean  "attended_trial",        :default => false
+    t.date     "trial_date"
+    t.integer  "status",                :default => 0
+    t.date     "possible_restart_date"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.date     "appointment_date"
+    t.string   "parent_name"
+    t.integer  "course_id"
+    t.integer  "location_id"
+    t.string   "student_name"
+    t.date     "date_won"
+    t.date     "date_lost"
+    t.integer  "source"
+    t.string   "title"
+  end
+
   create_table "problems", :force => true do |t|
     t.string   "title"
     t.text     "desc"
@@ -277,6 +299,7 @@ ActiveRecord::Schema.define(:version => 20140923220136) do
     t.datetime "updated_at",                              :null => false
     t.integer  "location_id"
     t.date     "restart_date"
+    t.integer  "subscription_id"
   end
 
   create_table "resources", :force => true do |t|

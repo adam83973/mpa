@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Registration:</b>
+  <%= @opportunity.registration_id %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @opportunity.student_id %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%= @opportunity.admin_id %>
+</p>
+
+<p>
+  <b>Offering:</b>
+  <%= @opportunity.offering_id %>
+</p>
+
+<p>
+  <b>Attended trial:</b>
+  <%= @opportunity.attended_trial %>
+</p>
+
+<p>
+  <b>Trial date:</b>
+  <%= @opportunity.trial_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @opportunity.status %>
+</p>
+
+<p>
+  <b>Possible restart date:</b>
+  <%= @opportunity.possible_restart_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+<%= link_to 'Back', opportunities_path %>

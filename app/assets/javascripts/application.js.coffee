@@ -37,6 +37,8 @@
 //= require users
 //= require enrollment_change_requests
 //= require leads
+//= require registrations
+//= require opportunities
 
 jQuery ->
   $('body').tooltip

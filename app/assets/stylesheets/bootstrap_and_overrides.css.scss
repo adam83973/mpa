@@ -19,6 +19,17 @@ label {
   font-weight: 300;
 }
 
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }
+
 .accordion-group.square{
   -webkit-border-radius: 0px;
      -moz-border-radius: 0px;
@@ -73,6 +84,30 @@ label {
 
 .alert{
           width: 100%;
+}
+
+.label-purple{
+  color: white;
+  background-color:#5f56a1;
+  border-color:#2a1e7d;
+}
+
+.label-yellow{
+  color: black;
+  background-color:#e9d949;
+  border-color:#c8ba3f;
+}
+
+.label-brown{
+  color: white;
+  background-color:#a75f39;
+  border-color:#7f482b;
+}
+
+.label-blue{
+  color: black;
+  background-color:#3e84e9;
+  border-color:#2f68b8;
 }
 
 .checkbox input[type="checkbox"]{

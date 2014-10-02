@@ -1,26 +1,126 @@
-<% if current_user.employee? %>
-	<% if @student.status && @student.status == "Active" %>
-		<p><%= @student.first_name %> is <%= student_status(@student).html_safe%></p>
-	<% elsif @student.status && @student.status == "Hold" %>
-		<p>
-			<%= @student.first_name %> is on <%= student_status(@student).html_safe%>
-		</p>
-		<p>
-			Return: <b><%= @student.restart_date.strftime("%a, %b %e, %Y") %></b>
-		</p>
-	<% else %>
-		<p><%= @student.first_name %> is <%= student_status(@student).html_safe%></p>
-	<% end %>
+<%# render 'student_status' %>
+
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h3 style="display:inline;">Classes:</h3><%= link_to "Add Class", new_registration_path, class: "btn btn-xs btn-success pull-right" %>
+		<hr>
+
+		<% @student.registrations.includes(:offering).where("status = ? OR status = ?", 0, 1).each do |reg| %>
+		    <div class="well well-sm" style="padding:0 0 0 0;">
+		    	<div style="padding:5px 10px 0 10px;">
+				    <div class="row">
+					    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+			    			<%= current_user.employee? ? link_to(reg.offering.offering_name, reg.offering) : reg.offering.offering_name %>
+				 			</div>
+				 		</div>
+				    <div class="row">
+					 		<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<div class="text-left" style="margin-bottom:7px;">
+			 						<%= registration_status(reg).html_safe %>
+			 					</div>
+				 		  </div>
+					    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<div class="text-center">
+
+				 				</div>
+				 		  </div>
+					    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<% if current_user.employee? %>
+						    	<div class="text-right" style="position:relative;">
+						    		<%= link_to "javascript:void(0)", class: "registration_info_toggle", style: "position:relative;bottom:0;" do %>
+						          <i class="fa fa-chevron-down fa-1x"	></i>
+						        <% end %>
+					 				</div>
+				 				<% end %>
+				 		  </div>
+			 		  </div>
+				 	</div>
+		    	<% if current_user.employee? %>
+				 		<div class="registration_info">
+				 			<% if current_user.admin? %>
+					 		  <div class="row">
+							 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+								    <div class='text-center' style="margin-left:5px;">
+								    	<div class="btn-group btn-group-md">
+											  <button type="button" class="btn btn-default">Switch</button>
+											  <% if reg.status == 1 %>
+											  	<button type="button" class="btn btn-warning">Change Dates</button>
+											  	<button type="button" class="btn btn-danger">Drop</button>
+											  <% else %>
+											  	<button type="button" class="btn btn-warning">Hold</button>
+											  	<button type="button" class="btn btn-danger">Drop</button>
+											  <% end %>
+											</div>
+							 		  </div>
+						 		  </div>
+					 		  </div>
+				 		  <% end %>
+				 		  <br>
+				 		  <div class="row">
+						    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+							    <div class='text-right'>
+						 				<%= offering_binder_cover(reg.offering.course_id, reg.offering.id, @student.id).html_safe %>
+						 		  </div>
+					 		  </div>
+				 		  </div>
+			 		  </div>
+		 		  <% end %>
+		 		</div>
+		<% end %>
+	</div>
+</div>
+<hr>
+<% if current_user && current_user.employee? %>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h3 style="display:inline;">Opportunities:</h3><%= link_to "New Opportunity", new_opportunity_path, class: "btn btn-xs btn-success pull-right" %>
+
+			<hr>
+
+			<% @student_opportunities.where("status = ? OR status = ? OR status = ?", 0, 1, 3).each do |opp| %>
+				<div class="well well-sm" style="padding:0 0 0 0;">
+		    	<div style="padding:5px 10px 0 10px;">
+				    <div class="row">
+					    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+			    			<%= link_to opp.offering.offering_name, opp.offering if opp.offering %>
+			    			<%= opp.title unless opp.offering %>
+				 			</div>
+				 		</div>
+				    <div class="row">
+					 		<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<div class="text-left" style="margin-bottom:7px;">
+			 						<%= opportunity_status(opp).html_safe %>
+			 					</div>
+				 		  </div>
+					    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<div class="text-center">
+
+				 				</div>
+				 		  </div>
+					    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					    	<div class="text-right" style="position:relative;">
+					    		<%= link_to "javascript:void(0)", class: "opportunity_info_toggle", style: "position:relative;bottom:0;" do %>
+					          <i class="fa fa-chevron-down fa-1x"	></i>
+					        <% end %>
+				 				</div>
+				 		  </div>
+			 		  </div>
+				 	</div>
+			 		<div class="opportunity_info">
+			 		  <div class="row">
+					 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+						    <div class='text-center' style="margin-left:5px;">
+						    	<div class="btn-group btn-group-md">
+						    		<%= link_to "Update", edit_opportunity_path(opp), class: "btn btn-default" %>
+								  	<button type="button" class="btn btn-success">Add to Class</button>
+								  	<button type="button" class="btn btn-danger">Drop</button>
+									</div>
+					 		  </div>
+				 		  </div>
+			 		  </div>
+		 		  </div>
+		 		</div>
+			<% end %>
+		</div>
+	</div>
 <% end %>
-
-<h3>Classes:</h3>
-
-<p>
-	<% @student.offerings.includes(:course, :location).each do |offering| %>
-	    <%= link_to offering.offering_name, offering %><br>
-	    <div class='text-right' style='padding:5px 0 0 0;'>
- 				<%= offering_binder_cover(offering.course_id, offering.id, @student.id).html_safe %>
- 		  </div>
-	    <hr>
-	<% end %>
-</p>

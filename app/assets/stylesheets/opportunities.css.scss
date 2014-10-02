@@ -1,12 +1,19 @@
-// Place all the styles related to the Registrations controller here.
+// Place all the styles related to the opportunities controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.registration_info{
+.opportunity_info{
   display: none;
   background:#afafaf;
-  padding: 20px 9px 10px 9px;
+  padding: 15px 9px 10px 9px;
   border: 1px solid #9b9b9b;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
+}
+
+.opportunity_title{
+  .form-control{
+    height: 45px;
+    font-size: 24px;
+  }
 }

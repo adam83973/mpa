@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  registration_id: 1
+  student_id: 1
+  admin_id: 1
+  offering_id: 1
+  attended_trial: false
+  trial_date: 2014-09-29
+  status: 1
+  possible_restart_date: 2014-09-29
+
+two:
+  registration_id: 1
+  student_id: 1
+  admin_id: 1
+  offering_id: 1
+  attended_trial: false
+  trial_date: 2014-09-29
+  status: 1
+  possible_restart_date: 2014-09-29
