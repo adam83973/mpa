@@ -47,8 +47,13 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.save
-        format.html { redirect_to @opportunity, notice: 'Opportunity was successfully created.' }
-        format.json { render json: @opportunity, status: :created, location: @opportunity }
+        if @opportunity.student
+          format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully created.' }
+          format.json { render json: @opportunity, status: :created, location: @opportunity }
+        else
+          format.html { redirect_to root_url, notice: 'Opportunity was successfully created.' }
+          format.json { render json: @opportunity, status: :created, location: @opportunity }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @opportunity.errors, status: :unprocessable_entity }

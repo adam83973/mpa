@@ -6,17 +6,21 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <%= f.association :location, label_method: :name %>
         <%= f.input :parent_name %>
+        <%= f.input :parent_phone %>
+        <%= f.input :parent_email %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <%= f.input :student_name %>
         <%= f.association :student, label_method: :full_name, selected: params[:student_id], label: "Add to student account", input_html: { class: 'chosen' } if params[:student_id] %>
           <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } unless params[:student_id] %>
-          <%= f.association :course, label_method: :course_name, input_html: { class: 'chosen' } %>
+        <%= f.association :course, label_method: :course_name, input_html: { class: 'chosen' } %>
         <%= f.association :offering, label_method: :offering_name, collection: Offering.includes(:course, :location).where("active = ?", true).all(order: 'course_id'), input_html: { class: 'chosen' } %>
+        <%= f.association :admin, as: :hidden, label_method: :full_name, selected: current_user.id, collection: User.where("admin = ?", true), input_html: { class: 'chosen' } %>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <%= f.association :admin, label_method: :full_name, selected: current_user.id, collection: User.where("admin = ?", true), input_html: { class: 'chosen' } %>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <%= f.input :status, collection: Opportunity::STATUSES.zip((0..8).to_a) %>
         <%= f.input :appointment_date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.input :trial_date, as: :string, input_html: { class: "datepicker"} %>

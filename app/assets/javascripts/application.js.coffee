@@ -50,8 +50,11 @@ jQuery ->
     bFilter: true    #hide filter control
     bJQueryUI: true
 
-  $(".chosen").chosen()
+  $(".chosen").chosen
+    allow_single_deselect: true
+
   $(".chosen-select").chosen()
+
   $( "#sortable" ).sortable()
   $( "#sortable" ).disableSelection()
   $( "#datepicker" ).datepicker
