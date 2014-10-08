@@ -1,32 +1,12 @@
-<div class="leads well well-sm text-center" id="appointment_scheduled">
-  <%= link_to "javascript:void(0)", data: { stageid: 1 } do %>
-    <h4>Appointments Scheduled: <span><%= Lead.active_stage_count("Appointment Scheduled", current_user.location_id)%></span></h4>
+<% Opportunity::STATUSES.each_with_index do |opp, i| %>
+  <% if i < 6 %>
+    <div
+    class="opportunity_statuses well well-sm text-center"
+    id="<%= opp.downcase.gsub(" ", "_") %>"
+    data-status="<%= i %>">
+      <%= link_to "javascript:void(0)", data: { status: i } do %>
+      <h4><%= opp %>: <span><%= current_user.location.opportunities.where(status: i).count %></span></h4>
+      <% end %>
+    </div><!-- /.leads -->
   <% end %>
-  <p></p>
-</div><!-- /.leads -->
-<div class="leads well well-sm text-center" id="appointment_missed">
-  <%= link_to "javascript:void(0)", data: { stageid: 7 } do %>
-    <h4>Appointments Missed: <span><%= Lead.active_stage_count("Appointment Missed", current_user.location_id)%></span></h4>
-  <% end %>
-  <p></p>
-</div><!-- /.leads -->
-<div class="leads well well-sm text-center" id="assessment_completed">
-  <%= link_to "javascript:void(0)", data: { stageid: 2 } do %>
-    <h4>Assessments Completed: <span><%= Lead.active_stage_count("Assessment Completed", current_user.location_id)%></span></h4>
-  <% end %>
-  <p></p>
-</div><!-- /.leads -->
-<div class="leads well well-sm text-center" id="trial_offered">
-  <%= link_to "javascript:void(0)", data: { stageid: 3 } do %>
-    <h4>Trial Offered: <span><%= Lead.active_stage_count("Trial Offered", current_user.location_id)%></span></h4>
-  <% end %>
-  <p></p>
-</div><!-- /.leads -->
-<div class="leads well well-sm text-center" id="won">
-  <h4><u>Won</u></h4>
-  <p></p>
-</div><!-- /.leads -->
-<div class="leads well well-sm text-center" id="lost">
-  <h4><u>Lost</u></h4>
-  <p></p>
-</div><!-- /.leads -->
+<% end %>

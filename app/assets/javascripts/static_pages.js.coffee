@@ -15,50 +15,6 @@ jQuery ->
       $("#hide_schedule").text('Hide Schedule')
 
 
-# ---- Leads JS ----------------
-# Hide Show Lead Note Form ---
-  $('.stage_attr').on "click", ->
-    $lead_toolbar = $(this).closest('.lead_group').find('.lead_toolbar')
-    if $lead_toolbar.css("display") is "none"
-      $lead_toolbar.slideDown()
-      $lead_toolbar.find('input[id^="note_action_date"]').datepicker
-        dateFormat: 'yy-mm-dd',
-        changeMonth: true,
-        changeYear:true
-    else
-      $lead_toolbar.slideUp()
-
-# ---- Lead Modal ----------------
-# Handle lead ajax events ---
-  $("#new_lead")
-  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.attr( 'data-origText',  $submitButton.val() )
-    $submitButton.val( "Submitting..." )
-  .bind 'ajax:success', (evt, data, status, xhr) ->
-    $form = $(this)
-    $form[0].reset()
-    alert "Lead Added!"
-    setTimeout ->
-      location.reload()
-    , 1000
-  .bind 'ajax:complete', (evt, xhr, status) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.val( $submitButton.data('origtext') )
-    $("#leadModal").modal('hide')
-  .bind 'ajax:error', (evt, xhr, status, error) ->
-    $submitButton = $(this).find('input[name="commit"]')
-    $submitButton.val( $submitButton.data('origtext') )
-    $form = $(this)
-    alert "Lead #{error}!"
-    $form[0].reset()
-
-# ---- Lead Modal ----------------
-# Handle note ajax events --- see note.js.coffee
-
-  $('#stage_list').find('.lead_toolbar').each ->
-    $(this).css("display", "none")
-
 # ---- Attendance Modal ----------------
   $('#attendanceModal').on 'shown.bs.modal', ->
     $('.chzn', this).chosen()

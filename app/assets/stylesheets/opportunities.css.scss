@@ -21,3 +21,67 @@
 .opportunity_possible_restart_date{
   display: none;
 }
+
+.opportunity_toolbar{
+  margin-bottom: 5px;
+  background-color: #d3d3d3;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid #afafaf;
+  border-radius: 3px;
+  textarea{
+    height:100px;
+    width: 300px;
+  }
+}
+
+.leads{
+}
+
+#status_list .well{
+  margin-bottom: 10px;
+}
+
+.stage_attr{
+  .fa{
+    margin-top: 3px;
+  }
+}
+
+.note-button{
+  line-height: 4px;
+  font-size: 12px;
+  width: 45px;
+  height: 20px;
+  margin-top: 0;
+}
+
+.leads.over {
+  border: 2px dashed #000;
+}
+
+#appointment_scheduled{
+  background-color: #99ccff;
+}
+
+#appointment_missed{
+  background-color: #c1b9ff;
+}
+
+#trial{
+  background-color: #ffffcc;
+}
+
+#interested{
+  background-color: #ccffcc;
+}
+
+#waitlisted{
+  background-color: #ffcccc;
+}
+
+.opportunity_group{
+  .fa{
+    margin-top: 4px;
+  }
+}

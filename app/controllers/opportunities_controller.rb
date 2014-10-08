@@ -50,9 +50,11 @@ class OpportunitiesController < ApplicationController
         if @opportunity.student
           format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully created.' }
           format.json { render json: @opportunity, status: :created, location: @opportunity }
+          format.js
         else
           format.html { redirect_to root_url, notice: 'Opportunity was successfully created.' }
           format.json { render json: @opportunity, status: :created, location: @opportunity }
+          format.js
         end
       else
         format.html { render action: "new" }
@@ -106,6 +108,28 @@ class OpportunitiesController < ApplicationController
         format.html { redirect_to @opportunity.student, notice: 'Student and offering must be added in order to add student to a class. Click the edit button and make sure the opportunity is updated before adding to class.' }
         format.json { head :no_content }
       end
+    end
+  end
+
+  def update_status
+    @opportunity = Opportunity.find(params[:id])
+    @old_status = @opportunity.status
+    @new_status = params[:status]
+    @note = Note.new
+    @opportunity.update_status(@new_status.to_i)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def by_status
+    @opportunities = Opportunity.where(status: params[:status])
+    @status = params[:status]
+    @note = Note.new
+
+    respond_to do |format|
+      format.js
     end
   end
 end

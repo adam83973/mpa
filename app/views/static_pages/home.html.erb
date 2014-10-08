@@ -67,11 +67,8 @@
   <% end %>
 
   <%if current_user.teacher? %>
-
     <%= render 'teacher_offerings' %>
-
     <%= render 'activity_feed' %>
-
   <% end %>
 
   <% if current_user.parent? %>

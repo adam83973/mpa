@@ -1,10 +1,14 @@
 MathPlus::Application.routes.draw do
 
-  resources :opportunities
 
+  get  'opportunities/by_status', to: 'opportunities#by_status'
+  post 'opportunities/update_status', to: 'opportunities#update_status'
+
+  resources :opportunities do
+    resources :notes
+  end
 
   resources :registrations
-
 
   resources :enrollment_change_requests do
     collection { get :email }
@@ -46,8 +50,6 @@ MathPlus::Application.routes.draw do
 
   get 'reports/', to: 'reports#new'
   post 'reports/display', to: 'reports#show'
-  get 'leads/stage_list', to: 'leads#stage_list'
-  post 'leads/update_stage', to: 'leads#update_stage'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
   post 'students/update_credits', to: 'students#update_credits'
   post 'notes/completed', to: 'notes#completed'

@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
       end
       @user = current_user
       # if @user.offerings?
-        @lead = Lead.new
+        @opportunity = Opportunity.new
         @note = Note.new
         @grade = Grade.new
         @experience_point = ExperiencePoint.new

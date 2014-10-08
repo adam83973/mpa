@@ -1,14 +1,19 @@
-<p><u>Student Notes:</u> <%= lead.student_information == "" ? "No student information." : lead.student_information %></p>
+<p>
+  <u>Info:</u>
+  <%= opportunity.title ? opportunity.title : "Please add a title that describes this opportunity." %>
+</p>
 <p>
   <u>Last Note:</u>
-  <%= lead.notes.last ? lead.notes.last.content : "None" %>
-  <%= lead.notes.last ? "(#{lead.notes.last.created_at.strftime("%D")})" : "" %>
+  <div class="last_note">
+    <%= opportunity.notes.last ? opportunity.notes.last.content : "None" %>
+    <%= opportunity.notes.last ? "(#{opportunity.notes.last.created_at.strftime("%D")})" : "" %>
+  </div>
 </p>
-<%= simple_form_for [Lead.find(lead.id), Note.new], remote: true do |f| %>
+<%= simple_form_for [Opportunity.find(opportunity.id), Note.new], remote: true do |f| %>
   <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <%= f.input :action_date, as: :string, input_html: { id: "note_action_date_#{lead.id}", class: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
+      <%= f.input :action_date, as: :string, input_html: { id: "note_action_date_#{opportunity.id}", class: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>

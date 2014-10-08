@@ -1,14 +1,16 @@
-<h3>Lead Management</h3>
-<p><%= link_to "New Lead", "#leadModal", data: {toggle: :modal}, class: "btn btn-md btn-success" %></p>
+<h3>Opportunity Management</h3>
+<p>
+  <%= link_to "New Opportunity", "#opportunityModal", data: {toggle: :modal}, class: "btn btn-md btn-success", id: "opportunityModalButton" %>
+</p>
 <br>
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div id="stage_list">
+    <div id="opportunities_by_status">
       <div class="well well-lg">
-        <h4><u>New</u></h4>
+        <h4><u>Interested</u></h4>
         <ul>
-          <% current_user.location.leads.includes(:stage).where("stage_id = ?", 6).each do |lead| %>
-            <%= render '/shared/lead_group', lead: lead %>
+          <% current_user.location.opportunities.where(status: 0).each do |opp| %>
+            <%= render '/shared/lead_group', opportunity: opp %>
           <% end %>
         </ul></br>
       </div>

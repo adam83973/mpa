@@ -1,25 +1,48 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Registration:</b>
-  <%= @opportunity.registration_id %>
-</p>
 
 <p>
   <b>Student:</b>
-  <%= @opportunity.student_id %>
+  <% if @opportunity.student %>
+    <%= link_to @opportunity.student.full_name, @opportunity.student %>
+  <% elsif @opportunity.student_name %>
+    <%= @opportunity.student_name %>
+  <% else %>
+    Please add student information.
+  <% end %>
 </p>
 
 <p>
-  <b>Admin:</b>
-  <%= @opportunity.admin_id %>
+  <b>Status:</b>
+  <%= opportunity_status(@opportunity).html_safe %>
+</p>
+
+<p>
+  <u>Parent</u>
+    <p>
+      Name: <%= @opportunity.parent_name ? @opportunity.parent_name : "Please add parent name." %>
+    </p>
+    <p>
+      Phone: <%= @opportunity.parent_phone ? @opportunity.parent_phone : "Please add parent phone." %>
+    </p>
+    <p>
+      Email: <%= @opportunity.parent_email ? @opportunity.parent_email : "Please add parent email." %>
+    </p>
+</p>
+<p>
+  <u>Class  Information</u>
+</p>
+<p>
+  <b>Course:</b>
+  <%= @opportunity.course ? @opportunity.course.course_name : "No course selected." %>
 </p>
 
 <p>
   <b>Offering:</b>
-  <%= @opportunity.offering_id %>
+  <% if @opportunity.offering %>
+    <%= @opportunity.offering_name %>
+  <% else %>
+    No course selected.
+  <% end %>
 </p>
-
 <p>
   <b>Attended trial:</b>
   <%= @opportunity.attended_trial %>
@@ -27,19 +50,15 @@
 
 <p>
   <b>Trial date:</b>
-  <%= @opportunity.trial_date %>
+  <%= @opportunity.trial_date ? @opportunity.trial_date.strftime("%D") : "No trial date selected." %>
 </p>
 
-<p>
-  <b>Status:</b>
-  <%= @opportunity.status %>
-</p>
-
-<p>
-  <b>Possible restart date:</b>
-  <%= @opportunity.possible_restart_date %>
-</p>
-
+<% if @opportunity.status == 6 %>
+  <p>
+    <b>Possible restart date:</b>
+    <%= @opportunity.possible_restart_date %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
 <%= link_to 'Back', opportunities_path %>

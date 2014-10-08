@@ -6,36 +6,33 @@ jQuery ->
   onDrop = (e) ->
     e.preventDefault()
 
-  $('div[id^="lead"]', '#stage_list').each ->
+  $('div[id^="opportunity"]', '#opportunities_by_status').each ->
     $(this).draggable
       revert: "invalid"
-  $(".leads").droppable drop: (event, ui) ->
+  $(".opportunity_statuses").droppable drop: (event, ui) ->
     $dropP = $(this).find("p")
-    $dropP.html( "Lead Updated!" )
-    drop.update($(this).attr('id'),$(ui.draggable).data('id'))
+    $dropP.html( "Opportunity Updated!" )
+    drop.update($(this).data('status'),$(ui.draggable).data('id'))
     $(ui.draggable).empty().remove()
     setTimeout ->
       $dropP.fadeOut()
     , 2000
 
-  $('.dropdown-menu', '#lead_stages').on 'click', 'a', ->
-    stage.select($(this).data("stageid"))
+  $('.opportunity_statuses').on 'click', 'a', ->
+    status.select($(this).data("status"))
 
-  $('.leads').on 'click', 'a', ->
-    stage.select($(this).data("stageid"))
-
-stage=
-  select: (stage_id) ->
+status=
+  select: (status) ->
     $.ajax
       type: 'GET'
-      url: "/leads/stage_list"
-      data: {stage_id: stage_id}
+      url: "/opportunities/by_status"
+      data: {status: status}
 
 drop =
   #ajax call to update lead stage
-  update: (dragged_id, received_id) ->
+  update: (new_status_id, opportunity_id) ->
     $.ajax
       type: 'POST'
-      url: "/leads/update_stage"
-      data: { id: received_id, stage: dragged_id }
+      url: "/opportunities/update_status"
+      data: { id: opportunity_id, status: new_status_id }
       success: (result) ->
