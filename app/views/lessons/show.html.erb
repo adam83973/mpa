@@ -27,7 +27,7 @@
 <p>
   <b>Assignment key:</b>
   <% if @lesson.assignment_key %>
-    <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+    <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment_key) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
   <% end %>
 </p>
 
