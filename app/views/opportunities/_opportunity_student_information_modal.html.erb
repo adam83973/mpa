@@ -1,0 +1,23 @@
+<div class="modal fade" id="addStudentInformationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Student Information or Attach To Student Account</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for(@opportunity) do |f| %>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <%= f.error_notification %>
+                <%= f.input :student_name %>
+                <%= f.association :student, label_method: :full_name, selected: params[:student_id], label: "Add to student account", input_html: { class: 'chosen' } if params[:student_id] %>
+                  <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } unless params[:student_id] %>
+                <%= f.button :submit, class: "pull-right btn btn-lg btn-success" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

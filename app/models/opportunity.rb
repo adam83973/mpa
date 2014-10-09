@@ -5,6 +5,7 @@ class Opportunity < ActiveRecord::Base
 
   belongs_to :location
   belongs_to :student
+  belongs_to :user
   belongs_to :course
   belongs_to :offering
   belongs_to :opportunity
@@ -17,11 +18,20 @@ class Opportunity < ActiveRecord::Base
 
   SOURCES = ["Word Of Mouth", "Online Search", "Google Ad", "TV/Newspaper", "Direct Mail", "Event"]
 
+
   def full_name
-    if self.student
-      self.student.full_name
+    if !(self.student) && ( self.student_name.empty? || self.student_name.nil? )
+      "Parent: #{parent_name}"
+    elsif self.student
+      "Student: #{student_name}"
     else
-      self.student_name
+      "Student: #{student.full_name}"
+    end
+  end
+
+  def offering_name
+    if offering
+      offering.offering_name
     end
   end
 

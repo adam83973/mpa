@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Parent Information</h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      Name: <%= @opportunity.parent_name ? @opportunity.parent_name : "Please add parent name." %>
+    </p>
+    <p>
+      Phone: <%= @opportunity.parent_phone ? @opportunity.parent_phone : "Please add parent phone." %>
+    </p>
+    <p>
+      Email: <%= @opportunity.parent_email ? @opportunity.parent_email : "Please add parent email." %>
+    </p>
+  </div>
+</div>

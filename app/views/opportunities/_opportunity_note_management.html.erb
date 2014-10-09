@@ -1,0 +1,18 @@
+<%= simple_form_for [@opportunity, Note.new], remote: true do |f| %>
+  <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :action_date, as: :string, input_html: { id: :datepicker } if current_user.admin? %>
+    </div>
+  </div>
+  <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+  <%= f.button :submit, class: "btn btn-xs btn-success" %>
+<% end %>
+<div class="notes">
+  <div id="opportunity_notes">
+    <%= render 'opportunity_notes' %>
+  </div>
+</div>

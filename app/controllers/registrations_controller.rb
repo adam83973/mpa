@@ -76,10 +76,11 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations/1.json
   def destroy
     @registration = Registration.find(params[:id])
+    @student = Student.find(@registration.student_id)
     @registration.destroy
 
     respond_to do |format|
-      format.html { redirect_to registrations_url }
+      format.html { redirect_to @student }
       format.json { head :no_content }
     end
   end

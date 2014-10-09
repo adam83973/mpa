@@ -3,8 +3,9 @@
     <li>
       <div class="row">
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-          <%= link_to "#{opportunity.student_name}", opportunity unless opportunity.student %>
-          <%= link_to "#{opportunity.student.full_name}", opportunity.student if opportunity.student %> - <span style="font-weight:bold;">Last Note: <%= opportunity.notes.last ? opportunity.notes.last.created_at.strftime("%D") : "None" %></span> (Added: <%= opportunity.created_at.strftime("%D") %>)
+          <%= link_to "Parent: #{opportunity.parent_name}", opportunity if !(opportunity.student) && ( opportunity.student_name.empty? || opportunity.student_name.nil? ) %>
+          <%= link_to "Student: #{opportunity.student_name}", opportunity unless opportunity.student || opportunity.student_name.empty? %>
+          <%= link_to "Student: #{opportunity.student.full_name}", opportunity.student if opportunity.student %> - <span style="font-weight:bold;">Last Note: <%= opportunity.notes.last ? opportunity.notes.last.created_at.strftime("%D") : "None" %></span> (Added: <%= opportunity.created_at.strftime("%D") %>)
         </div> <!-- /span9 -->
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <%= link_to "javascript:void(0)", class: "status_attr" do %>

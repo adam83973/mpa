@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Class Information</h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      <b>Course:</b>
+      <%= @opportunity.course ? @opportunity.course.course_name : ( link_to "Add Course", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
+    </p>
+
+    <p>
+      <b>Offering:</b>
+      <% if @opportunity.offering %>
+        <%= link_to @opportunity.offering_name, @opportunity.offering %>
+      <% else %>
+        <%= link_to "Add Class", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal" } %>
+      <% end %>
+    </p>
+    <p>
+      <b>Attended trial:</b>
+      <%= @opportunity.attended_trial %>
+    </p>
+
+    <p>
+      <b>Trial date:</b>
+      <%= @opportunity.trial_date ? @opportunity.trial_date.strftime("%D") : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
+    </p>
+
+    <% if @opportunity.status == 6 %>
+      <p>
+        <b>Possible restart date:</b>
+        <%= @opportunity.possible_restart_date %>
+      </p>
+    <% end %>
+  </div>
+</div>

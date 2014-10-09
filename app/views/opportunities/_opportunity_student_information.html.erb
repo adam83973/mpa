@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Student Information</h3>
+  </div>
+  <div class="panel-body">
+    <% if @opportunity.student %>
+      <%= link_to @opportunity.student.full_name, @opportunity.student %>
+    <% elsif @opportunity.student_name.empty? %>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 cl-xs-12">
+        <div style="margin-bottom:0;" class="alert alert-danger" role="alert">
+          Please <a data-toggle="modal" data-target="#oppStudentInformationModal" href="javascript:void(0)" class="alert-link">add student information</a>. Or <a href="#" data-toggle="modal" data-target="#oppStudentInformationModal" class="alert-link">attach to student account</a>.
+        </div>
+      </div>
+    </div>
+    <% elsif @opportunity.student_name %>
+      <%= @opportunity.student_name %>
+    <% else %>
+      <div class="alert alert-danger" role="alert">Please add student information. Or attach to student account.</div>
+    <% end %>
+  </div>
+</div>

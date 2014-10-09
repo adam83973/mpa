@@ -43,12 +43,14 @@
 								    <div class='text-center' style="margin-left:5px;">
 								    	<div class="btn-group btn-group-md">
 											  <%= link_to "Switch", edit_registration_path(reg), class: "btn btn-default" %>
+											  <!-- Status 1 is active, which requires different actions. -->
 											  <% if reg.status == 1 %>
 											  	<button type="button" class="btn btn-warning">Change Dates</button>
 											  	<button type="button" class="btn btn-danger">Drop</button>
 											  <% else %>
+											  <!-- This drop destroys the record since the class has never been attended. -->
 											  	<button type="button" class="btn btn-warning">Hold</button>
-											  	<button type="button" class="btn btn-danger">Drop</button>
+        									<%= link_to 'Destroy', reg, method: :delete, data: { confirm: 'This will remove any and all traces of this registration. Are you sure?' }, class: "btn btn-danger" %>
 											  <% end %>
 											</div>
 							 		  </div>
@@ -111,7 +113,7 @@
 					 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 						    <div class='text-center' style="margin-left:5px;">
 						    	<div class="btn-group btn-group-md">
-						    		<%= link_to "Update", edit_opportunity_path(opp), class: "btn btn-default" %>
+						    		<%= link_to "View", opp, class: "btn btn-default" %>
 								  	<button type="button" class="btn btn-success">Add to Class</button>
 								  	<button type="button" class="btn btn-danger">Drop</button>
 									</div>

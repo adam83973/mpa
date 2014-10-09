@@ -70,13 +70,8 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
-        if @opportunity.student
-          format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
-          format.json { head :no_content }
-        end
+        format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @opportunity.errors, status: :unprocessable_entity }

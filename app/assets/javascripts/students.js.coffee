@@ -31,11 +31,13 @@ jQuery ->
 	$('#student_end_date').datepicker
     dateFormat: 'yy-mm-dd'
   $('#creditsModal').modal('hide')
+
   # Passes information to grades modal when modal is launched.
   $('#gradesModalButton').on 'click', ->
     student_id = $('#studentId').data('studentid')
     $('#grade_student_id').val(student_id)
     $('#grade_experience_point_attributes_student_id').val(student_id)
+
   # Credit form submission events/redeems credits from student's account.
   $("#credits_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
@@ -51,8 +53,7 @@ jQuery ->
   .bind 'ajax:success', (evt, data, status, xhr) ->
     $form = $(this)
     $form[0].reset()
-    alert "Credits Redeemed! Please note student account with
-    credits before purchase, credits spent, and what was redeemed."
+    alert "Credits Redeemed! A note has been added to this student's account recording this transaction."
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )

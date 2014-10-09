@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141007194512) do
+ActiveRecord::Schema.define(:version => 20141009173917) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20141007194512) do
     t.string   "parent_email"
     t.string   "parent_phone"
     t.date     "undecided_date"
+    t.integer  "user_id"
   end
 
   create_table "problems", :force => true do |t|

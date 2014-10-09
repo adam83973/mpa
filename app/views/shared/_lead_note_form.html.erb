@@ -2,6 +2,13 @@
   <u>Info:</u>
   <%= opportunity.title ? opportunity.title : "Please add a title that describes this opportunity." %>
 </p>
+<% unless !(opportunity.student) && ( opportunity.student_name.empty? || opportunity.student_name.nil? ) %>
+<p>
+  <u>Parent:</u>
+  <%= link_to "#{opportunity.parent_name}", opportunity.user if opportunity.user %>
+  <%= "#{opportunity.parent_name}" unless opportunity.user %>
+</p>
+<% end %>
 <p>
   <u>Last Note:</u>
   <div class="last_note">

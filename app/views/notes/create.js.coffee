@@ -12,3 +12,13 @@ jQuery ->
     $('#opportunity_notes').html('<%= escape_javascript(render "/opportunities/opportunity_notes") %>')
 
   $("#opportunity<%= @opportunity.id %>").siblings('.opportunity_toolbar').find('.last_note').html('<%= @opportunity.notes.last ? @opportunity.notes.last.content : "None" %> <%= @opportunity.notes.last ? "(#{@opportunity.notes.last.created_at.strftime("%D")})" : "" %>')
+
+    # Hide Show Note Info ---
+  $('.note_info_toggle').on "click", ->
+    $note_info = $(this).closest('.well').find('.note_info')
+    if $note_info.css("display") is "none"
+      $note_info.slideDown()
+      $(this).find(".fa-angle-double-down").removeClass("fa-angle-double-down").addClass("fa-angle-double-up")
+    else
+      $note_info.slideUp()
+      $(this).find(".fa-angle-double-up").removeClass("fa-angle-double-up").addClass("fa-angle-double-down")

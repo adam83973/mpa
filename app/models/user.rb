@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   belongs_to :location
   has_many :students, :through => :offerings
   has_many :students
+  has_many :opportunities
   has_many :leads
   has_many :issues
   has_many :experience_points
