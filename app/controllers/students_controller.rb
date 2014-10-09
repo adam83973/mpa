@@ -168,10 +168,17 @@ class StudentsController < ApplicationController
 
   def update_credits
     @student = Student.find(params[:credits][:id])
+    @user_id = params[:credits][:user_id]
     @credits = params[:credits][:credits]
+    @item = params[:credits][:item]
 
     if @student.credits >= @credits.to_i
       @student.redeem_credit(@credits)
+      Note.create(
+                  user_id: @user_id.to_i,
+                  notable_id: @student.id,
+                  notable_type: @student.class.name,
+                  content: "Redeemed #{@credits} credits for #{@item}.")
 
       respond_to do |format|
         format.html { redirect_to @student, notice: "#{@student.full_name} spent #{@credits} credits." }

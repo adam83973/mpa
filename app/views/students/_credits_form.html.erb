@@ -1,13 +1,18 @@
 <div class="text-center">
-  <h3>How many credits are you spending?</h3>
   <%= simple_form_for :credits, url: 'update_credits', html: { id: 'credits_form'}, remote: true do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :credits, label: false, input_html: { class: "col-lg-3 col-md-3 col-sm-12 col-xs-12"} %>
-  <%= f.input :id, as: :hidden, :input_html => { value: @student.id } %>
-  <br>
-  <br>
-  <br>
-  <%= f.button :submit, "Spend Credits", class: "btn btn-success" %>
+    <%= f.error_notification %>
+    <div class="row">
+      <div class="col-lg-5 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-12 col-xs-12 text-center">
+        <%= f.input :item, label: "What item are you buying?" %>
+        <%= f.input :credits, label: "How many credits is it worth?" %>
+        <%= f.input :id, as: :hidden, :input_html => { value: @student.id } %>
+        <%= f.input :user_id, as: :hidden, :input_html => { value: current_user.id } %>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <%= f.button :submit, "Spend Credits", class: "btn btn-success" %>
   <% end %>
   <br>
 </div>
