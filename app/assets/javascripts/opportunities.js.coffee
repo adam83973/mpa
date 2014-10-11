@@ -1,22 +1,33 @@
 # Manage opportunity creation from opportunity modal on admin home
 # ---- Opportunity Modal ----------------
-# Handle opportunity ajax events ---
+# Opportunity creation from home page.
+# Once successfully submitted lookup parent modal is launched.
 $("#new_opportunity")
 .bind 'ajax:beforeSend', (evt, xhr, settings) ->
   $submitButton = $(this).find('input[name="commit"]')
   $submitButton.attr( 'data-origText',  $submitButton.val() )
   $submitButton.val( "Submitting..." )
+  # Stop submission if parent name is blank
+  if !($('#opportunity_parent_name').val()) or $('#opportunity_parent_name').length is 0
+    alert "You must enter a parent name."
+    $submitButton.val( $submitButton.data('origtext') )
+    false
+  else if !($('#opportunity_location_id').val())
+    alert "You must select a location."
+    $submitButton.val( $submitButton.data('origtext') )
+    false
+  else if !($('#opportunity_parent_phone').val()) and !($('#opportunity_parent_email').val())
+    alert "You must an email or phone number for this record."
+    $submitButton.val( $submitButton.data('origtext') )
+    false
 .bind 'ajax:success', (evt, data, status, xhr) ->
   $form = $(this)
   $form[0].reset()
-  alert "Lead Added!"
-  setTimeout ->
-    location.reload()
-  , 1000
 .bind 'ajax:complete', (evt, xhr, status) ->
   $submitButton = $(this).find('input[name="commit"]')
   $submitButton.val( $submitButton.data('origtext') )
   $("#opportunityModal").modal('hide')
+  #parent lookup modal launched see opportunities/create.js.coffee
 .bind 'ajax:error', (evt, xhr, status, error) ->
   $submitButton = $(this).find('input[name="commit"]')
   $submitButton.val( $submitButton.data('origtext') )
@@ -24,7 +35,13 @@ $("#new_opportunity")
   alert "Opportunity #{error}!"
   $form[0].reset()
 
-# Apply chosen to select fields when Opportunity Modal is loaded
+# Reset new opportunity form if form is closed
+$("#opportunityModal").on 'hide', ->
+  $("#new_opportunity")[0].reset()
+
+# When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
+
+# Apply chosen to select fields when Opportunity Modal is loaded fix for chosen rendering after modal
 $('#opportunityModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()
 

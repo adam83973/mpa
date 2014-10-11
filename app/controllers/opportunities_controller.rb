@@ -45,6 +45,10 @@ class OpportunitiesController < ApplicationController
   def create
     @opportunity = Opportunity.new(params[:opportunity])
 
+    # Find possible users by searching for last name and email, removing duplicates
+    @possible_users = User.where("last_name LIKE ? OR first_name LIKE ? OR email is ?", "%#{@opportunity.parent_name.split.last}%", "%#{@opportunity.parent_name.split.last}%", "#{@opportunity.parent_email}").order(:last_name )
+    @possible_users = @possible_users.uniq
+
     respond_to do |format|
       if @opportunity.save
         if @opportunity.student
@@ -125,6 +129,31 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       format.js
+    end
+  end
+
+  def add_parent
+    @opportunity = Opportunity.find(params[:id])
+    @user = User.find(params[:user_id])
+
+    # Workflow takes user to possible students to add to opportunity once parent is added.
+    @possible_students = Student.where("last_name LIKE ? OR first_name LIKE ? OR first_name LIKE ?", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.first}%").order(:last_name ).uniq
+
+    respond_to do |format|
+      if @opportunity.update_attribute(:user_id, params[:user_id].to_i)
+        format.js
+      end
+    end
+  end
+
+  def add_student
+    @opportunity = Opportunity.find(params[:id])
+    @user = User.find(params[:student_id])
+
+    respond_to do |format|
+      if @opportunity.update_attribute(:student_id, params[:student_id].to_i)
+        format.js
+      end
     end
   end
 end

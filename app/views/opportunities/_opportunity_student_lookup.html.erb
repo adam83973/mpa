@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">The student you've named might match one of these.</div>
+  <div class="panel-body">
+    <p>
+      If you see a record that matches click "Add". This will add this user to the current opportunity. If you do not see a match head to the bottom and click "No Match".
+    </p>
+  </div>
+  <!-- Table -->
+  <table class="table" data-opportunityId = <%= @opportunity.id %>>
+   <tr>
+    <th>Name</th>
+    <th></th>
+   </tr>
+   <% @possible_students.each do |student| %>
+     <tr>
+      <td><%= student.full_name %></td>
+      <td><%= link_to "Add", {controller: :opportunities, action: :add_student, student_id: student.id, id: @opportunity.id}, id: "addStudent#{student.id}", confirm: "Are you sure you want to add #{student.full_name} to this opportunity?", remote: true %></td>
+     </tr>
+   <% end %>
+  </table>
+</div>

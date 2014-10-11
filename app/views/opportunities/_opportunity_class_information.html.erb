@@ -16,14 +16,15 @@
         <%= link_to "Add Class", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal" } %>
       <% end %>
     </p>
-    <p>
-      <b>Attended trial:</b>
-      <%= @opportunity.attended_trial %>
-    </p>
 
     <p>
       <b>Trial date:</b>
-      <%= @opportunity.trial_date ? @opportunity.trial_date.strftime("%D") : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
+      <%= @opportunity.trial_date ? @opportunity.trial_date.strftime("%D") : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) %>
+    </p>
+
+    <p>
+      <b>Attended trial:</b>
+      <%= @opportunity.attended_trial %>
     </p>
 
     <% if @opportunity.status == 6 %>

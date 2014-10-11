@@ -12,6 +12,9 @@
             <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'btn btn-warning student_tool_button' if @user.active? %>
           </li>
         <% end %>
+        <li>
+          <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary student_tool_button" } %>
+        </li>
     </ul>
   </div>
 </div>

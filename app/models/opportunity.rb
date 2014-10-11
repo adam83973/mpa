@@ -3,6 +3,8 @@ class Opportunity < ActiveRecord::Base
                   :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id, :location_id,
                   :student_name, :date_won, :date_lost, :source, :title, :parent_phone, :parent_email
 
+  validates_presence_of :parent_name, :location_id
+
   belongs_to :location
   belongs_to :student
   belongs_to :user

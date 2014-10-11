@@ -38,8 +38,7 @@
     <% end %>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
+    <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
   </div>
 </div>
     <%= f.button :submit, class: "m-btn" %>
@@ -62,6 +61,8 @@
       <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"] if current_user.employee? %>
       <%= f.input :first_name, label: "First Name" %>
       <%= f.input :last_name, label: "Last Name" %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :phone %>
       <%= f.input :email %>
       <% if  @contacts || (@user.role == "Parent" && @user.infusion_id == nil) %>
@@ -78,10 +79,7 @@
       <%= f.input :has_key %>
       <%= f.input :admin if current_user.admin? %>
     <% end %>
-  </div>
-  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
+    <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
     <%= f.input :active if current_user.admin? %>
   </div>
 </div>

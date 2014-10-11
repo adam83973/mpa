@@ -6,6 +6,10 @@ MathPlus::Application.routes.draw do
 
   resources :opportunities do
     resources :notes
+    collection do
+      get :add_parent
+      get :add_student
+    end
   end
 
   resources :registrations
@@ -78,6 +82,7 @@ MathPlus::Application.routes.draw do
     collection do
       post :import
       get :my_account
+      get :password_reset
     end
     resources :notes
   end

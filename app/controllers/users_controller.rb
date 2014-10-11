@@ -104,6 +104,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    @generated_password = Devise.friendly_token.first(8)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -192,5 +193,20 @@ class UsersController < ApplicationController
   def import
     User.import(params[:file])
     redirect_to users_path, notice: "Users imported."
+  end
+
+  def password_reset
+    @user = User.find(params[:id])
+    if @user.send_reset_password_instructions
+      respond_to do |format|
+        format.html { redirect_to @user, notice: "Password reset instructions sent." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @user, notice: "Error sending instructions." }
+        format.json { head :no_content }
+      end
+    end
   end
 end
