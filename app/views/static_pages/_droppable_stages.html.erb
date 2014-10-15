@@ -1,11 +1,11 @@
 <% Opportunity::STATUSES.each_with_index do |opp, i| %>
-  <% if i < 6 %>
+  <% if i < 6 || i == 7 || i == 8 %>
     <div
     class="opportunity_statuses well well-sm text-center"
     id="<%= opp.downcase.gsub(" ", "_") %>"
     data-status="<%= i %>">
       <%= link_to "javascript:void(0)", data: { status: i } do %>
-      <h4><%= opp %>: <span><%= current_user.location.opportunities.where(status: i).count %></span></h4>
+      <h4><%= opp %><span><%= ": #{current_user.location.opportunities.where(status: i).count}" unless i == 7 || i == 8 %></span></h4>
       <% end %>
     </div><!-- /.leads -->
   <% end %>

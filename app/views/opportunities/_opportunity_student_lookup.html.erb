@@ -3,11 +3,11 @@
   <div class="panel-heading">The student you've named might match one of these.</div>
   <div class="panel-body">
     <p>
-      If you see a record that matches click "Add". This will add this user to the current opportunity. If you do not see a match head to the bottom and click "No Match".
+      If you see a record that matches click "Link". This will link this student to the current opportunity. If you do not see a match head to the bottom and click "No Match".
     </p>
   </div>
   <!-- Table -->
-  <table class="table" data-opportunityId = <%= @opportunity.id %>>
+  <table class="table" id="student_lookup_table" data-opportunityId = <%= @opportunity.id  %> data-userid = <%= @user.id if @user %>>
    <tr>
     <th>Name</th>
     <th></th>
@@ -15,7 +15,7 @@
    <% @possible_students.each do |student| %>
      <tr>
       <td><%= student.full_name %></td>
-      <td><%= link_to "Add", {controller: :opportunities, action: :add_student, student_id: student.id, id: @opportunity.id}, id: "addStudent#{student.id}", confirm: "Are you sure you want to add #{student.full_name} to this opportunity?", remote: true %></td>
+      <td><%= link_to "Link", {controller: :opportunities, action: :add_student, student_id: student.id, id: @opportunity.id}, id: "addStudent#{student.id}", confirm: "Are you sure you want to add #{student.full_name} to this opportunity?", remote: true %></td>
      </tr>
    <% end %>
   </table>

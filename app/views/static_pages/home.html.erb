@@ -8,52 +8,7 @@
   <%if current_user.employee? %>
     <div class="row">
       <div class="dashboard">
-        <% if @new_students_today_location.empty? && @restarting_students_today_location.empty? %>
-          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <h3 class="text-center">Today's Overview</h3>
-          </div>
-        <% else %>
-          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <h3 class="text-center">Today's Overview</h3>
-            <div class="new_students">
-              <% @new_students_today_location.order("start_date ASC").each do |registration| %>
-                <p>
-                  <%= link_to "#{registration.student.full_name}", registration.student %> -
-                  <%= registration.offering.offering_name_dashboard %>
-                  <% if registration.start_date && registration.start_date < Date.today %>
-                   <span style="color:red;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
-                  <% elsif registration.start_date >= Date.today %>
-                   <span style="color:green;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
-                  <% end %>
-                  <span>
-                    <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
-                    <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
-                    <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => registration.student_id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
-                  </span>
-                </p>
-              <% end %>
-              <% @restarting_students_today_location.order("start_date ASC").each do |registration| %>
-                <p>
-                  <%= link_to "#{registration.student.full_name}", student %> -
-                  <%= registration.offering.offering_name_dashboard %>
-                  <% if registration.restart_date < Date.today %>
-                   <span style="color:red;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)</span>
-                  <% elsif registration.restart_date >= Date.today %>
-                   <span style="color:green;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)Restart</span>
-                  <% end %>
-                  <span>
-                    <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
-                    <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
-                    <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => student.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
-                  </span>
-                </p>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <%# render 'new_student_feed' %>
-
-        <%# render 'on_hold' unless current_user.teacher? || ( @student_restart.empty? && @student_return.empty? ) %>
+        <%= render 'todays_overview' %>
 
         <%= render 'action_notes' if current_user.admin? %>
       </div>
@@ -65,24 +20,11 @@
 
       <%= render 'parent_lookup_modal' %>
 
-      <div class="modal fade" id="studentLookupModal" tabindex="-1" role="dialog" aria-labelledby="studentLookupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title">Student Lookup</h4>
-            </div>
-            <div class="modal-body">
-              <div id="studentLookupBody">
-                <!-- html loaded from add_parent.js (opportunity) -->
-              </div>
-            </div>
-            <div class="modal-footer">
-              <%= link_to "No Match", "javascript:void(0)", id: "opporunityParentNoMatch", class: "btn btn-primary" %>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+      <%= render 'student_lookup_modal' %>
+
+      <%= render 'new_parent_modal' %>
+
+      <%= render 'new_student_modal' %>
     <% end %>
 
   <% end %>

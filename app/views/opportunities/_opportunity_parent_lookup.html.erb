@@ -3,11 +3,11 @@
   <div class="panel-heading">The parent you've named might match one of these.</div>
   <div class="panel-body">
     <p>
-      If you see a record that matches click "Add". This will add this user to the current opportunity. If you do not see a match head to the bottom and click "No Match".
+      If you see a record that matches click "Link". This will link this parent to the current opportunity. If you do not see a match head to the bottom and click "No Match".
     </p>
   </div>
   <!-- Table -->
-  <table class="table" data-opportunityId = <%= @opportunity.id %>>
+  <table class="table" id="parent_lookup_table" data-opportunityId = <%= @opportunity.id %>>
    <tr>
     <th>Name</th>
     <th>Email</th>
@@ -17,7 +17,7 @@
      <tr>
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
-      <td><%= link_to "Add", {controller: :opportunities, action: :add_parent, user_id: user.id, id: @opportunity.id}, id: "addParent#{user.id}", confirm: "Are you sure you want to add #{user.full_name} to this opportunity?", remote: true %></td>
+      <td><%= link_to "Link", {controller: :opportunities, action: :add_parent, user_id: user.id, id: @opportunity.id}, id: "addParent#{user.id}", confirm: "Are you sure you want to link #{user.full_name} to this opportunity?", remote: true %></td>
      </tr>
    <% end %>
   </table>

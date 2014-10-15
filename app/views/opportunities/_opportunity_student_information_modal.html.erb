@@ -1,9 +1,9 @@
-<div class="modal fade" id="addStudentInformationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addStudentInformationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Student Information or Attach To Student Account</h4>
+        <h4 class="modal-title" id="myModalLabel">Add Student Information or Link To Student Account</h4>
       </div>
       <div class="modal-body">
         <%= simple_form_for(@opportunity) do |f| %>

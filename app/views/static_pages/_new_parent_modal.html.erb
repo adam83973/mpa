@@ -1,0 +1,40 @@
+<div class="modal fade" id="newParentModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newParentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">New Parent</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <%= simple_form_for @new_parent, url: url_for(action: 'create_from_opportunity', controller: 'users', method: 'post'), remote: true do |f| %>
+              <%= f.input :role, as: :hidden, input_html: { value: "Parent" } %>
+              <%= f.association :location, label_method: :name %>
+              <%= f.input :first_name, label: "First Name" %>
+              <%= f.input :last_name, label: "Last Name" %>
+              <%= f.input :phone %>
+              <%= f.input :email %>
+              <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+              <%= f.input :send_password_link, as: :boolean, input_html: { checked: false } %>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <%= f.input :opportunity_id, as: :hidden %>
+              <%= f.input :infusion_id, label: "Infusionsoft Id" %>
+              <div>
+                <%= link_to "Look Up Infusionsoft Id", "javascript:void(0)", class: "btn btn-sm btn-default pull-right", id: "infusion_id_lookup", style: "margin-bottom:10px;" %>
+              </div>
+              <div id="infusionsoft_results">
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

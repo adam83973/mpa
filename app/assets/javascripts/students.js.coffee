@@ -9,7 +9,6 @@ jQuery ->
 		dial.load()
 
 	$("#student_offering_ids").chosen()
-	$("#student_user_id").chosen()
 
 	$('#student_birth_date').datepicker
 		dateFormat: 'yy-mm-dd',

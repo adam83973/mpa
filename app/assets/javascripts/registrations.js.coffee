@@ -10,3 +10,10 @@ $('.registration_info_toggle').on "click", ->
     else
       $note_info.slideUp()
       $(this).find(".fa-chevron-up").removeClass("fa-chevrone-up").addClass("fa-chevron-down")
+
+$('.registration_info').find('.switch').on 'click', ->
+  $('#registrationSwitchModal').modal('show')
+  $('#switch_registration_id').val($(this).data('registrationid'))
+
+$('#registrationSwitchModal').on 'shown.bs.modal', ->
+  $('.chosen', this).chosen('destroy').chosen()

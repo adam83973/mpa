@@ -9,10 +9,13 @@ class StaticPagesController < ApplicationController
         end
       end
       @user = current_user
-      # if @user.offerings?
+      unless current_user.parent?
         @opportunity = Opportunity.new
         @note = Note.new
         @grade = Grade.new
+        @new_parent = User.new
+        @generated_password = Devise.friendly_token.first(8)
+        @new_student = Student.new
         @experience_point = ExperiencePoint.new
         # @offerings = Offering.includes(:course, :location).order(:course_id)
         @user_location = @user.location
@@ -68,6 +71,7 @@ class StaticPagesController < ApplicationController
           @student_restart = @user_location.students.where("student.status = ? AND restart_date < ?", "Hold", 20.days.from_now).order("restart_date ASC")
           @student_return = @user_location.students.where("return_date < ?", 20.days.from_now).order("return_date ASC")
         end
+      end
     end
 
     if params[:search]

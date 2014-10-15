@@ -1,4 +1,4 @@
-<div class="modal fade" id="opportunityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="opportunityModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -39,7 +39,7 @@
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <%= f.button :submit, "Add Opportunity!", class: "btn btn-success pull-right" %>
+          <%= f.button :submit, "Add Opportunity!", class: "btn btn-success pull-right", id: "addOpportunity" %>
         </div>
       </div>
     <% end %>

@@ -34,12 +34,71 @@ $("#new_opportunity")
   $form = $(this)
   alert "Opportunity #{error}!"
   $form[0].reset()
+# When user clicks "no match" pass opportunity_id to new user form.
+
+
+# $("#new_user")
+# .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+#   $submitButton = $(this).find('input[name="commit"]')
+#   $submitButton.attr( 'data-origText',  $submitButton.val() )
+#   $submitButton.val( "Submitting..." )
+#   # Stop submission if parent name is blank
+#   if !($('#user_first_name').val()) or $('#user_first_name').length is 0
+#     alert "You must enter a parent name."
+#     $submitButton.val( $submitButton.data('origtext') )
+#     false
+#   else if !($('#user_location_id').val())
+#     alert "You must select a location."
+#     $submitButton.val( $submitButton.data('origtext') )
+#     false
+# .bind 'ajax:success', (evt, data, status, xhr) ->
+#   $form = $(this)
+#   $form[0].reset()
+# .bind 'ajax:complete', (evt, xhr, status) ->
+#   $submitButton = $(this).find('input[name="commit"]')
+#   $submitButton.val( $submitButton.data('origtext') )
+#   $("#newParentModal").modal('hide')
+# .bind 'ajax:error', (evt, xhr, status, error) ->
+#   $submitButton = $(this).find('input[name="commit"]')
+#   $submitButton.val( $submitButton.data('origtext') )
+#   $form = $(this)
+#   alert "Opportunity #{error}!"
+#   $form[0].reset()
 
 # Reset new opportunity form if form is closed
 $("#opportunityModal").on 'hide', ->
   $("#new_opportunity")[0].reset()
 
 # When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
+$('#opporunityParentNoMatch').on 'click', ->
+  $('#parentLookupModal').modal('hide')
+  $('#newParentModal').modal('show')
+  opportunity_id = $('#parent_lookup_table').data('opportunityid')
+  $('#user_opportunity_id').val(opportunity_id)
+
+# When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
+$('#opporunityStudentNoMatch').on 'click', ->
+  $('#studentLookupModal').modal('hide')
+  $('#newStudentModal').modal('show')
+  opportunity_id = $('#student_lookup_table').data('opportunityid')
+  user_id = $('#student_lookup_table').data('userid')
+  $('#student_opportunity_id').val(opportunity_id)
+  $('#student_user_id').val(user_id)
+
+$('#addOpportunity').on 'click', ->
+  $('#user_location_id').val($('#opportunity_location_id').val())
+  $('#user_first_name').val(($('#opportunity_parent_name').val().split(" "))[0])
+  $('#user_last_name').val(($('#opportunity_parent_name').val().split(" "))[1])
+  $('#user_phone').val($('#opportunity_parent_phone').val())
+  $('#user_email').val($('#opportunity_parent_email').val())
+  $('#student_first_name').val($('#opportunity_student_name').val())
+
+$('#infusion_id_lookup').on 'click', ->
+    $.ajax
+      type: 'GET'
+      url: "/infusion_pages/possible_contacts"
+      data: search: $('#user_last_name').val()
+      success: () ->
 
 # Apply chosen to select fields when Opportunity Modal is loaded fix for chosen rendering after modal
 $('#opportunityModal').on 'shown.bs.modal', ->

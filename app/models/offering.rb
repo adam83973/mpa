@@ -24,11 +24,11 @@ class Offering < ActiveRecord::Base
   end
 
   def returning_students_count
-      self.registrations.where("status = ? AND restart_date is NOT NULL", "Hold").count
+      self.registrations.where("status = ?", 2).count
   end
 
   def active_students_count
-      self.registrations.where("status = ?","Active").count
+      self.registrations.where("status = ? OR status = ?", 1, 0).count
   end
 
   def self.search(search)
@@ -59,17 +59,7 @@ class Offering < ActiveRecord::Base
 
   def at_capacity?
     total_students = returning_students_count + active_students_count
-    math_class_ids = (1..10).to_a << 13 << 17
-    tech_class_ids = [11, 12, 15, 16]
-    if math_class_ids.include?(self.course.id) && 10 - total_students <= 0
-      true
-    elsif self.course.id == 10 && 15 - total_students <= 0
-      true
-    elsif tech_class_ids.include?(self.course.id) && 8 - total_students <= 0
-      true
-    else
-      false
-    end
+    (course.capacity.to_i - total_students.to_i).to_i <= 0
   end
 
   def students_wait_listed?

@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
     @note = Note.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
-    @student_opportunities = @student.opportunities
+    @student_opportunities = @student.opportunities.includes(:offering)
 
     if current_user.employee? || current_user.id == @student.user_id
   # Sets instance variable for student offering, used to print binder
@@ -130,6 +130,23 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.json { render json: @student, status: :created, location: @student }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_from_opportunity
+    @opportunity = Opportunity.find(params[:student][:opportunity_id])
+    @student = Student.new(params[:student].except!(:opportunity_id))
+
+    respond_to do |format|
+      if @student.save
+        @opportunity.update_attribute :student_id, @student.id
+        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.js
         format.json { render json: @student, status: :created, location: @student }
       else
         format.html { render action: "new" }

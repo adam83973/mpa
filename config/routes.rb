@@ -12,7 +12,11 @@ MathPlus::Application.routes.draw do
     end
   end
 
-  resources :registrations
+  resources :registrations do
+    collection do
+      post :switch
+    end
+  end
 
   resources :enrollment_change_requests do
     collection { get :email }
@@ -70,6 +74,7 @@ MathPlus::Application.routes.draw do
   resources :students do
     collection do
       post :import
+      post :create_from_opportunity
     end
     resources :notes
   end
@@ -80,6 +85,7 @@ MathPlus::Application.routes.draw do
 
   resources :users do
     collection do
+      post :create_from_opportunity
       post :import
       get :my_account
       get :password_reset
@@ -144,6 +150,8 @@ MathPlus::Application.routes.draw do
   get "schedules/new_albany"
 
   get "infusion_pages/home"
+  get "infusion_pages/add_contact"
+  get "infusion_pages/possible_contacts"
   get "infusion_pages/edit"
   get "infusion_pages/camps"
   get "infusion_pages/update"

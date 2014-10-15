@@ -72,6 +72,26 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def switch
+    @registration = Registration.find(params[:switch][:registration_id].to_i)
+    @student = Student.find(params[:switch][:student_id])
+    @offering = Offering.find(params[:switch][:offering_id])
+
+    respond_to do |format|
+      if @new_registration = Registration.create!(start_date: params[:switch][:date],
+                                                  offering_id: params[:switch][:offering_id],
+                                                  student_id: params[:switch][:student_id],
+                                                  location_id: @offering.location_id,
+                                                  status: 0)
+        @registration.update_attribute :end_date, params[:switch][:date]
+        format.html { redirect_to @student, notice: 'Classes have been switched.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request.' }
+      end
+    end
+  end
+
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy

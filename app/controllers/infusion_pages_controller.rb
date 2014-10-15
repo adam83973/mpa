@@ -25,6 +25,33 @@ class InfusionPagesController < ApplicationController
     end
   end
 
+  def add_contact
+    data = { :FirstName => params[:FirstName], :LastName => params[:LastName], :Email => params[:Email] }
+    @newcontact = Infusionsoft.contact_add(data)
+
+    respond_to do |format|
+      format.js
+      format.json { render json: @newcontact }
+    end
+  end
+
+  def possible_contacts
+    if params[:search]
+      # get contacts with matching last name
+      @contacts = Infusionsoft.data_query_order_by('Contact', 50, 0, {:LastName=> params[:search]+'%'}, [:Id, :FirstName, :LastName, :ContactType, :Email], :FirstName, true)
+      # data clean up - blank out missing names, create ContactId = Id
+      @contacts.each do |i|
+        i["FirstName"] == nil ? i["FirstName"]="" : nil
+        i["ContactId"] = i["Id"]
+      end
+    end
+    respond_to do |format|
+      if @contacts
+        format.js
+      end
+    end
+  end
+
   def edit # requires params[:ContactId]
     count = 0
     begin

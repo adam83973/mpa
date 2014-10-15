@@ -15,6 +15,7 @@
 
         <%= f.input :course_name %>
         <%= f.association :occupation, label_method: :title %>
+        <%= f.input :capacity %>
         <%= f.input :grade %>
         <%= f.input :description, input_html: { rows: 5 } %>
         <%= f.button :submit, class: "btn btn-lg btn-success" %>

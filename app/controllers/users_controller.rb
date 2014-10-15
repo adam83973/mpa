@@ -33,6 +33,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @note = Note.new
+    if @user.parent? && current_user.admin?
+      @new_student = Student.new
+    end
 
     if current_user.employee? || current_user.id == @user.id
       ########
@@ -133,11 +136,33 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
 
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.js
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /users
+  # POST /users.json
+  def create_from_opportunity
+    @opportunity = Opportunity.find(params[:user][:opportunity_id])
+    @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
+    # Workflow takes user to possible students to add to opportunity once parent is added.
+    @possible_students = Student.where("last_name LIKE ? OR first_name LIKE ? OR first_name LIKE ?", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.first}%").order(:last_name ).uniq
+
+    respond_to do |format|
+      if @user.save
+        @opportunity.update_attribute :user_id, @user.id
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.js
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }

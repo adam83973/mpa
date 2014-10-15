@@ -61,11 +61,11 @@
 }
 
 #appointment_scheduled{
-  background-color: #99ccff;
+  background-color: #c1b9ff;
 }
 
 #appointment_missed{
-  background-color: #c1b9ff;
+  background-color: #ffcccc;
 }
 
 #trial{
@@ -73,13 +73,20 @@
 }
 
 #interested{
-  background-color: #ccffcc;
+  background-color: #ffdea6;
 }
 
 #waitlisted{
-  background-color: #ffcccc;
+  background-color: #99ccff;
 }
 
+#won{
+  background-color: #caffc5;
+}
+
+#lost{
+  background-color: #ffcccc;
+}
 .opportunity_group{
   .fa{
     margin-top: 4px;

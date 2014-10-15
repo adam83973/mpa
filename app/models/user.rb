@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
 
-  attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids
-  attr_accessible :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,
-                  :phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription
+  attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids,
+                  :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,
+                  :phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id
 
-  attr_accessor :current_password
+  attr_accessor :current_password, :opportunity_id, :send_password_link
 
   has_many :notings, class_name: "Note", foreign_key: "user_id"
   belongs_to :location
