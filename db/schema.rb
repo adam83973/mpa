@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141015175721) do
+ActiveRecord::Schema.define(:version => 20141016171103) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -305,6 +305,9 @@ ActiveRecord::Schema.define(:version => 20141015175721) do
     t.integer  "location_id"
     t.date     "restart_date"
     t.integer  "subscription_id"
+    t.integer  "hold_id"
+    t.integer  "switch_id"
+    t.boolean  "switch"
   end
 
   create_table "resources", :force => true do |t|

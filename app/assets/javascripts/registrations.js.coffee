@@ -15,5 +15,15 @@ $('.registration_info').find('.switch').on 'click', ->
   $('#registrationSwitchModal').modal('show')
   $('#switch_registration_id').val($(this).data('registrationid'))
 
+$('.registration_info').find('.drop').on 'click', ->
+  if confirm "This action will remove #{$(this).data("studentfirstname")} from #{$(this).data("offeringname")} on the date you specify.\n \n You will be asked to enter an end date after confirming.\n \n Are you sure you want to continue?"
+    $('#registrationDropModal').modal('show')
+    $('#drop_registration_id').val($(this).data('registrationid'))
+
+$('.registration_info').find('.hold').on 'click', ->
+  if confirm "Do you want to place this registration on hold?\n\n You will need to know when the hold will begin and when the student will return."
+    $('#registrationHoldModal').modal('show')
+    $('#hold_registration_id').val($(this).data('registrationid'))
+
 $('#registrationSwitchModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()

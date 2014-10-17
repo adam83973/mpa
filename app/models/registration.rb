@@ -1,7 +1,7 @@
 class Registration < ActiveRecord::Base
-  attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :location_id
+  attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :location_id, :hold_id, :switch_id, :switch, :restart_date
 
-  validates_presence_of :start_date, :offering_id, :location_id, :student_id
+  validates_presence_of :offering_id, :location_id, :student_id
 
   belongs_to :student
   belongs_to :offering

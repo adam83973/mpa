@@ -82,12 +82,74 @@ class RegistrationsController < ApplicationController
                                                   offering_id: params[:switch][:offering_id],
                                                   student_id: params[:switch][:student_id],
                                                   location_id: @offering.location_id,
+                                                  attended_first_class: true,
+                                                  switch: true,
                                                   status: 0)
-        @registration.update_attribute :end_date, params[:switch][:date]
-        format.html { redirect_to @student, notice: 'Classes have been switched.' }
+        @registration.update_attributes( {end_date: params[:switch][:date], switch_id: @new_registration.id})
+        format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
         format.html { redirect_to @student, notice: 'There has been a problem processing your request.' }
+      end
+    end
+  end
+
+  def drop
+    @registration = Registration.find(params[:drop][:registration_id].to_i)
+    @student = Student.find(@registration.student_id)
+
+    respond_to do |format|
+      if @registration.update_attribute :end_date, params[:drop][:end_date]
+        format.html { redirect_to @student, notice: 'End date has been added.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+      end
+    end
+  end
+
+  def cancel_drop
+    @registration = Registration.find(params[:registration_id].to_i)
+    @student = Student.find(@registration.student_id)
+
+    respond_to do |format|
+      if @registration.update_attribute :end_date, nil
+        if @registration.switch_id
+          # delete registration if one was created through switching classes
+          Registration.find(@registration.switch_id).destroy
+          format.html { redirect_to @student, notice: 'End date has been removed. This registration was being switched to another class. The registration associated with this switch has been deleted.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @student, notice: 'End date has been removed.' }
+          format.json { head :no_content }
+        end
+      else
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+      end
+    end
+  end
+
+  def hold
+    @registration = Registration.find(params[:hold][:registration_id].to_i)
+    @restart_registration = Registration.new
+    @student = Student.find(@registration.student_id)
+
+    # Set hold date on current registration. This date will be used as the date to set registration to inactive.
+    @registration.update_attribute :hold_date, params[:hold][:hold_date]
+
+    respond_to do |format|
+    # Create new registration with restart date. Restart date is date when registration will become active. Status is set to hold and hold_id is record of associated registration (i.e. the registration that was cancelled when the hold began)
+      if @restart_registration = Registration.create!(restart_date: params[:hold][:restart_date],
+                                                      offering_id: @registration.offering_id,
+                                                      student_id: @student.id,
+                                                      location_id: @registration.offering.location_id,
+                                                      status: 2,
+                                                      attended_first_class: true,
+                                                      hold_id: @registration.id)
+        format.html { redirect_to @student, notice: 'Hold request has been processed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
     end
   end

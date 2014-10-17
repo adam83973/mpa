@@ -11,8 +11,7 @@ namespace :operations do
 end
 
 def start_hold
-  #change students with start_hold_date, and restart_date to
-  # have a status of hold
+  #Look for registrations with start hold date. Change status to inactive.
   students = Student.where("start_hold_date = ?", Date.today)
 
   #cycle through students and set status to hold if student has end date for current day

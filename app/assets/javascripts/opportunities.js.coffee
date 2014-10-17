@@ -93,6 +93,7 @@ $('#addOpportunity').on 'click', ->
   $('#user_email').val($('#opportunity_parent_email').val())
   $('#student_first_name').val($('#opportunity_student_name').val())
 
+# Search possible contacts in Infusionsoft and render in table in add parent modal
 $('#infusion_id_lookup').on 'click', ->
     $.ajax
       type: 'GET'
