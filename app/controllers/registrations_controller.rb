@@ -172,6 +172,14 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def attended_first_class
+    @registration = Registration.find(params[:id])
+
+    if @registration.update_attribute :attended_first_class, true
+      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+    end
+  end
+
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy

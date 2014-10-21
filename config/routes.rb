@@ -22,6 +22,7 @@ MathPlus::Application.routes.draw do
       get :drop
       get :cancel_hold
       get :cancel_drop
+      get :attended_first_class
     end
   end
 
