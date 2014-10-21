@@ -14,13 +14,13 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.registrations.added_last_30.uniq.each do |registration| %>
+        <% @location.registrations.added_last_30.each do |registration| %>
           <tr>
-            <td><%= registration.student.full_name %><td>
             <td>
-              <% registration.student.offerings.includes(:course, :location).each do |offering| %>
-                <%= offering.offering_name + " " %>
-              <% end %>
+              <%= link_to registration.student.full_name, registration.student, target: "_blank" %>
+            <td>
+            <td>
+              <%= registration.offering.offering_name %>
             </td>
           </tr>
         <% end %>

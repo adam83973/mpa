@@ -11,14 +11,20 @@
         <tr>
           <th>Student Name</th>
           <th>Class</th>
+          <th>Restart Date</th>
         </tr>
       </thead>
       <tbody>
         <% @location.registrations.restarting.uniq.each do |registration| %>
           <tr>
-            <td><%= registration.student.full_name %><td>
+            <td>
+              <%= link_to registration.student.full_name, registration.student %>
+            <td>
             <td>
               <%= registration.offering.offering_name + " " %>
+            </td>
+            <td>
+              <%= registration.restart_date.strftime("%D") %>
             </td>
           </tr>
         <% end %>

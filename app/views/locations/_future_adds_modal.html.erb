@@ -17,9 +17,9 @@
       <tbody>
         <% @location.registrations.future_adds.uniq.each do |registration| %>
           <tr>
-            <td><%= registration.student.full_name %><td>
+            <td><%= link_to registration.student.full_name, registration.student, target: "_blank" %><td>
             <td>
-              <%= registration.offering.offering_name + " " %>
+              <%= registration.offering.offering_name %>
             </td>
             <td>
               <%= registration.start_date.strftime("%D") %>
