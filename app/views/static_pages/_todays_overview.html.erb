@@ -38,6 +38,21 @@
           </span>
         </p>
       <% end %>
+      <% @trials_today_location.order("trial_date ASC").each do |opportunity| %>
+        <p>
+          <%= link_to "#{opportunity.student_name}", opportunity unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity if opportunity.student %> -
+          <%= opportunity.offering.offering_name_dashboard %>
+          <% if opportunity.trial_date < Date.today %>
+           <span style="color:red;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
+          <% elsif opportunity.trial_date >= Date.today %>
+           <span style="color:green;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
+          <% end %>
+          <span>
+            <%= link_to "Edit", opportunity, class: "btn btn-default btn-xs", :target => "_blank" %>
+            <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-xs btn-yellow" } if !(opportunity.attended_trial) %>
+          </span>
+        </p>
+      <% end %>
     </div>
   </div>
 <% end %>

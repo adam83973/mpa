@@ -28,30 +28,6 @@
 
 <%= render 'registration_drop_modal' %>
 
-<div class="modal fade" id="registrationHoldModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="registrationHoldModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Hold Request</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= simple_form_for :hold, url: url_for(action: 'hold', controller: 'registrations'), method: 'get' do |f| %>
-              <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
-              <%= f.input :registration_id, as: :hidden %>
-              <%= f.input :hold_date, as: :string, label: "Hold starts on:", input_html: { class: "datepicker" } %>
-              <%= f.input :restart_date, as: :string, label: "Student will restart on:",  input_html: { class: "datepicker" } %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <%= f.submit "Submit", class: "btn btn-lg btn-success pull-right", confirm: "This will end the current registration and create a new registration for the selected class. This registration will end on the specified date and a new one will begin on the same date." %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<%= render 'registration_hold_modal' %>
+
+<%= render 'add_to_class_modal' %>

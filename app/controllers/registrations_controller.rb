@@ -154,6 +154,24 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def cancel_hold
+    @ending_registration = Registration.find(params[:registration_id].to_i)
+    @restarting_registration = @ending_registration.holding
+    @student = @ending_registration.student
+
+    respond_to do |format|
+      if @ending_registration.update_attribute :hold_date, nil
+        if @restarting_registration.destroy
+          # delete registration if one was created through switching classes
+          format.html { redirect_to @student, notice: 'Hold has been cancelled.' }
+          format.json { head :no_content }
+        end
+      else
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+      end
+    end
+  end
+
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy

@@ -1,6 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Class Information</h3>
+    <h3 style="display:inline;" class="panel-title">Class Information</h3>
+    <%= link_to "Add To Class", "javascript:void(0)", class: "add_to_class pull-right", data: { offeringid: @opportunity.offering_id, opportunityid: @opportunity.id, studentid: @opportunity.student_id } if @opportunity.offering && @opportunity.student %>
   </div>
   <div class="panel-body">
     <p>

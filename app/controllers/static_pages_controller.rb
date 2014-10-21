@@ -63,13 +63,12 @@ class StaticPagesController < ApplicationController
           #Pull students that are or have started in +/- 6 days from today.
           @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
           @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
-            @new_students_location.each do |student|
-              if student.attended_first_class?
-                @new_students_location.delete_if { |ns| ns["id"] == student.id }
-              end
+          @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ?", 1.day.from_now, false).uniq
+          @new_students_location.each do |student|
+            if student.attended_first_class?
+              @new_students_location.delete_if { |ns| ns["id"] == student.id }
             end
-          @student_restart = @user_location.students.where("student.status = ? AND restart_date < ?", "Hold", 20.days.from_now).order("restart_date ASC")
-          @student_return = @user_location.students.where("return_date < ?", 20.days.from_now).order("return_date ASC")
+          end
         end
       end
     end

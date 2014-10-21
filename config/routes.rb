@@ -9,6 +9,9 @@ MathPlus::Application.routes.draw do
     collection do
       get :add_parent
       get :add_student
+      get :trial_date
+      get :attended_trial
+      get :add_to_class
     end
   end
 
@@ -17,6 +20,7 @@ MathPlus::Application.routes.draw do
       post :switch
       get :hold
       get :drop
+      get :cancel_hold
       get :cancel_drop
     end
   end

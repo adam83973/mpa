@@ -36,35 +36,6 @@ $("#new_opportunity")
   $form[0].reset()
 # When user clicks "no match" pass opportunity_id to new user form.
 
-
-# $("#new_user")
-# .bind 'ajax:beforeSend', (evt, xhr, settings) ->
-#   $submitButton = $(this).find('input[name="commit"]')
-#   $submitButton.attr( 'data-origText',  $submitButton.val() )
-#   $submitButton.val( "Submitting..." )
-#   # Stop submission if parent name is blank
-#   if !($('#user_first_name').val()) or $('#user_first_name').length is 0
-#     alert "You must enter a parent name."
-#     $submitButton.val( $submitButton.data('origtext') )
-#     false
-#   else if !($('#user_location_id').val())
-#     alert "You must select a location."
-#     $submitButton.val( $submitButton.data('origtext') )
-#     false
-# .bind 'ajax:success', (evt, data, status, xhr) ->
-#   $form = $(this)
-#   $form[0].reset()
-# .bind 'ajax:complete', (evt, xhr, status) ->
-#   $submitButton = $(this).find('input[name="commit"]')
-#   $submitButton.val( $submitButton.data('origtext') )
-#   $("#newParentModal").modal('hide')
-# .bind 'ajax:error', (evt, xhr, status, error) ->
-#   $submitButton = $(this).find('input[name="commit"]')
-#   $submitButton.val( $submitButton.data('origtext') )
-#   $form = $(this)
-#   alert "Opportunity #{error}!"
-#   $form[0].reset()
-
 # Reset new opportunity form if form is closed
 $("#opportunityModal").on 'hide', ->
   $("#new_opportunity")[0].reset()
@@ -120,6 +91,22 @@ $('.opportunity_info_toggle').on "click", ->
     else
       $opp_info.slideUp()
       $(this).find(".fa-chevron-up").removeClass("fa-chevrone-up").addClass("fa-chevron-down")
+
+$('.panel-heading').find('.add_to_class').on 'click', ->
+  $('#addToClassModal').modal('show')
+  $('.registration_student').find('select').val($(this).data('studentid'))
+  $('.registration_offering').find('select').val($(this).data('offeringid'))
+  $('.registration_offering').find('.hidden').val($(this).data('offeringid'))
+  $('#registration_opportunity_id').val($(this).data('opportunityid'))
+
+# Convert opportunity to registration from student show.
+$('.opportunity_info').find('.add_to_class').on 'click', ->
+  $('#addToClassModal').modal('show')
+  $('.registration_offering').find('select').val($(this).data('offeringid'))
+  $('.registration_offering').find('.hidden').val($(this).data('offeringid'))
+  $('.registration_student').find('select').val($(this).data('studentid'))
+  $('.registration_student').find('.hidden').val($(this).data('studentid'))
+  $('#registration_opportunity_id').val($(this).data('opportunityid'))
 
 # Manage trial date entry based on offering selection. Doesn't allow user to enter trial date
 # without selecting offering first.

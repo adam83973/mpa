@@ -156,4 +156,29 @@ class OpportunitiesController < ApplicationController
       end
     end
   end
+
+  def add_to_class
+    @opportunity = Opportunity.find(params[:registration][:opportunity_id])
+    @registration = Registration.new(params[:registration].except!(:opportunity_id))
+    @student = Student.find(params[:registration][:student_id])
+
+    respond_to do |format|
+      if @registration.save
+        @opportunity.update_attribute :status, 7 # set opportunity to won
+        format.html { redirect_to @student, notice: 'Registration was successfully created.' }
+        format.json { render json: @registration, status: :created, location: @registration }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @registration.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def attended_trial
+    @opportunity = Opportunity.find(params[:id])
+
+    if @opportunity.update_attribute :attended_trial, true
+      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+    end
+  end
 end

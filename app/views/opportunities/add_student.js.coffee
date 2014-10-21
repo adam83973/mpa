@@ -2,3 +2,5 @@
 $('#studentLookupModal').modal('hide')
 
 alert "Opportunity has been added."
+
+location.reload()

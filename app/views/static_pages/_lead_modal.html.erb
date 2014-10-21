@@ -25,7 +25,6 @@
             <%= f.input :parent_phone %>
             <%= f.input :parent_email %>
             <%= f.input :student_name %>
-            <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } %>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <%= f.input :status, collection: Opportunity::STATUSES.zip((0..8).to_a) %>

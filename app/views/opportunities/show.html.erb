@@ -1,7 +1,14 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
     <h2>Opportunity: <%= @opportunity.title %></h2>
-    <%= opportunity_status(@opportunity).html_safe %>
+    <%= opportunity_status(@opportunity).html_safe %> |
+    <%= link_to "Update Status", "javascript:void(0)", data: { toggle: "modal", target: "#oppUpdateStatusModal"} %><br><br>
+    <div>
+      <p>
+        <b>Appointment Date:</b>
+        <%= @opportunity.appointment_date ? @opportunity.appointment_date.strftime("%D") : ( link_to "Add Appointment Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppAppointmentInformationModal"} ) %>
+      </p>
+    </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
     <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default pull-right" %>
@@ -26,3 +33,9 @@
 <%= render 'opportunity_class_information_modal' %>
 
 <%= render 'opportunity_trial_information_modal' %>
+
+<%= render 'opportunity_update_status_modal' %>
+
+<%= render 'opportunity_appointment_information_modal' %>
+
+<%= render '/students/add_to_class_modal' %>
