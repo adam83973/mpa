@@ -1,7 +1,8 @@
 class Opportunity < ActiveRecord::Base
   attr_accessible :admin_id, :attended_trial, :offering_id, :possible_restart_date, :registration_id,
-                  :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id, :location_id,
-                  :student_name, :date_won, :date_lost, :source, :title, :parent_phone, :parent_email
+                  :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id,
+                  :location_id, :student_name, :date_won, :date_lost, :source, :title, :parent_phone,
+                  :parent_email
 
   validates_presence_of :parent_name, :location_id
 

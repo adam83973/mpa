@@ -115,10 +115,14 @@ class OpportunitiesController < ApplicationController
     @old_status = @opportunity.status
     @new_status = params[:status]
     @note = Note.new
-    @opportunity.update_status(@new_status.to_i)
 
     respond_to do |format|
-      format.js
+      if @opportunity.update_status(@new_status.to_i)
+        if @opportunity.status == 8
+          @opportunity.update_attribute :date_lost, Date.today
+        end
+        format.js
+      end
     end
   end
 
@@ -163,22 +167,29 @@ class OpportunitiesController < ApplicationController
     @student = Student.find(params[:registration][:student_id])
 
     respond_to do |format|
-      if @registration.save
-        @opportunity.update_attribute :status, 7 # set opportunity to won
-        format.html { redirect_to @student, notice: 'Registration was successfully created.' }
-        format.json { render json: @registration, status: :created, location: @registration }
+      if @opportunity.student && @opportunity.offering
+        if @registration.save
+          @opportunity.update_attribute :status, 7 # set opportunity to won
+          @opportunity.update_attribute :date_won, Date.today # set date won date
+          format.html { redirect_to @student, notice: 'Registration was successfully created.' }
+          format.json { render json: @registration, status: :created, location: @registration }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @registration.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
+        format.html { redirect_to @opportunity.student, notice: 'Student and offering must be added in order to add student to a class. Click the edit button and make sure the opportunity is updated before adding to class.' }
+        format.json { head :no_content }
       end
     end
   end
 
   def attended_trial
     @opportunity = Opportunity.find(params[:id])
+    @student = Student.find(@opportunity.student_id)
 
     if @opportunity.update_attribute :attended_trial, true
-      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+      redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
     end
   end
 end

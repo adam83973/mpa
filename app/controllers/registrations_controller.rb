@@ -174,9 +174,10 @@ class RegistrationsController < ApplicationController
 
   def attended_first_class
     @registration = Registration.find(params[:id])
+    @student = @registration.student
 
     if @registration.update_attribute :attended_first_class, true
-      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+      redirect_to root_path, notice: "#{@student.full_name} has attended their first class."
     end
   end
 

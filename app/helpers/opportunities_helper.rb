@@ -16,9 +16,9 @@ module OpportunitiesHelper
     when 6
       "<span class='label label-brown'>Possible Restart</span>"
     when 7
-      "<span class='label label-success'>Possible Restart</span>"
+      "<span class='label label-success'>Won</span>"
     when 8
-      "<span class='label label-danger'>Possible Restart</span>"
+      "<span class='label label-danger'>Lost</span>"
     end
   end
 end

@@ -40,7 +40,7 @@
       <% end %>
       <% @trials_today_location.order("trial_date ASC").each do |opportunity| %>
         <p>
-          <%= link_to "#{opportunity.student_name}", opportunity unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity if opportunity.student %> -
+          <%= link_to "#{opportunity.student_name}", opportunity, target: "_blank" unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity.student, target: "_blank" if opportunity.student %> -
           <%= opportunity.offering.offering_name_dashboard %>
           <% if opportunity.trial_date < Date.today %>
            <span style="color:red;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
