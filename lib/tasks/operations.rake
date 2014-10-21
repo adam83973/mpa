@@ -12,47 +12,28 @@ end
 
 def start_hold
   #Look for registrations with start hold date. Change status to inactive.
-  students = Student.where("start_hold_date = ?", Date.today)
+  registrations = Registration.where("hold_date = ?", Date.today)
 
   #cycle through students and set status to hold if student has end date for current day
-  students.each do |student|
-    if student.start_hold_date <= Date.today && student.status == "Active"
+  registrations.each do |registration|
+    if registration.hold_date <= Date.today && registration.status == 1
       #set status to hold
-      student.update_attribute :status, 1
-      student.update_attribute :hold_status, 0
+      registration.update_attribute :status, 3
     end
   end
 end
 
 def restart_date
   #pull all students with restart date equal to tomorrows date
-  students = Student.where("restart_date = ?", Date.today)
+  registrations = Registration.where("restart_date = ?", Date.today)
 
   #cycle through students and set status to active if student has restart date for the next day
-  students.each do |student|
-    if student.restart_date == Date.today
+  registrations.each do |registration|
+    if registration.restart_date == Date.today
       #set status to Active
-      student.update_attribute :status, "Active"
+      registration.update_attribute :status, 1
       if student.user && !(student.user.active?)
       #make sure student's parent is active, if not, set parent status to active
-        student.user.update_attribute :active, true
-      end
-    end
-  end
-end
-
-def start_date
-  #script run
-  #pull all students with start date equal to todays date
-  students = Student.where("start_date = ?", Date.today)
-
-  #cycle through students and set status to active if student has start date for current day
-  students.each do |student|
-    if student.start_date == Date.today && student.status == "Inactive"
-      #set status to Active
-      student.update_attribute :status, "Active"
-      #make sure student's parent is active, if not, set parent status to active
-      if student.user && !(student.user.active?)
         student.user.update_attribute :active, true
       end
     end
@@ -66,9 +47,9 @@ def start_date
 
   #cycle through students and set status to active if student has start date for current day
   registrations.each do |registration|
-    if student.start_date == Date.today && student.status == "Inactive"
+    if registration.start_date == Date.today && registration.status == 0
       #set status to Active
-      registration.update_attribute :status, "Active"
+      registration.update_attribute :status, 1
       #make sure student's parent is active, if not, set parent status to active
       if student.user && !(student.user.active?)
         student.user.update_attribute :active, true
@@ -79,13 +60,13 @@ end
 
 def end_date
   #pull all students with end date equal to curent day's date
-  students = Student.where("end_date = ?", Date.today)
+  registrations = Registration.where("end_date = ?", Date.today)
 
   #cycle through students and set status to inactive if student has end date for current day
-  students.each do |student|
-    if student.end_date == Date.today && student.status == "Active"
+  registrations.each do |registration|
+    if registration.end_date == Date.today && registration.status == 1
       #set status to inactive
-      student.update_attribute :status, "Inactive"
+      registration.update_attribute :status, 3
     end
   end
 end

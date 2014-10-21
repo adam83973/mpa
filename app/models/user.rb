@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   belongs_to :location
   has_many :students, :through => :offerings
   has_many :students
+  has_many :registrations, :through => :students
   has_many :opportunities
   has_many :leads
   has_many :issues
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def active_students?
-    students.any? { |s| s.status == "Active" || s.start_date >= Date.today }
+    registrations.any? { |r| (0..2).cover?(r.status) || r.start_date >= Date.today }
   end
 
   # def deactivate
