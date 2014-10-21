@@ -10,7 +10,7 @@
         <th>User</th>
         <th>Stage</th>
         <th>Active</th>
-        <th></th>
+        <th>Location</th>
         <th></th>
         <th></th>
       </tr>
@@ -25,9 +25,9 @@
         <td><%= lead.user.full_name if lead.user %></td>
         <td><%= lead.stage.name if lead.stage %></td>
         <td><%= lead.active? %></td>
+        <td><%= lead.location %></td>
         <td><%= link_to 'Show', lead %></td>
         <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
-        <td><%= link_to 'Destroy', lead, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>
