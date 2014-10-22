@@ -11,7 +11,8 @@
               <%= f.input :first_name, label: "First Name" %>
               <%= f.input :last_name, label: "Last Name" %>
               <%= f.input :credits, as: :hidden, input_html: { value: 1 } %>
-              <%= f.input :opportunity_id, as: :hidden %>
+              <%= f.input :opportunity_id, as: :hidden unless @opportunity %>
+              <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id } if @opportunity %>
               <%= f.input :user_id, as: :hidden %>
           </div>
         </div>

@@ -59,6 +59,7 @@ $('#opporunityParentNoMatch').on 'click', ->
 
 # When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
 $('#opporunityStudentNoMatch').on 'click', ->
+  $('#addStudentInformationModal').modal('hide')
   $('#studentLookupModal').modal('hide')
   $('#newStudentModal').modal('show')
   opportunity_id = $('#student_lookup_table').data('opportunityid')
