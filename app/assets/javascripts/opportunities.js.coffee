@@ -117,6 +117,9 @@ $('#oppClassInformationModal').on 'shown.bs.modal', ->
 $('#addStudentInformationModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()
 
+$('#addUserInformationModal').on 'shown.bs.modal', ->
+  $('.chosen', this).chosen('destroy').chosen()
+
 # Toggle opportunity information and actions from student show
 $('.opportunity_info_toggle').on "click", ->
     $opp_info = $(this).closest('.well').find('.opportunity_info')
