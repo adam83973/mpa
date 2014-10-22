@@ -15,7 +15,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :registration
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
 
-  has_many  :notes, as: :notable
+  has_many  :notes
 
   STATUSES = ["Interested", "Appointment Scheduled", "Appointment Missed", "Trial", "Undecided", "Waitlisted", "Possible Restart", "Won", "Lost"]
 

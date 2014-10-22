@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141022141547) do
+ActiveRecord::Schema.define(:version => 20141022160800) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -180,13 +180,14 @@ ActiveRecord::Schema.define(:version => 20141022141547) do
   create_table "notes", :force => true do |t|
     t.integer  "user_id"
     t.text     "content"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "notable_id"
     t.string   "notable_type"
-    t.boolean  "completed",    :default => false
+    t.boolean  "completed",      :default => false
     t.date     "action_date"
     t.integer  "location_id"
+    t.integer  "opportunity_id"
   end
 
   create_table "occupation_levels", :force => true do |t|

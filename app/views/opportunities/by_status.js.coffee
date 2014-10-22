@@ -32,9 +32,11 @@ jQuery ->
   $('#opportunities_by_status').find('.opportunity_toolbar').each ->
     $(this).css("display", "none")
 
+  # Hide Show Opportunity Note Form
   $('.status_attr').on "click", ->
     $opportunity_toolbar = $(this).closest('.opportunity_group').find('.opportunity_toolbar')
     if $opportunity_toolbar.css("display") is "none"
+      $(this).find('.fa').removeClass('fa-plus').addClass('fa-minus')
       $opportunity_toolbar.slideDown()
       $opportunity_toolbar.find('input[id^="note_action_date"]').datepicker
         dateFormat: 'yy-mm-dd',
@@ -42,6 +44,7 @@ jQuery ->
         changeYear:true
     else
       $opportunity_toolbar.slideUp()
+      $(this).find('.fa').removeClass('fa-minus').addClass('fa-plus')
 
   $('div[id^="opportunity"]', '#opportunities_by_status').each ->
     $(this).draggable

@@ -3,11 +3,13 @@
     <h3 class="panel-title">Notes</h3>
   </div>
   <div class="panel-body">
-    <%= simple_form_for [@opportunity, Note.new], remote: true do |f| %>
+    <% if @opportunity.user %>
+    <%= simple_form_for [@opportunity.user, Note.new], remote: true do |f| %>
       <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+          <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id } %>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <%= f.input :action_date, as: :string, input_html: { id: :datepicker } if current_user.admin? %>
@@ -21,5 +23,8 @@
         <%= render 'opportunity_notes' %>
       </div>
     </div>
+    <% else %>
+      You cannot add notes to this opportunity because it is not linked to a parent.
+    <% end %>
   </div>
 </div>
