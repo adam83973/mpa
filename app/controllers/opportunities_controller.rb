@@ -17,6 +17,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1.json
   def show
     @opportunity = Opportunity.find(params[:id])
+    @new_student = Student.new
 
     respond_to do |format|
       format.html # show.html.erb

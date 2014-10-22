@@ -13,9 +13,12 @@
                 <%= f.input :student_name %>
                 <%= f.association :student, label_method: :full_name, selected: params[:student_id], label: "Add to student account", input_html: { class: 'chosen' } if params[:student_id] %>
                   <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } unless params[:student_id] %>
-                <%= f.button :submit, class: "pull-right btn btn-lg btn-success" %>
             </div>
           </div>
+      </div>
+      <div class="modal-footer">
+          <%= link_to "No Match", "javascript:void(0)", id: "opporunityStudentNoMatch", class: "btn btn-primary" %>
+          <%= f.button :submit, class: "btn btn-lg btn-success" %>
         <% end %>
       </div>
     </div>
