@@ -25,7 +25,7 @@
         <%= f.input :appointment_date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.input :trial_date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.input :possible_restart_date, as: :string, input_html: { class: "datepicker"} %>
-        <%= f.input :source, collection: Opportunity::SOURCES.zip((0..5).to_a) %>
+        <%= f.input :source, collection: Opportunity::SOURCES.zip((0..7).to_a) %>
     </div>
   </div>
   <div class="row">

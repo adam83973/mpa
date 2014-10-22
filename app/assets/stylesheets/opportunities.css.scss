@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// fix to padding on opp interest level check_box
+.radio_buttons.opportunity_interest_level{
+  :first-child{
+    margin-top: 0;
+  }
+}
+
+.opportunity_other_source{
+  display: none;
+}
+
 .opportunity_info{
   display: none;
   background:#afafaf;

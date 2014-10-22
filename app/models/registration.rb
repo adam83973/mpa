@@ -15,7 +15,7 @@ class Registration < ActiveRecord::Base
   has_one :holding, class_name: "Registration", foreign_key: "hold_id"
 
   scope :active, lambda{where("status = ?", "1")}
-  scope :future_adds, lambda{where("start_date > ?", Date.today)}
+  scope :future_adds, lambda{where("start_date > ?", Date.today).where.not(switch_id: nil)}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", 2, 20.days.from_now)}

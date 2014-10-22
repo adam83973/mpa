@@ -35,17 +35,17 @@
 	<% if current_user.employee? %>
 			<div class="registration_info">
 				<% if current_user.admin? %>
-					<% unless (reg.switch && reg.start_date < Date.today) || (reg.status == 2 && reg.holder.hold_date < Date.today) %>
+					<% unless (reg.switch && reg.start_date > Date.today) || (reg.status == 2 && reg.holder.hold_date > Date.today) %>
 		 		  <div class="row">
 				 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 					    <div class='text-center' style="margin-left:5px;">
 					    	<div class="btn-group btn-group-sm">
-								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-default", data: { registrationid: reg.id, offeringid: reg.offering_id } unless reg.end_date %>
+								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-default", data: { registrationid: reg.id, offeringid: reg.offering_id } unless reg.end_date || (reg.switch_id && reg.start_date > Date.today) || reg.hold_date %>
 								  <!-- Status 1 is active, which requires different actions. -->
 								  <% if reg.status == 1 %>
 								  	<%= link_to "Hold", "javascript:void(0)", class: "btn hold btn-warning", data: { registrationid: reg.id } unless reg.end_date || reg.hold_date %>
 								  	<%= link_to "Cancel Hold", url_for(action: 'cancel_hold', controller: 'registrations', registration_id: reg.id), class: "btn cancel_drop btn-warning", data: { confirm: "Are you sure you want to cancel this hold?" } if reg.hold_date %>
-								  	<%= link_to "Drop", "javascript:void(0)", class: "btn drop btn-danger", data: { registrationid: reg.id, studentFirstName: student.first_name, offeringName: reg.offering_name } unless reg.end_date || reg.switch_id %>
+								  	<%= link_to "Drop", "javascript:void(0)", class: "btn drop btn-danger", data: { registrationid: reg.id, studentFirstName: student.first_name, offeringName: reg.offering_name } unless reg.end_date || (reg.switch_id && reg.start_date > Date.today) || reg.hold_date %>
 								  	<%= link_to "Cancel Class Change", url_for(action: 'cancel_drop', controller: 'registrations', registration_id: reg.id), class: "btn cancel_switch btn-danger", data: { confirm: "Are you sure you want to cancel this drop?" } if reg.end_date && reg.switch_id %>
 								  	<%= link_to "Cancel Drop", url_for(action: 'cancel_drop', controller: 'registrations', registration_id: reg.id), class: "btn cancel_drop btn-danger", data: { confirm: "Are you sure you want to cancel this drop?" } if reg.end_date && !(reg.switch_id) %>
 								  <% else %>

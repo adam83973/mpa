@@ -34,7 +34,17 @@ $("#new_opportunity")
   $form = $(this)
   alert "Opportunity #{error}!"
   $form[0].reset()
-# When user clicks "no match" pass opportunity_id to new user form.
+
+# Reset new opportunity form if form is closed
+$("#opportunityModal").on 'show', ->
+    $('.opportunity_other_source').hide()
+
+$('#opportunity_source').on 'change', ->
+  if $(this).val() is "7"
+    $('.opportunity_other_source').show()
+  else
+    $('.opportunity_other_source').hide()
+    $('#opportunity_other_source').val('')
 
 # Reset new opportunity form if form is closed
 $("#opportunityModal").on 'hide', ->

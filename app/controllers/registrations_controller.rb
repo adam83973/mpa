@@ -81,7 +81,6 @@ class RegistrationsController < ApplicationController
       if @new_registration = Registration.create!(start_date: params[:switch][:date],
                                                   offering_id: params[:switch][:offering_id],
                                                   student_id: params[:switch][:student_id],
-                                                  location_id: @offering.location_id,
                                                   attended_first_class: true,
                                                   switch: true,
                                                   status: 0)
@@ -100,7 +99,7 @@ class RegistrationsController < ApplicationController
 
     respond_to do |format|
       if @registration.update_attribute :end_date, params[:drop][:end_date]
-        format.html { redirect_to @student, notice: 'End date has been added.' }
+        format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: "End date has been added. Please update this user's subscriptions." }
         format.json { head :no_content }
       else
         format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
@@ -117,10 +116,11 @@ class RegistrationsController < ApplicationController
         if @registration.switch_id
           # delete registration if one was created through switching classes
           Registration.find(@registration.switch_id).destroy
+          @registration.update_attribute :switch_id, nil # remove switch ID from current reg
           format.html { redirect_to @student, notice: 'End date has been removed. This registration was being switched to another class. The registration associated with this switch has been deleted.' }
           format.json { head :no_content }
         else
-          format.html { redirect_to @student, notice: 'End date has been removed.' }
+          format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'End date has been removed. If a subscription has been ended please start a new one.' }
           format.json { head :no_content }
         end
       else
@@ -142,11 +142,10 @@ class RegistrationsController < ApplicationController
       if @restart_registration = Registration.create!(restart_date: params[:hold][:restart_date],
                                                       offering_id: @registration.offering_id,
                                                       student_id: @student.id,
-                                                      location_id: @registration.offering.location_id,
                                                       status: 2,
                                                       attended_first_class: true,
                                                       hold_id: @registration.id)
-        format.html { redirect_to @student, notice: 'Hold request has been processed.' }
+        format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
         format.json { head :no_content }
       else
         format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
@@ -163,7 +162,7 @@ class RegistrationsController < ApplicationController
       if @ending_registration.update_attribute :hold_date, nil
         if @restarting_registration.destroy
           # delete registration if one was created through switching classes
-          format.html { redirect_to @student, notice: 'Hold has been cancelled.' }
+          format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'Hold has been cancelled. Please adjust subscriptions.' }
           format.json { head :no_content }
         end
       else
