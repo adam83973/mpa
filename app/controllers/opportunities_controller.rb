@@ -18,6 +18,7 @@ class OpportunitiesController < ApplicationController
   def show
     @opportunity = Opportunity.find(params[:id])
     @new_student = Student.new
+    @new_parent = User.new
 
     respond_to do |format|
       format.html # show.html.erb

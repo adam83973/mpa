@@ -73,6 +73,12 @@ $('#opporunityStudentUserNoMatch').on 'click', ->
   opportunity_id = $(this).data('opportunityid')
   $('#student_opportunity_id').val(opportunity_id)
 
+$('#opporunityUserNoMatch').on 'click', ->
+  $('#addUserInformationModal').modal('hide')
+  $('#newParentModal').modal('show')
+  opportunity_id = $(this).data('opportunityid')
+  $('#user_opportunity_id').val(opportunity_id)
+
 $('#addOpportunity').on 'click', ->
   $('#user_location_id').val($('#opportunity_location_id').val())
   $('#user_first_name').val(($('#opportunity_parent_name').val().split(" "))[0])
