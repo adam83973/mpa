@@ -76,11 +76,20 @@ $('#addOpportunity').on 'click', ->
 
 # Search possible contacts in Infusionsoft and render in table in add parent modal
 $('#infusion_id_lookup').on 'click', ->
-    $.ajax
-      type: 'GET'
-      url: "/infusion_pages/possible_contacts"
-      data: search: $('#user_last_name').val()
-      success: () ->
+  $.ajax
+    type: 'GET'
+    url: "/infusion_pages/possible_contacts"
+    data: search: $('#user_last_name').val()
+    success: () ->
+
+# Search possible contacts in Infusionsoft and render in table in add parent modal
+$('.interest_level').on 'click', ->
+  $.ajax
+    type: 'GET'
+    url: "/opportunities/update_interest"
+    data: { id: $(this).data('id'), interest_level: $(this).data('interest-level') }
+    success: () ->
+      alert "Interest Level Updated"
 
 # Apply chosen to select fields when Opportunity Modal is loaded fix for chosen rendering after modal
 $('#opportunityModal').on 'shown.bs.modal', ->

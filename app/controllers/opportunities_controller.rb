@@ -120,6 +120,8 @@ class OpportunitiesController < ApplicationController
       if @opportunity.update_status(@new_status.to_i)
         if @opportunity.status == 8
           @opportunity.update_attribute :date_lost, Date.today
+        elsif @opportunity.status == 4
+          @opportunity.update_attribute :undecided_date, Date.today
         end
         format.js
       end
@@ -190,6 +192,16 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.update_attribute :attended_trial, true
       redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+    end
+  end
+
+  def update_interest
+    @opportunity = Opportunity.find(params[:id])
+
+    respond_to do |format|
+      if @opportunity.update_attribute :interest_level, params[:interest_level].to_i
+        format.js
+      end
     end
   end
 end

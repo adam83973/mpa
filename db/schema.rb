@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141022160800) do
+ActiveRecord::Schema.define(:version => 20141022193655) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20141022160800) do
     t.string   "parent_phone"
     t.date     "undecided_date"
     t.integer  "user_id"
-    t.integer  "interest_level"
+    t.integer  "interest_level",        :default => 0
     t.string   "other_source"
   end
 
@@ -309,7 +309,7 @@ ActiveRecord::Schema.define(:version => 20141022160800) do
     t.integer  "subscription_id"
     t.integer  "hold_id"
     t.integer  "switch_id"
-    t.boolean  "switch"
+    t.boolean  "switch",               :default => false
   end
 
   create_table "resources", :force => true do |t|

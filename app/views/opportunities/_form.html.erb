@@ -3,6 +3,10 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <%= f.error_notification %>
       <%= f.input :title, input_html: { id: "oppotunity_title" }, placeholder: "Type a short description of this opportunity." %>
+        <%= f.label "Interest Level:" %>
+        <div class="text-center">
+          <%= f.input :interest_level, as: :radio_buttons, item_wrapper_class: 'radio-inline', label: false, collection: Opportunity::INTEREST_LEVELS.zip((0..2).to_a) %>
+        </div>
     </div>
   </div>
   <div class="row">

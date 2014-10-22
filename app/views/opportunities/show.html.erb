@@ -8,6 +8,11 @@
         <b>Appointment Date:</b>
         <%= @opportunity.appointment_date ? @opportunity.appointment_date.strftime("%D") : ( link_to "Add Appointment Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppAppointmentInformationModal"} ) %>
       </p>
+      <p>Interest Level:</p>
+      <% Opportunity::INTEREST_LEVELS.each_with_index do |interest_level, i| %>
+        <%= label_tag interest_level %>
+        <%= radio_button_tag("interest_level", interest_level, (Opportunity::INTEREST_LEVELS[@opportunity.interest_level] == interest_level ? true : false), "data-interest-level" => i, "data-id" => @opportunity.id, class: "interest_level" ) %>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">

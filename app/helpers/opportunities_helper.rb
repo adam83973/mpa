@@ -21,4 +21,17 @@ module OpportunitiesHelper
       "<span class='label label-danger'>Lost</span>"
     end
   end
+
+  def opportunity_interest(opp)
+    case opp.interest_level
+    when 0
+      '<i class="glyphicon glyphicon-fire pull-right"></i>'
+    when 1
+      '<i style="color:orange;" class="glyphicon glyphicon-fire pull-right"></i>'
+    when 2
+      '<i style="color:red;" class="glyphicon glyphicon-fire pull-right"></i>'
+    else
+      '<i class="glyphicon glyphicon-fire pull-right"></i>'
+    end
+  end
 end

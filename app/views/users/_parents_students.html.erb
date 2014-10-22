@@ -20,7 +20,7 @@
             <%= link_to "Add Class", new_registration_url( student_id: student.id ), class: "pull-right", style: "margin-bottom:15px;" %>
           </div>
         </div>
-        <% student.registrations.includes(:offering, :course).where("status = ? OR status = ?", 0, 1).each do |reg| %>
+        <% student.registrations.includes(:offering, :course).where("status = ? OR status = ? OR status = ?", 0, 1, 2).each do |reg| %>
             <%= render '/students/student_registration_card', reg: reg, student: student %>
         <% end %>
       </div>
