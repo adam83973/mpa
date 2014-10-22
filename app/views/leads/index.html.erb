@@ -25,7 +25,7 @@
         <td><%= lead.user.full_name if lead.user %></td>
         <td><%= lead.stage.name if lead.stage %></td>
         <td><%= lead.active? %></td>
-        <td><%= lead.location.name %></td>
+        <td><%= lead.location.name if lead.location %></td>
         <td><%= link_to 'Show', lead %></td>
         <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
       </tr>
