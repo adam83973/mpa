@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.registrations.dropped_last_30.each do |registration| %>
+        <% @location.registrations.dropped_last_30.order("end_date DESC").each do |registration| %>
           <tr>
             <td>
               <%= link_to registration.student.full_name, registration.student, target: "_blank" %>

@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.registrations.restarting.uniq.each do |registration| %>
+        <% @location.registrations.restarting.order('restart_date ASC').each do |registration| %>
           <tr>
             <td>
               <%= link_to registration.student.full_name, registration.student %>

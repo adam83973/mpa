@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @location.registrations.future_adds.uniq.each do |registration| %>
+        <% @location.registrations.future_adds.order("start_date ASC").each do |registration| %>
           <tr>
             <td><%= link_to registration.student.full_name, registration.student, target: "_blank" %><td>
             <td>
