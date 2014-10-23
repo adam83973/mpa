@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def active_students?
-    registrations.any? { |r| (0..2).cover?(r.status) || r.start_date >= Date.today }
+    registrations.any? { |r| (0..2).cover?(r.status) || (r.start_date && (r.start_date >= Date.today)) }
   end
 
   # def deactivate
