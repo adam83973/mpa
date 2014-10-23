@@ -71,7 +71,9 @@ $('#opporunityStudentUserNoMatch').on 'click', ->
   $('#addStudentInformationModal').modal('hide')
   $('#newStudentModal').modal('show')
   opportunity_id = $(this).data('opportunityid')
+  user_id = $(this).data('user_id')
   $('#student_opportunity_id').val(opportunity_id)
+  $('#student_user_id').val(user_id)
 
 $('#opporunityUserNoMatch').on 'click', ->
   $('#addUserInformationModal').modal('hide')
