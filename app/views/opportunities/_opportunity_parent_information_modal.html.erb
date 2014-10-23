@@ -18,7 +18,7 @@
           </div>
       </div>
       <div class="modal-footer">
-          <%= link_to "No Match", "javascript:void(0)", id: "opporunityUserNoMatch", class: "btn btn-lg btn-primary", data: { opportunityid: @opportunity.id} %>
+          <%= link_to "No Match", "javascript:void(0)", id: "opporunityUserNoMatch", class: "btn btn-lg btn-primary", data: { opportunityid: @opportunity.id, parentname: @opportunity.parent_name, parentemail: @opportunity.parent_email, parentphone: @opportunity.parent_phone } %>
           <%= f.button :submit, class: "btn btn-lg btn-success" %>
         <% end %>
       </div>

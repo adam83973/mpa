@@ -159,7 +159,7 @@ class UsersController < ApplicationController
     @possible_students = Student.where("last_name LIKE ? OR first_name LIKE ? OR first_name LIKE ?", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.first}%").order(:last_name ).uniq
 
     respond_to do |format|
-      if @user.save
+      if @user.save!
         @opportunity.update_attribute :user_id, @user.id
         format.js
         format.json { render json: @user, status: :created, location: @user }

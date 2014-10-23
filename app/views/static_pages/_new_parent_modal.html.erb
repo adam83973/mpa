@@ -10,10 +10,14 @@
             <%= simple_form_for @new_parent, url: url_for(action: 'create_from_opportunity', controller: 'users', method: 'post'), remote: true do |f| %>
               <%= f.input :role, as: :hidden, input_html: { value: "Parent" } %>
               <%= f.association :location, label_method: :name %>
-              <%= f.input :first_name, label: "First Name" %>
-              <%= f.input :last_name, label: "Last Name" %>
-              <%= f.input :phone %>
-              <%= f.input :email %>
+              <%= f.input :first_name, label: "First Name", input_html: { value: @opportunity.parent_name.split.first } if @opportunity && @opportunity.parent_name %>
+              <%= f.input :first_name, label: "First Name" unless @opportunity && @opportunity.parent_name %>
+              <%= f.input :last_name, label: "Last Name", input_html: { value: @opportunity.parent_name.split.last } if @opportunity && @opportunity.parent_name %>
+              <%= f.input :last_name, label: "Last Name" unless @opportunity && @opportunity.parent_name %>
+              <%= f.input :phone, input_html: { value: @opportunity.parent_phone } if @opportunity %>
+              <%= f.input :phone unless @opportunity %>
+              <%= f.input :email, input_html: { value: @opportunity.parent_email } if @opportunity %>
+              <%= f.input :email unless @opportunity %>
               <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
               <%# f.input :send_password_link, as: :boolean, input_html: { checked: false } %>
           </div>

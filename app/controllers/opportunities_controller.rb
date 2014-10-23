@@ -19,6 +19,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @new_student = Student.new
     @new_parent = User.new
+    @generated_password = Devise.friendly_token.first(8)
 
     respond_to do |format|
       format.html # show.html.erb

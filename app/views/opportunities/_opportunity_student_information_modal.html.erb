@@ -18,7 +18,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <%= f.error_notification %>
                 <%= f.input :student_name %>
-                <%= f.association :student, label_method: :full_name, selected: params[:student_id], label: "Add to student account", input_html: { class: 'chosen' } if @opportunity.user %>
+                <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } if @opportunity.user %>
             </div>
           </div>
       </div>
