@@ -42,13 +42,6 @@
             <p><strong><%= link_to offering.offering_name, offering %></strong>  (Open spots: <%= open_spots offering %>)</p>
           </div>
         <% end %>
-        <% @leads_search.each do |lead|%>
-          <div class="user_search">
-            <p><strong><%= link_to lead.full_name, lead %></strong> (Lead)</p>
-            <p><%= mail_to lead.email, lead.email %></p>
-            <p><%= lead.stage.name %></p>
-          </div>
-        <% end %>
       </div>
       <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
         <%= render 'shared/search_reset' %>
