@@ -8,7 +8,9 @@
           <%= link_to "Student: #{opportunity.student.full_name}", opportunity if opportunity.student %> - <span style="font-weight:bold;">Last Note: <%= opportunity.notes.last ? opportunity.notes.last.created_at.strftime("%D") : "None" %></span> (Added: <%= opportunity.created_at.strftime("%D") %>)
         </div> <!-- /span9 -->
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <%= opportunity_interest(opportunity).html_safe %>
+          <div class="flame">
+            <%= render '/shared/interest_flame', opportunity: opportunity %>
+          </div>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <%= link_to "javascript:void(0)", class: "status_attr" do %>

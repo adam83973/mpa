@@ -1,3 +1,8 @@
+Interest Level:
+<% Opportunity::INTEREST_LEVELS.each_with_index do |interest_level, i| %>
+  <%= label_tag interest_level %>
+  <%= radio_button_tag("interest_level", interest_level, ( Opportunity::INTEREST_LEVELS[ opportunity.interest_level ] == interest_level ? true : false ), "data-interest-level" => i, "data-id" => opportunity.id, class: "interest_level" ) %>
+<% end %>
 <p>
   <u>Info:</u>
   <%= opportunity.title ? opportunity.title : "Please add a title that describes this opportunity." %>

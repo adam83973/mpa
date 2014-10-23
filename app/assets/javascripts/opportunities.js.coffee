@@ -97,12 +97,22 @@ $('#infusion_id_lookup').on 'click', ->
 
 # Search possible contacts in Infusionsoft and render in table in add parent modal
 $('.interest_level').on 'click', ->
+  interest_level = $(this)
   $.ajax
     type: 'GET'
     url: "/opportunities/update_interest"
     data: { id: $(this).data('id'), interest_level: $(this).data('interest-level') }
-    success: () ->
-      alert "Interest Level Updated"
+    success: (data, textStatus, jqXHR) ->
+      level = interest_level.data('interest-level')
+      flame = interest_level.parent().siblings().first().find('.flame')
+      switch level
+        when 0
+          flame.html('<i class="glyphicon glyphicon-fire pull-right"></i>')
+        when 1
+          flame.html('<i style="color:orange;" class="glyphicon glyphicon-fire pull-right"></i>')
+        when 2
+          flame.html('<i style="color:red;" class="glyphicon glyphicon-fire pull-right"></i>')
+      alert 'Interest level updated.'
 
 # Apply chosen to select fields when Opportunity Modal is loaded fix for chosen rendering after modal
 $('#opportunityModal').on 'shown.bs.modal', ->
