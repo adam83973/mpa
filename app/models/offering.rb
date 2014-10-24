@@ -1,5 +1,6 @@
 class Offering < ActiveRecord::Base
-  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active, :classroom
+  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active, :classroom,
+                  :hidden
 
   validates_presence_of :course_id, :day, :time, :location_id
 
@@ -10,6 +11,9 @@ class Offering < ActiveRecord::Base
   has_many :registrations
   has_many :students, through: :registrations
   # has_and_belongs_to_many :students
+
+  scope :visible, lambda{ where("hidden = ? AND active", false, true) }
+  scope :active,  lambda{ where("active = ?", true) }
 
   def name
     course.course_name

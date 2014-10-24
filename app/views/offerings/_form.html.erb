@@ -27,6 +27,7 @@
         <%= f.input :graduation_year %>
         <%= f.input :comments, input_html: { rows: 5 } %>
         <%= f.input :active, as: :boolean %>
+        <%= f.input :hidden, as: :boolean %>
         <%= f.button :submit, class: "btn btn-lg btn-success" %>
       </div>
     <% end %>

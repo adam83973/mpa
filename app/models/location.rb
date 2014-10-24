@@ -34,7 +34,11 @@ class Location < ActiveRecord::Base
   # end
 
   def active_offerings
-      self.offerings.where("active = ?", true) if self.offerings
+    self.offerings.active if self.offerings
+  end
+
+  def visible_offerings
+    self.offerings.visible if self.offerings
   end
 
   def self.import(file)
