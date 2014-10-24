@@ -28,6 +28,7 @@ class InfusionPagesController < ApplicationController
   def add_contact
     data = { :FirstName => params[:FirstName], :LastName => params[:LastName], :Email => params[:Email] }
     @newcontact = Infusionsoft.contact_add(data)
+    Infusionsoft.contact_add_to_group(@newcontact, 91)
 
     respond_to do |format|
       format.js
