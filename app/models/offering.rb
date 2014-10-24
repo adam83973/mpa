@@ -12,7 +12,7 @@ class Offering < ActiveRecord::Base
   has_many :students, through: :registrations
   # has_and_belongs_to_many :students
 
-  scope :visible, lambda{ where("hidden = ? AND active", false, true) }
+  scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }
   scope :active,  lambda{ where("active = ?", true) }
 
   def name
