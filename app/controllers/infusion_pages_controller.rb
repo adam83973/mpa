@@ -134,7 +134,7 @@ class InfusionPagesController < ApplicationController
       # create array of subscriptions names and values for dropdown
       @dropdown = [["Subscription...", 0]]
       subscriptions.each do |i|
-        if i["Id"] == "5"
+        if i["Id"] == 5
           @dropdown << [ i["ProgramName"], i["Id"].to_i]
         end
       end
