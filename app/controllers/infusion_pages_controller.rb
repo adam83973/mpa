@@ -134,7 +134,9 @@ class InfusionPagesController < ApplicationController
       # create array of subscriptions names and values for dropdown
       @dropdown = [["Subscription...", 0]]
       subscriptions.each do |i|
-        @dropdown << [ i["ProgramName"], i["Id"].to_i]
+        if i["Id"] == "5"
+          @dropdown << [ i["ProgramName"], i["Id"].to_i]
+        end
       end
       # pre-populate subscription details form
       # if subscription chosen, use subscription values, else use blank values
