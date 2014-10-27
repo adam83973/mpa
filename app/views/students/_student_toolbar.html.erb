@@ -11,9 +11,6 @@
         <li>
           <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
         </li>
-        <li>
-          <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => @student.id }, { :class => "btn btn-yellow student_tool_button" } if !(@student.attended_first_class) %>
-        </li>
       <% end %>
     </ul>
   </div>
