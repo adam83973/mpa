@@ -61,10 +61,23 @@ jQuery ->
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear:true
+
   $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear:true
+
+  $( ".datepickerFutureOnly" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
+    minDate: 1
+
+  $( ".datepickerTwoWeeks" ).datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear:true
+    minDate: 15
 
   #!
   # * jQuery UI Touch Punch 0.2.3

@@ -61,6 +61,12 @@ class Offering < ActiveRecord::Base
     end
   end
 
+  def capacity
+    if course
+      course.capacity
+    end
+  end
+
   def at_capacity?
     total_students = returning_students_count + active_students_count
     (course.capacity.to_i - total_students.to_i).to_i <= 0

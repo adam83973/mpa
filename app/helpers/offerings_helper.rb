@@ -39,17 +39,7 @@ module OfferingsHelper
   end
 
   def open_spots(offering)
-    if offering.course_id < 10
-      10 - (roster_count(offering))
-    elsif [10].include?(offering.course_id)
-      14 - (roster_count(offering))
-    elsif [11, 12].include?(offering.course_id)
-      8 - (roster_count(offering))
-    elsif [13, 17].include?(offering.course_id)
-      10 - (roster_count(offering))
-    elsif [15, 16, 18].include?(offering.course_id)
-      8 - (roster_count(offering))
-    end
+    offering.capacity  - roster_count(offering)
   end
 
   def offering_binder_cover(course_id, offering_id, student_id)

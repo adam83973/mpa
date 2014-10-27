@@ -34,8 +34,8 @@
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <%= f.association :course, label_method: :course_name, input_html: { class: 'chosen' } %>
             <%= f.association :offering, label_method: :offering_name, collection: Offering.includes(:course, :location).where("active = ?", true).all(order: 'course_id'), input_html: { class: 'chosen' } %>
-            <%= f.input :appointment_date, as: :string, input_html: { class: "datepicker"} %>
-            <%= f.input :trial_date, as: :string, input_html: { class: "datepicker"} %>
+            <%= f.input :appointment_date, as: :string, input_html: { class: "datepickerFutureOnly"} %>
+            <%= f.input :trial_date, as: :string, input_html: { class: "datepickerFutureOnly"} %>
             <%= f.input :source, collection: Opportunity::SOURCES.zip((0..7).to_a) %>
             <%= f.input :other_source %>
           </div>

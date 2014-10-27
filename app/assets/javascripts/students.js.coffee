@@ -15,20 +15,9 @@ $('#student_birth_date').datepicker
 	changeMonth: true,
 	changeYear:true
 
-$('#student_start_date').datepicker
-  dateFormat: 'yy-mm-dd'
-
-$('#student_restart_date').datepicker
-  dateFormat: 'yy-mm-dd'
-
-$("#student_start_hold_date").datepicker
-	dateFormat: 'yy-mm-dd'
-
-$('#student_return_date').datepicker
-	dateFormat: 'yy-mm-dd'
-
 $('#student_end_date').datepicker
   dateFormat: 'yy-mm-dd'
+
 $('#creditsModal').modal('hide')
 
 # Passes information to grades modal when modal is launched.
