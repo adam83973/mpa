@@ -57,26 +57,22 @@ jQuery ->
 
   $( "#sortable" ).sortable()
   $( "#sortable" ).disableSelection()
-  $( "#datepicker" ).datepicker
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear:true
 
   $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
-    changeYear:true
+    changeYear: true
 
-  $( ".datepickerFutureOnly" ).datepicker
+  $(".datepickerFutureOnly").datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
-    changeYear:true
+    changeYear: true,
     minDate: 1
 
   $( ".datepickerTwoWeeks" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
-    changeYear:true
+    changeYear:true,
     minDate: 15
 
   #!
