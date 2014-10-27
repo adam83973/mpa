@@ -57,7 +57,7 @@ $('#opporunityParentNoMatch').on 'click', ->
   opportunity_id = $('#parent_lookup_table').data('opportunityid')
   $('#user_opportunity_id').val(opportunity_id)
 
-# When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
+# When no match is found user clicks "no match" student lookup modal is closed and new student modal is opened
 $('#opporunityStudentNoMatch').on 'click', ->
   $('#addStudentInformationModal').modal('hide')
   $('#studentLookupModal').modal('hide')
@@ -67,11 +67,21 @@ $('#opporunityStudentNoMatch').on 'click', ->
   $('#student_opportunity_id').val(opportunity_id)
   $('#student_user_id').val(user_id)
 
+# If no student is found in the sytem launch new student form.
 $('#opporunityStudentUserNoMatch').on 'click', ->
   $('#addStudentInformationModal').modal('hide')
   $('#newStudentModal').modal('show')
   opportunity_id = $(this).data('opportunityid')
   $('#student_opportunity_id').val(opportunity_id)
+
+# If user does not want to add a student they can opt out by selecting skip.
+$('#skipNewStudent').on 'click', ->
+  if confirm "Are you sure you don't want to create a student account?"
+    $('#new_student')[0].reset
+    $('#newStudentModal').modal('hide')
+    alert "Opportunity created!"
+    location.reload()
+
 
 $('#opporunityUserNoMatch').on 'click', ->
   $('#addUserInformationModal').modal('hide')
@@ -140,20 +150,24 @@ $('.opportunity_info_toggle').on "click", ->
       $opp_info.slideUp()
       $(this).find(".fa-chevron-up").removeClass("fa-chevrone-up").addClass("fa-chevron-down")
 
+
 $('.panel-heading').find('.add_to_class').on 'click', ->
+  $registration_offering =  $('.registration_offering')
   $('#addToClassModal').modal('show')
   $('.registration_student').find('select').val($(this).data('studentid'))
-  $('.registration_offering').find('select').val($(this).data('offeringid'))
-  $('.registration_offering').find('.hidden').val($(this).data('offeringid'))
+  $registration_offering.find('select').val($(this).data('offeringid'))
+  $registration_offering.find('.hidden').val($(this).data('offeringid'))
   $('#registration_opportunity_id').val($(this).data('opportunityid'))
 
 # Convert opportunity to registration from student show.
 $('.opportunity_info').find('.add_to_class').on 'click', ->
+  $registration_offering =  $('.registration_offering')
+  $registration_student = $('.registration_student')
   $('#addToClassModal').modal('show')
-  $('.registration_offering').find('select').val($(this).data('offeringid'))
-  $('.registration_offering').find('.hidden').val($(this).data('offeringid'))
-  $('.registration_student').find('select').val($(this).data('studentid'))
-  $('.registration_student').find('.hidden').val($(this).data('studentid'))
+  $registration_offering.find('select').val($(this).data('offeringid'))
+  $registration_offering.find('.hidden').val($(this).data('offeringid'))
+  $registration_student.find('select').val($(this).data('studentid'))
+  $registration_student.find('.hidden').val($(this).data('studentid'))
   $('#registration_opportunity_id').val($(this).data('opportunityid'))
 
 # Manage trial date entry based on offering selection. Doesn't allow user to enter trial date

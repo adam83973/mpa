@@ -23,6 +23,25 @@ $("#new_user")
   $submitButton = $(this).find('input[name="commit"]')
   $submitButton.attr( 'data-origText',  $submitButton.val() )
   $submitButton.val( "Submitting..." )
+  if !($('#user_email').val())
+    if confirm "If you do not have an email you cannot link this parent or a student to this opportunity.
+    \n \n
+    Would you like to create this opportunity without linking a parent? You can add a parent to the app at a later time."
+      $submitButton.val( $submitButton.data('origtext') )
+      $form = $(this)
+      $form[0].reset()
+      $('#newParentModal').modal('hide')
+      alert "Opportunity created!"
+      false
+      location.reload()
+  else if !($('#user_first_name').val()) and !($('#user_last_name').val())
+    alert "You must enter a first and last name."
+    $submitButton.val( $submitButton.data('origtext') )
+    false
+  else if !($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0
+    alert "You must link with an Infusionsoft contact. If there is not one to be linked you can add the parent to Infusionsoft."
+    $submitButton.val( $submitButton.data('origtext') )
+    false
 .bind 'ajax:success', (evt, data, status, xhr) ->
   $form = $(this)
   $form[0].reset()
