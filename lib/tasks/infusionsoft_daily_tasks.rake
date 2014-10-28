@@ -18,6 +18,7 @@ def subscription_information
         #update active_subscription attribute if parent has active subscription
         if parent.active_subscription?
           parent.update_attributes active_subscription: true, subscription_count: parent.subscriptions_count.to_i
+          u.update_attributes active_subscription: true, subscription_count: u.subscriptions_count.to_i
         else
           parent.update_attributes active_subscription: false
         end
