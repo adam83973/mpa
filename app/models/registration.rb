@@ -5,6 +5,8 @@ class Registration < ActiveRecord::Base
 
   validates_presence_of :offering_id, :student_id
 
+  before_save :end_date
+
   belongs_to :student
   belongs_to :offering
   belongs_to :user
@@ -25,6 +27,13 @@ class Registration < ActiveRecord::Base
   def offering_name
     if offering
       course.course_name + " | " + offering.location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
+    end
+  end
+
+  def end_date
+    if end_date and end_date >= Date.today
+      status = 3
+      save
     end
   end
 end
