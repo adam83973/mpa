@@ -16,7 +16,7 @@ class Registration < ActiveRecord::Base
   has_one :opportunity
   has_one :holding, class_name: "Registration", foreign_key: "hold_id"
 
-  scope :active, lambda{where("status = ?", "1")}
+  scope :active, lambda{where("registrations.status = ?", "1")}
   scope :future_adds, lambda{where("start_date > ?", Date.today).where("switch IS NULL OR switch = ?", false)}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ? AND switch_id IS NULL", Date.tomorrow, 30.days.ago)}
