@@ -124,4 +124,4 @@
   <% end %>
 </div>
 
-<%= render 'new_student_user_modal' if current_user.admin? %>
+<%= render 'new_student_user_modal' if @user.parent? and current_user.admin? %>
