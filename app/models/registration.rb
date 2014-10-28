@@ -5,7 +5,7 @@ class Registration < ActiveRecord::Base
 
   validates_presence_of :offering_id, :student_id
 
-  before_save :end_date
+  before_save :past_end_date
 
   belongs_to :student
   belongs_to :offering
@@ -30,10 +30,9 @@ class Registration < ActiveRecord::Base
     end
   end
 
-  def end_date
-    if end_date and end_date >= Date.today
-      status = 3
-      save
+  def past_end_date
+    if self.end_date && self.end_date <= Date.today
+      self.status = 3
     end
   end
 end
