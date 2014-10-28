@@ -15,7 +15,7 @@
 				<tr>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent).html_safe %></td>
-					<td><%= parent.registrations.delete_if{ |reg| reg.switch == false }.count %></td>
+					<td><%= parent.registrations.active.delete_if{ |reg| reg.switch == false }.count %></td>
 					<td><%= parent.subscription_count %><%# student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
 				</tr>
 				<% end %>
