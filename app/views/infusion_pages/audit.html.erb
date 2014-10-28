@@ -5,9 +5,9 @@
 			<thead>
 				<tr>
 					<th>Parent Name</th>
-					<th>Status</th>
-					<th>Student</th>
-					<th>Last Bill Date</th>
+					<th>Parent Status</th>
+					<th>Active Students</th>
+					<th>Active Subscriptions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -15,7 +15,7 @@
 				<tr>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent) %></td>
-					<td><%= parent.students.count %></td>
+					<td><%= parent.registrations.count %></td>
 					<td><%= parent.subscription_count %><%# student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
 				</tr>
 				<% end %>
