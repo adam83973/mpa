@@ -17,7 +17,7 @@ def subscription_information
           parent.update_attributes last_payment: query_to_json
         #update active_subscription attribute if parent has active subscription
         if parent.active_subscription?
-          parent.update_attributes active_subscription: true
+          parent.update_attributes active_subscription: true, subscription_count: parent.subscriptions_count.to_i
         else
           parent.update_attributes active_subscription: false
         end

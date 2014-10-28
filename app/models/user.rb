@@ -102,6 +102,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscriptions_count
+    if self.parent?
+      active_subscriptions = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+      active_subscriptions.count { |s| s["Status"] == "Active" }
+    end
+  end
+
+
+
   def last_payment_infusion
     if self.infusion_id && self.role == 'Parent' && !self.last_payment.nil?
       JSON::parse(last_payment)
