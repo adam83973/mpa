@@ -19,6 +19,7 @@ def subscription_information
           # Sum outstanding balances and add to parent record
           parent.update_attribute :active_subscription, invoices.sum{ |invoice| invoice["TotalDue"] }.to_i
         # Update active_subscription attribute if parent has active subscription
+        end
         if parent.active_subscription?
           parent.update_attributes active_subscription: true, subscription_count: parent.subscriptions_count.to_i
         else
