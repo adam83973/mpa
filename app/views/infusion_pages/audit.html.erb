@@ -42,7 +42,7 @@
 			</tbody>
 		</table>
 		<h1>Parents With Subscriptions and No Registrations</h1>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>
@@ -57,8 +57,6 @@
 				<% @parent_sub_no_reg.each do |parent| %>
 					<tr>
 						<td><%= link_to parent.full_name, parent %></td>
-					</tr>
-					<tr>
 						<td><%= parent.balance_due %></td>
 					</tr>
 				<% end %>
