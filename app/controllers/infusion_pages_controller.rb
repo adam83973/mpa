@@ -267,7 +267,7 @@ class InfusionPagesController < ApplicationController
     @parents.each { |parent| @parents_with_active_students << parent if parent.active_students? }
 
     @parent_sub_no_reg = Array.new
-    @parents_with_sub.each { |parent| parent.active_students == false ? @parent_sub_no_reg << parent : "" }
+    @parents_with_sub.each { |parent| parent.active_students? == false ? @parent_sub_no_reg << parent : "" }
 
   end
 end
