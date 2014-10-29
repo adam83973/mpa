@@ -24,7 +24,7 @@
 			</tfoot>
 			<tbody>
 				<% @parents_with_active_students.each_with_index do |parent, i| %>
-				<tr <%= "style='backgroud:#ec8a61;'" if parent.balance_due != 0 %>>
+				<tr <%= "style=backgroud:#ec8a61;" if parent.balance_due != 0 %>>
 					<td><%= i + 1 %></td>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent).html_safe %></td>
