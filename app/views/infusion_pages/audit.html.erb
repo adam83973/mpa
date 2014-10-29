@@ -30,7 +30,7 @@
 					<td><%= user_status(parent).html_safe %></td>
 					<td>
 						<ul>
-							<% parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.each do |red| %>
+							<% parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.each do |reg| %>
 								<li><%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %> )</li>
 							<% end %>
 						</ul>
