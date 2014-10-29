@@ -8,9 +8,18 @@
 					<th>Parent Name</th>
 					<th>Parent Status</th>
 					<th>Active Students</th>
-					<th>Active Registrations</th>
+					<th>Active Subscriptions</th>
 				</tr>
 			</thead>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><%=  @parents_with_active_students.sum{|parent| parent.registrations.active.delete_if{ |reg| reg.switch == false }.count } %></td>
+					<td><%=  @parents_with_active_students.sum(&:subscription_count) %></td>
+				</tr>
+			</tfoot>
 			<tbody>
 				<% @parents_with_active_students.each_with_index do |parent, i| %>
 				<tr>
