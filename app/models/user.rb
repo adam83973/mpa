@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me, :offering_ids,
                   :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,
-                  :phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count
+                  :phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 

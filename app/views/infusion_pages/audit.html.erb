@@ -9,6 +9,7 @@
 					<th>Parent Status</th>
 					<th>Active Students</th>
 					<th>Active Subscriptions</th>
+					<th>Balance Due</th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -28,6 +29,7 @@
 					<td><%= user_status(parent).html_safe %></td>
 					<td><%= parent.registrations.active.delete_if{ |reg| reg.switch == false }.count %></td>
 					<td><%= parent.subscription_count %><%# student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
+					<td><%= parent.balance_due %></td>
 				</tr>
 				<% end %>
 			</tbody>
