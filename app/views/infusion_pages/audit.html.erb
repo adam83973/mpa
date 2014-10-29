@@ -12,7 +12,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents_with_active_students.each_with_idex do |parent, i| %>
+				<% @parents_with_active_students.each_with_index do |parent, i| %>
 				<tr>
 					<td><%= i + 1 %></td>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
