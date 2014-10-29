@@ -24,16 +24,16 @@
 			</tfoot>
 			<tbody>
 				<% @parents_with_active_students.each_with_index do |parent, i| %>
-				<tr <%= "style=backgroud:#ec8a61;" if parent.balance_due != 0 %>>
+				<tr <%= "style=background:#ec8a61;" if parent.balance_due != 0 %>>
 					<td><%= i + 1 %></td>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent).html_safe %></td>
 					<td>
-						<ul>
+						<ol>
 							<% parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.each do |reg| %>
 								<li><%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %> )</li>
 							<% end %>
-						</ul>
+						</ol>
 					</td>
 					<td><%= parent.subscription_count %><%# student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
 					<td>$<%= parent.balance_due %></td>
@@ -41,7 +41,29 @@
 				<% end %>
 			</tbody>
 		</table>
-
+		<h1>Parents With Subscriptions and No Registrations</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>
+						Parent
+					</th>
+					<th>
+						Balance
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @parent_sub_no_reg.each do |parent| %>
+					<tr>
+						<td><%= link_to parent.full_name, parent %></td>
+					</tr>
+					<tr>
+						<td><%= parent.balance_due %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
 		<%= link_to 'Back', infusion_pages_home_path, class: 'm-btn m-btn-small' %>
 		<br />
 	</div>
