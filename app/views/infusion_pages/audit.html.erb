@@ -19,11 +19,12 @@
 					<td></td>
 					<td><%=  @parents_with_active_students.sum{|parent| parent.registrations.active.delete_if{ |reg| reg.switch == false }.count } %></td>
 					<td><%=  @parents_with_active_students.sum(&:subscription_count) %></td>
+					<td><%=  @parents_with_active_students.sum(&:balance_due) %></td>
 				</tr>
 			</tfoot>
 			<tbody>
 				<% @parents_with_active_students.each_with_index do |parent, i| %>
-				<tr>
+				<tr <%= "style='backgroud:#ec8a61;'" if parent.balance_due != 0 %>>
 					<td><%= i + 1 %></td>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent).html_safe %></td>

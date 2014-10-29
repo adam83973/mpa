@@ -12,7 +12,7 @@ def subscription_information
     begin
       if parent.infusion_id
         # Pull invoices
-        invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => params[:ContactId]}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
+        invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
         if invoices
           # Remove invoices that are paid
           invoices.delete_if{|invoice| invoice["PayStatus"] != 0}
