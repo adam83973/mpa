@@ -1,7 +1,9 @@
 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname ">
   <h2><%= @student.full_name %></h2>
   <div style="width:100%;" class="text-center">
-    <%= image_tag("placeholder-avatar.png", size: "175x175") %>
+    <%= link_to "javascript:void(0)" do %>
+      <%= image_tag("placeholder-avatar.png", size: "175x175") %>
+    <% end %>
   </div>
   <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
     <h3>Credits: <%= @student.credits %></h3>
