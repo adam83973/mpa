@@ -30,14 +30,18 @@
 					<td><%= i + 1 %></td>
 					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
 					<td><%= user_status(parent).html_safe %></td>
-					<td>
+					<td <%= parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.count !=  parent.subscription_count ? "class=warning" : "" %> >
 						<ol>
 							<% parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.each do |reg| %>
-								<li><%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %> )</li>
+								<li>
+									<%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
+								</li>
 							<% end %>
 						</ol>
 					</td>
-					<td><%= parent.subscription_count %><%# student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
+					<td <%= parent.registrations.includes(:student).active.delete_if{ |reg| reg.switch == false }.count !=  parent.subscription_count ? "class=warning" : "" %>>
+						<%= parent.subscription_count %>
+					</td>
 					<td>$<%= parent.balance_due %></td>
 				</tr>
 				<% end %>
