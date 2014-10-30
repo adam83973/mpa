@@ -19,6 +19,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @new_student = Student.new
     @new_parent = User.new
+    @student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
 
     respond_to do |format|
@@ -99,11 +100,13 @@ class OpportunitiesController < ApplicationController
   end
 
   def add_to_class
-    @opportunity = Opportunity.find(params[:id])
+    @opportunity = Opportunity.find(params[:registration][:offering_id])
+    @registration = Registration.new(params[:registration])
 
     respond_to do |format|
       if @opportunity.student && @opportunity.offering
-        # add code to create registration
+        @registration.save!
+        @opportunity.update_attribute :registration_id, @registration.id
         format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully updated.' }
         format.json { head :no_content }
       else
