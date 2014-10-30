@@ -1,0 +1,43 @@
+<div class="well well-sm" style="padding:0 0 0 0;">
+	<div style="padding:5px 10px 0 10px;">
+    <div class="row">
+	    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+  			<%= link_to opportunity.offering.offering_name, opportunity if opportunity.offering %>
+  			<%= link_to opportunity.title, opportunity unless opportunity.offering %>
+ 			</div>
+ 		</div>
+    <div class="row">
+	 		<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+	    	<div class="text-left" style="margin-bottom:7px;">
+						<%= opportunity_status(opportunity).html_safe %>
+					</div>
+ 		  </div>
+	    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+	    	<div class="text-center">
+
+ 				</div>
+ 		  </div>
+	    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+	    	<div class="text-right" style="position:relative;">
+	    		<% unless @user %>
+		    		<%= link_to "javascript:void(0)", class: "opportunity_info_toggle", style: "position:relative;bottom:0;" do %>
+		          <i class="fa fa-chevron-down fa-1x"	></i>
+		        <% end %>
+	        <% end %>
+ 				</div>
+ 		  </div>
+		  </div>
+ 	</div>
+		<div class="opportunity_info">
+		  <div class="row">
+	 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+		    <div class='text-center' style="margin-left:5px;">
+		    	<div class="btn-group btn-group-md">
+		    		<%= link_to "View", opportunity, class: "btn btn-default" %>
+				  	<%= link_to "Add To Class", "javascript:void(0)", class: "btn add_to_class btn-success", data: { offeringid: opportunity.offering_id, opportunityid: opportunity.id, studentid: opportunity.student_id } if opportunity.offering && opportunity.student %>
+					</div>
+	 		  </div>
+ 		  </div>
+		  </div>
+	  </div>
+	</div>

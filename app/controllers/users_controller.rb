@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     @note = Note.new
     if @user.parent? && current_user.admin?
       @new_student = Student.new
+      @parent_opportunities = @user.opportunities
     end
 
     if current_user.employee? || current_user.id == @user.id
