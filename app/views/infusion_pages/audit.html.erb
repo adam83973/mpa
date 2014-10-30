@@ -17,7 +17,9 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><%=  @parents_with_active_students.sum{|parent| parent.registrations.active.delete_if{ |reg| reg.switch == false }.count } %></td>
+					<td>
+						<%=  @parents_with_active_students.sum{|parent| parent.registrations.active.delete_if{ |reg| reg.switch == false }.count } %>
+					</td>
 					<td><%=  @parents_with_active_students.sum(&:subscription_count) %></td>
 					<td>$<%=  @parents_with_active_students.sum(&:balance_due) %></td>
 				</tr>
