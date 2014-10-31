@@ -21,6 +21,7 @@
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :status, collection: ["Active","Hold","Inactive"], as: :hidden %>
       <%= f.input :credits, as: :hidden, input_html: { value: 1 } %>
+      <%= f.association :avatar, label_method: :name %>
   </div>
 </div>
 <div class="row">

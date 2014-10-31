@@ -43,8 +43,8 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <%= simple_form_for @student do |f| %>
-              <%= f.input :avatar_id %>
-              <%= f.input :avatar_background_color %>
+              <%= f.association :avatar, label_method: :name, input_html: { class: "color" } %>
+              <%= f.input :avatar_background_color, collection: [["Pink","#E98EB7"],["Blue","#8FC0E9"],["Green","#D3EA91"]] %>
           </div>
         </div>
         <div class="row">

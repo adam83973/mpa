@@ -92,11 +92,125 @@
   .student-occupations div:nth-child(2){
     margin: 0 20px 0 20px;
   }
+
+  .inside{
+    position:absolute;
+    top:79px;
+    left:50px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
 }
 
-@media only screen and (max-width : 768px) {
-  .student-occupations div{
-    margin: 15px 0 15px 0;
+/* iPhone 5 ----------- */
+@media only screen and (device-width: 320px) and (device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:80px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:100px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:276px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:130px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:310px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+  .inside{
+    position:absolute;
+    top:79px;
+    left:149px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+  .inside{
+    position:absolute;
+    top:79px;
+    left:427px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+  .inside{
+    position:absolute;
+    top:79px;
+    left:315px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
   }
 }
 
@@ -154,14 +268,6 @@
 
 /*Student Occuption Dials*/
 
-.inside{
-    position:absolute;
-    top:79px;
-    left:50px;
-    z-index:1;
-}
 
-.outside{
-    position:relative;
-    z-index:2;
-}
+
+

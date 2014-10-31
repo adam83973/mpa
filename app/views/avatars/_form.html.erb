@@ -1,0 +1,12 @@
+<%= simple_form_for(@avatar) do |f| %>
+  <%= f.error_notification %>
+
+
+  <%= f.input :name %>
+  <%= image_tag(@avatar.image_url, size: "200x200") if @avatar.image? %>
+  <% if !@avatar.image? %>
+    <%= f.input :image, as: :file, label: "Upload Image" %>
+  <% end %>
+
+  <%= f.button :submit, class: "btn btn-lg btn-success" %>
+<% end %>

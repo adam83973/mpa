@@ -1,6 +1,9 @@
 MathPlus::Application.routes.draw do
 
 
+  resources :avatars
+
+
   get  'opportunities/by_status', to: 'opportunities#by_status'
   post 'opportunities/update_status', to: 'opportunities#update_status'
 

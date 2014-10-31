@@ -25,6 +25,7 @@ gem 'youtube_addy', '~> 1.0.2'
 gem 'autoprefixer-rails'
 gem 'compass-rails'
 gem 'lodash-rails'
+gem 'jscolor-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

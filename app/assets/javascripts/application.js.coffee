@@ -39,6 +39,9 @@
 //= require leads
 //= require registrations
 //= require opportunities
+//= require jscolor
+
+jscolor.dir = '/path/to/assets/'
 
 jQuery ->
   $('body').tooltip
