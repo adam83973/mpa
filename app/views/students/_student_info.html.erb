@@ -7,8 +7,14 @@
       width:218px;border-radius:50%;
       background-color:<%= @student.avatar_background_color %>;"
       class="text-center">
-      <%= link_to("#addAvatarModal", data: { toggle: :modal } ) do %>
-        <%= image_tag(@student.avatar.image_url, size: "175x175") %>
+      <% if @student.avatar %>
+        <%= link_to("#addAvatarModal", data: { toggle: :modal } ) do %>
+          <%= image_tag(@student.avatar.image_url, size: "175x175") %>
+        <% end %>
+      <% else %>
+        <%= link_to("#addAvatarModal", data: { toggle: :modal } ) do %>
+          Click here to add your avatar.
+        <% end %>
       <% end %>
     </div>
   </div>
