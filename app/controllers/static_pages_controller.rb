@@ -61,14 +61,9 @@ class StaticPagesController < ApplicationController
           #Pull students that are or have started in +/- 6 days from today.
           @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
-          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).uniq
-          @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ?", 1.day.from_now, false).uniq
-          @new_students_location.each do |student|
-            if student.attended_first_class?
-              @new_students_location.delete_if { |ns| ns["id"] == student.id }
-            end
-          end
+          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false)
+          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false)
+          @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ?", 1.day.from_now, false)
         end
       end
     end
