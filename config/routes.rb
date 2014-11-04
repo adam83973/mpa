@@ -1,6 +1,9 @@
 MathPlus::Application.routes.draw do
 
 
+  resources :badges
+
+
   resources :avatars
 
 

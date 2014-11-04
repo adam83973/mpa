@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141030191258) do
+ActiveRecord::Schema.define(:version => 20141104200845) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -46,6 +46,20 @@ ActiveRecord::Schema.define(:version => 20141030191258) do
     t.datetime "updated_at", :null => false
     t.string   "name"
   end
+
+  create_table "badges", :force => true do |t|
+    t.string   "name"
+    t.string   "image"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "badges_students", :id => false, :force => true do |t|
+    t.integer "badge_id"
+    t.integer "student_id"
+  end
+
+  add_index "badges_students", ["badge_id", "student_id"], :name => "index_badges_students_on_badge_id_and_student_id"
 
   create_table "courses", :force => true do |t|
     t.string   "course_name"
