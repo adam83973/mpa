@@ -17,7 +17,7 @@ def subscription_information
           # Remove invoices that are paid
           invoices.delete_if{|invoice| invoice["PayStatus"] != 0}
           # Sum outstanding balances and add to parent record
-          parent.update_attribute :active_subscription, invoices.sum{ |invoice| invoice["TotalDue"] }.to_i
+          parent.update_attribute :balance_due, invoices.sum{ |invoice| invoice["TotalDue"] }.to_i
         # Update active_subscription attribute if parent has active subscription
         end
         if parent.active_subscription?
