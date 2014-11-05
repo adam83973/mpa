@@ -1,23 +1,49 @@
 <h1>Listing badges</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Image</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="row">
+  <div class="span12">
+    <div class="well">
+      <b>Drag and drop images or PDFs to add them to Resources</b>
+      <%= form_for Badge.new do |f| %>
+        <%= f.file_field :file, multiple: true, name: "badge[file]" %>
+      <% end %>
 
-<% @badges.each do |badge| %>
-  <tr>
-    <td><%= badge.name %></td>
-    <td><%= badge.image %></td>
-    <td><%= link_to 'Show', badge %></td>
-    <td><%= link_to 'Edit', edit_badge_path(badge) %></td>
-    <td><%= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+      <script id="template-upload" type="text/x-tmpl">
+      <div class="upload">
+        {%=o.name%}
+        <div class="progress"><div class="progress-bar" style="width: 0%"></div></div>
+      </div>
+      </script>
+
+      <div id="uploads">
+        <%= render @uploads if @uploads %>
+      </div>
+        <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @badges.each do |badge| %>
+      <tr>
+        <td><%= badge.name %></td>
+        <td><%= badge.image %></td>
+        <td><%= link_to 'Show', badge %></td>
+        <td><%= link_to 'Edit', edit_badge_path(badge) %></td>
+        <td><%= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />

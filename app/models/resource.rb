@@ -1,4 +1,4 @@
-class Resource < ActiveRecord::Base
+dclass Resource < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   attr_accessible :filename, :content_type, :file_size, :file, :problem_ids, :activity_ids, :lesson_ids, :experience_ids, :category
 

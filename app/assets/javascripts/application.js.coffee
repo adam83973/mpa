@@ -40,6 +40,7 @@
 //= require registrations
 //= require opportunities
 //= require jscolor
+//= require badges
 
 jscolor.dir = '/path/to/assets/'
 

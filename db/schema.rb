@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141104200845) do
+ActiveRecord::Schema.define(:version => 20141105201755) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20141104200845) do
     t.string   "image"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "file"
+    t.string   "file_name"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|

@@ -1,15 +1,8 @@
-<p id="notice"><%= notice %></p>
+<div class="text-center">
 
-<p>
-  <b>Name:</b>
-  <%= @badge.name %>
-</p>
+  <h1><%= @badge.name %></h1>
 
-<p>
-  <b>Image:</b>
-  <%= @badge.image %>
-</p>
-
-
-<%= link_to 'Edit', edit_badge_path(@badge) %> |
-<%= link_to 'Back', badges_path %>
+  <p>
+    <%= image_tag(@badge.file.url, size: "150x150") %>
+  </p>
+</div>

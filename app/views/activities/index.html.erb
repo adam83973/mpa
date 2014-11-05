@@ -1,13 +1,13 @@
 <h1>Activities and Games</h1>
 
 <% if signed_in? && current_user.employee? %>
-    <p>
-      <%= link_to 'New Activity/Game', new_activity_path, class: 'm-btn green' %>
-    </p>
-    <p>
-      Download:
-      <%= link_to "CSV", activities_path(format: "csv") %>
-    </p>
+  <p>
+    <%= link_to 'New Activity/Game', new_activity_path, class: 'm-btn green' %>
+  </p>
+  <p>
+    Download:
+    <%= link_to "CSV", activities_path(format: "csv") %>
+  </p>
 <% end %>
 
 <% if signed_in? && current_user.admin? %>

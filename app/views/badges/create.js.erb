@@ -1,0 +1,5 @@
+<% if @badge.new_record? %>
+  alert("Failed to upload resource: <%= j @badge.errors.full_messages.join(', ').html_safe %>");
+<% else %>
+  $("#uploads").append("<%= j render(@badge) %>");
+<% end %>
