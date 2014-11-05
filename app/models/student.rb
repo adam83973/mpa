@@ -13,6 +13,7 @@ class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   belongs_to :avatar
+  has_and_belongs_to_many :badges
   has_many :grades
   has_many :lessons , :through => :grades
   has_many :experiences, :through => :experience_points
