@@ -1,4 +1,4 @@
-dclass Resource < ActiveRecord::Base
+class Resource < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   attr_accessible :filename, :content_type, :file_size, :file, :problem_ids, :activity_ids, :lesson_ids, :experience_ids, :category
 
@@ -80,10 +80,7 @@ dclass Resource < ActiveRecord::Base
   def default_name
     self.filename ||= File.basename(file.filename, '.*').gsub("_", " ")
   end
-    #regex for class lesson title
-    #/(?<course>\w+.\w+)\s(?<week>\d)\s-{1}\s(?<lesson>\b\w*)/
-    #regex for class lesson KEY title
-    #/(?<course>\w+.\w+).(?<week>\d)\s-{1}\s(?<lesson>\b\w*).(?<key>\bKEY\b)/
+
   def update_file_attributes
     if file.present? && file_changed?
       self.content_type = file.file.content_type
