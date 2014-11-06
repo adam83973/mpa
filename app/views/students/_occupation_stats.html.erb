@@ -9,14 +9,13 @@
       data-displayInput="false"
     >
     <%= image_tag(@student.current_level_obj(occupation.capitalize).image, size: "115x115", class: "inside")%>
-  <h3 style="margin-top:20px;">
-    XP: <%= @student.xp_sum_by_occupation(occupation.capitalize)%>
+  <h3 style="margin:10px 0 10px 0;">
+    <%= @student.xp_sum_by_occupation(occupation.capitalize)%>xp
   </h3>
-  <h3>
-    <%= @student.points_to_next_level(occupation.capitalize) %>xp to
+  <p style="margin:0;">
     <%= link_to("##{occupation}Modal", data: {toggle: :modal}) do %>
-     Level <%= @student.next_level(occupation.capitalize).level %>
+     Can You Level Up?
     <% end %>
-  </h3>
+  </p>
 </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
 </div>
