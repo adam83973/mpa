@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-2">
           <% if level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-            <i style="color:#e7e63a;margin-top:25px;" class="fa fa-star fa-3x"></i>
+            <i style="color:#e7e63a;margin-top:50%;" class="fa fa-star fa-3x"></i>
           <% else %>
-            <i style="margin-top:25px;" class="fa fa-star fa-3x"></i>
+            <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
           <% end %>
         </div>
         <div class="col-lg-7">
@@ -25,7 +25,7 @@
           <%= image_tag(level.image_url, size: "100x100", class: "blur") if level.image? %>
         </div>
         <div class="col-lg-2">
-          <i style="margin-top:25px;" class="fa fa-star fa-3x"></i>
+          <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
         </div>
         <div class="col-lg-7">
           <h1 style="margin:5px 0 5px 0;">Level <%= level.level %></h1>
