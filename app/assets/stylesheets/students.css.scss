@@ -6,8 +6,6 @@
 }
 
 .studentname{
-  border-right: solid 1px #afafaf;
-  margin-bottom: 15px;
   padding-right: 20px;
   text-align: center;
 }
@@ -22,12 +20,6 @@
 
 .parentinfo{
 	padding-top: 1px;
-}
-
-.achievements.span8{
-	border-left: solid 1px #afafaf;
-	padding-left: 40px;
-  margin-left: 0;
 }
 
 .robotics-achievements{
@@ -90,13 +82,13 @@
 
 @media only screen and (min-width : 992px) {
   .student-occupations div:nth-child(2){
-    margin: 0 20px 0 20px;
+    margin: 0;
   }
 
   .inside{
     position:absolute;
-    top:79px;
-    left:50px;
+    top:70px;
+    left:39px;
     z-index:1;
   }
   .outside{
@@ -265,9 +257,3 @@
 .class_list{
   padding-right:40px;
 }
-
-/*Student Occuption Dials*/
-
-
-
-

@@ -1,20 +1,69 @@
-<div class="text-center student-occupations col-lg-9 col-md-12 col-sm-12 col-xs-12">
+<div class="student-occupations col-lg-9 col-md-12 col-sm-12 col-xs-12">
+  <div class="row">
+    <!-- Mathematics student information -->
+    <% if @student.is_mathematician? %>
+      <%= render 'occupation_stats', occupation: "mathematician" %>
+    <% end %>
 
-  <!-- Mathematics student information -->
-  <% if @student.is_mathematician? %>
-    <%= render 'occupation_stats', occupation: "mathematician" %>
-  <% end %>
+    <!-- Engineering student information -->
+    <% if @student.is_engineer? %>
+      <%= render 'occupation_stats', occupation: "engineer" %>
+    <% end %>
 
-  <!-- Engineering student information -->
-  <% if @student.is_engineer? %>
-    <%= render 'occupation_stats', occupation: "engineer" %>
-  <% end %>
+    <!-- Programming student information -->
+    <% if @student.is_programmer? %>
+      <%= render 'occupation_stats', occupation: "programmer" %>
+    <% end %>
 
-  <!-- Programming student information -->
-  <% if @student.is_programmer? %>
-    <%= render 'occupation_stats', occupation: "programmer" %>
-  <% end %>
+    <% if @student.occupations.uniq.count == 0 %>
+      <div style="position:relative; z-index:2;" class="text-center col-lg-9 col-md-12 col-sm-12 col-xs-12">
+      </div>
+    <% end %>
 
-  <%= render 'student_toolbar' %>
+    <% if @student.occupations.uniq.count == 1 %>
+      <div style="position:relative; z-index:2;" class="text-center col-lg-6 col-md-12 col-sm-12 col-xs-12m">
+      </div>
+    <% end %>
 
+    <% if @student.occupations.uniq.count == 2 %>
+      <div style="position:relative; z-index:2;" class="text-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
+      </div>
+    <% end %>
+
+    <div class="text-center hidden-sm hidden-xs hidden-md col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
+      <div class="well well-sm">
+        <h3 style="margin:0 0 10px;">Badges</h3>
+        <p>
+          <span style="color:red;">You have no badges.</span>
+          Here's what it might look like if you did...
+        </p>
+        <div class="row">
+          <%= image_tag('example_badge1.png', size: '60x60') %>
+          <%= image_tag('example_badge2.png', size: '60x60') %>
+        </div>
+        <div style="margin:0 0 25px 0;" class="row">
+          <%= image_tag('example_badge3.png', size: '60x60') %>
+        </div>
+        <%= link_to "Find out how to earn more.", "javascript:void(0)", data: {toggle: "modal", target: "#comingSoon"}  %>
+      </div>
+    </div>
+  </div>
 </div><!--/.span9 -->
+
+<div class="modal fade" id="comingSoon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newStudentUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Badges coming soon!</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center">
+
+          <h1>Coming Soon!</h1>
+
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

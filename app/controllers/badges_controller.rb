@@ -1,4 +1,6 @@
 class BadgesController < ApplicationController
+
+
   # GET /badges
   # GET /badges.json
   def index

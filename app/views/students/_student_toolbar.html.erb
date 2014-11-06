@@ -1,34 +1,23 @@
-<div class="hidden-sm hidden-xs hidden-md">
-  <div class="pull-right">
-    <ul class="nav ul-padding">
-      <%if current_user.employee? %>
-        <li>
-          <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
-        </li>
-        <li>
-          <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-green student_tool_button"%>
-        </li>
-        <li>
-          <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+<div class="hidden-sm hidden-xs hidden-md col-lg-12">
+  <%if current_user.employee? %>
+    <div class="btn-group btn-group-justified">
+      <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
+      <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-yellow student_tool_button"%>
+      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
+    </div>
+  <% end %>
 </div>
-<div class="hidden-lg">
+<div class="hidden-lg col-md-12 col-sm-12 col-xs-12">
   <ul class="nav list-inline">
     <%if current_user.employee? %>
       <li>
         <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
       </li>
       <li>
-        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-green student_tool_button"%>
+        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-yellow student_tool_button"%>
       </li>
       <li>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
-      </li>
-      <li>
-        <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => @student.id }, { :class => "btn btn-yellow student_tool_button" } if !(@student.attended_first_class) %>
       </li>
     <% end %>
   </ul>
