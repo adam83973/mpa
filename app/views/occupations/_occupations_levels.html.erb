@@ -7,7 +7,7 @@
           <%= image_tag(level.image_url, size: "100x100") if level.image? %>
         </div>
         <div class="col-lg-2">
-          <% if level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+          <% if level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
             <i style="color:#e7e63a;margin-top:25px;" class="fa fa-star fa-3x"></i>
           <% else %>
             <i style="margin-top:25px;" class="fa fa-star fa-3x"></i>
