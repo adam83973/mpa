@@ -7,7 +7,11 @@
 		<% end %>
 	</div>
 </div>
-<hr>
+
+<% unless current_user.parent? %>
+	<hr>
+<% end %>
+
 <% if current_user && current_user.employee? %>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -15,9 +15,11 @@
     <%= render 'robotics_achievements' %><br>
     <%= render 'student_comment_feed'%>
   </div>
-</div>
 
-<hr>
+</div>
+<% unless current_user.parent? %>
+  <hr>
+<% end %>
 
 <%= render 'student_notes' if current_user.employee? %>
 

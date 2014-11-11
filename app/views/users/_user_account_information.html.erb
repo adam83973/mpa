@@ -6,7 +6,8 @@
   <div class="panel-body">
     <p>
       <b>Email:</b>
-      <%= mail_to @user.email, @user.email %>
+      <%= mail_to @user.email, @user.email if current_user.admin? %>
+      <%= @user.email unless current_user.admin? %>
     </p>
 
     <p>
@@ -17,7 +18,7 @@
       <b>Location:</b>
       <%= @user.location.name if @user.location %>
     </p>
-    <% if @user.role  == "Parent" %>
+    <% if @user.role  == "Parent" && current_user.admin? %>
       <% if @user.infusion_id != nil %>
       <p>
         <b>Infusionsoft Id:</b>

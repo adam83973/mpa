@@ -34,7 +34,7 @@
           <span>
             <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
             <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
-            <%= link_to "Attended First Class", { :controller => "students", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
+            <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
           </span>
         </p>
       <% end %>
