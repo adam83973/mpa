@@ -59,10 +59,10 @@ class StaticPagesController < ApplicationController
           @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).includes(:course, :users).reject{|hash| hash[:day] != Time.now.strftime('%A') }
           @location_offerings_count = @location_offerings.count
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).uniq
+          @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false)
-          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false)
+          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
+          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
           @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ?", 1.day.from_now, false)
         end
       end
