@@ -45,12 +45,12 @@ class NotesController < ApplicationController
     if params[:student_id]
       @notable = Student.find(params[:student_id])
       @student = @notable
-    elsif params[:opportunity_id]
-      @notable = Opportunity.find(params[:opportunity_id])
-      @opportunity = @notable
     elsif params[:user_id]
       @notable = User.find(params[:user_id])
       @user = @notable
+      if params[:note][:opportunity_id]
+        @opportunity = Opportunity.find(params[:note][:opportunity_id])
+      end
     end
     @note = @notable.notes.build(params[:note])
 
