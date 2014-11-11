@@ -29,6 +29,7 @@ class StaticPagesController < ApplicationController
           @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC")
         end
         if current_user.teacher? && class_session.in_session?
+          @class_session_offering = Offering.find(class_session.offering)
           @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")
             @lessons.each do |lesson|
               if lesson.standard

@@ -9,6 +9,9 @@
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
       <div id="student-<%= student.id %>" class="panel panel-default parent-student-home">
         <div class="panel-heading">
+          <div class="text-center">
+            <%= image_tag(student.avatar.image_url, size: "75x75") if student.avatar %>
+          </div>
           <h3 class="text-center"><%= link_to student.full_name, student %></h3>
         </div>
         <div class="panel-body">

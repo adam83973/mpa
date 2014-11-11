@@ -1,0 +1,17 @@
+<% if current_user.employee? || current_user == student.user %>
+  <% if student.avatar %>
+    <%= link_to("#addAvatarModal#{student.id}", data: { toggle: :modal } ) do %>
+      <%= image_tag(student.avatar.image_url, size: "175x175") %>
+    <% end %>
+  <% else %>
+    <%= link_to("#addAvatarModal#{student.id}", data: { toggle: :modal } ) do %>
+      Click here to add your avatar.
+    <% end %>
+  <% end %>
+<% else %>
+  <% if student.avatar %>
+    <%= image_tag(student.avatar.image_url, size: "175x175") %>
+  <% else %>
+    Login in to parent account to add avatar.
+  <% end %>
+<% end %>

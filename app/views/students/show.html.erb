@@ -37,4 +37,4 @@
 
 <%= render 'add_to_class_modal' %>
 
-<%= render 'add_avatar_modal' if current_user.employee? || current_user == @student.user %>
+<%= render 'add_avatar_modal', student: @student if current_user.employee? || current_user == @student.user %>
