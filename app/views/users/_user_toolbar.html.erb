@@ -4,19 +4,29 @@
         <li>
           <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary student_tool_button", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
         </li>
+        <% if @user.parent? %>
+          <li>
+            <%= link_to "Email Hold Form", {controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning student_tool_button", data: { confirm: "Are you sure you want to send a hold form?" } } %>
+          </li>
+          <li>
+            <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger student_tool_button", data: { confirm: "Are you sure you want to send a termination form?" } } %>
+          </li>
+        <% end %>
     </ul>
   </div>
 </div>
 <div class="hidden-lg hidden-md">
   <ul class="nav list-inline">
-     <li><%= link_to "Edit User", edit_user_path(@user), class: "btn btn-default"%></li>
-     <% if @user.parent? %>
-      <li>
-        <%= link_to "Add Student", {controller: "students", action: "new", user_id: @user.id}, { class: "btn btn-success student_tool_button" } %>
-      </li>
-      <li>
-        <%= link_to 'Deactivate', { controller: "users", action: "deactivate", id: @user.id }, method: :post, data: { confirm: 'Are you sure? This action sets the user to inactive as well as their students.' }, class: 'btn btn-warning student_tool_button' if @user.active? %>
-      </li>
-    <% end %>
+    <li>
+      <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary student_tool_button", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
+    </li>
+      <% if @user.parent? %>
+        <li>
+          <%= link_to "Email Hold Form", {controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning student_tool_button", data: { confirm: "Are you sure you want to send a hold form?" } } %>
+        </li>
+        <li>
+          <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger student_tool_button", data: { confirm: "Are you sure you want to send a termination form?" } } %>
+        </li>
+      <% end %>
   </ul>
 </div>

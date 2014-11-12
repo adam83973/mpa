@@ -235,4 +235,32 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def send_hold_form
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if AdminMailer.hold_form(@user).deliver
+        format.html { redirect_to @user, notice: "Hold form sent." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @user, notice: "Error sending hold form." }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def send_termination_form
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if AdminMailer.termination_form(@user).deliver
+        format.html { redirect_to @user, notice: "Termination form sent." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @user, notice: "Error sending termination form." }
+        format.json { head :no_content }
+      end
+    end
+  end
 end
