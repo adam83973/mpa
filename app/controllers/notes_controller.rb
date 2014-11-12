@@ -47,11 +47,14 @@ class NotesController < ApplicationController
       @student = @notable
     elsif params[:user_id]
       @notable = User.find(params[:user_id])
-      @user = @notable
+      @note_user = @notable
       if params[:note][:opportunity_id]
         @opportunity = Opportunity.find(params[:note][:opportunity_id])
       end
+    else
+      @opportunity = Opportunity.find(params[:note][:opportunity_id])
     end
+
     @note = @notable.notes.build(params[:note])
 
     respond_to do |format|

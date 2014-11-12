@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @note_user = @user
     @note = Note.new
     if @user.parent? && current_user.admin?
       @new_student = Student.new

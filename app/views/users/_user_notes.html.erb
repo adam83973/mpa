@@ -1,6 +1,6 @@
-<% unless @student || @lead || @opportunity %>
+<% unless @student || @opportunity %>
   <ul class="list-unstyled">
-    <% @user.notes.includes(:user, :notable).order("created_at DESC").each do |note| %>
+    <% @note_user.notes.includes(:user, :notable).order("created_at DESC").each do |note| %>
       <li>
         <%= render '/shared/note_template', note: note %>
       </li>

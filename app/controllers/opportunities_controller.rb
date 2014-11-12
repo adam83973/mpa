@@ -19,7 +19,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @new_student = Student.new
     @new_parent = User.new
-    @student = @opportunity.student if @opportunity.student
+    @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
 
     respond_to do |format|
