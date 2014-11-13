@@ -269,7 +269,7 @@ class Student < ActiveRecord::Base
 #-----Student Administration-----
 
 def is_inactive?
-  self.status == "Inactive"
+  !(self.registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
 end
 
 #checks to see if student has attended first class

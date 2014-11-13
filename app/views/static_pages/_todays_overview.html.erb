@@ -1,58 +1,72 @@
 <% if @new_students_today_location.empty? && @restarting_students_today_location.empty? && @trials_today_location.empty? %>
   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-    <h3 class="text-center">Today's Overview</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 style="margin-bottom:0;" class="text-center">Today's Overview</h3>
+      </div>
+      <div class="panel-body">
+        <div class="new_students">
+        </div>
+      </div>
+    </div>
   </div>
 <% else %>
   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-    <h3 class="text-center">Today's Overview</h3>
-    <div class="new_students">
-      <% @new_students_today_location.order("start_date ASC").each do |registration| %>
-        <p>
-          <%= link_to "#{registration.student.full_name}", registration.student, target: "_blank" %> -
-          <%= registration.offering.offering_name_dashboard %>
-          <% if registration.start_date && registration.start_date < Date.today %>
-           <span style="color:red;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
-          <% elsif registration.start_date >= Date.today %>
-           <span style="color:green;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="text-center">Today's Overview</h3>
+      </div>
+      <div class="panel-body">
+        <div class="new_students">
+          <% @new_students_today_location.order("start_date ASC").each do |registration| %>
+            <p>
+              <%= link_to "#{registration.student.full_name}", registration.student, target: "_blank" %> -
+              <%= registration.offering.offering_name_dashboard %>
+              <% if registration.start_date && registration.start_date < Date.today %>
+               <span style="color:red;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
+              <% elsif registration.start_date >= Date.today %>
+               <span style="color:green;">(<%= registration.start_date.strftime('%m/%d/%Y') %>)</span>
+              <% end %>
+              <span>
+                <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
+                <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
+                <%= link_to "Attended First Class", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
+              </span>
+            </p>
           <% end %>
-          <span>
-            <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
-            <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
-            <%= link_to "Attended First Class", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
-          </span>
-        </p>
-      <% end %>
-      <% @restarting_students_today_location.order("start_date ASC").each do |registration| %>
-        <p>
-          <%= link_to "#{registration.student.full_name}", registration.student %> -
-          <%= registration.offering.offering_name_dashboard %>
-          <% if registration.restart_date < Date.today %>
-           <span style="color:red;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)</span>
-          <% elsif registration.restart_date >= Date.today %>
-           <span style="color:green;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)Restart</span>
+          <% @restarting_students_today_location.order("start_date ASC").each do |registration| %>
+            <p>
+              <%= link_to "#{registration.student.full_name}", registration.student %> -
+              <%= registration.offering.offering_name_dashboard %>
+              <% if registration.restart_date < Date.today %>
+               <span style="color:red;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)</span>
+              <% elsif registration.restart_date >= Date.today %>
+               <span style="color:green;">(Restart:<%= registration.restart_date.strftime('%m/%d/%Y') %>)Restart</span>
+              <% end %>
+              <span>
+                <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
+                <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
+                <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
+              </span>
+            </p>
           <% end %>
-          <span>
-            <%= offering_binder_cover(registration.offering.course_id, registration.offering_id, registration.student_id).html_safe %>
-            <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-default btn-xs", :target => "_blank" %>
-            <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
-          </span>
-        </p>
-      <% end %>
-      <% @trials_today_location.order("trial_date ASC").each do |opportunity| %>
-        <p>
-          <%= link_to "#{opportunity.student_name}", opportunity, target: "_blank" unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity.student, target: "_blank" if opportunity.student %> -
-          <%= opportunity.offering.offering_name_dashboard %>
-          <% if opportunity.trial_date < Date.today %>
-           <span style="color:red;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
-          <% elsif opportunity.trial_date >= Date.today %>
-           <span style="color:green;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
+          <% @trials_today_location.order("trial_date ASC").each do |opportunity| %>
+            <p>
+              <%= link_to "#{opportunity.student_name}", opportunity, target: "_blank" unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity.student, target: "_blank" if opportunity.student %> -
+              <%= opportunity.offering.offering_name_dashboard %>
+              <% if opportunity.trial_date < Date.today %>
+               <span style="color:red;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
+              <% elsif opportunity.trial_date >= Date.today %>
+               <span style="color:green;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
+              <% end %>
+              <span>
+                <%= link_to "Edit", opportunity, class: "btn btn-default btn-xs", :target => "_blank" %>
+                <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-xs btn-yellow" } if !(opportunity.attended_trial) %>
+              </span>
+            </p>
           <% end %>
-          <span>
-            <%= link_to "Edit", opportunity, class: "btn btn-default btn-xs", :target => "_blank" %>
-            <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-xs btn-yellow" } if !(opportunity.attended_trial) %>
-          </span>
-        </p>
-      <% end %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>
