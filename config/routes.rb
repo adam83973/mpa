@@ -168,6 +168,7 @@ MathPlus::Application.routes.draw do
 
   get "infusion_pages/home"
   get "infusion_pages/add_contact"
+  get "infusion_pages/add_existing_id"
   get "infusion_pages/possible_contacts"
   get "infusion_pages/edit"
   get "infusion_pages/camps"

@@ -25,9 +25,8 @@
         <%= @user.infusion_id %>
       </p>
       <% else %>
-        <p>
-          <b>Please Link with Infusionsoft</b>
-        </p>
+        <%= link_to "Search Infusionsoft", "javascript:void(0)", class: "btn btn-sm btn-default infusion_id_lookup", data: { lastName: @user.last_name, userid: @user.id } %>
+        <div class="infusionsoft_results"></div>
       <% end %>
     <% end %>
   </div>
