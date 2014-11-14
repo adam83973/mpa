@@ -1,0 +1,22 @@
+<table style="table-layout:fixed;" class="table table-striped table-bordered table-condensed possible_contacts">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |i| %>
+    <tr>
+      <td><%= i["FirstName"] + " " + i["LastName"] %></td>
+      <td style="width: 70px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><%= i["Email"] %></td>
+      <td style="width: 30px;"><%= link_to "Add", "javascript:void(0)", data: { userid: @user.id, id: i["Id"] }, class: "infusionAddId" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+  <p>Not found?</p>
+  <%= link_to "Add To Infusionsoft", "javascript:void(0)", class: "btn btn-sm btn-primary infusionsoft_create_contact", data: { firstName: @user.first_name, lastName: @user.last_name, email: @user.email, userid: @user.id} %>
+</div>

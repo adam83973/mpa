@@ -28,16 +28,25 @@ class InfusionPagesController < ApplicationController
   def add_contact
     data = { :FirstName => params[:FirstName], :LastName => params[:LastName], :Email => params[:Email] }
     @newcontact = Infusionsoft.contact_add(data)
+
     Infusionsoft.contact_add_to_group(@newcontact, 91)
 
     respond_to do |format|
-      format.js
-      format.json { render json: @newcontact }
+      if params[:Show]
+        @user = User.find(params[:UserId].to_i)
+        @user.update_attribute :infusion_id, @newcontact
+        format.js
+        format.json { render json: @newcontact }
+      else
+        format.js
+        format.json { render json: @newcontact }
+      end
     end
   end
 
   def possible_contacts
     if params[:search]
+      @user = User.find(params[:UserId].to_i) if params[:UserId]
       # get contacts with matching last name
       @contacts = Infusionsoft.data_query_order_by('Contact', 50, 0, {:LastName=> params[:search]+'%'}, [:Id, :FirstName, :LastName, :ContactType, :Email], :FirstName, true)
       # data clean up - blank out missing names, create ContactId = Id
@@ -49,6 +58,15 @@ class InfusionPagesController < ApplicationController
     respond_to do |format|
       if @contacts
         format.js
+      end
+    end
+  end
+
+  def add_existing_id
+    @user = User.find(params[:UserId])
+    respond_to do |format|
+      if  @user.update_attribute :infusion_id, params[:Id]
+        format.json { render json: @user }
       end
     end
   end

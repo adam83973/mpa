@@ -53,3 +53,15 @@ $("#new_user")
   $submitButton.val( $submitButton.data('origtext') )
   $form = $(this)
   alert "User #{error}!"
+
+# Search possible contacts in Infusionsoft and render in table in add parent modal
+$('.infusion_id_lookup').on 'click', ->
+  $.ajax
+    type: 'GET'
+    url: "/infusion_pages/possible_contacts"
+    data:
+      search: $(this).data('lastname')
+      UserId: $(this).data('userid')
+    success: () ->
+
+
