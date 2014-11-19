@@ -14,7 +14,7 @@
             remote: true do |f| %>
             <%= f.error_notification %>
             <%= f.association :student, label_method: :full_name, input_html: { class: "chzn" } %>
-            <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", @class_session_offering.course.occupation_id, "%Attendance%").order.second.id }, label: "Achievement ID" unless @class_session_offering.course_id == 10 %>
+            <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("occupation_id = ? AND name LIKE ?", @class_session_offering.course.occupation_id, "%Attendance%").order(:id).second.id }, label: "Achievement ID" unless @class_session_offering.course_id == 10 %>
             <%= f.input :experience_id, as: :hidden, input_html: { value: Experience.where("name LIKE ?", "%Chess Club%").first.id }, label: "Achievement ID" if @class_session_offering.course_id == 10 %>
             <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
             <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week}. Class: #{class_session.offering}; #{offering_name_lookup(class_session.offering)}" } %>
