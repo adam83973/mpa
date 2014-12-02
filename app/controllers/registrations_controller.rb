@@ -85,7 +85,10 @@ class RegistrationsController < ApplicationController
                                                   attended_first_class: true,
                                                   switch: true,
                                                   status: 0)
-        @registration.update_attributes( {end_date: params[:switch][:date], switch_id: @new_registration.id})
+        @registration.update_attributes({end_date: params[:switch][:date], switch_id: @new_registration.id})
+        if @new_registration.start_date == Date.today
+          @new_registration.update_attribute :status, 1
+        end
         format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
