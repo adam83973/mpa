@@ -3,7 +3,8 @@
     <div class="row">
 	    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
   			<%= link_to opportunity.offering.offering_name, opportunity if opportunity.offering %>
-  			<%= link_to opportunity.title, opportunity unless opportunity.offering && !(opportunity.title.empty?) %>
+  			<%= link_to opportunity.course.course_name, opportunity unless opportunity.offering %>
+  			<%= link_to opportunity.title, opportunity unless opportunity.offering && !(opportunity.title.empty?) && opportunity.course %>
   			<%= link_to "Please add to a class, a course, or add a title to describe this opportunity.", opportunity if !(opportunity.offering) && opportunity.title.empty? %>
  			</div>
  		</div>
