@@ -106,7 +106,7 @@ MathPlus::Application.routes.draw do
       get :password_reset
       get :send_hold_form
       get :send_termination_form
-      post :request
+      post :infusion_request
     end
     resources :notes
   end
