@@ -264,6 +264,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def request
+  def infusion_request
   end
 end
