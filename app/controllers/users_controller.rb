@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:infusion_request]
   skip_before_filter :verify_authenticity_token, only: [:infusion_request]
 
   # GET /users
