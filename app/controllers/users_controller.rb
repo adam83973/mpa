@@ -263,4 +263,7 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def request
+  end
 end
