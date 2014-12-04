@@ -33,6 +33,10 @@ class Location < ActiveRecord::Base
   #     self.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
   # end
 
+  def admins
+    Users.where("role = ? AND location_id = ?", "Admin", self.id)
+  end
+
   def active_offerings
     self.offerings.active if self.offerings
   end
