@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141105201755) do
+ActiveRecord::Schema.define(:version => 20141204234434) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -449,6 +449,7 @@ ActiveRecord::Schema.define(:version => 20141105201755) do
     t.boolean  "active_subscription",                  :default => false
     t.integer  "subscription_count"
     t.integer  "balance_due",                          :default => 0
+    t.boolean  "year_end_campaign",                    :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
