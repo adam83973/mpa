@@ -266,5 +266,12 @@ class UsersController < ApplicationController
   end
 
   def infusion_request
+    @user = User.where(infusion_id: params["Id"].to_i)
+    if @user
+      @location = @user.location
+      @admin = User.find(1)
+      AdminMailer.contact_request(@user, @admin).deliver
+    else
+    end
   end
 end

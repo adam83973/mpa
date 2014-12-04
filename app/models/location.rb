@@ -34,7 +34,7 @@ class Location < ActiveRecord::Base
   # end
 
   def admins
-    Users.where("role = ? AND location_id = ?", "Admin", self.id)
+    User.where("role = ? AND location_id = ? AND active = ?", "Admin", self.id, true)
   end
 
   def active_offerings
