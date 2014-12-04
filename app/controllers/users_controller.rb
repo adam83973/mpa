@@ -273,5 +273,6 @@ class UsersController < ApplicationController
       AdminMailer.contact_request(@user, @admin).deliver
     else
     end
+    render nothing: true
   end
 end
