@@ -266,7 +266,7 @@ class UsersController < ApplicationController
   end
 
   def infusion_request
-    @user = User.where(infusion_id: params["Id"].to_i)
+    @user = User.where(infusion_id: params["Id"].to_i).first
     if @user
       @location = @user.location
       @admin = User.find(1)
