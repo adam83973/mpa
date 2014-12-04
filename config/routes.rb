@@ -107,6 +107,7 @@ MathPlus::Application.routes.draw do
       get :send_hold_form
       get :send_termination_form
       post :infusion_request
+      get :year_end_promotion
     end
     resources :notes
   end

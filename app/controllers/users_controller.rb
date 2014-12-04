@@ -275,4 +275,15 @@ class UsersController < ApplicationController
     end
     render nothing: true
   end
+
+  def year_end_promotion
+    @user = User.find(params[:id])
+    if @user && Rails.env.production?
+      respond_to do |format|
+        if Infusionsoft.contact_add_to_group(@user.infusion_id, 1784) #adds tag: "year end promotion"
+          format.json { head :no_content }
+        end
+      end
+    end
+  end
 end
