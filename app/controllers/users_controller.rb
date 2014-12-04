@@ -281,7 +281,7 @@ class UsersController < ApplicationController
     if @user && Rails.env.production?
       respond_to do |format|
         if Infusionsoft.contact_add_to_group(@user.infusion_id, 1784) #adds tag: "year end promotion"
-          @user.update_attribute :year_end_promotion, true
+          @user.update_attribute :year_end_campaign, true
           format.json { head :no_content }
         end
       end
