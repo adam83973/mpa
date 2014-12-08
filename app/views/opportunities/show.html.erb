@@ -25,8 +25,8 @@
           <h3 class="panel-title">Promotions</h3>
         </div>
         <div class="panel-body text-center">
-          <%= simple_form_for :promotion, url: '/users/promotion', method: 'get', html: { class: 'form-inline' } do |f| %>
-            <%= f.input :id, collection: @promotions, wrapper_class: "input-group", placeholder: "Promotion", label: false %>
+          <%= simple_form_for :promotion, url: "/users/promotion", method: 'get', html: { class: 'form-inline' } do |f| %>
+            <%= f.input :id, collection: @promotions, wrapper_class: "input-group", label: false %>
             <%= f.input :user_id, as: :hidden, input_html: { value: @opportunity.user_id }, label: false %>
             <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id }, label: false %>
             <%= f.submit "Start", class: "btn btn-success" %>
@@ -40,10 +40,6 @@
           <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default" %>
         </li>
         <li class="text-center">
-          <%= simple_form_for :promotion, method: 'get', html: { class: 'form-inline' } do |f| %>
-            <%= f.input :name, collection: ["Year End", "Free Month", "Two Weeks Free"], wrapper_class: "input-group", placeholder: "Promotion", label: false %>
-            <%= f.submit "Start", class: "btn btn-success" %>
-          <% end %>
         </li>
       </ul>
     </div>

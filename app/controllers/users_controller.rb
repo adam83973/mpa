@@ -266,11 +266,13 @@ class UsersController < ApplicationController
   end
 
   def infusion_request
-    @user = User.where(infusion_id: params["Id"].to_i).first
-    if @user
-      @location = @user.location
-      @admin = User.find(1)
-      AdminMailer.contact_request(@user, @admin).deliver
+    @parent = User.where(infusion_id: params["Id"].to_i).first
+    @promotion_id = params["Promotion"].to_i
+    if @parent
+      @location = @parent.location
+      @user = User.find(1)
+      AdminMailer.contact_request(@parent, @admin).deliver
+      @parent.notes.build({user_id: @user.id, content: "Call #{@parent.full_name} about #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} promotion.", action_date: Date.today, location_id: @location.id })
     else
     end
     render nothing: true
@@ -289,13 +291,18 @@ class UsersController < ApplicationController
   end
 
   def promotion
+    @user = current_user
     @promotion_id = params[:promotion][:id].to_i
-    @user = User.find(params[:promotion][:user_id].to_i)]
+    @parent = User.find(params[:promotion][:user_id].to_i)
     @opportunity = Opportunity.find(params[:promotion][:opportunity_id])
+
     respond_to do |format|
-      if Infusionsoft.contact_add_to_group(@user.infusion_id, @promotion_id)
-        @user.update_attribute "group_#{@promotion_id}".to_sym, true
-        format.html { redirect_to @opportunity, notice: "Promotion started" }
+      data = Infusionsoft.contact_add_to_group(@parent.infusion_id, @promotion_id)
+      if data
+        #add note to user's account to show that campaign has started
+        @note = @parent.notes.build({user_id: @user.id, content: "Promotion #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} started" })
+        format.html { redirect_to @opportunity, notice: "Promotion #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} started" }
+        format.json { render json: @opportunity }
       end
     end
   end

@@ -23,7 +23,14 @@ class Opportunity < ActiveRecord::Base
 
   INTEREST_LEVELS = ["Low", "Medium", "High"]
 
-  PROMOTIONS = [['Free Month', 1786], ['Two Weeks Free', 1788], ['No Deposit', 1790]]
+
+  if Rails.env.production?
+    data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 76, [:Id, :GroupName])
+    PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+  elsif Rails.env.development?
+    data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
+    PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+  end
 
   def full_name
     if !(self.student) && ( self.student_name.empty? || self.student_name.nil? )
@@ -52,5 +59,18 @@ class Opportunity < ActiveRecord::Base
     else
       "No status selected."
     end
+  end
+
+  #array of promotions with their associated tag/group ids. Pulls tags within the category "Undecided Tags"
+  #[['Free Month', 1786], ['Two Weeks Free', 1788], ['No Deposit', 1790]]
+  def promotions
+    promotions = []
+    if Rails.env.production?
+      data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 76, [:Id, :GroupName])
+    elsif Rails.env.development?
+      data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
+    end
+
+    data = data.map { |hash| [hash["GroupName"], hash["Id"]] }
   end
 end

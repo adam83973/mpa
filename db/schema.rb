@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141208170628) do
+ActiveRecord::Schema.define(:version => 20141208171056) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -454,6 +454,10 @@ ActiveRecord::Schema.define(:version => 20141208170628) do
     t.boolean  "group_1786",                           :default => false
     t.boolean  "group_1788",                           :default => false
     t.boolean  "group_1790",                           :default => false
+    t.date     "group_1784_start"
+    t.date     "group_1786_start"
+    t.date     "group_1788_start"
+    t.date     "group_1790_start"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
