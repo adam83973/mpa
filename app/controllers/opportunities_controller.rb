@@ -22,6 +22,11 @@ class OpportunitiesController < ApplicationController
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
 
+    # Opportunity promotions
+    @promotions = Opportunity::PROMOTIONS
+
+
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @opportunity }

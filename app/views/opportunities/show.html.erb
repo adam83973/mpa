@@ -1,5 +1,5 @@
 <div id="opportunity_show" class="row">
-  <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
+  <div class="col-lg-8 col-md-8 col-sm-12 cl-xs-12">
     <h2>Opportunity: <%= @opportunity.title %></h2>
     <%= opportunity_status(@opportunity).html_safe %> |
     <%= link_to "Update Status", "javascript:void(0)", data: { toggle: "modal", target: "#oppUpdateStatusModal"} %><br><br>
@@ -15,9 +15,38 @@
       <% end %>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
-    <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default pull-right" %>
-    <%= link_to "Year End Promotion", {controller: :users, action: :year_end_promotion, id: @opportunity.user_id}, id: "year_end_promotion", confirm: "This will send a promotional email for year end deals. This should only be sent if this person is not a current customer", remote: true, class: "btn btn-warning pull-right" if @opportunity.status == 4 && @opportunity.user && !(@opportunity.user.year_end_campaign) %>
+  <div class="col-lg-4 col-md-4 col-sm-12 cl-xs-12">
+    <div class="hidden-sm hidden-xs">
+      <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default btn-block" %>
+      <% link_to "Year End Promotion", {controller: :users, action: :year_end_promotion, id: @opportunity.user_id}, id: "year_end_promotion", confirm: "This will send a promotional email for year end deals. This should only be sent if this person is not a current customer", remote: true, class: "btn btn-warning btn-block pull-right", style: "margin-top:5px;" if @opportunity.status == 4 && @opportunity.user && !(@opportunity.user.year_end_campaign) %>
+      <br>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Promotions</h3>
+        </div>
+        <div class="panel-body text-center">
+          <%= simple_form_for :promotion, url: '/users/promotion', method: 'get', html: { class: 'form-inline' } do |f| %>
+            <%= f.input :id, collection: @promotions, wrapper_class: "input-group", placeholder: "Promotion", label: false %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: @opportunity.user_id }, label: false %>
+            <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id }, label: false %>
+            <%= f.submit "Start", class: "btn btn-success" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-lg hidden-md">
+      <ul class="nav list-inline">
+        <li>
+          <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default" %>
+        </li>
+        <li class="text-center">
+          <%= simple_form_for :promotion, method: 'get', html: { class: 'form-inline' } do |f| %>
+            <%= f.input :name, collection: ["Year End", "Free Month", "Two Weeks Free"], wrapper_class: "input-group", placeholder: "Promotion", label: false %>
+            <%= f.submit "Start", class: "btn btn-success" %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 <hr>

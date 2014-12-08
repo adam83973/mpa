@@ -287,4 +287,16 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def promotion
+    @promotion_id = params[:promotion][:id].to_i
+    @user = User.find(params[:promotion][:user_id].to_i)]
+    @opportunity = Opportunity.find(params[:promotion][:opportunity_id])
+    respond_to do |format|
+      if Infusionsoft.contact_add_to_group(@user.infusion_id, @promotion_id)
+        @user.update_attribute "group_#{@promotion_id}".to_sym, true
+        format.html { redirect_to @opportunity, notice: "Promotion started" }
+      end
+    end
+  end
 end

@@ -23,6 +23,7 @@ class Opportunity < ActiveRecord::Base
 
   INTEREST_LEVELS = ["Low", "Medium", "High"]
 
+  PROMOTIONS = [['Free Month', 1786], ['Two Weeks Free', 1788], ['No Deposit', 1790]]
 
   def full_name
     if !(self.student) && ( self.student_name.empty? || self.student_name.nil? )
