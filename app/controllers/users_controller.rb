@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, except: [:infusion_request]
-  skip_before_filter :verify_authenticity_token, only: [:infusion_request]
+  before_filter :authenticate_user!, except: [:infusion_request, :appointment_request]
+  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request]
 
   # GET /users
   # GET /users.json
@@ -314,5 +314,9 @@ class UsersController < ApplicationController
         format.html { redirect_to @opportunity, notice: "Promotion #{@promotion_name} started" }
       end
     end
+  end
+
+  def appointment_request
+    render nothing: true
   end
 end

@@ -109,6 +109,7 @@ MathPlus::Application.routes.draw do
       post :infusion_request
       get :year_end_promotion
       get :promotion
+      post :appointment_request
     end
     resources :notes
   end
