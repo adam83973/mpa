@@ -211,6 +211,15 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def missed_trial
+    @opportunity = Opportunity.find(params[:id])
+    @student = Student.find(@opportunity.student_id)
+
+    if @opportunity.update_attributes attended_trial: false, status: 4
+      redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+    end
+  end
+
   def update_interest
     @opportunity = Opportunity.find(params[:id])
 
