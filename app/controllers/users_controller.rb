@@ -267,7 +267,8 @@ class UsersController < ApplicationController
 
   def infusion_request
     @parent = User.where(infusion_id: params["Id"].to_i).first
-    @promotion_id = params["Promotion"].to_i
+    @promotion_id = params["Promotion"].to_i if params["Promotion"]
+    @promotion_id = params["promotion"].to_i if params["promotion"]
     @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @promotion_id}[0]
     @promotion_name = @promotion_name[0]
 
