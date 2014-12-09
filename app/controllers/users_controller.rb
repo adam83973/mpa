@@ -271,7 +271,7 @@ class UsersController < ApplicationController
     if @parent
       @location = @parent.location
       @user = User.find(1)
-      AdminMailer.contact_request(@parent, @admin).deliver
+      AdminMailer.contact_request(@parent, @user).deliver
       @parent.notes.build({user_id: @user.id, content: "Call #{@parent.full_name} about #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} promotion.", action_date: Date.today, location_id: @location.id })
     else
     end
