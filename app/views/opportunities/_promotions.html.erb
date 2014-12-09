@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Promotions</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= simple_form_for :promotion, url: "/users/promotion", method: 'get', html: { class: 'form-inline' } do |f| %>
+        <%= f.input :id, collection: @promotions, wrapper_class: "input-group", label: false %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: @opportunity.user_id }, label: false %>
+        <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id }, label: false %>
+        <%= f.submit "Start", class: "btn btn-success" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

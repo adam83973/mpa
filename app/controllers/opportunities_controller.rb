@@ -22,8 +22,13 @@ class OpportunitiesController < ApplicationController
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
 
-    # Opportunity promotions
-    @promotions = Opportunity::PROMOTIONS
+    if @opportunity.promotion_sent && @opportunity.promotion_id
+      @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @opportunity.promotion_id}[0]
+      @promotion_name = @promotion_name[0]
+    else
+      # Opportunity promotions
+      @promotions = Opportunity::PROMOTIONS
+    end
 
 
 

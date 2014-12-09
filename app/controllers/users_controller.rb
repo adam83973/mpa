@@ -299,17 +299,19 @@ class UsersController < ApplicationController
     @user = current_user
     @promotion_id = params[:promotion][:id].to_i
     @parent = User.find(params[:promotion][:user_id].to_i)
-    @opportunity = Opportunity.find(params[:promotion][:opportunity_id])
-    @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @promotion_id}[0]
-    @promotion_name = @promotion_name[0]
+    @opportunity = Opportunity.find(params[:promotion][:opportunity_id].to_i)
+    @promotion_name = Opportunity::PROMOTIONS.select{|array| array[1] == @promotion_id}[0][0]
 
     respond_to do |format|
-      data = Infusionsoft.contact_add_to_group(@parent.infusion_id, @promotion_id)
-      if data
+      if data = Infusionsoft.contact_add_to_group(@parent.infusion_id, @promotion_id)
+        #update opportunity to record promotion_id and that promotion has been sent.
+        @opportunity.update_attributes promotion_sent: true, promotion_id: @promotion_id
+
         #add note to user's account to show that campaign has started
-        @note = @parent.notes.build({user_id: @user.id, content: "Promotion #{@promotion_name} started" })
+        @note = @parent.notes.build({user_id: @user.id, content: "Promotion #{@promotion_name} sent.", opportunity_id: @opportunity.id })
+        @note.save
+
         format.html { redirect_to @opportunity, notice: "Promotion #{@promotion_name} started" }
-        format.json { render json: @opportunity }
       end
     end
   end

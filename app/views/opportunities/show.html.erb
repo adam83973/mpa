@@ -18,33 +18,32 @@
   <div class="col-lg-4 col-md-4 col-sm-12 cl-xs-12">
     <div class="hidden-sm hidden-xs">
       <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default btn-block" %>
-      <% link_to "Year End Promotion", {controller: :users, action: :year_end_promotion, id: @opportunity.user_id}, id: "year_end_promotion", confirm: "This will send a promotional email for year end deals. This should only be sent if this person is not a current customer", remote: true, class: "btn btn-warning btn-block pull-right", style: "margin-top:5px;" if @opportunity.status == 4 && @opportunity.user && !(@opportunity.user.year_end_campaign) %>
       <br>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Promotions</h3>
-        </div>
-        <div class="panel-body text-center">
-          <%= simple_form_for :promotion, url: "/users/promotion", method: 'get', html: { class: 'form-inline' } do |f| %>
-            <%= f.input :id, collection: @promotions, wrapper_class: "input-group", label: false %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: @opportunity.user_id }, label: false %>
-            <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id }, label: false %>
-            <%= f.submit "Start", class: "btn btn-success" %>
-          <% end %>
-        </div>
+      <div class="text-center">
+        <%= render 'promotions' unless @opportunity.promotion_sent || @opportunity.status != 4 %>
       </div>
     </div>
     <div class="hidden-lg hidden-md">
-      <ul class="nav list-inline">
+      <ul class="nav">
         <li>
           <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-default" %>
         </li>
-        <li class="text-center">
+        <li style="padding-top:10px;">
+          <%= render 'promotions' unless @opportunity.promotion_sent || @opportunity.status != 4 %>
         </li>
       </ul>
     </div>
   </div>
 </div>
+<% if @opportunity.promotion_sent %>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 cl-xs-12">
+      <div style="margin:5px 0 0 0;" class="alert alert-success">
+        Promotion <%= @promotion_name%> has been sent.
+      </div>
+    </div>
+  </div>
+<% end %>
 <hr>
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
