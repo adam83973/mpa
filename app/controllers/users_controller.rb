@@ -268,11 +268,14 @@ class UsersController < ApplicationController
   def infusion_request
     @parent = User.where(infusion_id: params["Id"].to_i).first
     @promotion_id = params["Promotion"].to_i
+    @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @promotion_id}[0]
+    @promotion_name = @promotion_name[0]
+
     if @parent
       @location = @parent.location
       @user = User.find(1)
       AdminMailer.contact_request(@parent, @user).deliver
-      @note = @parent.notes.build({user_id: @user.id, content: "Call #{@parent.full_name} about #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} promotion.", action_date: Date.today, location_id: @location.id })
+      @note = @parent.notes.build({user_id: @user.id, content: "Call #{@parent.full_name} about #{@promotion_name} promotion.", action_date: Date.today, location_id: @location.id })
       @note.save
     else
     end
@@ -296,13 +299,15 @@ class UsersController < ApplicationController
     @promotion_id = params[:promotion][:id].to_i
     @parent = User.find(params[:promotion][:user_id].to_i)
     @opportunity = Opportunity.find(params[:promotion][:opportunity_id])
+    @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @promotion_id}[0]
+    @promotion_name = @promotion_name[0]
 
     respond_to do |format|
       data = Infusionsoft.contact_add_to_group(@parent.infusion_id, @promotion_id)
       if data
         #add note to user's account to show that campaign has started
-        @note = @parent.notes.build({user_id: @user.id, content: "Promotion #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} started" })
-        format.html { redirect_to @opportunity, notice: "Promotion #{Opportunity::PROMOTIONS.each {|array| puts array[0] if array[1] == @promotion_id}} started" }
+        @note = @parent.notes.build({user_id: @user.id, content: "Promotion #{@promotion_name} started" })
+        format.html { redirect_to @opportunity, notice: "Promotion #{@promotion_name} started" }
         format.json { render json: @opportunity }
       end
     end
