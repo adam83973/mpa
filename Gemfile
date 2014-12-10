@@ -26,9 +26,9 @@ gem 'autoprefixer-rails'
 gem 'compass-rails'
 gem 'lodash-rails'
 gem 'jscolor-rails'
-gem 'check_appointments'
-gem 'rest_client'
-gem 'json'
+# gem 'check_appointments'
+# gem 'rest_client'
+# gem 'json'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
