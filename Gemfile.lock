@@ -247,6 +247,7 @@ DEPENDENCIES
   jquery-slimscroll-rails
   jquery-ui-rails
   jscolor-rails
+  json
   letter_opener
   lodash-rails
   mini_magick (= 3.8.0)
