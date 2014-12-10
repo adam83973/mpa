@@ -317,7 +317,7 @@ class UsersController < ApplicationController
   end
 
   def appointment_request
-    request = request.body
+    req = JSON.parse(request.body.read)
     puts request["calendarid"]
     render nothing: true
   end
