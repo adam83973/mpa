@@ -317,6 +317,7 @@ class UsersController < ApplicationController
   end
 
   def appointment_request
+    puts request.body.read
     render nothing: true
   end
 end
