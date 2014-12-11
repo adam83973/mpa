@@ -41,6 +41,7 @@
               <td>
                 <%= link_to "Attended First Class", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
               </td>
+
             </tr>
             <% end %>
             <% @restarting_students_today_location.order("start_date ASC").each do |registration| %>
@@ -65,6 +66,7 @@
                 <td>
                   <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-xs btn-yellow" } if !(registration.attended_first_class) %>
                 </td>
+                <td></td>
               </tr>
             <% end %>
             <% @trials_today_location.order("trial_date ASC").each do |opportunity| %>
@@ -86,6 +88,11 @@
                 </td>
                 <td>
                   <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-xs btn-yellow" } if !(opportunity.attended_trial) %>
+                </td>
+                <td>
+                  <%# link_to(url_for(controller: opportunities, action: missed_trial, id: opportunity.id), { class: "close"}) do %>
+                    <!-- &times; -->
+                  <%# end %>
                 </td>
               </tr>
             <% end %>

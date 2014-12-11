@@ -21,4 +21,12 @@ class AdminMailer < ActionMailer::Base
       body: "Please complete attached form and return."
     )
   end
+
+  def contact_request(user, admin)
+    @user = user
+    mail(
+      subject: "Call this person.",
+      to: admin.email
+    )
+  end
 end

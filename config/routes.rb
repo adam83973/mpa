@@ -1,11 +1,8 @@
 MathPlus::Application.routes.draw do
 
-
   resources :badges
 
-
   resources :avatars
-
 
   get  'opportunities/by_status', to: 'opportunities#by_status'
   post 'opportunities/update_status', to: 'opportunities#update_status'
@@ -106,6 +103,10 @@ MathPlus::Application.routes.draw do
       get :password_reset
       get :send_hold_form
       get :send_termination_form
+      post :infusion_request
+      get :year_end_promotion
+      get :promotion
+      post :appointment_request
     end
     resources :notes
   end

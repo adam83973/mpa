@@ -73,6 +73,12 @@ jQuery ->
     changeYear: true,
     minDate: 1
 
+  $(".datepickerTodayAndOn").datepicker
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear: true,
+    minDate: 0
+
   $( ".datepickerTwoWeeks" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,

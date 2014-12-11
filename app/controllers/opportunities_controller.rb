@@ -22,6 +22,16 @@ class OpportunitiesController < ApplicationController
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
 
+    if @opportunity.promotion_sent && @opportunity.promotion_id
+      @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @opportunity.promotion_id}[0]
+      @promotion_name = @promotion_name[0]
+    else
+      # Opportunity promotions
+      @promotions = Opportunity::PROMOTIONS
+    end
+
+
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @opportunity }
@@ -197,6 +207,15 @@ class OpportunitiesController < ApplicationController
     @student = Student.find(@opportunity.student_id)
 
     if @opportunity.update_attribute :attended_trial, true
+      redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+    end
+  end
+
+  def missed_trial
+    @opportunity = Opportunity.find(params[:id])
+    @student = Student.find(@opportunity.student_id)
+
+    if @opportunity.update_attributes attended_trial: false, status: 4
       redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
     end
   end

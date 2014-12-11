@@ -2,7 +2,8 @@ class Opportunity < ActiveRecord::Base
   attr_accessible :admin_id, :attended_trial, :offering_id, :possible_restart_date, :registration_id,
                   :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id,
                   :location_id, :student_name, :date_won, :date_lost, :source, :title, :parent_phone,
-                  :parent_email, :interest_level, :other_source, :undecided_date, :user_id
+                  :parent_email, :interest_level, :other_source, :undecided_date, :user_id,
+                  :promotion_sent, :promotion_id
 
   validates_presence_of :location_id
 
@@ -23,6 +24,14 @@ class Opportunity < ActiveRecord::Base
 
   INTEREST_LEVELS = ["Low", "Medium", "High"]
 
+
+  if Rails.env.production?
+    data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 76, [:Id, :GroupName])
+    PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+  elsif Rails.env.development?
+    data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
+    PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+  end
 
   def full_name
     if !(self.student) && ( self.student_name.empty? || self.student_name.nil? )
@@ -51,5 +60,18 @@ class Opportunity < ActiveRecord::Base
     else
       "No status selected."
     end
+  end
+
+  #array of promotions with their associated tag/group ids. Pulls tags within the category "Undecided Tags"
+  #[['Free Month', 1786], ['Two Weeks Free', 1788], ['No Deposit', 1790]]
+  def promotions
+    promotions = []
+    if Rails.env.production?
+      data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 76, [:Id, :GroupName])
+    elsif Rails.env.development?
+      data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
+    end
+
+    data = data.map { |hash| [hash["GroupName"], hash["Id"]] }
   end
 end
