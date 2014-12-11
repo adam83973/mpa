@@ -29,6 +29,7 @@ gem 'jscolor-rails'
 gem 'check_appointments'
 gem 'rest_client'
 gem 'json'
+gem 'rollbar', '~> 1.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
