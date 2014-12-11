@@ -68,7 +68,7 @@ class IssuesController < ApplicationController
         if @issue.resolved? && @issue.status == 4
           IssueMailer.issue_closed_notification(@issue).deliver
         end
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
