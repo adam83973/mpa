@@ -317,8 +317,32 @@ class UsersController < ApplicationController
   end
 
   def appointment_request
-    req = JSON.parse(request.body.read)
-    puts req["calendarid"]
+    appointment = JSON.parse(request.body.read)
+    @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
+
+    # if a Parent already has CheckAppointments Id associated with record save appointment.
+    if @parent
+      #need to check and see if appointment exists in database before create to see if might be an update.
+      Appointment.create!(
+        clientId:      appointment['client']['clientId'],
+        locationId:    appointment['locationId'],
+        reasonId:      appointment['reasonId'],
+        time:          Time.parse(appointment['appointmentDateTimeClient']),
+        user_id:       @parent.id
+        )
+    # check to see if parent is in system, but has not had CA Id added to record
+    elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
+      @parent_update_ca_id.update_attribute :check_appointment_id, appointment['client']['clientId']
+      Appointment.create!(
+        clientId:      appointment['client']['clientId'],
+        locationId:    appointment['locationId'],
+        reasonId:      appointment['reasonId'],
+        time:          Time.parse(appointment['appointmentDateTimeClient']),
+        user_id:       @parent_update_ca_id.id
+        )
+    else
+      # User is not in system. Create user and add appointment.
+    end
 
     render nothing: true
   end
