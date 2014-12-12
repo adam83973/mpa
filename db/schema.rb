@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141212140218) do
+ActiveRecord::Schema.define(:version => 20141212145258) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -222,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20141212140218) do
     t.date     "action_date"
     t.integer  "location_id"
     t.integer  "opportunity_id"
+    t.integer  "completed_by"
   end
 
   create_table "occupation_levels", :force => true do |t|
@@ -300,6 +301,7 @@ ActiveRecord::Schema.define(:version => 20141212140218) do
     t.string   "other_source"
     t.boolean  "promotion_sent"
     t.integer  "promotion_id"
+    t.boolean  "missed_trial",          :default => false
   end
 
   create_table "problems", :force => true do |t|

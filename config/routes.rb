@@ -14,6 +14,7 @@ MathPlus::Application.routes.draw do
       get :add_student
       get :trial_date
       get :attended_trial
+      get :missed_trial
       get :add_to_class
       get :update_interest
     end

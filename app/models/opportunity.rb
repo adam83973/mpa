@@ -3,8 +3,7 @@ class Opportunity < ActiveRecord::Base
                   :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id,
                   :location_id, :student_name, :date_won, :date_lost, :source, :title, :parent_phone,
                   :parent_email, :interest_level, :other_source, :undecided_date, :user_id,
-                  :promotion_sent, :promotion_id
-
+                  :promotion_sent, :promotion_id, :missed_trial
   validates_presence_of :location_id
 
   belongs_to :location

@@ -100,7 +100,7 @@ class NotesController < ApplicationController
       @user = User.find(@note.notable_id)
     end
 
-    if @note.update_attribute :completed, true
+    if @note.update_attributes({completed: true, completed_by: @current_user.id})
       @user_action_needed = [] #user notings are added to this array as well as location leads
       @current_user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note }
       @current_user.location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}

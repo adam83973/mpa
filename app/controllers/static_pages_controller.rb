@@ -64,7 +64,7 @@ class StaticPagesController < ApplicationController
           #Pull students that are or have started in +/- 6 days from today.
           @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
           @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
-          @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ?", 1.day.from_now, false)
+          @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
         end
       end
     end

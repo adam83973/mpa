@@ -109,23 +109,6 @@ class OpportunitiesController < ApplicationController
     end
   end
 
-  def add_to_class
-    @opportunity = Opportunity.find(params[:registration][:offering_id])
-    @registration = Registration.new(params[:registration])
-
-    respond_to do |format|
-      if @opportunity.student && @opportunity.offering
-        @registration.save!
-        @opportunity.update_attribute :registration_id, @registration.id
-        format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @opportunity.student, notice: 'Student and offering must be added in order to add student to a class. Click the edit button and make sure the opportunity is updated before adding to class.' }
-        format.json { head :no_content }
-      end
-    end
-  end
-
   def update_status
     @opportunity = Opportunity.find(params[:id])
     @old_status = @opportunity.status
@@ -183,10 +166,16 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:registration][:opportunity_id])
     @registration = Registration.new(params[:registration].except!(:opportunity_id))
     @student = Student.find(params[:registration][:student_id])
+    @parent = @student.user
 
     respond_to do |format|
+      #check to see that a student and an offering are associated with the opportunity
       if @opportunity.student && @opportunity.offering
         if @registration.save
+          # Add parent to new customer sequence.
+          Infusionsoft.contact_add_to_group(@parent.infusion_id, 1648) if @parent.infusion_id
+
+          # Update opportunity attributes
           @opportunity.update_attribute :status, 7 # set opportunity to won
           @opportunity.update_attribute :date_won, Date.today # set date won date
           format.html { redirect_to @student, notice: 'Registration was successfully created.' }
@@ -205,18 +194,24 @@ class OpportunitiesController < ApplicationController
   def attended_trial
     @opportunity = Opportunity.find(params[:id])
     @student = Student.find(@opportunity.student_id)
+    @parent = @opportunity.user
 
     if @opportunity.update_attribute :attended_trial, true
       redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+      @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+      @note.save
     end
   end
 
   def missed_trial
     @opportunity = Opportunity.find(params[:id])
     @student = Student.find(@opportunity.student_id)
+    @parent = @opportunity.user
 
-    if @opportunity.update_attributes attended_trial: false, status: 4
-      redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+    if @opportunity.update_attributes missed_trial: true, status: 4
+      redirect_to root_path, notice: "#{@student.full_name} has missed their trial."
+      @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+      @note.save
     end
   end
 
