@@ -90,7 +90,7 @@
                   <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-xs btn-yellow" } if !(opportunity.attended_trial) %>
                 </td>
                 <td>
-                  <%= link_to(url_for(controller: 'opportunities', action: 'missed_trial', id: opportunity.id)) do %>
+                  <%= link_to(url_for(controller: 'opportunities', action: 'missed_trial', id: opportunity.id, data: { confirm: "Are you sure you want to mark this trial as missed?"})) do %>
                     &times;
                   <% end %>
                 </td>
