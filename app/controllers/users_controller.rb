@@ -318,6 +318,7 @@ class UsersController < ApplicationController
 
   def appointment_request
     appointment = JSON.parse(request.body.read)
+    puts appointment
     @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
 
     # if a Parent already has CheckAppointments Id associated with record save appointment.
