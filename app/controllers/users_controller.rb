@@ -319,6 +319,7 @@ class UsersController < ApplicationController
   def appointment_request
     appointment = JSON.parse(request.body.read)
     puts appointment
+    puts appointment['appointmentDateTimeClient']
     @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
 
     # if a Parent already has CheckAppointments Id associated with record save appointment.
@@ -326,8 +327,8 @@ class UsersController < ApplicationController
       #need to check and see if appointment exists in database before create to see if might be an update.
       Appointment.create!(
         clientId:      appointment['client']['clientId'],
-        locationId:    appointment['locationId'],
-        reasonId:      appointment['reasonId'],
+        locationId:    appointment['location']['locationId'],
+        reasonId:      appointment['reason']['reasonId'],
         time:          Time.parse(appointment['appointmentDateTimeClient']),
         user_id:       @parent.id
         )
