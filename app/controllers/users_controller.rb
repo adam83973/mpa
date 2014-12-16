@@ -332,7 +332,7 @@ class UsersController < ApplicationController
         )
     # check to see if parent is in system, but has not had CA Id added to record
     elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
-      @parent_update_ca_id.update_attribute :check_appointment_id, appointment['client']['clientId']
+      @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
       Appointment.create!(
         clientId:      appointment['client']['clientId'],
         locationId:    appointment['locationId'],
