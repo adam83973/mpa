@@ -336,8 +336,8 @@ class UsersController < ApplicationController
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
       Appointment.create!(
         clientId:      appointment['client']['clientId'],
-        locationId:    appointment['locationId'],
-        reasonId:      appointment['reasonId'],
+        locationId:    appointment['location']['locationId'],
+        reasonId:      appointment['reason']['reasonId'],
         time:          Time.parse(appointment['appointmentDateTimeClient']),
         user_id:       @parent_update_ca_id.id
         )
