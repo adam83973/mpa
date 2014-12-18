@@ -328,7 +328,7 @@ class UsersController < ApplicationController
         # Appointment is not in DB, create new appointment record.
         @appointment = Appointment.create!(
           clientId:      appointment['client']['clientId'],
-          calendarId:    appointment['calendarId'],
+          calendarId:    appointment['calendarid'],
           locationId:    appointment['location']['locationId'],
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
@@ -358,7 +358,7 @@ class UsersController < ApplicationController
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
       @appointment = Appointment.create!(
         clientId:      appointment['client']['clientId'],
-        calendarId:    appointment['calendarId'],
+        calendarId:    appointment['calendarid'],
         locationId:    appointment['location']['locationId'],
         reasonId:      appointment['reason']['reasonId'],
         visitMinutes:  appointment['reason']['visitMinutes'],
