@@ -20,7 +20,7 @@ class LocationsController < ApplicationController
     @location_students_restarting = @location.registrations.restarting
     @total_location_students_count = @location.registrations.active.count
     @location_future_adds = @location.registrations.future_adds
-    @location_appointments = @location.appointments.where('time = ?', Date.today)
+    @location_appointments = @location.appointments.where("time >= ? AND time < ?", Date.today, Date.today + 1.day).order(:time)
 
     @offerings = @location.offerings
 
