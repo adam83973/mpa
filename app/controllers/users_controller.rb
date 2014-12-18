@@ -384,7 +384,6 @@ class UsersController < ApplicationController
       # User is not in system. Create user and add appointment.
     end
 
-    puts @appointment
     render nothing: true
   end
 end
