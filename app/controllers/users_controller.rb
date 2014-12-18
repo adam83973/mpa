@@ -336,8 +336,14 @@ class UsersController < ApplicationController
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
           time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-          user_id:       @parent.id
+          user_id:       @parent.id,
           note:          appointment['note']
+          # add information if appointment is for hw help
+          if appointment['reason']['reasonId'] == 37118
+            , hwHelpChild:   appointment['customField1'],
+            hwHelpClass:   appointment['customField2'],
+            hwHelpReason:   appointment['customField3']
+          end
           )
       end
     # check to see if parent is in system, but has not had CA Id added to record
@@ -348,8 +354,16 @@ class UsersController < ApplicationController
         calendarId:    appointmet['calendarId'],
         locationId:    appointment['location']['locationId'],
         reasonId:      appointment['reason']['reasonId'],
-        time:          Time.parse(appointment['appointmentDateTimeClient']),
-        user_id:       @parent_update_ca_id.id
+        visitMinutes:  appointment['reason']['visitMinutes'],
+        time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+        user_id:       @parent_update_ca_id.id,
+        note:          appointment['note']
+        # add information if appointment is for hw help
+        if appointment['reason']['reasonId'] == 37118
+          , hwHelpChild:   appointment['customField1'],
+          hwHelpClass:   appointment['customField2'],
+          hwHelpReason:   appointment['customField3']
+        end
         )
     else
       # User is not in system. Create user and add appointment.

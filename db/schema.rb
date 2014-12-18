@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141218165448) do
+ActiveRecord::Schema.define(:version => 20141218172054) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(:version => 20141218165448) do
     t.integer  "visitMinutes"
     t.text     "note"
     t.string   "status"
+    t.string   "hwHelpChild"
+    t.string   "hwHelpClass"
+    t.text     "hwHelpReason"
   end
 
   create_table "avatars", :force => true do |t|
