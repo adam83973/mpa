@@ -318,19 +318,18 @@ class UsersController < ApplicationController
 
   def appointment_request
     appointment = JSON.parse(request.body.read)
-    puts appointment
     @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
 
     # if a Parent already has CheckAppointments Id associated with record save appointment.
     if @parent
       # Check and see if appointment exists in database before create to see if might be an update.
-      if Appointment.find_by_calendarId(params['calendarId'])
+      if Appointment.find_by_calendarId(appointment['calendarId'])
         # If appointment exists update appointment
       else
         # Appointment is not in DB, create new appointment record.
         @appointment = Appointment.create!(
           clientId:      appointment['client']['clientId'],
-          calendarId:    appointmet['calendarId'],
+          calendarId:    appointment['calendarId'],
           locationId:    appointment['location']['locationId'],
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
@@ -343,7 +342,7 @@ class UsersController < ApplicationController
           @appointment.update_attributes({
             hwHelpChild:   appointment['customField1'],
             hwHelpClass:   appointment['customField2'],
-            hwHelpReason:   appointment['customField3']})
+            hwHelpReason:  appointment['customField3']})
         end
         puts "Appointment Added"
       end
@@ -352,7 +351,7 @@ class UsersController < ApplicationController
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
       @appointment = Appointment.create!(
         clientId:      appointment['client']['clientId'],
-        calendarId:    appointmet['calendarId'],
+        calendarId:    appointment['calendarId'],
         locationId:    appointment['location']['locationId'],
         reasonId:      appointment['reason']['reasonId'],
         visitMinutes:  appointment['reason']['visitMinutes'],
