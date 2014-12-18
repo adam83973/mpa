@@ -345,6 +345,7 @@ class UsersController < ApplicationController
             hwHelpClass:   appointment['customField2'],
             hwHelpReason:   appointment['customField3']})
         end
+        puts "Appointment Added"
       end
     # check to see if parent is in system, but has not had CA Id added to record
     elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
