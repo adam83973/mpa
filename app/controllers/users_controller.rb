@@ -349,7 +349,7 @@ class UsersController < ApplicationController
     # check to see if parent is in system, but has not had CA Id added to record
     elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
-      Appointment.create!(
+      @appointment = Appointment.create!(
         clientId:      appointment['client']['clientId'],
         calendarId:    appointmet['calendarId'],
         locationId:    appointment['location']['locationId'],
@@ -358,13 +358,15 @@ class UsersController < ApplicationController
         time:          DateTime.parse(appointment['appointmentDateTimeClient']),
         user_id:       @parent_update_ca_id.id,
         note:          appointment['note']
+        )
         # add information if appointment is for hw help
         if appointment['reason']['reasonId'] == 37118
-          , hwHelpChild:   appointment['customField1'],
-          hwHelpClass:   appointment['customField2'],
-          hwHelpReason:   appointment['customField3']
+          @appointment.update_attributes
+            hwHelpChild:   appointment['customField1'],
+            hwHelpClass:   appointment['customField2'],
+            hwHelpReason:   appointment['customField3']
         end
-        )
+
     else
       # User is not in system. Create user and add appointment.
     end
