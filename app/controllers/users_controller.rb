@@ -318,40 +318,42 @@ class UsersController < ApplicationController
 
   def appointment_request
     puts request.body.read
-    # appointment = JSON.parse(request.body.read)
-    # puts appointment
-    # @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
+    appointment = JSON.parse(request.body.read)
+    puts appointment
+    @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
 
-    # # if a Parent already has CheckAppointments Id associated with record save appointment.
-    # if @parent
-    #   # Check and see if appointment exists in database before create to see if might be an update.
-    #   if Appointment.find_by_calendarId(params['calendarId'])
-    #     # If appointment exists update appointment
-    #   else
-    #     # Appointment is not in DB, create new appointment record.
-    #     Appointment.create!(
-    #       clientId:      appointment['client']['clientId'],
-    #       calendarId:    appointmet['calendarId'],
-    #       locationId:    appointment['location']['locationId'],
-    #       reasonId:      appointment['reason']['reasonId'],
-    #       time:          Time.parse(appointment['appointmentDateTimeClient']),
-    #       user_id:       @parent.id
-    #       )
-    #   end
-    # # check to see if parent is in system, but has not had CA Id added to record
-    # elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
-    #   @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
-    #   Appointment.create!(
-    #     clientId:      appointment['client']['clientId'],
-    #     calendarId:    appointmet['calendarId'],
-    #     locationId:    appointment['location']['locationId'],
-    #     reasonId:      appointment['reason']['reasonId'],
-    #     time:          Time.parse(appointment['appointmentDateTimeClient']),
-    #     user_id:       @parent_update_ca_id.id
-    #     )
-    # else
-    #   # User is not in system. Create user and add appointment.
-    # end
+    # if a Parent already has CheckAppointments Id associated with record save appointment.
+    if @parent
+      # Check and see if appointment exists in database before create to see if might be an update.
+      if Appointment.find_by_calendarId(params['calendarId'])
+        # If appointment exists update appointment
+      else
+        # Appointment is not in DB, create new appointment record.
+        Appointment.create!(
+          clientId:      appointment['client']['clientId'],
+          calendarId:    appointmet['calendarId'],
+          locationId:    appointment['location']['locationId'],
+          reasonId:      appointment['reason']['reasonId'],
+          visitMinutes:  appointment['reason']['visitMinutes'],
+          time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+          user_id:       @parent.id
+          note:          appointment['note']
+          )
+      end
+    # check to see if parent is in system, but has not had CA Id added to record
+    elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
+      @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
+      Appointment.create!(
+        clientId:      appointment['client']['clientId'],
+        calendarId:    appointmet['calendarId'],
+        locationId:    appointment['location']['locationId'],
+        reasonId:      appointment['reason']['reasonId'],
+        time:          Time.parse(appointment['appointmentDateTimeClient']),
+        user_id:       @parent_update_ca_id.id
+        )
+    else
+      # User is not in system. Create user and add appointment.
+    end
 
     render nothing: true
   end
