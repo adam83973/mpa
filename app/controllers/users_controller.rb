@@ -317,7 +317,7 @@ class UsersController < ApplicationController
   end
 
   def appointment_request
-    request.body.read
+    puts request.body.read
     # appointment = JSON.parse(request.body.read)
     # puts appointment
     # @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
