@@ -361,10 +361,10 @@ class UsersController < ApplicationController
         )
         # add information if appointment is for hw help
         if appointment['reason']['reasonId'] == 37118
-          @appointment.update_attributes
+          @appointment.update_attributes({
             hwHelpChild:   appointment['customField1'],
             hwHelpClass:   appointment['customField2'],
-            hwHelpReason:   appointment['customField3']
+            hwHelpReason:   appointment['customField3']})
         end
 
     else
