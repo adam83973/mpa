@@ -346,9 +346,9 @@ class UsersController < ApplicationController
 
         # add location information
         if appointment['location']['locationId'] == 10935
-          @appointment.update_attribute :location_id = 1
+          @appointment.update_attribute :location_id, 1
         elsif appointment['location']['locationId'] == 10936
-          @appointment.update_attribute :location_id = 2
+          @appointment.update_attribute :location_id, 2
         end
 
         puts "Appointment Added"
@@ -376,9 +376,9 @@ class UsersController < ApplicationController
 
       # add location information
       if appointment['location']['locationId'] == 10935
-        @appointment.update_attribute :location_id = 1
+        @appointment.update_attribute :location_id, 1
       elsif appointment['location']['locationId'] == 10936
-        @appointment.update_attribute :location_id = 2
+        @appointment.update_attribute :location_id, 2
       end
     else
       # User is not in system. Create user and add appointment.
