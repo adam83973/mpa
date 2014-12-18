@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141216230122) do
+ActiveRecord::Schema.define(:version => 20141218153914) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -46,9 +46,10 @@ ActiveRecord::Schema.define(:version => 20141216230122) do
     t.integer  "reasonId"
     t.integer  "clientId"
     t.integer  "user_id"
-    t.datetime "time"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.datetime "time"
+    t.integer  "calendarId"
   end
 
   create_table "avatars", :force => true do |t|
