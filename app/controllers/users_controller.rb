@@ -322,8 +322,13 @@ class UsersController < ApplicationController
     # if a Parent already has CheckAppointments Id associated with record save appointment.
     if @parent
       # Check and see if appointment exists in database before create to see if might be an update.
-      if Appointment.find_by_calendarId(appointment['calendarid'])
-        # If appointment exists update appointment
+      if @appointment = Appointment.find_by_calendarId(appointment['calendarid'])
+        @appointment.update_attributes({
+          reasonId:      appointment['reason']['reasonId'],
+          visitMinutes:  appointment['reason']['visitMinutes'],
+          time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+          note:          appointment['note'],
+          status:        appointment['status']})
       else
         # Appointment is not in DB, create new appointment record.
         @appointment = Appointment.create!(
@@ -334,7 +339,8 @@ class UsersController < ApplicationController
           visitMinutes:  appointment['reason']['visitMinutes'],
           time:          DateTime.parse(appointment['appointmentDateTimeClient']),
           user_id:       @parent.id,
-          note:          appointment['note']
+          note:          appointment['note'],
+          status:        appointment['status']
         )
         # add information if appointment is for hw help
         if appointment['reason']['reasonId'] == 37118
@@ -365,7 +371,8 @@ class UsersController < ApplicationController
         visitMinutes:  appointment['reason']['visitMinutes'],
         time:          DateTime.parse(appointment['appointmentDateTimeClient']),
         user_id:       @parent_update_ca_id.id,
-        note:          appointment['note']
+        note:          appointment['note'],
+        status:        appointment['status']
         )
       # add information if appointment is for hw help
       if appointment['reason']['reasonId'] == 37118
