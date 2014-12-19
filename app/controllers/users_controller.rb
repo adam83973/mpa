@@ -430,14 +430,24 @@ class UsersController < ApplicationController
         @appointment.update_attribute :location_id, 2
       end
 
-      # create note
-      @note = @user.notes.build({content: "#{@user.full_name} has scheduled an appointment. Please create an opportunity.", user_id: User.find_by_email("system@mathplusacademy.com").id, location_id: @user.location_id, action_date: Date.today})
+      # create note if scheduling assessment
+      if appointment['reason']['reasonId'] == 37117
+        @note1 = @user.notes.build({content: "#{@user.full_name} has scheduled an appointment. Please create an opportunity. Number of students: #{appointment['customField1']}, Comments: #{appointment['customField9']}", user_id: User.find_by_email("system@mathplusacademy.com").id, location_id: @user.location_id, action_date: Date.today})
 
-        if @note.save!
+        @note2 = @user.notes.build({
+          content: "Number of students: #{appointment['customField1']},
+                    Student(s): #{appointment['customField2']} (#{appointment['customField3']}),
+                                #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}),
+                                #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']})
+          Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}",
+          user_id: User.find_by_email("system@mathplusacademy.com").id})
+
+        if @note1.save!
           puts "#{@user.full_name} added."
           puts "Appointment #{@appointment.id} added."
           puts appointment
         end
+      end
     end
 
     render nothing: true
