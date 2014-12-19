@@ -394,7 +394,7 @@ class UsersController < ApplicationController
       # User is not in system. Create user and add appointment.
       @generated_password = Devise.friendly_token.first(8) # password for new user
       @user = User.create!(
-                    check_appointment_ids:    appointment['client']['clientId'],
+                    check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
                     last_name:                appointment['client']['lastName'],
                     email:                    appointment['client']['emailAddress'],
