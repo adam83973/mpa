@@ -392,6 +392,48 @@ class UsersController < ApplicationController
       end
     else
       # User is not in system. Create user and add appointment.
+      @generated_password = Devise.friendly_token.first(8) # password for new user
+      @user = User.create!(
+                    check_appointment_ids:    appointment['client']['clientId'],
+                    first_name:               appointment['client']['firstName'],
+                    last_name:                appointment['client']['lastName'],
+                    email:                    appointment['client']['emailAddress'],
+                    first_name:               appointment['client']['firstName'],
+                    password:                 @generated_password,
+                    active:                   true,
+                    role:                     "Parent")
+
+      # Add location information to user
+      if appointment['location']['locationId'] == 10935
+        @user.update_attribute :location_id, 1
+      elsif appointment['location']['locationId'] == 10936
+        @user.update_attribute :location_id, 2
+      end
+
+      # Add appointment to system
+      @appointment = Appointment.create!(
+        clientId:      appointment['client']['clientId'],
+        calendarId:    appointment['calendarid'],
+        locationId:    appointment['location']['locationId'],
+        reasonId:      appointment['reason']['reasonId'],
+        visitMinutes:  appointment['reason']['visitMinutes'],
+        time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+        user_id:       @parent_update_ca_id.id,
+        note:          appointment['note'],
+        status:        appointment['status']
+        )
+
+      # add location information
+      if appointment['location']['locationId'] == 10935
+        @appointment.update_attribute :location_id, 1
+      elsif appointment['location']['locationId'] == 10936
+        @appointment.update_attribute :location_id, 2
+      end
+
+      # create note
+      @note = @user.notes.build({content: "#{@user.full_name} has scheduled an appointment. Please create an opportunity.", user_id: User.find_by_email("system@mathplusacademy.com").id, location_id: @user.location_id, action_date: Date.today})
+
+      @note.save
     end
 
     render nothing: true
