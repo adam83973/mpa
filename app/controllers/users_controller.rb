@@ -326,22 +326,11 @@ class UsersController < ApplicationController
         # If appointment exists update appointment
       else
         # Appointment is not in DB, create new appointment record.
-        @appointment = Appointment.create!(
-          clientId:      appointment['client']['clientId'],
-          calendarId:    appointment['calendarid'],
-          locationId:    appointment['location']['locationId'],
-          reasonId:      appointment['reason']['reasonId'],
-          visitMinutes:  appointment['reason']['visitMinutes'],
-          time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-          user_id:       @parent.id,
-          note:          appointment['note']
-        )
+        @appointment = Appointment.create_with_parent(appointment, @parent)
+
         # add information if appointment is for hw help
         if appointment['reason']['reasonId'] == 37118
-          @appointment.update_attributes({
-            hwHelpChild:   appointment['customField1'],
-            hwHelpClass:   appointment['customField2'],
-            hwHelpReason:  appointment['customField3']})
+          @appointment.update_hw_help_attributes(appointment)
         end
 
         # add location information
@@ -356,22 +345,11 @@ class UsersController < ApplicationController
     # check to see if parent is in system, but has not had CA Id added to record
     elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
-      @appointment = Appointment.create!(
-        clientId:      appointment['client']['clientId'],
-        calendarId:    appointment['calendarid'],
-        locationId:    appointment['location']['locationId'],
-        reasonId:      appointment['reason']['reasonId'],
-        visitMinutes:  appointment['reason']['visitMinutes'],
-        time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-        user_id:       @parent_update_ca_id.id,
-        note:          appointment['note']
-        )
+
+      @appointment = Appointment.create_with_parent(appointment, @parent_update_ca_id)
       # add information if appointment is for hw help
       if appointment['reason']['reasonId'] == 37118
-        @appointment.update_attributes({
-          hwHelpChild:   appointment['customField1'],
-          hwHelpClass:   appointment['customField2'],
-          hwHelpReason:   appointment['customField3']})
+        @appointment.update_hw_help_attributes(appointment)
       end
 
       # add location information
