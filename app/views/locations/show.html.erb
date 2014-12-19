@@ -23,7 +23,7 @@
               <%= appointment.user.full_name %>
             </td>
             <td>
-              <%= appointment.time %>
+              <%= appointment.time.getlocal.strftime("%I:%M %P") %>
             </td>
             <td>
               <%= appointment.hwHelpChild %>
