@@ -433,7 +433,7 @@ class UsersController < ApplicationController
       # create note
       @note = @user.notes.build({content: "#{@user.full_name} has scheduled an appointment. Please create an opportunity.", user_id: User.find_by_email("system@mathplusacademy.com").id, location_id: @user.location_id, action_date: Date.today})
 
-      @note.save
+      @note = @note.save
 
       puts "#{@user.full_name} added."
       puts "Appointment #{@appointment.id} added."
