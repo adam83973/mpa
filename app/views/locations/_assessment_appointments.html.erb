@@ -1,0 +1,34 @@
+<h2>Today's Assessments</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Parent</th>
+        <th>Time</th>
+        <th>Child</th>
+        <th>Grade</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @location_assessment_appointments.each do |appointment| %>
+          <tr>
+            <td>
+              <%= appointment.user.full_name %>
+            </td>
+            <td>
+              <%= appointment.time.getlocal.strftime("%I:%M %P") %>
+            </td>
+            <td>
+              <%= appointment.hwHelpChild %>
+            </td>
+            <td>
+              <%= appointment.hwHelpClass %>
+            </td>
+            <td>
+              <%= appointment.hwHelpReason %>
+            </td>
+
+          </tr>
+        <% end %>
+    </tbody>
+</table>
