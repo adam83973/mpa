@@ -418,7 +418,7 @@ class UsersController < ApplicationController
         reasonId:      appointment['reason']['reasonId'],
         visitMinutes:  appointment['reason']['visitMinutes'],
         time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-        user_id:       @parent_update_ca_id.id,
+        user_id:       @user.id,
         note:          appointment['note'],
         status:        appointment['status']
         )
