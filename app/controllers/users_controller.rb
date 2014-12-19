@@ -438,6 +438,7 @@ class UsersController < ApplicationController
       puts "#{@user.full_name} added."
       puts "Appointment #{@appointment.id} added."
       puts "Note #{@note.id} added."
+      puts appointment
     end
 
     render nothing: true
