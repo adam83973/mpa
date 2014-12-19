@@ -329,6 +329,8 @@ class UsersController < ApplicationController
           time:          DateTime.parse(appointment['appointmentDateTimeClient']),
           note:          appointment['note'],
           status:        appointment['status']})
+
+        puts "Appointment #{@appointment.id} Updated"
       else
         # Appointment is not in DB, create new appointment record.
         @appointment = Appointment.create!(
