@@ -20,8 +20,8 @@ class LocationsController < ApplicationController
     @location_students_restarting = @location.registrations.restarting
     @total_location_students_count = @location.registrations.active.count
     @location_future_adds = @location.registrations.future_adds
-    @location_hw_help_appointments = @location.appointments.where("time >= ? AND time < ? and reasonId = ?", Date.today, Date.today + 1.day, 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
-    @location_assessment_appointments = @location.appointments.where("time >= ? AND time < ? and reasonId = ?", Date.today, Date.today + 1.day, 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND reasonId = ? AND location_id = ?", Date.today, Date.today + 1.day, 37117, @location.id).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND reasonId = ? AND location_id = ?", Date.today, Date.today + 1.day, 37118, @location.id).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
 
     @offerings = @location.offerings
 
