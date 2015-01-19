@@ -97,7 +97,7 @@ class NotesController < ApplicationController
     elsif @note.notable_type == "Student"
       @student = Student.find(@note.notable_id)
     elsif @note.notable_type == "User"
-      @user = User.find(@note.notable_id)
+      @note_user = User.find(@note.notable_id)
     end
 
     if @note.update_attributes({completed: true, completed_by: @current_user.id})

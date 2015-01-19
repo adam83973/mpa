@@ -1,5 +1,5 @@
-if document.getElementById("user_note")
-  $('#user_note').html('<%= escape_javascript(render "/users/user_notes") %>')
+if document.getElementById("user_notes")
+  $('#user_notes').html('<%= escape_javascript(render "/users/user_notes") %>')
 else if document.getElementById("student_notes")
   $('#student_notes').html('<%= escape_javascript(render "/students/students_notes") %>')
 else if document.getElementById("opportunity_notes")
@@ -14,3 +14,9 @@ $('.note_info_toggle').on "click", ->
   else
     $note_info.slideUp()
     $(this).find(".fa-angle-double-up").removeClass("fa-angle-double-up").addClass("fa-angle-double-down")
+
+$(".notes #complete").on "click", ->
+  if confirm "Has this task been completed?"
+    note.completed($(this).val())
+  else
+    return false
