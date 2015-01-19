@@ -11,7 +11,7 @@
             <%= simple_form_for Registration.new, url: url_for(action: 'add_to_class', controller: 'opportunities'), method: 'get' do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } if @student %>
               <%= f.association :student, selected: @student, label_method: :full_name, input_html: { disabled: true } if @student %>
-              <%= f.input :student_id, input_html: { value: @opp_student.id }, as: :hidden unless @student %>
+              <%# f.input :student_id, input_html: { value: @opp_student.id }, as: :hidden unless @student %>
               <%= f.association :student, label_method: :full_name, input_html: { disabled: true } unless @student %>
               <%= f.input :start_date, as: :string,  input_html: { class: "datepicker" } %>
               <%= f.association :offering, label_method: :offering_name, as: :hidden %>
