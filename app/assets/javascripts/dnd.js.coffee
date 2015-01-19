@@ -48,14 +48,14 @@ jQuery ->
           true
 
   $('.opportunity_statuses').on 'click', 'a', ->
-    status.select($(this).data("status"))
-
+    status.select($(this).data("status"), $(this).data("locationid"))
+    alert $(this).data("locationid")
 status=
-  select: (status) ->
+  select: (status, location_id) ->
     $.ajax
       type: 'GET'
       url: "/opportunities/by_status"
-      data: { status: status }
+      data: { status: status, location_id: location_id }
 
 drop =
   #ajax call to update opportunity status

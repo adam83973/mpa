@@ -9,7 +9,7 @@
       <div class="well well-lg">
         <h4><u>Interested</u></h4>
         <ul>
-          <% current_user.location.opportunities.includes(:student, :user).where(status: 0).each do |opp| %>
+          <% @user_location.opportunities.includes(:student, :user).where(status: 0).each do |opp| %>
             <%= render '/shared/lead_group', opportunity: opp %>
           <% end %>
         </ul></br>

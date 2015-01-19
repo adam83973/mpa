@@ -111,6 +111,7 @@ class OpportunitiesController < ApplicationController
 
   def update_status
     @opportunity = Opportunity.find(params[:id])
+    @user_location = @opportunity.location
     @old_status = @opportunity.status
     @new_status = params[:status]
     @note = Note.new
@@ -128,7 +129,8 @@ class OpportunitiesController < ApplicationController
   end
 
   def by_status
-    @opportunities = Opportunity.where(status: params[:status])
+    # @opportunities = Opportunity.where(status: params[:status])
+    @user_location = Location.find(params[:location_id])
     @status = params[:status]
     @note = Note.new
 

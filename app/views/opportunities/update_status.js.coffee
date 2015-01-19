@@ -1,7 +1,7 @@
 $('#opportunities_by_status').html('<div class="well well-lg">
     <h4><u><%= Opportunity::STATUSES[@old_status.to_i] %></u></h4>
     <ul>
-    <% current_user.location.opportunities.where("status = ?", "#{ @old_status }").each do |opp| %>
+    <% @user_location.opportunities.where("status = ?", "#{ @old_status }").each do |opp| %>
     <%= escape_javascript(render "/shared/lead_group", opportunity: opp) %>
     <% end %>
     </ul>
