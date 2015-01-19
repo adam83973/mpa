@@ -6,7 +6,7 @@
     data-status="<%= i %>" data-locationid="<%= @user_location.id %>">
       <%= link_to "javascript:void(0)", data: { status: i, locationid: @user_location.id } do %>
       <h4>
-        <%= opp %><span><%= ": #{current_user.location.opportunities.where(status: i).count}" unless i == 7 || i == 8 %></span>
+        <%= opp %><span><%= ": #{@user_location.opportunities.where(status: i).count}" unless i == 7 || i == 8 %></span>
       </h4>
       <% end %>
       <p></p>
