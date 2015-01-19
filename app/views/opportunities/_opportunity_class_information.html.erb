@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 style="display:inline;" class="panel-title">Class Information</h3>
-    <%= link_to "Add To Class", "javascript:void(0)", class: "add_to_class pull-right", data: { offeringid: @opportunity.offering_id, opportunityid: @opportunity.id, studentid: @opportunity.student_id, confirm: "This will add a student to the offering linked to this opportunity. Are you sure you want to continue?" } if @opportunity.offering && @opportunity.student %>
+    <%= link_to "Add To Class", "javascript:void(0)", class: "add_to_class pull-right", id: "add_to_class", data: { offeringid: @opportunity.offering_id, opportunityid: @opportunity.id, studentid: @opportunity.student_id, confirm: "This will add a student to the offering linked to this opportunity. Are you sure you want to continue?" } if @opportunity.offering && @opportunity.student %>
   </div>
   <div class="panel-body">
     <p>

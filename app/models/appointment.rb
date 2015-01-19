@@ -3,4 +3,13 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :location
+
+  def update_location(check_appointment_location_id)
+    ca_id = check_appointment_location_id
+    if ca_id == 10935
+        update_attribute :location_id, 1
+    elsif ca_id == 10936
+      update_attribute :location_id, 2
+    end
+  end
 end

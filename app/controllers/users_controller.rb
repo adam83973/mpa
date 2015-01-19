@@ -353,13 +353,7 @@ class UsersController < ApplicationController
         end
 
         # add location information
-        if appointment['location']['locationId'] == 10935
-          @appointment.update_attribute :location_id, 1
-        elsif appointment['location']['locationId'] == 10936
-          @appointment.update_attribute :location_id, 2
-        end
-
-        puts "Appointment #{@appointment.id} Added"
+        @appointment.update_location(appointment['location']['locationId'])
       end
     # check to see if parent is in system, but has not had CA Id added to record
     elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
@@ -385,11 +379,7 @@ class UsersController < ApplicationController
       end
 
       # add location information
-      if appointment['location']['locationId'] == 10935
-        @appointment.update_attribute :location_id, 1
-      elsif appointment['location']['locationId'] == 10936
-        @appointment.update_attribute :location_id, 2
-      end
+      @appointment.update_location(appointment['location']['locationId'])
     else
       # User is not in system. Create user and add appointment.
       @generated_password = Devise.friendly_token.first(8) # password for new user
@@ -424,11 +414,7 @@ class UsersController < ApplicationController
         )
 
       # add location information
-      if appointment['location']['locationId'] == 10935
-        @appointment.update_attribute :location_id, 1
-      elsif appointment['location']['locationId'] == 10936
-        @appointment.update_attribute :location_id, 2
-      end
+      @appointment.update_location(appointment['location']['locationId'])
 
       # create note if scheduling assessment
       if appointment['reason']['reasonId'] == 37117
@@ -442,11 +428,8 @@ class UsersController < ApplicationController
           Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}",
           user_id: User.find_by_email("system@mathplusacademy.com").id})
 
-        if @note1.save!
-          puts "#{@user.full_name} added."
-          puts "Appointment #{@appointment.id} added."
-          puts appointment
-        end
+        @note1.save!
+        @note2.save!
       end
     end
 

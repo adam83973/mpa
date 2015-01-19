@@ -198,7 +198,7 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.update_attribute :attended_trial, true
       redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
-      @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+      @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-p to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
       @note.save
     end
   end

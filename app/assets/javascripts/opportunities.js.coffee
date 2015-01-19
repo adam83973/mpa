@@ -82,7 +82,6 @@ $('#skipNewStudent').on 'click', ->
     alert "Opportunity created!"
     location.reload()
 
-
 $('#opporunityUserNoMatch').on 'click', ->
   $('#addUserInformationModal').modal('hide')
   $('#newParentModal').modal('show')
