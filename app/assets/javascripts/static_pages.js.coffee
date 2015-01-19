@@ -1,6 +1,12 @@
 # ---- Admin Page ----------------
 # Hide schedule from admin view
 jQuery ->
+  # change locations
+  $("#location_id").on 'change', ->
+    id = $(this).val()
+    url = "http://app.mathplusacademy.com?location_id=" + id
+    window.location.replace(url)
+
   $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
@@ -13,7 +19,6 @@ jQuery ->
     else if $("#hide_schedule").text() is "Show Schedule"
       $(".daily-schedule").slideDown()
       $("#hide_schedule").text('Hide Schedule')
-
 
 # ---- Attendance Modal ----------------
   $('#attendanceModal').on 'shown.bs.modal', ->

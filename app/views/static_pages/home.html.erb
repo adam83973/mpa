@@ -13,6 +13,7 @@
         <%= render 'action_notes' if current_user.admin? %>
       </div>
     </div>
+
     <% if current_user.admin? %>
       <%= render 'daily_schedule' %>
       <hr>
