@@ -6,9 +6,9 @@
   </div>
 </div>
 
-<%= render 'assessment_appointments' %>
+<%= render 'assessment_appointments', appointments: @location_assessment_appointments %>
 
-<%= render 'homework_help_appointments' %>
+<%= render 'homework_help_appointments', appointments: @location_hw_help_appointments %>
 
 <%= render 'adds_modal' %>
 
@@ -17,3 +17,5 @@
 <%= render 'drops_modal' %>
 
 <%= render 'future_adds_modal' %>
+
+
