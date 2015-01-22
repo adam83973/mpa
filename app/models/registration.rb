@@ -1,5 +1,5 @@
 class Registration < ActiveRecord::Base
-  attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date
+  attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason
 
   attr_accessor :opportunity_id
 
@@ -23,6 +23,7 @@ class Registration < ActiveRecord::Base
   scope :restarting, lambda{where("status = ? AND restart_date < ?", 2, 20.days.from_now)}
 
   STATUSES = ["New", "Active", "Hold", "Inactive"]
+  DROP_REASONS = ["Moving", "Price", "Other Activity", "Dissatisfied"]
 
   def offering_name
     if offering

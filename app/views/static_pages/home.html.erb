@@ -14,23 +14,21 @@
       </div>
     </div>
 
+    <% if (!(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?)) && current_user.role != "Teacher" %>
+      <% unless class_session.in_session? %>
+        <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless @location_assessment_appointments.empty? || !(current_user.admin?) %>
+
+        <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
+
+        <hr>
+      <% end %>
+    <% end %>
+
     <% if current_user.admin? %>
       <%= render 'daily_schedule' %>
       <hr>
 
-      <% if !(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?) %>
-        <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless @location_assessment_appointments.empty? %>
-
-        <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? %>
-
-        <hr>
-      <% end %>
-
       <%= render 'lead_management' %>
-
-      <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments %>
-
-      <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments %>
 
       <%= render 'parent_lookup_modal' %>
 
