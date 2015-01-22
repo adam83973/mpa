@@ -20,8 +20,8 @@ class StaticPagesController < ApplicationController
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
         @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
         @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
+        @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
         if current_user.admin?
-          @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
           @opportunity = Opportunity.new
           @note = Note.new
           @grade = Grade.new
