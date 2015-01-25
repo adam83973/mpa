@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150122192606) do
+ActiveRecord::Schema.define(:version => 20150125154315) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -470,7 +470,7 @@ ActiveRecord::Schema.define(:version => 20150122192606) do
     t.integer  "infusion_id"
     t.text     "last_payment"
     t.boolean  "active_subscription",                  :default => false
-    t.integer  "subscription_count"
+    t.integer  "subscription_count",                   :default => 0
     t.integer  "balance_due",                          :default => 0
     t.boolean  "year_end_campaign",                    :default => false
     t.integer  "check_appointments_id"
