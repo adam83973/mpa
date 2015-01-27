@@ -7,6 +7,9 @@ MathPlus::Application.routes.draw do
   get  'opportunities/by_status', to: 'opportunities#by_status'
   post 'opportunities/update_status', to: 'opportunities#update_status'
 
+  match '/emails',     to: 'emails#new',             via: 'get'
+  resources "emails", only: [:new, :create]
+
   resources :opportunities do
     resources :notes
     collection do

@@ -30,6 +30,7 @@ gem 'check_appointments'
 gem 'rest_client'
 gem 'json'
 gem 'rollbar', '~> 1.2.11'
+gem 'mail_form'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
