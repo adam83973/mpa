@@ -6,7 +6,7 @@
     <li><%= link_to "Profile", current_user %></li>
     <li><%= link_to "Change Password", edit_user_registration_path %></li>
     <% if current_user.employee? %>
-      <li><%= link_to "Report An Issue", new_issue_path %></li>]
+      <li><%= link_to "Report An Issue", new_issue_path %></li>
       <li><%= link_to "Send An Email", emails_path %></li>
     <% end %>
     <li class="divider"></li>
