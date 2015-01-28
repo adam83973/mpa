@@ -12,8 +12,16 @@ class StaticPagesController < ApplicationController
       unless current_user.parent?
         @experience_point = ExperiencePoint.new
         # @offerings = Offering.includes(:course, :location).order(:course_id)
-        @user_location = @user.location unless params[:location_id]
-        @user_location = Location.find(params[:location_id]) if params[:location_id]
+        @user_location = @user.location unless params[:location_id] || current_user.default_location
+        if params[:location_id] || current_user.default_location
+          if params[:location_id]
+            if current_user.update_attribute :default_location, params[:location_id].to_i
+              @user_location = Location.find(current_user.default_location)
+            end
+          else
+            @user_location = Location.find(current_user.default_location)
+          end
+        end
         @user_notes = @user.notes
         @user_action_needed = [] #user notings are added to this array as well as location leads
         @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note }
