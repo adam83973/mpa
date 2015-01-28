@@ -42,7 +42,7 @@
                         <% end %>
                       <% end %>
                     <% end %>
-                    <%= link_to registration.student.full_name, registration.student %>
+                    <%= link_to registration.student.full_name, registration.student if registration.student %>
                   </td>
                   <td><%= registration.student.xp_total %></td>
                 </tr>
