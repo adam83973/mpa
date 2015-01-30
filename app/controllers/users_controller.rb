@@ -417,7 +417,7 @@ class UsersController < ApplicationController
       @appointment.update_location(appointment['location']['locationId'])
 
       content = "Number of students: #{appointment['customField1']}, \n
-      #{pluralize(appointment['customField1'].to_i, 'Student')}: #{appointment['customField2']} (#{appointment['customField3']})"
+      #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
