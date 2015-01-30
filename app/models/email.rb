@@ -8,7 +8,8 @@ class Email < MailForm::Base
     {
       :subject => subject,
       :to => to_email,
-      :from => %( #{from_email} )
+      :from => %( #{from_email} ),
+      :reply_to => from_email
     }
   end
 end

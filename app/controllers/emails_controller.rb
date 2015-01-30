@@ -18,13 +18,13 @@ class EmailsController < ApplicationController
     case @email.to_email.first
     when "All Employees"
       @email.to_email.delete_if{ |email| email == "All Employees" }
-      User.employees.each{ |employee| @email.to_email << "#{employee.full_name} <#{employee.email}>"}
+      User.employees.each{ |employee| @email.to_email << "#{employee.email}"}
     when "All Teachers"
       @email.to_email.delete_if{ |email| email == "All Teachers" }
-      User.teachers.each{ |employee| @email.to_email << "#{employee.full_name} <#{employee.email}>"}
+      User.teachers.each{ |employee| @email.to_email << "#{employee.email}"}
     when "All Teaching Assistants"
       @email.to_email.delete_if{ |email| email == "All Teaching Assistants" }
-      User.teaching_assistants.each{ |employee| @email.to_email << "#{employee.full_name} <#{employee.email}>"}
+      User.teaching_assistants.each{ |employee| @email.to_email << "#{employee.email}"}
     end
 
     respond_to do |format|
