@@ -30,6 +30,7 @@ class InfusionPagesController < ApplicationController
     @newcontact = Infusionsoft.contact_add(data)
 
     Infusionsoft.contact_add_to_group(@newcontact, 91)
+    Infusionsoft.email_optin(params[:Email], "Program enrollment.")
 
     respond_to do |format|
       if params[:Show]
