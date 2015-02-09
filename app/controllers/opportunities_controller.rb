@@ -59,9 +59,11 @@ class OpportunitiesController < ApplicationController
   def create
     @opportunity = Opportunity.new(params[:opportunity])
 
-    # Find possible users by searching for last name and email, removing duplicates
-    @possible_users = User.where("last_name LIKE ? OR first_name LIKE ? OR email LIKE ?", "%#{@opportunity.parent_name.split.last}%", "%#{@opportunity.parent_name.split.last}%", "%#{@opportunity.parent_email}%").order(:last_name)
-    @possible_users = @possible_users.uniq
+    if @opportunity.parent_name
+      # Find possible users by searching for last name and email, removing duplicates
+      @possible_users = User.where("last_name LIKE ? OR first_name LIKE ? OR email LIKE ?", "%#{@opportunity.parent_name.split.last}%", "%#{@opportunity.parent_name.split.last}%", "%#{@opportunity.parent_email}%").order(:last_name)
+      @possible_users = @possible_users.uniq
+    end
 
     respond_to do |format|
       if @opportunity.save
