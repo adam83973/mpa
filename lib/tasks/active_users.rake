@@ -1,5 +1,5 @@
 namespace :tag do
-  desc "Update parent's information with last payment date."
+  desc "Tag active users infusionsoft accounts with month day year active tag."
   task active_users: :environment do
     tag_users
   end
@@ -14,5 +14,4 @@ def tag_users
     result = Infusionsoft.contact_add_to_group(parent.infusion_id, group_id) unless parent.infusion_id.nil?
     puts "#{n}/#{parents.count}"
   end
-
 end

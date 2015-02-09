@@ -15,7 +15,7 @@
 <% if current_user && current_user.employee? %>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h3 style="display:inline;">Opportunities:</h3><%= link_to "New Opportunity", new_opportunity_path, class: "btn btn-xs btn-success pull-right" %>
+			<h3 style="display:inline;">Opportunities:</h3><%= link_to "New Opportunity", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-xs btn-success pull-right" %>
 
 			<hr>
 
