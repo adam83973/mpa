@@ -390,7 +390,7 @@ class UsersController < ApplicationController
                     email:                    appointment['client']['emailAddress'],
                     first_name:               appointment['client']['firstName'],
                     password:                 @generated_password,
-                    active:                   true,
+                    active:                   false,
                     role:                     "Parent")
 
       # Add location information to user
