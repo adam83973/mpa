@@ -31,6 +31,7 @@ gem 'rest_client'
 gem 'json'
 gem 'rollbar', '~> 1.2.11'
 gem 'mail_form'
+gem 'appsignal'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
