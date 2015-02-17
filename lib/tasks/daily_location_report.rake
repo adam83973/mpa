@@ -8,8 +8,8 @@ end
 def daily_batch
   locations = Location.all
   locations.each do |location|
-    @hw_help_appointments = location.appointments.where("time < ? AND time > ? AND reasonId = ?", Time.now.end_of_day, Time.now.beginning_of_day, 37118)
-    @assessment_appointments = location.appointments.where("time < ? AND time > ? AND reasonId = ?", Time.now.end_of_day, Time.now.beginning_of_day, 37117)
+    @hw_help_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37118)
+    @assessment_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37117)
     @student_assessments_count = @assessment_appointments.count
     @hw_help_appointments_count = @hw_help_appointments.count
     @student_count = location.registrations.active.count
