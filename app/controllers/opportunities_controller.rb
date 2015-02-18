@@ -157,7 +157,7 @@ class OpportunitiesController < ApplicationController
 
   def add_student
     @opportunity = Opportunity.find(params[:id])
-    @user = User.find(params[:student_id])
+    @student = Student.find(params[:student_id])
 
     respond_to do |format|
       if @opportunity.update_attribute(:student_id, params[:student_id].to_i)
