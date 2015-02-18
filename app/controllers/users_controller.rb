@@ -318,6 +318,7 @@ class UsersController < ApplicationController
 
   def appointment_request
     appointment = JSON.parse(request.body.read)
+    @appointment_request = AppointmentRequest.create(data: appointment)
     @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
     # if a Parent already has CheckAppointments Id associated with record save appointment.
     if @parent
@@ -356,7 +357,8 @@ class UsersController < ApplicationController
         @appointment.update_location(appointment['location']['locationId'])
       end
     # check to see if parent is in system, but has not had Check Appointments Id added to record
-    elsif @parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase )
+    elsif appointment['client']['emailAddress'] && (@parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase ))
+
       @parent_update_ca_id.update_attribute :check_appointments_id, appointment['client']['clientId']
 
       @appointment = Appointment.create!(
