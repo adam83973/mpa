@@ -12,6 +12,7 @@ class Registration < ActiveRecord::Base
   belongs_to :user
   belongs_to :holder, class_name: "Registration", foreign_key: "hold_id"
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
+  has_one :location, through: :offering
   has_one :course, through: :offering
   has_one :opportunity
   has_one :holding, class_name: "Registration", foreign_key: "hold_id"
@@ -27,7 +28,7 @@ class Registration < ActiveRecord::Base
 
   def offering_name
     if offering
-      course.course_name + " | " + offering.location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
+      course.course_name + " | " + location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
     end
   end
 

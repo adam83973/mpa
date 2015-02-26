@@ -30,6 +30,7 @@ class StudentsController < ApplicationController
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)
+    @active_offerings = Offering.where(active: true).includes(:course, :location).order("course_id ASC")
 
     if current_user.employee? || current_user.id == @student.user_id
   # Sets instance variable for student offering, used to print binder

@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= simple_form_for Registration.new, url: url_for(action: 'add_to_class', controller: 'opportunities'), method: 'get' do |f| %>
+            <%= simple_form_for Registration.includes(:location).new, url: url_for(action: 'add_to_class', controller: 'opportunities'), method: 'get' do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } if @student %>
               <%= f.association :student, selected: @student, label_method: :full_name, input_html: { disabled: true } if @student %>
               <%= f.input :student_id, input_html: { value: @opp_student.id }, as: :hidden unless @student || @opp_student.nil? %>

@@ -11,7 +11,7 @@
             <%= simple_form_for :switch, url: url_for(action: 'switch', controller: 'registrations') do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
               <%= f.input :registration_id, as: :hidden %>
-              <%= f.input :offering_id, as: :select, collection: Offering.where(active: true).order("course_id ASC"), label_method: :offering_name,  input_html: { class: "chosen" } %>
+              <%= f.input :offering_id, as: :select, collection: @active_offerings, label_method: :offering_name,  input_html: { class: "chosen" } %>
               <%= f.input :date, as: :string,  input_html: { class: "datepickerTodayAndOn" } %>
           </div>
         </div>
