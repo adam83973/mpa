@@ -54,7 +54,7 @@ MathPlus::Application.configure do
 
    config.after_initialize do
      Bullet.enable = true
-     Bullet.alert = false
+     Bullet.alert = true
      Bullet.bullet_logger = false
      Bullet.console = true
      Bullet.growl = false
