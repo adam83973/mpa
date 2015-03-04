@@ -72,6 +72,7 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
+
   get 'reports/', to: 'reports#new'
   post 'reports/display', to: 'reports#show'
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
