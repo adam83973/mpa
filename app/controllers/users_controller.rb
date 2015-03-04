@@ -430,14 +430,14 @@ class UsersController < ApplicationController
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
       when 2
-        content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}),"
+        content = content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}),"
       when 3
-        content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+        content = content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
       else
-        content + "\n"
+        content = content + "\n"
       end
 
-      content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
+      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
       puts content
 

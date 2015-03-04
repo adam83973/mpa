@@ -14,7 +14,7 @@ class Student < ActiveRecord::Base
   belongs_to :location
   belongs_to :avatar
   has_and_belongs_to_many :badges
-  has_many :grades
+  has_many :grades, dependent: :destroy
   has_many :lessons , :through => :grades
   has_many :experiences, :through => :experience_points
   has_many :locations, :through => :offerings
@@ -23,7 +23,7 @@ class Student < ActiveRecord::Base
   has_many :experience_points, dependent: :destroy
   has_many :notes, as: :notable
   has_many :opportunities
-  has_many :registrations
+  has_many :registrations, dependent: :destroy
   has_many :offerings, :through => :registrations
 
   scope :active, lambda{where("status = ?", "Active")}
