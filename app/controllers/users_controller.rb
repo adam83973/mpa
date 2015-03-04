@@ -391,7 +391,7 @@ class UsersController < ApplicationController
                     first_name:               appointment['client']['firstName'],
                     last_name:                appointment['client']['lastName'],
                     email:                    appointment['client']['emailAddress'],
-                    first_name:               appointment['client']['firstName'],
+                    phone:                    appointment['client']['cellPhone'],
                     password:                 @generated_password,
                     active:                   false,
                     role:                     "Parent")
@@ -422,18 +422,23 @@ class UsersController < ApplicationController
       content = "Number of students: #{appointment['customField1']}, \n
       #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
 
+      puts content
+
+      puts appointment['customField1'].to_i
+
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
       when 2
-        content + "#{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}),"
+        content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}),"
       when 3
-        content + "#{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+        content + " #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
       else
         content + "\n"
       end
 
       content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
+      puts content
       # create note if scheduling assessment
       if appointment['reason']['reasonId'] == 37117
         @note1 = @user.notes.build({
