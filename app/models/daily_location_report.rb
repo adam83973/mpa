@@ -1,5 +1,5 @@
 class DailyLocationReport < ActiveRecord::Base
-  attr_accessible :add_count, :drop_count, :location_id, :parent_logins, :total_enrollment
+  attr_accessible :add_count, :drop_count, :location_id, :parent_logins, :total_enrollment, :hw_help_count, :assessment_count
 
   belongs_to :location
 
