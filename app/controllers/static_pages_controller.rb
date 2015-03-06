@@ -24,9 +24,9 @@ class StaticPagesController < ApplicationController
         end
         @user_notes = @user.notes
         @user_action_needed = [] #user notings are added to this array as well as location leads
-        @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note }
+        @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note } if @user.admin?
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
-        @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
+        @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc') unless @user.admin?
         @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
         @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
         if current_user.admin?
@@ -39,33 +39,33 @@ class StaticPagesController < ApplicationController
         end
         if current_user.teacher?
           @user_offerings = @user.offerings.includes(:course, :location)
-          @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC")
+          @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC") unless class_session.in_session?
         end
         if current_user.teacher? && class_session.in_session?
-          @class_session_offering = Offering.find(class_session.offering)
+          @class_session_offering = Offering.includes(:course).find(class_session.offering)
           @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")
-            @lessons.each do |lesson|
-              if lesson.standard
-                @todays_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id
-              end
+          @lessons.each do |lesson|
+            if lesson.standard
+              @todays_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id
             end
-            if class_session.week.to_i - 1 == 0
-              @last_weeks_lessons = Lesson.where("week = ?", "48")
-              @last_weeks_lessons.each do |lesson|
-                if lesson.standard
-                  if Offering.find(class_session.offering).course_id == 1
-                    nil
-                  else
-                    @last_weeks_lesson = lesson if lesson.standard.course_id == Offering.find(class_session.offering).course_id.to_i - 1
-                  end
+          end
+          if class_session.week.to_i - 1 == 0
+            @last_weeks_lessons = Lesson.where("week = ?", "48")
+            @last_weeks_lessons.each do |lesson|
+              if lesson.standard
+                if @class_session_offering.course_id == 1
+                  nil
+                else
+                  @last_weeks_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id.to_i - 1
                 end
               end
-            else
-              @last_weeks_lessons = Lesson.includes(:standard).where("week = ?", "#{class_session.week.to_i - 1}")
-              @last_weeks_lessons.each do |lesson|
-                @last_weeks_lesson = lesson if lesson.standard.course_id == Offering.includes(:course).find(class_session.offering).course_id
-              end
             end
+          else
+            @last_weeks_lessons = Lesson.includes(:standard).where("week = ?", "#{class_session.week.to_i - 1}")
+            @last_weeks_lessons.each do |lesson|
+              @last_weeks_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id
+            end
+          end
         end
         if @user_location
           @user_location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)} #add location notes to user_action needed
@@ -75,8 +75,8 @@ class StaticPagesController < ApplicationController
           #Pull students that are or have started in +/- 6 days from today.
           @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)
           #Pull students that are or have started in +/- 6 days from today.
-          @new_students_today_location = @user_location.registrations.where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
-          @restarting_students_today_location = @user_location.registrations.where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
+          @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
+          @restarting_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
           @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
         end
       end

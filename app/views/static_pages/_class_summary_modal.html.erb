@@ -19,7 +19,7 @@
           <% if class_session.students == [] %>
             There are no students added to this class.
           <% else %>
-            <% occupation = Offering.find(class_session.offering).occupation.title %>
+            <% occupation = @class_session_offering.occupation.title %>
             <% class_session.students.each do |student_id| %>
             <% @student = Student.find(student_id)%>
             <tr>

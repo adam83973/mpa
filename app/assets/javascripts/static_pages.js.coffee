@@ -22,8 +22,15 @@ jQuery ->
 
 # ---- Attendance Modal ----------------
   $('#attendanceModal').on 'shown.bs.modal', ->
-    $('.chzn', this).chosen()
-
+    $('.chzn', this).chosen(
+        allow_single_deselect: true
+      )
+    $submitButton = $("#attendance_form").find('input[name="commit"]').prop("disabled", true)
+    $('#experience_point_student_id').on 'change', ->
+      if $('#experience_point_student_id').val()
+        $submitButton.prop("disabled", false)
+  $('#attendanceModal').on 'hidden.bs.modal', ->
+    location.reload()
 # Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
@@ -37,12 +44,16 @@ jQuery ->
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
+    $('#experience_point_student_id_chosen').find('span').html('Select an Option')
+    $('#experience_point_student_id_chosen').find('abbr').remove()
   .bind 'ajax:error', (evt, xhr, status, error) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
     $form = $(this)
     alert "Student #{error}!"
     $form[0].reset()
+    $('#experience_point_student_id_chosen').find('abbr').remove()
+    $('#experience_point_student_id_chosen').find('span').html('Select an Option')
 
 # Autofocus student_id field on attendanceModal show ---
   $("#attendanceModal").on 'shown', ->

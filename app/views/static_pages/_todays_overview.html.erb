@@ -41,7 +41,7 @@
             <tr>
               <td>
                 <%= link_to "#{registration.student.full_name}", registration.student, target: "_blank" %> -
-                <%= registration.offering.offering_name_dashboard %>
+                <%= registration.offering_name_dashboard %>
               </td>
               <td>
                 <% if registration.start_date && registration.start_date < Date.today %>

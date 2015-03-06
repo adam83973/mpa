@@ -9,7 +9,7 @@
 			  	<%= f.association :student, label_method: :full_name, :selected => params[:student], input_html: {class: "xp_chosen"}  %>
 			    <%= f.association :experience, collection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
 			    <%= f.input :points %>
-			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
 			    <%= f.button :submit, class: "btn btn-lg btn-success" %>
@@ -26,7 +26,7 @@
 			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 				    <%= f.association :experience, :selected => params[:attendance], label: "Achievement ID", input_html: {class: "xp_chosen"} %>
 				    <%= f.input :points, :input_html => { :value => '20'} %>
-				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
 				    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 				  </div>
 				    <%= f.button :submit, class: "btn btn-success btn-lg" %>
@@ -40,7 +40,7 @@
 			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 				    <%= f.association :experience, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
 				    <%= f.input :points %>
-				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, placeholder: "Write something like: \n   'Agent, Week 23, Fractions 3/5; Great job!'", hint: "You must leave a comment." %>
 				    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 				  </div>
 				    <%= f.button :submit, class: "btn btn-success btn-lg" %>
@@ -55,7 +55,7 @@
 			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
 					<%= f.association :experience, collection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
 			    <%= f.input :points %>
-			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
 			    <%= f.button :submit, class: "btn btn-success btn-lg" %>

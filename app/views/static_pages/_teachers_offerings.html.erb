@@ -18,7 +18,7 @@
               <th> <%= link_to "Student Name", :sort => "Name" %> </th>
               <th> <%= link_to "XP", :sort => "points" %> </th>
             </tr>
-              <% offering.registrations.where("status = ?", "1").each do |registration| %>
+              <% offering.registrations.includes(:offering, :student).where("status = ?", "1").each do |registration| %>
                 <tr>
                   <td>
                     <% if class_session.in_session? %>

@@ -32,6 +32,10 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  def offering_name_dashboard
+      course.course_name + " | " + offering.day[0..2] + " - " + offering.time.strftime("%I:%M %p")
+  end
+
   def past_end_date
     if self.end_date && self.end_date <= Date.today
       self.status = 3
