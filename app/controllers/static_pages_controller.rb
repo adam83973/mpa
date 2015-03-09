@@ -26,7 +26,7 @@ class StaticPagesController < ApplicationController
         @user_action_needed = [] #user notings are added to this array as well as location leads
         @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ?", false, Date.today).each { |note| @user_action_needed << note } if @user.admin?
         @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
-        @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc') unless @user.admin?
+        @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc') unless @user.admin? && @user.role == "Admin"
         @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
         @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
         if current_user.admin?
