@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150218185523) do
+ActiveRecord::Schema.define(:version => 20150309185452) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -109,11 +109,13 @@ ActiveRecord::Schema.define(:version => 20150218185523) do
     t.integer  "parent_logins"
     t.integer  "drop_count"
     t.integer  "add_count"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "total_enrollment"
-    t.integer  "hw_help_count",    :default => 0
-    t.integer  "assessment_count", :default => 0
+    t.integer  "hw_help_count",            :default => 0
+    t.integer  "assessment_count",         :default => 0
+    t.integer  "opportunities_won_count",  :default => 0
+    t.integer  "opportunities_lost_count", :default => 0
   end
 
   create_table "enrollment_change_requests", :force => true do |t|

@@ -8,8 +8,10 @@ end
 def daily_batch
   locations = Location.all
   locations.each do |location|
-    @hw_help_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37118)
-    @assessment_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37117)
+    @hw_help_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37118).delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+    @assessment_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37117).delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+    @opportunities_won_count = Opportunity.where(location_id: location.id).where(date_won: Date.today).count.to_i
+    @opportunities_lost_count = Opportunity.where(location_id: location.id).where(date_lost: Date.today).count.to_i
     @student_assessments_count = @assessment_appointments.count
     @hw_help_appointments_count = @hw_help_appointments.count
     @student_count = location.registrations.active.count
@@ -18,12 +20,15 @@ def daily_batch
     @student_adds = location.registrations.where("start_date = ?", Time.now.beginning_of_day.to_date).count
 
     DailyLocationReport.create!(
-                location_id:      location.id,
-                total_enrollment: @student_count,
-                parent_logins:    @parent_sign_in_count,
-                drop_count:       @student_drops,
-                add_count:        @student_adds,
-                hw_help_count:    @hw_help_appointments_count,
-                assessment_count: @student_assessments_count)
+                location_id:              location.id,
+                total_enrollment:         @student_count,
+                parent_logins:            @parent_sign_in_count,
+                drop_count:               @student_drops,
+                add_count:                @student_adds,
+                hw_help_count:            @hw_help_appointments_count,
+                assessment_count:         @student_assessments_count,
+                opportunities_won_count:  @opportunities_won_count,
+                opportunities_lost_count: @opportunities_lost_count
+                )
   end
 end
