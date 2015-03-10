@@ -179,10 +179,14 @@ class OpportunitiesController < ApplicationController
           # Add parent to new customer sequence.
           Infusionsoft.contact_add_to_group(@parent.infusion_id, 1648) if @parent.infusion_id
 
+          if @registration.start_date <= Date.today
+            @registration.update_attribute :status, 1
+          end
+
           # Update opportunity attributes
           @opportunity.update_attribute :status, 7 # set opportunity to won
           @opportunity.update_attribute :date_won, Date.today # set date won date
-          format.html { redirect_to @student, notice: 'Registration was successfully created.' }
+          format.html { redirect_to infusion_pages_subscription_path(ContactId: @parent.infusion_id), notice: 'Registration was successfully created.' }
           format.json { render json: @registration, status: :created, location: @registration }
         else
           format.html { render action: "new" }

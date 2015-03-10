@@ -70,7 +70,7 @@ class StaticPagesController < ApplicationController
         if @user_location
           @user_location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)} #add location notes to user_action needed
           @location_offerings = @user_location.offerings.where("active = ?", true).order(:time) if current_user.admin?
-          @todays_offering_by_location = Offering.where("active = ? AND location_id = ?", true, @user_location.id).includes(:course).reject{|hash| hash[:day] != Time.now.strftime('%A') } if current_user.admin?
+          @todays_offering_by_location = Offering.includes(:users).where("active = ? AND location_id = ?", true, @user_location.id).includes(:course).reject{|hash| hash[:day] != Time.now.strftime('%A') } if current_user.admin?
           @location_offerings_count = @location_offerings.count if current_user.admin?
           #Pull students that are or have started in +/- 6 days from today.
           @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)

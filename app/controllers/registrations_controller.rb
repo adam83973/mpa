@@ -92,7 +92,7 @@ class RegistrationsController < ApplicationController
         format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request.' }
+        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit.' }
       end
     end
   end
