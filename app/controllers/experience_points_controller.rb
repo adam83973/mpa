@@ -125,13 +125,16 @@ class ExperiencePointsController < ApplicationController
         respond_to do |format|
           if @experience_point.save
             if @credits > 0
-                  @student.add_credit(@credits)
+              @student.add_credit(@credits)
             end
 
             # update level for occupation based on experience point's occupation relation
             @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
 
-            format.html { redirect_to student_path(@student), notice: "Experience point was successfully created." }
+            #check to see if badge is associated with experience point's experience
+            @badge_earned = @experience_point.add_badge?(@student)
+
+            format.html { redirect_to student_path(@student), notice: "Experience point was successfully created. #{'You earned a badge!' if @badge_earned }" }
             format.json { render json: @experience_point, status: :created, location: @experience_point }
           else
             format.html { render action: "new" }

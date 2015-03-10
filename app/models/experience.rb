@@ -1,6 +1,7 @@
 class Experience < ActiveRecord::Base
   attr_accessible :category, :content, :name, :points, :image, :remove_image,
-                  :resource_ids, :remote_image_url, :occupation_id, :active
+                  :resource_ids, :remote_image_url, :occupation_id, :active,
+                  :badge_attributes
 
   validates_presence_of :points, :category, :name
 
@@ -8,8 +9,11 @@ class Experience < ActiveRecord::Base
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings
   belongs_to :occupation
+  has_one :badge
 
   mount_uploader :image, ImageUploader
+
+  accepts_nested_attributes_for :badge
 
   CATEGORY = [
               "Mathematics",

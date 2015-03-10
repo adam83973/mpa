@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150309185452) do
+ActiveRecord::Schema.define(:version => 20150309191753) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -74,10 +74,11 @@ ActiveRecord::Schema.define(:version => 20150309185452) do
   create_table "badges", :force => true do |t|
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "file"
     t.string   "file_name"
+    t.integer  "experience_id"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|

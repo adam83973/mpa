@@ -30,8 +30,7 @@ class ExperiencesController < ApplicationController
   # GET /experiences/new.json
   def new
     @experience = Experience.new
-    # create multiple experiences
-    # 3.times { @experience.experience_points.build }
+    @experience.build_badge
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +41,7 @@ class ExperiencesController < ApplicationController
   # GET /experiences/1/edit
   def edit
     @experience = Experience.find(params[:id])
+    @experience.build_badge if @experience.badge.nil?
   end
 
   # POST /experiences

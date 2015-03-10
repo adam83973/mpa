@@ -15,6 +15,23 @@ class ExperiencePoint < ActiveRecord::Base
   after_update :update_student_xp
   after_destroy :update_student_xp
 
+  def add_badge?(student)
+    if experience.badge
+      student.badges << badge
+      true
+    else
+      false
+    end
+  end
+
+  def badge
+    if experience.badge
+      experience.badge
+    else
+      nil
+    end
+  end
+
   def student_name
   	student.try(:full_name)
   end
