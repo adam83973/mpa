@@ -21,6 +21,7 @@ class OpportunitiesController < ApplicationController
     @new_parent = User.new
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
+    @active_offerings = Offering.where(active: true).includes(:course, :location).order("course_id ASC")
 
     if @opportunity.promotion_sent && @opportunity.promotion_id
       @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @opportunity.promotion_id}[0]
