@@ -29,6 +29,7 @@ class ExperiencesController < ApplicationController
   # GET /experiences/new
   # GET /experiences/new.json
   def new
+    @action = "new"
     @experience = Experience.new
     @experience.build_badge
 
@@ -40,6 +41,7 @@ class ExperiencesController < ApplicationController
 
   # GET /experiences/1/edit
   def edit
+    @action = "edit"
     @experience = Experience.find(params[:id])
     @experience.build_badge if @experience.badge.nil?
   end
