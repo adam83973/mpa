@@ -420,13 +420,13 @@ class UsersController < ApplicationController
       # add location information
       @appointment.update_location(appointment['location']['locationId'])
 
-      content = "Please add opportunity(ies) \n\n Number of students: #{appointment['customField1']} \n\n
+      content = "Please add opportunity(ies) \n Number of students: #{appointment['customField1']} \n
       #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
       when 2
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} #{appointment['customField5'] if appointment['customField5']})"
+        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})"
       when 3
         content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
       else
