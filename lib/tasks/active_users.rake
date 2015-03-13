@@ -14,4 +14,5 @@ def tag_users
     result = Infusionsoft.contact_add_to_group(parent.infusion_id, group_id) unless parent.infusion_id.nil?
     puts "#{n}/#{parents.count}"
   end
+  puts group_id
 end
