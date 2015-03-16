@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <% if (!(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?)) && current_user.role != "Teacher" %>
+    <% if (!(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?)) %>
       <% unless class_session.in_session? %>
         <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless @location_assessment_appointments.empty? || !(current_user.admin?) %>
 
