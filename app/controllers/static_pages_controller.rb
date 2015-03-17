@@ -92,6 +92,9 @@ class StaticPagesController < ApplicationController
   def enter_code
   end
 
+  def badges
+  end
+
   def mission_lookup
     @code = params[:code]
     @decoded = Base64.decode64(@code)

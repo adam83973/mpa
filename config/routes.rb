@@ -1,5 +1,9 @@
 MathPlus::Application.routes.draw do
 
+  root to: 'static_pages#home'
+  post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
+  get 'badge_home', to: 'static_pages#badges'
+
   resources :badges
 
   resources :avatars
@@ -51,10 +55,6 @@ MathPlus::Application.routes.draw do
   resources :notes
   resources :stages
   resources :videos
-
-
-  root to: 'static_pages#home'
-
   resources :class_sessions, only: [:new, :create, :destroy]
   resources :standards
   resources :experience_points
@@ -80,7 +80,6 @@ MathPlus::Application.routes.draw do
   post 'notes/completed', to: 'notes#completed'
   post 'users/deactivate/:id', to: 'users#deactivate'
   get 'students/attended_first_class', to: 'students#attended_first_class'
-  post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'mission_lookup', to: 'static_pages#mission_lookup'
   get 'code', to: 'static_pages#enter_code'
 

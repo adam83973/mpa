@@ -171,3 +171,39 @@ ul{
 .dashboard{
 	height: 300px;
 }
+
+// Badge Home Styling
+
+ .badge_home_text{
+ 	font-weight: bold;
+ 	font-size: 18pt;
+
+ 	p:first-child{
+ 		margin-bottom: 25px;
+ 	}
+
+ 	p:last-child{
+ 		margin-top: 25px;
+ 	}
+
+ 	p:not(:first-child):not(:last-child){
+ 		margin: 25px 0 25px 0
+ 	}
+ }
+
+ .badge_information_header_text{
+ 	font-weight: bold;
+ 	font-size: 4em;
+ 	margin:100px 0 100px 0;
+ }
+
+ .badge_information_icon{
+ 	font-size: 15em;
+ 	margin-top: 10%;
+ }
+
+ #badge_information{
+		hr{
+ 			border-top: 9px solid #ccc;
+		}
+ }
