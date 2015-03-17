@@ -18,7 +18,7 @@
               <th> <%= link_to "Student Name", :sort => "Name" %> </th>
               <th> <%= link_to "XP", :sort => "points" %> </th>
             </tr>
-              <% offering.registrations.includes(:offering, :student).where("status = ?", "1").each do |registration| %>
+              <% offering.registrations.includes(:offering, :student).where("status = ?", "1").each_with_index do |registration, i| %>
                 <tr>
                   <td>
                     <% if class_session.in_session? %>
@@ -26,7 +26,7 @@
                         <%= simple_form_for @experience_point,
                             url: url_for( action: :create, controller: :experience_points ),
                             method: :post,
-                            html: { class: 'class_attendance_form'},
+                            html: { class: 'class_attendance_form', id: "class_attendance_form#{i}"},
                             remote: true do |f| %>
                           <%= f.error_notification %>
 
