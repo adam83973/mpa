@@ -86,6 +86,18 @@ class User < ActiveRecord::Base
   #   end
   # end
 
+  def missed_appointment
+    Rails.env.production? ? tag_id = 1838 : tag_id = 109
+    unless appointment_rescheduled?
+      if Infusionsoft.contact_add_to_group(infusion_id, tag_id) #adds tag: "missed appt."
+        #this stops multiple reschedule requests from being submitted.
+        update_attribute :appointment_rescheduled, true
+        note = notes.build({user_id: system_admin.id, content: "#{full_name} would like to reschedule their appointments.", action_date: Date.today, location_id: location.id })
+        note.save
+      end
+    end
+  end
+
   def deactivate
     if active
       update_attributes active: false
@@ -158,6 +170,14 @@ class User < ActiveRecord::Base
         email << parent.email
         csv << email
       end
+    end
+  end
+
+  def system_admin
+    if Rails.env.production?
+      find_by_email("system@mathplusacademy.com")
+    elsif Rails.env.development?
+      find_by_email("director@mathplusacademy.com")
     end
   end
 end

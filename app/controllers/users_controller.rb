@@ -316,24 +316,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def missed_appointment
-    @parent = User.find(params[:id])
-    if @user && Rails.env.production?
-      respond_to do |format|
-        unless @parent.appointment_rescheduled?
-          if Infusionsoft.contact_add_to_group(@parent.infusion_id, 1784) #adds tag: "year end promotion"
-            @parent.update_attribute :appointment_rescheduled, true
-            format.json { head :no_content }
-          end
-        end
-      end
-    end
-  end
-
   def appointment_reschedule_request
     @parent = User.find_by_infusion_id(infusion_id: params["Id"].to_i)
-
-    puts params["Id"]
 
     if @parent
       @location = @parent.location
