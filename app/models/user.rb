@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
       if Infusionsoft.contact_add_to_group(infusion_id, tag_id) #adds tag: "missed appt."
         #this stops multiple reschedule requests from being submitted.
         update_attribute :appointment_rescheduled, true
-        note = notes.build({user_id: system_admin_id, content: "#{full_name} would like to reschedule their appointments.", action_date: Date.today, location_id: location.id })
+        note = notes.build({user_id: system_admin_id, content: "#{full_name} missed their appointment. Please contact to reschedule. An email has also been sent.", action_date: Date.today, location_id: location.id })
         note.save
       end
     end
