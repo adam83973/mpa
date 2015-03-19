@@ -316,6 +316,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def missed_appointment
+    @parent = User.find_by_infusion_id(infusion_id: params["Id"].to_i)
+
+    puts params["Id"]
+
+    if @parent
+      @location = @parent.location
+      @user = User.find(1)
+      AdminMailer.contact_request(@parent, @user).deliver
+      @note = @parent.notes.build({user_id: @user.id, content: "#{@parent.full_name} would like to reschedule their appointments.", action_date: Date.today, location_id: @location.id })
+      @note.save
+    else
+    end
+  end
+
   def appointment_request
     response = request.body.read
     appointment = JSON.parse(response)
