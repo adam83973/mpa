@@ -317,7 +317,7 @@ class UsersController < ApplicationController
   end
 
   def appointment_reschedule_request
-    @parent = User.find_by_infusion_id(infusion_id: params["Id"].to_i)
+    @parent = User.find_by_infusion_id(params["Id"].to_i)
 
     if @parent
       @location = @parent.location

@@ -50,8 +50,15 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_status(id)
+    id = id.to_i
+    parent = user
     #["0, Interested", "1, Appointment Scheduled", "2, Appointment Missed", "3, Trial", "4, Undecided", "5, Waitlisted", "6, Possible Restart", "7, Won", "8, Lost"]
     update_column(:status, id.to_i)
+
+    if id == 2
+      parent.missed_appointment
+    end
+
   end
 
   def status_name

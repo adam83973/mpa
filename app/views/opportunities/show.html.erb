@@ -31,9 +31,6 @@
         <li style="padding-top:10px;">
           <%= render 'promotions' unless @opportunity.promotion_sent || @opportunity.status != 4 %>
         </li>
-        <li style="padding-top:10px;">
-          <%= unless @opportunity.promotion_sent || @opportunity.status != 4 %>
-        </li>
       </ul>
     </div>
   </div>
