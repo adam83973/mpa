@@ -101,17 +101,18 @@ MathPlus::Application.routes.draw do
 
   resources :users do
     collection do
-      post :create_from_opportunity
-      post :import
-      get :my_account
-      get :password_reset
-      get :send_hold_form
-      get :send_termination_form
-      post :infusion_request
-      post :missed_appointment
-      get :year_end_promotion
-      get :promotion
-      post :appointment_request
+      post  :create_from_opportunity
+      post  :import
+      get   :my_account
+      get   :password_reset
+      get   :send_hold_form
+      get   :send_termination_form
+      post  :infusion_request
+      get   :missed_appointment
+      post  :appointment_reschedule_request
+      get   :year_end_promotion
+      get   :promotion
+      post  :appointment_request
     end
     resources :notes
   end

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [:infusion_request, :appointment_request]
-  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request]
+  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request, :missed_appointments]
 
   # GET /users
   # GET /users.json
@@ -317,6 +317,20 @@ class UsersController < ApplicationController
   end
 
   def missed_appointment
+    @parent = User.find(params[:id])
+    if @user && Rails.env.production?
+      respond_to do |format|
+        unless @parent.appointment_rescheduled?
+          if Infusionsoft.contact_add_to_group(@parent.infusion_id, 1784) #adds tag: "year end promotion"
+            @parent.update_attribute :appointment_rescheduled, true
+            format.json { head :no_content }
+          end
+        end
+      end
+    end
+  end
+
+  def appointment_reschedule_request
     @parent = User.find_by_infusion_id(infusion_id: params["Id"].to_i)
 
     puts params["Id"]
