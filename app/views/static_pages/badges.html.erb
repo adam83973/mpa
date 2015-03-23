@@ -20,9 +20,9 @@
       They will receive recognition for excelling in school, activities at home, and even participating in hobbies or clubs outside of school.
     </p>
     <div class="text-center">
-      <%= link_to("#badge_information") do %>
+      <%= link_to("#badge_information", id: "badge_information_link") do %>
         <h1>more information</h1>
-        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-chevron-down fa-2x"></i>
       <% end %>
     </div>
   </div>
@@ -60,6 +60,46 @@
           Earn badges and reap rewards.
         </h1>
       </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="text-center">
+      <%= link_to("#earn_badges", id: "earn_badges_link") do %>
+        <h1>how to earn badges</h1>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row" style="padding:200px 0 200px 0">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+    <%= image_tag('example_badge1.png', size: '250x250') %>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+    <%= image_tag('example_badge2.png', size: '250x250') %>
+  </div>
+  <div style="margin-top:200px;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+    <%= image_tag('example_badge3.png', size: '250x250') %>
+  </div>
+</div>
+<div id="earn_badges" class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="text-center">
+        <h1 class="badge_information_header_text">Ways to Earn Badges</h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="text-center">
+      <h3>Complete Projects</h3>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="text-center">
+      <h3>Solve Problems</h3>
     </div>
   </div>
 </div>

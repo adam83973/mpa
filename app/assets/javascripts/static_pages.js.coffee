@@ -193,3 +193,13 @@ jQuery ->
         $("#add-grade").attr "disabled", "disabled"
       else
         $("#add-grade").removeAttr "disabled"
+
+  $('#earn_badges_link').on 'click', ->
+     $('html, body').animate
+        scrollTop: $("#earn_badges").offset().top,
+        1000
+
+  $('#badge_information_link').on 'click', ->
+     $('html, body').animate
+        scrollTop: $("#badge_information").offset().top,
+        1000
