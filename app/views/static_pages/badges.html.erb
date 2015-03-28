@@ -27,11 +27,12 @@
     </div>
   </div>
 </div>
+<hr class="thick_hr">
 <div class="row">
-  <div id="badge_information" class="col-lg-12 col-md-12 col-sm-12 col-sm-12 text-center">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12 text-center">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
-          <i class="fa fa-rocket badge_information_icon"></i>
+          <i class="fa fa-rocket badge_information_icon" style="color:#AA3A3A;"></i>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
         <h1 class="badge_information_header_text">
@@ -39,10 +40,10 @@
         </h1>
       </div>
     </div>
-    <hr>
+    <hr class="thick_hr">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
-          <i class="fa fa-puzzle-piece badge_information_icon"></i>
+          <i class="fa fa-puzzle-piece badge_information_icon" style="color:#29619D;"></i>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
         <h1 class="badge_information_header_text">
@@ -50,10 +51,10 @@
         </h1>
       </div>
     </div>
-    <hr style="font-weight:700;">
+    <hr class="thick_hr">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
-          <i class="fa fa-certificate badge_information_icon"></i>
+      <div id="badge_information"  class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
+          <i class="fa fa-certificate badge_information_icon" style="color:#CFD24E;"></i>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 text-center">
         <h1 class="badge_information_header_text">
@@ -61,27 +62,44 @@
         </h1>
       </div>
     </div>
+
+  <hr class="thick_hr">
   </div>
 </div>
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="text-center">
       <%= link_to("#earn_badges", id: "earn_badges_link") do %>
-        <h1>how to earn badges</h1>
+        <h1>How do I earn badges?</h1>
         <i class="fa fa-chevron-down fa-3x"></i>
       <% end %>
     </div>
   </div>
 </div>
-<div class="row" style="padding:200px 0 200px 0">
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
-    <%= image_tag('example_badge1.png', size: '250x250') %>
+<div class="row" style="padding:200px 0 100px 0">
+  <div class="col-lg-12 col-md-12 hidden-sm hidden-xs text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-insightful-questions.png', size: '400x400') %>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
-    <%= image_tag('example_badge2.png', size: '250x250') %>
+  <div class="col-lg-12 col-md-12 hidden-sm hidden-xs text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-attention-to-detail.png', size: '400x400') %>
   </div>
-  <div style="margin-top:200px;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-    <%= image_tag('example_badge3.png', size: '250x250') %>
+  <div class="col-lg-12 col-md-12 hidden-sm hidden-xs text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-hot-streak.png', size: '400x400') %>
+  </div>
+  <div class="col-lg-12 col-md-12 hidden-sm hidden-xs text-center">
+    <%= image_tag('badges/MATHPLUS-Badge-dedication.png', size: '400x400') %>
+  </div>
+  <div class="col-sm-12 col-xs-12 hidden-lg hidden-md text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-insightful-questions.png', size: '250x250') %>
+  </div>
+  <div class="col-sm-12 col-xs-12 hidden-lg hidden-md text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-attention-to-detail.png', size: '250x250') %>
+  </div>
+  <div class="col-sm-12 col-xs-12 hidden-lg hidden-md text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-hot-streak.png', size: '250x250') %>
+  </div>
+  <div class="col-sm-12 col-xs-12 hidden-lg hidden-md text-center" style="padding:0 0 200px 0;">
+    <%= image_tag('badges/MATHPLUS-Badge-dedication.png', size: '250x250') %>
   </div>
 </div>
 <div id="earn_badges" class="row">
@@ -94,12 +112,12 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="text-center">
-      <h3>Complete Projects</h3>
+      <h1>Complete Projects</h1>
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="text-center">
-      <h3>Solve Problems</h3>
+      <h1>Solve Problems</h1>
     </div>
   </div>
 </div>
