@@ -84,7 +84,12 @@ class StaticPagesController < ApplicationController
 
     if params[:search]
       @users_search = User.search(params[:search])
-      @offerings_search = Offering.search(params[:search]).delete_if{ |offering| !(offering.active?) }
+      @offerings_search = Offering.search do
+        order_by(:course_id, :asc)
+        fulltext params[:search]
+      end
+      @offerings_search = @offerings_search.results
+      @offerings_search.delete_if{ |offering| !(offering.active?) }
       @students_search = Student.search(params[:search])
     end
   end

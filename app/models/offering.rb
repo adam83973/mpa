@@ -1,6 +1,5 @@
 class Offering < ActiveRecord::Base
-  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active, :classroom,
-                  :hidden
+  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active, :classroom, :hidden
 
   validates_presence_of :course_id, :day, :time, :location_id
 
@@ -14,6 +13,13 @@ class Offering < ActiveRecord::Base
 
   scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }
   scope :active,  lambda{ where("active = ?", true) }
+
+  searchable do
+    text :offering_name
+    integer :course_id
+    time :time
+    integer :user_ids, :multiple => true
+  end
 
   def name
     course.course_name
@@ -35,11 +41,11 @@ class Offering < ActiveRecord::Base
       self.registrations.where("status = ? OR status = ?", 1, 0).count
   end
 
-  def self.search(search)
-    if search
-      joins(:course).where('lower(courses.course_name) LIKE ?', "%#{search.downcase}%")
-    end
-  end
+  # def self.search(search)
+  #   if search
+  #     joins(:course).where('lower(courses.course_name) LIKE ?', "%#{search.downcase}%")
+  #   end
+  # end
 
   def type
     id = self.course_id
