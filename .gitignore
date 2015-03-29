@@ -16,3 +16,6 @@
 
 # Ignore all logfiles and tempfiles.
 /public/uploads/tmp
+
+# Ignore sunspot files
+solr/data
