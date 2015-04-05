@@ -19,7 +19,7 @@
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <div class="well well-sm">
-      <h3 class="text-center" style="margin-top:0;"> <%= @action.badge == "edit" ? "Edit" : "Add A" %> Badge</h3>
+      <h3 class="text-center" style="margin-top:0;"> <%= @action == "edit" ? "Edit" : "Add A" %> Badge</h3>
       <%= f.simple_fields_for :badge do |badge_form| %>
         <%= badge_form.input :name %>
         <%= badge_form.input :image, as: :file, label: "Upload Image" unless @experience.badge && @experience.badge.image? %>

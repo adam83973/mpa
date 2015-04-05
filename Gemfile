@@ -35,6 +35,7 @@ gem 'appsignal'
 gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'delayed_job_active_record'
 
 
 # Bundle edge Rails instead:
