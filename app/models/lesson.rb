@@ -9,6 +9,12 @@ class Lesson < ActiveRecord::Base
   has_many :grades
   has_one :course, through: :standard
 
+  searchable do
+    # text :name
+    text :course_name
+    integer :week
+    text :course_name_and_week
+  end
 
   def title
   	if standard
@@ -18,9 +24,17 @@ class Lesson < ActiveRecord::Base
   	end
   end
 
+  def course_id
+    course.id
+  end
+
   def course_name
+    course.course_name
+  end
+
+  def course_name_and_week
     if standard
-      standard.course.course_name
+      "#{standard.course.course_name} #{week}"
     else
       week.to_s + ": " + name
     end

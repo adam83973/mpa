@@ -1,5 +1,5 @@
 <%if @users_search %>
-  <% if @users_search.empty? && @students_search.empty? && @offerings_search.empty? %>
+  <% if @users_search.empty? && @students_search.empty? && @offerings_search.empty? && @lessons_search.empty? %>
   <div class="row">
     <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
       <%= render 'shared/mobile_reset_search' %><br>
@@ -39,6 +39,11 @@
         <% @offerings_search.each do |offering|%>
           <div class="user_search">
             <p><strong><%= link_to offering.offering_name, offering %></strong>  (Open spots: <%= open_spots offering %>)</p>
+          </div>
+        <% end %>
+        <% @lessons_search.each do |lesson|%>
+          <div class="user_search">
+            <p><strong><%= link_to "#{lesson.course_name_and_week}: #{lesson.name}", lesson %></strong> (Lesson)</p>
           </div>
         <% end %>
       </div>

@@ -91,6 +91,11 @@ class StaticPagesController < ApplicationController
       @offerings_search = @offerings_search.results
       @offerings_search.delete_if{ |offering| !(offering.active?) }
       @students_search = Student.search(params[:search])
+      @lessons_search = Lesson.search do
+        with(:week, params[:search].gsub(/[a-zA-Z]|\s/,"").to_i)
+        fulltext(params[:search].gsub(/[0-9]|\s/,""))
+      end
+      @lessons_search = @lessons_search.results
     end
   end
 
