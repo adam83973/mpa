@@ -31,7 +31,6 @@ gem 'rest_client'
 gem 'json'
 gem 'rollbar', '~> 1.2.11'
 gem 'mail_form'
-gem 'appsignal'
 gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
