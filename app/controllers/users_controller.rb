@@ -348,6 +348,14 @@ class UsersController < ApplicationController
 
         puts "Appointment #{@appointment.id} Updated"
       else
+        apt_time = appointment['appointmentDateTimeClient']
+
+        if apt_time
+          apt = DateTime.parse(apt_time)
+        else
+          apt = DateTime.now
+        end
+
         # Appointment is not in DB, create new appointment record.
         @appointment = Appointment.create!(
           clientId:      appointment['client']['clientId'],
@@ -355,7 +363,7 @@ class UsersController < ApplicationController
           locationId:    appointment['location']['locationId'],
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
-          time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+          time:          apt_time,
           user_id:       @parent.id,
           note:          appointment['note'],
           status:        appointment['status']
