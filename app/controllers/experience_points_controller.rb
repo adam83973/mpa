@@ -67,80 +67,20 @@ class ExperiencePointsController < ApplicationController
       @response = @student.to_json
 
       # find ids of experiences that are related to attendance
-      @attendance_exps = Experience.where("name LIKE ?", "%Attendance%")
-      @exp = []
-      @attendance_exps.each do |exp|
-        @exp << exp.id
+      @attendance_experience_points = Experience.where("name LIKE ?", "%Attendance%")
+      @attendance_xp = []
+      @attendance_experience_points.each do |exp|
+        @attendance_xp << exp.id
       end
 
       #add credits and special redirect when attendance is taken
       #add .js response for ajax
-      if @exp.include?(params[:experience_point][:experience_id].to_i)
-
-        #add student attendance from teacher home page
-        if class_session.in_session?
-         class_session.add_student(@student)
-        end
-
-        respond_to do |format|
-          if @experience_point.save
-            # add credits to students account based on earned xp
-            if @credits > 0
-              @student.add_credit(@credits)
-            end
-
-            # update level for occupation based on experience point's occupation relation
-            @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
-
-            format.html { redirect_to student_path(@student), notice: "Attendance added for #{@student.first_name}." }
-            format.js
-            format.json { render json: @experience_point, status: :created, location: @experience_point }
-
-          else
-            format.html { render root_path }
-            format.json { render json: @experience_point.errors, status: :unprocessable_entity }
-          end
-        end
-      # elsif params[:experience_point][:experience_id] == "1"
-
+      if @attendance_xp.include?(params[:experience_point][:experience_id].to_i)
+        take_attendance
       elsif ["1", "4", "5"].include?(params[:experience_point][:experience_id])
-
-        respond_to do |format|
-          if @experience_point.save
-            if @credits > 0
-                  @student.add_credit(@credits)
-            end
-
-            # update level for occupation based on experience point's occupation relation
-            @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
-
-            format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
-            format.json { render json: @experience_point, status: :created, location: @experience_point }
-          else
-            format.html { render action: "new" }
-            format.json { render json: @experience_point.errors, status: :unprocessable_entity }
-          end
-        end
+        add_homework_score
       else
-        respond_to do |format|
-          if @experience_point.save
-            if @credits > 0
-              @student.add_credit(@credits)
-            end
-
-            # update level for occupation based on experience point's occupation relation
-            @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
-
-            #check to see if badge is associated with experience point's experience
-            @badge_earned = @experience_point.add_badge?(@student)
-
-            format.html { redirect_to student_path(@student), notice: "Experience point was successfully created. #{'You earned a badge!' if @badge_earned }" }
-            format.json { render json: @experience_point, status: :created, location: @experience_point }
-          else
-            format.html { render action: "new" }
-            format.json { render json: @experience_point.errors, status: :unprocessable_entity }
-          end
-        end
+        add_experience_point
       end
     end
   end
@@ -184,4 +124,73 @@ class ExperiencePointsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def take_attendance
+      #add student attendance from teacher home page
+      if class_session.in_session?
+       class_session.add_student(@student)
+      end
+
+      respond_to do |format|
+        if @experience_point.save
+          # add credits to students account based on earned xp
+          if @credits > 0
+            @student.add_credit(@credits)
+          end
+
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
+
+          format.html { redirect_to student_path(@student), notice: "Attendance added for #{@student.first_name}." }
+          format.js
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render root_path }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
+      end
+      # elsif params[:experience_point][:experience_id] == "1"
+    end
+
+    def add_homework_score
+      respond_to do |format|
+        if @experience_point.save
+          if @credits > 0
+                @student.add_credit(@credits)
+          end
+
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
+
+          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def add_experience_point
+      respond_to do |format|
+        if @experience_point.save
+          if @credits > 0
+            @student.add_credit(@credits)
+          end
+
+          # update level for occupation based on experience point's occupation relation
+          @experience_point.occupation ? @student.update_level(@experience_point.occupation.title) : ""
+
+          #check to see if badge is associated with experience point's experience
+          @badge_earned = @experience_point.add_badge?(@student)
+
+          format.html { redirect_to student_path(@student), notice: "Experience point was successfully created. #{'You earned a badge!' if @badge_earned }" }
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
+      end
+    end
 end
