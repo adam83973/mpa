@@ -77,6 +77,7 @@ class ExperiencePointsController < ApplicationController
       #add .js response for ajax
       if @attendance_xp.include?(params[:experience_point][:experience_id].to_i)
         take_attendance
+      #add homework score and special redirect
       elsif ["1", "4", "5"].include?(params[:experience_point][:experience_id])
         add_homework_score
       else

@@ -187,8 +187,15 @@ class OpportunitiesController < ApplicationController
           # Update opportunity attributes
           @opportunity.update_attribute :status, 7 # set opportunity to won
           @opportunity.update_attribute :date_won, Date.today # set date won date
-          format.html { redirect_to infusion_pages_subscription_path(ContactId: @parent.infusion_id), notice: 'Registration was successfully created.' }
-          format.json { render json: @registration, status: :created, location: @registration }
+          if @registration.payment_information_later
+            # For when billing information will be collected at first class.
+            add_payment_note # add note to collect billing info at first class
+            format.html { redirect_to @student, notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
+            format.json { render json: @registration, status: :created, location: @registration }
+          else
+            format.html { redirect_to infusion_pages_subscription_path(ContactId: @parent.infusion_id), notice: 'Registration was successfully created.' }
+            format.json { render json: @registration, status: :created, location: @registration }
+          end
         else
           format.html { render action: "new" }
           format.json { render json: @registration.errors, status: :unprocessable_entity }
@@ -233,4 +240,10 @@ class OpportunitiesController < ApplicationController
       end
     end
   end
+
+  private
+    def add_payment_note
+      @note = @parent.notes.build({content: "#{@student.full_name} is starting today and we may not have payment information. Please check to see if payment information is on file. If not, collect at first class.", user_id: current_user.id, action_date: @registration.start_date, location_id: @parent.location_id})
+      @note.save
+    end
 end

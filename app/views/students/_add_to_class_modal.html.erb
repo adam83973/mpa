@@ -17,6 +17,7 @@
               <%= f.association :offering, label_method: :offering_name, collection: @active_offerings, as: :hidden %>
               <%= f.association :offering, label_method: :offering_name, collection: @active_offerings, input_html: { disabled: true } %>
               <%= f.input :opportunity_id, as: :hidden %>
+              <%= f.input :payment_information_later, label: 'Payment information will be brought to first class.' %>
           </div>
         </div>
         <div class="row">

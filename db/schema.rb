@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150331132950) do
+ActiveRecord::Schema.define(:version => 20150415183829) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -370,20 +370,21 @@ ActiveRecord::Schema.define(:version => 20150331132950) do
     t.date     "end_date"
     t.date     "hold_date"
     t.date     "trial_date"
-    t.boolean  "attended_first_class", :default => false
-    t.boolean  "attended_trial",       :default => false
+    t.boolean  "attended_first_class",      :default => false
+    t.boolean  "attended_trial",            :default => false
     t.integer  "student_id"
     t.integer  "offering_id"
     t.integer  "admin_id"
-    t.integer  "status",               :default => 0
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.integer  "status",                    :default => 0
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.date     "restart_date"
     t.integer  "subscription_id"
     t.integer  "hold_id"
     t.integer  "switch_id"
-    t.boolean  "switch",               :default => false
+    t.boolean  "switch",                    :default => false
     t.integer  "drop_reason"
+    t.boolean  "payment_information_later", :default => false
   end
 
   create_table "resources", :force => true do |t|
