@@ -1,6 +1,6 @@
 class InfusionPagesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_filter :authenticate_user!, except: [:tag_contact]
+  before_filter :authorize_admin, except: [:tag_contact]
 
   def home
   	if params[:search]
@@ -287,6 +287,15 @@ class InfusionPagesController < ApplicationController
 
     @parent_sub_no_reg = Array.new
     @parents_with_sub.each { |parent| parent.active_students? == false ? @parent_sub_no_reg << parent : "" }
+  end
 
+  def tag_contact
+    @contact_id = params[:contact_id]
+    @tag_ids = params[:tag_ids]
+    @tag_ids.each{ |tag_id| Infusionsoft.contact_add_to_group(@contact_id, tag_id)}
+
+    respond_to do |format|
+      format.html
+    end
   end
 end

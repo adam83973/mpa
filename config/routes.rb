@@ -187,4 +187,5 @@ MathPlus::Application.routes.draw do
   get "infusion_pages/end_subscription"
   get "infusion_pages/delete_user"
   get "infusion_pages/audit"
+  get "infusion_pages/tag_contact"
 end
