@@ -7,6 +7,8 @@ class Opportunity < ActiveRecord::Base
 
   validates_presence_of :location_id
 
+  after_update :status_actions_after_change
+
   belongs_to :location
   belongs_to :student
   belongs_to :user
@@ -33,6 +35,12 @@ class Opportunity < ActiveRecord::Base
     PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
   end
 
+  def add_missed_appointment_note
+    parent = user
+    note = parent.notes.build({content: "#{parent.full_name} missed their appointment. An email has been sent to ask to reschedule.", user_id: current_user.id, location_id: parent.location_id})
+    note.save
+  end
+
   def full_name
     if !(self.student) && ( self.student_name.empty? || self.student_name.nil? )
       "Parent: #{parent_name}"
@@ -49,26 +57,6 @@ class Opportunity < ActiveRecord::Base
     end
   end
 
-  def update_status(id)
-    id = id.to_i
-    parent = user
-    #["0, Interested", "1, Appointment Scheduled", "2, Appointment Missed", "3, Trial", "4, Undecided", "5, Waitlisted", "6, Possible Restart", "7, Won", "8, Lost"]
-    update_column(:status, id.to_i)
-
-    if id == 2
-      parent.missed_appointment
-    end
-
-  end
-
-  def status_name
-    if self.status
-      STATUSES[self.status]
-    else
-      "No status selected."
-    end
-  end
-
   #array of promotions with their associated tag/group ids. Pulls tags within the category "Undecided Tags"
   #[['Free Month', 1786], ['Two Weeks Free', 1788], ['No Deposit', 1790]]
   def promotions
@@ -80,5 +68,38 @@ class Opportunity < ActiveRecord::Base
     end
 
     data = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+  end
+
+  def status_actions_after_change
+    status_actions if self.status_changed?
+  end
+
+  def status_actions
+    parent = user
+    if status == 8 #lost
+      self.update_attribute :date_lost, Date.today
+    elsif status == 4 #undecided
+      self.update_attribute :undecided_date, Date.today
+    elsif status == 2 #missed appointment
+      parent.missed_appointment
+    end
+  end
+
+  def status_name
+    if self.status
+      STATUSES[self.status]
+    else
+      "No status selected."
+    end
+  end
+
+  def update_status(id)
+    id = id.to_i
+    parent = user
+    #["0, Interested", "1, Appointment Scheduled", "2, Appointment Missed", "3, Trial", "4, Undecided", "5, Waitlisted", "6, Possible Restart", "7, Won", "8, Lost"]
+    update_column(:status, id.to_i)
+    if id == 2
+      parent.missed_appointment
+    end
   end
 end

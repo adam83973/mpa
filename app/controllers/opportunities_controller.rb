@@ -31,8 +31,6 @@ class OpportunitiesController < ApplicationController
       @promotions = Opportunity::PROMOTIONS
     end
 
-
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @opportunity }
@@ -114,6 +112,7 @@ class OpportunitiesController < ApplicationController
 
   def update_status
     @opportunity = Opportunity.find(params[:id])
+    @parent = @opportunity.user
     @user_location = @opportunity.location
     @old_status = @opportunity.status
     @new_status = params[:status]
@@ -121,11 +120,6 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.update_status(@new_status.to_i)
-        if @opportunity.status == 8
-          @opportunity.update_attribute :date_lost, Date.today
-        elsif @opportunity.status == 4
-          @opportunity.update_attribute :undecided_date, Date.today
-        end
         format.js
       end
     end
@@ -242,6 +236,7 @@ class OpportunitiesController < ApplicationController
   end
 
   private
+
     def add_payment_note
       @note = @parent.notes.build({content: "#{@student.full_name} is starting today and we may not have payment information. Please check to see if payment information is on file. If not, collect at first class.", user_id: current_user.id, action_date: @registration.start_date, location_id: @parent.location_id})
       @note.save
