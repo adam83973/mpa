@@ -7,8 +7,6 @@ class Opportunity < ActiveRecord::Base
 
   validates_presence_of :location_id
 
-  after_update :status_actions_after_change
-
   belongs_to :location
   belongs_to :student
   belongs_to :user
@@ -70,10 +68,6 @@ class Opportunity < ActiveRecord::Base
     data = data.map { |hash| [hash["GroupName"], hash["Id"]] }
   end
 
-  def status_actions_after_change
-    status_actions if self.status_changed?
-  end
-
   def status_actions
     parent = user
     if status == 8 #lost
@@ -98,8 +92,6 @@ class Opportunity < ActiveRecord::Base
     parent = user
     #["0, Interested", "1, Appointment Scheduled", "2, Appointment Missed", "3, Trial", "4, Undecided", "5, Waitlisted", "6, Possible Restart", "7, Won", "8, Lost"]
     update_column(:status, id.to_i)
-    if id == 2
-      parent.missed_appointment
-    end
+    status_actions
   end
 end

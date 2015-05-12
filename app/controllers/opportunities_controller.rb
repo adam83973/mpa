@@ -86,9 +86,18 @@ class OpportunitiesController < ApplicationController
   # PUT /opportunities/1.json
   def update
     @opportunity = Opportunity.find(params[:id])
+    @parent = @opportunity.user
+    @status = @opportunity.status
 
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
+        if @status == 8 #lost
+          @opportunity.update_attribute :date_lost, Date.today
+        elsif status == 4 #undecided
+          @opportunity.update_attribute :undecided_date, Date.today
+        elsif status == 2 #missed appointment
+          @parent.missed_appointment
+        end
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
         format.json { head :no_content }
       else
