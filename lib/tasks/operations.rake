@@ -12,7 +12,7 @@ end
 
 def start_hold
   #Look for registrations with start hold date. Change status to inactive.
-  registrations = Registration.where("hold_date = ?", Date.today)
+  registrations = Registration.where("hold_date <= ? AND status = ?", Date.today, 1)
 
   #cycle through students and set status to hold if student has end date for current day
   registrations.each do |registration|
