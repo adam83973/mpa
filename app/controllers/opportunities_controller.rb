@@ -1,6 +1,6 @@
 class OpportunitiesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_filter :authenticate_user!, except: :add_trial
+  before_filter :authorize_employee, except: :add_trial
 
   # GET /opportunities
   # GET /opportunities.json
@@ -208,6 +208,13 @@ class OpportunitiesController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+
+  def add_trial
+    @opportunity = Opportunity.new(params[:opportunity])
+    @opportunity.save
+
+    render nothing: true
   end
 
   def attended_trial

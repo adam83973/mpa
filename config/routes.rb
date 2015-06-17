@@ -24,6 +24,7 @@ MathPlus::Application.routes.draw do
       get :missed_trial
       get :add_to_class
       get :update_interest
+      post :add_trial
     end
   end
 
