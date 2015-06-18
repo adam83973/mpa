@@ -212,10 +212,11 @@ class OpportunitiesController < ApplicationController
 
   def add_trial
     @opportunity = Opportunity.new(params[:opportunity])
-    # Use parent_email to see if customer already exists!
     @opportunity.status = 3
 
     if @opportunity.save
+      @user = check_add_user_with_email(@opportunity) # add user to opportunity or create and add if not
+      NotificationMailer.trial_confirmation(@opportunity).deliver #send trial registration confirmation
       respond_to do |format|
         format.html
         format.json { render json: @opportunity }
@@ -223,7 +224,13 @@ class OpportunitiesController < ApplicationController
     end
 
     #add note with actionable item
-    #send confirmation of trial
+    @note1 = @user.notes.build({
+      content: content,
+      user_id: 1,
+      location_id: @user.location_id,
+      action_date: Date.today})
+
+    @note1.save!
   end
 
   def attended_trial
@@ -265,5 +272,25 @@ class OpportunitiesController < ApplicationController
     def add_payment_note
       @note = @parent.notes.build({content: "#{@student.full_name} is starting today and we may not have payment information. Please check to see if payment information is on file. If not, collect at first class.", user_id: current_user.id, action_date: @registration.start_date, location_id: @parent.location_id})
       @note.save
+    end
+
+    def check_add_user_with_email(opportunity)
+      @opportunity = opportunity
+      @user = User.find_by_email(@opportunity.parent_email) #check to see if user account exists via email
+
+      if !@user
+        #create user account if no account found
+        @generated_password = Devise.friendly_token.first(8) # password for new user
+        @user = User.create!(
+                      first_name:               @opportunity.parent_name.split.first,
+                      last_name:                @opportunity.parent_name.split.last,
+                      email:                    @opportunity.parent_email,
+                      password:                 @generated_password,
+                      active:                   false,
+                      role:                     "Parent")
+      end
+
+      @opportunity.update_attribute :user_id, @user.id #update opportunity with existing user_id
+      @user
     end
 end

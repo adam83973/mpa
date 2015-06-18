@@ -1,5 +1,12 @@
 class NotificationMailer < AdminMailer
 
+  def trial_confirmation(opportunity)
+    @opportunity = opportunity
+    @parent = @opportunity.user
+
+    @parent ? mail(to: @parent.email, subject: "You're trial has been scheduled!") : mail(to: @opportunity.parent_email, subject: "You're trial has been scheduled!")
+  end
+
   def trial_reminder(opportunity)
     @opportunity = opportunity
     @parent = @opportunity.user

@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def system_admin_id
+  def self.system_admin_id
     if Rails.env.production?
       757
     elsif Rails.env.development?
