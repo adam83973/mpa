@@ -214,13 +214,16 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new(params[:opportunity])
     # Use parent_email to see if customer already exists!
     @opportunity.status = 3
-    
-    @opportunity.save
+
+    if @opportunity.save
+      respond_to do |format|
+        format.html
+        format.json { render json: @opportunity }
+      end
+    end
 
     #add note with actionable item
     #send confirmation of trial
-
-    render nothing: true
   end
 
   def attended_trial
