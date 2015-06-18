@@ -213,6 +213,7 @@ class OpportunitiesController < ApplicationController
   def add_trial
     @opportunity = Opportunity.new(params[:opportunity])
     @opportunity.status = 3
+    @opportunity.interest_level = 2
 
     if @opportunity.save
       @user = check_add_user_with_email(@opportunity) # add user to opportunity or create and add if not
@@ -227,7 +228,7 @@ class OpportunitiesController < ApplicationController
     @note1 = @user.notes.build({
       content: "#{@user.first_name} has scheduled a trial. Please check to see that opportunity is linked to parent account.",
       user_id: User.system_admin_id,
-      location_id: @user.location_id,
+      location_id: @opportunity.location_id,
       action_date: Date.today})
 
     @note1.save!
@@ -284,6 +285,7 @@ class OpportunitiesController < ApplicationController
         @user = User.create!(
                       first_name:               @opportunity.parent_name.split.first,
                       last_name:                @opportunity.parent_name.split.last,
+                      location_id:              @opportunity.location_id,
                       email:                    @opportunity.parent_email,
                       password:                 @generated_password,
                       active:                   false,
