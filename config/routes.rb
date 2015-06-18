@@ -8,6 +8,12 @@ MathPlus::Application.routes.draw do
 
   resources :avatars
 
+  namespace :operations_pages do
+      get :main
+      get :trial_applet
+      get :creating_an_opportunity
+  end
+
   get  'opportunities/by_status', to: 'opportunities#by_status'
   post 'opportunities/update_status', to: 'opportunities#update_status'
 
