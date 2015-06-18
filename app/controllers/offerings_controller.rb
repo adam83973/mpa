@@ -89,7 +89,7 @@ class OfferingsController < ApplicationController
   end
 
   def offerings_by_location
-    @offerings = Offering.joins(:course).where(location_id: params[:location_id].to_i).where(:courses => { specialization: true } ).order(:course_id)
+    @offerings = Offering.joins(:course).where(location_id: params[:location_id].to_i).where(:courses => { specialization: true } ).where(active: true).order(:course_id)
     @offerings_list = []
     @offerings.each{|offering| @offerings_list << [offering.id, offering.offering_trial_name, offering.day]}
 
