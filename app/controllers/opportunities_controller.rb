@@ -212,7 +212,10 @@ class OpportunitiesController < ApplicationController
 
   def add_trial
     @opportunity = Opportunity.new(params[:opportunity])
+    # Use parent_email to see if customer already exists!
     @opportunity.save
+    #add note with actionable item
+    #send confirmation of trial
 
     render nothing: true
   end

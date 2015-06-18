@@ -119,7 +119,10 @@ MathPlus::Application.routes.draw do
   end
 
   resources :locations do
-    collection { post :import }
+    collection do
+      post :import
+      get :list
+    end
   end
 
   resources :courses do
@@ -135,7 +138,10 @@ MathPlus::Application.routes.draw do
   end
 
   resources :offerings do
-    collection { post :import }
+    collection do
+      post :import
+      get :offerings_by_location
+    end
   end
 
   resources :resources do

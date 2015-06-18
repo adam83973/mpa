@@ -1,9 +1,20 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!, :except => ["show"]
-  before_filter :authorize_admin, :except => ["show"]
+  before_filter :authenticate_user!, :except => ["show", "list"]
+  before_filter :authorize_admin, :except => ["show", "list"]
 
   # GET /locations
   # GET /locations.json
+  def list
+    @locations = Location.all
+    @location_list = []
+    @locations.each{|location| @location_list << [location.id, location.name]}
+
+    respond_to do |format|
+      format.json { render json: @location_list }
+      format.html { render nothing: true}
+    end
+  end
+
   def index
     @locations = Location.all
 

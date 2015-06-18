@@ -1,6 +1,6 @@
 class OfferingsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin, except: :show
+  before_filter :authenticate_user!, except: :offerings_by_location
+  before_filter :authorize_admin, except: [:show, :offerings_by_location]
 
   # GET /offerings
   # GET /offerings.json
@@ -85,6 +85,17 @@ class OfferingsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @offering.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def offerings_by_location
+    @offerings = Offering.joins(:course).where(location_id: params[:location_id].to_i).where(:courses => { specialization: true } ).order(:course_id)
+    @offerings_list = []
+    @offerings.each{|offering| @offerings_list << [offering.id, offering.offering_trial_name, offering.day]}
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @offerings_list }
     end
   end
 
