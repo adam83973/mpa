@@ -236,25 +236,33 @@ class OpportunitiesController < ApplicationController
 
   def attended_trial
     @opportunity = Opportunity.find(params[:id])
-    @student = Student.find(@opportunity.student_id)
+    @student = Student.find(@opportunity.student_id) if @opportunity.student_id
     @parent = @opportunity.user
 
-    if @opportunity.update_attribute :attended_trial, true
-      redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
-      @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
-      @note.save
+    if @student
+      if @opportunity.update_attribute :attended_trial, true
+        redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
+        @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+        @note.save
+      end
+    else
+      redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
     end
   end
 
   def missed_trial
     @opportunity = Opportunity.find(params[:id])
-    @student = Student.find(@opportunity.student_id)
+    @student = Student.find(@opportunity.student_id) if @opportunity.student_id
     @parent = @opportunity.user
 
-    if @opportunity.update_attributes missed_trial: true, status: 4
-      redirect_to root_path, notice: "#{@student.full_name} has missed their trial."
-      @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
-      @note.save
+    if @student
+      if @opportunity.update_attributes missed_trial: true, status: 4
+        redirect_to root_path, notice: "#{@student.full_name} has missed their trial."
+        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+        @note.save
+      end
+    else
+      redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as missed."}
     end
   end
 
