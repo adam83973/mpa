@@ -1,18 +1,28 @@
-.welcomescreen{
-	background: url('maya.jpg');
-	background-position: center;
-	background-size: 1000px 667px;
-	background-repeat: no-repeat;
-	height: 600px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	margin-top: 0;
-	padding-left: 13%;
-
-	h1{
-		font-weight: 200;
-	}
+@media (min-width: 992px) {
+  .signin {
+		padding-right: 40px;
+		height: 600px;
+  }
 }
+
+@media (max-width: 992px) {
+  .signin {
+		padding-right: 0;
+		height: 500px;
+  }
+}
+
+.login_section{
+	background: rgb(84, 133, 205);
+	height: 300px;
+}
+
+.login_section_last{
+	background: rgb(84, 205, 100);
+	padding: 70px 0 80px 0;
+	height: 300px;
+}
+
 div.form-group.location_id{
 	margin-bottom:0;
 }

@@ -233,7 +233,7 @@ class InfusionPagesController < ApplicationController
       # create blank invoice
       invoice = Infusionsoft.invoice_create_blank_order(params[:ContactId], "Deposit", DateTime.now, 0, 0)
       # add deposit to order
-      product_id = 275
+      product_id = 966
       type = 3 # Service
       Infusionsoft.invoice_add_order_item(invoice, product_id, type, params[:deposit].to_f, 1, "Deposit", "Deposit")
       Infusionsoft.invoice_add_payment_plan(invoice, true, params[:creditCardId].to_i, params[:merchantAccountId].to_i, 1, 1, 0.0, startDate, startDate, 1, 30)
