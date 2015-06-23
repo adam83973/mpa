@@ -26,24 +26,13 @@
       <%= render 'user_opportunity_management' if current_user.admin? %>
 
       <%= render 'user_billing_management' if current_user.admin? %>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 style="display:inline;" class="panel-title">Tags</h3>
-        </div>
-        <div class="panel-body">
-          <ul>
-            <% @user.infusionsoft_tags.each do |tag| %>
-              <li><%= tag['GroupId'] %>: <b><%= tag['ContactGroup'] %></b></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
     <% end %><!-- /.col-lg-6 .col-md-6 .col-sm-12 .cl-xs-12 -->
   </div>
 
   <div class="col-lg-6 col-md-6 col-sm-12 cl-xs-12">
     <%= render 'user_note_management' if current_user.admin? %>
+
+    <%= render 'user_tags' if current_user.admin? && @user.parent? %>
   </div><!-- /.col-lg-6 .col-md-6 .col-sm-12 .cl-xs-12 -->
 </div>
 
