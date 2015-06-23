@@ -33,8 +33,8 @@
         </div>
         <div class="panel-body">
           <ul>
-            <%= @user.infusionsoft_tags.each do |tag| %>
-              <li><%= tag['GroupId'] %><%= tag['ContactGroup'] %></li>
+            <% @user.infusionsoft_tags.each do |tag| %>
+              <li><%= tag['GroupId'] %>: <b><%= tag['ContactGroup'] %></b></li>
             <% end %>
           </ul>
         </div>
