@@ -11,12 +11,8 @@
         </tr>
         <% @user.infusionsoft_tags.each do |tag| %>
           <tr>
-            <td>
-              <%= tag['GroupId'] %>
-            </td>
-            <td>
-              <%= tag['ContactGroup'] %>
-            </td>
+            <td><%= tag['GroupId'] %></td>
+            <td><%= tag['ContactGroup'] %></td>
           </tr>
         <% end %>
       </table>

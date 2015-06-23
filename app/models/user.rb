@@ -125,7 +125,10 @@ class User < ActiveRecord::Base
   def infusionsoft_tags
     # {"ContactGroup"=>"Newsletter and Marketing", "GroupId"=>91}
     if infusion_id
-      tags = Infusionsoft.data_query('ContactGroupAssign', 20, 0, {:ContactId => infusion_id}, [:GroupId, :ContactGroup])
+      tags = Infusionsoft.data_query('ContactGroupAssign', 20, 0, {:ContactId => infusion_id}, [:GroupId, :ContactGroup, :DateCreated])
+      tags.each do |tag|
+        tag['DateCreated'] = DateTime.new(d['DateCreated'].year, d['DateCreated'].month, d['DateCreated'].day, d['DateCreated'].hour, +5)
+      end
     else
       nil
     end
