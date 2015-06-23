@@ -4,17 +4,21 @@
   </div>
   <div class="panel-body">
     <div class="tags">
-      <table class='table table-striped table-bordered'>
-        <tr>
-          <th>Tag Id</th>
-          <th>Tag Name</th>
-        </tr>
-        <% @user.infusionsoft_tags.each do |tag| %>
+      <table class='table table-striped table-bordered header-fixed'>
+        <thead>
           <tr>
-            <td><%= tag['GroupId'] %></td>
-            <td><%= tag['ContactGroup'] %></td>
+            <th>Tag Id</th>
+            <th>Tag Name</th>
           </tr>
-        <% end %>
+        </thead>
+        <tbody>
+          <% @user.infusionsoft_tags.each do |tag| %>
+            <tr>
+              <td><%= tag['GroupId'] %></td>
+              <td><%= tag['ContactGroup'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
   </div>
