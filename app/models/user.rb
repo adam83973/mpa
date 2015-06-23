@@ -74,18 +74,6 @@ class User < ActiveRecord::Base
     registrations.any? { |r| (0..2).cover?(r.status) || (r.start_date && (r.start_date >= Date.today)) }
   end
 
-  # def deactivate
-  #   if self.active = true
-  #     self.toggle(:active)
-  #   end
-  #   if self.students
-  #     students = self.students
-  #     students.each do |each|
-  #       student.update_attributes status: "Inactive"
-  #     end
-  #   end
-  # end
-
   def missed_appointment
     Rails.env.production? ? tag_id = 1838 : tag_id = 109
     unless appointment_rescheduled?
@@ -126,13 +114,20 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
   def last_payment_infusion
     if self.infusion_id && self.role == 'Parent' && !self.last_payment.nil?
       JSON::parse(last_payment)
     else
       return []
+    end
+  end
+
+  def infusionsoft_tags
+    # {"ContactGroup"=>"Newsletter and Marketing", "GroupId"=>91}
+    if infusion_id
+      tags = Infusionsoft.data_query('ContactGroupAssign', 20, 0, {:ContactId => infusion_id}, [:GroupId, :ContactGroup])
+    else
+      nil
     end
   end
 
