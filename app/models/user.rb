@@ -127,8 +127,9 @@ class User < ActiveRecord::Base
     if infusion_id
       tags = Infusionsoft.data_query('ContactGroupAssign', 20, 0, {:ContactId => infusion_id}, [:GroupId, :ContactGroup, :DateCreated])
       tags.each do |tag|
-        tag['DateCreated'] = DateTime.new(d['DateCreated'].year, d['DateCreated'].month, d['DateCreated'].day, d['DateCreated'].hour, +5)
+        tag['DateCreated'] = DateTime.new(tag['DateCreated'].year, tag['DateCreated'].month, tag['DateCreated'].day, tag['DateCreated'].hour, +5)
       end
+      tags = tags.sort_by{ |tag| tag['DateCreated'] }
     else
       nil
     end
