@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
       end
       tags = tags.sort_by{ |tag| tag['DateCreated'] }
     else
-      nil
+      []
     end
   end
 
