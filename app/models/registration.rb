@@ -41,4 +41,23 @@ class Registration < ActiveRecord::Base
       self.status = 3
     end
   end
+
+  #-----Registration Information Management-----
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      registration = find_by_id(row["id"]) || new
+      registration.attributes = row.to_hash.slice(*accessible_attributes)
+      registration.save!
+    end
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |student|
+        csv << registration.attributes.values_at(*column_names)
+      end
+    end
+  end
 end

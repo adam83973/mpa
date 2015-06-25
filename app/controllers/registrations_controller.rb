@@ -10,6 +10,7 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @registrations }
+      format.csv { send_data @registrations.to_csv }
     end
   end
 
