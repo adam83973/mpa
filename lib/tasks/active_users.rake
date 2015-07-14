@@ -22,7 +22,7 @@ end
 
 def tag_users_new_albanvy
   # pull parents that are active
-  parents = User.where(role:"Parent").where(active: true).where(location: 2)
+  parents = User.where(role:"Parent").where(active: true).where(location_id: 2)
   # create tag unique to month day and year and associate it with active_tags category
   group_id = Infusionsoft.data_add('ContactGroup', {GroupName: "#{Date.today.month}_#{Date.today.day}_#{Date.today.year}_active_new_albany", GroupCategoryId: 78})
   parents.each_with_index do |parent, n|
