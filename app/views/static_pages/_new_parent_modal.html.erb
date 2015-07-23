@@ -7,7 +7,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= simple_form_for @new_parent, url: url_for(action: 'create_from_opportunity', controller: 'users', method: 'post'), remote: true do |f| %>
+            <%= simple_form_for @new_parent, url: url_for(action: 'create_from_opportunity', controller: 'users', method: 'post'), remote: true, html: { id: table_id } do |f| %>
               <%= f.input :role, as: :hidden, input_html: { value: "Parent" } %>
               <%= f.association :location, label_method: :name %>
               <%= f.input :first_name, label: "First Name", input_html: { value: @opportunity.parent_name.split.first } if @opportunity && @opportunity.parent_name %>

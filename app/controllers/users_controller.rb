@@ -151,8 +151,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # POST /users
-  # POST /users.json
+
   def create_from_opportunity
     @opportunity = Opportunity.find(params[:user][:opportunity_id])
     @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))

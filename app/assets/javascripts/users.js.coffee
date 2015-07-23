@@ -54,6 +54,35 @@ $("#new_user")
   $form = $(this)
   alert "User #{error}!"
 
+	$("#new_user_from_opportunity")
+	.bind 'ajax:beforeSend', (evt, xhr, settings) ->
+	  $submitButton = $(this).find('input[name="commit"]')
+	  $submitButton.attr( 'data-origText',  $submitButton.val() )
+	  $submitButton.val( "Submitting..." )
+	  if !($('#user_email').val())
+	    alert "You must have an email in order to add this parent."
+	    $submitButton.val( $submitButton.data('origtext') )
+	    false
+	  else if !($('#user_first_name').val()) and !($('#user_last_name').val())
+	    alert "You must enter a first and last name."
+	    $submitButton.val( $submitButton.data('origtext') )
+	    false
+	  else if !($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0
+	    alert "You must link with an Infusionsoft contact. If there is not one to be linked you can add the parent to Infusionsoft."
+	    $submitButton.val( $submitButton.data('origtext') )
+	    false
+	.bind 'ajax:success', (evt, data, status, xhr) ->
+	  $form = $(this)
+	  $form[0].reset()
+	.bind 'ajax:complete', (evt, xhr, status) ->
+	  $submitButton = $(this).find('input[name="commit"]')
+	  $submitButton.val( $submitButton.data('origtext') )
+	.bind 'ajax:error', (evt, xhr, status, error) ->
+	  $submitButton = $(this).find('input[name="commit"]')
+	  $submitButton.val( $submitButton.data('origtext') )
+	  $form = $(this)
+	  alert "User #{error}!"
+
 # Search possible contacts in Infusionsoft and render in table in add parent modal
 $('.infusion_id_lookup').on 'click', ->
   $.ajax
@@ -63,5 +92,3 @@ $('.infusion_id_lookup').on 'click', ->
       search: $(this).data('lastname')
       UserId: $(this).data('userid')
     success: () ->
-
-
