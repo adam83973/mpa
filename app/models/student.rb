@@ -175,6 +175,16 @@ class Student < ActiveRecord::Base
     class_ids.include?(11)
   end
 
+  def is_active_mathematician?
+    math_class = false
+    registrations.active.includes(:offering).each do |registration|
+      if registration.offering.occupation.id == 1 # 1 = id for Mathematician
+        math_class = true
+      end
+    end
+    math_class
+  end
+
   def is_mathematician?
     math_class = false
     offerings.includes(:occupation).each do |offering|
@@ -325,6 +335,17 @@ end
     end
   end
 
+  def homework_scores_last(number_of_days, experience_id=1)
+    number_of_days = number_of_days.to_i
+    experience_id = experience_id.to_i
+    if experience_id == 1 || experience_id == 4 || experience_id == 5
+      experience_points.
+        where("created_at > ? and experience_id = ?", number_of_days.days.ago, experience_id).count
+    else
+      0
+    end
+  end
+
   #-----Student Information Management-----
 
   def self.import(file)
@@ -343,4 +364,5 @@ end
       end
     end
   end
+
 end

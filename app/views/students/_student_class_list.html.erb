@@ -1,6 +1,9 @@
+<hr style="margin:0 0 10px 0;">
+
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3 style="display:inline;">Classes</h3>
+		<h4 class="hidden-sm hidden-xs">Classes</h4>
+		<h3 class="hidden-lg hidden-md" style="display:inline;">Classes</h3>
 		<hr>
 		<% @student.registrations.includes(:offering, :course, :location).where(status: 0..2).each do |reg| %>
 		    <%= render 'student_registration_card', reg: reg, student: @student %>
@@ -8,17 +11,26 @@
 	</div>
 </div>
 
-<% unless current_user.parent? %>
-	<hr>
-<% end %>
-
 <% if current_user && current_user.employee? %>
+	<hr style="margin-bottom:10px;">
+
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<h4 class="hidden-sm hidden-xs">Opportunities</h4>
+			<h3 class="hidden-lg hidden-md" style= "margin-top:5px;">Opportunities</h3>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="text-right">
+				<%= link_to "New Opp", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-xs btn-success hidden-sm hidden-xs", style: "margin-top:10px;"%>
+					<%= link_to "New Opportunity", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-md btn-success hidden-lg hidden-md" %>
+			</div>
+		</div>
+	</div>
+
+	<hr style="margin-top:10px;">
+
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h3 style="display:inline;">Opportunities:</h3><%= link_to "New Opportunity", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-xs btn-success pull-right" %>
-
-			<hr>
-
 			<% @student_opportunities.where(status: 0..6).each do |opp| %>
 				<%= render '/shared/opportunity_card', opportunity: opp %>
 			<% end %>

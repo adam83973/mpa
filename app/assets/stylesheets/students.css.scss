@@ -2,7 +2,6 @@
 /* Student Show page */
 
 .studentinfo{
-  border-bottom: solid 1px #afafaf;
 }
 
 .studentname{
@@ -80,7 +79,7 @@
 }
 
 
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width : 1200px) {
   .student-occupations div:nth-child(2){
     margin: 0;
   }
@@ -88,7 +87,61 @@
   .inside{
     position:absolute;
     top:73px;
-    left:40px;
+    left:35px;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+
+@media only screen and (max-width : 1199px) {
+  .student-occupations div:nth-child(2){
+    margin: 0;
+  }
+
+  .inside{
+    position:absolute;
+    top:73px;
+    left:43.9%;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+
+@media only screen and (max-width : 992px) {
+  .student-occupations div:nth-child(2){
+    margin: 0;
+  }
+
+  .inside{
+    position:absolute;
+    top:73px;
+    left:42%;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+
+@media only screen and (max-width : 755px) {
+  .student-occupations div:nth-child(2){
+    margin: 0;
+  }
+
+  .inside{
+    position:absolute;
+    top:73px;
+    left:34.5%;
     z-index:1;
   }
   .outside{

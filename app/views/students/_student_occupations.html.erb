@@ -1,5 +1,5 @@
 <div class="student-occupations col-lg-9 col-md-12 col-sm-12 col-xs-12">
-  <div class="row">
+
     <!-- Mathematics student information -->
     <% if @student.is_mathematician? %>
       <%= render 'occupation_stats', occupation: "mathematician" %>
@@ -47,7 +47,7 @@
         <%= link_to "Find out how to earn more.", "javascript:void(0)", data: {toggle: "modal", target: "#comingSoon"}  %>
       </div>
     </div>
-  </div>
+
 </div><!--/.span9 -->
 
 <div class="modal fade" id="comingSoon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newStudentUserModalLabel" aria-hidden="true">
