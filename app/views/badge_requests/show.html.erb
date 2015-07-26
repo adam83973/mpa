@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Badge:</b>
+  <%= @badge_request.badge_id %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @badge_request.student_id %>
+</p>
+
+<p>
+  <b>Parent submission:</b>
+  <%= @badge_request.parent_submission %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%= @badge_request.approved %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @badge_request.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_badge_request_path(@badge_request) %> |
+<%= link_to 'Back', badge_requests_path %>

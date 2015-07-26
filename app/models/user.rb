@@ -1,4 +1,3 @@
-class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -17,6 +16,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
+  has_many :badge_requests
   has_many :notings, class_name: "Note", foreign_key: "user_id"
   belongs_to :location
   has_many :students, :through => :offerings

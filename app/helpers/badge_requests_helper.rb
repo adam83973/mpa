@@ -1,0 +1,2 @@
+module BadgeRequestsHelper
+end

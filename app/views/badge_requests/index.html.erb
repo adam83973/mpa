@@ -1,0 +1,31 @@
+<h1>Listing badge_requests</h1>
+
+<table>
+  <tr>
+    <th>Badge</th>
+    <th>Student</th>
+    <th>Parent submission</th>
+    <th>Approved</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @badge_requests.each do |badge_request| %>
+  <tr>
+    <td><%= badge_request.badge_id %></td>
+    <td><%= badge_request.student_id %></td>
+    <td><%= badge_request.parent_submission %></td>
+    <td><%= badge_request.approved %></td>
+    <td><%= badge_request.user_id %></td>
+    <td><%= link_to 'Show', badge_request %></td>
+    <td><%= link_to 'Edit', edit_badge_request_path(badge_request) %></td>
+    <td><%= link_to 'Destroy', badge_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Badge request', new_badge_request_path %>

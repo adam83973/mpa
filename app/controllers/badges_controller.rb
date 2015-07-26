@@ -1,5 +1,6 @@
 class BadgesController < ApplicationController
-
+  before_filter :authenticate_user!
+  before_filter :authorize_admin
 
   # GET /badges
   # GET /badges.json

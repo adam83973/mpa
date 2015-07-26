@@ -1,7 +1,19 @@
 
-<div class="row" hidden>
+<div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <h1>Add Feature</h1>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1>Message Center</h1>
+        <h3><small>Do you have a compliment, concern, or question? This is the place.</small></h3>
+      </div>
+      <div class="panel-body">
+        <%= simple_form_for :message, url: "/" do |f| %>
+          <%= f.input :content, as: :text, label: false, input_html: { rows: 8 } %>
+          <%= f.input :user_id, input_html: { value: @user.id }, as: :hidden %>
+          <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right', disabled: true %>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="panel panel-default">
@@ -12,8 +24,16 @@
         <%= simple_form_for :badge_request, url: users_path do |f| %>
           <%= f.input :student_id, collection: @user.students, label_method: :full_name %>
           <%= f.input :badge_id, collection: Badge.all %>
-          <%= f.submit "Submit", class: 'btn btn-lg btn-default' %>
+          <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right', disabled: true %>
         <% end %>
+      </div>
+      <div class="panel-footer">
+        <p>
+          The badge request form is for parents who are certifying completion of a badge. For more
+          infomation on how you student can earn badges and a list of available badges click
+          <%= link_to "here", badge_home_path %>.
+          <span style="color:red;">This feature will be available shortly.</span>
+        </p>
       </div>
     </div>
   </div>
