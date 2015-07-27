@@ -4,6 +4,7 @@ class Location < ActiveRecord::Base
 
   has_many :opportunities
   has_many :notes
+  has_many :messages
   has_many :offerings
   has_many :users
   has_many :leads
