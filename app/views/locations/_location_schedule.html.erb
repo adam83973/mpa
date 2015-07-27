@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @location.visible_offerings.includes(:users, :course).order(:course_id).each do |offering| %>
+      <% @location.visible_offerings.includes(:users, :course).order(:course_id).order(:day_number).order(:time).each do |offering| %>
       <tr>
         <td>
           <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
