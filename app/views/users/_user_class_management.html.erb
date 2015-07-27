@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
       <ul>
-        <% @user.offerings.order(:day_number).order(:time).each do |off| %>
+        <% @user.offerings.active.order(:day_number).order(:time).each do |off| %>
           <li><%= link_to off.offering_name, off %></li>
         <% end %>
       <ul>
