@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
     if signed_in?
       if current_user.parent?
         @badge_request = BadgeRequest.new
+        @message = Message.new
       end
       @user = current_user
       unless current_user.parent?
