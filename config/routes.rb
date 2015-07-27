@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :messages
+
+
   resources :badge_requests
 
 

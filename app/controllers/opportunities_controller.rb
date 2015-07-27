@@ -286,7 +286,7 @@ class OpportunitiesController < ApplicationController
 
     def check_add_user_with_email(opportunity)
       @opportunity = opportunity
-      @user = User.find_by_email(@opportunity.parent_email) #check to see if user account exists via email
+      @user = User.find_by_email(@opportunity.parent_email.downcase) #check to see if user account exists via email
 
       if !@user
         #create user account if no account found

@@ -4,9 +4,7 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       if current_user.parent?
-        if Time.now > "20131216000001".to_datetime && Time.now < "20140615000001".to_datetime
-          #add time sensitive flashes for parents...
-        end
+        @badge_request = BadgeRequest.new
       end
       @user = current_user
       unless current_user.parent?

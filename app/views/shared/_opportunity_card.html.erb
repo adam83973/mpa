@@ -5,7 +5,7 @@
   			<%= link_to opportunity.offering.offering_name, opportunity if opportunity.offering %>
   			<%= link_to opportunity.course.course_name, opportunity unless opportunity.offering || !(opportunity.course) %>
   			<%= link_to opportunity.title, opportunity unless (opportunity.offering && !(opportunity.title.empty?)) || opportunity.course %>
-  			<%= link_to "Please add to a class, a course, or add a title to describe this opportunity.", opportunity if !(opportunity.offering) && !(opportunity.course) && opportunity.title.empty? %>
+  			<%= link_to "Please add to a class, a course, or add a title to describe this opportunity.", opportunity if !(opportunity.offering) && !(opportunity.course) && (opportunity.title.empty? || opportunity.title.nil? ) %>
  			</div>
  		</div>
     <div class="row">
