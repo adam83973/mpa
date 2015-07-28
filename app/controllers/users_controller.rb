@@ -464,6 +464,17 @@ class UsersController < ApplicationController
       end
     end
 
+    def confirmation_opt_out
+      @user = User.find(params[:id])
+
+      @user.update_attribute :confirmation_opt_out, true
+
+      respond_to do |format|
+        format.html { redirect_to thank_you_path }
+        format.json { head :no_content }
+      end
+    end
+
     render nothing: true
   end
 end

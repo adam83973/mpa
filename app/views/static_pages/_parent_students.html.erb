@@ -9,7 +9,7 @@
       <div class="panel-body">
         <%= simple_form_for @message do |f| %>
           <%= f.input :subject, label: false, placeholder: "Subject" %>
-          <%= f.input :content, as: :text, label: false, placeholder: "Message", input_html: { rows: 6 } %>
+          <%= f.input :content, as: :text, label: false, placeholder: "Message", input_html: { rows: 6, style: "resize:vertical;" } %>
           <%= f.input :user_id, input_html: { value: @user.id }, as: :hidden %>
           <%= f.input :location_id, input_html: { value: @user.location_id }, as: :hidden %>
           <%= f.input :general, input_html: { checked: true }, as: :hidden %>

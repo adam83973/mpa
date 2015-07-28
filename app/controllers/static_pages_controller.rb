@@ -103,6 +103,10 @@ class StaticPagesController < ApplicationController
   end
 
   def badges
+    @badges = Badge.all
+  end
+
+  def thank_you
   end
 
   def mission_lookup

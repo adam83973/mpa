@@ -1,12 +1,17 @@
-<%= simple_form_for(@badge) do |f| %>
-  <%= f.error_notification %>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for(@badge) do |f| %>
+      <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :image %>
-  </div>
+      <div class="form-inputs">
+        <%= f.input :name %>
+        <%= f.input :requirements, input_html: { rows: 6, style: "resize:vertical;"} %>
+        <%= f.input :image %>
+      </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-lg btn-success" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
