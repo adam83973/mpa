@@ -1,0 +1,2 @@
+module BadgeCategoriesHelper
+end

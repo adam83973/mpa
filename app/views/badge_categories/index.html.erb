@@ -1,0 +1,23 @@
+<h1>Listing badge_categories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @badge_categories.each do |badge_category| %>
+  <tr>
+    <td><%= badge_category.name %></td>
+    <td><%= link_to 'Show', badge_category %></td>
+    <td><%= link_to 'Edit', edit_badge_category_path(badge_category) %></td>
+    <td><%= link_to 'Destroy', badge_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Badge category', new_badge_category_path %>
