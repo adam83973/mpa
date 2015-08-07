@@ -109,54 +109,62 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="text-center">
-      <h1>Complete Projects</h1>
-      <ul>
-        <li>Build A Hexaflexagon</li>
-        <li>Construct The Best Paper Airplane</li>
-      </ul>
+<div class="badge_group_information">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">Complete Projects</h1>
+        <% @project_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">Solve Problems</h1>
+        <% @problem_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="text-center">
-      <h1>Solve Problems</h1>
-      <ul>
-        <li>Leo The Rabbit</li>
-        <li>Ruler Problem</li>
-        <li>8 Queens</li>
-      </ul>
+  <hr class="thick_hr">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">Watch Movies</h1>
+        <% @movie_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">Tackle Code Challenges</h1>
+        <% @coding_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="text-center">
-      <h1>Watch Movies</h1>
-      <ul>
-        <li>Hugo</li>
-        <li>Donald Duck In Mathemagic Land</li>
-        <li>October Sky</li>
-      </ul>
+  <hr class="thick_hr">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">Research A Topic</h1>
+        <% @research_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="text-center">
-      <h1>Tackle Code Challenges</h1>
-      <ul>
-        <li>Fizz Buzz</li>
-        <li>Tic Tac Toe</li>
-        <li>Icarus and Dedalus</li>
-        <li>Game of Life</li>
-      </ul>
-    </div>
-  </div>
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="text-center">
-      <h1>Research A Topic</h1>
-      <ul>
-        <li>Pascal's Triangle</li>
-        <li>Serpinski Triangles</li>
-      </ul>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1 class="badge_category_header_text">In-Class</h1>
+        <% @in_class_badges.each do |badge| %>
+          <%= render 'badges/badge_card', b: badge %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

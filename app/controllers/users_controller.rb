@@ -329,7 +329,7 @@ class UsersController < ApplicationController
   def appointment_request
     response = request.body.read
     appointment = JSON.parse(response)
-    @appointment_request = AppointmentRequest.create(data: response)
+    @appointment_request = AppointmeRequest.create(data: response)
     @parent = User.find_by_check_appointments_id( appointment['client']['clientId'] )
     # if a Parent already has CheckAppointments Id associated with record save appointment.
     if @parent
@@ -461,6 +461,17 @@ class UsersController < ApplicationController
           action_date: Date.today})
 
         @note1.save!
+      end
+    end
+
+    def confirmation_opt_out
+      @user = User.find(params[:id])
+
+      @user.update_attribute :confirmation_opt_out, true
+
+      respond_to do |format|
+        format.html { redirect_to thank_you_path }
+        format.json { head :no_content }
       end
     end
 

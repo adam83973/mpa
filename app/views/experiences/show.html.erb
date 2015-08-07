@@ -1,4 +1,4 @@
-  <div class="row">
+<div class="row">
   <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <p><%= link_to "Edit", edit_experience_path, class: 'btn btn-default' %></p>
     <h2>
@@ -54,8 +54,15 @@
     <% if @experience.badge %>
     <div class="well well-sm text-center">
       <h3 style="margin-top:0;">Badge</h3>
-      <%= image_tag(@experience.badge.image_url, size: '200x200') if @experience.badge && @experience.badge.image %>
+      <%= link_to @experience.badge do %>
+        <%= image_tag(@experience.badge.image_url, size: '200x200') if @experience.badge && @experience.badge.image %>
+      <% end %>
     </div>
     <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= link_to "Add Another Achievement", new_experience_path, class: "btn btn-primary" %>
   </div>
 </div>

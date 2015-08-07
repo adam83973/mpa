@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :badge_categories
+
+
   resources :messages
 
 
@@ -9,6 +12,7 @@ MathPlus::Application.routes.draw do
   root to: 'static_pages#home'
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'badge_home', to: 'static_pages#badges'
+  get 'thank_you', to: 'static_pages#thank_you'
 
   resources :badges
 

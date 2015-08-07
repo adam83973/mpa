@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150727180244) do
+ActiveRecord::Schema.define(:version => 20150729154402) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20150727180244) do
     t.string   "name"
   end
 
+  create_table "badge_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "badge_requests", :force => true do |t|
     t.integer  "badge_id"
     t.integer  "student_id"
@@ -84,11 +90,13 @@ ActiveRecord::Schema.define(:version => 20150727180244) do
   create_table "badges", :force => true do |t|
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "file"
     t.string   "file_name"
     t.integer  "experience_id"
+    t.text     "requirements"
+    t.integer  "badge_category_id"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|
@@ -260,11 +268,13 @@ ActiveRecord::Schema.define(:version => 20150727180244) do
     t.text     "content"
     t.integer  "user_id"
     t.integer  "recipient_id"
-    t.boolean  "read"
-    t.boolean  "important"
+    t.boolean  "read",         :default => false
+    t.boolean  "important",    :default => false
     t.string   "subject"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "general"
+    t.integer  "location_id"
   end
 
   create_table "notes", :force => true do |t|

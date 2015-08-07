@@ -38,8 +38,8 @@
       <tr>
         <td><%= badge.name %></td>
         <td><%= badge.image %></td>
-        <td><%= link_to 'Show', badge %></td>
-        <td><%= link_to 'Edit', edit_badge_path(badge) %></td>
+        <td><%= link_to 'Show', badge, target: "_blank" %></td>
+        <td><%= link_to 'Edit', edit_badge_path(badge), target: "_blank" %></td>
         <td><%= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

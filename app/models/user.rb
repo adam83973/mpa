@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  
+
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable
 
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
   has_many :badge_requests
+  has_many :messages
   has_many :notings, class_name: "Note", foreign_key: "user_id"
   belongs_to :location
   has_many :students, :through => :offerings

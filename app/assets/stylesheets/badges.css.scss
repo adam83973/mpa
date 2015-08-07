@@ -1,0 +1,55 @@
+// Badge Home Styling
+
+.badge_home_text{
+ 	font-weight: 300;
+ 	font-size: 18pt;
+
+ 	p:first-child{
+ 		margin-bottom: 25px;
+ 	}
+
+ 	p:last-child{
+ 		margin-top: 25px;
+ 	}
+
+ 	p:not(:first-child):not(:last-child){
+ 		margin: 25px 0 25px 0
+ 	}
+ }
+
+ .badge_information_header_text{
+ 	font-weight: bold;
+ 	font-size: 4em;
+ 	margin:100px 0 100px 0;
+ }
+
+ .badge_information_icon{
+ 	font-size: 15em;
+ 	margin-top: 10%;
+ }
+
+
+.thick_hr{
+		border-top: 9px solid #ccc;
+}
+
+.thick_divider{
+  border-right: 4.5px solid #ccc;
+  border-left: 4.5px solid #ccc;
+}
+
+.badge_group_information > .row{
+  margin: 5px 0 40px;
+}
+
+.badge_card{
+  h1{
+    margin-top: 5px;
+    font-weight: 500;
+  }
+}
+
+.badge_category_header_text{
+  margin-bottom: 40px;
+  font-weight: 600;
+}
