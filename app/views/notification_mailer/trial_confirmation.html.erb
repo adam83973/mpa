@@ -383,7 +383,7 @@
                                 <% if @opportunity.trial_date %>
                                   <li><strong>Trial date:</strong> <%= @opportunity.trial_date.strftime('%A, %B %d') %></li>
                                 <% else %>
-                                  <li><strong>Trial date:</strong> It appears as though you didn't select a trial date. Please call us at 614-792-6284 to correct this.</li>
+                                  <li style="color:red;"><strong>Trial date:</strong> It appears as though you didn't select a trial date. Please call us at 614-792-6284 to correct this.</li>
                                 <% end %>
                               </ul>
                             </p>
