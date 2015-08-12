@@ -2,7 +2,11 @@ This is a confirmation that you have scheduled a trial! See below for details of
 
 * Student: <%= @opportunity.student ? @opportunity.student.full_name : @opportunity.student_name %>
 * Class: <%= @opportunity.offering.offering_trial_name %>
+<% if @opportunity.trial_date %>
 * Trial date: <%= @opportunity.trial_date.strftime('%A, %B %d') %>
+<% else %>
+* Trial date: It appears as though you didn't select a trial date. Please call us at 614-792-6284 to correct this.
+<% end %>
 
 The Math Plus Academy Team
 
