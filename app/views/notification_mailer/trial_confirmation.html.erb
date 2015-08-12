@@ -380,7 +380,11 @@
                               <ul style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal;line-height: 26px; font-size: 22px; margin: 0 0 10px; list-style-type: none;">
                                 <li><strong>Student:</strong> <%= @opportunity.student ? @opportunity.student.full_name : @opportunity.student_name %> </li>
                                 <li><strong>Class:</strong> <%= @opportunity.offering.offering_trial_name %></li>
-                                <li><strong>Trial date:</strong> <%= @opportunity.trial_date.strftime('%A, %B %d') %></li>
+                                <% if @opportunity.trial_date %>
+                                  <li><strong>Trial date:</strong> <%= @opportunity.trial_date.strftime('%A, %B %d') %></li>
+                                <% else %>
+                                  <li><strong>Trial date:</strong> It appears as though you didn't select a trial date. Please call us at 614-792-6284 to correct this.</li>
+                                <% end %>
                               </ul>
                             </p>
                             <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 26px; font-size: 22px; margin: 0 0 10px; padding: 0;" align="left">
