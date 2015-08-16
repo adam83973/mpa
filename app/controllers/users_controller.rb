@@ -405,6 +405,13 @@ class UsersController < ApplicationController
     else
       # User is not in system. Create user and add appointment.
       @generated_password = Devise.friendly_token.first(8) # password for new user
+
+      if appointment['client']['emailAddress'].empty?
+        email = "email#{SecureRandom.hex(3)}@mathplusacademy.com"
+      else
+        email = appointment['client']['emailAddress']
+      end
+      
       @user = User.create!(
                     check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
