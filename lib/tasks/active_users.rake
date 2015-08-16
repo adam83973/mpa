@@ -4,7 +4,7 @@ namespace :tag do
     tag_users
   end
   task active_new_albany: :environment do
-    tag_users_new_albanvy
+    tag_users_new_albany
   end
 end
 
@@ -20,7 +20,7 @@ def tag_users
   puts group_id
 end
 
-def tag_users_new_albanvy
+def tag_users_new_albany
   # pull parents that are active
   parents = User.where(role:"Parent").where(active: true).where(location_id: 2)
   # create tag unique to month day and year and associate it with active_tags category
