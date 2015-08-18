@@ -36,6 +36,7 @@ class StaticPagesController < ApplicationController
           @generated_password = Devise.friendly_token.first(8)
           @new_student = Student.new
           @messages = Message.where(location_id: @user_location.id, general: true)
+          @badge_requests = @user_location.badge_requests.where(approved: false)
         end
         if current_user.teacher?
           @user_offerings = @user.offerings.includes(:course, :location)

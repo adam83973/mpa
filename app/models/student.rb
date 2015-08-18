@@ -14,17 +14,18 @@ class Student < ActiveRecord::Base
   belongs_to :location
   belongs_to :avatar
   has_and_belongs_to_many :badges
+  has_many :badge_requests
+  has_many :courses, :through => :offerings
+  has_many :experiences, :through => :experience_points
+  has_many :experience_points, dependent: :destroy
   has_many :grades, dependent: :destroy
   has_many :lessons , :through => :grades
-  has_many :experiences, :through => :experience_points
   has_many :locations, :through => :offerings
-  has_many :courses, :through => :offerings
-  has_many :occupations, :through => :courses
-  has_many :experience_points, dependent: :destroy
   has_many :notes, as: :notable
+  has_many :occupations, :through => :courses
+  has_many :offerings, :through => :registrations
   has_many :opportunities
   has_many :registrations, dependent: :destroy
-  has_many :offerings, :through => :registrations
 
   scope :active, lambda{where("status = ?", "Active")}
   scope :future_adds, lambda{where("start_date > ? AND status = ?", Date.today, "Inactive")}

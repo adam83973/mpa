@@ -1,5 +1,6 @@
 class Offering < ActiveRecord::Base
-  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id, :time, :user_ids, :active, :classroom, :hidden
+  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id,
+                  :time, :user_ids, :active, :classroom, :hidden, :day_number
 
   validates_presence_of :course_id, :day, :time, :location_id
 
@@ -13,6 +14,8 @@ class Offering < ActiveRecord::Base
 
   scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }
   scope :active,  lambda{ where("active = ?", true) }
+
+  before_save :set_day_number
 
   searchable do
     text :offering_name
@@ -39,6 +42,10 @@ class Offering < ActiveRecord::Base
 
   def returning_students_count
       self.registrations.where("status = ?", 2).count
+  end
+
+  def set_day_number
+    day_number = Date::DAYNAMES.index(day).to_i
   end
 
   def active_students_count

@@ -20,4 +20,11 @@ class NotificationMailer < AdminMailer
 
     mail(to: @parent.email, subject: 'Badge request received.')
   end
+
+  def badge_request_approval_confirmation(badge_request, parent)
+    @badge_request = badge_request
+    @parent = parent
+
+    mail(to: @parent.email, subject: 'Badge request received.')
+  end
 end

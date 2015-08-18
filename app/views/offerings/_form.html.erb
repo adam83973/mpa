@@ -15,7 +15,7 @@
 
         <%= f.association :course, label_method: :course_name %>
         <%= f.association :location %>
-        <%= f.input :day, collection: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"] %>
+        <%= f.input :day, collection: Date::DAYNAMES %>
         <%= f.label :time %>
         <div class="form-inline">
           <%= f.input :time, :minute_step => 30, :ampm => true, label: false %>

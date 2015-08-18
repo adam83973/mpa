@@ -12,6 +12,7 @@ class Location < ActiveRecord::Base
   has_many :students, through: :registrations
   has_many :daily_location_reports
   has_many :appointments
+  has_many :badge_requests, through: :students
 
 
 

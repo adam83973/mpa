@@ -16,3 +16,20 @@ $('#new_badge').fileupload
     if data.context
       progress = parseInt(data.loaded / data.total * 100, 10)
       data.context.find('.progress-bar').css('width', progress + '%')
+
+$('.badge-request-approval').on 'click', ->
+  card = $(this).closest('li')
+  button = $(this)
+  badge_request_id = $(this).closest('li').data('badge-request-id')
+  button.attr('disabled','disabled');
+
+  $.ajax
+    type: 'GET'
+    url: "/badge_requests/approval"
+    data: id: badge_request_id
+    error: (xhr, status, error) ->
+      alert "#{error}"
+      button.removeAttr('disabled')
+    success: (result) ->
+      alert "Approved!"
+      card.remove()

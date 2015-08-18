@@ -10,7 +10,9 @@ MathPlus::Application.routes.draw do
 
   resources :badge_categories
 
-  resources :badge_requests
+  resources :badge_requests do
+    collection { get :approval }
+  end
 
   resources :badges
 
@@ -191,7 +193,7 @@ MathPlus::Application.routes.draw do
       get   :year_end_promotion
       get   :promotion
       post  :appointment_request
-      put   :confirmation_opt_out
+      get   :confirmation_opt_out
     end
     resources :notes
   end

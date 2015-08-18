@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [:infusion_request, :appointment_request]
-  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request, :missed_appointments]
+  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request, :missed_appointments, :confirmation_opt_out]
+
+  respond_to :html
 
   # GET /users
   # GET /users.json
@@ -474,18 +476,17 @@ class UsersController < ApplicationController
   end
 
   def confirmation_opt_out
-    @user = User.find(params[:id])
+    if params[:id]
+      @user = User.find(params[:id])
 
-    @user.update_attribute :confirmation_opt_out, true
+      if @user.update_attribute :confirmation_opt_out, true
+        flash[:notice] = "We have updated your account and you will no longer receive
+        confirmations via email. To change this you can go to your account settings."
+      end
 
-    respond_to do |format|
-      format.html { redirect_to thank_you_path,
-                    notice: "We have updated your account and you will no longer
-                             receive confirmations via email. To change this
-                            you can go to your account settings." }
-      format.json { head :no_content }
+      redirect_to thank_you_url
+    else
+      redirect_to root_url
     end
-
-    render nothing: true
   end
 end

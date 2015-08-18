@@ -25,16 +25,33 @@ class BadgeRequestsController < ApplicationController
 
   def create
     @badge_request = BadgeRequest.new(params[:badge_request])
-    @parent = params[:badge_request][:user_id]
+    @parent = User.find params[:badge_request][:user_id]
     if @badge_request.save
-      NotificationMailer.badge_request_confirmation(@badge_request, @parent)
+      flash[:notice] = "Your badge request was received. We will process it shortly."
+      NotificationMailer.badge_request_confirmation(@badge_request, @parent).deliver
     end
-    respond_with(@badge_request)
+    respond_with(@badge_request, location: root_url)
   end
 
   def update
     @badge_request.update_attributes(params[:badge_request])
     respond_with(@badge_request)
+  end
+
+  def approval
+    @badge_request = BadgeRequest.find(params[:id])
+    @student = @badge_request.student
+    @parent = @badge_request.user
+    @badge = @badge_request.badge
+
+    @badge_request.approve
+    
+    NotificationMailer.badge_request_approval_confirmation(@badge_request, @parent).deliver
+
+    BadgesStudent.create(badge_id: @badge.id, student_id: @student.id) #award badge to student
+
+    # BadgesStudent.create(student_id: badge_request.student_id, badge_id: badge_request.badge_id)
+    render nothing: true
   end
 
   def destroy

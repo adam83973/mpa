@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150729154402) do
+ActiveRecord::Schema.define(:version => 20150818162041) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20150729154402) do
     t.integer  "user_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.date     "date_approved"
   end
 
   create_table "badges", :force => true do |t|
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20150729154402) do
     t.integer  "experience_id"
     t.text     "requirements"
     t.integer  "badge_category_id"
+    t.boolean  "multiple"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|
@@ -537,6 +539,7 @@ ActiveRecord::Schema.define(:version => 20150729154402) do
     t.integer  "check_appointments_id"
     t.integer  "default_location"
     t.boolean  "appointment_rescheduled",               :default => false
+    t.boolean  "confirmation_opt_out",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
