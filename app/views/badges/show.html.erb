@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3">
-    <div class="panel panel-default">
+    <div style="margin-bottom:0;" class="panel panel-default">
       <div class="panel-heading">
         <div class="row">
           <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
@@ -12,15 +12,15 @@
           </div>
         </div>
       </div>
-      <div class="panel-body text-center">
-        <p>
-          <%= image_tag(@badge.image.url, size: "150x150") if @badge.image %>
+      <div class="panel-body" style="padding-bottom:5px;">
+        <div class="text-center">
+          <%= image_tag(@badge.image.url, size: "150x150", style: "margin-top:10px;") if @badge.image %>
           <%= link_to "Please add image.", edit_badge_path(@badge) unless @badge.image %>
-        </p>
-
-        <h3>
-          <%= @badge.requirements %>
-        </h3>
+        </div>
+        <div class="requirements">
+          <h3 style="color:#8a8a8a;">To earn this badge you must...</h3>
+          <%= simple_format(@badge.requirements, {class: "simple_format"}, wrapper_tag: "div", sanitize: false) %>
+        </div>
       </div>
     </div>
   </div>
