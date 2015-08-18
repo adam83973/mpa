@@ -473,6 +473,8 @@ class UsersController < ApplicationController
         @note1.save!
       end
     end
+
+    render nothing: true, status: 200
   end
 
   def confirmation_opt_out
