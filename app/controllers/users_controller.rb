@@ -411,7 +411,7 @@ class UsersController < ApplicationController
       else
         email = appointment['client']['emailAddress']
       end
-      
+
       @user = User.create!(
                     check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
@@ -471,16 +471,19 @@ class UsersController < ApplicationController
         @note1.save!
       end
     end
+  end
 
-    def confirmation_opt_out
-      @user = User.find(params[:id])
+  def confirmation_opt_out
+    @user = User.find(params[:id])
 
-      @user.update_attribute :confirmation_opt_out, true
+    @user.update_attribute :confirmation_opt_out, true
 
-      respond_to do |format|
-        format.html { redirect_to thank_you_path }
-        format.json { head :no_content }
-      end
+    respond_to do |format|
+      format.html { redirect_to thank_you_path,
+                    notice: "We have updated your account and you will no longer
+                             receive confirmations via email. To change this
+                            you can go to your account settings." }
+      format.json { head :no_content }
     end
 
     render nothing: true

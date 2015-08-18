@@ -1,86 +1,30 @@
 MathPlus::Application.routes.draw do
 
-  resources :badge_categories
-
-
-  resources :messages
-
-
-  resources :badge_requests
-
-
   root to: 'static_pages#home'
-  post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
-  get 'badge_home', to: 'static_pages#badges'
-  get 'thank_you', to: 'static_pages#thank_you'
 
-  resources :badges
+  resources :activities do
+    collection { post :import }
+  end
 
   resources :avatars
 
-  namespace :operations_pages do
-      get :main
-      get :trial_applet
-      get :creating_an_opportunity
-  end
+  resources :badge_categories
 
-  get  'opportunities/by_status', to: 'opportunities#by_status'
-  post 'opportunities/update_status', to: 'opportunities#update_status'
+  resources :badge_requests
 
-  match '/emails',     to: 'emails#new',             via: 'get'
-  resources "emails", only: [:new, :create]
+  resources :badges
 
-  resources :opportunities do
-    resources :notes
-    collection do
-      get :add_parent
-      get :add_student
-      get :trial_date
-      get :attended_trial
-      get :missed_trial
-      get :add_to_class
-      get :update_interest
-      post :add_trial
-      get :add_trial
-    end
-  end
+  resources :class_sessions, only: [:new, :create, :destroy]
+  post "class_sessions/start_class"
+  get "class_sessions/end_class"
+  get "class_sessions/remove_student"
 
-  resources :registrations do
-    collection do
-      post :switch
-      get :hold
-      get :drop
-      get :cancel_hold
-      get :cancel_drop
-      get :attended_first_class
-    end
-  end
-
-  resources :enrollment_change_requests do
-    collection { get :email }
-  end
-
-
-  resources :reports
-  resources :issues
-  resources :occupations
-
-  resources :occupation_levels do
+  resources :courses do
     collection { post :import }
   end
 
   resources :daily_location_reports
-  resources :notes
-  resources :stages
-  resources :videos
-  resources :class_sessions, only: [:new, :create, :destroy]
-  resources :standards
-  resources :experience_points
-  resources :experiences
-  resources :grades
-  resources :courses
-  resources :resources
-  resources :strategies
+
   resources :devise
 
   devise_for :users, :skip => [:registrations]
@@ -90,49 +34,48 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
-
-  get 'reports/', to: 'reports#new'
-  post 'reports/display', to: 'reports#show'
-  post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
-  post 'students/update_credits', to: 'students#update_credits'
-  post 'notes/completed', to: 'notes#completed'
-  post 'users/deactivate/:id', to: 'users#deactivate'
-  get 'students/attended_first_class', to: 'students#attended_first_class'
-  get 'mission_lookup', to: 'static_pages#mission_lookup'
-  get 'code', to: 'static_pages#enter_code'
-
-  resources :leads do
-    resources :notes
-  end
-
-  resources :students do
-    collection do
-      post :import
-      post :create_from_opportunity
-    end
-    resources :notes
-  end
+  match '/emails',     to: 'emails#new',             via: 'get'
+  resources "emails", only: [:new, :create]
 
   resources :experiences do
     collection { post :import }
   end
 
-  resources :users do
-    collection do
-      post  :create_from_opportunity
-      post  :import
-      get   :my_account
-      get   :password_reset
-      get   :send_hold_form
-      get   :send_termination_form
-      post  :infusion_request
-      get   :missed_appointment
-      post  :appointment_reschedule_request
-      get   :year_end_promotion
-      get   :promotion
-      post  :appointment_request
-    end
+  resources :experience_points
+  post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
+
+  resources :enrollment_change_requests do
+    collection { get :email }
+  end
+
+  resources :grades
+
+  namespace :infusion_pages do
+    get :home
+    get :add_contact
+    get :add_existing_id
+    get :possible_contacts
+    get :edit
+    get :camps
+    get :update
+    get :credit_card
+    get :subscription
+    get :add_subscription
+    get :update_subscription
+    get :end_subscription
+    get :delete_user
+    get :audit
+    get :tag_contact
+  end
+
+  resources :issues
+
+  resources :leads do
     resources :notes
+  end
+
+  resources :lessons do
+    collection { post :import }
   end
 
   resources :locations do
@@ -142,9 +85,10 @@ MathPlus::Application.routes.draw do
     end
   end
 
-  resources :courses do
-    collection { post :import }
-  end
+  resources :messages
+
+  resources :notes
+  post 'notes/completed', to: 'notes#completed'
 
   resources :offerings_students do
     collection { post :import }
@@ -161,55 +105,104 @@ MathPlus::Application.routes.draw do
     end
   end
 
-  resources :resources do
-    collection { post :import }
+  get  'opportunities/by_status', to: 'opportunities#by_status'
+  post 'opportunities/update_status', to: 'opportunities#update_status'
+
+
+  namespace :operations_pages do
+      get :main
+      get :trial_applet
+      get :creating_an_opportunity
   end
 
-  resources :offerings_students do
-    collection { post :import }
-  end
-
-  resources :standards do
-    collection { post :import }
-  end
-
-  resources :lessons do
-    collection { post :import }
-  end
-
-  resources :courses do
-    collection { post :import }
+  resources :opportunities do
+    resources :notes
+    collection do
+      get :add_parent
+      get :add_student
+      get :trial_date
+      get :attended_trial
+      get :missed_trial
+      get :add_to_class
+      get :update_interest
+      post :add_trial
+      get :add_trial
+    end
   end
 
   resources :problems do
     collection { post :import }
   end
 
-  resources :activities do
+  resources :registrations do
+    collection do
+      post :switch
+      get :hold
+      get :drop
+      get :cancel_hold
+      get :cancel_drop
+      get :attended_first_class
+    end
+  end
+
+  resources :reports
+  get 'reports/', to: 'reports#new'
+  post 'reports/display', to: 'reports#show'
+
+  resources :resources do
     collection { post :import }
   end
 
-  post "class_sessions/start_class"
-  get "class_sessions/end_class"
-  get "class_sessions/remove_student"
+  resources :stages
+
+  resources :standards do
+    collection { post :import }
+  end
+
+  get 'mission_lookup', to: 'static_pages#mission_lookup'
+  get 'code', to: 'static_pages#enter_code'
+  post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
+  get 'thank_you', to: 'static_pages#thank_you'
+  get 'badge_home', to: 'static_pages#badges'
+
+  resources :strategies
+
+  resources :students do
+    collection do
+      post :import
+      post :create_from_opportunity
+    end
+    resources :notes
+  end
+  get 'students/attended_first_class', to: 'students#attended_first_class'
+  post 'students/update_credits', to: 'students#update_credits'
+
+  resources :users do
+    collection do
+      post  :create_from_opportunity
+      post  :import
+      get   :my_account
+      get   :password_reset
+      get   :send_hold_form
+      get   :send_termination_form
+      post  :infusion_request
+      get   :missed_appointment
+      post  :appointment_reschedule_request
+      get   :year_end_promotion
+      get   :promotion
+      post  :appointment_request
+      put   :confirmation_opt_out
+    end
+    resources :notes
+  end
+
+  post 'users/deactivate/:id', to: 'users#deactivate'
+
+  resources :videos
+
+
   get "binders/briefcase"
   get "binders/middleschool"
   get "schedules/powell"
   get "schedules/new_albany"
-
-  get "infusion_pages/home"
-  get "infusion_pages/add_contact"
-  get "infusion_pages/add_existing_id"
-  get "infusion_pages/possible_contacts"
-  get "infusion_pages/edit"
-  get "infusion_pages/camps"
-  get "infusion_pages/update"
-  get "infusion_pages/credit_card"
-  get "infusion_pages/subscription"
-  get "infusion_pages/add_subscription"
-  get "infusion_pages/update_subscription"
-  get "infusion_pages/end_subscription"
-  get "infusion_pages/delete_user"
-  get "infusion_pages/audit"
-  get "infusion_pages/tag_contact"
 end

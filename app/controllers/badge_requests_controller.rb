@@ -25,7 +25,10 @@ class BadgeRequestsController < ApplicationController
 
   def create
     @badge_request = BadgeRequest.new(params[:badge_request])
-    @badge_request.save
+    @parent = params[:badge_request][:user_id]
+    if @badge_request.save
+      NotificationMailer.badge_request_confirmation(@badge_request, @parent)
+    end
     respond_with(@badge_request)
   end
 
