@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150818162041) do
+ActiveRecord::Schema.define(:version => 20150818182725) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20150818162041) do
     t.text     "requirements"
     t.integer  "badge_category_id"
     t.boolean  "multiple"
+    t.integer  "submission_type"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|

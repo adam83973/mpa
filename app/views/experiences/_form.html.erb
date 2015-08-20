@@ -23,6 +23,7 @@
       <%= f.simple_fields_for :badge do |badge_form| %>
         <%= badge_form.input :name %>
         <%= badge_form.association :category %>
+        <%= badge_form.input :submission_type, collection: Badge::SUBMISSION_TYPES.zip((0..1).to_a) %>
         <%= badge_form.input :requirements, input_html: { rows: 6, style: "resize:vertical;"} %>
         <%= badge_form.input :image, as: :file, label: "Upload Image" unless @experience.badge && @experience.badge.image? %>
         <div class="text-center">

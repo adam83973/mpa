@@ -10,5 +10,6 @@ class Badge < ActiveRecord::Base
 
   belongs_to :category, class_name: 'BadgeCategory', foreign_key: "badge_category_id"
 
-  SUBMISSION_TYPE = ["Electronic", "Physical"]
+  # electronic - 0, physical - 1
+  SUBMISSION_TYPES = ["Electronic", "Physical"]
 end
