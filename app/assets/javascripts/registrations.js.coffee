@@ -29,22 +29,45 @@ $('#registrationSwitchModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()
 
 
-# Validation for hold modal submission.
+# Validation for hold modal submission. Prevents user from
+# submitting for if they haven't selected both dates.
 $('#registrationHoldModal').on 'shown.bs.modal', ->
-  button = $(this).find('input[type="submit"]')
-  button.attr('disabled', 'disabled')
 
+  button = modal.setButton($(this))
   hold_date = $('#hold_hold_date')
   restart_date = $('#hold_restart_date')
 
-  $('#hold_hold_date').on 'change', ->
-    if hold_date.val() and restart_date.val()
-      button.removeAttr('disabled')
-    else
-      button.attr('disabled', 'disabled')
+  restart_date.attr('disabled', 'disabled')
 
-  $('#hold_restart_date').on 'change', ->
-    if hold_date.val() and restart_date.val()
-      button.removeAttr('disabled')
-    else
-      button.attr('disabled', 'disabled')
+  hold_date.on 'change', ->
+    restart_date.val('')
+    restart_date.removeAttr('disabled')
+    restart_date.removeClass('hasDatepicker').datepicker
+      dateFormat : 'yy-mm-dd',
+      minDate: hold_date.val()
+
+  modal.checkOnChange(hold_date, restart_date, button)
+  modal.checkOnChange(restart_date, hold_date, button)
+  # $('#hold_hold_date').on 'change', ->
+  #   if hold_date.val() and restart_date.val()
+  #     button.removeAttr('disabled')
+  #   else
+  #     button.attr('disabled', 'disabled')
+  #
+  # $('#hold_restart_date').on 'change', ->
+  #   if hold_date.val() and restart_date.val()
+  #     button.removeAttr('disabled')
+  #   else
+  #     button.attr('disabled', 'disabled')
+
+modal =
+  setButton: (modal) ->
+    button = modal.find('input[type="submit"]')
+    button.attr('disabled', 'disabled')
+
+  checkOnChange: (field1, field2, button) ->
+    field1.on 'change', ->
+      if field1.val() and field2.val()
+        button.removeAttr('disabled')
+      else
+        button.attr('disabled', 'disabled')

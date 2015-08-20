@@ -49,6 +49,7 @@ jQuery ->
 
   $('.opportunity_statuses').on 'click', 'a', ->
     status.select($(this).data("status"), $(this).data("locationid"))
+    
 status=
   select: (status, location_id) ->
     $.ajax
