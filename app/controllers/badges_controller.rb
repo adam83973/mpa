@@ -1,6 +1,6 @@
 class BadgesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_admin, except: [ :show ]
+  before_filter :authorize_admin, except: [ :show, :write_up_required ]
 
   # GET /badges
   # GET /badges.json
@@ -81,6 +81,14 @@ class BadgesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to badges_url }
       format.json { head :no_content }
+    end
+  end
+
+  def write_up_required
+    @badge = Badge.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @badge.write_up_required }
     end
   end
 end

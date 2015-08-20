@@ -1,6 +1,6 @@
 class BadgeRequest < ActiveRecord::Base
   attr_accessible :approved, :badge_id, :parent_submission, :student_id, :user_id,
-                  :date_approved
+                  :date_approved, :write_up
 
   belongs_to :badge
   belongs_to :student

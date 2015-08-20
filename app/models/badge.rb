@@ -1,7 +1,7 @@
 class Badge < ActiveRecord::Base
 
   attr_accessible :image, :name, :file, :filename, :experience_id, :remove_image,
-                  :requirements, :badge_category_id, :submission_type
+                  :requirements, :badge_category_id, :submission_type, :write_up_required
 
   has_and_belongs_to_many :students
   belongs_to :experience

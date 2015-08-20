@@ -14,7 +14,9 @@ MathPlus::Application.routes.draw do
     collection { get :approval }
   end
 
-  resources :badges
+  resources :badges do
+    collection { get :write_up_required }
+  end
 
   resources :class_sessions, only: [:new, :create, :destroy]
   post "class_sessions/start_class"

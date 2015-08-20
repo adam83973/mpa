@@ -1,5 +1,7 @@
-
-<div class="row" hidden>
+<%= link_to badge_home_path, target: "_blank" do %>
+  <%= image_tag('badges_banner.png', width: "100%", style: "margin:0 0 20px 0;") %>
+<% end %>
+<div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -29,7 +31,8 @@
           <%= f.input :badge_id, collection: Badge.all, input_html: { class: 'chosen', style: "width:100%;" } %>
           <%= f.input :user_id, as: :hidden, input_html: { value: @user.id } %>
           <%= f.input :parent_submission, input_html: { checked: true }, as: :hidden %>
-          <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right', :confirm => "By submitting this request you certify that your student has completed the requirements for this badge. For more information about badge requirements please see the button labeled \'More Info\'.\n \nYou also agree that this student has adhered to our policy of academic integrity.\n \nAcademic integrity includes a commitment to the values of honesty, trustworthiness, fairness, and respect. These values are essential to the overall success of an academic society." %>
+          <%= f.input :write_up, wrapper_html: { style: "display:none;" }, input_html: { rows: 6, style: "resize:vertical;", data: { "writeup-required" => false } }, placeholder: "Your student must submit a short write-up to earn this badge. This is where they can put it :)" %>
+          <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right' %>
         <% end %>
       </div>
       <div class="panel-footer">
