@@ -27,3 +27,24 @@ $('.registration_info').find('.hold').on 'click', ->
 
 $('#registrationSwitchModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()
+
+
+# Validation for hold modal submission.
+$('#registrationHoldModal').on 'shown.bs.modal', ->
+  button = $(this).find('input[type="submit"]')
+  button.attr('disabled', 'disabled')
+
+  hold_date = $('#hold_hold_date')
+  restart_date = $('#hold_restart_date')
+
+  $('#hold_hold_date').on 'change', ->
+    if hold_date.val() and restart_date.val()
+      button.removeAttr('disabled')
+    else
+      button.attr('disabled', 'disabled')
+
+  $('#hold_restart_date').on 'change', ->
+    if hold_date.val() and restart_date.val()
+      button.removeAttr('disabled')
+    else
+      button.attr('disabled', 'disabled')
