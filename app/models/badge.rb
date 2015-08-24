@@ -4,10 +4,8 @@ class Badge < ActiveRecord::Base
                   :requirements, :badge_category_id, :submission_type, :write_up_required
 
   has_and_belongs_to_many :students
+  has_many :badge_requests, dependent: :destroy
   belongs_to :experience
-
-  mount_uploader :image, FileUploader
-
   belongs_to :category, class_name: 'BadgeCategory', foreign_key: "badge_category_id"
 
   # electronic - 0, physical - 1

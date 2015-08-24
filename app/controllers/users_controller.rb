@@ -241,6 +241,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if AdminMailer.hold_form(@user).deliver
+
+        @note1 = @user.notes.build({
+          content: "Hold form sent.",
+          user_id: current_user.id})
+          
+        @note1.save!
         format.html { redirect_to @user, notice: "Hold form sent." }
         format.json { head :no_content }
       else
@@ -255,6 +261,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if AdminMailer.termination_form(@user).deliver
+
+        @note1 = @user.notes.build({
+          content: "Termination form sent.",
+          user_id: current_user.id})
+        @note1.save!
+
         format.html { redirect_to @user, notice: "Termination form sent." }
         format.json { head :no_content }
       else
