@@ -103,7 +103,7 @@ class Offering < ActiveRecord::Base
 
   def parent_email_to_csv
     CSV.generate do |csv|
-      students.each do |student|
+      students.active.each do |student|
         email = Array.new
         email << "#{student.user.full_name} <#{student.user.email}>,"
         csv << email
