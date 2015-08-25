@@ -29,19 +29,19 @@ class Offering < ActiveRecord::Base
   end
 
   def offering_name_dashboard
-      course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_name
-      course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
+    course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_trial_name
-      course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def returning_students_count
-      self.registrations.where("status = ?", 2).count
+    self.registrations.where("status = ?", 2).count
   end
 
   def set_day_number
@@ -49,7 +49,7 @@ class Offering < ActiveRecord::Base
   end
 
   def active_students_count
-      self.registrations.where("status = ? OR status = ?", 1, 0).count
+    self.registrations.where("status = ? OR status = ?", 1, 0).count
   end
 
   # def self.search(search)
@@ -103,9 +103,11 @@ class Offering < ActiveRecord::Base
 
   def parent_email_to_csv
     CSV.generate do |csv|
-      students.active.each do |student|
+      students.each do |student|
         email = Array.new
-        email << "#{student.user.full_name} <#{student.user.email}>,"
+        if student.is_active?
+          email << "#{student.user.full_name} <#{student.user.email}>,"
+        end
         csv << email
       end
     end

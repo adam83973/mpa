@@ -283,6 +283,10 @@ def is_inactive?
   !(self.registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
 end
 
+def is_active?
+  self.registrations.any? { |reg| reg.status == 1 } ? true : false
+end
+
 #checks to see if student has attended first class
   def attended_first_class?
     # !experience_points.empty?
