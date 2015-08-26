@@ -8,6 +8,8 @@ class Badge < ActiveRecord::Base
   belongs_to :experience
   belongs_to :category, class_name: 'BadgeCategory', foreign_key: "badge_category_id"
 
+  mount_uploader :image, FileUploader
+
   # electronic - 0, physical - 1
   SUBMISSION_TYPES = ["Electronic", "Physical"]
 end
