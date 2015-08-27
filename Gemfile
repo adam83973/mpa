@@ -49,6 +49,7 @@ end
 
 
 group :assets do
+  gem 'sass', "~> 3.3.13"
   gem 'sass-rails'
   gem 'bootstrap-sass'
   gem 'font-awesome-rails', '~> 4.0.3.1'
