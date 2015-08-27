@@ -9,6 +9,7 @@ class Offering < ActiveRecord::Base
   has_one :occupation, through: :course
   has_and_belongs_to_many :users
   has_many :registrations
+  has_many :active_registrations, conditions: {status: 0, status: 1}, class_name: 'Registration'
   has_many :students, through: :registrations
   # has_and_belongs_to_many :students
 
