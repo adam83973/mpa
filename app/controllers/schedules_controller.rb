@@ -8,4 +8,9 @@ class SchedulesController < ActionController::Base
     @location = Location.find(2)
     @offerings = @location.offerings
   end
+
+  def mill_run
+    @location = Location.find(3)
+    @offerings = @location.offerings
+  end
 end

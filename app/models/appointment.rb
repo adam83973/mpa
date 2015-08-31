@@ -10,6 +10,8 @@ class Appointment < ActiveRecord::Base
         update_attribute :location_id, 1
     elsif ca_id == 10936
       update_attribute :location_id, 2
+    elsif ca_id == 23402
+      update_attribute :location_id, 3
     end
   end
 end

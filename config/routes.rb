@@ -209,4 +209,5 @@ MathPlus::Application.routes.draw do
   get "binders/middleschool"
   get "schedules/powell"
   get "schedules/new_albany"
+  get "schedules/mill_run"
 end
