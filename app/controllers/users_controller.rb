@@ -245,7 +245,7 @@ class UsersController < ApplicationController
         @note1 = @user.notes.build({
           content: "Hold form sent.",
           user_id: current_user.id})
-          
+
         @note1.save!
         format.html { redirect_to @user, notice: "Hold form sent." }
         format.json { head :no_content }
@@ -441,6 +441,8 @@ class UsersController < ApplicationController
         @user.update_attribute :location_id, 1
       elsif appointment['location']['locationId'] == 10936
         @user.update_attribute :location_id, 2
+      elsif appointment['location']['locationId'] == 23402
+        @user.update_attribute :location_id, 3
       end
 
       # Add appointment to system
