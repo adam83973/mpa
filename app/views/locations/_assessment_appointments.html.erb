@@ -14,7 +14,7 @@
               <%= appointment.time.strftime("%A") %>
             </td>
             <td>
-              <%= link_to appointment.user.full_name, appointment.user %>
+              <%= link_to appointment.user.full_name, appointment.user if appointment.user %>
             </td>
             <td>
               <%= appointment.time.getlocal.strftime("%I:%M %P") %>
