@@ -49,6 +49,9 @@ class RegistrationsController < ApplicationController
 
     respond_to do |format|
       if @registration.save
+        if @registration.status == 0 && @registration.start_date >= Date.today
+          @registration.update_attribute :status, 1
+        end
         format.html { redirect_to @student, notice: 'Registration was successfully created.' }
         format.json { render json: @registration, status: :created, location: @registration }
       else

@@ -16,6 +16,7 @@
 
     <% if (!(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?)) %>
       <% unless class_session.in_session? %>
+        <h2>Today's Assessments</h2>
         <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless @location_assessment_appointments.empty? || !(current_user.admin?) %>
 
         <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
