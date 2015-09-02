@@ -5,7 +5,6 @@
         <th>Day</th>
         <th>Parent</th>
         <th>Time</th>
-        <th>Reason</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +14,7 @@
               <%= appointment.time.strftime("%A") %>
             </td>
             <td>
-              <%= appointment.user.full_name %>
+              <%= link_to appointment.user.full_name, appointment.user %>
             </td>
             <td>
               <%= appointment.time.getlocal.strftime("%I:%M %P") %>
