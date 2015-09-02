@@ -4,8 +4,6 @@
       <tr>
         <th>Parent</th>
         <th>Time</th>
-        <th>Child</th>
-        <th>Grade</th>
         <th>Reason</th>
       </tr>
     </thead>
@@ -13,21 +11,14 @@
         <% appointments.each do |appointment| %>
           <tr>
             <td>
+              <%= appointment.time.strftime("%b %e") %>
+            </td>
+            <td>
               <%= appointment.user.full_name %>
             </td>
             <td>
               <%= appointment.time.getlocal.strftime("%I:%M %P") %>
             </td>
-            <td>
-              <%= appointment.hwHelpChild %>
-            </td>
-            <td>
-              <%= appointment.hwHelpClass %>
-            </td>
-            <td>
-              <%= appointment.hwHelpReason %>
-            </td>
-
           </tr>
         <% end %>
     </tbody>
