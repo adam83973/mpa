@@ -14,15 +14,15 @@
       </div>
     </div>
 
-    <% if (!(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?)) %>
-      <% unless class_session.in_session? %>
+    <% unless class_session.in_session? %>
+      <% if !(@location_assessment_appointments.empty? %>
         <h2>Today's Assessments</h2>
-        <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless @location_assessment_appointments.empty? || !(current_user.admin?) %>
-
-        <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
-
-        <hr>
+        <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless !(current_user.admin?) %>
       <% end %>
+      <% if !(@location_hw_help_appointments.empty?) %>
+        <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
+      <% end %>
+      <hr>
     <% end %>
 
     <% if current_user.admin? %>
