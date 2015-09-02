@@ -7,15 +7,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require chosen-jquery
-//= require bootstrap/modal
-//= require bootstrap/dropdown
-//= require bootstrap/scrollspy
-//= require bootstrap/tab
-//= require bootstrap/tooltip
-//= require bootstrap/popover
-//= require bootstrap/collapse
-//= require bootstrap/carousel
-//= require bootstrap/alert
+//= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
