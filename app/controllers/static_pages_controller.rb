@@ -140,7 +140,7 @@ class StaticPagesController < ApplicationController
       @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)
 
       #Pull students are starting or restarting within the next day.
-      @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1).order(start_date: :desc)
+      @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
       @restarting_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
       @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
     end
