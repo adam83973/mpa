@@ -132,6 +132,8 @@ class StaticPagesController < ApplicationController
 
         if Offering.any_today_location?(@user_location)
           @todays_offering_by_location = Offering.includes(:users).where("active = ? AND location_id = ?", true,      @user_location.id).includes(:course).reject{|hash| hash[:day] != Time.now.strftime('%A') }
+        else
+          @todays_offering_by_location = []
         end
         @location_offerings_count = @location_offerings.count
       end
