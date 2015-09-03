@@ -1,0 +1,111 @@
+<div hidden>
+  <%= link_to badge_home_path, target: "_blank" do %>
+    <%= image_tag('badges_banner.png', width: "100%", style: "margin:0 0 20px 0;") %>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 style="margin:10px 0 10px 0;">Message Center</h1>
+          <h3 style="margin:10px 0 10px 0;"><small>Do you have a compliment, concern, or question? This is the place.</small></h3>
+        </div>
+        <div class="panel-body">
+          <%= simple_form_for @message do |f| %>
+            <%= f.input :subject, label: false, placeholder: "Subject" %>
+            <%= f.input :content, as: :text, label: false, placeholder: "Message", input_html: { rows: 6, style: "resize:vertical;" } %>
+            <%= f.input :user_id, input_html: { value: @user.id }, as: :hidden %>
+            <%= f.input :location_id, input_html: { value: @user.location_id }, as: :hidden %>
+            <%= f.input :general, input_html: { checked: true }, as: :hidden %>
+            <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Badge Request!</h1>
+        </div>
+        <div class="panel-body">
+          <%= simple_form_for @badge_request do |f| %>
+            <%= f.input :student_id, collection: @user.students, label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>
+            <%= f.input :badge_id, collection: Badge.all, input_html: { class: 'chosen', style: "width:100%;" } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: @user.id } %>
+            <%= f.input :parent_submission, input_html: { checked: true }, as: :hidden %>
+            <%= f.input :write_up, wrapper_html: { style: "display:none;" }, input_html: { rows: 6, style: "resize:vertical;", data: { "writeup-required" => false } }, placeholder: "Your student must submit a short write-up to earn this badge. This is where they can put it :)" %>
+            <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right' %>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <div class="row" style="margin:10px 0 10px 0;">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-center">
+              <span style="color:red;">The badge request form is for parents who are certifying completion of a badge.</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+              <%= link_to "More Info", badge_home_path, target: "_blank", class: "btn btn-primary btn-md" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Render each parent's student in an accordian view and their offering(s) -->
+<% student_count = @user.students.count %>
+<% @user.students.each_with_index do |student, i| %>
+  <% if i % 2 == 0 %>
+    <div class="row">
+  <% end %>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div id="student-<%= student.id %>" class="panel panel-default parent-student-home" style="height:100%;">
+        <div class="panel-heading">
+          <div class="text-center">
+            <%= image_tag(student.avatar.image_url, size: "75x75") if student.avatar %>
+          </div>
+          <h3 class="text-center"><%= link_to student.full_name, student %></h3>
+        </div>
+        <div class="panel-body">
+          <p class="text-center"><u>Total Credits:</u> <%= student.credits %></p>
+          <p class="text-center"><u>Total XP:</u> <%= student.xp_total %></p>
+          <p style="height:50px;overflow:scroll;" class="text-center"><u>Recent comment:</u>
+            "<%= student.last_assignment_xp ? student.last_assignment_xp.comment : "There are no comments on file." %>"
+          </p>
+        </div>
+        <% if student.is_active_mathematician? %>
+          <div class="panel-footer">
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                Assignments Last 90 Days
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
+                <h3>Perfect</h3>
+                <h3 style="color:green;">
+                  <%= student.homework_scores_last(90, 5) %>
+                </h3>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
+                <h3>Complete</h3>
+                <h3>
+                  <%= student.homework_scores_last(90, 1) %>
+                </h3>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
+                <h3 class="hidden-xs">Incomplete</h3>
+                <h3 class="hidden-sm hidden-md hidden-lg">Inc.</h3>
+                <h3 style="color:red;">
+                  <%= student.homework_scores_last(90, 4) %>
+                </h3>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% if i % 2 == 1 || i+1 == student_count %>
+    </div>
+  <% end %>
+<% end %>

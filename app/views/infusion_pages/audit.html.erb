@@ -28,7 +28,7 @@
 				<% @parents_with_active_students.each_with_index do |parent, i| %>
 				<tr <%= "class=danger" if parent.balance_due != 0 %>>
 					<td><%= i + 1 %></td>
-					<td><%= link_to parent.full_name, parent, :target => "_blank" %></td>
+					<td><%= link_to parent.full_name, parent, :target => "_blank" %> - <%= parent.billing_note if billing_note %></td>
 					<td><%= user_status(parent).html_safe %></td>
 					<td <%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %> >
 						<ol>

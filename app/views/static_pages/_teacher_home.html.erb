@@ -1,0 +1,48 @@
+<% if class_session.in_session? %>
+<% else %>
+  <div class="row">
+    <div class="classform col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <h3>Start Class!</h3>
+        <%= form_tag(controller: "class_sessions", action: "start_class", method: "post", class: "simple_form") do %>
+          <%= label_tag "Class" %>
+          <%= collection_select :offering, :id, @offerings, :id, :offering_name,{},{class: "form-control"} %>
+          <br>
+          <br>
+          <%= label_tag "Week" %>
+          <%= text_field_tag :week, params[:week], class:"form-control" %>
+          <br>
+          <p>
+            <%= submit_tag "Start Class", id: :startclass, disabled: :disabled, class: "btn btn-sm btn-success" %>
+          </p>
+
+      <% end %>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+      <%= render 'teachers_offerings' %>
+    </div>
+  </div>
+<% end %>
+
+<div id='class_in_session'>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= render 'class_in_session' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= render 'teachers_offerings' if class_session.in_session? %>
+    </div>
+  </div>
+</div>
+
+<%= render 'attendance_modal' %>
+
+<%# render 'grades_modal' %>
+
+<%= render 'class_summary_modal' %>
+
+<%= render 'attendance_grades_buttons' %>
+
+<div class="row">
+<div>

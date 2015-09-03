@@ -17,11 +17,13 @@
       <% if params[:first_name] %>
         <%= f.input :first_name, label: "First Name", input_html: { value: params[:first_name]} %>
         <%= f.input :last_name, label: "Last Name", input_html: { value: params[:last_name]} %>
+        <%= f.input :billing_note, input_html: { rows: 2} %>
         <%= f.input :phone, input_html: { value: params[:phone]} %>
         <%= f.input :email, input_html: { value: params[:email]} %>
       <% else %>
         <%= f.input :first_name, label: "First Name" %>
         <%= f.input :last_name, label: "Last Name" %>
+        <%= f.input :billing_note, input_html: { rows: 2} %>
         <%= f.input :phone %>
         <%= f.input :email %>
       <% end %>
@@ -61,6 +63,7 @@
         <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"] if current_user.employee? %>
         <%= f.input :first_name, label: "First Name" %>
         <%= f.input :last_name, label: "Last Name" %>
+        <%= f.input :billing_note, input_html: { rows: 2} %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <%= f.input :phone %>
@@ -83,6 +86,10 @@
       <%= f.input :active if current_user.admin? %>
     </div>
   </div>
-  <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    </div>
+  </div>
   <% end %>
 <% end %>

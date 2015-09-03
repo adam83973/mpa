@@ -42,6 +42,13 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  def starts_today?
+    start_date == Date.today
+  end
+
+  def start_has_passed?
+    start_date < Date.today
+  end
   #-----Registration Information Management-----
 
   def self.import(file)

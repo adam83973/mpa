@@ -1,79 +1,27 @@
 <% if signed_in? %>
-<%= render 'first_login_password' %>
+  <%= render 'first_login_password' %>
 
-<div id="results">
-  <%= render 'shared/user_search_results' %>
-</div>
+  <div id="results">
+    <%= render 'shared/user_search_results' %>
+  </div>
+
   <% if current_user.admin? %>
-    <div id="home_tabs">
 
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active badge1" data-badge="3"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a></li>
-        <li role="presentation" class="badge1" data-badge="42"><a href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a></li>
-        <li role="presentation" class="badge1" <%= "data-badge=#{@badge_requests.count}" unless @badge_requests.empty? %>><a href="#badges" aria-controls="badges" role="tab" data-toggle="tab">Badges</a></li>
-        <li role="presentation" class="badge1" data-badge="13"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-      </ul>
+    <%= render 'admin_home' %>
 
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" style="padding-top:40px;" id="today">
-            <div class="row">
-              <div class="dashboard">
-                <%= render 'todays_overview' %>
+    <%= render 'parent_lookup_modal' %>
 
-                <%= render 'action_notes' if current_user.admin? %>
-              </div>
-            </div>
+    <%= render 'student_lookup_modal' %>
 
-            <% unless class_session.in_session? %>
-              <% if !(@location_assessment_appointments.empty?) %>
-                <h2>Today's Assessments</h2>
-                <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless !(current_user.admin?) %>
-              <% end %>
-              <% if !(@location_hw_help_appointments.empty?) %>
-                <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
-              <% end %>
-              <hr>
-            <% end %>
+    <%= render 'new_parent_modal', table_id: "new_user" %>
 
-            <%= render 'daily_schedule' if current_user.admin? %>
+    <%= render 'new_student_modal' %>
 
-        </div>
-        <div role="tabpanel" class="tab-pane" id="opportunities">
-
-          <%= render 'lead_management' %>
-
-        </div>
-        <div role="tabpanel" class="tab-pane" style="padding-top:40px;" id="badges">
-          <div class="row">
-            <%= render 'admin_badge_requests' %>
-          </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" style="padding-top:40px;" id="messages">
-          <div class="row">
-            <%= render 'admin_messages' %>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <% end %>
-
-    <% if current_user.admin? %>
-
-      <%= render 'parent_lookup_modal' %>
-
-      <%= render 'student_lookup_modal' %>
-
-      <%= render 'new_parent_modal', table_id: "new_user" %>
-
-      <%= render 'new_student_modal' %>
-    <% end %>
+  <% end %>
 
   <%if current_user.teacher? %>
 
-    <%= render 'teacher_offerings' %>
+    <%= render 'teacher_home' %>
 
     <%= render 'activity_feed' %>
 
@@ -81,7 +29,7 @@
 
   <% if current_user.parent? %>
 
-    <%= render 'parent_students' %>
+    <%= render 'parent_home' %>
 
   <% end %>
 

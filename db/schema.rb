@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150820165519) do
+ActiveRecord::Schema.define(:version => 20150903171613) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -543,6 +543,7 @@ ActiveRecord::Schema.define(:version => 20150820165519) do
     t.integer  "default_location"
     t.boolean  "appointment_rescheduled",               :default => false
     t.boolean  "confirmation_opt_out",                  :default => false
+    t.text     "billing_note",                          :default => ""
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

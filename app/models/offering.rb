@@ -121,4 +121,8 @@ class Offering < ActiveRecord::Base
       offering.save!
     end
   end
+
+  def self.any_today_location?(location)
+    where("active = ? AND location_id = ? AND day = ?", true, location.id, Time.now.strftime('%A')).any?
+  end
 end
