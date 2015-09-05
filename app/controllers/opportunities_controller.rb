@@ -235,15 +235,18 @@ class OpportunitiesController < ApplicationController
     @note1.save!
   end
 
+  def appointment_completed
+    set_opportunity
+
+  end
+
   def attended_trial
-    @opportunity = Opportunity.find(params[:id])
-    @student = Student.find(@opportunity.student_id) if @opportunity.student_id
-    @parent = @opportunity.user
+    set_opportunity
 
     if @student
-      if @opportunity.update_attribute :attended_trial, true
-        redirect_to root_path, notice: "#{@student.full_name} has attended their trial."
-        @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+      if @opportunity.update_attributes attended_trial: true, status: 4
+        redirect_to root_path, notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
+        @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment. Moved opportunity to undecided.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
       end
     else
@@ -252,9 +255,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def missed_trial
-    @opportunity = Opportunity.find(params[:id])
-    @student = Student.find(@opportunity.student_id) if @opportunity.student_id
-    @parent = @opportunity.user
+    set_opportunity
 
     if @student
       if @opportunity.update_attributes missed_trial: true, status: 4
@@ -278,6 +279,11 @@ class OpportunitiesController < ApplicationController
   end
 
   private
+    def set_opportunity
+      @opportunity = Opportunity.find(params[:id])
+      @student = Student.find(@opportunity.student_id) if @opportunity.student_id
+      @parent = @opportunity.user
+    end
 
     def add_payment_note
       @note = @parent.notes.build({content: "#{@student.full_name} is starting today and we may not have payment information. Please check to see if payment information is on file. If not, collect at first class.", user_id: current_user.id, action_date: @registration.start_date, location_id: @parent.location_id})

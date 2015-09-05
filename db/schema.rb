@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150903171613) do
+ActiveRecord::Schema.define(:version => 20150905134218) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -374,6 +374,7 @@ ActiveRecord::Schema.define(:version => 20150903171613) do
     t.boolean  "promotion_sent"
     t.integer  "promotion_id"
     t.boolean  "missed_trial",          :default => false
+    t.boolean  "appointment_complete",  :default => false
   end
 
   create_table "problems", :force => true do |t|

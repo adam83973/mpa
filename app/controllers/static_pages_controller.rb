@@ -149,7 +149,7 @@ class StaticPagesController < ApplicationController
 
     def set_teacher
       @experience_point = ExperiencePoint.new
-      @user_offerings = @user.offerings.includes(:course, :location)
+      @user_offerings = @user.offerings.where(active: true).includes(:course, :location)
       @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC") unless class_session.in_session?
       @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')
     end
