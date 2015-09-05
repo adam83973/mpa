@@ -264,7 +264,7 @@ class OpportunitiesController < ApplicationController
         @note.save
       end
     else
-      redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as missed."}
+      redirect_to root_path, flash: { alert: "You must add a student to this opportunity, before marking their trial as missed."}
     end
   end
 
