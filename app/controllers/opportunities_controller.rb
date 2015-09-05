@@ -254,6 +254,10 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def change_trial_date
+    @opportunity = Opportunity.find(params[:id])
+  end
+
   def missed_trial
     set_opportunity
 

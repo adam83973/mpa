@@ -20,7 +20,8 @@
 
     <p>
       <b>Trial date:</b>
-      <%= @opportunity.trial_date ? @opportunity.trial_date.strftime("%D") : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) %>
+      <%= @opportunity.trial_date ? ( link_to @opportunity.trial_date.strftime('%D'), "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) %>
+
     </p>
 
     <p>
