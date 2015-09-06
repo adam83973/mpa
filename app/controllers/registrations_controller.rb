@@ -18,6 +18,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1.json
   def show
     @registration = Registration.find(params[:id])
+    @student = @registration.student
 
     respond_to do |format|
       format.html # show.html.erb
@@ -181,7 +182,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find(params[:id])
     @student = @registration.student
 
-    if @registration.update_attribute :attended_first_class, true
+    if @registration.update_attributes attended_first_class: true, status: 1
       redirect_to root_path, notice: "#{@student.full_name} has attended their first class."
     end
   end

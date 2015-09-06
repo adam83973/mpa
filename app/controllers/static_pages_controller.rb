@@ -63,6 +63,12 @@ class StaticPagesController < ApplicationController
       redirect_to code_url, flash: { alert: "Invalid Code!" }
   end
 
+  def sample_student
+    #code
+  end
+
+  #---Private-------------------------------------------------------------------
+
   private
     def set_admin
       @opportunity = Opportunity.new
