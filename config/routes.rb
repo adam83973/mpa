@@ -2,6 +2,8 @@ MathPlus::Application.routes.draw do
 
   root to: 'static_pages#home'
 
+  get 'sample', to: 'static_pages#sample'
+
   resources :activities do
     collection { post :import }
   end
@@ -168,7 +170,6 @@ MathPlus::Application.routes.draw do
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'thank_you', to: 'static_pages#thank_you'
   get 'badge_home', to: 'static_pages#badges'
-  get 'sample', to: 'static_pages#sample'
 
   resources :strategies
 
