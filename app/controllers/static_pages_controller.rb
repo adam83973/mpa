@@ -63,10 +63,8 @@ class StaticPagesController < ApplicationController
       redirect_to code_url, flash: { alert: "Invalid Code!" }
   end
 
-  def sample
+  def sample_student
   end
-
-  #---Private-------------------------------------------------------------------
 
   private
     def set_admin
