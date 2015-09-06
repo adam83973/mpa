@@ -64,7 +64,6 @@ class StaticPagesController < ApplicationController
   end
 
   def sample_student
-    #code
   end
 
   #---Private-------------------------------------------------------------------
