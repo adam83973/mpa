@@ -21,7 +21,9 @@
 
 <%= render 'future_adds_modal' %>
 
-<div class="text-center">
-  <h1>Average Enrollment per Month</h1>
-  <%= line_chart @data, @options %>
-</div>
+<% if @data %>
+  <div class="text-center">
+    <h1>Average Enrollment per Month</h1>
+    <%= line_chart @data, @options %>
+  </div>
+<% end %>
