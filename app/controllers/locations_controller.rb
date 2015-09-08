@@ -133,7 +133,11 @@ class LocationsController < ApplicationController
         ]
       }
 
-      @options = {width: '100%'}
+      @options = {
+        width: '800',
+        responsive: true,
+        maintainAspectRatio: true
+      }
     end
 
     def average_monthly_enrollment
