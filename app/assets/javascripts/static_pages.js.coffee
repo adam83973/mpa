@@ -28,7 +28,7 @@ jQuery ->
     $submitButton = $("#attendance_form").find('input[name="commit"]').prop("disabled", true)
     $('#experience_point_student_id').on 'change', ->
       if $('#experience_point_student_id').val()
-        $submitButton.prop("disabled", false)
+        $submitButton.attr("disabled", false)
   $('#attendanceModal').on 'hidden.bs.modal', ->
     location.reload()
 # Handle attendance ajax events ---
