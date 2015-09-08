@@ -147,7 +147,7 @@ class LocationsController < ApplicationController
           end
         end
         reports_by_month << monthly_reports
-        monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size
+        @monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size
       end
     end
 end
