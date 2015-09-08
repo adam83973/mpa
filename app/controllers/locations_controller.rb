@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
 
     @offerings = @location.offerings
 
-    set_chart_data
+    set_chart_data unless @location.id == 3
 
     respond_to do |format|
       format.html # show.html.erb
