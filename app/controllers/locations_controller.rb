@@ -113,7 +113,7 @@ class LocationsController < ApplicationController
     def set_chart_data
       @last_twelve_months = Date::MONTHNAMES[1..12].reverse.rotate(1-Time.now.month).reverse
 
-      @location_reports = DailyLocationReport.where("created_at >= ? AND created_at <= ? AND location_id = ?",(Date.today - 12.month).beginning_of_month, (Date.today - 1.month).end_of_month, 1)
+      @location_reports = DailyLocationReport.where("created_at >= ? AND created_at <= ? AND location_id = ?",(Date.today - 12.month).beginning_of_month, (Date.today - 1.month).end_of_month, @location.id)
 
       average_monthly_enrollment
 
@@ -133,7 +133,7 @@ class LocationsController < ApplicationController
         ]
       }
 
-      @options = {}
+      @options = {width: '100%'}
     end
 
     def average_monthly_enrollment
