@@ -118,7 +118,7 @@ class LocationsController < ApplicationController
       average_monthly_enrollment
 
       @data = {
-        labels: last_twelve_months,
+        labels: @last_twelve_months,
         datasets: [
           {
               label: "Average Enrollment by Month",
