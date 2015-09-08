@@ -63,6 +63,8 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartjs-ror (2.2.0)
+      rails (>= 3.1)
     check_appointments (0.0.6)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
@@ -357,6 +359,7 @@ DEPENDENCIES
   bootstrap-sass
   bullet
   carrierwave
+  chartjs-ror
   check_appointments
   chosen-rails
   coffee-rails (~> 3.2.1)

@@ -33,6 +33,7 @@
 //= require opportunities
 //= require jscolor
 //= require badges
+//= require Chart
 
 jscolor.dir = '/path/to/assets/'
 
