@@ -130,9 +130,6 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.update_status(@new_status.to_i)
-        if @new_status.to_i == 2 && @parent.infusion_id
-          @parent.missed_appointment
-        end
         format.js
       end
     end
