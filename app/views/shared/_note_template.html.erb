@@ -2,11 +2,11 @@
   <div class="well well-sm">
     <div style="padding:7px 10px 0 10px;">
       <p>
-        <%= (h note.content).gsub("\n", '<br/>') %>
-          <div class="text-right">
-            <%= link_to "Edit", edit_note_path(note), class: "btn btn-xs btn-default" if Time.now - 1.day < note.created_at && current_user.admin? %>
-            <%= link_to 'Delete', note, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" if current_user.admin? && Time.now - 1.day < note.created_at %>
-          </div>
+        <%= sanitize(note.content.gsub("\n", "<br />"), :tags => %w(br), :attributes => %w()) %>
+        <div class="text-right">
+          <%= link_to "Edit", edit_note_path(note), class: "btn btn-xs btn-default" if Time.now - 1.day < note.created_at && current_user.admin? %>
+          <%= link_to 'Delete', note, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" if current_user.admin? && Time.now - 1.day < note.created_at %>
+        </div>
        </p>
       <hr style="margin:0 0 10px 0;">
       <div class="row">
