@@ -96,6 +96,7 @@ class OpportunitiesController < ApplicationController
         elsif status.to_i == 4 #undecided
           @opportunity.update_attribute :undecided_date, Date.today
         elsif status.to_i == 2 #missed appointment
+          puts "missed appointment"
           @parent.missed_appointment
         end
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
