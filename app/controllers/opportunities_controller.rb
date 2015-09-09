@@ -129,6 +129,9 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.update_status(@new_status.to_i)
+        if @new_status.to_i == 2 && @parent.infusion_id
+          Infusionsoft.contact_add_to_group(@parent.infusion_id, 1838)
+        end
         format.js
       end
     end
@@ -237,7 +240,6 @@ class OpportunitiesController < ApplicationController
 
   def appointment_completed
     set_opportunity
-
   end
 
   def attended_trial
