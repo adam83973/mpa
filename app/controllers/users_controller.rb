@@ -480,7 +480,7 @@ class UsersController < ApplicationController
       if appointment['reason']['reasonId'] == 37117
         @note1 = @user.notes.build({
           content: content,
-          user_id: 1,
+          user_id: @user.system_admin_id,
           location_id: @user.location_id,
           action_date: Date.today})
 

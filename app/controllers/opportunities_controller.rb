@@ -96,7 +96,6 @@ class OpportunitiesController < ApplicationController
         elsif status.to_i == 4 #undecided
           @opportunity.update_attribute :undecided_date, Date.today
         elsif status.to_i == 2 #missed appointment
-          puts "missed appointment"
           @parent.missed_appointment
         end
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
@@ -229,7 +228,7 @@ class OpportunitiesController < ApplicationController
     @note1 = @user.notes.build({
       title: "Trial",
       content: "#{@user.first_name} has scheduled a trial. Please create or link this to a student account.",
-      user_id: User.system_admin_id,
+      user_id: @user.system_admin_id,
       location_id: @opportunity.location_id,
       action_date: Date.today})
 
@@ -264,7 +263,7 @@ class OpportunitiesController < ApplicationController
     if @student
       if @opportunity.update_attributes missed_trial: true, status: 4
         redirect_to root_path, notice: "#{@student.full_name} has missed their trial."
-        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
+        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
       end
     else

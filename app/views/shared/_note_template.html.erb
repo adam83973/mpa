@@ -2,7 +2,7 @@
   <div class="well well-sm">
     <div style="padding:7px 10px 0 10px;">
       <p>
-        "<%= note.content %>"
+        "<%= simple_format(h note.content) %>"
           <div class="text-right">
             <%= link_to "Edit", edit_note_path(note), class: "btn btn-xs btn-default" if Time.now - 1.day < note.created_at && current_user.admin? %>
             <%= link_to 'Delete', note, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" if current_user.admin? && Time.now - 1.day < note.created_at %>
