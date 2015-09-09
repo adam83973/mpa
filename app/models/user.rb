@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
       if Infusionsoft.contact_add_to_group(infusion_id, tag_id) #adds tag: "missed appt."
         #this stops multiple reschedule requests from being submitted.
         update_attribute :appointment_rescheduled, true
-        note = notes.build({user_id: self.system_admin_id, content: "#{full_name} missed their appointment. An email was sent on #{Date.today.strftime("%D")}. Please contact to reschedule if no response by #{(Date.today + 3.days).strftime("%D")}.", action_date: Date.today + 3.days, location_id: location.id })
+        note = notes.build({user_id: system_admin_id, content: "#{full_name} missed their appointment. An email was sent on #{Date.today.strftime("%D")}. Please contact to reschedule if no response by #{(Date.today + 3.days).strftime("%D")}.", action_date: Date.today + 3.days, location_id: location.id })
         note.save
       end
     end
@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.system_admin_id
+  def system_admin_id
     if Rails.env.production?
       757
     elsif Rails.env.development?
