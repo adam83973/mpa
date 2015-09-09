@@ -75,6 +75,7 @@ class Opportunity < ActiveRecord::Base
     elsif status == 4 #undecided
       self.update_attribute :undecided_date, Date.today
     elsif status == 2 #missed appointment
+      puts "missed appointment"
       parent.missed_appointment
     end
   end
