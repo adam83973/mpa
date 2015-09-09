@@ -91,11 +91,11 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
-        if @status == 8 #lost
+        if @status.to_i == 8 #lost
           @opportunity.update_attribute :date_lost, Date.today
-        elsif status == 4 #undecided
+        elsif status.to_i == 4 #undecided
           @opportunity.update_attribute :undecided_date, Date.today
-        elsif status == 2 #missed appointment
+        elsif status.to_i == 2 #missed appointment
           @parent.missed_appointment
         end
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
