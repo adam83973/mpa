@@ -24,7 +24,7 @@
 				</div>
 		  </div>
       <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-        <%= link_to "Make Active", '#', class: "btn btn-xs btn-success pull-right", style: "margin-right:10px;" if @registration.status == 0 %>
+        <%= link_to "Make Active", activate_registrations_path(id: @registration.id), class: "btn btn-xs btn-success pull-right", style: "margin-right:10px;" if @registration.status == 0 %>
       </div>
 		</div>
   </div>

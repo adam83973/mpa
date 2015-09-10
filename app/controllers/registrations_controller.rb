@@ -103,9 +103,17 @@ class RegistrationsController < ApplicationController
   def drop
     @registration = Registration.find(params[:drop][:registration_id].to_i)
     @student = Student.find(@registration.student_id)
+    @parent = @student.user
 
     respond_to do |format|
       if @registration.update_attribute :end_date, params[:drop][:end_date]
+        note = @parent.notes.build({
+          title: "Registration Drop",
+          content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
+          user_id: @parent.system_admin_id,
+          location_id: @registration.location_id,
+          action_date: Date.tomorrow})
+        note.save
         format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: "End date has been added. Please update this user's subscriptions." }
         format.json { head :no_content }
       else
@@ -140,6 +148,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find(params[:hold][:registration_id].to_i)
     @restart_registration = Registration.new
     @student = Student.find(@registration.student_id)
+    @parent = @student.user
 
     # Set hold date on current registration. This date will be used as the date to set registration to inactive.
     @registration.update_attribute :hold_date, params[:hold][:hold_date]
@@ -152,6 +161,14 @@ class RegistrationsController < ApplicationController
                                                       status: 2,
                                                       attended_first_class: true,
                                                       hold_id: @registration.id)
+                                                      ``
+        note = @parent.notes.build({title: "Registration Drop",
+                                    content: "#{@student.first_name} has entered a hold. Please double check their subscriptions.",
+                                    user_id: @parent.system_admin_id,
+                                    location_id: @registration.location_id,
+                                    action_date: Date.tomorrow})
+        note.save
+
         format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
         format.json { head :no_content }
       else
@@ -200,11 +217,17 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  private
+  def activate
+    @registration = Registration.find(params[:id])
+    @student = @registration.student
 
-  def activate_registration
     if @registration.status == 0 && @registration.start_date <= Date.today
       @registration.update_attribute :status, 1
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @student, notice: 'Registration Activated.' }
+      format.json { head :no_content }
     end
   end
 end

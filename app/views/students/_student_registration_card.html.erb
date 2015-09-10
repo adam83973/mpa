@@ -42,7 +42,7 @@
 				 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 					    <div class='text-center' style="margin-left:5px;">
 					    	<div class="btn-group btn-group-sm">
-								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-default", data: { registrationid: reg.id, offeringid: reg.offering_id } unless reg.end_date || (reg.switch_id && reg.start_date > Date.today) || reg.hold_date %>
+								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-default", data: { registrationid: reg.id, offeringid: reg.offering_id } unless reg.end_date || (reg.switch_id && reg.start_date > Date.today) || reg.hold_date || reg.status == 0 %>
 								  <!-- Status 1 is active, which requires different actions. -->
 								  <% if reg.status == 1 %>
 								  	<%= link_to "Hold", "javascript:void(0)", class: "btn hold btn-warning", data: { registrationid: reg.id } unless reg.end_date || reg.hold_date %>
@@ -54,6 +54,7 @@
 								  <% else %>
 								  <!-- This drop destroys the record since the class has never been attended. -->
 										<%= link_to 'Destroy', reg, method: :delete, data: { confirm: 'This will remove any and all traces of this registration. Are you sure?' }, class: "btn btn-danger" %>
+										<%= link_to "View", reg, class: "btn btn-default" %>
 								  <% end %>
 								</div>
 				 		  </div>

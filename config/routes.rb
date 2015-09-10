@@ -146,6 +146,7 @@ MathPlus::Application.routes.draw do
       get :cancel_hold
       get :cancel_drop
       get :attended_first_class
+      get :activate
     end
   end
 
