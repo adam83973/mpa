@@ -21,9 +21,10 @@ def subscription_information
         # Update active_subscription attribute if parent has active subscription
         end
         if parent.active_subscription?
-          parent.update_attributes active_subscription: true, subscription_count: parent.subscriptions_count.to_i
+          parent.update_attributes active_subscription: true,
+            subscription_count: parent.subscriptions_count.to_i
         else
-          parent.update_attributes active_subscription: false
+          parent.update_attributes active_subscription: false, subscription_count: 0
         end
       else
         parent.update_attributes last_payment: [].to_json
@@ -38,4 +39,3 @@ def subscription_information
     end
   end
 end
-

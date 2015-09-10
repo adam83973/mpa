@@ -100,14 +100,14 @@ class User < ActiveRecord::Base
 
   # Infusionsoft administration
   def active_subscription?
-    if self.parent?
+    if parent?
       active_subscriptions = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
       active_subscriptions.any? { |s| s["Status"] == "Active" }
     end
   end
 
   def subscriptions_count
-    if self.parent?
+    if parent?
       active_subscriptions = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
       active_subscriptions.count { |s| s["Status"] == "Active" }
     end
