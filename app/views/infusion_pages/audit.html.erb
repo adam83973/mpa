@@ -77,7 +77,7 @@
 						</td>
 						<td>
 							<ol>
-								<% parent.registrations.each |reg| %>
+								<% parent.registrations.each do |reg| %>
 									<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
 								<% end %>
 							</ol>
