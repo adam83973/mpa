@@ -284,11 +284,11 @@ class InfusionPagesController < ApplicationController
 
     @parents_with_active_students = Array.new
     @parents.each { |parent| @parents_with_active_students << parent if parent.active_students? }
-
+    @active = @parents_with_active_students.clone
     @parent_sub_no_reg = Array.new
     @parents_with_sub.each { |parent| parent.active_students? == false ? @parent_sub_no_reg << parent : "" }
 
-    @parents_with_active_students_no_sub = @parents_with_active_students.delete_if{|parent| parent.subscription_count > 0}
+    @parents_with_active_students_no_sub = @active.delete_if{|parent| parent.subscription_count > 0}
   end
 
   def tag_contact
