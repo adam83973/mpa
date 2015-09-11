@@ -78,7 +78,9 @@
 						<td>
 							<ol>
 								<% parent.registrations.each do |reg| %>
-									<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+									<% if (0..2) === reg.status %>
+										<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+									<% end %>
 								<% end %>
 							</ol>
 						</td>
