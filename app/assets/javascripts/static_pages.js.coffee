@@ -32,6 +32,7 @@ jQuery ->
         $submitButton.attr("disabled", false)
   $('#attendanceModal').on 'hidden.bs.modal', ->
     location.reload()
+    
 # Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
