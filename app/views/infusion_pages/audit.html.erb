@@ -64,12 +64,24 @@
 					<th>
 						Parent
 					</th>
+						<th>
+							Registrations (status)
+						</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @parents_with_active_students_no_sub.each do |parent| %>
 					<tr>
-						<td><%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
+						<td>
+							<%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
+						</td>
+						<td>
+							<ol>
+								<% parent.registrations.each |reg| %>
+									<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+								<% end %>
+							</ol>
+						</td>
 					</tr>
 				<% end %>
 			</tbody>

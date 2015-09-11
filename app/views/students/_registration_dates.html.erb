@@ -1,0 +1,6 @@
+<div style="color:orange;"><%= "Hold begins: #{reg.hold_date.strftime('%D')}" if reg.hold_date %></div>
+	<div style="color:red;"><%= "Ending: #{reg.end_date.strftime('%D')}" if reg.end_date && !(reg.switch_id) %></div>
+	<div style="color:red;"><%= "Changing Classes: #{reg.end_date.strftime('%D')}" if reg.end_date && reg.switch_id %></div>
+	<div style="color:green;"><%= "Starting: #{reg.start_date.strftime('%D')}" if reg.start_date && ( reg.status == 0 ) %></div>
+	<div style="color:green;"><%= "Restarting: #{reg.restart_date.strftime('%D')}" if reg.restart_date && (reg.restart_date >= Date.today) %>
+</div>
