@@ -111,7 +111,7 @@ class RegistrationsController < ApplicationController
           title: "Registration Drop",
           content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
           user_id: @parent.system_admin_id,
-          location_id: @registration.location_id,
+          location_id: @registration.location.id,
           action_date: Date.tomorrow})
         note.save
         format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: "End date has been added. Please update this user's subscriptions." }
@@ -165,7 +165,7 @@ class RegistrationsController < ApplicationController
         note = @parent.notes.build({title: "Registration Drop",
                                     content: "#{@student.first_name} has entered a hold. Please double check their subscriptions.",
                                     user_id: @parent.system_admin_id,
-                                    location_id: @registration.location_id,
+                                    location_id: @registration.location.id,
                                     action_date: Date.tomorrow})
         note.save
 
