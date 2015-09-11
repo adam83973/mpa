@@ -69,7 +69,7 @@
 			<tbody>
 				<% @parents_with_active_students_no_sub.each do |parent| %>
 					<tr>
-						<td><%= link_to parent.full_name, parent %></td>
+						<td><%= link_to parent.full_name, parent, target: '_blank' %></td>
 					</tr>
 				<% end %>
 			</tbody>
