@@ -12,7 +12,8 @@
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<%= i %>" href="#collapse<%=offering.id.humanize.capitalize%>">
             <%= offering.offering_name %>
           </a>
-         </h4>
+          <%= link_to "Course Lessons", offering.course, class: "pull-right", style: 'color:#0261c1;', target: '_blank' %>
+        </h4>
       </div>
       <div id="collapse<%=offering.id.humanize.capitalize%>" class="panel-collapse collapse">
         <div class="panel-body class_offering">

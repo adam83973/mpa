@@ -1,31 +1,39 @@
- <h2><%= @course.course_name %></h2>
- <p>
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default pull-right' %>
+<% end %>
+<h2 style="margin-bottom:30px;">
+  <%= @course.course_name %>
+</h2>
+<p>
+  Grade: <%= @course.grade %>
+</p>
+<p style="margin-bottom:30px;">
  Student type: <%= @course.occupation.title.pluralize %>
- </p>
-   <% if current_user.admin?%>
-    <p><%= link_to 'Edit', edit_course_path(@course) %></p>
-   <% end %>
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <%= @course.course_name %> Lessons
-      </a>
+</p>
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Click Here For <%= @course.course_name %> Lessons
+        </a>
+      </h4>
     </div>
-    <div id="collapseOne" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <div class="tscroll well well-small">
-          <table class= "table table-striped table-hover table-bordered">
-      <tr>
-        <th>Lesson Name</th>
-      </tr>
-    <% @course.lessons.each do |lesson| %>
-      <tr>
-        <td><%= link_to lesson.name, lesson %></td>
-      </tr>
-    <% end %>
-    </table>
-        </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table class= "table table-striped table-hover table-bordered">
+          <tr>
+            <th align='center'>Week</th>
+            <th align='center'>Lesson Name</th>
+          </tr>
+          <% @course.lessons.each_with_index do |lesson, i| %>
+            <tr>
+              <td width='50' align='center'><%= i + 1 %></td>
+              <td><%= link_to lesson.name, lesson, target: '_blank' %></td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>

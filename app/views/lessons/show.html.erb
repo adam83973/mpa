@@ -1,3 +1,4 @@
+<%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-default pull-right" if current_user.employee? %>
 <p>
   <h2><%= @lesson.name %></h2>
 </p>
@@ -53,18 +54,14 @@
   <% end %>
 </p>
 
-<p>
-  <b>Videos:</b>
-</p>
+<div hidden>
+  <p>
+   <b>Videos:</b>
+  </p>
 
   <% @lesson.videos.each do |video| %>
     <p>
       <%=raw YouTubeAddy.youtube_embed_url("#{video.url}",420,315) if video.url %>
     </p>
   <% end %>
-
-
-
-<%= link_to 'Edit', edit_lesson_path(@lesson), class: "btn btn-default" %>
-<%= link_to 'Back', lessons_path, class: "btn btn-primary" %>
-<%= link_to 'Add Video', new_video_path(lesson_id: "#{@lesson.id}"), class: "btn btn-warning" %>
+</div>

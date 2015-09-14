@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_filter :authorize_admin, except: :show
 
 
 
@@ -97,5 +97,3 @@ class CoursesController < ApplicationController
   end
 
 end
-
-

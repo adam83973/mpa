@@ -1,10 +1,15 @@
 <% unless !class_session.in_session? %>
-  <hr>
-  <div class="attendance_grades_buttons">
-    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-danger" } %>
-    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-primary"%>
-    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, class: "btn btn-default", id: "studentStatsModalButton"%>
-    <%= link_to "Record Homework Scores", { :controller => "experience_points", :action => "new", :homework => "1" }, { :class => "btn btn-black" } %>
+  <div style="display:inline;" class="btn-group btn-group-md hidden-xs">
+    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-danger quarter-btn ellipsis" } %>
+    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-primary quarter-btn"%>
+    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, class: "btn btn-default quarter-btn", id: "studentStatsModalButton"%>
+    <%= link_to "Record Homework", { :controller => "experience_points", :action => "new", :homework => "1" }, { :class => "btn btn-black quarter-btn ellipsis" } %>
+  </div>
+  <div style="display:inline;" class="hidden-sm hidden-md hidden-lg">
+    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-mobile  btn-danger class-in-session-button" } %>
+    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-mobile  btn-primary class-in-session-button"%>
+    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, id: "studentStatsModalButton", class: "btn btn-mobile btn-default quarter-btn class-in-session-button"%>
+    <%= link_to "Record Homework", { :controller => "experience_points", :action => "new", :homework => "1" }, { :class => "btn btn-mobile btn-black class-in-session-button" } %>
   </div>
 <% end %>
  <!--  <%# link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn", id: "gradesModalButton"%> -->
