@@ -29,8 +29,12 @@ class Opportunity < ActiveRecord::Base
     data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 76, [:Id, :GroupName])
     PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
   elsif Rails.env.development?
-    data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
-    PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+    begin
+      data = Infusionsoft.data_find_by_field(:ContactGroup, 10, 0, :GroupCategoryId, 14, [:Id, :GroupName])
+      PROMOTIONS = data.map { |hash| [hash["GroupName"], hash["Id"]] }
+    rescue SocketError => e
+      PROMOTIONS = nil
+    end
   end
 
   def add_missed_appointment_note
