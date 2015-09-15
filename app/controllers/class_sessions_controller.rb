@@ -17,7 +17,7 @@ class ClassSessionsController < ApplicationController
     @student = Student.find(params[:student_id])
 
     class_session.remove_student(@student.id)
-    redirect_to root_url, notice: "Student removed from class. Be sure to delete attendace xp by going #{view_context.link_to "here", @student}.".html_safe
+    redirect_to root_url, notice: "Student removed from class. Be sure to delete attendance xp by going #{view_context.link_to "here", @student}.".html_safe
   end
 
   def end_class

@@ -473,6 +473,8 @@ class UsersController < ApplicationController
 
       end
 
+      content = content + "Appointment: #{@appointment.time.strftime("%b %d,%l:%M%p")}\n"
+
       content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
       # create note if scheduling assessment
