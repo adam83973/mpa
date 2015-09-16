@@ -1,6 +1,7 @@
 class OfferingsController < ApplicationController
   before_filter :authenticate_user!, except: :offerings_by_location
-  before_filter :authorize_admin, except: [:show, :offerings_by_location]
+  before_filter :authorize_employee, except: [:show, :offerings_by_location]
+  before_filter :authorize_admin, except: [:show, :index, :offerings_by_location]
 
   # GET /offerings
   # GET /offerings.json
