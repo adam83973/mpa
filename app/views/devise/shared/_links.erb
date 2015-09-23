@@ -19,3 +19,5 @@
     <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
   <% end -%>
 <% end -%>
+
+<%= link_to "First time logging in?", new_password_path(resource_name) %><br />
