@@ -13,8 +13,8 @@ class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   belongs_to :avatar
-  has_and_belongs_to_many :badges
   has_many :badge_requests
+  has_many :badges, :through => :badge_requests
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
@@ -284,7 +284,17 @@ def is_inactive?
 end
 
 def is_active?
-  self.registrations.any? { |reg| reg.status == 1 } ? true : false
+  self.registrations.any? { |reg| reg.status == 0 || reg.status == 1 }
+end
+
+def self.actives
+  active_students = []
+  all.each do |student|
+    if student.is_active?
+      active_students << student
+    end
+  end
+  active_students
 end
 
 #checks to see if student has attended first class

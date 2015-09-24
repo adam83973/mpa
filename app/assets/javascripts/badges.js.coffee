@@ -68,13 +68,13 @@ $('#new_badge_request').on 'click', 'input[type="submit"]', ->
 
   academic_integrity = "By submitting this request you certify that your student has completed the requirements for this badge. For more information about badge requirements please see the button labeled \'More Info\'.\n \nYou also agree that this student has adhered to our policy of academic integrity.\n \nAcademic integrity includes a commitment to the values of honesty, trustworthiness, fairness, and respect. These values are essential to the overall success of an academic society."
 
-  if $write_up.data('writeup-required') and $write_up.val()
+  if $write_up.data('writeup-required') is 'true' and $write_up.val() > 0
     if $badge_id.val() and $student_id.val()
       confirm academic_integrity
     else
       alert 'Make sure you select a student and a badge.'
       false
-  else if $write_up.data('writeup-required') and not $write_up.val()
+  else if $write_up.data('writeup-required') is 'true' and $write_up.val().length < 1
     alert 'You must complete a write-up and submit it with this badge.'
     false
   else

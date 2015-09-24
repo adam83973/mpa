@@ -34,6 +34,7 @@ class StaticPagesController < ApplicationController
 
   def badges
     @badges = Badge.all
+    @badge_categories = BadgeCategory.all
     @project_badges = Badge.where(badge_category_id: 1).limit(2)
     @movie_badges = Badge.where(badge_category_id: 2).limit(2)
     @problem_badges = Badge.where(badge_category_id: 3).limit(2)

@@ -1,6 +1,6 @@
 class BadgesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_admin, except: [ :show, :write_up_required ]
+  before_filter :authorize_admin, except: [ :show, :index, :write_up_required ]
 
   # GET /badges
   # GET /badges.json
@@ -16,7 +16,9 @@ class BadgesController < ApplicationController
   # GET /badges/1
   # GET /badges/1.json
   def show
-    @badge = Badge.find(params[:id])
+    set_badge
+
+    @badge_request = BadgeRequest.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +39,7 @@ class BadgesController < ApplicationController
 
   # GET /badges/1/edit
   def edit
-    @badge = Badge.find(params[:id])
+    set_badge
   end
 
   # POST /badges
@@ -59,7 +61,7 @@ class BadgesController < ApplicationController
   # PUT /badges/1
   # PUT /badges/1.json
   def update
-    @badge = Badge.find(params[:id])
+    set_badge
 
     respond_to do |format|
       if @badge.update_attributes(params[:badge])
@@ -75,7 +77,7 @@ class BadgesController < ApplicationController
   # DELETE /badges/1
   # DELETE /badges/1.json
   def destroy
-    @badge = Badge.find(params[:id])
+    set_badge
     @badge.destroy
 
     respond_to do |format|
@@ -85,10 +87,18 @@ class BadgesController < ApplicationController
   end
 
   def write_up_required
-    @badge = Badge.find(params[:id])
+    set_badge
 
     respond_to do |format|
       format.json { render json: @badge.write_up_required }
     end
+  end
+
+  def faq
+  end
+
+  private
+  def set_badge
+    @badge = Badge.find(params[:id])
   end
 end

@@ -1,15 +1,33 @@
-<%= simple_form_for(@badge_request) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :badge_id %>
-    <%= f.input :student_id %>
-    <%= f.input :parent_submission %>
-    <%= f.input :approved %>
-    <%= f.input :user_id %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Request this badge!</h1>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="panel-body">
+    <%= simple_form_for badge_request do |f| %>
+      <% if user.employee? %>
+        <%= f.input :student_id, collection: Student.actives, label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>
+      <% else %>
+        <%= f.input :student_id, collection: user.students, label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>
+      <% end %>
+      <%= f.input :badge_id, collection: Badge.all, selected: badge.id, input_html: { class: 'chosen', style: "width:100%;" } %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: user.id } %>
+      <%= f.input :parent_submission, input_html: { checked: true }, as: :hidden %>
+      <% if badge.write_up_required? %>
+        <%= f.input :write_up, input_html: { rows: 6, style: "resize:vertical;", data: { "writeup-required" => true } }, placeholder: "Your student must submit a short write-up to earn this badge. This is where they can put it :)" %>
+      <% else %>
+        <%= f.input :write_up, wrapper_html: { style: "display:none;" }, input_html: { rows: 6, style: "resize:vertical;", data: { "writeup-required" => false } }, placeholder: "Your student must submit a short write-up to earn this badge. This is where they can put it :)" %>
+      <% end %>
+      <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right' %>
+    <% end %>
   </div>
-<% end %>
+  <div class="panel-footer">
+    <div class="row" style="margin:10px 0 10px 0;">
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-center">
+        <span style="color:red;">The badge request form is for parents who are certifying completion of a badge.</span>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+        <%= link_to "More Info", badge_home_path, target: "_blank", class: "btn btn-primary btn-md" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
                   :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment,
                   :active_subscription, :send_password_link, :opportunity_id, :subscription_count,
                   :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,
-                  :billing_note
+                  :billing_note, :hide_badge_banner
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150905134218) do
+ActiveRecord::Schema.define(:version => 20150924152103) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -73,8 +73,9 @@ ActiveRecord::Schema.define(:version => 20150905134218) do
 
   create_table "badge_categories", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "write_up_required", :default => false
   end
 
   create_table "badge_requests", :force => true do |t|
@@ -99,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20150905134218) do
     t.integer  "experience_id"
     t.text     "requirements"
     t.integer  "badge_category_id"
-    t.boolean  "multiple"
+    t.boolean  "multiple",          :default => false
     t.integer  "submission_type"
     t.boolean  "write_up_required", :default => false
   end
@@ -545,6 +546,7 @@ ActiveRecord::Schema.define(:version => 20150905134218) do
     t.boolean  "appointment_rescheduled",               :default => false
     t.boolean  "confirmation_opt_out",                  :default => false
     t.text     "billing_note",                          :default => ""
+    t.boolean  "hide_badge_banner",                     :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

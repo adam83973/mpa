@@ -15,7 +15,10 @@ MathPlus::Application.routes.draw do
   end
 
   resources :badges do
-    collection { get :write_up_required }
+    collection do
+      get :write_up_required
+      get :faq
+    end
   end
 
   resources :class_sessions, only: [:new, :create, :destroy]
@@ -198,6 +201,8 @@ MathPlus::Application.routes.draw do
       get   :promotion
       post  :appointment_request
       get   :confirmation_opt_out
+      get   :hide_badge_banner
+      get   :show_badge_banner
     end
     resources :notes
   end

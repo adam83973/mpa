@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+    set_user
     @note_user = @user
     @note = Note.new
     if @user.parent? && current_user.admin?
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    set_user
     ########
     # If Parent has no Infusionsoft Id, then search for matches in Infusionsoft and provide ids
     @contacts = nil
@@ -175,7 +175,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    set_user
 
     if params[:user][:password].blank?
       params[:user].delete(:password)
@@ -194,7 +194,7 @@ class UsersController < ApplicationController
   end
 
   def deactivate
-    @user = User.find(params[:id])
+    set_user
 
     @user.deactivate
 
@@ -207,7 +207,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
+    set_user
+
     @user.destroy
 
     respond_to do |format|
@@ -222,7 +223,8 @@ class UsersController < ApplicationController
   end
 
   def password_reset
-    @user = User.find(params[:id])
+    set_user
+
     if @user.send_reset_password_instructions
       respond_to do |format|
         format.html { redirect_to @user, notice: "Password reset instructions sent." }
@@ -237,7 +239,7 @@ class UsersController < ApplicationController
   end
 
   def send_hold_form
-    @user = User.find(params[:id])
+    set_user
 
     respond_to do |format|
       if AdminMailer.hold_form(@user).deliver
@@ -257,7 +259,7 @@ class UsersController < ApplicationController
   end
 
   def send_termination_form
-    @user = User.find(params[:id])
+    set_user
 
     respond_to do |format|
       if AdminMailer.termination_form(@user).deliver
@@ -295,7 +297,7 @@ class UsersController < ApplicationController
   end
 
   def year_end_promotion
-    @user = User.find(params[:id])
+    set_user
     if @user && Rails.env.production?
       respond_to do |format|
         if Infusionsoft.contact_add_to_group(@user.infusion_id, 1784) #adds tag: "year end promotion"
@@ -493,7 +495,7 @@ class UsersController < ApplicationController
 
   def confirmation_opt_out
     if params[:id]
-      @user = User.find(params[:id])
+      set_user
 
       if @user.update_attribute :confirmation_opt_out, true
         flash[:notice] = "We have updated your account and you will no longer receive
@@ -504,5 +506,26 @@ class UsersController < ApplicationController
     else
       redirect_to root_url
     end
+  end
+
+  def hide_badge_banner
+    set_user
+
+    if @user.update_attribute :hide_badge_banner, true
+      redirect_to root_path
+    end
+  end
+
+  def show_badge_banner
+    set_user
+
+    if @user.update_attribute :hide_badge_banner, false
+      redirect_to root_path
+    end
+  end
+
+  private
+  def set_user
+    @user = User.find(params[:id])
   end
 end
