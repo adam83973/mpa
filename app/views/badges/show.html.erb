@@ -24,6 +24,9 @@
           <h3 style="color:#8a8a8a;">To earn this badge you must...</h3>
           <%= simple_format(@badge.requirements, {class: "simple_format"}, wrapper_tag: "div", sanitize: false) %>
         </div>
+        <div class="requirements">
+          <h3 style="color:#8a8a8a;"><small>THIS BADGE WILL EARN YOU</small> <%= @badge.experience.points if @badge.experience%> xp</h3>
+        </div>
       </div>
     </div>
   </div>
