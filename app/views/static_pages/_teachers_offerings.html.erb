@@ -4,7 +4,7 @@
   <%= @user.first_name + "'s " + "Class".pluralize(@user.offerings.count) unless class_session && class_session.in_session?%>
   <small style="color:purple;"><%= "If you've started one of your classes you can add attendance by opening the class below, or you can click the button below" if class_session && class_session.in_session? %></small>
 </h3>
- <% @user_offerings.each_with_index do |offering, i| %>
+<% @user_offerings.each_with_index do |offering, i| %>
   <div class="panel-group" id="accordion<%= i %>">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -59,4 +59,4 @@
       </div>
     </div>
   </div>
- <% end %>
+<% end %>

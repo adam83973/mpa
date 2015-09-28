@@ -25,8 +25,8 @@ jQuery ->
     $('.chzn', this).chosen(
         allow_single_deselect: true
       )
-    $submitButton = $(this).find('input[name="commit"]').prop("disabled", true)
-    $('#experience_point_student_id').on 'change', ->
+    $submitButton = $('#attendance_modal_button').prop("disabled", true)
+    $('#attendance_modal_experience_point_student_id').on 'change', ->
       alert $('#experience_point_student_id').val()
       if $('#experience_point_student_id').val()
         $submitButton.attr("disabled", false)
