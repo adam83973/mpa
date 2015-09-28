@@ -25,14 +25,14 @@ jQuery ->
     $('.chzn', this).chosen(
         allow_single_deselect: true
       )
-    $submitButton = $("#attendance_form").find('input[name="commit"]').prop("disabled", true)
+    $submitButton = $(this).find('input[name="commit"]').prop("disabled", true)
     $('#experience_point_student_id').on 'change', ->
       alert $('#experience_point_student_id').val()
       if $('#experience_point_student_id').val()
         $submitButton.attr("disabled", false)
   $('#attendanceModal').on 'hidden.bs.modal', ->
     location.reload()
-    
+
 # Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
