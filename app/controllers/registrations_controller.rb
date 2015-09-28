@@ -230,4 +230,11 @@ class RegistrationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def activate_registration
+      if @registration.status == 0 && @registration.start_date <= Date.today
+        @registration.update_attribute :status, 1
+      end
+    end
 end
