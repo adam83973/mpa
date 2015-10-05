@@ -14,7 +14,10 @@ class Student < ActiveRecord::Base
   belongs_to :location
   belongs_to :avatar
   has_many :badge_requests
-  has_many :badges, :through => :badge_requests
+  has_many :badges, :through => :badge_requests,
+           :class_name => "Badge",
+           :source => :badge,
+           :conditions => ['badge_requests.approved = ?',true]
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
@@ -42,6 +45,18 @@ class Student < ActiveRecord::Base
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
   RESET_DATE = Date.parse('2014-8-24') #date to start count for gamification
 
+  #-----Badge Logic-----
+  def earned_badge(badge)
+    badges.any?{|earned_badge| earned_badge.id == badge.id } ? true : false
+  end
+
+  def earned_badges_with_count
+    badge_count = Hash.new(0)
+    badges.each do |badge|
+      badge_count[badge] += 1
+    end
+    badge_count
+  end
   #-----Student attributes-----
 
   def full_name

@@ -26,6 +26,7 @@
 <table id="datatable" class="display">
   <thead>
     <tr>
+      <th>Id</th>
       <th>Name</th>
       <th>Image</th>
       <th></th>
@@ -36,6 +37,7 @@
   <tbody>
     <% @badges.each do |badge| %>
       <tr>
+        <td><%= badge.id %></td>
         <td><%= badge.name %></td>
         <td><%= badge.image %></td>
         <td><%= link_to 'Show', badge, target: "_blank" %></td>

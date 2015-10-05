@@ -45,7 +45,8 @@ gem 'delayed_job_active_record'
 group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'letter_opener'
-  gem "bullet"
+  gem 'bullet'
+  gem 'rspec-rails', '~> 3.0'
 end
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150924152103) do
+ActiveRecord::Schema.define(:version => 20151002143205) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20150924152103) do
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.boolean  "write_up_required", :default => false
+    t.boolean  "multiple",          :default => false
   end
 
   create_table "badge_requests", :force => true do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20150924152103) do
     t.boolean  "multiple",          :default => false
     t.integer  "submission_type"
     t.boolean  "write_up_required", :default => false
+    t.boolean  "requires_approval", :default => false
   end
 
   create_table "badges_students", :id => false, :force => true do |t|

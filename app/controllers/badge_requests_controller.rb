@@ -21,15 +21,25 @@ class BadgeRequestsController < ApplicationController
   end
 
   def edit
+    @badge_request = BadgeRequest.find(params[:id])
+    @badge = Badge.find(@badge_request.badge_id)
+    @user = User.find(@badge_request.user_id)
   end
 
   def create
     @badge_request = BadgeRequest.new(params[:badge_request])
-    @parent = User.find params[:badge_request][:user_id]
-    if @badge_request.save
-      flash[:notice] = "Your badge request was received. We will process it shortly."
-      NotificationMailer.badge_request_confirmation(@badge_request, @parent).deliver
+    @badge = Badge.find(@badge_request.badge_id)
+    @user = User.find(@badge_request.user_id)
+    @student = Student.find(@badge_request.student_id)
+
+    if @badge.multiple?
+      save_badge_request
+    elsif !@badge.multiple? && @student.earned_badge(@badge)
+      flash[:alert] = 'It appears that this student has already earned this badge and can only earn it once. <strong>If you feel you have received this message in error please contact the Center Director.</strong>'.html_safe
+    else
+      save_badge_request
     end
+
     respond_with(@badge_request, location: root_url)
   end
 
@@ -45,12 +55,9 @@ class BadgeRequestsController < ApplicationController
     @badge = @badge_request.badge
 
     @badge_request.approve
-    
+
     NotificationMailer.badge_request_approval_confirmation(@badge_request, @parent).deliver
 
-    BadgesStudent.create(badge_id: @badge.id, student_id: @student.id) #award badge to student
-
-    # BadgesStudent.create(student_id: badge_request.student_id, badge_id: badge_request.badge_id)
     render nothing: true
   end
 
@@ -62,5 +69,25 @@ class BadgeRequestsController < ApplicationController
   private
     def set_badge_request
       @badge_request = BadgeRequest.find(params[:id])
+    end
+
+    def save_badge_request
+      if @badge_request.save
+        badge = Badge.find(params[:badge_request][:badge_id])
+        experience = badge.experience
+
+        flash_content = "Your badge request was received."
+
+        if @badge_request.badge.requires_approval?
+          flash_content = flash_content +  "We will process it shortly."
+        else
+          flash_content = flash_content + "It has been approved. #{experience.points} experience points awarded"
+          @badge_request.approved
+        end
+
+        flash[:notice] = flash_content
+
+        NotificationMailer.badge_request_confirmation(@badge_request, @user).deliver unless @user.employee? unless @badge_request.approved?
+      end
     end
 end

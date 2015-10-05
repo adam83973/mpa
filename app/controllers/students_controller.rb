@@ -31,6 +31,7 @@ class StudentsController < ApplicationController
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)
     @active_offerings = Offering.where(active: true).includes(:course, :location).order("course_id ASC")
+    @earned_badges_with_count = @student.earned_badges_with_count
 
     if current_user.employee? || current_user.id == @student.user_id
   # Sets instance variable for student offering, used to print binder

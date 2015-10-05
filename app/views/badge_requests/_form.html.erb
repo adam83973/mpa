@@ -1,6 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Request this badge!</h1>
+    <% if current_page?(action: 'edit') %>
+      <h1 style="margin:10px 0 10px 0;">Edit Badge Request.</h1>
+    <% else %>
+      <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Request this badge!</h1>
+    <% end %>
   </div>
   <div class="panel-body">
     <%= simple_form_for badge_request do |f| %>
@@ -11,7 +15,7 @@
       <% end %>
       <%= f.input :badge_id, collection: Badge.all, selected: badge.id, input_html: { class: 'chosen', style: "width:100%;" } %>
       <%= f.input :user_id, as: :hidden, input_html: { value: user.id } %>
-      <%= f.input :parent_submission, input_html: { checked: true }, as: :hidden %>
+
       <% if badge.write_up_required? %>
         <%= f.input :write_up, input_html: { rows: 6, style: "resize:vertical;", data: { "writeup-required" => true } }, placeholder: "Your student must submit a short write-up to earn this badge. This is where they can put it :)" %>
       <% else %>

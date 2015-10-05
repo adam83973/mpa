@@ -1,6 +1,5 @@
-<h1>Editing badge_request</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @badge_request %> |
-<%= link_to 'Back', badge_requests_path %>
+<div class="row">
+  <div class="col-lg-6s col-md-6 col-sm-12 col-xs-12">
+    <%= render 'form', badge_request: @badge_request, user: @user, badge: @badge %>
+  </div>
+</div>

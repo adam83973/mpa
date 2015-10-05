@@ -1,4 +1,4 @@
-<% if current_user.id == 40 %>
+<% if current_user.id == 40 || Rails.env.development? %>
   <div class="row" style="margin-bottom:10px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <% if @user.hide_badge_banner? %>

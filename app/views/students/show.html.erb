@@ -23,6 +23,16 @@
 
 <%= render 'student_notes' if current_user.employee? %>
 
+<% @earned_badges_with_count.each do |badge, count| %>
+<div title="<%= badge.name %>" class='badge-count' <%= "data-badge=#{count}" if count > 1 %>>
+  <%= link_to badge do %>
+    <%= image_tag(badge.image_url, size: '100x100') %>
+  <% end %>
+</div>
+<% end%>
+
+<!-- modal stuff below -->
+
 <%= render '/static_pages/grades_modal' %>
 
 <%= render 'credits_modal' %>
