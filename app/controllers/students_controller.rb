@@ -2,6 +2,11 @@ class StudentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_employee, except: [ :show, :update ]
 
+  def badges
+    @student = Student.find(params[:id])
+    @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse
+  end
+
   # GET /students
   # GET /students.json
   def index
@@ -31,7 +36,7 @@ class StudentsController < ApplicationController
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)
     @active_offerings = Offering.where(active: true).includes(:course, :location).order("course_id ASC")
-    @earned_badges_with_count = @student.earned_badges_with_count
+    @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse.first(7)
 
     if current_user.employee? || current_user.id == @student.user_id
   # Sets instance variable for student offering, used to print binder

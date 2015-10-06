@@ -9,13 +9,38 @@
 
   <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 achievements">
     <div class="row">
-      <%= render 'student_toolbar' %>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= render 'student_toolbar' %>
+      </div>
     </div>
-    <%= render 'student_achievements' %><br>
-    <%# render 'robotics_achievements' %>
-    <%= render 'student_comment_feed'%>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= render 'student_achievements' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Badges Earned!</h3>
+        <% @earned_badges_with_count.each do |badge, count| %>
+        <div title="<%= badge.name %>" class='badge-count' <%= "data-badge=#{count}" if count > 1 %>>
+          <%= link_to badge do %>
+            <%= image_tag(badge.image_url, size: '100x100') %>
+          <% end %>
+        </div>
+        <% end%>
+        <div class='badge-link'>
+          <%= link_to badges_path, style: 'display:inline-block;vertical-align:middle;' do %>
+            <h4 style='padding-left:5px;'><%= @student.first_name %>'s<br>Badges</h4>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= render 'student_comment_feed'%>
+      </div>
+    </div>
   </div>
-
 </div>
 <% unless current_user.parent? %>
   <hr>

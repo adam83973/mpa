@@ -73,21 +73,27 @@ class BadgeRequestsController < ApplicationController
 
     def save_badge_request
       if @badge_request.save
-        badge = Badge.find(params[:badge_request][:badge_id])
+        puts 'saved'
+        badge = @badge_request.badge
         experience = badge.experience
 
         flash_content = "Your badge request was received."
 
         if @badge_request.badge.requires_approval?
           flash_content = flash_content +  "We will process it shortly."
+        elsif @badge_request.badge.requires_approval? || current_user.employee?
+          if @badge_request.approve
+            flash_content = flash_content + "Your badge request has been approved. #{experience.points} experience points awarded"
+          end
         else
-          flash_content = flash_content + "It has been approved. #{experience.points} experience points awarded"
-          @badge_request.approved
+          if @badge_request.approve
+            flash_content = flash_content + "Your badge request has been approved. #{experience.points} experience points awarded"
+          end
         end
 
         flash[:notice] = flash_content
 
-        NotificationMailer.badge_request_confirmation(@badge_request, @user).deliver unless @user.employee? unless @badge_request.approved?
+        NotificationMailer.badge_request_confirmation(@badge_request, @user).deliver unless @user.employee? || @badge_request.approved?
       end
     end
 end

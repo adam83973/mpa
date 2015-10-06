@@ -2,8 +2,9 @@
   <%if current_user.employee? %>
     <div class="btn-group btn-group-justified">
       <%= link_to "Edit Student", edit_student_path(@student),class: "btn btn-default student_tool_button" %>
-      <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-yellow student_tool_button"%>
-      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-purple student_tool_button" } %>
+      <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-default btn-yellow student_tool_button"%>
+      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-default btn-purple student_tool_button" } %>
+      <%= link_to "Add Badge", badges_path,class: "btn btn-default student_tool_button" %>
     </div>
   <% end %>
 </div>

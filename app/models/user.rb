@@ -178,4 +178,12 @@ class User < ActiveRecord::Base
       460
     end
   end
+
+  def self.system_admin_id
+    if Rails.env.production?
+      757
+    elsif Rails.env.development?
+      460
+    end
+  end
 end

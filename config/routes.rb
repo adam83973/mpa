@@ -177,6 +177,9 @@ MathPlus::Application.routes.draw do
   resources :strategies
 
   resources :students do
+    member do
+      get 'badges'
+    end
     collection do
       post :import
       post :create_from_opportunity

@@ -47,7 +47,7 @@ class Student < ActiveRecord::Base
 
   #-----Badge Logic-----
   def earned_badge(badge)
-    badges.any?{|earned_badge| earned_badge.id == badge.id } ? true : false
+    badges.any?{|earned_badge| earned_badge.id == badge.id }
   end
 
   def earned_badges_with_count

@@ -6,22 +6,24 @@ class BadgeRequest < ActiveRecord::Base
   belongs_to :student
   belongs_to :user
 
-  before_save :update_parent_submission
+  after_save :update_parent_submission
 
   def approve
     update_attributes approved: true, date_approved: Date.today
 
-    if experience_id
-      experience =  Experience.find(experience_id)
+    if badge.experience_id
+      experience =  Experience.find(badge.experience_id)
       ExperiencePoint.create!( student_id: student_id,
-                               experience_id: experience_id,
+                               experience_id: badge.experience_id,
                                points: experience.points,
-                               user_id: User.system_admin_id )
+                               user_id: User.system_admin_id,
+                               comment: "Congratulations on earning the #{badge.name} badge!" )
     end
   end
 
   def update_parent_submission
-    user = User.find user_id
-    user.parent? ? parent_submission = true : parent_submission = false
+    if user.parent?
+      update_attribute :parent_submission, true
+    end
   end
 end
