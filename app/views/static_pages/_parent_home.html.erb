@@ -25,7 +25,6 @@
             <%= f.input :content, as: :text, label: false, placeholder: "Message", input_html: { rows: 6, style: "resize:vertical;" } %>
             <%= f.input :user_id, input_html: { value: @user.id }, as: :hidden %>
             <%= f.input :location_id, input_html: { value: @user.location_id }, as: :hidden %>
-            <%= f.input :general, input_html: { checked: true }, as: :hidden %>
             <%= f.submit "Submit", class: 'btn btn-lg btn-default pull-right' %>
           <% end %>
         </div>
@@ -39,9 +38,6 @@
         <div class="panel-body text-center">
           <%= link_to badge_home_path do %>
             <h2>More Information</h2>
-          <% end %>
-          <%= link_to badge_categories_path do %>
-            <h2>Different Types of Badges!</h2>
           <% end %>
           <%= link_to faq_badges_path do %>
             <h2>FAQs</h2>

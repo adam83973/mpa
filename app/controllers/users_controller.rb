@@ -4,6 +4,8 @@ class UsersController < ApplicationController
 
   respond_to :html
 
+  rescue_from Rack::Timeout::RequestTimeoutException, :with => :rescue_from_timeout
+
   # GET /users
   # GET /users.json
   def index
@@ -421,10 +423,14 @@ class UsersController < ApplicationController
       # User is not in system. Create user and add appointment.
       @generated_password = Devise.friendly_token.first(8) # password for new user
 
-      if appointment['client']['emailAddress'].empty? && appointment['client']['emailAddress']
-        email = "email#{SecureRandom.hex(3)}@mathplusacademy.com"
+      if appointment['client']['emailAddress']
+        if appointment['client']['emailAddress'].empty?
+          email = "email#{SecureRandom.hex(3)}@mathplusacademy.com"
+        else
+          email = appointment['client']['emailAddress']
+        end
       else
-        email = appointment['client']['emailAddress']
+        email = "emailinvadlid#{SecureRandom.hex(3)}@mathplusacademy.com"
       end
 
       @user = User.create!(
@@ -525,7 +531,11 @@ class UsersController < ApplicationController
   end
 
   private
-  def set_user
-    @user = User.find(params[:id])
-  end
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def rescue_from_timeout
+      redirect_to :back, notice: 'Your request'
+    end
 end

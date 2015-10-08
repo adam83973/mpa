@@ -221,13 +221,20 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find(params[:id])
     @student = @registration.student
 
-    if @registration.status == 0 && @registration.start_date <= Date.today
-      @registration.update_attribute :status, 1
-    end
+    if @registration.start_date
+      if @registration.start_date <= Date.today
+        @registration.update_attribute :status, 1
 
-    respond_to do |format|
-      format.html { redirect_to @student, notice: 'Registration Activated.' }
-      format.json { head :no_content }
+        respond_to do |format|
+          format.html { redirect_to @student, notice: 'Registration Activated.' }
+          format.json { head :no_content }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @student, notice: 'You must enter a start date for this registration.' }
+        format.json { head :no_content }
+      end
     end
   end
 

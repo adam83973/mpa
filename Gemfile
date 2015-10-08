@@ -1,46 +1,40 @@
 source 'https://rubygems.org'
 
-
 ruby '2.0.0'
 
-
 gem 'rails', '3.2.18'
-gem 'simple_form'
+
+gem 'autoprefixer-rails'
+gem 'carrierwave'
+gem 'chartjs-ror'
+gem 'check_appointments'
+gem 'coffee-rails', '~> 3.2.1'
+gem 'compass-rails'
+gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
 gem 'faker', '1.0.1'
-gem 'populator'
-gem 'humanize'
-gem 'jquery-slimscroll-rails'
-gem 'carrierwave'
-gem 'rmagick', :require => 'RMagick'
-gem 'mini_magick', '3.8.0'
-gem 'newrelic_rpm'
 gem 'fog'
+gem 'humanize'
+gem 'infusionsoft', '~> 1.1.7b'
+gem 'jquery-slimscroll-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'coffee-rails', '~> 3.2.1'
-gem 'infusionsoft', '~> 1.1.7b'
-gem 'youtube_addy', '~> 1.0.2'
-gem 'autoprefixer-rails'
-gem 'compass-rails'
-gem 'lodash-rails'
 gem 'jscolor-rails'
-gem 'check_appointments'
-gem 'rest_client'
-gem 'chartjs-ror'
-gem 'json'
-gem 'rollbar', '~> 1.2.11'
+gem 'lodash-rails'
 gem 'mail_form'
+gem 'mini_magick', '3.8.0'
+gem 'newrelic_rpm'
 gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
+gem 'populator'
+gem "rack-timeout"
+gem 'rest_client'
+gem 'rmagick', :require => 'RMagick'
+gem 'rollbar', '~> 1.2.11'
+gem 'simple_form'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
-gem 'delayed_job_active_record'
-
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'youtube_addy', '~> 1.0.2'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

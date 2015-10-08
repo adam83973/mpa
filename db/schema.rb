@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151002143205) do
+ActiveRecord::Schema.define(:version => 20151008150702) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -73,10 +73,11 @@ ActiveRecord::Schema.define(:version => 20151002143205) do
 
   create_table "badge_categories", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.boolean  "write_up_required", :default => false
-    t.boolean  "multiple",          :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "write_up_required",  :default => false
+    t.boolean  "multiple",           :default => false
+    t.boolean  "parent_can_request", :default => true
   end
 
   create_table "badge_requests", :force => true do |t|
@@ -94,17 +95,18 @@ ActiveRecord::Schema.define(:version => 20151002143205) do
   create_table "badges", :force => true do |t|
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "file"
     t.string   "file_name"
     t.integer  "experience_id"
     t.text     "requirements"
     t.integer  "badge_category_id"
-    t.boolean  "multiple",          :default => false
+    t.boolean  "multiple",           :default => false
     t.integer  "submission_type"
-    t.boolean  "write_up_required", :default => false
-    t.boolean  "requires_approval", :default => false
+    t.boolean  "write_up_required",  :default => false
+    t.boolean  "requires_approval",  :default => false
+    t.boolean  "parent_can_request", :default => true
   end
 
   create_table "badges_students", :id => false, :force => true do |t|

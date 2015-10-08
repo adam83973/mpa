@@ -6,7 +6,7 @@ class BadgeRequest < ActiveRecord::Base
   belongs_to :student
   belongs_to :user
 
-  after_save :update_parent_submission
+  before_save :update_parent_submission
 
   def approve
     update_attributes approved: true, date_approved: Date.today
@@ -23,7 +23,7 @@ class BadgeRequest < ActiveRecord::Base
 
   def update_parent_submission
     if user.parent?
-      update_attribute :parent_submission, true
+      toggle(:parent_submission) unless parent_submission
     end
   end
 end

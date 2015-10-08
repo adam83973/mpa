@@ -31,39 +31,13 @@
     <% end %>
 
     <div class="text-center hidden-sm hidden-xs hidden-md col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
-      <div class="well well-sm">
-        <h3 style="margin:0 0 10px;">Badges</h3>
-        <p>
-          <span style="color:red;">You have no badges.</span>
-          Here's what it might look like if you did...
-        </p>
-        <div class="row">
-          <%= image_tag('example_badge1.png', size: '60x60') %>
-          <%= image_tag('example_badge2.png', size: '60x60') %>
+      <div class="well well-sm" style='margin:0;'>
+        <h3 style="margin:0 0 10px;">Badge Count</h3>
+        <div class="text-center">
+          <h1 style='font-size:10em;margin:15px 0 56px 0;'><%= @student.badges.count %></h1>
         </div>
-        <div style="margin:0 0 25px 0;" class="row">
-          <%= image_tag('example_badge3.png', size: '60x60') %>
-        </div>
-        <%= link_to "Find out how to earn more.", "javascript:void(0)", data: {toggle: "modal", target: "#comingSoon"}  %>
+        <%= link_to "Find out how to earn more.", badge_home_path  %>
       </div>
     </div>
 
-</div><!--/.span9 -->
-
-<div class="modal fade" id="comingSoon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="newStudentUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Badges coming soon!</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row text-center">
-
-          <h1>Coming Soon!</h1>
-
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>

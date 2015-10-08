@@ -278,6 +278,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.3.2)
     rails (3.2.18)
       actionmailer (= 3.2.18)
       actionpack (= 3.2.18)
@@ -396,7 +397,6 @@ DEPENDENCIES
   jquery-slimscroll-rails
   jquery-ui-rails
   jscolor-rails
-  json
   letter_opener
   lodash-rails
   mail_form
@@ -407,6 +407,7 @@ DEPENDENCIES
   normalize-rails
   pg
   populator
+  rack-timeout
   rails (= 3.2.18)
   rails_12factor
   rest_client

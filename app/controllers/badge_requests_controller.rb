@@ -73,7 +73,6 @@ class BadgeRequestsController < ApplicationController
 
     def save_badge_request
       if @badge_request.save
-        puts 'saved'
         badge = @badge_request.badge
         experience = badge.experience
 

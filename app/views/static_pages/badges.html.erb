@@ -109,28 +109,5 @@
     </div>
   </div>
 </div>
-<div class="badge_group_information">
 
-  <% badge_categories_count = @badge_categories.count %>
-  <% @badge_categories.each_with_index do |badge_category, i| %>
-    <% if i % 2 == 0 %>
-      <% if i > 0 %>
-        <hr class="thick_hr">
-      <% end %>
-      <div class="row">
-    <% end %>
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-      <div class="text-center">
-        <%= link_to badge_category do %>
-          <h1 class="badge_category_header_text"><%= badge_category.name %></h1>
-        <% end %>
-        <% badge_category.badges.limit(2).each do |badge| %>
-          <%= render 'badges/badge_card', b: badge %>
-        <% end %>
-      </div>
-    </div>
-    <% if i % 2 == 1 || i+1 == badge_categories_count %>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+<%= render 'badge_categories/names_and_samples' %>
