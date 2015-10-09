@@ -38,7 +38,7 @@
 			</tbody>
 		</table>
 
-		<h1>Parents With Subscriptions and No Registrations</h1>
+		<!-- <h1>Parents With Subscriptions and No Registrations</h1>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -51,14 +51,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents_with_sub.each do |parent| %>
+				<%# @parents_with_sub.each do |parent| %>
 					<% if parent.active_students? == false %>
 						<tr>
-							<td><%= link_to parent.full_name, parent %></td>
-							<td><%= parent.balance_due %></td>
+							<td><%# link_to parent.full_name, parent %></td>
+							<td><%# parent.balance_due %></td>
 						</tr>
-					<% end %>
-				<% end %>
+					<%# end %>
+				<%# end %>
 			</tbody>
 		</table>
 		<h1>Parents With Registration and No Subscription</h1>
@@ -74,26 +74,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents.each do |parent| %>
-					<% if parent.active_students? == true && !parent.active_subscription? %>
+				<%# @parents.each do |parent| %>
+					<%# if parent.active_students? == true && !parent.active_subscription? %>
 						<tr>
 							<td>
-								<%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
+								<%# link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
 							</td>
 							<td>
 								<ol>
-									<% parent.registrations.each do |reg| %>
-										<% if (0..2) === reg.status %>
-											<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
-										<% end %>
-									<% end %>
+									<%# parent.registrations.each do |reg| %>
+										<%# if (0..2) === reg.status %>
+											<li><%# reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+										<%# end %>
+									<%# end %>
 								</ol>
 							</td>
 						</tr>
 					<% end %>
 				<% end %>
 			</tbody>
-		</table>
+		</table> -->
 		<%= link_to 'Back', infusion_pages_home_path, class: 'm-btn m-btn-small' %>
 		<br />
 	</div>
