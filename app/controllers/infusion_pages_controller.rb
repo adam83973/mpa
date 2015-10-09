@@ -2,6 +2,8 @@ class InfusionPagesController < ApplicationController
   before_filter :authenticate_user!, except: [:tag_contact]
   before_filter :authorize_admin, except: [:tag_contact]
 
+  rescue_from Rack::Timeout::RequestTimeoutException, :with => :rescue_from_timeout
+
   def home
   	if params[:search]
   		# get contacts with matching last name
@@ -300,4 +302,9 @@ class InfusionPagesController < ApplicationController
       format.html
     end
   end
+
+  private
+    def rescue_from_timeout
+      redirect_to :back, notice: 'Your request was not processed. Error connecting with Infusionsoft. Please try again.'
+    end
 end

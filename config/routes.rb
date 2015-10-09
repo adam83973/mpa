@@ -92,7 +92,9 @@ MathPlus::Application.routes.draw do
     end
   end
 
-  resources :messages
+  resources :messages do
+    collection {get :update_status}
+  end
 
   resources :notes
   post 'notes/completed', to: 'notes#completed'

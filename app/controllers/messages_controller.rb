@@ -41,6 +41,15 @@ class MessagesController < ApplicationController
     respond_with(@message)
   end
 
+  def update_status
+    message = Message.find(params[:id])
+    status = params[:status].to_i
+
+    if message.update_attributes( status: status, updated_by: current_user.id)
+      redirect_to root_url, notice: "Message status marked as <strong>#{Message::STATUSES[status]}</strong>. Please note parent's account.".html_safe
+    end
+  end
+
   def destroy
     @message.destroy
     respond_with(@message)

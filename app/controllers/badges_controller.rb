@@ -1,6 +1,6 @@
 class BadgesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_admin, except: [ :show, :index, :write_up_required ]
+  before_filter :authorize_admin, except: [ :show, :index, :write_up_required, :faq ]
 
   # GET /badges
   # GET /badges.json
