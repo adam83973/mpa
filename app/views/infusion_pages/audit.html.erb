@@ -13,25 +13,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents_with_active_students.each_with_index do |parent, i| %>
-				<tr "<%= "class=danger" if parent.balance_due != 0 %>">
-					<td><%= i + 1 %></td>
-					<td><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
-					<td><%= user_status(parent).html_safe %></td>
-					<td "<%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>" >
-						<ol>
-							<% parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.each do |reg| %>
-								<li>
-									<%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
-								</li>
-							<% end %>
-						</ol>
-					</td>
-					<td "<%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>">
-						<%= parent.subscription_count %>
-					</td>
-					<td>$<%= parent.balance_due %></td>
-				</tr>
+				<% @parents.each_with_index do |parent, i| %>
+					<% if parent.active_students? %>
+						<tr "<%= "class=danger" if parent.balance_due != 0 %>">
+							<td><%= i + 1 %></td>
+							<td><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
+							<td><%= user_status(parent).html_safe %></td>
+							<td "<%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>" >
+								<ol>
+									<% parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.each do |reg| %>
+										<li>
+											<%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
+										</li>
+									<% end %>
+								</ol>
+							</td>
+							<td "<%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>">
+								<%= parent.subscription_count %>
+							</td>
+							<td>$<%= parent.balance_due %></td>
+						</tr>
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>
@@ -70,21 +72,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents_with_active_students_no_sub.each do |parent| %>
-					<tr>
-						<td>
-							<%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
-						</td>
-						<td>
-							<ol>
-								<% parent.registrations.each do |reg| %>
-									<% if (0..2) === reg.status %>
-										<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+				<% @parents_with_sub.each do |parent| %>
+					<% if parent.active_students? == false %>
+						<tr>
+							<td>
+								<%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
+							</td>
+							<td>
+								<ol>
+									<% parent.registrations.each do |reg| %>
+										<% if (0..2) === reg.status %>
+											<li><%= reg.student.full_name %> <%= render '/students/registration_dates', reg: reg %></li>
+										<% end %>
 									<% end %>
-								<% end %>
-							</ol>
-						</td>
-					</tr>
+								</ol>
+							</td>
+						</tr>
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>

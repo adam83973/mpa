@@ -282,14 +282,6 @@ class InfusionPagesController < ApplicationController
   def audit
     @parents = User.includes(:students, :registrations).where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC")
     @parents_with_sub = User.includes(:students, :registrations).where("role = ? AND active_subscription = ?", "Parent", true)
-
-    @parents_with_active_students = Array.new
-    @parents.each { |parent| @parents_with_active_students << parent if parent.active_students? }
-    @active = @parents_with_active_students.clone
-    @parent_sub_no_reg = Array.new
-    @parents_with_sub.each { |parent| parent.active_students? == false ? @parent_sub_no_reg << parent : "" }
-
-    @parents_with_active_students_no_sub = @active.delete_if{|parent| parent.subscription_count > 0}
   end
 
   def tag_contact
