@@ -57,7 +57,7 @@
       <%end%>
       <td>
         <% if student.offerings.any? %>
-        <% student.offerings.includes(:course, :location).each do |offering| %>
+        <% student.offerings.each do |offering| %>
         <%= offering.offering_name %>
         <% end %>
         <% else %>

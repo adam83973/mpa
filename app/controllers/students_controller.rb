@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)
-    @active_offerings = Offering.where(active: true).includes(:course, :location).order("course_id ASC")
+    @active_offerings = Offering.where(active: true).order("course_id ASC")
     @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse.first(7)
 
     if current_user.employee? || current_user.id == @student.user_id
