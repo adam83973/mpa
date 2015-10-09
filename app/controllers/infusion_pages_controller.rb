@@ -280,7 +280,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @active_students = Student.where("status = ?", "Active").includes(:user, :offerings, :experience_points).order(:last_name)
     @parents = User.includes(:students, :registrations).where("role = ?", "Parent").order("balance_due DESC")
     @parents_with_sub = User.includes(:students, :registrations).where("role = ? AND active_subscription = ?", "Parent", true)
 

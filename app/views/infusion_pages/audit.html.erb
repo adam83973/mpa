@@ -27,7 +27,7 @@
 							<% end %>
 						</ol>
 					</td>
-					<td <%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>>
+					<td "<%= parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.count !=  parent.subscription_count ? "class=warning" : "" %>">
 						<%= parent.subscription_count %>
 					</td>
 					<td>$<%= parent.balance_due %></td>
