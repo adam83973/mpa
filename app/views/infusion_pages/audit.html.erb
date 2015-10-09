@@ -25,12 +25,10 @@
 										<li>
 											<%# reg.student.full_name %> (<%# reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
 										</li>
-									<% end %>
+									<%# end %>
 								</ol>
 							</td> -->
-							<td>
-								<%= parent.subscription_count %>
-							</td>
+							<td><%= parent.subscription_count %></td>
 							<td>$<%= parent.balance_due %></td>
 						</tr>
 					<% end %>
@@ -52,7 +50,7 @@
 			</thead>
 			<tbody>
 				<%# @parents_with_sub.each do |parent| %>
-					<% if parent.active_students? == false %>
+					<%# if parent.active_students? == false %>
 						<tr>
 							<td><%# link_to parent.full_name, parent %></td>
 							<td><%# parent.balance_due %></td>
@@ -90,8 +88,8 @@
 								</ol>
 							</td>
 						</tr>
-					<% end %>
-				<% end %>
+					<%# end %>
+				<%# end %>
 			</tbody>
 		</table> -->
 		<%= link_to 'Back', infusion_pages_home_path, class: 'm-btn m-btn-small' %>
