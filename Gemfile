@@ -34,6 +34,7 @@ gem 'rollbar', '~> 1.2.11'
 gem 'simple_form'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'will_paginate', '~> 3.0.6'
 gem 'youtube_addy', '~> 1.0.2'
 
 group :development, :test do

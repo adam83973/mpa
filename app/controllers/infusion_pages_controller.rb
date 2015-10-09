@@ -281,8 +281,8 @@ class InfusionPagesController < ApplicationController
 
   def audit
     @active_students = Student.where("status = ?", "Active").includes(:user, :offerings, :experience_points).order(:last_name)
-    @parents = User.where("role = ?", "Parent").order("balance_due DESC")
-    @parents_with_sub = User.where("role = ? AND active_subscription = ?", "Parent", true)
+    @parents = User.includes(:students, :registrations).where("role = ?", "Parent").order("balance_due DESC")
+    @parents_with_sub = User.includes(:students, :registrations).where("role = ? AND active_subscription = ?", "Parent", true)
 
     @parents_with_active_students = Array.new
     @parents.each { |parent| @parents_with_active_students << parent if parent.active_students? }

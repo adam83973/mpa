@@ -368,6 +368,7 @@ GEM
     uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.7)
     youtube_addy (1.0.4)
 
 PLATFORMS
@@ -422,6 +423,7 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   uglifier (>= 1.0.3)
+  will_paginate (~> 3.0.6)
   youtube_addy (~> 1.0.2)
 
 BUNDLED WITH
