@@ -9,7 +9,7 @@ end
 
 #update categories to say wether they can be requested by parents
 def update_categories
-  category = Badge.Category.find(6)
+  category = BadgeCategory.find(6)
   category.update_attribute :parent_can_request, false
 end
 
