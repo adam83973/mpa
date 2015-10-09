@@ -295,16 +295,16 @@ class Student < ActiveRecord::Base
 #-----Student Administration-----
 
 def is_inactive?
-  !(self.registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
+  !(registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
 end
 
 def is_active?
-  self.registrations.any? { |reg| reg.status == 0 || reg.status == 1 }
+  registrations.any? { |reg| reg.status == 0 || reg.status == 1 }
 end
 
 def self.actives
   active_students = []
-  all.each do |student|
+  includes(:registrations).all.each do |student|
     if student.is_active?
       active_students << student
     end

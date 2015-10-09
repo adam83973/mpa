@@ -11,7 +11,6 @@ class Offering < ActiveRecord::Base
   has_many :registrations
   has_many :active_registrations, conditions: {status: 0, status: 1}, class_name: 'Registration'
   has_many :students, through: :registrations
-  # has_and_belongs_to_many :students
 
   scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }
   scope :active,  lambda{ where("active = ?", true) }

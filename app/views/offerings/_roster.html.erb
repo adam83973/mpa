@@ -7,7 +7,7 @@
     <th>Status</th>
   </tr>
 
-<% @offering.registrations.where("status = ? OR status = ? OR status = ? OR start_date >= ?", "0", "1", "2", Date.today).order("status asc").each_with_index do |registration, i| %>
+<% @offering.registrations.includes(:student).where("status = ? OR status = ? OR status = ? OR start_date >= ?", "0", "1", "2", Date.today).order("status asc").each_with_index do |registration, i| %>
   <tr>
     <td style="width: 40px;" class="text-center">
       <%= "#{ i + 1 }." %>
