@@ -131,7 +131,7 @@ class StaticPagesController < ApplicationController
     def set_location
       if current_user.admin?
         @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
-        @user_location.notes.where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
+        @user_location.notes.includes(:notable, :user).where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
         #add location notes to user_action needed
 
         if Offering.any_today_location?(@user_location)
@@ -148,7 +148,7 @@ class StaticPagesController < ApplicationController
       #Pull students are starting or restarting within the next day.
       @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
       @restarting_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
-      @trials_today_location = @user_location.opportunities.where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
+      @trials_today_location = @user_location.opportunities.includes(:student, :offering).where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
     end
 
     def set_teacher
