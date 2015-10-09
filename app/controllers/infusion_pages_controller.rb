@@ -280,7 +280,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @parents = User.includes(:students, :registrations).where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC")
+    @parents = User.includes(:students, :registrations).where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC").limit(10)
     @parents_with_sub = User.includes(:students, :registrations).where("role = ? AND active_subscription = ?", "Parent", true)
   end
 
