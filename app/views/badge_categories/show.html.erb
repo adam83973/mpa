@@ -1,4 +1,4 @@
-<%= link_to "Edit", edit_badge_category_path(@badge_category), class: "btn btn-default pull-right" %>
+<%= link_to "Edit", edit_badge_category_path(@badge_category), class: "btn btn-default pull-right" if current_user.admin? %>
 <% badges_count = @badge_category.badges.count %>
 <h1>
   <%= @badge_category.name %> <%= 'Badge'.pluralize(badges_count) %>
