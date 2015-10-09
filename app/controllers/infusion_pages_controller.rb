@@ -280,7 +280,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @parents = User.includes(:students, :registrations).where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC").limit(100)
+    @parents = User.where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC").limit(100)
     @parents_clone = @parents.clone
     @parents_with_sub = @parents_clone.delete_if{|parent| !parent.active_subscription?}
     # @parents_with_sub = User.includes(:students, :registrations).where("role = ? AND active_subscription = ?", "Parent", true)
@@ -298,6 +298,6 @@ class InfusionPagesController < ApplicationController
 
   private
     def rescue_from_timeout
-      redirect_to :back, notice: 'Your request was not processed. Error connecting with Infusionsoft. Please try again.'
+      redirect_to :back, alert: 'Your request was not processed. Please try again.'
     end
 end
