@@ -51,11 +51,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parent_sub_no_reg.each do |parent| %>
-					<tr>
-						<td><%= link_to parent.full_name, parent %></td>
-						<td><%= parent.balance_due %></td>
-					</tr>
+				<% @parents_with_sub.each do |parent| %>
+					<% if parent.active_students? == false %>
+						<tr>
+							<td><%= link_to parent.full_name, parent %></td>
+							<td><%= parent.balance_due %></td>
+						</tr>
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>
@@ -72,8 +74,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @parents_with_sub.each do |parent| %>
-					<% if parent.active_students? == false %>
+				<% @parents.each do |parent| %>
+					<% if parent.active_students? == true && !parent.active_subscription? %>
 						<tr>
 							<td>
 								<%= link_to parent.full_name, parent, target: '_blank' %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %>
