@@ -7,7 +7,7 @@
 					<th></th>
 					<th>Parent Name</th>
 					<th>Parent Status</th>
-					<th>Active Students</th>
+					<!-- <th>Active Students</th> -->
 					<th>Active Subscriptions</th>
 					<th>Balance Due</th>
 				</tr>
@@ -19,15 +19,15 @@
 							<td><%= i + 1 %></td>
 							<td><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
 							<td><%= user_status(parent).html_safe %></td>
-							<td>
+							<!-- <td>
 								<ol>
-									<% parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.each do |reg| %>
+									<%# parent.registrations.includes(:student).active.delete_if{ |reg| (reg.switch == true && reg.start_date > Date.today) }.each do |reg| %>
 										<li>
-											<%= reg.student.full_name %> (<%= reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
+											<%# reg.student.full_name %> (<%# reg.student.last_attendance_xp ? reg.student.last_attendance_xp.created_at.strftime("%D") : "No Attendance" %>)
 										</li>
 									<% end %>
 								</ol>
-							</td>
+							</td> -->
 							<td>
 								<%= parent.subscription_count %>
 							</td>
