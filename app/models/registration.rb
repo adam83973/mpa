@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
   before_save :past_end_date
 
   belongs_to :student
-  belongs_to :offering, counter_cache: true
+  belongs_to :offering
   belongs_to :user
   belongs_to :holder, class_name: "Registration", foreign_key: "hold_id"
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
