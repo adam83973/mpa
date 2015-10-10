@@ -1,12 +1,11 @@
 <h3>Payment Audit Report for Active Students</h3>
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<table class="table table-hover table-bordered table-condensed table-responsive">
+		<table class="table table-hover table-bordered table-condensed table-responsive audit">
 			<thead>
 				<tr>
 					<th></th>
 					<th>Parent Name</th>
-					<th>Parent Status</th>
 					<th>Active Students</th>
 					<th>Active Subscriptions</th>
 					<th>Balance Due</th>
@@ -16,9 +15,8 @@
 				<% @parents.each_with_index do |parent, i| %>
 					<% if parent.active_students? %>
 						<tr <%= "class=danger" if parent.balance_due != 0 %>>
-							<td><%= i + 1 %></td>
-							<td><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
-							<td><%= user_status(parent).html_safe %></td>
+							<td class="text-center"><%= i + 1 %></td>
+							<td  class="text-center"><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
 							<td>
 								<ol>
 									<% parent.active_registrations.each do |reg| %>
@@ -28,8 +26,8 @@
 									<% end %>
 								</ol>
 							</td>
-							<td><%= parent.subscription_count %></td>
-							<td>$<%= parent.balance_due %></td>
+							<td class="text-center"><%= parent.subscription_count %></td>
+							<td class="text-center">$<%= parent.balance_due %></td>
 						</tr>
 					<% end %>
 				<% end %>
