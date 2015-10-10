@@ -16,7 +16,7 @@
 					<% if parent.active_students? %>
 						<tr <%= "class=danger" if parent.balance_due != 0 %>>
 							<td class="text-center"><%= i + 1 %></td>
-							<td  class="text-center"><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
+							<td ><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
 							<td>
 								<ol>
 									<% parent.active_registrations.each do |reg| %>
