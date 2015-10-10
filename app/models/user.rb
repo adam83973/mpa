@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :students, :through => :offerings
   has_many :students
   has_many :registrations, :through => :students
+  has_many :active_registrations, :through => :students, class_name: 'Registration', source: :registrations, conditions: "registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')"
+
   has_many :opportunities
   has_many :leads
   has_many :issues
@@ -70,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def active_students?
-    registrations.any? { |r| (0..2).cover?(r.status) || (r.start_date && (r.start_date >= Date.today)) }
+    active_registrations.any?
   end
 
   def missed_appointment

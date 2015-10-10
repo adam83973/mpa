@@ -36,12 +36,13 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'will_paginate', '~> 3.0.6'
 gem 'youtube_addy', '~> 1.0.2'
-gem 'bullet'
 
 group :development, :test do
+  gem 'bullet'
   gem 'sqlite3', '1.3.7'
   gem 'letter_opener'
   gem 'rspec-rails', '~> 3.0'
+  gem 'meta_request'
 end
 
 
