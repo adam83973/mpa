@@ -1,3 +1,4 @@
+<%= link_to "User Page", @app_user, class: "btn btn-default" if @app_user %>
 <h3>Edit Billing and Payment Info (Infusionsoft)</h3>
 
 <%= @new_customer %>
@@ -40,7 +41,7 @@
 			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-success' %>
 		<% end %>
 	</div>
-	<div class="col-lg-2 col-md-2">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<h4>Active Credit Cards</h4>
