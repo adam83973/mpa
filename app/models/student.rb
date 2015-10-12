@@ -80,11 +80,11 @@ class Student < ActiveRecord::Base
   end
 
   def last_attendance_xp
-    experience_points.joins(:experience).where("name LIKE ?", "%Attendance%").last
+    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Attendance%").first
   end
 
   def last_assignment_xp
-    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").last
+    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Homework%").first
   end
 
   def xp_sum_by_occupation(cat)
