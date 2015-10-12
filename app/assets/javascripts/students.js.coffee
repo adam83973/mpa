@@ -101,6 +101,6 @@ $("#attendanceModal").bind "show", ->
     width: '200px'
 
 # add student's last attendance to infusion audit report.
-$(document).ready ->
+$(window).load ->
 	$.each $('.active-registration'), (index, value) ->
 		console.log "#{index}-#{value}#{$(this).data('student-id')}"
