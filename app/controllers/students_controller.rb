@@ -222,4 +222,13 @@ class StudentsController < ApplicationController
     Student.import(params[:file])
     redirect_to students_path, notice: "Students imported."
   end
+
+  def last_attendance
+    @student = Student.find(params[:id])
+    @last_attendance_date = @student.last_attendance_xp.created_at.strftime("%D")
+
+    respond_to do |format|
+      format.json { render json: @last_attendance_date }
+    end
+  end
 end

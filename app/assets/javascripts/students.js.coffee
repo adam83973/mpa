@@ -99,3 +99,11 @@ $("#attendanceModal").bind "show", ->
     allow_single_deselect: true
     no_results_text: 'No results matched'
     width: '200px'
+
+# add student's last attendance to infusion audit report.
+sum = 0
+
+$.each($('.active-registration'), (index, value) ->
+	sum += index + 1
+)
+console.log sum
