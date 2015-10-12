@@ -104,7 +104,7 @@ $("#attendanceModal").bind "show", ->
 $(window).load ->
 	$.each $('.active-registration'), (index, value) ->
 		$active_registration = $(this)
-		student_id = $active_registration.data('student-id')}
+		student_id = $active_registration.data('student-id')
 		$.ajax ->
       type:'get'
       url: '/students/last_attendance'
