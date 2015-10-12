@@ -111,7 +111,7 @@ $(window).load ->
       data: { student_id: student_id}
       success: (data, status, xhr)->
 				console.log data
-        var last_attendance = data
+        last_attendance = data
         $active_registration.append "(#{last_attendance})"
       error: (xhr, status, e) ->
       dataType: 'JSON'
