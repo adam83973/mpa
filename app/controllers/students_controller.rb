@@ -224,9 +224,15 @@ class StudentsController < ApplicationController
   end
 
   def last_attendance
-    @student = Student.find(params[:id])
-    @last_attendance_date = @student.last_attendance_xp.created_at.strftime("%D")
+    @student = Student.find(params[:student_id])
+    @last_attendance = @student.last_attendance_xp
 
+    if @last_attendance
+      @last_attendance_date = @student.last_attendance_xp.created_at.strftime("%D")
+    else
+      @last_attendance_date = 'No Attendance'
+    end
+    
     respond_to do |format|
       format.json { render json: @last_attendance_date }
     end

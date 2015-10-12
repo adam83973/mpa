@@ -183,6 +183,7 @@ MathPlus::Application.routes.draw do
       get 'badges'
     end
     collection do
+      get :last_attendance
       post :import
       post :create_from_opportunity
     end
