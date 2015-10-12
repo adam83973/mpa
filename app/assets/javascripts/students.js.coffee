@@ -106,14 +106,14 @@ $('#load_attendance').on 'click', ->
 		$active_registration = $(this)
 		console.log $active_registration
 		student_id = $active_registration.data('student-id')
-		$.when.($.ajax
-				async: false
-				type:'get'
-				url: '/students/last_attendance.json'
-				data: { student_id: student_id }
-				success: (data, status, xhr) ->
-					console.log data
-					last_attendance = data
-					$active_registration.append("(#{last_attendance})")
-				dataType: 'JSON').done (data) ->
-					console.log data
+		$.ajax
+			type:'get'
+			url: '/students/last_attendance.json'
+			data: { student_id: student_id }
+			success: (data, status, xhr) ->
+				console.log data
+				last_attendance = data
+				$active_registration.append("(#{last_attendance})")
+			dataType: 'JSON'
+			complete: () ->
+				$active_registration.append("(#{last_attendance})")
