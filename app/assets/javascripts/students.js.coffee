@@ -109,8 +109,8 @@ $('#load_attendance').on 'click', ->
 		$.ajax
 			async: false
 			type:'get'
-      url: '/students/last_attendance.json'
-      data: { student_id: student_id }
+			url: '/students/last_attendance.json'
+			data: { student_id: student_id }
 			success: (data, status, xhr) ->
 				console.log data
 				last_attendance = data
