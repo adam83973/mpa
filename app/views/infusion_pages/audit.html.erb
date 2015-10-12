@@ -22,7 +22,7 @@
 									<% parent.active_registrations.each do |reg| %>
 									<% last_attendance = reg.student.last_attendance_xp %>
 										<li>
-											<%= reg.student.full_name %> <%= last_attendance ? last_attendance.created_at.strftime("%D") : "No Attendance" %>
+											<%= reg.student.full_name %> <%# last_attendance ? last_attendance.created_at.strftime("%D") : "No Attendance" %>
 										</li>
 									<% end %>
 								</ol>

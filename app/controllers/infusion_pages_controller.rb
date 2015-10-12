@@ -280,7 +280,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def audit
-    @parents = User.where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC").includes(:active_registrations)
+    @parents = User.where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC")
   end
 
   def tag_contact
