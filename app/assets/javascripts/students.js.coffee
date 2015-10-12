@@ -116,5 +116,6 @@ $('#load_attendance').on 'click', ->
 				$active_registration.append("(#{last_attendance})")
 			dataType: 'JSON'
 			complete: (data1) ->
-				console.log data1
+				console.log data1.responseText
+				console.log data1[:responseText]
 				$active_registration.append("(#{data1})")
