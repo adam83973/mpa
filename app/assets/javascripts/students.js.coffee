@@ -104,6 +104,7 @@ $("#attendanceModal").bind "show", ->
 $('#load_attendance').on 'click', ->
 	$.each $('.active-registration'), (index, value) ->
 		$active_registration = $(this)
+		console.log $active_registration
 		student_id = $active_registration.data('student-id')
 		$.ajax
       type:'get'
