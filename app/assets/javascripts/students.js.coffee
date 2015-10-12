@@ -104,17 +104,13 @@ $("#attendanceModal").bind "show", ->
 $('#load_attendance').on 'click', ->
 	$.each $('.active-registration'), (index, value) ->
 		$active_registration = $(this)
-		console.log $active_registration
 		student_id = $active_registration.data('student-id')
 		$.ajax
 			type:'get'
 			url: '/students/last_attendance.json'
 			data: { student_id: student_id }
 			success: (data, status, xhr) ->
-				console.log data
-				last_attendance = data
-				$active_registration.append("(#{last_attendance})")
 			dataType: 'JSON'
 			complete: (data1) ->
-				console.log data1.responseText
-				$active_registration.append("(#{data1})")
+				last_attendance = data1.responseText
+				$active_registration.append("(#{last_attendance})")
