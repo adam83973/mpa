@@ -107,6 +107,7 @@ $('#load_attendance').on 'click', ->
 		console.log $active_registration
 		student_id = $active_registration.data('student-id')
 		$.ajax
+			async: false
       type:'get'
       url: '/students/last_attendance.json'
       data: { student_id: student_id }
