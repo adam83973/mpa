@@ -108,10 +108,10 @@ $(window).load ->
 		$.ajax ->
       type:'get'
       url: '/students/last_attendance'
-      data: { student_id: student_id}
-      success: (data, status, xhr)->
+      data: { student_id: student_id }
+			success: (data, status, xhr) ->
 				console.log data
-        last_attendance = data
-        $active_registration.append "(#{last_attendance})"
-      error: (xhr, status, e) ->
-      dataType: 'JSON'
+			  last_attendance = data
+			  $active_registration.append "(#{last_attendance})"
+			error: (xhr, status, e) ->
+			dataType: 'JSON'
