@@ -105,7 +105,7 @@ $(window).load ->
 	$.each $('.active-registration'), (index, value) ->
 		$active_registration = $(this)
 		student_id = $active_registration.data('student-id')
-		$.ajax ->
+		$.ajax
       type:'get'
       url: '/students/last_attendance'
       data: { student_id: student_id }
