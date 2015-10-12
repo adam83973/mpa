@@ -24,7 +24,7 @@ class Registration < ActiveRecord::Base
   scope :restarting, lambda{where("status = ? AND restart_date < ?", 2, 20.days.from_now)}
 
   STATUSES = ["New", "Active", "Hold", "Inactive"]
-  DROP_REASONS = ["Moving", "Price", "Other Activity", "Dissatisfied"]
+  DROP_REASONS = ["Moving", "Price", "Other Activity", "Dissatisfied", "Registered In Error", "Never Returned From Hold"]
 
   def offering_name
     if offering
