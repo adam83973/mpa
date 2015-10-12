@@ -113,5 +113,4 @@ $('#load_attendance').on 'click', ->
 				console.log data
 				last_attendance = data
 				$active_registration.append("(#{last_attendance})")
-			error: (xhr, status, e) ->
 			dataType: 'JSON'
