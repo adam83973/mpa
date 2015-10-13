@@ -24,7 +24,7 @@
         <div class="requirements">
           <h3 style="color:#8a8a8a;margin-bottom:30px;">To earn this badge you must...</h3>
           <div style='font-size:1.3em;font-weight:900;'>
-            <%= simple_format_no_tags(@badge.requirements,{}, {sanitize: false}) %>
+            <%= @badge.requirements.html_safe %>
           </div>
         </div>
         <hr>
