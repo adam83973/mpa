@@ -15,21 +15,21 @@
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :image, as: :file, label: "Upload Image" unless @badge.image? %>
-      <div class="text-center">
+    <div class="text-center">
         <%= image_tag(@badge.image_url, size: '200x200') if @badge.image? %>
 
         <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @badge.image? %>
-      </div>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-    <%= f.input :requirements, input_html: { rows: 12, style: "resize:vertical;" } %>
+      <%= f.input :requirements, input_html: { rows: 12, style: "resize:vertical;" } %>
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-lg-offset-8 col-md-offset-8 pull-right">
-      <%= f.button :submit, class: "btn btn-lg btn-success" %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-lg-offset-8 col-md-offset-8">
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
     <% end %>
   </div>
 </div>
