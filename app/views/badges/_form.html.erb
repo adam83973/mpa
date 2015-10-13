@@ -2,10 +2,7 @@
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <%= simple_form_for(@badge) do |f| %>
       <%= f.error_notification %>
-
-
       <%= f.input :name %>
-      <%= f.input :requirements, input_html: { rows: 6, style: "resize:vertical;" } %>
       <%= f.input :write_up_required %>
       <%= f.input :multiple, label: "This badge can be earned multiple times." %>
       <%= f.input :requires_approval, label: "This badge requires approval." %>
@@ -23,9 +20,16 @@
 
         <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @badge.image? %>
       </div>
-      <div class="form-actions">
-        <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
-      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <%= f.input :requirements, input_html: { rows: 12, style: "resize:vertical;" } %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-lg-offset-8 col-md-offset-8 pull-right">
+      <%= f.button :submit, class: "btn btn-lg btn-success" %>
     <% end %>
   </div>
 </div>
