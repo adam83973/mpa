@@ -36,6 +36,7 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'will_paginate', '~> 3.0.6'
 gem 'youtube_addy', '~> 1.0.2'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 
 group :development, :test do
   gem 'bullet'
@@ -54,7 +55,6 @@ group :assets do
   gem 'normalize-rails'
   gem 'modernizr-rails', '~> 2.6.2.1'
   gem 'selectivizr-rails', '~> 1.0.1'
-  gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-fileupload-rails'
   gem 'chosen-rails'
