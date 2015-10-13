@@ -284,11 +284,11 @@ class InfusionPagesController < ApplicationController
   end
 
   def subscription_audit
-    @parents = Parent.where(role: 'Parent')
+    @parents = User.where(role: 'Parent')
   end
 
   def registration_audit
-    @parents = Parent.where(role: 'Parent')
+    @parents = User.where(role: 'Parent')
   end
 
   def tag_contact
