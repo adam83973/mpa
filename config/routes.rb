@@ -58,6 +58,8 @@ MathPlus::Application.routes.draw do
   resources :grades
 
   namespace :infusion_pages do
+    get :registration_audit
+    get :subscription_audit
     get :home
     get :add_contact
     get :add_existing_id

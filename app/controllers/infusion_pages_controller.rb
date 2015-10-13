@@ -283,6 +283,14 @@ class InfusionPagesController < ApplicationController
     @parents = User.where("role = ?", "Parent").where("active = ? OR balance_due > ?", true, 0).order("balance_due DESC")
   end
 
+  def subscription_audit
+    @parents = Parent.where(role: 'Parent')
+  end
+
+  def registration_audit
+    @parents = Parent.where(role: 'Parent')
+  end
+
   def tag_contact
     @contact_id = params[:contact_id]
     @tag_ids = params[:tag_ids]
