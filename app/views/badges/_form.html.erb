@@ -14,6 +14,7 @@
       <%= f.association :experience, input_html: { class: 'chosen'} %>
       <%= f.association :category %>
       <%= f.input :submission_type, collection: Badge::SUBMISSION_TYPES.zip((0..1).to_a) %>
+      <%= f.input :parent_can_request, label: "A parent can request this badge." %>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :image, as: :file, label: "Upload Image" unless @badge.image? %>

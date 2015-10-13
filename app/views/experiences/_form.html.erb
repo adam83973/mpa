@@ -26,6 +26,9 @@
         <%= badge_form.input :submission_type, collection: Badge::SUBMISSION_TYPES.zip((0..1).to_a) %>
         <%= badge_form.input :requirements, input_html: { rows: 6, style: "resize:vertical;"} %>
         <%= badge_form.input :write_up_required %>
+        <%= badge_form.input :multiple, label: "This badge can be earned multiple times." %>
+        <%= badge_form.input :requires_approval, label: "This badge requires approval." %>
+        <%= badge_form.input :parent_can_request, label: "A prent can request this badge" %>
         <%= badge_form.input :image, as: :file, label: "Upload Image" unless @experience.badge && @experience.badge.image? %>
         <div class="text-center">
         <%= image_tag(@experience.badge.image_url, size: '200x200') if @experience.badge && @experience.badge.image? %>
