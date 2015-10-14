@@ -22,25 +22,25 @@
 
     <% if @experience.occupation %>
     <p>
-      <b>Occupation:</b>
+      <strong>Occupation:</strong>
       <%= @experience.occupation.title if @experience.occupation %>
     </p>
     <% end %>
 
     <p>
-      <b>Category:</b>
+      <strong>Category:</strong>
       <%= @experience.category %>
     </p>
 
     <% if signed_in? && current_user.employee? && (@experience.category && @experience.category == "Robotics") %>
     <p>
-      <b>Secret Code:</b>
+      <strong>Secret Code:</strong>
       <%= Base64.encode64(@experience.id.to_s) %>
     </p>
     <% end %>
 
     <p>
-      <b>Content:</b>
+      <strong>Content:</strong>
       <% if @experience.content.empty? %>
         <u>Please add a description to this achievement!</u>
       <% else %>
