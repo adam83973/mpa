@@ -70,14 +70,9 @@
 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<div class="well">
 			<h4>Add a Subscription</h4>
-			<%= form_tag url_for(controller: 'infusion_pages', action: 'update_subscription'), {:method => :get, class: 'form-horizontal'} do %>
-				<%= hidden_field_tag :ContactId, params[:ContactId] %>
-				<%= select_tag :cProgramId, options_for_select(@dropdown, @subscription),{:onchange => 'this.form.submit()', class: 'form-control'} %>
-			<% end %>
-			<br>
 			<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
 				<%= hidden_field_tag :ContactId, params[:ContactId] %>
-				<%= select_tag :cProgramId, options_for_select(@dropdown, 5), class: 'form-control'} %>
+				<%= select_tag :cProgramId, options_for_select(@dropdown, 5), {class: 'form-control'} %>
 				<%= hidden_field_tag :merchantAccountId, 5 %>
 			 	<label>Qty </label>
 				<%= text_field_tag :qty, 1, class: 'form-control' %>
