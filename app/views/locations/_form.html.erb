@@ -22,10 +22,8 @@
         <%= f.input :state %>
         <%= f.input :zip %>
     </div>
-  </div>
-  <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <%= f.input :technical_information, input_html: { rows: 8} %>
+      <%= f.input :technical_information, as: :text, input_html: { rows: 8 } %>
     </div>
   </div>
   <div class="row">
