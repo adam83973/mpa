@@ -11,7 +11,11 @@
 
 <%= render 'homework_help_appointments', appointments: @location_hw_help_appointments %>
 
-<%= link_to "sample_student", sample_student_path, class: "btn btn-primary" %>
+<div class="row">
+  <div class= "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= link_to "sample_student", sample_student_path, class: "btn btn-primary" %>
+  </div>
+</div>
 
 <%= render 'adds_modal' %>
 
@@ -22,15 +26,20 @@
 <%= render 'future_adds_modal' %>
 
 <% if @data %>
-  <div class="text-center">
-    <h1>Average Enrollment per Month</h1>
-    <%= line_chart @data, @options %>
+  <div class="row">
+    <div class= "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="text-center">
+        <h1>Average Enrollment per Month</h1>
+        <%= line_chart @data, @options %>
+      </div>
+    </div>
   </div>
 <% end %>
 
 <% if @location.technical_information %>
   <div class="row">
     <div class= "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h2>Technical Information</h2>
       <%= simple_format @location.technical_information %>
     </div>
   </div>
