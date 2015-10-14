@@ -56,8 +56,10 @@ class BadgeRequestsController < ApplicationController
 
     @badge_request.approve
 
-    NotificationMailer.badge_request_approval_confirmation(@badge_request, @parent).deliver
-
+    if @parent
+      NotificationMailer.badge_request_approval_confirmation(@badge_request, @parent).deliver
+    end
+    
     render nothing: true
   end
 
