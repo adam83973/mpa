@@ -44,7 +44,7 @@
       <% if @experience.content.empty? %>
         <u>Please add a description to this achievement!</u>
       <% else %>
-        <%= sanitize @badge.requirements, tags: %w(strong em a div ul li p), attributes: %w(href style class target) %>
+        <%= sanitize @experience.content, tags: %w(strong em a div ul li p), attributes: %w(href style class target) %>
       <% end %>
     </p>
       <%= link_to image_tag(@experience.image_url, width: "200"), @experience.image.url if @experience.image_url %>
