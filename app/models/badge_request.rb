@@ -22,7 +22,7 @@ class BadgeRequest < ActiveRecord::Base
   end
 
   def update_parent_submission
-    if user.parent?
+    if user && user.parent?
       toggle(:parent_submission) unless parent_submission
     end
   end
