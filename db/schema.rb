@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151009154341) do
+ActiveRecord::Schema.define(:version => 20151014153014) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -269,9 +269,10 @@ ActiveRecord::Schema.define(:version => 20151009154341) do
     t.string   "state"
     t.string   "zip"
     t.boolean  "franchise"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "time"
+    t.text     "technical_information"
   end
 
   create_table "messages", :force => true do |t|

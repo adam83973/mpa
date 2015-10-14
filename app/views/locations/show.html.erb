@@ -27,3 +27,11 @@
     <%= line_chart @data, @options %>
   </div>
 <% end %>
+
+<% if @location.technical_information %>
+  <div class="row">
+    <div class= "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= @location.technical_information %>
+    </div>
+  </div>
+<% end %>
