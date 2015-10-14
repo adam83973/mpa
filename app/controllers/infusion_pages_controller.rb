@@ -148,17 +148,9 @@ class InfusionPagesController < ApplicationController
     @user = User.where("infusion_id = ?", params[:ContactId].to_i).first
     count = 0
     begin
-      # get active subscriptions from Infusiosoft
-      subscriptions = Infusionsoft.data_query('CProgram', 50, 0, {:Status => "1"}, [:Id, :ProgramName, :DefaultPrice, :DefaultCycle, :DefaultFrequency] )
-      # alphabetize subscriptions
-      subscriptions.sort_by! {|hsh| hsh["ProgramName"]}
       # create array of subscriptions names and values for dropdown
-      @dropdown = [["Subscription...", 0]]
-      subscriptions.each do |i|
-        if i["Id"] == 5
-          @dropdown << [ i["ProgramName"], i["Id"].to_i]
-        end
-      end
+      @dropdown = ["One Student Classes", 5]
+
       # pre-populate subscription details form
       # if subscription chosen, use subscription values, else use blank values
       params[:cProgramId] == nil ? @subscription = 0 : @subscription = params[:cProgramId]

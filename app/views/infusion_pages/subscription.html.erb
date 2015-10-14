@@ -77,7 +77,7 @@
 			<br>
 			<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
 				<%= hidden_field_tag :ContactId, params[:ContactId] %>
-				<%= hidden_field_tag :cProgramId, params[:cProgramId] %>
+				<%= select_tag :cProgramId, options_for_select(@dropdown, 5), class: 'form-control'} %>
 				<%= hidden_field_tag :merchantAccountId, 5 %>
 			 	<label>Qty </label>
 				<%= text_field_tag :qty, 1, class: 'form-control' %>
