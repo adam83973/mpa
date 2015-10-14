@@ -149,7 +149,7 @@ class InfusionPagesController < ApplicationController
     count = 0
     begin
       # create array of subscriptions names and values for dropdown
-      @dropdown = ["One Student Classes", 5]
+      @dropdown = [["One Student Classes", 5]]
 
       # pre-populate subscription details form
       # if subscription chosen, use subscription values, else use blank values
