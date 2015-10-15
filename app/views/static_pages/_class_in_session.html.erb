@@ -1,9 +1,13 @@
 <div class="well well-lg center-block">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
+      <% offering  = Offering.find(class_session.offering) if class_session.offering %>
+      <h3>In Session: <%= offering.offering_name if class_session.offering %></h3>
       <h4>Week: <%= class_session.week %></h4>
+      <%= link_to "Course Page", offering.course, class: "btn btn-primary pull-right" if class_session.offering %>
     </div>
+  </div>
+  <div class="row">
     <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
       <div class="well well-sm">
         <p>Lesson:</p>
