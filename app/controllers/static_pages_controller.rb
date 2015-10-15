@@ -76,7 +76,8 @@ class StaticPagesController < ApplicationController
       @generated_password = Devise.friendly_token.first(8)
       @new_student = Student.new
       @messages = Message.where(location_id: @user_location.id, status: 0)
-      @badge_requests = @user_location.badge_requests.where(approved: false).uniq@user_notes = @user.notes
+      @badge_requests = @user_location.badge_requests.where(approved: false).uniq
+      @user_notes = @user.notes
       @user_action_needed = [] #user notings are added to this array as well as location leads
       @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ? AND location_id = ?", false, Date.today, @user_location.id).each { |note| @user_action_needed << note }
       @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
