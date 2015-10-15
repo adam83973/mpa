@@ -30,7 +30,7 @@ gem 'populator'
 gem "rack-timeout"
 gem 'rest_client'
 gem 'rmagick', :require => 'RMagick'
-gem 'rollbar', '~> 1.2.11'
+gem 'rollbar', '~> 2.4.0'
 gem 'simple_form'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
