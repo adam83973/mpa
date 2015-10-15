@@ -1,28 +1,9 @@
-<h1>Listing badges</h1>
-
-<div class="row">
-  <div class="col-lg-12-col-md-12 col-sm-12 col-xs-12">
-    <div class="well">
-      <b>Drag and drop images or PDFs to add them to Resources</b>
-      <%= form_for Badge.new do |f| %>
-        <%= f.file_field :file, multiple: true, name: "badge[file]" %>
-      <% end %>
-
-      <script id="template-upload" type="text/x-tmpl">
-        <div class="upload">
-          {%=o.name%}
-          <div class="progress"><div class="progress-bar" style="width: 0%"></div></div>
-        </div>
-      </script>
-
-      <div id="uploads">
-        <%= render @uploads if @uploads %>
-      </div>
-        <div style="clear:both;"></div>
-    </div>
+<h1>All Badges</h1>
+<div class="row" style='margin-bottom:20px;'>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= link_to "New Badge", new_badge_path, class: "btn btn-success" if current_user.admin? %>
   </div>
 </div>
-
 <div class="row">
   <div class="col-lg-12-col-md-12 col-sm-12 col-xs-12">
     <table id="datatable" class="display">

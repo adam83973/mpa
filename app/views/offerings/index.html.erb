@@ -2,13 +2,15 @@
 
 <h1><%= yield(:title)%></h1>
 
-<p>
-  <%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
-</p>
-<p>
-  Download:
-  <%= link_to "CSV", offerings_path(format: "csv") %>
-</p>
+<% if current_user.admin? %>
+  <p>
+    <%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
+  </p>
+  <p>
+    Download:
+    <%= link_to "CSV", offerings_path(format: "csv") %>
+  </p>
+<% end %>
 
 <table id="datatable" class="display">
     <thead>
