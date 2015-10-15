@@ -8,12 +8,6 @@ MathPlus::Application.routes.draw do
 
   resources :avatars
 
-  resources :badge_categories
-
-  resources :badge_requests do
-    collection { get :approval }
-  end
-
   resources :badges do
     collection do
       get :write_up_required
@@ -21,6 +15,13 @@ MathPlus::Application.routes.draw do
     end
   end
 
+  resources :badge_categories
+
+  resources :badge_modules
+
+  resources :badge_requests do
+    collection { get :approval }
+  end
   resources :class_sessions, only: [:new, :create, :destroy]
   post "class_sessions/start_class"
   get "class_sessions/end_class"

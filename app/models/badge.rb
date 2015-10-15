@@ -8,6 +8,7 @@ class Badge < ActiveRecord::Base
   has_many :badge_requests, dependent: :destroy
   belongs_to :experience
   belongs_to :category, class_name: 'BadgeCategory', foreign_key: "badge_category_id"
+  belongs_to :module, class_name: 'BadgeModule', foreign_key: "module_id"
 
   mount_uploader :image, FileUploader
 

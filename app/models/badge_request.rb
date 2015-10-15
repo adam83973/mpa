@@ -5,6 +5,7 @@ class BadgeRequest < ActiveRecord::Base
   belongs_to :badge
   belongs_to :student
   belongs_to :user
+  has_many   :modules, class_name: 'BadgeModule', source: :badge_modules
 
   before_save :update_parent_submission
 
