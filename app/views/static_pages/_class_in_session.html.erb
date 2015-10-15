@@ -1,5 +1,5 @@
 <div class="well well-lg center-block">
-  <div class="row">
+  <div class="row" style="margin-bottom:20px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <% offering  = Offering.find(class_session.offering) if class_session.offering %>
       <h3>In Session: <%= offering.offering_name if class_session.offering %></h3>
