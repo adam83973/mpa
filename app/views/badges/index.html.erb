@@ -13,8 +13,9 @@
           <th>Name</th>
           <th>Image</th>
           <th></th>
-          <th></th>
-          <th></th>
+          <% if current_user.admin? %>
+            <th></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -24,8 +25,9 @@
             <td><%= badge.name %></td>
             <td><%= badge.image %></td>
             <td><%= link_to 'Show', badge, target: "_blank" %></td>
-            <td><%= link_to 'Edit', edit_badge_path(badge), target: "_blank" %></td>
-            <td><%= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if current_user.admin %>
+              <td><%= link_to 'Edit', edit_badge_path(badge), target: "_blank" %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

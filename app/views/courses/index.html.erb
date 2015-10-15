@@ -18,7 +18,9 @@
     <th>Course name</th>
     <th>Description</th>
     <th></th>
-    <th></th>
+    <% if current_user.admin? %>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @courses.each do |course| %>
@@ -27,7 +29,9 @@
     <td><%= course.course_name %></td>
     <td><%= course.description %></td>
     <td><%= link_to 'Show', course %></td>
-    <td><%= link_to 'Edit', edit_course_path(course) %></td>
+    <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_course_path(course) %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
