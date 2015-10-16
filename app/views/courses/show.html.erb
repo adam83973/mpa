@@ -11,10 +11,17 @@
  Student type: <%= @course.occupation.title.pluralize %>
 </p>
 <% if @course.id == 15 %>
-  <div class="row">
+  <div class="row" style="margin-bottom:40px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <%= link_to BadgeModule.find(1) do %>
         <%= image_tag 'scratch_banner.svg' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= link_to BadgeModule.find(1) do %>
+        <%= image_tag 'processing_banner.svg' %>
       <% end %>
     </div>
   </div>
