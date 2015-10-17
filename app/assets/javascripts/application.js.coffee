@@ -13,6 +13,7 @@
 //= require dataTables/extras/dataTables.responsive
 //= require dnd
 //= require experience_points
+//= require highlight.pack
 //= require infusion_pages
 //= require issues
 //= require knob
@@ -40,6 +41,11 @@ jscolor.dir = '/path/to/assets/'
 jQuery ->
   $('body').tooltip
     selector: "[data-toggle~='tooltip']"
+
+# -------------Highlight.js Initialization--------------------
+  $(document).ready ->
+    $('pre code').each (i, block) ->
+      hljs.highlightBlock(block)
 
   $("#datatable").dataTable
     pagingType: "simple_numbers"
