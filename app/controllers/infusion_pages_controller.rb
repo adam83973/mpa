@@ -145,42 +145,44 @@ class InfusionPagesController < ApplicationController
   end
 
   def subscription
-    @user = User.where("infusion_id = ?", params[:ContactId].to_i).first
-    count = 0
-    begin
-      # create array of subscriptions names and values for dropdown
-      @dropdown = [["One Student Classes", 5]]
+    @user = User.find(params[:id])
 
-      # pre-populate subscription details form
-      # if subscription chosen, use subscription values, else use blank values
-      params[:cProgramId] == nil ? @subscription = 0 : @subscription = params[:cProgramId]
-      params[:price] == nil ? @price = 0 : @price = params[:price].to_i
-      # get subscriber info from Infusionsoft
-      @subscriber = Infusionsoft.data_load('Contact', params[:ContactId], [:FirstName, :LastName])
-      # check for credit cards associated to Id and render on edit page
-      @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
-      # remove all deleted cards from @credit_card array
-      @credit_card.delete_if {|i| i["Status"] != 3}
-      @credit_card_options = []
-      @credit_card.each do |i|
-        @credit_card_options << [i["CardType"] + " xxxx" + i["Last4"], i["Id"]]
-      end
-      # retrieve subscriptions for contact
-      @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => params[:ContactId]}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
-      @active_subscription.sort_by! {|hsh| hsh["Status"]}
-    rescue
-      count < 3 ? retry : ""
-      # loop through array of hashes and remove inactive subscriptions
-      # @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
-      # attach subscription plan names
-      @active_subscription.each do |i|
-        subscriptions.each do |j|
-          if i["ProgramId"].to_i == j["Id"].to_i
-            i["ProgramName"] = j["ProgramName"]
+    if @user.infusion_id
+      count = 0
+      begin
+        # create array of subscriptions names and values for dropdown
+        @dropdown = [["One Student Classes", 5]]
+
+        # pre-populate subscription details form
+        # if subscription chosen, use subscription values, else use blank values
+        params[:cProgramId] == nil ? @subscription = 0 : @subscription = params[:cProgramId]
+        params[:price] == nil ? @price = 0 : @price = params[:price].to_i
+        # get subscriber info from Infusionsoft
+        @subscriber = Infusionsoft.data_load('Contact', params[:ContactId], [:FirstName, :LastName])
+        # check for credit cards associated to Id and render on edit page
+        @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
+        # remove all deleted cards from @credit_card array
+        @credit_card.delete_if {|i| i["Status"] != 3}
+        @credit_card_options = []
+        @credit_card.each do |i|
+          @credit_card_options << [i["CardType"] + " xxxx" + i["Last4"], i["Id"]]
+        end
+        # retrieve subscriptions for contact
+        @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => params[:ContactId]}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+        @active_subscription.sort_by! {|hsh| hsh["Status"]}
+      rescue
+        count < 3 ? retry : ""
+        # loop through array of hashes and remove inactive subscriptions
+        # @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
+        # attach subscription plan names
+        @active_subscription.each do |i|
+          subscriptions.each do |j|
+            if i["ProgramId"].to_i == j["Id"].to_i
+              i["ProgramName"] = j["ProgramName"]
+            end
           end
         end
       end
-    end
       # get invoices and display recent ones
       @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => params[:ContactId]}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
       @invoices.each do |i|
@@ -194,6 +196,8 @@ class InfusionPagesController < ApplicationController
           i["Status"] = "<span class='label label-success'>Paid</span>"
         end
       end
+    else
+    end
   end
 
   def update_subscription

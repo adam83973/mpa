@@ -22,6 +22,8 @@
 //= require notes
 //= require offerings
 //= require problems
+//= require p5.min
+//= require processing_challenges
 //= require reports
 //= require resources
 //= require standards
