@@ -145,7 +145,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def subscription
-    @user = User.find(params[:id])
+    @user = User.find(params[:userId])
 
     if @user.infusion_id
       count = 0
