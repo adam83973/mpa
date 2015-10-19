@@ -7,6 +7,7 @@ namespace :operations do
     restart_date
     end_date
     deactivate_parents
+    termination_campaign
   end
 end
 
@@ -79,6 +80,24 @@ def deactivate_parents
       p.update_attribute :active, false
       #add logic to allow opt out of drop campaign
       #Infusionsoft.contact_add_to_group(p.infusion_id, 1648)
+    end
+  end
+end
+
+def termination_campaign
+  if Date.today.friday?
+    parents = User.where(active: false, role: "Parent", active_subscription: false, termination_sequence: false)
+
+    parents.each do |parent|
+      if parent.infusion_id
+      invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false).first
+      if invoice
+        time = invoice['DateCreated'].to_time
+          if time < Time.now - 60.days && time > Time.now - 365.days
+            Infusionsoft.contact_add_to_group(parent.infusion_id, 2080)
+          end
+        end
+      end
     end
   end
 end
