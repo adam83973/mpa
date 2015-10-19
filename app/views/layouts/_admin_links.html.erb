@@ -8,8 +8,12 @@
     <li><%= link_to "Class", new_offering_path %></li>
     <li><%= link_to "Course", new_course_path %></li>
     <li><%= link_to "Opportunity", new_opportunity_path %></li>
-
-    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Locations/Billing <span class="caret"></span>
+  </a>
 
     <% Location.all.each do |location| %>
       <li><%= link_to location.name, location %></li>
