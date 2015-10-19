@@ -78,7 +78,6 @@ class InfusionPagesController < ApplicationController
     count = 0
     begin
       @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName, :ContactType, :Email, :Phone1Type, :Phone1, :Phone2Type, :Phone2, :StreetAddress1, :PostalCode, :City, :State])
-      @user_attibutes =
       # check for credit cards associated to ContactId and render on edit page
       @credit_card = Infusionsoft.data_find_by_field('CreditCard', 10, 0, :ContactId, params[:ContactId], [:Id, :NameOnCard, :CardType, :Last4, :ExpirationMonth, :ExpirationYear, :Status])
       # remove all deleted cards from @credit_card array
@@ -152,7 +151,7 @@ class InfusionPagesController < ApplicationController
       begin
         # create array of subscriptions names and values for dropdown
         @dropdown = [["One Student Classes", 5]]
-        
+
         # get subscriber info from Infusionsoft
         @subscriber = Infusionsoft.data_load('Contact', @user.infusion_id, [:FirstName, :LastName])
         # check for credit cards associated to Id and render on edit page

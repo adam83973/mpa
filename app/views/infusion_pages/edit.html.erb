@@ -107,7 +107,7 @@
 		<% end %>
 		<hr>
 		<%= link_to 'Back', infusion_pages_home_path(ContactId: params[:ContactId]), class: 'btn btn-default' %>
-		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(ContactId: params[:ContactId]), class: 'btn btn-primary' %>
+		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(userId: @app_user.id), class: 'btn btn-primary' %>
 		<br />
 	</div>
 </div>
