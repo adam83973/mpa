@@ -1,4 +1,4 @@
-<% if @user.infusion_id %>
+w<% if @user.infusion_id %>
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 			<h3 style="display:inline;">Subscriptions & Invoices for <%= @subscriber["FirstName"] %> <%= @subscriber["LastName"] %></h3>
@@ -103,8 +103,6 @@
 			</div>
 		</div>
 	</div>
-	<%= link_to 'Search', infusion_pages_home_path(), class: 'btn btn-small' %>
-	<%= link_to 'Edit', infusion_pages_edit_path(ContactId: params[:ContactId]), class: 'btn btn-small' %>
 <% else %>
 	<h1 style="color:red">This user has not been added to Infusionsoft. Please make sure they are added before creating a subscription.</h1>
 	<%= link_to "User Page", @user, class: "btn btn-default" %>
