@@ -203,6 +203,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def add_subscription
+    @user = User.find_by_infusion_id(params[:ContactId])
     # calculate days from now until bill date
     startBilling = params[:startBillDate]
     startDate = DateTime.parse(startBilling[:day]+"-"+startBilling[:month]+"-"+startBilling[:year])
@@ -235,9 +236,7 @@ class InfusionPagesController < ApplicationController
       #flash[:warning] = "Deposit result: #{cc_result}"
     end
 
-    # get firstname and lastname again
-    @user = Infusionsoft.contact_load(params[:ContactId], [:Id, :FirstName, :LastName])
-    redirect_to infusion_pages_subscription_path(params.merge(FirstName: @user["FirstName"], LastName: @user["LastName"]))
+    redirect_to infusion_pages_subscription_path(userId: @user.id)
     # redirect_to :back
   end
 
