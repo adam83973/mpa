@@ -38,7 +38,9 @@ w<% if @user.infusion_id %>
 							<% if i["Status"] == "Inactive" %>
 								<td></td>
 							<% else %>
-								<td><%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-small btn-danger' %></td>
+								<td>
+									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-small btn-danger' %>
+								</td>
 							<% end %>
 						</tr>
 					<% end %>
@@ -72,7 +74,7 @@ w<% if @user.infusion_id %>
 			<div class="well">
 				<h4>Add a Subscription</h4>
 				<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
-					<%= hidden_field_tag :ContactId, params[:ContactId] %>
+					<%= hidden_field_tag :ContactId, @user.infusion_id %>
 					<%= select_tag :cProgramId, options_for_select(@dropdown, 5), {class: 'form-control'} %>
 					<%= hidden_field_tag :merchantAccountId, 5 %>
 				 	<label>Qty </label>
