@@ -15,13 +15,11 @@
 </p>
 
 <% if current_user.admin? %>
-<p><%= link_to 'New User', new_user_path, class: "btn btn-success" %></p>
-
-<p>
-  Download:
-  <%= link_to "CSV", users_path(format: "csv") %>
-</p>
-<% end %>
+  <p>
+    Download:
+    <%= link_to "CSV", users_path(format: "csv") %>
+  </p>
+`<% end %>
 
 
 
