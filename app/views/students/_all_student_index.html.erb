@@ -9,9 +9,6 @@
 
 <% if current_user.admin? %>
 <p>
-  <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
-</p>
-<p>
   Download:
   <%= link_to "CSV", students_path(format: "csv") %>
 </p>
