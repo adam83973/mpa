@@ -23,7 +23,8 @@
 //= require offerings
 //= require problems
 //= require p5.min
-//= require processing_challenges
+//= require processing_challenge_1
+//= require processing_challenge_3
 //= require reports
 //= require resources
 //= require standards
