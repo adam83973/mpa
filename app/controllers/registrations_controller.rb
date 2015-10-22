@@ -114,7 +114,7 @@ class RegistrationsController < ApplicationController
           location_id: @registration.location.id,
           action_date: Date.tomorrow})
         note.save
-        format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: "End date has been added. Please update this user's subscriptions." }
+        format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: "End date has been added. Please update this user's subscriptions." }
         format.json { head :no_content }
       else
         format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
@@ -135,7 +135,7 @@ class RegistrationsController < ApplicationController
           format.html { redirect_to @student, notice: 'End date has been removed. This registration was being switched to another class. The registration associated with this switch has been deleted.' }
           format.json { head :no_content }
         else
-          format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'End date has been removed. If a subscription has been ended please start a new one.' }
+          format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'End date has been removed. If a subscription has been ended please start a new one.' }
           format.json { head :no_content }
         end
       else
@@ -169,7 +169,7 @@ class RegistrationsController < ApplicationController
                                     action_date: Date.tomorrow})
         note.save
 
-        format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
+        format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
         format.json { head :no_content }
       else
         format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
@@ -186,7 +186,7 @@ class RegistrationsController < ApplicationController
       if @ending_registration.update_attribute :hold_date, nil
         if @restarting_registration.destroy
           # delete registration if one was created through switching classes
-          format.html { redirect_to infusion_pages_subscription_path(ContactId: @student.user.infusion_id), notice: 'Hold has been cancelled. Please adjust subscriptions.' }
+          format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold has been cancelled. Please adjust subscriptions.' }
           format.json { head :no_content }
         end
       else

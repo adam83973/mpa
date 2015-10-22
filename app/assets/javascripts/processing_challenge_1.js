@@ -6,7 +6,7 @@ function setup() {
   var center = canvas_height/2
   var diameter = canvas_height
 
-  myCanvas.parent('processing_challenge_1');
+  myCanvas.parent('processing_challenge_2');
 
   while (diameter > 0) {
     fill('#'+Math.floor(Math.random()*16777215).toString(16));
