@@ -14,7 +14,7 @@ def tag_parents
   # create tag unique to month day and year and associate it with active_tags category
   set_active_parents
 
-  process_tags
+  process_tags(parents)
 
   puts group_id
 end
@@ -35,7 +35,7 @@ def set_active_parents(location=nil)
   group_id = Infusionsoft.data_add('ContactGroup', {GroupName: "#{Date.today.month}_#{Date.today.day}_#{Date.today.year}_active#{text}", GroupCategoryId: 78})
 end
 
-def process_tags
+def process_tags(parents)
   parents.each_with_index do |parent, n|
     unless parent.infusion_id.nil?
       if result = Infusionsoft.contact_add_to_group(parent.infusion_id, group_id)

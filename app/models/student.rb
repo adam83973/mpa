@@ -36,11 +36,6 @@ class Student < ActiveRecord::Base
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)}
   scope :restarting, lambda{where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)}
 
-  # before_save :active_status
-  # before_save :hold_status
-  # before_save :inactive_status
-  # before_save :restart_active_status
-
   STATUSES = %w(Active Hold Inactive)
   HOLD_STATUSES = %w(Waiting Emailed Returning Quiting) # 0 - Waiting, 1 - Emailed, 2 - Returning, 3 - Quiting
   RESET_DATE = Date.parse('2014-8-24') #date to start count for gamification
@@ -57,8 +52,8 @@ class Student < ActiveRecord::Base
     end
     badge_count
   end
-  #-----Student attributes-----
 
+  #-----Student attributes-----
   def full_name
       first_name + " " + last_name
   end
@@ -74,7 +69,6 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student XP-----
-
   def xp_sum
     experience_points.sum(:points)
   end
@@ -102,7 +96,6 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student Credits-----
-
   def calculate_credit(experience_point)
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
   end
@@ -122,7 +115,6 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student rank-----
-
   def calculate_rank(experience_point)
     ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
   end
@@ -185,9 +177,7 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student Occupation-----
-
-#returns true if student is robotics student
-  def in_robotics_class?
+  def in_robotics_class? #returns true if student is robotics student
     class_ids.include?(11)
   end
 
@@ -232,7 +222,6 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student Levels-----
-
   def current_level(occupation_name)
     points = xp_sum_by_occupation(occupation_name)
     current_level = 0
@@ -293,33 +282,30 @@ class Student < ActiveRecord::Base
   end
 
 #-----Student Administration-----
-
-def is_inactive?
-  !(registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
-end
-
-def is_active?
-  registrations.any? { |reg| reg.status == 0 || reg.status == 1 }
-end
-
-def self.actives
-  active_students = []
-  includes(:registrations).all.each do |student|
-    if student.is_active?
-      active_students << student
-    end
+  def is_inactive?
+    !(registrations.any? { |reg| reg.status == 0 || reg.status == 1 })
   end
-  active_students
-end
 
-#checks to see if student has attended first class
-  def attended_first_class?
-    # !experience_points.empty?
+  def is_active?
+    registrations.any? { |reg| reg.status == 0 || reg.status == 1 }
+  end
+
+  def self.actives
+    active_students = []
+    includes(:registrations).all.each do |student|
+      if student.is_active?
+        active_students << student
+      end
+    end
+    active_students
+  end
+
+
+  def attended_first_class? #checks to see if student has attended first class
     experience_points.any? { |xp| xp.created_at >= start_date }
   end
 
-#checks to see when student last attended class returns xp object
-  def last_date_attended
+  def last_date_attended #checks to see when student last attended class returns xp object
     experience_points.joins(:experience).where("name LIKE ?", "Attendance%").max_by {|xp| xp.created_at}
   end
 

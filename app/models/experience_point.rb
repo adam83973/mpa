@@ -10,6 +10,7 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :experience
   belongs_to :grade, dependent: :destroy
   has_one :occupation, through: :experience
+  has_one :badge_request
 
   after_save :update_student_xp
   after_update :update_student_xp
@@ -60,6 +61,6 @@ class ExperiencePoint < ActiveRecord::Base
   end
 
   def update_student_xp
-   	student.calculate_xp
-   end
+    student.calculate_xp
+  end
 end

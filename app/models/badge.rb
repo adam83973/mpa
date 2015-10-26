@@ -4,6 +4,8 @@ class Badge < ActiveRecord::Base
                   :requirements, :badge_category_id, :submission_type, :write_up_required,
                   :multiple, :requires_approval, :parent_can_request, :module_id
 
+  validates_presence_of :experience_id
+
   has_and_belongs_to_many :students
   has_many :badge_requests, dependent: :destroy
   belongs_to :experience

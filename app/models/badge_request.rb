@@ -14,6 +14,7 @@ class BadgeRequest < ActiveRecord::Base
 
     if badge.experience_id
       experience =  Experience.find(badge.experience_id)
+      student = Student.find student_id
       ExperiencePoint.create!( student_id: student_id,
                                experience_id: badge.experience_id,
                                points: experience.points,
