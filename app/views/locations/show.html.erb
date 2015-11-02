@@ -9,7 +9,7 @@
   <h2>This Week's Assessments</h2>
   <%= render 'assessment_appointments', appointments: @location_assessment_appointments %>
 
-  <%= render 'weekly_trials' %>
+  <%= render 'weekly_trials', opportunities: @location_trials %>
 
   <%= render 'homework_help_appointments', appointments: @location_hw_help_appointments %>
 
