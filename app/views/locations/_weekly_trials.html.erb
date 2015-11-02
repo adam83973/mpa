@@ -12,6 +12,7 @@
           <tr>
             <td>
               <%= link_to opportunity.user.full_name, opportunity.user if opportunity.user %>
+              <%= link_to "Please Update This Trial", opportunity unless opportunity.user %>
             </td>
             <td>
               <%= opportunity.trial_date.strftime('%A') %>
