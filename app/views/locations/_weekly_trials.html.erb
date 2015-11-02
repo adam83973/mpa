@@ -1,0 +1,25 @@
+<h2>This Week's Trials</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Parent</th>
+        <th>Day</th>
+        <th>Offering</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% opportunities.each do |opportunity| %>
+          <tr>
+            <td>
+              <%= link_to opportunity.user.full_name, opportunity.user if opportunity.user %>
+            </td>
+            <td>
+              <%= opportunity.trial_date %>
+            </td>
+            <td>
+              <%= link_to opportunity.offering.name %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+</table>
