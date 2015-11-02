@@ -14,7 +14,7 @@
               <%= link_to opportunity.user.full_name, opportunity.user if opportunity.user %>
             </td>
             <td>
-              <%= opportunity.trial_date %>
+              <%= opportunity.trial_date.strftime('%A') %>
             </td>
             <td>
               <%= link_to opportunity.offering.name %>
