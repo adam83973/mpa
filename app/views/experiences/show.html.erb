@@ -41,7 +41,7 @@
 
     <p>
       <strong>Content:</strong>
-      <% if @experience.content.empty? %>
+      <% if @experience.content && @experience.content.empty? %>
         <u>Please add a description to this achievement!</u>
       <% else %>
         <%= sanitize @experience.content, tags: %w(strong b u br em a div ul ol li p), attributes: %w(href style class target) %>
