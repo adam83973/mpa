@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Offering:</b>
+  <%= @offering_history.offering_id %>
+</p>
+
+<p>
+  <b>Teacher:</b>
+  <%= @offering_history.teacher_id %>
+</p>
+
+<p>
+  <b>Assistant:</b>
+  <%= @offering_history.assistant_id %>
+</p>
+
+<p>
+  <b>Enrollment:</b>
+  <%= @offering_history.enrollment %>
+</p>
+
+
+<%= link_to 'Edit', edit_offering_history_path(@offering_history) %> |
+<%= link_to 'Back', offering_histories_path %>

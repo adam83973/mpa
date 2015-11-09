@@ -2,6 +2,7 @@ namespace :report do
   desc "Update parent's information with last payment date."
   task location_daily: :environment do
     daily_batch
+    cache_offering_information
   end
 end
 
@@ -45,6 +46,24 @@ def daily_batch
                 opportunities_won_count:  opportunities_won_count,
                 opportunities_lost_count: opportunities_lost_count,
                 offering_information:     offering_information
+                )
+  end
+end
+
+def cache_offering_information
+  offerings = Offering.where(active:true)
+
+  offerings.each do |offering|
+    teacher = offering.users.where(role: 'Teacher').first
+    teacher ? teacher_id = teacher.id : teacher_id = nil
+    assistant = offering.users.where(role: 'Teaching Assistant').first
+    assistant ? assistant_id = assistant.id : assistant_id = nil
+    OfferingHistory.create!(
+                offering_id:              offering.id,
+                course_id:                offering.course_id,
+                teacher_id:               teacher.id,
+                assistant_id:             assistant_id,
+                enrollment:               offering.active_students_count
                 )
   end
 end

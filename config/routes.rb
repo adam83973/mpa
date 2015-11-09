@@ -1,5 +1,8 @@
 MathPlus::Application.routes.draw do
 
+  resources :offering_histories
+
+
   root to: 'static_pages#home'
 
   resources :activities do
