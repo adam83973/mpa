@@ -25,11 +25,11 @@ def daily_batch
     offerings.each_with_index do |offering, i|
       offering_information[i] = offering.as_json
       offering_information[i]['enrollment'] = offering.active_students_count
+      offering_information[i]['users'] = {}
       offering.users.each_with_index do |user, n|
         user_info = {}
         user_info['id'] = user.id
         user_info['role'] = user.role
-        offering_information[i]['users'] = {}
         offering_information[i]['users'][n] = user_info
       end
     end
