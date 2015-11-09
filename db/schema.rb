@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151015143752) do
+ActiveRecord::Schema.define(:version => 20151109205340) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20151015143752) do
     t.integer  "assessment_count",         :default => 0
     t.integer  "opportunities_won_count",  :default => 0
     t.integer  "opportunities_lost_count", :default => 0
+    t.text     "offering_information"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -562,6 +563,7 @@ ActiveRecord::Schema.define(:version => 20151015143752) do
     t.boolean  "confirmation_opt_out",                  :default => false
     t.text     "billing_note",                          :default => ""
     t.boolean  "hide_badge_banner",                     :default => false
+    t.boolean  "termination_sequence",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
