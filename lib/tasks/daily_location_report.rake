@@ -18,11 +18,19 @@ def daily_batch
     parent_sign_in_count = User.where("current_sign_in_at >= ? AND role = ? AND location_id = ?", Time.now.beginning_of_day, "Parent", location.id).count
     student_drops = location.registrations.where("end_date = ?", Time.now.beginning_of_day.to_date).count
     student_adds = location.registrations.where("start_date = ?", Time.now.beginning_of_day.to_date).count
+
+    # Gather information for each locaitons offering by day.
     offerings = location.offerings
     offering_information = Hash.new
     offerings.each_with_index do |offering, i|
       offering_information[i] = offering.as_json
       offering_information[i]['enrollment'] = offering.active_students_count
+      offering.users.each_with_index do |user, n|
+        user_info = {}
+        user_info['id'] = user.id
+        user_info['role'] = user.role
+        offering_information[i]['users'][n] = user_info
+      end
     end
 
     DailyLocationReport.create!(
