@@ -29,6 +29,7 @@ def daily_batch
         user_info = {}
         user_info['id'] = user.id
         user_info['role'] = user.role
+        offering_information[i]['users'] = {}
         offering_information[i]['users'][n] = user_info
       end
     end
