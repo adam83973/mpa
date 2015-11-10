@@ -4,8 +4,10 @@
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<h4 class="hidden-sm hidden-xs">Classes</h4>
 		<h3 class="hidden-lg hidden-md" style="display:inline;">Classes</h3>
-		<% @student.registrations.includes(:offering, :course, :location).where(status: 0..2).each do |reg| %>
-		    <%= render 'student_registration_card', reg: reg, student: @student %>
+		<% @registrations.each do |reg| %>
+			<% if (0..2) === reg.status %>
+			  <%= render 'student_registration_card', reg: reg, student: @student, editable: true %>
+			<% end %>
 		<% end %>
 	</div>
 </div>

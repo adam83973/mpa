@@ -29,6 +29,7 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @registrations = @student.registrations.order(:status).includes(:offering, :course, :location)
     @note = Note.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
@@ -232,7 +233,7 @@ class StudentsController < ApplicationController
     else
       @last_attendance_date = 'No Attendance'
     end
-    
+
     respond_to do |format|
       format.json { render json: @last_attendance_date }
     end

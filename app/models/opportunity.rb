@@ -7,6 +7,8 @@ class Opportunity < ActiveRecord::Base
 
   validates_presence_of :location_id
 
+  has_paper_trail
+
   belongs_to :location
   belongs_to :student
   belongs_to :user

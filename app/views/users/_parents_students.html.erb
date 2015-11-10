@@ -21,7 +21,7 @@
           </div>
         </div>
         <% student.registrations.includes(:offering, :course).where("status = ? OR status = ? OR status = ?", 0, 1, 2).each do |reg| %>
-            <%= render '/students/student_registration_card', reg: reg, student: student %>
+            <%= render '/students/student_registration_card', reg: reg, student: student, editable: false %>
         <% end %>
       </div>
     </div>
