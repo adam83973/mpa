@@ -51,7 +51,7 @@ def daily_batch
 end
 
 def cache_offering_information
-  offerings = Offering.where(active:true)
+  offerings = Offering.where(active: true)
 
   offerings.each do |offering|
     teacher = offering.users.where(role: 'Teacher').first
@@ -61,9 +61,9 @@ def cache_offering_information
     OfferingHistory.create!(
                 offering_id:              offering.id,
                 course_id:                offering.course_id,
-                teacher_id:               teacher.id,
+                teacher_id:               teacher_id,
                 assistant_id:             assistant_id,
                 enrollment:               offering.active_students_count
                 )
-  end
+  ends
 end
