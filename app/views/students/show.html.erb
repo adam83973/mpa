@@ -69,11 +69,11 @@
         <div class="panel-heading">
           <h3 style="display:inline;" class="panel-title">Registration History</h3>
         </div>
-        <div class="panel-body" style="padding:20px 15px 0 15px;max-height:100px;overflow:scroll;">
+        <div class="panel-body"
+        style="padding:20px 15px 0 15px;max-height:100px;overflow:scroll;">
           <!-- displays note form and notes for student -->
           <% @registrations.each_with_index do |registration, i|%>
             <% if i % 3 == 0 %>
-              <%= i %>
               <div class="row">
             <% end %>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
