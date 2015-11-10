@@ -73,16 +73,17 @@
         style="padding:20px 15px 0 15px;max-height:100px;overflow:scroll;">
           <!-- displays note form and notes for student -->
           <%= @registrations.count %>
-          <% @registrations.each_with_index do |registration, i|%>
+          <% @registrations.each_with_index do |registration, i| %>
             <% if i % 3 == 0 %>
+              <%= puts "#{i} start row" %>
               <div class="row">
             <% end %>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
               <%= render 'student_registration_card', reg: registration, student: @student, editable: false %>
             </div>
-            <% if i+1 % 3 == 0 || @registrations.count == i+1 %>
-            <%= i+1 %>
-            </div>
+            <% if i + 1 % 3 == 0) %>
+              <%= puts "#{i} end row" %>
+              </div>
             <% end %>
           <% end %>
         </div>
