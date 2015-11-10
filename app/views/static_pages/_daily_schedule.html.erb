@@ -41,7 +41,7 @@
                             <td>
                                 <p><b><%= offering.name %></b></p>
                                 <u>Teachers:</u>
-                                <ul>
+                                <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
                                         <% if teacher.active? %>
                                           <li><em><%= teacher.full_name %></em></li>

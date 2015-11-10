@@ -1,4 +1,4 @@
-<ul>
+<ul style="list-style-type:none;">
   <% occupation.occupation_levels.order(:level).each do |level|  %>
   <li class="well">
     <% if level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i + 1 %>
