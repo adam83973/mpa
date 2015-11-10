@@ -65,5 +65,5 @@ def cache_offering_information
                 assistant_id:             assistant_id,
                 enrollment:               offering.active_students_count
                 )
-  ends
+  end
 end
