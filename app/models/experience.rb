@@ -5,6 +5,8 @@ class Experience < ActiveRecord::Base
 
   validates_presence_of :points, :category, :name
 
+  has_paper_trail
+
   has_many :experience_points
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings

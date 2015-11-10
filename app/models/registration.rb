@@ -5,6 +5,8 @@ class Registration < ActiveRecord::Base
 
   validates_presence_of :offering_id, :student_id
 
+  has_paper_trail
+
   before_save :past_end_date
 
   belongs_to :student

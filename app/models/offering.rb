@@ -4,6 +4,8 @@ class Offering < ActiveRecord::Base
 
   validates_presence_of :course_id, :day, :time, :location_id
 
+  has_paper_trail
+
   belongs_to :location
   belongs_to :course
   has_one :occupation, through: :course

@@ -27,6 +27,7 @@ gem 'mini_magick', '3.8.0'
 gem 'newrelic_rpm'
 gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
 gem 'oj', '~> 2.12.14'
+gem 'paper_trail', '~> 4.0.0'
 gem 'populator'
 gem "rack-timeout"
 gem 'rest_client'
