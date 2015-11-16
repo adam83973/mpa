@@ -18,8 +18,8 @@ end
 
 #if parents haven't logged in in the last 30 days, send reminder
 def parent_login_reminder
-  parents_no_log_in_last_30 = User.where(active: true, role: "Parent").where("current_sign_in_at < ?", Date.today - 30.days)
-  parent_no_log_in_ever = User.where(active: true, role: "Parent", current_sign_in_at: nil)
+  parents_no_log_in_last_30 = User.where(active: true, role: "Parent").where("current_sign_in_at < ?", Date.today - 30.days).where(first_email_reminder: false)
+  parent_no_log_in_ever = User.where(active: true, role: "Parent", current_sign_in_at: nil).where(first_email_reminder: false)
 
   parents = parents_no_log_in_last_30.to_a + parent_no_log_in_ever.to_a
 
