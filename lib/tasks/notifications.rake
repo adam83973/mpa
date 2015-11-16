@@ -29,4 +29,5 @@ def restart_reminders
 
   registrations_restarting_in_a_week.each do |regsitration|
     NotificationMailer.class_restarting_reminder(registration).deliver
+  end
 end
