@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151110164701) do
+ActiveRecord::Schema.define(:version => 20151116193157) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -574,6 +574,7 @@ ActiveRecord::Schema.define(:version => 20151110164701) do
     t.text     "billing_note",                          :default => ""
     t.boolean  "hide_badge_banner",                     :default => false
     t.boolean  "termination_sequence",                  :default => false
+    t.boolean  "first_email_reminder",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
