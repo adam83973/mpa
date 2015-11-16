@@ -108,7 +108,6 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       if @registration.update_attribute :end_date, params[:drop][:end_date]
         note = @parent.notes.build({
-          title: "Registration Drop",
           content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
           user_id: @parent.system_admin_id,
           location_id: @registration.location.id,
@@ -162,8 +161,7 @@ class RegistrationsController < ApplicationController
                                                       attended_first_class: true,
                                                       hold_id: @registration.id)
                                                       ``
-        note = @parent.notes.build({title: "Registration Drop",
-                                    content: "#{@student.first_name} has entered a hold. Please double check their subscriptions.",
+        note = @parent.notes.build({content: "#{@student.first_name} has entered a hold.      Please double check their subscriptions.",
                                     user_id: @parent.system_admin_id,
                                     location_id: @registration.location.id,
                                     action_date: Date.tomorrow})
