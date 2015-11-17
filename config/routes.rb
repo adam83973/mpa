@@ -45,8 +45,7 @@ MathPlus::Application.routes.draw do
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
-  match '/emails',     to: 'emails#new',             via: 'get'
-  resources "emails", only: [:new, :create]
+  get  'view_email', to: 'emails#show'
 
   resources :experiences do
     collection { post :import }

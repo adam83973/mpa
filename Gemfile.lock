@@ -46,6 +46,10 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.8)
+    ahoy_email (0.2.4)
+      addressable
+      nokogiri
+      rails
     arel (3.0.3)
     autoprefixer-rails (6.0.3)
       execjs
@@ -390,6 +394,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_email
   autoprefixer-rails
   bootstrap-sass
   bullet

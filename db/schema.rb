@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151116193157) do
+ActiveRecord::Schema.define(:version => 20151117134433) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(:version => 20151116193157) do
     t.integer "activity_id"
     t.integer "standard_id"
   end
+
+  create_table "ahoy_messages", :force => true do |t|
+    t.string   "token"
+    t.text     "to"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "mailer"
+    t.text     "subject"
+    t.text     "content"
+    t.datetime "sent_at"
+    t.datetime "opened_at"
+    t.datetime "clicked_at"
+  end
+
+  add_index "ahoy_messages", ["token"], :name => "index_ahoy_messages_on_token"
+  add_index "ahoy_messages", ["user_id", "user_type"], :name => "index_ahoy_messages_on_user_id_and_user_type"
 
   create_table "appointment_requests", :force => true do |t|
     t.text     "data"

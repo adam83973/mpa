@@ -4,6 +4,7 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.18'
 
+gem 'ahoy_email'
 gem 'autoprefixer-rails'
 gem 'carrierwave'
 gem 'chartjs-ror'
