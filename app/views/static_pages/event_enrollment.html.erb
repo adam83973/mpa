@@ -15,7 +15,7 @@
         </li>
         <li><strong>Phone:</strong> <%= order['customer']['billing_address']['phone'] %></li>
         <li><strong>Email:</strong> <%= order['customer']['email'] %></li>
-        <li><strong>Student(s):</strong> <%= order['child'] %> <%= order['age'] %></li>
+        <li><strong>Student(s):</strong> <%= order['child'] %>, <%= order['age'] %></li>
       </ul>
     </li>
   <% end %>

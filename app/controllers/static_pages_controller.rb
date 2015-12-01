@@ -34,29 +34,22 @@ class StaticPagesController < ApplicationController
   end
 
   def events
-    woocommerce = WooCommerce::API.new(
-      "http://www.mathplusacademy.com/",
-      ENV['WOO_CONSUMER_KEY'],
-      ENV['WOO_CONSUMER_SECRET'],
-      { meta: true }
-    )
+    woocommerce = set_woo
 
     @workshops = woocommerce.get('products', {filter: {category: 'workshop'} }).parsed_response['products']
   end
 
   def event_enrollment
-    woocommerce = WooCommerce::API.new(
-      "http://www.mathplusacademy.com/",
-      ENV['WOO_CONSUMER_KEY'],
-      ENV['WOO_CONSUMER_SECRET'],
-      { meta: true }
-    )
+    woocommerce = set_woo
 
     id = params[:id]
 
     @workshop = woocommerce.get("products/#{id}").parsed_response['product']
 
+    #pull orders of related product
     @orders = woocommerce.get("products/#{id}/orders").parsed_response['orders']
+    #remove cancelled orders
+    @orders.delete_if{|order| order['status'] == 'cancelled'}
   end
 
   def badges
@@ -196,5 +189,14 @@ class StaticPagesController < ApplicationController
         end
         @lessons_search = @lessons_search.results
       end
+    end
+
+    def set_woo
+      woocommerce = WooCommerce::API.new(
+        "http://www.mathplusacademy.com/",
+        ENV['WOO_CONSUMER_KEY'],
+        ENV['WOO_CONSUMER_SECRET'],
+        { meta: true }
+      )
     end
 end
