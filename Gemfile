@@ -38,6 +38,7 @@ gem 'simple_form'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'will_paginate', '~> 3.0.6'
+gem 'woocommerce_api'
 gem 'youtube_addy', '~> 1.0.2'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 

@@ -176,6 +176,7 @@ MathPlus::Application.routes.draw do
 
   get 'mission_lookup', to: 'static_pages#mission_lookup'
   get 'code', to: 'static_pages#enter_code'
+  get 'events', to: 'static_pages#events'
   post 'static_pages/mission_lookup', to: 'static_pages#mission_lookup'
   get 'thank_you', to: 'static_pages#thank_you'
   get 'badge_home', to: 'static_pages#badges'

@@ -228,6 +228,9 @@ GEM
     formatador (0.2.5)
     git-version-bump (0.15.1)
     hike (1.2.3)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     humanize (1.1.0)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -268,6 +271,7 @@ GEM
     mini_portile (0.6.2)
     modernizr-rails (2.6.2.3)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
@@ -388,6 +392,9 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.7)
+    woocommerce_api (1.1.0)
+      httparty
+      json
     youtube_addy (1.0.4)
 
 PLATFORMS
@@ -447,6 +454,7 @@ DEPENDENCIES
   sunspot_solr
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0.6)
+  woocommerce_api
   youtube_addy (~> 1.0.2)
 
 BUNDLED WITH

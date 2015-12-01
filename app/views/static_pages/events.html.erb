@@ -1,0 +1,25 @@
+<h1>Events</h1>
+<% @workshops.each do |workshop| %>
+  <h2><%= workshop['title'] %></h2>
+  <ol>
+    <% @orders_by_workshop[workshop['id'].to_i]['orders'].each do |order| %>
+      <li>
+        <strong>Parent:</strong> <%= order['customer']['first_name'].capitalize %> <%= order['customer']['last_name'] %>
+        <ul style="margin:10px 0 10px 15px;">
+          <li>
+            <strong># Registered:</strong>
+            <% order['line_items'].each do |item| %>
+              <% if item['product_id'] == workshop['id'] %>
+                <%= item['quantity'] %>
+              <% end %>
+            <% end %>
+          </li>
+          <li><strong>Phone:</strong> <%= order['customer']['billing_address']['phone'] %></li>
+          <li><strong>Email:</strong> <%= order['customer']['email'] %></li>
+          <li><strong>Student(s):</strong> <%= order['child'] %> <%= order['age'] %></li>
+        </ul>
+      </li>
+    <% end %>
+  </ol>
+<% end %>
+<%= @workshops %>

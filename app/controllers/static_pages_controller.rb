@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   skip_before_filter :authorize_active, only: [:enter_code, :mission_lookup]
+  before_filter :authorize_admin, only: [ :events ]
 
   def home
     if signed_in?
@@ -30,6 +31,30 @@ class StaticPagesController < ApplicationController
   end
 
   def enter_code
+  end
+
+  def events
+    woocommerce = WooCommerce::API.new(
+      "http://www.mathplusacademy.com/",
+      ENV['WOO_CONSUMER_KEY'],
+      ENV['WOO_CONSUMER_SECRET'],
+      { meta: true }
+    )
+    @workshops = woocommerce.get('products', {filter: {category: 'workshop'} }).parsed_response['products']
+
+    @workshop_ids = []
+    @workshops.each do |workshop|
+      if workshop['visible'] == true && workshop['featured'] == true
+        @workshop_ids << workshop['id']
+      end
+    end
+
+    @orders_by_workshop = {}
+    @workshop_ids.each_with_index do |id, i|
+      @orders_by_workshop[id] = {}
+      orders = woocommerce.get("products/#{id}/orders", {filter: {category: 'workshop'} }).parsed_response['orders']
+      @orders_by_workshop[id]['orders'] = orders
+    end
   end
 
   def badges
