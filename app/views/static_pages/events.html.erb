@@ -1,5 +1,6 @@
 <h1>Events</h1>
 <% @workshops.each do |workshop| %>
+<% if workshop %>
   <h2><%= workshop['title'] %></h2>
   <ol>
     <% @orders_by_workshop[workshop['id'].to_i]['orders'].each do |order| %>
@@ -21,4 +22,5 @@
       </li>
     <% end %>
   </ol>
+  <% end %>
 <% end %>
