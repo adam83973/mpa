@@ -39,7 +39,8 @@ module OpportunitiesHelper
   def opportunity_changes(version)
     content = "<ol> "
     version.changeset.delete_if{|k,v| k == 'updated_at'}.each do |attribute, changes|
-      if changes[0] == nil
+      if changes[0] == nil && changes[1] == nil
+      elsif changes[0] == nil
         if attribute == 'status'
           content = content + "<li>Status set to <span style='color:green;'>#{changes[1]}</span>.</li>"
         elsif attribute == 'course_id'
