@@ -35,6 +35,7 @@
 //= require leads
 //= require registrations
 //= require opportunities
+//= require timeline
 //= require jscolor
 //= require badges
 //= require Chart
