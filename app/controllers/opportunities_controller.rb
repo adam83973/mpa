@@ -21,6 +21,7 @@ class OpportunitiesController < ApplicationController
       @versions = @opportunity.versions.order(created_at: :desc)
     else
       @versions = []
+    end
     @new_student = Student.new
     @new_parent = User.new
     @opp_student = @opportunity.student if @opportunity.student
