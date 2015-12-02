@@ -17,7 +17,10 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1.json
   def show
     @opportunity = Opportunity.find(params[:id])
-    @versions = @opportunity.versions.order(created_at: :desc) if @opportunity.versions
+    if @opportunity.versions
+      @versions = @opportunity.versions.order(created_at: :desc)
+    else
+      @versions = []
     @new_student = Student.new
     @new_parent = User.new
     @opp_student = @opportunity.student if @opportunity.student
