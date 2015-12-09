@@ -14,6 +14,7 @@
       </thead>
       <tbody>
         <% @user.emails.each do |email| %>
+        <tr>
           <td>
             <%= email.sent_at.strftime("%m/%d/%Y") %>
           </td>
@@ -29,6 +30,7 @@
           <td>
             <%= link_to "view", view_email_path(token: email.token, id: @user.id) %>
           </td>
+        </tr>
         <% end %>
       </tbody>
     </table>
