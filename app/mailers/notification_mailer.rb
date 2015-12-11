@@ -1,4 +1,5 @@
 class NotificationMailer < AdminMailer
+  default from: "info@mathplusacademy.com"
 
   def badge_request_confirmation(badge_request, parent)
     @badge_request = badge_request

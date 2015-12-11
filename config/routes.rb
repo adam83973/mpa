@@ -104,6 +104,10 @@ MathPlus::Application.routes.draw do
   resources :notes
   post 'notes/completed', to: 'notes#completed'
 
+  resources :occupation_levels do
+    collection { post :import }
+  end
+
   resources :offerings_students do
     collection { post :import }
   end
