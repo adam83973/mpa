@@ -361,6 +361,7 @@ background: #970b0e !important;
 
       						<h2 style="font-family: 'Helvetica', 'Arial', sans-serif; line-height: 1.3; color: #222222; font-weight: normal; font-size: 36px; text-align: left; word-break: normal; margin: 20px 0 30px; padding: 0;" align="left">
       							Monthly report for<br style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0; padding: 0;" />
+                    <%= @student.full_name %>
                   </h2>
       						<p class="lead" style="font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; font-size: 18px; line-height: 21px; color: #222222; text-align: left; margin: 0 0 10px; padding: 0;" align="left">
       							Please review the following monthly progress report.
@@ -373,34 +374,15 @@ background: #970b0e !important;
             </table>
           </div><!-- /Report Intro -->
 
-      		<!-- Registration -->
-
-      		<hr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #d9d9d9; height: 1px; background: #d9d9d9; margin: 0; padding: 0; border: none;" />
-
-          <!-- content -->
-          <div class="content" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; max-width: 600px; display: block; margin: 0 auto; padding: 15px;">
-      			<table style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0; padding: 0;">
-              <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
-                <td style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top">
-      						<h2 style="font-family: 'Helvetica', 'Arial', sans-serif; line-height: 1.3; color: #222222; font-weight: normal; font-size: 36px; text-align: left; word-break: normal; margin: 0; padding: 0;" align="left">Agent <small style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 60%; color: #6f6f6f; line-height: 0; text-transform: none; margin: 0; padding: 0;">December Progress</small></h2>
-      					</td>
-      				</tr>
-            </table>
-          </div><!-- /content -->
-
-          <%= render 'student_report_assignments' %>
-
-          <%= render 'student_report_comments' %>
-
-          <%= render 'student_report_stats' %>
-
-          <!-- /Registration -->
+          <% @student.active_registrations.each do |registration| %>
+      		  <%= render 'student_report_registration', registration: registration, student: @student %>
+          <% end %>
 
           <hr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #d9d9d9; height: 1px; background: #d9d9d9; margin-top: 25px; margin-bottom:15px; padding: 0; border: none;" />
 
           <!-- Badges -->
 
-          <%= render 'student_report_badges' %>
+          <%= render 'student_report_badges', student: @student %>
 
           	<!-- content -->
           	<div class="content" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; max-width: 600px; display: block; margin: 0 auto; padding: 15px;">

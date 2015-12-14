@@ -55,6 +55,10 @@ class Student < ActiveRecord::Base
     badge_count
   end
 
+  def badges_earned_this_month
+    badges.where("badge_requests.created_at > ? AND badge_requests.created_at < ?", Date.today.beginning_of_month, Date.today.end_of_month)
+  end
+
   #-----Student attributes-----
   def full_name
       first_name + " " + last_name
@@ -362,6 +366,10 @@ class Student < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def active_registrations
+    registrations.where(status: 1)
   end
 
   #-----Student Information Management-----
