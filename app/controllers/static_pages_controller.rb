@@ -47,7 +47,7 @@ class StaticPagesController < ApplicationController
     @workshop = woocommerce.get("products/#{id}").parsed_response['product']
 
     #pull orders of related product
-    @orders = woocommerce.get("products/#{id}/orders").parsed_response['orders']
+    @orders = woocommerce.get("products/#{id}/orders", {filter: {limit: 20} }).parsed_response['orders']
     #remove cancelled orders
     @orders.delete_if{|order| order['status'] == 'cancelled'}
   end
