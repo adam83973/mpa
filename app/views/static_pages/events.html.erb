@@ -5,3 +5,28 @@
 <li><%= link_to workshop['title'], event_enrollment_path(id: workshop['id']) %></li>
 <% end %>
 </ol>
+
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        Title
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @workshops.each_with_index |workshop, index| %>
+    <tr>
+      <td>
+        <%= worship['title'] %>
+      </td>
+      <td>
+        <%= link_to "View Enrollment", event_enrollment_path(id: workshop['id']) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
