@@ -21,7 +21,7 @@
     <% @workshops.each_with_index do |workshop, index| %>
     <tr>
       <td>
-        <%= worship['title'] %>
+        <%= workshop['title'] %>
       </td>
       <td>
         <%= link_to "View Enrollment", event_enrollment_path(id: workshop['id']) %>
