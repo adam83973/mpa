@@ -35,7 +35,9 @@ module OfferingsHelper
   end
 
   def roster_count(offering)
-    offering.registrations.active.count + offering.registrations.restarting.count + offering.registrations.future_adds.count
+    registrations = offering.registrations
+    registrations.count{|reg| if reg.active?} + registrations.count{|reg| if reg.restarting? } + registration.count{|reg| if reg.future_add? }
+    # offering.registrations.active.count + offering.registrations.restarting.count + offering.registrations.future_adds.count
   end
 
   def open_spots(offering)

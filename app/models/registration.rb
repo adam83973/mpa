@@ -28,6 +28,18 @@ class Registration < ActiveRecord::Base
   STATUSES = ["New", "Active", "Hold", "Inactive"]
   DROP_REASONS = ["Moving", "Price", "Other Activity", "Dissatisfied", "Registered In Error", "Never Returned From Hold"]
 
+  def active?
+    status == 1
+  end
+
+  def restarting?
+    status == 2 && restart_date < 20.days.from_now
+  end
+
+  def future_add?
+    start_date > Date.today && (switch == nil || switch == false)
+  end
+
   def offering_name
     if offering
       course.course_name + " | " + location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
