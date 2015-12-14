@@ -1,11 +1,5 @@
 <h1>Events</h1>
 
-<ol>
-<% @workshops.each do |workshop| %>
-<li><%= link_to workshop['title'], event_enrollment_path(id: workshop['id']) %></li>
-<% end %>
-</ol>
-
 <table class="table table-condensed table-bordered table-striped">
   <thead>
     <tr>
@@ -18,8 +12,11 @@
     </tr>
   </thead>
   <tbody>
-    <% @workshops.each_with_index do |workshop, index| %>
+    <% @workshops.each_with_index do |workshop, i| %>
     <tr>
+      <td>
+        <%= i %>
+      </td>
       <td>
         <%= workshop['title'] %>
       </td>
