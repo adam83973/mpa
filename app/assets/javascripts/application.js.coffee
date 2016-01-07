@@ -13,7 +13,6 @@
 //= require dataTables/extras/dataTables.responsive
 //= require dnd
 //= require experience_points
-//= require highlight.pack
 //= require infusion_pages
 //= require issues
 //= require knob
