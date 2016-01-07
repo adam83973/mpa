@@ -95,7 +95,7 @@ class StaticPagesController < ApplicationController
       @user_action_needed = [] #user notings are added to this array as well as location leads
       @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ? AND location_id = ?", false, Date.today, @user_location.id).each { |note| @user_action_needed << note }
       @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
-      @opps_need_action_count = @user_location.opportunities.where(status: 0..6).select { |opp| opp.last_note && opp.last_note.created_at > Date.today - 7.days }.count
+      @opps_need_action = @user_location.opportunities.where(status: 0..6).select { |opp| opp.last_note && opp.last_note.created_at > Date.today - 7.days }
     end
 
     def set_appointments

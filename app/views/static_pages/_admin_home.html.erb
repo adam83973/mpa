@@ -3,7 +3,7 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active badge1"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a></li>
-        <li role="presentation" class="badge1" <%= "data-badge=#{@opps_need_action_count}" unless @badge_requests.empty? %>><a href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a></li>
+        <li role="presentation" class="badge1" <%= "data-badge=#{@opps_need_action.count}" unless @opps_need_action.empty? %>><a href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a></li>
         <li role="presentation" class="badge1" <%= "data-badge=#{@badge_requests.count}" unless @badge_requests.empty? %>><a href="#badges" aria-controls="badges" role="tab" data-toggle="tab">Badges</a></li>
         <li role="presentation" class="badge1" <%= "data-badge=#{@messages.count}" unless @messages.empty? %>><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
       </ul>
