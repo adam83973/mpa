@@ -482,11 +482,11 @@ class UsersController < ApplicationController
       # add location information
       @appointment.update_location(appointment['location']['locationId'])
 
-      #build note content
-      content = add_note_content(appointment)
-
       # create note if scheduling assessment
       if appointment['reason']['reasonId'] == 37117
+        #build note content
+        content = add_note_content(appointment)
+        
         @note1 = @user.notes.build({
           content: content,
           user_id: @user.system_admin_id,
