@@ -400,8 +400,8 @@ class UsersController < ApplicationController
         if appointment['reason']['reasonId'] == 37117
           @note1 = @parent.notes.build({
             content: content,
-            user_id: @user.system_admin_id,
-            location_id: @user.location_id,
+            user_id: @parent.system_admin_id,
+            location_id: @parent.location_id,
             action_date: Date.today})
 
           @note1.save!
@@ -486,7 +486,7 @@ class UsersController < ApplicationController
       if appointment['reason']['reasonId'] == 37117
         #build note content
         content = add_note_content(appointment)
-        
+
         @note1 = @user.notes.build({
           content: content,
           user_id: @user.system_admin_id,
