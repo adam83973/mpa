@@ -394,7 +394,7 @@ class UsersController < ApplicationController
         @appointment.update_location(appointment['location']['locationId'])
 
         #build note content
-        content = add_note_content(appointment)
+        content = add_note_content(appointment, @appointment)
 
         # create note if scheduling assessment
         if appointment['reason']['reasonId'] == 37117
@@ -540,7 +540,7 @@ class UsersController < ApplicationController
       redirect_to :back, notice: 'Your request'
     end
 
-    def add_note_content(appointment)
+    def add_note_content(appointment, app_obj)
       content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
 
       # add student information to note it there are more than one students
@@ -553,7 +553,7 @@ class UsersController < ApplicationController
 
       end
 
-      content = content + "Appointment: #{@appointment.time.strftime("%b %d,%l:%M%p")}\n"
+      content = content + "Appointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}\n"
 
       content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
