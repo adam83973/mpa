@@ -353,7 +353,6 @@ class UsersController < ApplicationController
     if @parent
       # Check and see if appointment exists in database before create to see if might be an update.
       if @appointment = Appointment.find_by_calendarId(appointment['calendarid'])
-        @user = @appointment.user
         #update information of existing appointment
         @appointment.update_attributes({
           reasonId:      appointment['reason']['reasonId'],
@@ -393,18 +392,18 @@ class UsersController < ApplicationController
         # add location information
         @appointment.update_location(appointment['location']['locationId'])
 
-        #build note content
-        content = add_note_content(appointment, @appointment)
-
         # create note if scheduling assessment
         if appointment['reason']['reasonId'] == 37117
-          @note1 = @parent.notes.build({
+          #build note content
+          content = add_note_content(appointment, @appointment)
+
+          note = @parent.notes.build({
             content: content,
             user_id: @parent.system_admin_id,
             location_id: @parent.location_id,
             action_date: Date.today})
 
-          @note1.save!
+          note.save!
         end
       end
     # check to see if parent is in system, but has not had Check Appointments Id added to record
@@ -447,7 +446,7 @@ class UsersController < ApplicationController
         email = "emailinvadlid#{SecureRandom.hex(3)}@mathplusacademy.com"
       end
 
-      @user = User.create!(
+      @parent = User.create!(
                     check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
                     last_name:                appointment['client']['lastName'],
@@ -459,11 +458,11 @@ class UsersController < ApplicationController
 
       # Add location information to user
       if appointment['location']['locationId'] == 10935
-        @user.update_attribute :location_id, 1
+        @parent.update_attribute :location_id, 1
       elsif appointment['location']['locationId'] == 10936
-        @user.update_attribute :location_id, 2
+        @parent.update_attribute :location_id, 2
       elsif appointment['location']['locationId'] == 23402
-        @user.update_attribute :location_id, 3
+        @parent.update_attribute :location_id, 3
       end
 
       # Add appointment to system
@@ -474,7 +473,7 @@ class UsersController < ApplicationController
         reasonId:      appointment['reason']['reasonId'],
         visitMinutes:  appointment['reason']['visitMinutes'],
         time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-        user_id:       @user.id,
+        user_id:       @parent.id,
         note:          appointment['note'],
         status:        appointment['status']
         )
@@ -487,10 +486,10 @@ class UsersController < ApplicationController
         #build note content
         content = add_note_content(appointment)
 
-        @note1 = @user.notes.build({
+        @note1 = @parent.notes.build({
           content: content,
-          user_id: @user.system_admin_id,
-          location_id: @user.location_id,
+          user_id: @parent.system_admin_id,
+          location_id: @parent.location_id,
           action_date: Date.today})
 
         @note1.save!
