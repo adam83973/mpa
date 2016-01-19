@@ -364,9 +364,9 @@ class UsersController < ApplicationController
         apt_time = appointment['appointmentDateTimeClient']
 
         if apt_time
-          apt = DateTime.parse(apt_time)
+          apt_time = DateTime.parse(apt_time)
         else
-          apt = DateTime.now
+          apt_time = DateTime.now
         end
 
         # Appointment is not in DB, create new appointment record.
