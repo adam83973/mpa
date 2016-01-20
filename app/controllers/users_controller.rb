@@ -400,7 +400,7 @@ class UsersController < ApplicationController
           note = @parent.notes.build({
             content: content,
             user_id: @parent.system_admin_id,
-            location_id: @parent.location_id,
+            location_id: @appointment.location_id,
             action_date: Date.today})
 
           note.save!
