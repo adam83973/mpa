@@ -16,7 +16,7 @@
         <% @user.emails.each do |email| %>
         <tr>
           <td>
-            <%= email.sent_at.strftime("%m/%d/%Y") %>
+            <%= email.sent_at.strftime("%m/%d/%Y") if email.sent_at %>
           </td>
           <td style="max-width: 100px;
                      overflow: hidden;

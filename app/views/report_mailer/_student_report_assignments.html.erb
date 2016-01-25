@@ -28,13 +28,9 @@
         <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
           <td class="wrapper" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 20px 0px 50px;" align="left" valign="top">
 					  <ul style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.6; margin: 0 0 10px; padding: 0;">
-              <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #1 - <span style="color: green; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Complete</span></li>
-
-						  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #2 - <span style="color: blue; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Perfect</span></li>
-
-						  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #3 - <span style="color: red; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Incomplete</span></li>
-
-						  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #4 - <span style="color: green; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Complete</span></li>
+              <% @assignments.each_with_index do |assignment, i| %>
+                <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #<%= i + 1 %> - <%= assignment_status(assignment).html_safe %></li>
+              <% end %>
 					  </ul>
           </td>
         </tr>

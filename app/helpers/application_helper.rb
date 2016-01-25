@@ -32,6 +32,17 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+	def assignment_status(assignment)
+	  case assignment.experience.id
+	  when 1
+			'<span style="color: green; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Complete</span>'.html_safe
+		when 4
+			'<span style="color: red; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Incomplete</span>'.html_safe
+		when 5
+			'<span style="color: blue; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Perfect</span>'.html_safe
+	  end
+	end
 end
 
 def unsimple_format(text)

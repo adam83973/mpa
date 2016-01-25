@@ -1,6 +1,10 @@
 class ExperiencePoint < ActiveRecord::Base
   attr_accessible :experience_id, :points, :student_id, :experience_point, :user_id, :comment
 
+  if Rails.env.development?
+    attr_accessible :created_at, :updated_at
+  end
+
   validates_presence_of :experience_id, :student_id, :comment
 
   validate :experience_id_exists
