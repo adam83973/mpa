@@ -1,10 +1,11 @@
 <div class="row">
-  <div class="signin col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-md-4">
     <h1>Current Member?</h1>
     <h1>Login Here.</h1>
+
     <%= simple_form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
-      <%= f.input :email, :required => false, :autofocus => true, input_html: { style: 'width:80%'} %>
-      <%= f.input :password, :required => false, input_html: { style: 'width:80%'}  %>
+      <%= f.input :email, :required => false, :autofocus => true %>
+      <%= f.input :password, :required => false  %>
       <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
       <%= f.button :submit, "Sign in", class: "btn btn-lg btn-default" %>
       <br>
@@ -12,27 +13,5 @@
         <%= render "devise/shared/links" %>
       </div>
     <% end %>
-  </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div style="padding:70px 0 50px 0;" class="login_section">
-          <h1 class='text-center' style='margin-bottom:40px;color:white;font-weight:800;'>Registering for an event?</h1>
-          <div class="text-center">
-            <%= link_to "Click here", '#', class: "btn btn-lg btn-default" %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div style="padding:70px 0 50px 0;" class="login_section_last">
-          <h1 class='text-center' style='margin-bottom:40px;color:white;font-weight:800;'>Want to join a class?</h1>
-          <div class="text-center">
-            <%= link_to "Click here", 'http://www.mathplusacademy.com/book-assessment', class: "btn btn-lg btn-default" %>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

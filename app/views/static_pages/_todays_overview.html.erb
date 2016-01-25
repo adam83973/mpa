@@ -1,5 +1,5 @@
 <% if @new_students_today_location.empty? && @restarting_students_today_location.empty? && @trials_today_location.empty? %>
-  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+  <div class="col-md-8 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= render 'overview heading' %>
@@ -11,7 +11,7 @@
     </div>
   </div>
 <% else %>
-  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+  <div class="col-md-8 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= render 'overview heading' %>
