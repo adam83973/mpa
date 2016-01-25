@@ -3,7 +3,7 @@
 <% else %>
   <h3>Activity Feed</h3>
   <div class="activity_feed">
-<div id="inner-content-div">
+    <div id="inner-content-div">
      <% @user_activity_feed.each do |xp|%>
        <p>
         <em>Added:</em> <%= xp.experience.name %> for
@@ -14,4 +14,3 @@
     </div>
   </div>
 <% end %>
-

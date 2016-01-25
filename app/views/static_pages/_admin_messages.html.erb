@@ -1,5 +1,5 @@
 <% if @messages %>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-md-6 col-xs-12">
     <div style="height:300px;" class="panel panel-default">
       <div class="panel-heading">
         <h3 style="margin:10px 0 10px 0;" class="text-center">Messages</h3>
@@ -8,23 +8,23 @@
         <div style="margin-top:0;" class="cards">
           <ul class="list-unstyled">
             <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-xs-12">
                 <% @messages.each do |message| %>
                   <li>
                     <div class="well well-sm">
                       <div style="padding:7px 10px 0 10px;">
                         <div class='row' style='margin-bottom:5px;'>
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             From: <%= link_to message.user.full_name, message.user, target: '_blank' %>
                           </div>
                         </div>
                         <div class='row'>
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             <%= message.content %>
                           </div>
                         </div>
                         <div class='row'>
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             <%= link_to "No Response Needed", update_status_messages_path(id: message.id, status: 2), class: "btn btn-warning btn-xs pull-right", style: "margin: 10px 0 10px 10px" %>
                               <%= link_to "Responded",  update_status_messages_path(id: message.id, status: 1), class: "btn btn-success btn-xs pull-right", style: "margin: 10px 0 10px 10px" %>
                           </div>

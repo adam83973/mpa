@@ -55,6 +55,10 @@ class Opportunity < ActiveRecord::Base
     end
   end
 
+  def last_note
+    notes.last
+  end
+
   def offering_name
     if offering
       offering.offering_name

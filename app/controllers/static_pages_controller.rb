@@ -36,7 +36,11 @@ class StaticPagesController < ApplicationController
   def events
     woocommerce = set_woo
 
+<<<<<<< HEAD
     @workshops = woocommerce.get('products', {filter: {category: 'winteractivitiesdeals'} }).parsed_response['products']
+=======
+    @workshops = woocommerce.get('products', {filter: {category: 'workshop', limit: 20} }).parsed_response['products']
+>>>>>>> master
   end
 
   def event_enrollment
@@ -47,7 +51,7 @@ class StaticPagesController < ApplicationController
     @workshop = woocommerce.get("products/#{id}").parsed_response['product']
 
     #pull orders of related product
-    @orders = woocommerce.get("products/#{id}/orders").parsed_response['orders']
+    @orders = woocommerce.get("products/#{id}/orders", {filter: {limit: 20} }).parsed_response['orders']
     #remove cancelled orders
     @orders.delete_if{|order| order['status'] == 'cancelled'}
   end
@@ -95,6 +99,7 @@ class StaticPagesController < ApplicationController
       @user_action_needed = [] #user notings are added to this array as well as location leads
       @user.notings.includes(:user, :notable).where("completed = ? AND action_date <= ? AND location_id = ?", false, Date.today, @user_location.id).each { |note| @user_action_needed << note }
       @new_students = Student.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago)
+      @opps_need_action = @user_location.opportunities.where(status: 0..6).select { |opp| opp.last_note && opp.last_note.created_at > Date.today - 7.days }
     end
 
     def set_appointments

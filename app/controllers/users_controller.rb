@@ -353,21 +353,20 @@ class UsersController < ApplicationController
     if @parent
       # Check and see if appointment exists in database before create to see if might be an update.
       if @appointment = Appointment.find_by_calendarId(appointment['calendarid'])
+        #update information of existing appointment
         @appointment.update_attributes({
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
           time:          DateTime.parse(appointment['appointmentDateTimeClient']),
           note:          appointment['note'],
           status:        appointment['status']})
-
-        puts "Appointment #{@appointment.id} Updated"
       else
         apt_time = appointment['appointmentDateTimeClient']
 
         if apt_time
-          apt = DateTime.parse(apt_time)
+          apt_time = DateTime.parse(apt_time)
         else
-          apt = DateTime.now
+          apt_time = DateTime.now
         end
 
         # Appointment is not in DB, create new appointment record.
@@ -392,6 +391,20 @@ class UsersController < ApplicationController
 
         # add location information
         @appointment.update_location(appointment['location']['locationId'])
+
+        # create note if scheduling assessment
+        if appointment['reason']['reasonId'] == 37117
+          #build note content
+          content = add_note_content(appointment, @appointment)
+
+          note = @parent.notes.build({
+            content: content,
+            user_id: @parent.system_admin_id,
+            location_id: @appointment.location_id,
+            action_date: Date.today})
+
+          note.save!
+        end
       end
     # check to see if parent is in system, but has not had Check Appointments Id added to record
     elsif appointment['client']['emailAddress'] && (@parent_update_ca_id = User.find_by_email( appointment['client']['emailAddress'].downcase ))
@@ -433,7 +446,7 @@ class UsersController < ApplicationController
         email = "emailinvadlid#{SecureRandom.hex(3)}@mathplusacademy.com"
       end
 
-      @user = User.create!(
+      @parent = User.create!(
                     check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
                     last_name:                appointment['client']['lastName'],
@@ -445,11 +458,11 @@ class UsersController < ApplicationController
 
       # Add location information to user
       if appointment['location']['locationId'] == 10935
-        @user.update_attribute :location_id, 1
+        @parent.update_attribute :location_id, 1
       elsif appointment['location']['locationId'] == 10936
-        @user.update_attribute :location_id, 2
+        @parent.update_attribute :location_id, 2
       elsif appointment['location']['locationId'] == 23402
-        @user.update_attribute :location_id, 3
+        @parent.update_attribute :location_id, 3
       end
 
       # Add appointment to system
@@ -460,7 +473,7 @@ class UsersController < ApplicationController
         reasonId:      appointment['reason']['reasonId'],
         visitMinutes:  appointment['reason']['visitMinutes'],
         time:          DateTime.parse(appointment['appointmentDateTimeClient']),
-        user_id:       @user.id,
+        user_id:       @parent.id,
         note:          appointment['note'],
         status:        appointment['status']
         )
@@ -468,28 +481,15 @@ class UsersController < ApplicationController
       # add location information
       @appointment.update_location(appointment['location']['locationId'])
 
-      content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
-
-      # add student information to note it there are more than one students
-      case appointment['customField1'].to_i
-      when 2
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})\n"
-      when 3
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
-      else
-
-      end
-
-      content = content + "Appointment: #{@appointment.time.strftime("%b %d,%l:%M%p")}\n"
-
-      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
-
       # create note if scheduling assessment
       if appointment['reason']['reasonId'] == 37117
-        @note1 = @user.notes.build({
+        #build note content
+        content = add_note_content(appointment)
+
+        @note1 = @parent.notes.build({
           content: content,
-          user_id: @user.system_admin_id,
-          location_id: @user.location_id,
+          user_id: @parent.system_admin_id,
+          location_id: @parent.location_id,
           action_date: Date.today})
 
         @note1.save!
@@ -537,5 +537,25 @@ class UsersController < ApplicationController
 
     def rescue_from_timeout
       redirect_to :back, notice: 'Your request'
+    end
+
+    def add_note_content(appointment, app_obj)
+      content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
+
+      # add student information to note it there are more than one students
+      case appointment['customField1'].to_i
+      when 2
+        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})\n"
+      when 3
+        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+      else
+
+      end
+
+      content = content + "Appointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}\n"
+
+      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
+
+      content
     end
 end
