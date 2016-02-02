@@ -88,7 +88,7 @@ class Student < ActiveRecord::Base
   end
 
   def assignments_last_month
-    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at > ? AND experience_points.created_at < ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month))
+    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
   def last_assignment_xp
@@ -378,6 +378,10 @@ class Student < ActiveRecord::Base
 
   def active_registrations
     registrations.where(status: 1)
+  end
+
+  def active_math_classes
+    active_registrations.delete_if{|registration| registration.course.occupation_id != 1}
   end
 
   #-----Student Information Management-----

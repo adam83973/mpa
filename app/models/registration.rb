@@ -40,6 +40,10 @@ class Registration < ActiveRecord::Base
     start_date > Date.today && (switch == nil || switch == false)
   end
 
+  def course_name
+    course.course_name if course
+  end
+
   def offering_name
     if offering
       course.course_name + " | " + location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")

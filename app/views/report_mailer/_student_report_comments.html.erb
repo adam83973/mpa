@@ -28,8 +28,8 @@
             <td class="wrapper" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 20px 0px 50px;" align="left" valign="top">
               <ul style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.6; margin: 0 0 10px; padding: 0;">
                 <% @assignments.each do |assignment| %>
-                  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">
-                    <%= assignment.created_at.strftime("%A, %b %d") %>: <%= assignment.comment %>
+                  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 15px 5px; padding: 0; list-style: inside;">
+                    <strong><%= assignment.created_at.strftime("%A, %b %d") %></strong>: <%= assignment.comment %>
                   </li>
                 <% end %>
               </ul>

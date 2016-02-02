@@ -3,6 +3,9 @@ namespace :send do
   task monthly_student_reports: :environment do
     send_student_reports
   end
+  task test_student_report: :environment do
+    send_test_report
+  end
 end
 
 def send_student_reports
@@ -18,6 +21,21 @@ def send_student_reports
       end
     end
   end
+end
+
+def send_test_report
+  month = (Date.today - 1.month).month.to_i
+  year = (Date.today - 1.month).year
+
+  if Rails.env.development?
+    student = Student.find 69
+    parent = User.find 1
+  else
+    student = Student.find 88
+    parent = User.find 1
+  end
+
+  ReportMailer.monthly_student_report(student, parent, month, year).deliver
 end
 
 def load_parents_with_students_who_attended_last_month

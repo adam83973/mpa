@@ -31,7 +31,9 @@
           <td class="wrapper" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 20px 0px 50px;" align="left" valign="top">
 					  <ul style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.6; margin: 0 0 10px; padding: 0;">
               <% @assignments.each_with_index do |assignment, i| %>
-                <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">Assignment #<%= i + 1 %> - <%= assignment_status(assignment).html_safe %></li>
+                <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">
+                  Assignment #<%= i + 1 %> - <%= assignment_status(assignment).html_safe %> (<%= assignment.created_at.strftime("%A, %b %d") %>)
+                </li>
               <% end %>
 					  </ul>
           </td>
