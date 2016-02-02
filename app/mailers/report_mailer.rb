@@ -6,7 +6,7 @@ class ReportMailer < ActionMailer::Base
     @date = Date.parse("#{month}/#{year}")
     @student = student
     @parent = parent
-    @assignments = student.experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at > ? AND experience_points.created_at < ?", @date.beginning_of_month, @date.end_of_month)
+    @assignments = student.assignments_last_month
     @todays_date = Date.today
     track user: @parent
 

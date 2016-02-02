@@ -83,8 +83,16 @@ class Student < ActiveRecord::Base
     experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Attendance%").first
   end
 
+  def attendance_last_month
+    experience_points.joins(:experience).where("name LIKE ?", "%Attendance%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+  end
+
+  def assignments_last_month
+    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at > ? AND experience_points.created_at < ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month))
+  end
+
   def last_assignment_xp
-    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Homework%").first
+    experience_points.order("created_at desc").limit(1).joins(:experience).where("experience.name LIKE ?", "%Homework%").first
   end
 
   def xp_sum_by_occupation(cat)

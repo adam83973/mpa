@@ -374,9 +374,7 @@ background: #970b0e !important;
             </table>
           </div><!-- /Report Intro -->
 
-          <% @student.active_registrations.each do |registration| %>
-      		  <%= render 'student_report_registration', registration: registration, student: @student %>
-          <% end %>
+      		<%= render 'student_report_registration', student: @student %>
 
           <hr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #d9d9d9; height: 1px; background: #d9d9d9; margin-top: 25px; margin-bottom:15px; padding: 0; border: none;" />
 
