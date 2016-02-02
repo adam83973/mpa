@@ -9,7 +9,7 @@ class ReportMailer < ActionMailer::Base
     @assignments = student.assignments_last_month
     @active_math_classes = student.active_math_classes
     @todays_date = Date.today
-    track user: @parent unles @parent.id == 1
+    track user: @parent unless @parent.id == 1
 
     mail(to: @parent.email, subject: 'Your Monthly Student Report') if @parent
   end
