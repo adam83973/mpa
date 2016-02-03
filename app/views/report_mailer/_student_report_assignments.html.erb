@@ -34,7 +34,7 @@
                 <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: inside;">
                   Assignment #<%= i + 1 %> - <%= assignment_status(assignment).html_safe %> <br> <%= assignment.comment %> (<%= assignment.created_at.strftime("%A, %b %d") %>)
                 </li>
-                <hr>
+                <%= '<hr>'.html_safe unless @assignments.count == i + 1 %>
               <% end %>
 					  </ul>
           </td>
