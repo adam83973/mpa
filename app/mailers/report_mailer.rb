@@ -11,6 +11,6 @@ class ReportMailer < ActionMailer::Base
     @todays_date = Date.today
     track user: @parent unless @parent.id == 1
 
-    mail(to: @parent.email, subject: 'Your Monthly Student Report') if @parent && @active_math_classes
+    mail(to: @parent.email, subject: 'Your Monthly Student Report') if @parent && @active_math_classes.any?
   end
 end
