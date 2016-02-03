@@ -484,7 +484,7 @@ class UsersController < ApplicationController
       # create note if scheduling assessment
       if appointment['reason']['reasonId'] == 37117
         #build note content
-        content = add_note_content(appointment)
+        content = add_note_content(appointment, @appointment)
 
         @note1 = @parent.notes.build({
           content: content,
