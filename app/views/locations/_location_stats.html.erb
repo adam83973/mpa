@@ -8,7 +8,7 @@
 <% if signed_in? %>
   <% if current_user.admin?%>
     <p>
-      <%= link_to "All Registered Students", registered_students_location %>
+      <%= link_to "All Registered Students", registered_students_location_path %>
     </p>
     <table class="table table-bordered">
       <thead>
