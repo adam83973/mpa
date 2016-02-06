@@ -1,35 +1,38 @@
 <h2><%= @location.name%> Location</h2>
+<p>
+  <%= @location.address %>,
+  <%= @location.city %>,
+  <%= @location.state %>
+  <%= @location.zip %>
+</p>
+<% if signed_in? %>
+  <% if current_user.admin?%>
     <p>
-      <%= @location.address %>,
-      <%= @location.city %>,
-      <%= @location.state %>
-      <%= @location.zip %>
+      <%= link_to "All Registered Students", registered_students_location %>
     </p>
-    <% if signed_in? %>
-      <% if current_user.admin?%>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th># of Offerings</th>
-              <th># of Registrations</th>
-              <th>Avg. Student/Offering</th>
-              <th>Future Adds</th>
-              <th>Restarting Next 20</th>
-              <th>Registrations Added (30 days)</th>
-              <th>Registrations Dropped (30 days)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @location.active_offerings.count %></td>
-              <td><%= @total_location_students_count %></td>
-              <td><%= (@total_location_students_count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
-              <td><%= link_to "#{@location_future_adds.count}", "#futureAddsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.registrations.restarting.count}", "#restartingModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.registrations.added_last_30.count}", "#addsModal", data: {toggle: :modal} %></td>
-              <td><%= link_to "#{@location.registrations.dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
-            </tr>
-          </tbody>
-        </table>
-      <% end %>
-    <% end %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th># of Offerings</th>
+          <th># of Registrations</th>
+          <th>Avg. Student/Offering</th>
+          <th>Future Adds</th>
+          <th>Restarting Next 20</th>
+          <th>Registrations Added (30 days)</th>
+          <th>Registrations Dropped (30 days)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @location.active_offerings.count %></td>
+          <td><%= @total_location_students_count %></td>
+          <td><%= (@total_location_students_count.to_f  / @location.active_offerings.count.to_f).round(2) %></td>
+          <td><%= link_to "#{@location_future_adds.count}", "#futureAddsModal", data: {toggle: :modal} %></td>
+          <td><%= link_to "#{@location.registrations.restarting.count}", "#restartingModal", data: {toggle: :modal} %></td>
+          <td><%= link_to "#{@location.registrations.added_last_30.count}", "#addsModal", data: {toggle: :modal} %></td>
+          <td><%= link_to "#{@location.registrations.dropped_last_30.count}", "#dropsModal", data: {toggle: :modal} %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
