@@ -1,0 +1,34 @@
+<h1>
+  Active Registrations in <%= @location.name %>
+</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Student
+      </th>
+      <th>
+        Start Date
+      </th>
+      <th>
+        Class
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @active_registrations.each do |reg| %>
+      <tr>
+        <td>
+          <%= reg.student.full_name %>
+        </td>
+        <td>
+          <%= reg.start_date.strftime("%B %D %y") %>
+        </td>
+        <td>
+          <%= reg.course_name %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

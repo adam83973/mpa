@@ -13,28 +13,7 @@ class Location < ActiveRecord::Base
   has_many :daily_location_reports
   has_many :appointments
   has_many :badge_requests, through: :students
-
-
-
-  # def future_adds
-  #   self.students.where("start_date > ?", Date.today)
-  # end
-
-  # def students_added_last_30
-  #   self.students.where("start_date < ? and start_date > ?", Date.today, 30.days.ago)
-  # end
-
-  # def students_dropped_last_30
-  #   self.students.where("end_date < ? and end_date > ?", Date.tomorrow, 30.days.ago)
-  # end
-
-  # def active_students
-  #     self.students.where("status = ?", "Active") if self.students
-  # end
-
-  # def restarting_students
-  #     self.students.where("status = ? AND restart_date < ?", "Hold", 20.days.from_now)
-  # end
+  has_many :active_registrations, :through => :offerings, class_name: 'Registration', source: :registrations, conditions: "registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')"
 
   def admins
     User.where("role = ? AND location_id = ? AND active = ?", "Admin", self.id, true)

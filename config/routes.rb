@@ -95,6 +95,9 @@ MathPlus::Application.routes.draw do
       post :import
       get :list
     end
+    member do
+      get :registered_students
+    end
   end
 
   resources :messages do

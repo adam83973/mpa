@@ -110,6 +110,16 @@ class LocationsController < ApplicationController
     redirect_to locations_path, notice: "Locations imported."
   end
 
+  def registered_students
+    @location = Location.find(params[:id])
+    @active_registrations = @location.active_registrations
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @active_registrations }
+    end
+  end
+
   private
     def set_chart_data
       @last_twelve_months = Date::MONTHNAMES[1..12].reverse.rotate(1-Time.now.month).reverse
