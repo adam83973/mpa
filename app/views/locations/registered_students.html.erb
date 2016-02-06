@@ -2,7 +2,7 @@
   Active Registrations in <%= @location.name %>
 </h1>
 
-<table>
+<table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
       <th>
@@ -20,13 +20,13 @@
     <% @active_registrations.each do |reg| %>
       <tr>
         <td>
-          <%= reg.student.full_name %>
+          <%= link_to "#{reg.student.full_name}", reg.student %>
         </td>
         <td>
-          <%= reg.start_date.strftime("%B %D %y") %>
+          <%= reg.start_date.strftime("%D") if reg.start_date %>
         </td>
         <td>
-          <%= reg.course_name %>
+          <%= reg.offering_name %>
         </td>
       </tr>
     <% end %>
