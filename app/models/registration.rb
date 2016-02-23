@@ -69,7 +69,7 @@ class Registration < ActiveRecord::Base
   end
 
   def length_in_days
-    (Date.today - r.start_date).to_i
+    (Date.today - start_date).to_i
   end
 
   #-----Registration Information Management-----
