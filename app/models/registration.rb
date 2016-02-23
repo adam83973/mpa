@@ -67,6 +67,11 @@ class Registration < ActiveRecord::Base
   def start_has_passed?
     start_date < Date.today
   end
+
+  def length_in_days
+    (Date.today - r.start_date).to_i
+  end
+
   #-----Registration Information Management-----
 
   def self.import(file)
