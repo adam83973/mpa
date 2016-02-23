@@ -36,5 +36,9 @@
       <%= yield :fb_conversion %>
     <% end %>
 
+    <% if content_for? :fb_pixel %>
+      <%= yield :fb_pixel %>
+    <% end %>
+
   </body>
 </html>
