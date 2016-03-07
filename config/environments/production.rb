@@ -65,17 +65,17 @@ MathPlus::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'app.mathplusacademy.com',
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: ENV['MPA_INFO_GMAIL_USERNAME'], # you can use ordinary gmail username here
-    password: ENV['MPA_INFO_GMAIL_PASSWORD']   # you can use your gmail password here, but don't push the changes
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'mathplusacademy.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
-   config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
 end

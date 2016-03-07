@@ -37,30 +37,31 @@ MathPlus::Application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  #user letter_opener gem to preview sent emails
-  config.action_mailer.delivery_method = :letter_opener
+  #use letter_opener gem to preview sent emails
+  # config.action_mailer.delivery_method = :letter_opener
 
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'app.mathplusacademy.com',
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: ENV['MPA_INFO_GMAIL_USERNAME'], # you can use ordinary gmail username here
-    password: ENV['MPA_INFO_GMAIL_PASSWORD']   # you can use your gmail password here, but don't push the changes
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'mathplusacademy.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
-   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-   config.after_initialize do
-     Bullet.enable = true
-     Bullet.alert = false
-     Bullet.bullet_logger = false
-     Bullet.console = true
-     Bullet.growl = false
-     Bullet.rails_logger = false
-     Bullet.bugsnag = false
-     Bullet.airbrake = false
-     Bullet.add_footer = false
-   end
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false
+    Bullet.bullet_logger = false
+    Bullet.console = true
+    Bullet.growl = false
+    Bullet.rails_logger = false
+    Bullet.bugsnag = false
+    Bullet.airbrake = false
+    Bullet.add_footer = false
+  end
 end
