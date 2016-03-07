@@ -19,7 +19,7 @@ def send_student_reports
   active_last_month.each do |parent|
     parent.students.each do |student|
       if student.attendance_last_month.any?
-        unless sent_reports.include?(parent.id)
+        unless sent_reports.include?(parent.id.to_i)
           ReportMailer.monthly_student_report(student, parent, month, year).deliver
           count += 1
         end
