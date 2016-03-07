@@ -10,7 +10,6 @@ end
 
 def send_student_reports
   active_last_month = load_parents_with_students_who_attended_last_month
-  active_last_month = active_last_month.drop(230)
 
   month = (Date.today - 1.month).month.to_i
   year = (Date.today - 1.month).year
@@ -53,5 +52,4 @@ def load_parents_with_students_who_attended_last_month
   end
 
   active_last_month = active_last_month.uniq
-
 end
