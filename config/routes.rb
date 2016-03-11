@@ -123,6 +123,7 @@ MathPlus::Application.routes.draw do
     collection do
       post :import
       get :offerings_by_location
+      get :at_capacity
     end
   end
 

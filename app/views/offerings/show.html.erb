@@ -1,4 +1,3 @@
-
 <div class="well well-lg" style="padding-bottom:55px;">
   <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-default pull-right', target: "_blank" if current_user.admin? %>
   <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
@@ -22,3 +21,5 @@
 <% if current_user.employee?%>
   <%= render 'offerings/roster' if @offering.students %>
 <% end %>
+
+<%= link_to "Check Capacity", "javascript:void(0)", class: "btn btn-primary", id: 'capacity_check', data: { id: @offering.id } %>

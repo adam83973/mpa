@@ -126,4 +126,13 @@ class OfferingsController < ApplicationController
     redirect_to offerings_path, notice: "Offerings imported/updated."
   end
 
+  def at_capacity
+    offering = Offering.find(params[:id])
+    response = offering.at_capacity?
+
+    respond_to do |format|
+      format.html
+      format.json { render json: response }
+    end
+  end
 end

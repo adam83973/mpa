@@ -7,3 +7,10 @@ jQuery ->
       "bPaginate": true,  #hide pagination control
       "bFilter": true,     #hide filter control
       "bJQueryUI": true,
+
+  $('#capacity_check').on 'click', ->
+    $.get "/offerings/at_capacity.json", {id: $(this).data('id')},(data) ->
+      if data == "false"
+        alert "Offering is not full!"
+      else
+        alert "Offering is full!"
