@@ -44,9 +44,9 @@
             <th align='center'>Week</th>
             <th align='center'>Lesson Name</th>
           </tr>
-          <% @course.lessons.order(:week).each_with_index do |lesson, i| %>
+          <% @course.lessons.order(:week).each_with_index do |lesson| %>
             <tr>
-              <td width='50' align='center'><%= i + 1 %></td>
+              <td width='50' align='center'><%= lesson.week %></td>
               <td><%= link_to lesson.name, lesson, target: '_blank' %></td>
             </tr>
           <% end %>
