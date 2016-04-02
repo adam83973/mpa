@@ -51,7 +51,9 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
-  resources :experience_points
+  resources :experience_points do
+    collection { get :qc }
+  end
   post 'experience_points/points_lookup', to: 'experience_points#points_lookup'
 
   resources :enrollment_change_requests do

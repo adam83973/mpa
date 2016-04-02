@@ -5,7 +5,7 @@ class ExperiencePointsController < ApplicationController
   # GET /experience_points
   # GET /experience_points.json
   def index
-    @experience_points = ExperiencePoint.includes(:student, :user, :experience)
+    @experience_points = ExperiencePoint.includes(:student, :user, :experience).limit(500)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -119,6 +119,16 @@ class ExperiencePointsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to student_path(@student), notice: 'Experience point was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def qc
+    if params[:request]
+      @user = User.find params[:request][:user_id] if params[:request][:user_id]
+      number_of_days = params[:request][:days] ? params[:request][:days].to_i : 30
+      @experience_points = ExperiencePoint.joins(:experience).where("experiences.name LIKE ?", "%Homework%").where("user_id = ? AND experience_points.created_at > ?", params[:request][:user_id], Date.today - number_of_days.days)
+    else
+      @experience_points = ExperiencePoint.joins(:experience).where("experiences.name LIKE ?", "%Homework%").last(30)
     end
   end
 

@@ -24,7 +24,7 @@ def send_student_reports
     end
   end
 
-  count
+  puts count
 end
 
 def send_test_report
