@@ -12,6 +12,9 @@
     <li><%= link_to "Courses", courses_path %></li>
     <li><%= link_to "Classes", offerings_path %></li>
     <li><%= link_to "Lessons", lessons_path %></li>
+    <% if current_user.admin? %>
+      <li><%= link_to "Student Note QC", qc_experience_points_path %></li>
+    <% end %>
     <li><%= link_to "Opportunities", opportunities_path %></li>
     <li><%= link_to "Problems & Activities", problems_path %></li>
     <li><%= link_to "Resources", resources_path %></li>
