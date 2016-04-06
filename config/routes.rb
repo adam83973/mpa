@@ -1,13 +1,13 @@
 MathPlus::Application.routes.draw do
 
-  resources :offering_histories
-
 
   root to: 'static_pages#home'
 
   resources :activities do
     collection { post :import }
   end
+
+  resources :appointments
 
   resources :avatars
 
@@ -128,6 +128,8 @@ MathPlus::Application.routes.draw do
       get :at_capacity
     end
   end
+
+  resources :offering_histories
 
   get  'opportunities/by_status', to: 'opportunities#by_status'
   post 'opportunities/update_status', to: 'opportunities#update_status'

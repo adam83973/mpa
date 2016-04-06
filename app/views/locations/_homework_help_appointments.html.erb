@@ -7,13 +7,14 @@
         <th>Child</th>
         <th>Grade</th>
         <th>Reason</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
         <% appointments.each do |appointment| %>
           <tr>
             <td>
-              <%= appointment.user.full_name %>
+              <%= link_to appointment.user.full_name, appointment.user %>
             </td>
             <td>
               <%= appointment.time.getlocal.strftime("%I:%M %P") %>
@@ -27,7 +28,9 @@
             <td>
               <%= appointment.hwHelpReason %>
             </td>
-
+            <td>
+              <%= link_to "Edit", edit_appointment_path %>
+            </td>
           </tr>
         <% end %>
     </tbody>
