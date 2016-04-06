@@ -63,7 +63,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if @appointment.update_attributes(params[:appointment])
-        format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
+        format.html { redirect_to root_url, notice: 'Appointment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
