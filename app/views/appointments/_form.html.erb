@@ -1,10 +1,17 @@
-<%= simple_form_for(@appointment) do |f| %>
-  <%= f.error_notification %>
+<div class="row">
+  <div class="col-sm-4">
+    <%= simple_form_for(@appointment) do |f| %>
+      <%= f.error_notification %>
+      <p>
+        You cannot edit the time of this appointment. To edit the time please do so through <%= link_to "Check Appointments", "http://www.checkappointments.com" %>.
+      </p>
 
-  <%= f.association :user, as: :string, input_html: {class: 'chosen'}  %>
-  <%= f.input :hwHelpChild %>
-  <%= f.input :hwHelpReason %>
-  <%= f.input :hwHelpClass %>
+      <%= f.input :user_id, collection: User.where(role: "Parent"), label_method: :full_name, input_html: {class: 'chosen-select'}  %>
+      <%= f.input :hwHelpChild %>
+      <%= f.input :hwHelpReason, input_html: { rows: 5 } %>
+      <%= f.input :hwHelpClass %>
 
-  <%= f.button :submit %>
-<% end %>
+      <%= f.button :submit, class: "btn btn-lg btn-success" %>
+  <% end %>
+  </div>
+</div>
