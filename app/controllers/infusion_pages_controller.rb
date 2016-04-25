@@ -163,7 +163,7 @@ class InfusionPagesController < ApplicationController
           @credit_card_options << [i["CardType"] + " xxxx" + i["Last4"], i["Id"]]
         end
         # retrieve subscriptions for contact
-        @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+        @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id, :Status => "Active"}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
         @active_subscription.sort_by! {|hsh| hsh["Status"]}
       rescue
         count < 3 ? retry : ""
