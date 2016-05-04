@@ -426,6 +426,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   fog
   font-awesome-rails (~> 4.0.3.1)
+  httparty
   humanize
   infusionsoft (~> 1.1.7b)
   jquery-datatables-rails!

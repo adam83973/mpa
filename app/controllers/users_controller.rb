@@ -405,6 +405,15 @@ class UsersController < ApplicationController
             action_date: Date.today})
 
           note.save!
+
+          #send notification to slack
+          #payload={"text": "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!"}
+          slack_note = slack_note_content(appointment, @appointment)
+          HTTParty.post("https://hooks.slack.com/services/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",
+          {
+            :body => {text: "Location: #{@appointment.location.name}\n #{slack_note}", username: "Assessment Scheduled", icon_emoji: ":smiley:",}.to_json,
+            :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+          })
         end
       end
     # check to see if parent is in system, but has not had Check Appointments Id added to record
@@ -542,6 +551,26 @@ class UsersController < ApplicationController
 
     def add_note_content(appointment, app_obj)
       content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
+
+      # add student information to note it there are more than one students
+      case appointment['customField1'].to_i
+      when 2
+        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})\n"
+      when 3
+        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+      else
+
+      end
+
+      content = content + "Appointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}\n"
+
+      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
+
+      content
+    end
+
+    def slack_note_content(appointment, app_obj)
+      content = "Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
