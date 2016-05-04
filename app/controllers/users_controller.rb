@@ -409,6 +409,7 @@ class UsersController < ApplicationController
           #send notification to slack
           #payload={"text": "A very important thing has occurred! <https://alert-system.com/alerts/1234|Click here> for details!"}
           slack_note = slack_note_content(appointment, @appointment)
+          
           HTTParty.post("https://hooks.slack.com/services/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",
           {
             :body => {text: "Location: #{@appointment.location.name}\n #{slack_note}", username: "Assessment Scheduled", icon_emoji: ":smiley:",}.to_json,
