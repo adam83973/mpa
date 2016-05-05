@@ -580,7 +580,7 @@ class UsersController < ApplicationController
     end
 
     def slack_note_content(appointment, app_obj)
-      content = "Number of students: #{appointment['customField1']} #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
+      content = "Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
