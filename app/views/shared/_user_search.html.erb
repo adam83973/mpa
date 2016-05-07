@@ -1,4 +1,4 @@
-<li>
+<li style="max-width:270px;">
     <%= form_tag root_path, :method => 'get', :id => "users_search", class: "navbar-form navbar-left", role: "search" do %>
   <div class="input-group">
       <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "form-control" %>
@@ -8,6 +8,3 @@
   </div><!-- /input-group -->
     <% end %>
 </li>
-
-
-

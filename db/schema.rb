@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151202161955) do
+ActiveRecord::Schema.define(:version => 20160506204254) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20151202161955) do
     t.boolean  "requires_approval",  :default => false
     t.boolean  "parent_can_request", :default => true
     t.integer  "module_id"
+    t.text     "script"
   end
 
   create_table "badges_students", :id => false, :force => true do |t|
@@ -546,6 +547,14 @@ ActiveRecord::Schema.define(:version => 20151202161955) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+  end
+
+  create_table "tokens", :force => true do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
