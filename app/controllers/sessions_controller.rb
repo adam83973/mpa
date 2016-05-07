@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_filter :authorize_admin
+
   layout false
 
   def new
