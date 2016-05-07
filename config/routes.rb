@@ -181,7 +181,7 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
-  resources :sessions, only: :index
+  resources :sessions, only: [:index, :new]
   get "/auth/:provider/callback" => 'sessions#create'
 
   resources :stages
