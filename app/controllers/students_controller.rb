@@ -73,25 +73,25 @@ class StudentsController < ApplicationController
       @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
 
       #loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
-      if @student.experience_points.empty?
-        @robotics_achievements.each do |achievement|
-          achievement[:completed] = []
-          achievement[:completed] << false
-        end
-      else
-        @robotics_achievements.each do |achievement|
-          @student.experience_points.each do |xp|
-            achievement[:completed] = []
-
-            if achievement.id == xp.experience_id
-              achievement[:completed] << true
-              break
-            else
-              achievement[:completed] << false
-            end
-          end
-        end
-      end
+      # if @student.experience_points.empty?
+      #   @robotics_achievements.each do |achievement|
+      #     achievement[:completed] = []
+      #     achievement[:completed] << false
+      #   end
+      # else
+      #   @robotics_achievements.each do |achievement|
+      #     @student.experience_points.each do |xp|
+      #       achievement[:completed] = []
+      #
+      #       if achievement.id == xp.experience_id
+      #         achievement[:completed] << true
+      #         break
+      #       else
+      #         achievement[:completed] << false
+      #       end
+      #     end
+      #   end
+      # end
 
       #get grades for student
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)

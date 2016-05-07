@@ -16,7 +16,7 @@ task :check_inbox => :environment do
   messages.each do |msg|
     details = get_details(msg['id'])
     send_to_slack(details)
-    # remove_label(msg['id'])
+    remove_label(msg['id'])
   end
 end
 
