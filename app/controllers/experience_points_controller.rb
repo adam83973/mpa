@@ -16,7 +16,7 @@ class ExperiencePointsController < ApplicationController
   # GET /experience_points/1
   # GET /experience_points/1.json
   def show
-    @experience_point = ExperiencePoint.find(params[:id])
+    set_experience_point
 
     respond_to do |format|
       format.html # show.html.erb
@@ -52,7 +52,7 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points
   # POST /experience_points.json
   def create
-    @experience_point = ExperiencePoint.new(params[:experience_point])
+    @experience_point = ExperiencePoint.new(experience_point_params)
     if params[:experience_point][:student_id].empty?
       respond_to do |format|
         format.html { render action: "new" }
@@ -198,5 +198,16 @@ class ExperiencePointsController < ApplicationController
     def update_level
       # update level for occupation based on experience point's occupation relation
       @student.update_level(@experience_point.occupation.title) if @experience_point.occupation
+    end
+
+    def set_experience_point
+      @experience_point = ExperiencePoint.find(params[:id])
+    end
+
+    def experience_point_params
+      params.require(:experience_point).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
+                     :start_date, :xp_total, :credits, :rank, :active, :status,
+                     :restart_date, :return_date, :end_date, :hold_status,
+                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color)
     end
 end

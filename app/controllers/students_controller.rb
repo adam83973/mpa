@@ -238,4 +238,13 @@ class StudentsController < ApplicationController
       format.json { render json: @last_attendance_date }
     end
   end
+
+  private
+    def set_student
+      @experience_point = ExperiencePoint.find(params[:id])
+    end
+
+    def student_params
+      params.require(:experience_point).permit(:experience_id, :points, :student_id, :experience_point, :user_id, :comment, :negative)
+    end
 end

@@ -1,5 +1,4 @@
 class ExperiencePoint < ActiveRecord::Base
-  #attr_accessible :experience_id, :points, :student_id, :experience_point, :user_id, :comment
 
   if Rails.env.development?
     #attr_accessible :created_at, :updated_at
@@ -16,6 +15,7 @@ class ExperiencePoint < ActiveRecord::Base
   has_one :occupation, through: :experience
   has_one :badge_request
 
+  before_save :mark_negative
   after_save :update_student_xp
   after_update :update_student_xp
   after_destroy :update_student_xp
@@ -66,5 +66,13 @@ class ExperiencePoint < ActiveRecord::Base
 
   def update_student_xp
     student.calculate_xp
+  end
+
+  def mark_negative
+    if points == 0 && experience_id != 3
+      self.negative = true
+    else
+      self.negative = false
+    end
   end
 end

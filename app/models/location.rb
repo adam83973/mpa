@@ -13,7 +13,7 @@ class Location < ActiveRecord::Base
   has_many :daily_location_reports
   has_many :appointments
   has_many :badge_requests, through: :students
-  has_many :active_registrations, :through => :offerings, class_name: 'Registration', source: :registrations, conditions: "registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')"
+  has_many :active_registrations, -> {where("registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')")}, :through => :offerings, class_name: 'Registration', source: :registrations
 
   def admins
     User.where("role = ? AND location_id = ? AND active = ?", "Admin", self.id, true)

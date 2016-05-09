@@ -1,9 +1,9 @@
 class Student < ActiveRecord::Base
 
   #attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
-                  :start_date, :xp_total, :credits, :rank, :active, :status,
-                  :restart_date, :return_date, :end_date, :hold_status,
-                  :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color
+                  # :start_date, :xp_total, :credits, :rank, :active, :status,
+                  # :restart_date, :return_date, :end_date, :hold_status,
+                  # :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color
 
   attr_accessor :opportunity_id
 
@@ -16,10 +16,10 @@ class Student < ActiveRecord::Base
   belongs_to :location
   belongs_to :avatar
   has_many :badge_requests
-  has_many :badges, :through => :badge_requests,
+  has_many :badges, -> { where('badge_requests.approved = ?',true) },
+           :through => :badge_requests,
            :class_name => "Badge",
-           :source => :badge,
-           :conditions => ['badge_requests.approved = ?',true]
+           :source => :badge
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy

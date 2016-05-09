@@ -67,6 +67,8 @@ GEM
     autoprefixer-rails (6.3.6)
       execjs
     bcrypt (3.1.11)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -74,6 +76,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
+    byebug (8.2.5)
     callsite (0.0.11)
     carrierwave (0.11.2)
       activemodel (>= 3.2.0)
@@ -113,6 +116,7 @@ GEM
       sass-rails (< 5.1)
       sprockets (< 4.0)
     concurrent-ruby (1.0.2)
+    debug_inspector (0.0.2)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
     delayed_job_active_record (4.1.0)
@@ -479,6 +483,7 @@ GEM
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
     smtpapi (0.1.0)
+    spring (1.7.1)
     sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -509,6 +514,11 @@ GEM
     uniform_notifier (1.9.0)
     warden (1.2.6)
       rack (>= 1.0)
+    web-console (2.3.0)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     will_paginate (3.0.7)
     woocommerce_api (1.1.2)
       httparty (~> 0.13, >= 0.13.7)
@@ -522,6 +532,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass
   bullet
+  byebug
   carrierwave
   chartjs-ror
   check_appointments
@@ -573,11 +584,14 @@ DEPENDENCIES
   selectivizr-rails (~> 1.0.1)
   sendgrid-ruby
   simple_form
+  spring
+  sprockets-rails
   sqlite3
   sunspot_rails
   sunspot_solr
   test-unit
   uglifier (>= 1.0.3)
+  web-console (~> 2.0)
   will_paginate (~> 3.0.6)
   woocommerce_api
 

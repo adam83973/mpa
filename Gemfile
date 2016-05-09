@@ -51,6 +51,7 @@ gem 'sass-rails'
 gem 'selectivizr-rails', '~> 1.0.1'
 gem 'sendgrid-ruby'
 gem 'simple_form'
+gem 'sprockets-rails'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'test-unit'
@@ -65,6 +66,14 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rspec-rails', '~> 3.0'
   gem 'meta_request'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
 end
 
 group :production do
