@@ -53,14 +53,16 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points.json
   def create
     @experience_point = ExperiencePoint.new(experience_point_params)
-    if params[:experience_point][:student_id].empty?
+    puts 'xp loaded'
+    if !@experience_point.student_id
       respond_to do |format|
         format.html { render action: "new" }
         format.json { render json: @experience_point.errors, status: :unprocessable_entity }
       end
       false
     else
-      @student = Student.find(params[:experience_point][:student_id])
+      puts 'adding credit'
+      @student = Student.find(@experience_point.student_id)
       @student_json = @student.to_json
       @credits = @student.calculate_credit(@experience_point)
       @student_level = @student.calculate_rank(@experience_point)
@@ -75,12 +77,13 @@ class ExperiencePointsController < ApplicationController
 
       #add credits and special redirect when attendance is taken
       #add .js response for ajax
-      if @attendance_xp.include?(params[:experience_point][:experience_id].to_i)
+      if @attendance_xp.include?(@experience_point.experience_id.to_i)
         take_attendance
       #add homework score and special redirect
-      elsif ["1", "4", "5"].include?(params[:experience_point][:experience_id])
+      elsif ["1", "4", "5"].include?(@experience_point.experience_id)
         add_homework_score
       else
+        puts 'added xp'
         add_experience_point
       end
     end
@@ -93,7 +96,7 @@ class ExperiencePointsController < ApplicationController
     @experience_point = ExperiencePoint.find(params[:id])
 
     respond_to do |format|
-      if @experience_point.update_attributes(params[:experience_point])
+      if @experience_point.update_attributes(experience_point_params)
 
         format.html { redirect_to student_path(@student), notice: 'Experience point was successfully updated.' }
         format.json { head :no_content }
@@ -205,9 +208,6 @@ class ExperiencePointsController < ApplicationController
     end
 
     def experience_point_params
-      params.require(:experience_point).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
-                     :start_date, :xp_total, :credits, :rank, :active, :status,
-                     :restart_date, :return_date, :end_date, :hold_status,
-                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color)
+      params.require(:experience_point).permit(:experience_id, :points, :student_id, :user_id, :comment, :negative)
     end
 end

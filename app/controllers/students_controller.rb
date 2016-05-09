@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    @student = Student.find(params[:id])
+    set_student
     @registrations = @student.registrations.order(:status).includes(:offering, :course, :location)
     @note = Note.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
@@ -131,7 +131,7 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(params[:student])
+    @student = Student.new(student_params)
 
     respond_to do |format|
       if @student.save
@@ -241,10 +241,13 @@ class StudentsController < ApplicationController
 
   private
     def set_student
-      @experience_point = ExperiencePoint.find(params[:id])
+      @student = Student.find(params[:id])
     end
 
     def student_params
-      params.require(:experience_point).permit(:experience_id, :points, :student_id, :experience_point, :user_id, :comment, :negative)
+      params.require(:student).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
+                     :start_date, :xp_total, :credits, :rank, :active, :status,
+                     :restart_date, :return_date, :end_date, :hold_status,
+                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color)
     end
 end
