@@ -561,9 +561,3 @@ DEPENDENCIES
   will_paginate (~> 3.0.6)
   woocommerce_api
   youtube_addy (~> 1.0.2)
-
-RUBY VERSION
-   ruby 2.3.1p112
-
-BUNDLED WITH
-   1.12.2
