@@ -1,5 +1,5 @@
 class EnrollmentChangeRequest < ActiveRecord::Base
-  attr_accessible :admin_id, :end_date, :hold_return_date, :hold_start_date,
+  #attr_accessible :admin_id, :end_date, :hold_return_date, :hold_start_date,
                   :other_reason, :reason_id, :restart_billing_authorization,
                   :status, :student_id, :user_id, :customer_experience, :possible_return_date
 

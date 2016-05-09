@@ -1,6 +1,6 @@
 class Student < ActiveRecord::Base
 
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
+  #attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
                   :start_date, :xp_total, :credits, :rank, :active, :status,
                   :restart_date, :return_date, :end_date, :hold_status,
                   :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color

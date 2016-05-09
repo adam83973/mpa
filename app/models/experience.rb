@@ -1,5 +1,5 @@
 class Experience < ActiveRecord::Base
-  attr_accessible :category, :content, :name, :points, :image, :remove_image,
+  #attr_accessible :category, :content, :name, :points, :image, :remove_image,
                   :resource_ids, :remote_image_url, :occupation_id, :active,
                   :badge_attributes
 

@@ -1,5 +1,5 @@
 class Grade < ActiveRecord::Base
-  attr_accessible :assessment, :user_id, :lesson_id, :score, :student_id, :comment, :grade_type, :experience_point_attributes
+  #attr_accessible :assessment, :user_id, :lesson_id, :score, :student_id, :comment, :grade_type, :experience_point_attributes
 
   belongs_to :lesson
   belongs_to :student

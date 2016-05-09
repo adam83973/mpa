@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
 
-  attr_accessible :address, :city, :franchise, :name, :state, :zip, :technical_information
+  #attr_accessible :address, :city, :franchise, :name, :state, :zip, :technical_information
 
   has_many :opportunities
   has_many :notes

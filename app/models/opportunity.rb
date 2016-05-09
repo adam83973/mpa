@@ -1,5 +1,5 @@
 class Opportunity < ActiveRecord::Base
-  attr_accessible :admin_id, :attended_trial, :offering_id, :possible_restart_date, :registration_id,
+  #attr_accessible :admin_id, :attended_trial, :offering_id, :possible_restart_date, :registration_id,
                   :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id,
                   :location_id, :student_name, :date_won, :date_lost, :source, :title, :parent_phone,
                   :parent_email, :interest_level, :other_source, :undecided_date, :user_id,

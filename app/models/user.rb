@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :role
 
-  attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me,
-                  :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder
+  #attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me,
+                  # :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 

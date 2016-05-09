@@ -1,3 +1,3 @@
 class AppointmentRequest < ActiveRecord::Base
-  attr_accessible :data
+  #attr_accessible :data
 end
