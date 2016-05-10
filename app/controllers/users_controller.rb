@@ -141,7 +141,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
@@ -185,7 +185,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -553,6 +553,11 @@ class UsersController < ApplicationController
   private
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def user_params
+      params.require(:user).permit(:email, :password, :current_password, :password_confirmation, :remember_me,
+                                    :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder)
     end
 
     def rescue_from_timeout

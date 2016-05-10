@@ -6,7 +6,7 @@ class ExperiencePoint < ActiveRecord::Base
 
   validates_presence_of :experience_id, :student_id, :comment
 
-  validate :experience_id_exists
+  # validate :experience_id_exists
 
   belongs_to :user
   belongs_to :student
@@ -71,8 +71,6 @@ class ExperiencePoint < ActiveRecord::Base
   def mark_negative
     if points == 0 && experience_id != 3
       self.negative = true
-    else
-      self.negative = false
     end
   end
 end

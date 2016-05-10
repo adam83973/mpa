@@ -1,7 +1,7 @@
 class Problem < ActiveRecord::Base
 
   #attr_accessible :answer, :desc, :methods, :source, :title, :variations, :course_ids, :strategy_ids, :image, :remove_image, :remote_image_url,
-                  :resource_ids, :standard_ids, :activity_type, :setup, :lesson_ids
+                  # :resource_ids, :standard_ids, :activity_type, :setup, :lesson_ids
 
   validates_presence_of :title, :activity_type
   validates :title, uniqueness: true
@@ -25,5 +25,3 @@ class Problem < ActiveRecord::Base
   end
 
 end
-
-

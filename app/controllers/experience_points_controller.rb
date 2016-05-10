@@ -78,12 +78,14 @@ class ExperiencePointsController < ApplicationController
       #add credits and special redirect when attendance is taken
       #add .js response for ajax
       if @attendance_xp.include?(@experience_point.experience_id.to_i)
+        puts 'a'
         take_attendance
       #add homework score and special redirect
       elsif ["1", "4", "5"].include?(@experience_point.experience_id)
+        puts 'b'
         add_homework_score
       else
-        puts 'added xp'
+        puts 'c'
         add_experience_point
       end
     end
@@ -143,7 +145,7 @@ class ExperiencePointsController < ApplicationController
       end
 
       respond_to do |format|
-        if @experience_point.save
+        if @experience_point.save!
           # add credits to students account based on earned xp
           if @credits > 0
             @student.add_credit(@credits)
@@ -155,7 +157,7 @@ class ExperiencePointsController < ApplicationController
           format.js
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else
-          format.html { render root_path }
+          format.html { redirect_to root_path }
           format.json { render json: @experience_point.errors, status: :unprocessable_entity }
         end
       end
