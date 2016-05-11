@@ -4,7 +4,7 @@ class Offering < ActiveRecord::Base
 
   validates_presence_of :course_id, :day, :time, :location_id
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   belongs_to :location
   belongs_to :course

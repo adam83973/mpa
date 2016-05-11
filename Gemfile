@@ -16,6 +16,7 @@ gem 'compass-rails'
 gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
+gem "factory_girl_rails", "~> 4.0", require: false, group: :test
 gem 'faker', '1.0.1'
 gem 'fog'
 gem 'font-awesome-rails', '~> 4.0.3.1'
@@ -39,7 +40,7 @@ gem 'modernizr-rails', '~> 2.6.2.1'
 gem 'oj', '~> 2.12.14'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-google-oauth2'
-gem 'paper_trail', '~> 4.0.0'
+gem 'paper_trail', '~> 4.0.0', group: [:production, :development]
 gem 'populator'
 gem 'rack-timeout'
 gem 'rails-observers'
@@ -57,6 +58,7 @@ gem 'sunspot_solr'
 gem 'test-unit'
 gem 'uglifier', '>= 1.0.3'
 gem 'will_paginate', '~> 3.0.6'
+gem 'web-console', '~> 2.0', group: :development
 gem 'woocommerce_api'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 
@@ -70,7 +72,7 @@ group :development, :test do
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

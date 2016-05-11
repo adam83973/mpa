@@ -7,7 +7,7 @@ class Opportunity < ActiveRecord::Base
 
   validates_presence_of :location_id
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   belongs_to :location
   belongs_to :student

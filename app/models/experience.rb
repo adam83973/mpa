@@ -5,7 +5,7 @@ class Experience < ActiveRecord::Base
 
   validates_presence_of :points, :category, :name
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   has_many :experience_points
   has_many :resourcings, as: :resourceable

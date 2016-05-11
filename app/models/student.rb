@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :user_id
   #validate presence of offerings
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   belongs_to :user
   belongs_to :location
