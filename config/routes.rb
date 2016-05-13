@@ -8,6 +8,8 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  resources :attendances
+  
   resources :appointments
 
   resources :avatars

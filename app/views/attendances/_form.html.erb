@@ -1,0 +1,14 @@
+<%= simple_form_for(@attendance) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :student_id %>
+    <%= f.input :experience_point_id %>
+    <%= f.input :date %>
+    <%= f.input :offering_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

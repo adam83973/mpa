@@ -20,6 +20,7 @@ class Student < ActiveRecord::Base
            :through => :badge_requests,
            :class_name => "Badge",
            :source => :badge
+  has_many :attendances
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy

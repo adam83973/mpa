@@ -13,7 +13,8 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :experience
   belongs_to :grade, dependent: :destroy
   has_one :occupation, through: :experience
-  has_one :badge_request
+  has_one :badge_request, dependent: :destroy
+  has_one :attendance, dependent: :destroy
 
   before_save :mark_negative
   after_save :update_student_xp
