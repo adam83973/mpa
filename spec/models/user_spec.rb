@@ -24,5 +24,4 @@ RSpec.describe User, :type => :model do
       expect(teacher.parent?).to eq(false)
     end
   end
-
 end
