@@ -2,7 +2,7 @@ MathPlus::Application.routes.draw do
 
 
   root to: 'static_pages#home'
-  # root to: 'sessions#new'
+
 
   resources :activities do
     collection { post :import }
@@ -42,7 +42,6 @@ MathPlus::Application.routes.draw do
   devise_for :users, :skip => [:registrations]
     as :user do
       get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-      put 'users' => 'devise/registrations#update', :as => 'user_registration'
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 

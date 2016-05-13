@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 
 class Token < ActiveRecord::Base
-  attr_accessible :access_token, :refresh_token, :expires_at
+  #attr_accessible :access_token, :refresh_token, :expires_at
 
   def to_params
     {'refresh_token' => refresh_token,

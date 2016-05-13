@@ -141,7 +141,8 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
+    @user = User.new(user_params)
+    @user.password = Devise.friendly_token.first(8) if user_params[:password].empty?
 
     respond_to do |format|
       if @user.save
@@ -185,7 +186,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -555,26 +556,31 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def user_params
+      params.require(:user).permit(:email, :password, :current_password, :password_confirmation, :remember_me,
+                                    :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder)
+    end
+
     def rescue_from_timeout
       redirect_to :back, notice: 'Your request'
     end
 
     def add_note_content(appointment, app_obj)
-      content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})\n"
+      content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
       when 2
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})\n"
+        content = content + ",\n#{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})"
       when 3
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+        content = content + ",\n#{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']})"
       else
 
       end
 
-      content = content + "Appointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}\n"
+      content = content + "\nAppointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}"
 
-      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
+      content = content + "\nComments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
       content
     end

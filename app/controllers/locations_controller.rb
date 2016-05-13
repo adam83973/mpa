@@ -31,8 +31,8 @@ class LocationsController < ApplicationController
     @location_students_restarting = @location.registrations.restarting
     @total_location_students_count = @location.registrations.active.count
     @location_future_adds = @location.registrations.future_adds
-    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
-    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
     @location_trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
 
     @offerings = @location.offerings
@@ -162,7 +162,7 @@ class LocationsController < ApplicationController
           end
         end
         reports_by_month << monthly_reports
-        @monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size
+        @monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size if reports_by_month[i].size > 0
       end
     end
 end

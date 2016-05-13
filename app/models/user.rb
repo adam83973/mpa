@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable
 
-  validates_presence_of :first_name, :last_name, :role
+  validates_presence_of :first_name, :last_name, :role, :location_id, :email
 
-  attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me,
-                  :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder
+  #attr_accessible :email, :password, :current_password, :password_confirmation, :remember_me,
+                  # :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
@@ -18,8 +18,7 @@ class User < ActiveRecord::Base
   has_many :students, :through => :offerings
   has_many :students
   has_many :registrations, :through => :students
-  has_many :active_registrations, :through => :students, class_name: 'Registration', source: :registrations, conditions: "registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')"
-
+  has_many :active_registrations, -> {where("registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')")}, through: :registrations, class_name: 'Registration', source: :registrations
   has_many :opportunities
   has_many :leads
   has_many :issues

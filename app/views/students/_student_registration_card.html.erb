@@ -9,7 +9,7 @@
 	  <div class="row">
 	 		<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style="margin:10px 0 8px 0;">
 	    	<div class="text-left">
-						<%= registration_status(reg).html_safe if current_user.employee? %>
+						<%= registration_status(reg) if current_user.employee? %>
 					</div>
 			  </div>
 	    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4' style="margin:10px 0 8px 0;">

@@ -1,17 +1,17 @@
 class Offering < ActiveRecord::Base
-  attr_accessible :comments, :course_id, :day, :graduation_year, :location_id,
-                  :time, :user_ids, :active, :classroom, :hidden, :day_number
+  #attr_accessible :comments, :course_id, :day, :graduation_year, :location_id,
+                  # :time, :user_ids, :active, :classroom, :hidden, :day_number
 
   validates_presence_of :course_id, :day, :time, :location_id
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   belongs_to :location
   belongs_to :course
   has_one :occupation, through: :course
   has_and_belongs_to_many :users
   has_many :registrations
-  has_many :active_registrations, conditions: {status: 0, status: 1}, class_name: 'Registration'
+  has_many :active_registrations, -> { where("status = ? OR status = ?", 0, 1) }, class_name: 'Registration'
   has_many :students, through: :registrations
 
   scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }

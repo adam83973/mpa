@@ -1,10 +1,10 @@
 class Badge < ActiveRecord::Base
 
-  attr_accessible :image, :name, :file, :filename, :experience_id, :remove_image,
-                  :requirements, :badge_category_id, :submission_type, :write_up_required,
-                  :multiple, :requires_approval, :parent_can_request, :module_id
+  #attr_accessible :image, :name, :file, :filename, :experience_id, :remove_image,
+                  # :requirements, :badge_category_id, :submission_type, :write_up_required,
+                  # :multiple, :requires_approval, :parent_can_request, :module_id
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   has_and_belongs_to_many :students
   has_many :badge_requests, dependent: :destroy
