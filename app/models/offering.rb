@@ -10,6 +10,7 @@ class Offering < ActiveRecord::Base
   belongs_to :course
   has_one :occupation, through: :course
   has_and_belongs_to_many :users
+  has_many :attendances
   has_many :registrations
   has_many :active_registrations, -> { where("status = ? OR status = ?", 0, 1) }, class_name: 'Registration'
   has_many :students, through: :registrations
