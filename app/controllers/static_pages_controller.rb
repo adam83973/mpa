@@ -49,7 +49,7 @@ class StaticPagesController < ApplicationController
     #pull orders of related product
     @orders = woocommerce.get("products/#{id}/orders", {filter: {limit: 20} }).parsed_response['orders']
     #remove cancelled orders
-    @orders.delete_if{|order| order['status'] == 'cancelled'}
+    @orders.to_a.to_a.delete_if{|order| order['status'] == 'cancelled'}
   end
 
   def badges
@@ -99,12 +99,13 @@ class StaticPagesController < ApplicationController
     end
 
     def set_appointments
-      @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+      @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
 
-      @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+      @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
     end
 
     def set_class_session
+      @attendance = Attendance.new
       @class_session_offering = Offering.includes(:course).find(class_session.offering)
       @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")
       @lessons.each do |lesson|
@@ -182,7 +183,7 @@ class StaticPagesController < ApplicationController
           fulltext params[:search]
         end
         @offerings_search = @offerings_search.results
-        @offerings_search.delete_if{ |offering| !(offering.active?) }
+        @offerings_search.to_a.delete_if{ |offering| !(offering.active?) }
         @students_search = Student.search(params[:search])
         @lessons_search = Lesson.search do
           with(:week, params[:search].gsub(/[a-zA-Z]|\s/,"").to_i)
