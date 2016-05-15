@@ -10,6 +10,7 @@ end
   belongs_to :student
   belongs_to :user
   has_many   :modules, class_name: 'BadgeModule', source: :badge_modules
+  has_one    :experience_point
 
   before_save :update_parent_submission
 

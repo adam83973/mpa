@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
 
-  let(:parent){FactoryGirl.create(:parent)}
+  let(:parent){FactoryGirl.create(:parent, first_name: "John", last_name: "Doe")}
   let(:teacher){FactoryGirl.create(:teacher)}
 
   it "prints full name" do

@@ -13,13 +13,13 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :experience
   belongs_to :grade, dependent: :destroy
   has_one :occupation, through: :experience
-  has_one :badge_request, dependent: :destroy
+  belongs_to :badge_request
   has_one :attendance, dependent: :destroy
 
   before_save :mark_negative
   after_save :update_student_xp
   after_update :update_student_xp
-  after_destroy :update_student_xp
+  after_destroy :update_student_xp, :cleanup
 
   def add_badge?(student)
     if experience.badge
@@ -72,6 +72,13 @@ class ExperiencePoint < ActiveRecord::Base
   def mark_negative
     if points == 0 && experience_id != 3
       self.negative = true
+    end
+  end
+
+  private
+  def cleanup
+    unless self.badge_request.nil?
+      self.badge_request.destroy
     end
   end
 end

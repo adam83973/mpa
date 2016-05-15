@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "attendances/edit", type: :view do
+
+  let(:attendance){FactoryGirl.create(:attendance)}
+
   before(:each) do
-    @attendance = assign(:attendance, Attendance.create!(
-      :student_id => 1,
-      :experience_point_id => 1,
-      :offering_id => 1
-    ))
+    @attendance = assign(:attendance, attendance)
   end
 
   it "renders the edit attendance form" do

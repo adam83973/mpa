@@ -40,7 +40,7 @@ gem 'modernizr-rails', '~> 2.6.2.1'
 gem 'oj', '~> 2.12.14'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-google-oauth2'
-gem 'paper_trail', '~> 4.0.0', group: [:production, :development]
+gem 'paper_trail', '~> 4.0.0', group: [:production, :development, :test]
 gem 'populator'
 gem 'rack-timeout'
 gem 'rails-observers'
@@ -54,7 +54,7 @@ gem 'sendgrid-ruby'
 gem 'simple_form'
 gem 'sprockets-rails'
 gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'sunspot_solr', group: [:development, :production]
 gem 'test-unit'
 gem 'uglifier', '>= 1.0.3'
 gem 'will_paginate', '~> 3.0.6'
