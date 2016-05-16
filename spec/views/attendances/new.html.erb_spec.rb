@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "attendances/new", type: :view do
-  let(:attendance){FactoryGirl.create(:attendance)}
+  let(:attendance){Attendance.new}
   before(:each) do
     assign(:attendance, attendance)
   end

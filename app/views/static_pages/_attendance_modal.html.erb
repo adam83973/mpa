@@ -13,6 +13,7 @@
             <%= f.error_notification %>
             <%= f.input :student_id, collection: Student.actives, label_method: :full_name, input_html: { class: "chzn", id: 'attendance_modal_experience_point_student_id' } %>
             <%= f.input :offering_id, as: :hidden, input_html: { value: class_session.offering } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
             <%= f.input :date, as: :hidden, input_html: { value: Date.today } %>
             <%= f.button :submit, "Add to Class", class: "btn btn-success", id: "attendance_modal_button" %>
         <% end %>
