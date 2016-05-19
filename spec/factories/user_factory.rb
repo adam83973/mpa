@@ -24,6 +24,7 @@ FactoryGirl.define do
     first_name "Raj"
     last_name  "Admin"
     role "Admin"
+    admin true
     email
     password "password"
     password_confirmation "password"

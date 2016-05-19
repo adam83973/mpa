@@ -1,5 +1,6 @@
 require 'rollbar/rails'
 require 'rake'
+
 Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.

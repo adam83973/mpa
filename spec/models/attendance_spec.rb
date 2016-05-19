@@ -11,4 +11,10 @@ RSpec.describe Attendance, type: :model do
   it "returns student id" do
     expect(attendance.student.id).to eq(1)
   end
+
+  it "creates experience point when attendance is created" do
+    expect {
+      FactoryGirl.create(:attendance)
+    }.to change(ExperiencePoint, :count).by(1)
+  end
 end

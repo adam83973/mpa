@@ -137,9 +137,8 @@ RSpec.describe AttendancesController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested attendance" do
       sign_in user
-
       expect {
-        delete :destroy, {:id => attendance.to_param}, valid_session
+        delete :destroy, id: attendance.to_param
       }.to change(Attendance, :count).by(-1)
     end
 
