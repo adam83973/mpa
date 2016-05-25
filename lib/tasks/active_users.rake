@@ -46,7 +46,7 @@ end
 
 def set_active_parents(location=nil)
   location ? text = "_#{location.downcase.tr(' ', '_')}" : text = ""
-  group_id = Infusionsoft.data_add('ContactGroup', {GroupName: "#{text}_#{Date.today.month}_#{Date.today.day}_#{Date.today.year}_active#{text}", GroupCategoryId: 78})
+  group_id = Infusionsoft.data_add('ContactGroup', {GroupName: "#{Date.today.month}_#{Date.today.day}_#{Date.today.year}_active#{text}", GroupCategoryId: 78})
   group_id
 end
 
