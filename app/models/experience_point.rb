@@ -14,7 +14,7 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :grade, dependent: :destroy
   has_one :occupation, through: :experience
   belongs_to :badge_request
-  has_one :attendance, dependent: :destroy
+  has_one :attendance
 
   before_save :mark_negative
   after_save :update_student_xp
@@ -80,5 +80,9 @@ class ExperiencePoint < ActiveRecord::Base
     unless self.badge_request.nil?
       self.badge_request.destroy
     end
+
+
+    return unless self.attendance
+    self.attendance.destroy unless self.attendance.destroyed?
   end
 end

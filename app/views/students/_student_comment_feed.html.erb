@@ -16,7 +16,7 @@
        <p>
         <em><%= xp.experience.name %></em>
         <b>"<%= xp.comment %>"</b>
-        by: <%= xp.user.full_name %>
+         <%= "by: #{xp.user.full_name}" if xp.user %>
         <%= time_ago_in_words(xp.updated_at) %> ago
        </p>
      <% end %>

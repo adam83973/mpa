@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516014100) do
+ActiveRecord::Schema.define(version: 20160521233828) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -78,6 +78,19 @@ ActiveRecord::Schema.define(version: 20160516014100) do
     t.string   "hwHelpChild",  limit: 255
     t.string   "hwHelpClass",  limit: 255
     t.text     "hwHelpReason"
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "score"
+    t.boolean  "corrected",           default: false
+    t.integer  "user_id"
+    t.integer  "week"
+    t.integer  "offering_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.text     "comment"
+    t.integer  "experience_point_id"
   end
 
   create_table "attendances", force: :cascade do |t|

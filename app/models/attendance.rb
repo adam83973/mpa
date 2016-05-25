@@ -4,6 +4,7 @@ class Attendance < ActiveRecord::Base
   belongs_to :experience_point
 
   after_create :add_experience_point
+  after_destroy :clean_up
 
   has_paper_trail if Rails.env.development? || Rails.env.production?
 
@@ -26,5 +27,11 @@ class Attendance < ActiveRecord::Base
       attendance_experience_point.save!
 
       self.update_attribute :experience_point_id, attendance_experience_point.id
+    end
+
+    def clean_up
+      if self.experience_point
+        self.experience_point.destroy
+      end
     end
 end

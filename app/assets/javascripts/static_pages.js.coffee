@@ -27,7 +27,6 @@ jQuery ->
       )
     $submitButton = $('#attendance_modal_button').prop("disabled", true)
     $('#attendance_modal_experience_point_student_id').on 'change', ->
-      alert $('#attendance_modal_experience_point_student_id').val()
       if $('#attendance_modal_experience_point_student_id').val()
         $submitButton.attr("disabled", false)
   $('#attendanceModal').on 'hidden.bs.modal', ->

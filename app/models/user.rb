@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
+  has_many :assignments
   has_many :badge_requests
   has_many :messages
   has_many :emails, class_name: "Ahoy::Message"

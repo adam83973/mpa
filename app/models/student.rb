@@ -15,6 +15,7 @@ class Student < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   belongs_to :avatar
+  has_many :assignments, dependent: :destroy
   has_many :badge_requests
   has_many :badges, -> { where('badge_requests.approved = ?',true) },
            :through => :badge_requests,

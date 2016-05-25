@@ -26,7 +26,12 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new(attendance_params)
 
     if @attendance.save
-      redirect_to @attendance, notice: 'Attendance was successfully created.'
+      @student = @attendance.student
+      add_student_to_class
+      respond_to do |format|
+        format.js
+        format.html {redirect_to @student, notice: "Attendance added"}
+      end
     else
       render :new
     end
@@ -48,6 +53,12 @@ class AttendancesController < ApplicationController
   end
 
   private
+    def add_student_to_class
+      if class_session.in_session?
+       class_session.add_student(@student)
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance
       @attendance = Attendance.find(params[:id])
