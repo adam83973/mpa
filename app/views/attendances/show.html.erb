@@ -1,23 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Student:</strong>
-  <%= @attendance.student_id %>
+  <%= link_to @attendance.student.full_name, @attendance.student %>
 </p>
 
 <p>
-  <strong>Experience point:</strong>
-  <%= @attendance.experience_point_id %>
+  <strong>Date Attended:</strong>
+  <%= @attendance.date.strftime('%A, %b %d, %Y') %>
 </p>
 
 <p>
-  <strong>Date:</strong>
-  <%= @attendance.date %>
-</p>
-
-<p>
-  <strong>Offering:</strong>
-  <%= @attendance.offering_id %>
+  <strong>Class:</strong>
+  <%= link_to @attendance.offering.offering_name, @attendance.offering %>
 </p>
 
 <%= link_to 'Edit', edit_attendance_path(@attendance) %> |

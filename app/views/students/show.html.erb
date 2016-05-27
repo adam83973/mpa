@@ -1,3 +1,10 @@
+<% if @student.has_learning_plan && current_user.employee? %>
+  <div class="lp_icon">
+    <%= link_to @student.learning_plans.last do %>
+      <%= image_tag "lp_icon.svg", size: "100" %>
+    <% end %>
+  </div>
+<% end %>
 <div class="row">
   <%= render 'student_stats' %>
 </div>

@@ -24,4 +24,8 @@ class Course < ActiveRecord::Base
       course.save!
     end
   end
+
+  def name
+    course_name
+  end
 end

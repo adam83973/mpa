@@ -164,10 +164,10 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.json
   def update
-    @student = Student.find(params[:id])
+    set_student
 
     respond_to do |format|
-      if @student.update_attributes(params[:student])
+      if @student.update_attributes(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
@@ -248,6 +248,6 @@ class StudentsController < ApplicationController
       params.require(:student).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
                      :start_date, :xp_total, :credits, :rank, :active, :status,
                      :restart_date, :return_date, :end_date, :hold_status,
-                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color)
+                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color, :has_learning_plan)
     end
 end

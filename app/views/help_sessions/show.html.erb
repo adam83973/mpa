@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @help_session.date %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @help_session.user_id %>
+</p>
+
+<p>
+  <strong>Learning plan:</strong>
+  <%= @help_session.learning_plan_id %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @help_session.comments %>
+</p>
+
+<p>
+  <strong>Parent feedback:</strong>
+  <%= @help_session.parent_feedback %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @help_session.student_id %>
+</p>
+
+<%= link_to 'Edit', edit_help_session_path(@help_session) %> |
+<%= link_to 'Back', help_sessions_path %>

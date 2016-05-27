@@ -8,7 +8,7 @@ RSpec.describe "attendances/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/#{Date.today.to_s}/)
+    expect(rendered).to match(/#{Date.today.strftime('%A, %b %d, %Y')}/)
     expect(rendered).to match(/1/)
   end
 end

@@ -13,7 +13,7 @@ class Offering < ActiveRecord::Base
   has_many :attendances
   has_many :registrations
   has_many :active_registrations, -> { where("status = ? OR status = ?", 0, 1) }, class_name: 'Registration'
-  has_many :students, through: :registrations
+  has_many :students, through: :active_registrations
 
   scope :visible, lambda{ where("hidden = ? AND active = ?", false, true) }
   scope :active,  lambda{ where("active = ?", true) }

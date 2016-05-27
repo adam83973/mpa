@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @learning_plan_goal.name %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @learning_plan_goal.completed %>
+</p>
+
+<%= link_to 'Edit', edit_learning_plan_goal_path(@learning_plan_goal) %> |
+<%= link_to 'Back', learning_plan_goals_path %>

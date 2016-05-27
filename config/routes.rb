@@ -1,6 +1,10 @@
 MathPlus::Application.routes.draw do
 
 
+  resources :help_sessions
+
+  resources :learning_plans
+
   root to: 'static_pages#home'
 
 

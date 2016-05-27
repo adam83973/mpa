@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521233828) do
+ActiveRecord::Schema.define(version: 20160527002909) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -269,6 +269,17 @@ ActiveRecord::Schema.define(version: 20160521233828) do
     t.string   "grade_type", limit: 255
   end
 
+  create_table "help_sessions", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "user_id"
+    t.integer  "learning_plan_id"
+    t.text     "comments"
+    t.text     "parent_feedback"
+    t.integer  "student_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "issues", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "summary"
@@ -294,6 +305,32 @@ ActiveRecord::Schema.define(version: 20160521233828) do
     t.boolean  "active",                          default: true
     t.date     "appointment_date"
     t.integer  "location_id"
+  end
+
+  create_table "learning_plan_goals", force: :cascade do |t|
+    t.string   "name",                             null: false
+    t.boolean  "completed",        default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "learning_plan_id"
+  end
+
+  create_table "learning_plan_issues", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "learning_plans", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "grade"
+    t.integer  "course_id"
+    t.integer  "learning_plan_issue_id"
+    t.text     "notes"
+    t.text     "strengths"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -556,11 +593,11 @@ ActiveRecord::Schema.define(version: 20160521233828) do
     t.integer  "mathematics_xp",                      default: 0
     t.integer  "engineering_xp",                      default: 0
     t.integer  "programmer_xp",                       default: 0
-    t.string   "status",                  limit: 255
     t.date     "start_date"
     t.boolean  "attended_first_class"
     t.integer  "avatar_id",                           default: 0
     t.string   "avatar_background_color", limit: 255, default: "#ffffff"
+    t.boolean  "has_learning_plan",                   default: false
   end
 
   create_table "time_punches", force: :cascade do |t|

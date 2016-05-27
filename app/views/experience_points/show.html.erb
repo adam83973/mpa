@@ -32,6 +32,12 @@
       <%= @experience_point.user.full_name %>
     </p>
 
+    <% if @experience_point.attendance %>
+      <p>
+        <%= link_to "Attendance Record", @experience_point.attendance %>
+      </p>
+    <% end %>
+
     <%if current_user.teacher? || current_user.admin? %>
       <p>
         <%= link_to 'Edit', edit_experience_point_path(@experience_point), class: "m-btn" %> | <%= link_to 'Destroy', @experience_point, method: :delete, data: { confirm: 'Are you sure?' }, class: "m-btn red" %>

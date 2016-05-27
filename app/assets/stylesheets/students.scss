@@ -318,3 +318,10 @@ img.blur{
   -ms-filter: blur(3px);
   filter: blur(3px);
 }
+
+.lp_icon img{
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 1;
+}

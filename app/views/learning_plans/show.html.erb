@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= link_to @learning_plan.student.full_name, @learning_plan.student %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @learning_plan.grade %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @learning_plan.course.name %>
+</p>
+
+<p>
+  <strong>Issue:</strong>
+  <%= @learning_plan.learning_plan_issue.title %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @learning_plan.notes %>
+</p>
+
+<p>
+  <strong>Strengths:</strong>
+  <%= @learning_plan.strengths %>
+</p>
+
+<p>
+  <strong>Goals:</strong><br>
+  <ol>
+    <% @learning_plan.goals.each do |goal| %>
+    <li><%= goal.name %></li>
+    <% end %>
+  </ol>
+</p>

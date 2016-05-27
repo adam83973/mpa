@@ -26,6 +26,7 @@ class Student < ActiveRecord::Base
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
   has_many :grades, dependent: :destroy
+  has_many :learning_plans
   has_many :lessons , :through => :grades
   has_many :locations, :through => :offerings
   has_many :notes, as: :notable
