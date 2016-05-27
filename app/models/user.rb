@@ -19,7 +19,10 @@ class User < ActiveRecord::Base
   has_many :students, :through => :offerings
   has_many :students
   has_many :registrations, :through => :students
-  has_many :active_registrations, -> {where("registrations.status IN (0, 1, 2) or registrations.start_date IN ('2015-10-09', '2015-10-14')")}, through: :registrations, class_name: 'Registration', source: :registrations
+  has_many :active_registrations, -> {where( registrations: { status: 0..2 })},
+           through: :students,
+           source: :registrations
+
   has_many :opportunities
   has_many :leads
   has_many :issues
