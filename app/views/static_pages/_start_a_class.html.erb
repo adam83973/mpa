@@ -1,5 +1,5 @@
 <h3>Start Class!</h3>
-<%= form_tag(controller: "class_sessions", action: "start_class", method: "post", class: "simple_form") do %>
+<%= form_tag({controller: "class_sessions", action: "start_class", method: "post"}, class: "simple_form form-inline") do %>
   <%= label_tag "Class" %>
   <%= collection_select :offering, :id, @offerings, :id, :offering_name,{},{class: "form-control"} %>
   <br>
