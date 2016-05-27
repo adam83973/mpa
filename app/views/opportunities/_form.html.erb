@@ -23,7 +23,7 @@
         <%= f.input :student_name unless params[:student_id] %>
         <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } unless params[:student_id] %>
         <%= f.association :course, label_method: :course_name, input_html: { class: 'chosen' } %>
-        <%= f.association :offering, label_method: :offering_name, collection: Offering.includes(:course, :location).where("active = ?", true).all(order: 'course_id'), input_html: { class: 'chosen' } %>
+        <%= f.association :offering, label_method: :offering_name, collection: Offering.order(:course_id).includes(:course, :location).where("active = ?", true), input_html: { class: 'chosen' } %>
         <%= f.association :admin, as: :hidden, label_method: :full_name, selected: current_user.id, collection: User.where("admin = ?", true), input_html: { class: 'chosen' } %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
