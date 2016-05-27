@@ -34,6 +34,7 @@ MathPlus::Application.routes.draw do
   resources :badge_requests do
     collection { get :approval }
   end
+  
   resources :class_sessions, only: [:new, :create, :destroy]
   post "class_sessions/start_class"
   get "class_sessions/end_class"

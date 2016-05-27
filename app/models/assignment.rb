@@ -22,6 +22,9 @@ class Assignment < ActiveRecord::Base
   DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID = 87
   EXPERIENCE_POINTS_CONVERSION = {0 => 0, 1 => 60, 2 => 80}
 
+  def self.completed?(student_id, week)
+    self.where(student_id: student_id, week: week).any?
+  end
 
   private
     def add_experience_point

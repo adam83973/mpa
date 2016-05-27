@@ -4,10 +4,13 @@
       <%= f.error_notification %>
 
       <div class="form-inputs ">
-        <%= f.association :student, label_method: :full_name, input_html: { class: "chosen" } %>
+        <%= f.association :student, label_method: :full_name, input_html: { class: "chosen" } unless params[:student_id] %>
+        <%= f.association :student, label_method: :full_name, input_html: { class: "chosen" }, selected: params[:student_id] if params[:student_id] %>
         <%= f.input :score, as: :select, collection: Assignment::SCORES.zip((0..2).to_a) %>
-        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" } %>
-        <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" } %>
+        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" } unless params[:week] %>
+        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" }, selected: params[:week] if params[:week] %>
+        <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" } unless params[:offering_id] %>
+        <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" }, selected: params[:offering_id] if params[:offering_id] %>
         <%= f.input :comment, input_html: {rows: 5} %>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
         <%= f.input :corrected %>

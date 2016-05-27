@@ -26,7 +26,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new(assignment_params)
 
     if @assignment.save
-      redirect_to @assignment, notice: 'Assignment was successfully created.'
+      redirect_to root_url, notice: 'Assignment was successfully created.'
     else
       render :new
     end
