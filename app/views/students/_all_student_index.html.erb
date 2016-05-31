@@ -22,7 +22,6 @@
       <th>Last name</th>
       <th>Parent</th>
       <th>Parent Email</th>
-      <th>Status</th>
       <th>Offerings</th>
       <th></th>
       <% if current_user.admin? %>
@@ -38,23 +37,18 @@
       <td><%= student.first_name %></td>
       <td><%= student.last_name %></td>
       <% if student.user %>
-      <td><%= link_to student.user.full_name, student.user %></td>
+        <td><%= link_to student.user.full_name, student.user %></td>
       <% else %>
-      <td><em>add parent</em></td>
+        <td><em>add parent</em></td>
       <%end%>
       <% if student.user %>
-      <td><%= student.user.email %></td>
-      <% else %>
-      <td><em>no email on file</em></td>
-      <%end%>
-      <% if student.status %>
-      <td><%= student_status(student).html_safe %></td>
-      <% else %>
-      <td><em>update student status</em></td>
+        <td><%= student.user.email %></td>
+        <% else %>
+        <td><em>no email on file</em></td>
       <%end%>
       <td>
         <% if student.offerings.any? %>
-        <% student.offerings.each do |offering| %>
+        <% student.offerings.includes(:location, :course).each do |offering| %>
         <%= offering.offering_name %>
         <% end %>
         <% else %>

@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if current_user.employee?
-      @students = Student.includes(:user, :offerings).order(:id)
+      @students = Student.includes(:user, :offerings).order(:id).limit(10)
       @active_students = Student.includes(:user, :offerings).active
       @inactive_students = Student.includes(:user, :offerings).where("status = ? OR status = ?", "Inactive", "Hold")
 
