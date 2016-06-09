@@ -1,0 +1,16 @@
+<%= simple_form_for(@help_session_record) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :student_id %>
+    <%= f.input :user_id %>
+    <%= f.input :date %>
+    <%= f.input :learning_plan_id %>
+    <%= f.input :comments %>
+    <%= f.input :parent_feedback %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

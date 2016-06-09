@@ -1,6 +1,8 @@
 MathPlus::Application.routes.draw do
 
 
+  resources :help_session_records
+
   resources :help_sessions
 
   resources :learning_plans

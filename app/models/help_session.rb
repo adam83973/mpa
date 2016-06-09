@@ -8,6 +8,10 @@ class HelpSession
     @session[:appointment_id] ||= nil
   end
 
+  def start_help_session(params)
+
+  end
+
   def add_student(student)
     @session[:student_id] = student.id
   end
