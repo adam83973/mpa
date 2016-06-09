@@ -20,8 +20,22 @@
 <% else %>
   <!-- Starts A Class -->
   <div class="row">
-    <div class="classform col-sm-6">
+    <div class="classform col-md-6">
       <%= render 'start_a_class' %>
+    </div>
+    <div class="classform col-md-6">
+      <h3>Start HW Help</h3>
+      <%= form_tag({controller: "help_sessions", action: "start_class", method: "post"}, class: "simple_form form-inline") do %>
+        <%= label_tag "Class" %>
+        <%= collection_select :offering, :id, @offerings, :id, :offering_name,{},{class: "form-control"} %>
+        <br>
+        <br>
+        <%= label_tag "Week" %>
+        <%= text_field_tag :week, params[:week], class:"form-control" %>
+        <br>
+        <br>
+        <%= submit_tag "Start Class", id: :startclass, disabled: :disabled, class: "btn btn-sm btn-success" %>
+      <% end %>
     </div>
   </div>
   <div class="row">
