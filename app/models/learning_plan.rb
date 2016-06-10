@@ -13,6 +13,8 @@ class LearningPlan < ActiveRecord::Base
   before_validation :mark_goals_for_destruction
   after_create :flag_student
 
+  GRADES = %w(KG 1st 2nd 3rd 4th 5th 6th 7th 8th 9th 10th)
+
   private
 
     def mark_goals_for_destruction

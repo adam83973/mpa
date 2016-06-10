@@ -1,58 +1,31 @@
 class HelpSessionsController < ApplicationController
-  before_action :set_help_session, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :authorize_employee
 
-  # GET /help_sessions
-  def index
-    @help_sessions = HelpSession.all
-  end
-
-  # GET /help_sessions/1
-  def show
-  end
-
-  # GET /help_sessions/new
   def new
-    @help_session = HelpSession.new
   end
 
-  # GET /help_sessions/1/edit
-  def edit
+  def start_help_session
+    @help_session = HelpSession.new(session)
+    @help_session.add_date(params[:help_session][:date])
+    @help_session.add_student_id(params[:help_session][:student_id])
+
+    redirect_to  help_sessions_active_session_path(student_id: params[:help_session][:student_id])
   end
 
-  # POST /help_sessions
-  def create
-    @help_session = HelpSession.new(help_session_params)
+  def end_hw_help
+    help_session.end_hw_help
+    redirect_to root_url, notice: "Homework Help session ended."
+  end
 
-    if @help_session.save
-      redirect_to @help_session, notice: 'Help session was successfully created.'
-    else
-      render :new
+  def active_session
+    @student = Student.find(params[:student_id])
+    @learning_plan = LearningPlan.new
+    3.times{ @learning_plan.goals.build }
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @student }
     end
   end
-
-  # PATCH/PUT /help_sessions/1
-  def update
-    if @help_session.update(help_session_params)
-      redirect_to @help_session, notice: 'Help session was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /help_sessions/1
-  def destroy
-    @help_session.destroy
-    redirect_to help_sessions_url, notice: 'Help session was successfully destroyed.'
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_help_session
-      @help_session = HelpSession.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def help_session_params
-      params.require(:help_session).permit(:date, :user_id, :learning_plan_id, :comments, :parent_feedback, :student_id)
-    end
 end

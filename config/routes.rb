@@ -1,10 +1,5 @@
 MathPlus::Application.routes.draw do
 
-
-  resources :help_session_records
-
-  resources :help_sessions
-
   resources :learning_plans
 
   root to: 'static_pages#home'
@@ -36,7 +31,7 @@ MathPlus::Application.routes.draw do
   resources :badge_requests do
     collection { get :approval }
   end
-  
+
   resources :class_sessions, only: [:new, :create, :destroy]
   post "class_sessions/start_class"
   get "class_sessions/end_class"
@@ -72,6 +67,12 @@ MathPlus::Application.routes.draw do
   end
 
   resources :grades
+
+  post "help_sessions/start_help_session"
+  get "help_sessions/end_hw_help"
+  get "help_sessions/active_session", to: "help_sessions#active_session"
+
+  resources :help_session_records
 
   namespace :infusion_pages do
     get :registration_audit

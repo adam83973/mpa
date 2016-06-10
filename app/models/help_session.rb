@@ -8,20 +8,20 @@ class HelpSession
     @session[:appointment_id] ||= nil
   end
 
-  def start_help_session(params)
-
-  end
-
-  def add_student(student)
-    @session[:student_id] = student.id
+  def add_student_id(student_id)
+    @session[:student_id] = student_id
   end
 
   def add_user_id(user)
     @session[:user_id] = user.id
   end
 
-  def add_date
-    @session[:date] = Date.today
+  def add_date(date=nil)
+    if date.nil?
+      @session[:date] = Date.today
+    else
+      @session[:date] = date
+    end
   end
 
   def add_location_id(location)
@@ -32,7 +32,7 @@ class HelpSession
     @session[:appointment_id] = appointment.id
   end
 
-  def in_help_session?
+  def in_session?
     if @session[:student_id] == nil
       false
     else
@@ -60,9 +60,11 @@ class HelpSession
     @session[:appointment_id]
   end
 
-  def end_help_session
-    @session[:student_ids] = nil
-    @session[:week] = nil
-    @session[:offering] = nil
+  def end_hw_help
+    @session[:student_id] = nil
+    @session[:user_id] = nil
+    @session[:date] = nil
+    @session[:location_id] = nil
+    @session[:appointment_id] = nil
   end
 end

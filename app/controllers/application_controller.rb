@@ -35,4 +35,9 @@ class ApplicationController < ActionController::Base
 	end
 	helper_method :class_session
 
+  def help_session
+	  @help_session ||= HelpSession.new(session)
+	end
+	helper_method :help_session
+
 end

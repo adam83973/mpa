@@ -16,6 +16,7 @@
 //= require issues
 //= require knob
 //= require lessons
+//= require help_sessions
 //= require issues
 //= require notes
 //= require offerings
