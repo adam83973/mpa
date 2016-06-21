@@ -225,10 +225,7 @@ class OpportunitiesController < ApplicationController
     if @opportunity.save
       @user = check_add_user_with_email(@opportunity) # add user to opportunity or create and add if not
       NotificationMailer.trial_confirmation(@opportunity).deliver #send trial registration confirmation
-      respond_to do |format|
-        format.html
-        format.json { render json: @opportunity }
-      end
+      redirect_to "http://www.mathplusacademy.com/trial-scheduled/"
     end
 
     #add note with actionable item
