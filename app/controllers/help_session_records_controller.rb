@@ -13,6 +13,9 @@ class HelpSessionRecordsController < ApplicationController
   # GET /help_session_records/new
   def new
     @help_session_record = HelpSessionRecord.new
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+    end
   end
 
   # GET /help_session_records/1/edit
@@ -22,9 +25,10 @@ class HelpSessionRecordsController < ApplicationController
   # POST /help_session_records
   def create
     @help_session_record = HelpSessionRecord.new(help_session_record_params)
+    student = Student.find(help_session_record_params[:student_id])
 
     if @help_session_record.save
-      redirect_to @help_session_record, notice: 'Help session record was successfully created.'
+      redirect_to student, notice: 'Help session record was successfully created.'
     else
       render :new
     end

@@ -14,8 +14,14 @@ class HelpSessionsController < ApplicationController
   end
 
   def end_hw_help
+    student = Student.find(help_session.student_id)
+    user_id = help_session.user_id
+    location_id = help_session.location_id
+    date = help_session.date
+
     help_session.end_hw_help
-    redirect_to root_url, notice: "Homework Help session ended."
+
+    redirect_to new_help_session_record_path(student_id: student.id, user_id: user_id, location_id: location_id, date: date), notice: "Homework Help session ended. Please record the notes for this session."
   end
 
   def active_session

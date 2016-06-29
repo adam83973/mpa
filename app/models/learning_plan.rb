@@ -6,6 +6,7 @@ class LearningPlan < ActiveRecord::Base
   belongs_to :student
   belongs_to :course
   has_many :help_sessions
+  has_many :help_session_records
   belongs_to :learning_plan_issue
   has_many :goals, class_name: 'LearningPlanGoal', dependent: :destroy
 
