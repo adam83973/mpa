@@ -31,6 +31,7 @@ class StudentsController < ApplicationController
     set_student
     @registrations = @student.registrations.order(:status).includes(:offering, :course, :location)
     @note = Note.new
+    @transaction = Transaction.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)

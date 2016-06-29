@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :offerings
   has_many :enrollment_changings, class_name: "EnrollmentChangeRequest", foreign_key: "user_id"
   has_many :enrollment_change_requests, class_name: "EnrollmentChangeRequest", foreign_key: "admin_id"
+  has_many :transactions
 
   scope :active, lambda{where("active = ?", true)}
   scope :employees, lambda{where("role = ? OR role = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor', 'Admin').where(active: true).order('last_name asc')}

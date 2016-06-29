@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609202125) do
+ActiveRecord::Schema.define(version: 20160629191127) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -510,6 +510,17 @@ ActiveRecord::Schema.define(version: 20160609202125) do
 
   add_index "problems_strategies", ["problem_id", "strategy_id"], name: "index_problems_strategies_on_problem_id_and_strategy_id"
 
+  create_table "products", force: :cascade do |t|
+    t.string   "name",                    null: false
+    t.string   "sku"
+    t.integer  "price",       default: 0
+    t.integer  "credits",     default: 0
+    t.integer  "quantity",    default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "location_id"
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.date     "start_date"
     t.date     "end_date"
@@ -617,6 +628,17 @@ ActiveRecord::Schema.define(version: 20160609202125) do
     t.datetime "expires_at"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "type",             null: false
+    t.integer  "user_id",          null: false
+    t.integer  "student_id",       null: false
+    t.integer  "credits_redeemed"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "product_id"
+    t.integer  "location_id"
   end
 
   create_table "users", force: :cascade do |t|

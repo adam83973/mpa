@@ -26,6 +26,9 @@ $('#gradesModalButton').on 'click', ->
   $('#grade_student_id').val(student_id)
   $('#grade_experience_point_attributes_student_id').val(student_id)
 
+$('#creditsModal').on 'shown.bs.modal', ->
+  $('.chosen', this).chosen('destroy').chosen()
+
 # Credit form submission events/redeems credits from student's account.
 $("#credits_form")
 .bind 'ajax:beforeSend', (evt, xhr, settings) ->
@@ -51,6 +54,25 @@ $("#credits_form")
   $form = $(this)
   alert "Credits #{error}!"
   $form[0].reset()
+
+$('#transaction_location_id').on 'change', ->
+	alert $(this).val()
+
+	$.ajax
+		type:'get',
+		url: 'http://localhost:3000/products/products_by_location.json'
+		data: {location_id: $(this).val()}
+		success: (data, status, xhr) ->
+			console.log data
+			products = data
+			$.each data, (index, value) ->
+				$('#transaction_product_id').append($("<option></option>").attr("value", value[0]).text(value[1]))
+			$(".transaction_product").find(".chosen-disabled").removeClass("chosen-disabled")
+			$('#transaction_product_id').removeClass("disabled").prop('disabled', false)
+			$('#transaction_product_id').chosen('destroy').chosen()
+		error: (xhr, status, e) ->
+		dataType: 'JSON'
+
 
 $("type1").height($(".circleBase").height())
 

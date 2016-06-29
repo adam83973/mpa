@@ -1,5 +1,13 @@
 MathPlus::Application.routes.draw do
 
+  resources :transactions
+
+  resources :products do
+    collection do
+      get :products_by_location
+    end
+  end
+
   resources :learning_plans
 
   root to: 'static_pages#home'

@@ -35,6 +35,7 @@ class Student < ActiveRecord::Base
   has_many :occupations, :through => :courses
   has_many :offerings, :through => :registrations
   has_many :opportunities
+  has_many :transactions
   has_many :registrations, dependent: :destroy
 
   scope :active, lambda{where("status = ?", "Active")}

@@ -1,0 +1,15 @@
+<div class="row">
+  <%= simple_form_for(@product) do |f| %>
+  <div class="col-sm-4">
+    <%= f.error_notification %>
+    <%= f.input :name %>
+    <%= f.association :location, label_method: :name, input_html: { class: 'chosen'} %>
+    <%= f.input :sku %>
+    <%= f.input :price %>
+    <%= f.input :credits %>
+    <%= f.input :quantity %>
+
+    <%= f.button :submit, class: 'btn btn-lg btn-success' %>
+  </div>
+  <% end %>
+</div>
