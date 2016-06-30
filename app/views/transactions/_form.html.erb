@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :type %>
+    <%= f.input :process, collection: Transaction::PROCESSES.zip((0..Transaction::PROCESSES.count-1).to_a), input_html: { class: "chosen" } %>
     <%= f.input :user_id %>
     <%= f.input :student_id %>
     <%= f.input :credits_redeemed %>

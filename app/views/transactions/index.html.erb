@@ -1,11 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Transactions</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Type</th>
+      <th>Process</th>
       <th>User</th>
       <th>Student</th>
       <th>Credits redeemed</th>
@@ -16,7 +14,7 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.type %></td>
+        <td><%= transaction.process %></td>
         <td><%= transaction.user_id %></td>
         <td><%= transaction.student_id %></td>
         <td><%= transaction.credits_redeemed %></td>

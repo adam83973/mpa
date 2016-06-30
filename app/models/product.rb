@@ -5,6 +5,10 @@ class Product < ActiveRecord::Base
   belongs_to :location
   has_many :transactions
 
+  def decrease_stock_by_one
+    decrement!(:quantity)
+  end
+
   def price_in_dollars
     (price.to_d/100).to_s
   end

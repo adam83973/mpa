@@ -15,10 +15,11 @@ $('#student_birth_date').datepicker
 	changeMonth: true,
 	changeYear:true
 
+# Adds datepicker to student end date field
 $('#student_end_date').datepicker
   dateFormat: 'yy-mm-dd'
 
-$('#creditsModal').modal('hide')
+# $('#creditsModal').modal('hide')
 
 # Passes information to grades modal when modal is launched.
 $('#gradesModalButton').on 'click', ->
@@ -55,6 +56,7 @@ $("#credits_form")
   alert "Credits #{error}!"
   $form[0].reset()
 
+# Listener on location field for credits modal to update products available at selected location
 $('#transaction_location_id').on 'change', ->
 	alert $(this).val()
 
@@ -66,7 +68,7 @@ $('#transaction_location_id').on 'change', ->
 			console.log data
 			products = data
 			$.each data, (index, value) ->
-				$('#transaction_product_id').append($("<option></option>").attr("value", value[0]).text(value[1]))
+				$('#transaction_product_id').append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1]))
 			$(".transaction_product").find(".chosen-disabled").removeClass("chosen-disabled")
 			$('#transaction_product_id').removeClass("disabled").prop('disabled', false)
 			$('#transaction_product_id').chosen('destroy').chosen()
