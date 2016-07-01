@@ -66,7 +66,7 @@ class ExperiencePoint < ActiveRecord::Base
   end
 
   def update_student_xp_and_credits_on_save
-    credits = ((student.xp_sum + points)/100 - ((student.xp_sum)/100))
+    credits = (student.xp_sum + points)/100 - ((student.xp_sum)/100)
     student.add_credit(credits)
     student.update_xp_total
   end
