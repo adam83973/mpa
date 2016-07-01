@@ -70,12 +70,6 @@ class ExperiencePointsController < ApplicationController
 
       respond_to do |format|
         if @experience_point.save
-          # if @credits > 0
-          #   @student.add_credit(@credits)
-          # end
-          #
-          # update_level
-
           format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else
