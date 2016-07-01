@@ -27,7 +27,11 @@ class AttendancesController < ApplicationController
 
     if @attendance.save
       @student = @attendance.student
-      add_student_to_class
+
+      if class_session.in_session?
+        add_student_to_class
+      end
+
       respond_to do |format|
         format.js
         format.html {redirect_to @student, notice: "Attendance added"}

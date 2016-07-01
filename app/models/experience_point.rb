@@ -17,9 +17,9 @@ class ExperiencePoint < ActiveRecord::Base
   has_one :attendance
 
   before_save :mark_negative
-  after_save :update_student_xp
-  after_update :update_student_xp
-  after_destroy :update_student_xp, :cleanup
+  after_save :update_student_xp_and_credits_on_save
+  after_update :update_student_xp_and_credits_on_save
+  after_destroy :update_student_xp_and_credits_on_destroy, :cleanup
 
   def add_badge?(student)
     if experience.badge
@@ -65,8 +65,16 @@ class ExperiencePoint < ActiveRecord::Base
     end
   end
 
-  def update_student_xp
-    student.calculate_xp
+  def update_student_xp_and_credits_on_save
+    credits = ((student.xp_sum + points)/100 - ((student.xp_sum)/100))
+    student.add_credit(credits)
+    student.update_xp_total
+  end
+
+  def update_student_xp_and_credits_on_destroy
+    credits = ((student.xp_sum - points)/100 - ((student.xp_sum)/100))
+    student.add_credit(credits)
+    student.update_xp_total
   end
 
   def mark_negative

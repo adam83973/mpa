@@ -111,7 +111,7 @@ class Student < ActiveRecord::Base
     t
   end
 
-  def calculate_xp
+  def update_xp_total
     update_column(:xp_total, xp_sum)
   end
 
@@ -128,10 +128,9 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def redeem_credit(creds)
-    credits = creds.to_i
-    credits = - credits
-      increment!(:credits,  credits)
+  def redeem_credit(credits)
+    credits = credits.to_i
+    decrement!(:credits,  credits)
   end
 
   #-----Student rank-----

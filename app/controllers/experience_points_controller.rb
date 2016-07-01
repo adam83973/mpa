@@ -68,25 +68,20 @@ class ExperiencePointsController < ApplicationController
       @student_level = @student.calculate_rank(@experience_point)
       @response = @student.to_json
 
-      # find ids of experiences that are related to attendance
-      @attendance_experience_points = Experience.where("name LIKE ?", "%Attendance%")
-      @attendance_xp = []
-      @attendance_experience_points.each do |exp|
-        @attendance_xp << exp.id
-      end
+      respond_to do |format|
+        if @experience_point.save
+          # if @credits > 0
+          #   @student.add_credit(@credits)
+          # end
+          #
+          # update_level
 
-      #add credits and special redirect when attendance is taken
-      #add .js response for ajax
-      if @attendance_xp.include?(@experience_point.experience_id.to_i)
-        puts 'a'
-        take_attendance
-      #add homework score and special redirect
-      elsif ["1", "4", "5"].include?(@experience_point.experience_id)
-        puts 'b'
-        add_homework_score
-      else
-        puts 'c'
-        add_experience_point
+          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
+          format.json { render json: @experience_point, status: :created, location: @experience_point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -114,8 +109,6 @@ class ExperiencePointsController < ApplicationController
   def destroy
     @experience_point = ExperiencePoint.find(params[:id])
     @student = Student.find(@experience_point.student_id)
-    @credits = ((@student.xp_sum - @experience_point.points)/100 - ((@student.xp_sum)/100))
-    @student.add_credit(@credits)
 
     @experience_point.destroy
 
