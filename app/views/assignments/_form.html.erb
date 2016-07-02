@@ -8,9 +8,11 @@
         <%= f.association :student, label_method: :full_name, input_html: { class: "chosen" }, selected: params[:student_id] if params[:student_id] %>
         <%= f.input :score, as: :select, collection: Assignment::SCORES.zip((0..2).to_a) %>
         <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" } unless class_session.in_session? %>
-        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" }, selected: class_session.week if class_session.in_session? %>
-        <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" } unless class_session.in_session? %>
+        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" }, selected: class_session.week if class_session.in_session? && !Assignment.completed?(params[:student_id], class_session.week) %>
+        <%= f.input :week, collection: (1..48).to_a, input_html: { class: "chosen" } if class_session.in_session? && Assignment.completed?(params[:student_id], class_session.week) %>
         <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" }, selected: class_session.offering if class_session.in_session? %>
+        <%= f.association :offering, label_method: :offering_name, input_html: { class: "chosen" } unless class_session.in_session? %>
+
         <%= f.input :comment, input_html: {rows: 5} %>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
         <%= f.input :corrected %>

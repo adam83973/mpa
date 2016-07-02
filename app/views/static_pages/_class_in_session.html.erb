@@ -84,7 +84,8 @@
           <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
           <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
           <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right" %>
-          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id, week: class_session.week, offering_id: class_session.offering), class: "btn btn-default btn-xs pull-right", style: "margin:0 40px 0 0;" unless Assignment.completed?(student_id, class_session.week) %>
+          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-default btn-xs pull-right", style: "margin:0 40px 0 0;" unless Assignment.completed?(student_id, class_session.week) %>
+          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-warning btn-xs pull-right", style: "margin:0 40px 0 0;" if Assignment.completed?(student_id, class_session.week) %>
           <%= link_to "Add Badge", badge_categories_path, class: "btn btn-default btn-xs pull-right", style: "margin:0 15px 0 0;" %>
         </li>
       </div>
