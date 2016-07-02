@@ -8,9 +8,9 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= simple_form_for :hold, url: url_for(action: 'hold', controller: 'registrations'), method: 'get' do |f| %>
+            <%= simple_form_for :registration, url: url_for(action: 'hold', controller: 'registrations'), method: 'get' do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
-              <%= f.input :registration_id, as: :hidden %>
+              <%= f.input :id, as: :hidden %>
               <%= f.input :hold_date, as: :string, label: "Hold starts on:", input_html: { class: "datepickerTodayAndOn" } %>
               <%= f.input :restart_date, as: :string, label: "Student will restart on:",  input_html: { class: "datepickerTodayAndOn" } %>
           </div>

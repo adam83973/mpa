@@ -120,7 +120,7 @@ class Student < ActiveRecord::Base
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
   end
 
-  def add_credit(newcredit)
+  def add_remove_credits(newcredit)
     if self.credits.nil?
       update_column(:credits, 1)
     else
@@ -134,63 +134,11 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student rank-----
-  def calculate_rank(experience_point)
-    ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
-  end
-
-  def update_rank
-    if self.rank.nil?
-      update_column(:rank, 'Classified')
-    elsif self.rank == "Classified"
-      update_column(:rank, 'Confidential')
-    elsif self.rank == "Confidential"
-      update_column(:rank, 'Secret')
-    elsif self.rank == "Secret"
-      update_column(:rank, 'Top Secret')
-    else self.rank == "Top Secret"
-      update_column(:rank, 'Classified')
-    end
-  end
-
-  def decrease_rank
-    if self.rank == "Confidential"
-      update_column(:rank, 'Classified')
-    elsif self.rank == "Secret"
-      update_column(:rank, 'Confidential')
-    else self.rank == "Top Secret"
-      update_column(:rank, 'Secret')
-    end
-  end
-
-  def next_rank
-    if self.rank == 'Classified'
-      "Confidential"
-    elsif self.rank == 'Confidential'
-      "Secret"
-    elsif self.rank == "Secret"
-      "Top Secret"
-    else self.rank == "Top Secret"
-      "You've reached the top... For now."
-    end
-  end
-
-  def rank_points
-    if self.rank == 'Classified'
-      0
-    elsif self.rank == 'Confidential'
-      1000
-    elsif self.rank == "Secret"
-      2000
-    else self.rank == "Top Secret"
-      3000
-    end
-  end
-
   def level_comp_percentage
     ((self.xp_sum.to_f - self.rank_points)/(1000)*100).round
   end
 
-#takes an array of offerings and converts to an array of the offerings course ids
+  #takes an array of offerings and converts to an array of the offerings course ids
   def class_ids
     self.offerings.map{|h| h['course_id'].to_i}
   end
@@ -288,15 +236,13 @@ class Student < ActiveRecord::Base
 
   def update_level(occupation_name)
     occupation = Occupation.where("title=?", occupation_name).first
-    case occupation_name
-    when "Mathematician"
+    case occupation_name.downcase
+    when "mathematician"
       update_column(:math_level, current_level(occupation_name).to_i)
-    when "Engineer"
+    when "engineer"
       update_column(:eng_level, current_level(occupation_name).to_i)
-    when "Programmer"
+    when "programmer"
       update_column(:prog_level, current_level(occupation_name).to_i)
-    else
-      true
     end
   end
 

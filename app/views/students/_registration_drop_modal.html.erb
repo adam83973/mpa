@@ -8,10 +8,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= simple_form_for :drop, url: url_for(action: 'drop', controller: 'registrations'), method: 'get' do |f| %>
+            <%= simple_form_for :registration, url: url_for(action: 'drop', controller: 'registrations'), method: 'get' do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
               <%= f.input :drop_reason, collection: Registration::DROP_REASONS.zip((0..3).to_a) %>
-              <%= f.input :registration_id, as: :hidden %>
+              <%= f.input :id, as: :hidden %>
               <%= f.input :end_date, as: :string,  input_html: { class: "datepicker" } %>
           </div>
         </div>

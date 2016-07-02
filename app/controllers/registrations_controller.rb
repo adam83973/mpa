@@ -17,7 +17,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    @registration = Registration.find(params[:id])
+    set_registration
     @student = @registration.student
 
     respond_to do |format|
@@ -39,13 +39,13 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/1/edit
   def edit
-    @registration = Registration.find(params[:id])
+    set_registration
   end
 
   # POST /registrations
   # POST /registrations.json
   def create
-    @registration = Registration.new(params[:registration])
+    @registration = Registration.new(registration_params)
     @student = @registration.student
 
     respond_to do |format|
@@ -63,10 +63,10 @@ class RegistrationsController < ApplicationController
   # PUT /registrations/1
   # PUT /registrations/1.json
   def update
-    @registration = Registration.find(params[:id])
+    set_registration
 
     respond_to do |format|
-      if @registration.update_attributes(params[:registration])
+      if @registration.update_attributes(registration_params)
         format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,19 +77,20 @@ class RegistrationsController < ApplicationController
   end
 
   def switch
-    @registration = Registration.find(params[:switch][:registration_id].to_i)
-    @student = Student.find(params[:switch][:student_id])
-    @offering = Offering.find(params[:switch][:offering_id])
+    set_registration
+    @student = @registration.student
+    # Class that student is switching to.
+    @new_offering = Offering.find(params[:registration][:offering_id])
 
     respond_to do |format|
-      if @new_registration = Registration.create!(start_date: params[:switch][:date],
-                                                  offering_id: params[:switch][:offering_id],
-                                                  student_id: params[:switch][:student_id],
+      if @new_registration = Registration.create!(start_date: params[:registration][:switch_date],
+                                                  offering_id: @new_offering.id,
+                                                  student_id: @student.id,
                                                   attended_first_class: true,
                                                   switch: true,
                                                   status: 0)
-        @registration.update_attributes({end_date: params[:switch][:date], switch_id: @new_registration.id})
-        if @new_registration.start_date == Date.today
+        @registration.update_attributes({end_date: params[:registration][:switch_date], switch_id: @new_registration.id})
+        if @new_registration.start_date <= Date.today
           @new_registration.update_attribute :status, 1
         end
         format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
@@ -101,18 +102,20 @@ class RegistrationsController < ApplicationController
   end
 
   def drop
-    @registration = Registration.find(params[:drop][:registration_id].to_i)
-    @student = Student.find(@registration.student_id)
+    set_registration
+    @student = @registration.student
     @parent = @student.user
 
     respond_to do |format|
-      if @registration.update_attribute :end_date, params[:drop][:end_date]
+      if @registration.update_attribute :end_date, params[:registration][:end_date]
+        # Add note with action for the following day to ensure subscription has been cancelled.
         note = @parent.notes.build({
           content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
           user_id: @parent.system_admin_id,
           location_id: @registration.location.id,
           action_date: Date.tomorrow})
         note.save
+
         format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: "End date has been added. Please update this user's subscriptions." }
         format.json { head :no_content }
       else
@@ -122,7 +125,7 @@ class RegistrationsController < ApplicationController
   end
 
   def cancel_drop
-    @registration = Registration.find(params[:registration_id].to_i)
+    set_registration
     @student = Student.find(@registration.student_id)
 
     respond_to do |format|
@@ -144,17 +147,17 @@ class RegistrationsController < ApplicationController
   end
 
   def hold
-    @registration = Registration.find(params[:hold][:registration_id].to_i)
+    set_registration
     @restart_registration = Registration.new
-    @student = Student.find(@registration.student_id)
+    @student = @registration.student
     @parent = @student.user
 
     # Set hold date on current registration. This date will be used as the date to set registration to inactive.
-    @registration.update_attribute :hold_date, params[:hold][:hold_date]
+    @registration.update_attribute :hold_date, params[:registration][:hold_date]
 
     respond_to do |format|
     # Create new registration with restart date. Restart date is date when registration will become active. Status is set to hold and hold_id is record of associated registration (i.e. the registration that was cancelled when the hold began)
-      if @restart_registration = Registration.create!(restart_date: params[:hold][:restart_date],
+      if @restart_registration = Registration.create!(restart_date: params[:registration][:restart_date],
                                                       offering_id: @registration.offering_id,
                                                       student_id: @student.id,
                                                       status: 2,
@@ -176,7 +179,7 @@ class RegistrationsController < ApplicationController
   end
 
   def cancel_hold
-    @ending_registration = Registration.find(params[:registration_id].to_i)
+    set_registration
     @restarting_registration = @ending_registration.holding
     @student = @ending_registration.student
 
@@ -194,7 +197,7 @@ class RegistrationsController < ApplicationController
   end
 
   def attended_first_class
-    @registration = Registration.find(params[:id])
+    set_registration
     @student = @registration.student
 
     if @registration.update_attributes attended_first_class: true, status: 1
@@ -205,7 +208,7 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy
-    @registration = Registration.find(params[:id])
+    set_registration
     @student = Student.find(@registration.student_id)
     @registration.destroy
 
@@ -216,7 +219,7 @@ class RegistrationsController < ApplicationController
   end
 
   def activate
-    @registration = Registration.find(params[:id])
+    set_registration
     @student = @registration.student
 
     if @registration.start_date
@@ -241,5 +244,13 @@ class RegistrationsController < ApplicationController
       if @registration.status == 0 && @registration.start_date <= Date.today
         @registration.update_attribute :status, 1
       end
+    end
+
+    def registration_params
+      params.require(:registration).permit(:admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later)
+    end
+
+    def set_registration
+      @registration = Registration.find(params[:id])
     end
 end
