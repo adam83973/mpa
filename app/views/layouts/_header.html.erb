@@ -15,6 +15,11 @@
           <span class="label label-info" style="position:absolute;top:17px;">HW Help In Session</span>
         <% end %>
       <% end %>
+      <% if signed_in? && class_session.in_session? %>
+        <%= link_to root_url do %>
+          <span class="label label-success" style="position:absolute;top:17px;">Class In Session</span>
+        <% end %>
+      <% end %>
 
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">

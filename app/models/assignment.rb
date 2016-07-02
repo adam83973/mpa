@@ -17,9 +17,9 @@ class Assignment < ActiveRecord::Base
 
   SCORES = ["Incomplete", "Complete", "Perfect"]
 
-  PRODUCTION_ASSIGNMENT_EXPERIENCE_ID = 1
+  PRODUCTION_ASSIGNMENT_EXPERIENCE_ID = {0 => 4, 1 => 1, 2 => 5}
   TEST_ASSIGNMENT_EXPERIENCE_ID = 1
-  DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID = 87
+  DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID = {0 => 4, 1 => 1, 2 => 5}
   EXPERIENCE_POINTS_CONVERSION = {0 => 0, 1 => 60, 2 => 80}
 
   def self.completed?(student_id, week)
@@ -29,11 +29,9 @@ class Assignment < ActiveRecord::Base
   private
     def add_experience_point
       if Rails.env.development?
-        if self.score > 0
-          attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID, comment: "You did a very nice job on this assignment. Please focus on checking your work.", points: EXPERIENCE_POINTS_CONVERSION[self.score], user_id: user_id )
-        end
+        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
       elsif Rails.env.production?
-        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ATTENDANCE_EXPERIENCE_ID, comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: 20, user_id: user_id )
+        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ATTENDANCE_EXPERIENCE_ID[score], comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
       else
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: TEST_ASSIGNMENT_EXPERIENCE_ID, comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: 20 )
       end

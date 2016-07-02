@@ -5,6 +5,9 @@
     <% end %>
   </div>
 <% end %>
+<% if current_user.employee? %>
+  <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-default pull-right", style: "margin-bottom:15px;" %>
+<% end %>
 <div class="row">
   <%= render 'student_stats' %>
 </div>
