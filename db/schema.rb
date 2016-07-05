@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160506204254) do
+ActiveRecord::Schema.define(:version => 20160705183747) do
 
   create_table "activities", :force => true do |t|
     t.string   "title"
@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
 
   create_table "appointment_requests", :force => true do |t|
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "new_post",   :default => false
   end
 
   create_table "appointments", :force => true do |t|
@@ -78,6 +79,30 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.string   "hwHelpChild"
     t.string   "hwHelpClass"
     t.text     "hwHelpReason"
+  end
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "student_id"
+    t.integer  "score"
+    t.boolean  "corrected",           :default => false
+    t.integer  "user_id"
+    t.integer  "week"
+    t.integer  "offering_id"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.text     "comment"
+    t.integer  "experience_point_id"
+  end
+
+  create_table "attendances", :force => true do |t|
+    t.integer  "student_id"
+    t.integer  "experience_point_id"
+    t.date     "date"
+    t.integer  "offering_id"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "user_id",             :limit => nil
+    t.string   "integer",             :limit => nil
   end
 
   create_table "avatars", :force => true do |t|
@@ -214,11 +239,12 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.integer  "experience_id"
     t.integer  "points"
     t.integer  "student_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "user_id"
     t.text     "comment"
     t.integer  "grade_id"
+    t.boolean  "negative",      :default => false
   end
 
   create_table "experiences", :force => true do |t|
@@ -242,6 +268,17 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.text     "comment"
     t.integer  "user_id"
     t.string   "grade_type"
+  end
+
+  create_table "help_session_records", :force => true do |t|
+    t.integer  "student_id"
+    t.integer  "user_id"
+    t.date     "date"
+    t.integer  "learning_plan_id"
+    t.text     "comments"
+    t.text     "parent_feedback"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "issues", :force => true do |t|
@@ -269,6 +306,32 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.boolean  "active",              :default => true
     t.date     "appointment_date"
     t.integer  "location_id"
+  end
+
+  create_table "learning_plan_goals", :force => true do |t|
+    t.string   "name",             :limit => nil,                    :null => false
+    t.boolean  "completed",                       :default => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
+    t.integer  "learning_plan_id"
+  end
+
+  create_table "learning_plan_issues", :force => true do |t|
+    t.string   "title",      :limit => nil
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "learning_plans", :force => true do |t|
+    t.integer  "student_id"
+    t.string   "grade",                  :limit => nil
+    t.integer  "course_id"
+    t.integer  "learning_plan_issue_id"
+    t.text     "notes"
+    t.text     "strengths"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.integer  "user_id"
   end
 
   create_table "lessons", :force => true do |t|
@@ -448,6 +511,17 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
 
   add_index "problems_strategies", ["problem_id", "strategy_id"], :name => "index_problems_strategies_on_problem_id_and_strategy_id"
 
+  create_table "products", :force => true do |t|
+    t.string   "name",        :limit => nil,                :null => false
+    t.string   "sku",         :limit => nil
+    t.integer  "price",                      :default => 0
+    t.integer  "credits",                    :default => 0
+    t.integer  "quantity",                   :default => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "location_id"
+  end
+
   create_table "registrations", :force => true do |t|
     t.date     "start_date"
     t.date     "end_date"
@@ -531,11 +605,11 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.integer  "mathematics_xp",          :default => 0
     t.integer  "engineering_xp",          :default => 0
     t.integer  "programmer_xp",           :default => 0
-    t.string   "status"
     t.date     "start_date"
     t.boolean  "attended_first_class"
     t.integer  "avatar_id",               :default => 0
     t.string   "avatar_background_color", :default => "#ffffff"
+    t.boolean  "has_learning_plan",       :default => false
   end
 
   create_table "time_punches", :force => true do |t|
@@ -555,6 +629,17 @@ ActiveRecord::Schema.define(:version => 20160506204254) do
     t.datetime "expires_at"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "student_id",       :null => false
+    t.integer  "credits_redeemed"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "product_id"
+    t.integer  "location_id"
+    t.integer  "process"
   end
 
   create_table "users", :force => true do |t|

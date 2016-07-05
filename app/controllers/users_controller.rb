@@ -519,6 +519,15 @@ class UsersController < ApplicationController
     render nothing: true, status: 200
   end
 
+  def appointment_request
+    response = request.body.read
+    appointment = JSON.parse(response)
+    puts appointment
+    @appointment_request = AppointmentRequest.create(data: response new_post: true)
+
+    render nothing: true, status: 200
+  end
+
   def confirmation_opt_out
     if params[:id]
       set_user
