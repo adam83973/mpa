@@ -519,7 +519,7 @@ class UsersController < ApplicationController
     render nothing: true, status: 200
   end
 
-  def appointment_request
+  def appointment_request_new
     response = request.body.read
     appointment = JSON.parse(response)
     puts appointment
