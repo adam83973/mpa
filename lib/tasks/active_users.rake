@@ -26,7 +26,8 @@ def tag_new_albany_parents
   # pull parents that are active
   parents = User.where(role:"Parent").where(active: true).where(location_id: 2)
   # create tag unique to month day and year and associate it with active_tags category
-  group_id = set_active_parents(new_albany)
+
+  group_id = set_active_parents("new_albany")
 
   process_tags(parents, group_id)
 
@@ -37,7 +38,9 @@ def tag_powell_parents
   # pull parents that are active
   parents = User.where(role:"Parent").where(active: true).where(location_id: 1)
   # create tag unique to month day and year and associate it with active_tags category
-  group_id = set_active_parents(powell)
+
+  group_id = set_active_parents("powell")
+
 
   process_tags(parents, group_id)
 
