@@ -7,6 +7,9 @@
 <% end %>
 <% if current_user.employee? %>
   <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-default pull-right", style: "margin-bottom:15px;" %>
+  <% unless @student.has_learning_plan %>
+    <%= link_to "Add Learning Plan", new_learning_plan_path, class: "btn btn-default pull-right", style: "margin-right:10px;" %>
+  <% end %>
 <% end %>
 <div class="row">
   <%= render 'student_stats' %>
