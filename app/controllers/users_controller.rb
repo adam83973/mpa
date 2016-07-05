@@ -523,7 +523,7 @@ class UsersController < ApplicationController
     response = request.body.read
     appointment = JSON.parse(response)
     puts appointment
-    AppointmentRequest.create(data: response new_post: true)
+    AppointmentRequest.create(data: response, new_post: true)
 
     render nothing: true, status: 200
   end
