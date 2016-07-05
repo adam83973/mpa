@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, except: [:infusion_request, :appointment_request]
-  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request, :missed_appointments, :confirmation_opt_out]
+  before_filter :authenticate_user!, except: [:infusion_request, :appointment_request, :appointment_request_new]
+  skip_before_filter :verify_authenticity_token, only: [:infusion_request, :appointment_request, :appointment_request_new, :missed_appointments, :confirmation_opt_out]
 
   respond_to :html
 
