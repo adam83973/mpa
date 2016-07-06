@@ -73,39 +73,14 @@ class StudentsController < ApplicationController
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
       @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
 
-      #loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
-      # if @student.experience_points.empty?
-      #   @robotics_achievements.each do |achievement|
-      #     achievement[:completed] = []
-      #     achievement[:completed] << false
-      #   end
-      # else
-      #   @robotics_achievements.each do |achievement|
-      #     @student.experience_points.each do |xp|
-      #       achievement[:completed] = []
-      #
-      #       if achievement.id == xp.experience_id
-      #         achievement[:completed] << true
-      #         break
-      #       else
-      #         achievement[:completed] << false
-      #       end
-      #     end
-      #   end
-      # end
-
       #get grades for student
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
 
       @grades = Grade.where("student_id = ?", @student.id)
 
-      if signed_in?
-        respond_to do |format|
-          format.html # show.html.erb
-          format.json { render json: @student }
-        end
-      else
-        redirect_to new_user_session_path, notice: "Please log in to access additional information."
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @student }
       end
     else
       redirect_to root_path
@@ -227,7 +202,7 @@ class StudentsController < ApplicationController
 
   def last_attendance
     @student = Student.find(params[:student_id])
-    @last_attendance = @student.attendances.last
+    @last_attendance = @student.last_attendance
 
     if @last_attendance && @last_attendance.date
       # add switch to send span with styling based on how long ago attendance was

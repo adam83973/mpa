@@ -2,7 +2,7 @@
   <%= simple_form_for(@learning_plan) do |f| %>
   <div class="col-sm-6">
     <%= f.error_notification %>
-    <%= f.association :student, input_html: { class: 'chosen'}, label_method: :full_name %>
+    <%= f.association :student, input_html: { class: 'chosen'}, selected: params[:student_id], label_method: :full_name %>
     <%= f.input :grade, as: :select, collection: LearningPlan::GRADES %>
     <%= f.association :course, input_html: { class: 'chosen'}, label_method: :course_name %>
     <%= f.association :learning_plan_issue, label_method: :title %>

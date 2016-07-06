@@ -48,7 +48,7 @@ def load_parents_with_students_who_attended_last_month
 
   parents.each_with_index do |parent, i|
     parent.students.each do |student|
-      active_last_month << parent if student.attendance_last_month.any?
+      active_last_month << parent if student.attendances_last_month.any?
     end
   end
 

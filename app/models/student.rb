@@ -85,20 +85,20 @@ class Student < ActiveRecord::Base
     experience_points.sum(:points)
   end
 
-  def last_attendance_xp
-    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Attendance%").first
+  def last_attendance
+    attendances.order("date desc").limit(1).first
   end
 
-  def attendance_last_month
-    experience_points.joins(:experience).where("name LIKE ?", "%Attendance%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+  def attendances_last_month
+    attendances.where("date >= ? AND date <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
   def assignments_last_month
-    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+    assignments.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
-  def last_assignment_xp
-    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Homework%").first
+  def last_assignment
+    assignments.order("created_at desc").limit(1).first
   end
 
   def xp_sum_by_occupation(cat)
@@ -316,15 +316,9 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def homework_scores_last(number_of_days, experience_id=1)
-    number_of_days = number_of_days.to_i
-    experience_id = experience_id.to_i
-    if experience_id == 1 || experience_id == 4 || experience_id == 5
-      experience_points.
-        where("created_at > ? and experience_id = ?", number_of_days.days.ago, experience_id).count
-    else
-      0
-    end
+  def assignment_scores_last_90_days(score)
+    #possible grades ["perfect", "complete", "incomplete"]
+    assignments.where("created_at > ? and score = ?", Date.today - 90.days, Assignment::SCORES.index(score.capitalize))
   end
 
   def active_registrations
