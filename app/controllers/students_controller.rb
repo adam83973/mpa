@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if current_user.employee?
-      @students = Student.includes(:user, :offerings).order(:id).limit(10)
+      @students = Student.includes(:user, :offerings)
 
       respond_to do |format|
         format.html # index.html.erb
