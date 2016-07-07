@@ -68,10 +68,10 @@ def send_to_slack(details)
             fallback: "#{details[:body][0...20]}...",
             color: "#36a64f",
             pretext: "View message:",
-            text: "#{details[:body]}"
+            text: "#{details[:body]}".encode("iso-8859-1").force_encoding("utf-8")
           }
         ]
-    }.to_s.encode("iso-8859-1").force_encoding("utf-8").to_json,
+    }.to_json,
     :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
   })
 end
