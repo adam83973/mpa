@@ -31,7 +31,7 @@ class Assignment < ActiveRecord::Base
       if Rails.env.development?
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
       elsif Rails.env.production?
-        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ATTENDANCE_EXPERIENCE_ID[score], comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
+        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ASSIGNMENT_EXPERIENCE_ID[score], comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
       else
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: TEST_ASSIGNMENT_EXPERIENCE_ID, comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: 20 )
       end
