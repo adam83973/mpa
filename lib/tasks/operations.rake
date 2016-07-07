@@ -90,9 +90,9 @@ def termination_campaign
 
     parents.each do |parent|
       if parent.infusion_id
-      invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false).first
-      if invoice
-        time = invoice['DateCreated'].to_time
+        invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false).first
+        if invoice
+          time = invoice['DateCreated'].to_time
           if time < Time.now - 60.days && time > Time.now - 365.days
             Infusionsoft.contact_add_to_group(parent.infusion_id, 2080)
           end
