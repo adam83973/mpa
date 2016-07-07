@@ -3,6 +3,8 @@ class Attendance < ActiveRecord::Base
   belongs_to :offering
   belongs_to :experience_point
 
+  validates_presence_of :offering_id, :student_id
+
   after_create :add_experience_point
   after_destroy :clean_up
 
