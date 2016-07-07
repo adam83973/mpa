@@ -10,7 +10,7 @@
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
             <%= simple_form_for :registration, url: url_for(action: 'switch', controller: 'registrations') do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
-              <%= f.input :id, as: :hidden %>
+              <%= f.input :id, as: :hidden, input_html: { id: "switch_registration_id"} %>
               <%= f.input :offering_id, as: :select, collection: @active_offerings, label_method: :offering_name,  input_html: { class: "chosen" } %>
               <%= f.input :switch_date, as: :string,  input_html: { class: "datepickerTodayAndOn" } %>
           </div>

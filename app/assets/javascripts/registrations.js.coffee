@@ -48,17 +48,6 @@ $('#registrationHoldModal').on 'shown.bs.modal', ->
 
   modal.checkOnChange(hold_date, restart_date, button)
   modal.checkOnChange(restart_date, hold_date, button)
-  # $('#hold_hold_date').on 'change', ->
-  #   if hold_date.val() and restart_date.val()
-  #     button.removeAttr('disabled')
-  #   else
-  #     button.attr('disabled', 'disabled')
-  #
-  # $('#hold_restart_date').on 'change', ->
-  #   if hold_date.val() and restart_date.val()
-  #     button.removeAttr('disabled')
-  #   else
-  #     button.attr('disabled', 'disabled')
 
 modal =
   setButton: (modal) ->
