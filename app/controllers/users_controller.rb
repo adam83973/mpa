@@ -159,7 +159,8 @@ class UsersController < ApplicationController
 
   def create_from_opportunity
     @opportunity = Opportunity.find(params[:user][:opportunity_id])
-    @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
+    # @user = User.new(params[:user].except!(:send_password_link, :opportunity_id))
+    @user = User.new(user_params)
     # Workflow takes user to possible students to add to opportunity once parent is added.
     @possible_students = Student.where("last_name LIKE ? OR first_name LIKE ? OR first_name LIKE ?", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.last}%", "%#{@opportunity.student_name.split.first}%").order(:last_name ).uniq
 
