@@ -18,7 +18,7 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.location.name %></td>
-        <td><%= "$#{product.price_in_dollars}" %></td>
+        <td><%= product.price ? "$#{product.price_in_dollars}" : "Please add price." %></td>
         <td><%= product.credits %></td>
         <td><%= product.quantity %></td>
         <td><%= link_to 'Show', product %></td>
