@@ -9,7 +9,6 @@ $transaction_location_id = $('#transaction_location_id')
 $transaction_student_id = $('#transaction_student_id')
 
 $transaction_process.on 'change', ->
-  alert $(this).val()
   switch $(this).val()
     when '0'
       $('.transaction_location').show()
