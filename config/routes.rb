@@ -182,7 +182,7 @@ MathPlus::Application.routes.draw do
 
   resources :registrations do
     collection do
-      post :switch
+      get :switch
       get :hold
       get :drop
       get :cancel_hold

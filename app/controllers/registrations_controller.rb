@@ -96,29 +96,27 @@ class RegistrationsController < ApplicationController
     else
       redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit.'
     end
+    render nothing: true
   end
 
   def drop
     set_registration
     @student = @registration.student
     @parent = @student.user
+    if @registration.update_attribute :end_date, params[:registration][:end_date]
+      # Add note with action for the following day to ensure subscription has been cancelled.
+      note = @parent.notes.build({
+        content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
+        user_id: @parent.system_admin_id,
+        location_id: @registration.location.id,
+        action_date: Date.tomorrow})
+      note.save
 
-    respond_to do |format|
-      if @registration.update_attribute :end_date, params[:registration][:end_date]
-        # Add note with action for the following day to ensure subscription has been cancelled.
-        note = @parent.notes.build({
-          content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
-          user_id: @parent.system_admin_id,
-          location_id: @registration.location.id,
-          action_date: Date.tomorrow})
-        note.save
-
-        format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: "End date has been added. Please update this user's subscriptions." }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
-      end
+      redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: "End date has been added. Please update this user's subscriptions."
+    else
+      redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.'
     end
+    render nothing: true
   end
 
   def cancel_drop
