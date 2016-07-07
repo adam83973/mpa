@@ -17,7 +17,7 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= product.location.name %></td>
+        <td><%= product.location ? product.location.name : "Please add a location to this product." %></td>
         <td><%= product.price ? "$#{product.price_in_dollars}" : "Please add price." %></td>
         <td><%= product.credits %></td>
         <td><%= product.quantity %></td>
