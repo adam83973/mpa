@@ -15,16 +15,20 @@ $('#student_birth_date').datepicker
 	changeMonth: true,
 	changeYear:true
 
+# Adds datepicker to student end date field
 $('#student_end_date').datepicker
   dateFormat: 'yy-mm-dd'
 
-$('#creditsModal').modal('hide')
+# $('#creditsModal').modal('hide')
 
 # Passes information to grades modal when modal is launched.
 $('#gradesModalButton').on 'click', ->
   student_id = $('#studentId').data('studentid')
   $('#grade_student_id').val(student_id)
   $('#grade_experience_point_attributes_student_id').val(student_id)
+
+$('#creditsModal').on 'shown.bs.modal', ->
+  $('.chosen', this).chosen('destroy').chosen()
 
 # Credit form submission events/redeems credits from student's account.
 $("#credits_form")
@@ -99,18 +103,3 @@ $("#attendanceModal").bind "show", ->
     allow_single_deselect: true
     no_results_text: 'No results matched'
     width: '200px'
-
-# add student's last attendance to infusion audit report.
-$('#load_attendance').on 'click', ->
-	$.each $('.active-registration'), (index, value) ->
-		$active_registration = $(this)
-		student_id = $active_registration.data('student-id')
-		$.ajax
-			type:'get'
-			url: '/students/last_attendance.json'
-			data: { student_id: student_id }
-			success: (data, status, xhr) ->
-			dataType: 'JSON'
-			complete: (data1) ->
-				last_attendance = data1.responseText
-				$active_registration.append("(#{last_attendance})")

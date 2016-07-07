@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @assignment.student.full_name if @assignment.student %>
+</p>
+
+<p>
+  <strong>Offering:</strong>
+  <%= @assignment.offering.name if @assignment.offering %>
+</p>
+
+<p>
+  <strong>Week:</strong>
+  <%= @assignment.week %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= Assignment::SCORES[@assignment.score] %>
+</p>
+
+<p>
+  <strong>Created By:</strong>
+  <%= @assignment.user.full_name if @assignment.user %>
+</p>
+
+<p>
+  <strong>Corrected:</strong>
+  <%= @assignment.corrected %>
+</p>
+
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<%= link_to 'Back', assignments_path %> |
+<%= link_to "Experience Point", @assignment.experience_point %>

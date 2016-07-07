@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= simple_form_for(@attendance) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.association :student, label_method: :full_name, selected: params[:attendance][:student_id], input_html: { class: "chosen" } %>
+        <%= f.input :date, as: :string, input_html: { class: "datepicker"} %>
+        <%= f.association :offering, collection: Offering.order(course_id: :asc, location_id: :asc, day_number: :asc).all, label_method: :offering_name, input_html: { class: "chosen" } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-lg btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>

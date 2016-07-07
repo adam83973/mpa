@@ -1,0 +1,51 @@
+/*
+ *= require jquery-ui/core
+ *= require jquery-ui/menu
+ *= require jquery-ui/accordion
+ *= require jquery-ui/tooltip
+ *= require jquery-ui/datepicker
+ *= require chosen
+ *= require dataTables/jquery.dataTables
+ *= require tomorrow
+ *= require normalize-rails
+ *= require badges
+ *= require locations
+ *= require notes
+ *= require occupations
+ *= require offerings
+ *= require resources
+ *= require static_pages
+ *= require students
+ *= require timeline
+ *= require enrollment_change_requests
+ *= require registrations
+ *= require opportunities
+ */
+
+@import "compass";
+@import "font-awesome";
+@import "bootstrap";
+@import "bootstrap_and_overrides";
+
+.search-choice-close{
+  margin-top: 5px;
+}
+
+.tags{
+  height: 225px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 20px 0 0 0;
+}
+
+.cards{
+  height: 210px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 20px 0 0 0;
+
+  .well-sm{
+    padding: 0;
+
+  }
+}

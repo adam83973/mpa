@@ -9,7 +9,6 @@
 //= require bootstrap
 //= require chosen-jquery
 //= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
 //= require dnd
 //= require experience_points
@@ -17,11 +16,11 @@
 //= require issues
 //= require knob
 //= require lessons
+//= require help_sessions
 //= require issues
 //= require notes
 //= require offerings
 //= require problems
-//= require p5.min
 //= require processing_challenge_1
 //= require processing_challenge_3
 //= require reports
@@ -29,6 +28,7 @@
 //= require standards
 //= require static_pages
 //= require students
+//= require transactions
 //= require users
 //= require enrollment_change_requests
 //= require leads
@@ -54,7 +54,10 @@ jQuery ->
     pagingType: "simple_numbers"
     bPaginate: true  #hide pagination control
     bFilter: true    #hide filter control
-    bJQueryUI: true
+    # bJQueryUI: true
+    renderer:
+      header: "jqueryui"
+      pageButton: "jqueryui"
 
   $(".chosen").chosen
     allow_single_deselect: true

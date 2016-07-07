@@ -1,0 +1,23 @@
+<div class="row">
+  <%= simple_form_for(@learning_plan) do |f| %>
+  <div class="col-sm-6">
+    <%= f.error_notification %>
+    <%= f.association :student, input_html: { class: 'chosen'}, selected: params[:student_id], label_method: :full_name %>
+    <%= f.input :grade, as: :select, collection: LearningPlan::GRADES %>
+    <%= f.association :course, input_html: { class: 'chosen'}, label_method: :course_name %>
+    <%= f.association :learning_plan_issue, label_method: :title %>
+    <%= f.input :notes %>
+    <%= f.input :strengths %>
+    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+  </div>
+  <div class="col-sm-6">
+    <h3>Learning Plan Goals</h3>
+    <%= f.simple_fields_for :goals do |b| %>
+      <%= b.input :name, label: "Goal #{b.options[:child_index]+1}" %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+    <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+  <% end %>
+</div>

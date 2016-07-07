@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if current_user.employee?
-      @students = Student.includes(:user, :offerings).order(:id)
+      @students = Student.includes(:user, :offerings).order(:id).limit(10)
       @active_students = Student.includes(:user, :offerings).active
       @inactive_students = Student.includes(:user, :offerings).where("status = ? OR status = ?", "Inactive", "Hold")
 
@@ -28,9 +28,10 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    @student = Student.find(params[:id])
+    set_student
     @registrations = @student.registrations.order(:status).includes(:offering, :course, :location)
     @note = Note.new
+    @transaction = Transaction.new
     @homework_assessment_exp = Experience.where("category = ? OR category = ?", 'Homework', 'Assessment')
     @occupations = Occupation.order(:id).all
     @student_opportunities = @student.opportunities.includes(:offering)
@@ -72,39 +73,14 @@ class StudentsController < ApplicationController
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
       @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")
 
-      #loop is broken and sets :completed to false after it's been set to true, only works when the last id is the one that matches.
-      # if @student.experience_points.empty?
-      #   @robotics_achievements.each do |achievement|
-      #     achievement[:completed] = []
-      #     achievement[:completed] << false
-      #   end
-      # else
-      #   @robotics_achievements.each do |achievement|
-      #     @student.experience_points.each do |xp|
-      #       achievement[:completed] = []
-      #
-      #       if achievement.id == xp.experience_id
-      #         achievement[:completed] << true
-      #         break
-      #       else
-      #         achievement[:completed] << false
-      #       end
-      #     end
-      #   end
-      # end
-
       #get grades for student
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
 
       @grades = Grade.where("student_id = ?", @student.id)
 
-      if signed_in?
-        respond_to do |format|
-          format.html # show.html.erb
-          format.json { render json: @student }
-        end
-      else
-        redirect_to new_user_session_path, notice: "Please log in to access additional information."
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @student }
       end
     else
       redirect_to root_path
@@ -125,13 +101,13 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    @student = Student.find(params[:id])
+    set_student
   end
 
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(params[:student])
+    @student = Student.new(student_params)
 
     respond_to do |format|
       if @student.save
@@ -164,10 +140,10 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.json
   def update
-    @student = Student.find(params[:id])
+    set_student
 
     respond_to do |format|
-      if @student.update_attributes(params[:student])
+      if @student.update_attributes(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
@@ -226,10 +202,11 @@ class StudentsController < ApplicationController
 
   def last_attendance
     @student = Student.find(params[:student_id])
-    @last_attendance = @student.last_attendance_xp
+    @last_attendance = @student.last_attendance
 
-    if @last_attendance
-      @last_attendance_date = @student.last_attendance_xp.created_at.strftime("%D")
+    if @last_attendance && @last_attendance.date
+      # add switch to send span with styling based on how long ago attendance was
+      last_attendance_date(@last_attendance)
     else
       @last_attendance_date = 'No Attendance'
     end
@@ -238,4 +215,26 @@ class StudentsController < ApplicationController
       format.json { render json: @last_attendance_date }
     end
   end
+
+  private
+    def last_attendance_date(attendance)
+      date = attendance.date
+      if date > Date.today - 14.days == true
+        @last_attendance_date = "<span style='color:green;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+      elsif date <= Date.today - 14.days && date >= Date.today - 30.days == true
+        @last_attendance_date = "<span style='color:orange;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+      elsif date < Date.today - 30.days == true
+        @last_attendance_date = "<span style='color:red;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+      end
+    end
+    def set_student
+      @student = Student.find(params[:id])
+    end
+
+    def student_params
+      params.require(:student).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
+                     :start_date, :xp_total, :credits, :rank, :active, :status,
+                     :restart_date, :return_date, :end_date, :hold_status,
+                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color, :has_learning_plan)
+    end
 end

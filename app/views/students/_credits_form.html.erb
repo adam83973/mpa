@@ -1,11 +1,13 @@
 <div class="text-center">
-  <%= simple_form_for :credits, url: 'update_credits', html: { id: 'credits_form' }, remote: true do |f| %>
+  <%= simple_form_for @transaction, html: { id: 'credits_form' } do |f| %>
     <%= f.error_notification %>
     <div class="row">
       <div class="col-lg-5 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-12 col-xs-12 text-center">
-        <%= f.input :item, label: "What item are you buying?" %>
-        <%= f.input :credits, label: "How many credits is it worth?" %>
-        <%= f.input :id, as: :hidden, :input_html => { value: @student.id } %>
+        <%= f.association :location, label: "Select a location.", label_method: :name, input_html: { class: "chosen" } %>
+        <%= f.association :product, label: "Select a product.", disabled: true, collection: [], label_method: :name, input_html: { class: "chosen", data: { credits: true } } %>
+        <%# f.input :type, collection: Transaction::TYPE.zip((0..Transaction::TYPE.count-1).to_a), input_html: { class: "chosen" } %>
+        <%= f.input :process, as: :hidden, input_html: { value: 0 } %>
+        <%= f.input :student_id, as: :hidden, :input_html => { value: @student.id } %>
         <%= f.input :user_id, as: :hidden, :input_html => { value: current_user.id } %>
       </div>
     </div>

@@ -192,6 +192,7 @@ class OpportunitiesController < ApplicationController
 
           if @registration.start_date <= Date.today
             @registration.update_attribute :status, 1
+            @registration.student.user.update_attribute :active, true
           end
 
           # Update opportunity attributes

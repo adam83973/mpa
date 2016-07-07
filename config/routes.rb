@@ -1,14 +1,27 @@
 MathPlus::Application.routes.draw do
 
+  resources :transactions
+
+  resources :products do
+    collection do
+      get :products_by_location
+    end
+  end
+
+  resources :learning_plans
 
   root to: 'static_pages#home'
-  # root to: 'sessions#new'
+
 
   resources :activities do
     collection { post :import }
   end
 
   resources :appointments
+
+  resources :assignments
+
+  resources :attendances
 
   resources :avatars
 
@@ -26,6 +39,7 @@ MathPlus::Application.routes.draw do
   resources :badge_requests do
     collection { get :approval }
   end
+
   resources :class_sessions, only: [:new, :create, :destroy]
   post "class_sessions/start_class"
   get "class_sessions/end_class"
@@ -42,7 +56,6 @@ MathPlus::Application.routes.draw do
   devise_for :users, :skip => [:registrations]
     as :user do
       get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-      put 'users' => 'devise/registrations#update', :as => 'user_registration'
       put 'users' => 'devise/registrations#update', :as => 'user_registration'
     end
 
@@ -62,6 +75,12 @@ MathPlus::Application.routes.draw do
   end
 
   resources :grades
+
+  post "help_sessions/start_help_session"
+  get "help_sessions/end_hw_help"
+  get "help_sessions/active_session", to: "help_sessions#active_session"
+
+  resources :help_session_records
 
   namespace :infusion_pages do
     get :registration_audit

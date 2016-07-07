@@ -30,7 +30,7 @@
 								<ol>
 									<% parent.active_registrations.each do |reg| %>
 										<li class='active-registration' data-student-id="<%= reg.student_id %>">
-											<%= reg.student.full_name %> <%# last_attendance ? last_attendance.created_at.strftime("%D") : "No Attendance" %>
+											<%= reg.student.full_name %>
 										</li>
 									<% end %>
 								</ol>
@@ -42,40 +42,6 @@
 				<% end %>
 			</tbody>
 		</table>
-
-		<!-- <h1>Parents With Registration and No Subscription</h1>
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th>
-						Parent
-					</th>
-						<th>
-							Registrations (status)
-						</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%# @parents.each do |parent| %>
-					<%# if parent.active_students? == true && !parent.active_subscription? %>
-						<tr>
-							<td>
-								<%# link_to parent.full_name, parent, target: '_blank' %> <%# "- " + parent.billing_note if !parent.billing_note.empty? %>
-							</td>
-							<td>
-								<ol>
-									<%# parent.registrations.each do |reg| %>
-										<%# if (0..2) === reg.status %>
-											<li><%# reg.student.full_name %> <%# render '/students/registration_dates', reg: reg %></li>
-										<%# end %>
-									<%# end %>
-								</ol>
-							</td>
-						</tr>
-					<%# end %>
-				<%# end %>
-			</tbody>
-		</table> -->
 		<%= link_to 'Back', infusion_pages_home_path, class: 'm-btn m-btn-small' %>
 		<br />
 	</div>

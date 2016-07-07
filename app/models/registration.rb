@@ -1,11 +1,11 @@
 class Registration < ActiveRecord::Base
-  attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later
+  #attr_accessible :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later
 
   attr_accessor :opportunity_id
 
   validates_presence_of :offering_id, :student_id
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   before_save :past_end_date
 
@@ -20,6 +20,7 @@ class Registration < ActiveRecord::Base
   has_one :holding, class_name: "Registration", foreign_key: "hold_id"
 
   scope :active, lambda{where("registrations.status = ?", "1")}
+  # scope :valid, lambda{where("registrations.status = ? OR registrations.status = ? OR registrations.status = ?", 0, 1, 2)}
   scope :future_adds, lambda{where("start_date > ?", Date.today).where("switch IS NULL OR switch = ?", false)}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ? AND switch_id IS NULL", Date.tomorrow, 30.days.ago)}

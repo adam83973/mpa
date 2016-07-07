@@ -27,12 +27,12 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show
-    @location = Location.find(params[:id])
+    set_location
     @location_students_restarting = @location.registrations.restarting
     @total_location_students_count = @location.registrations.active.count
     @location_future_adds = @location.registrations.future_adds
-    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
-    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
     @location_trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
 
     @offerings = @location.offerings
@@ -64,7 +64,7 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    @location = Location.new(params[:location])
+    @location = Location.new(location_params)
 
     respond_to do |format|
       if @location.save
@@ -80,10 +80,10 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
-    @location = Location.find(params[:id])
+    set_location
 
     respond_to do |format|
-      if @location.update_attributes(params[:location])
+      if @location.update_attributes(location_params)
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -96,7 +96,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    @location = Location.find(params[:id])
+    set_location
     @location.destroy
 
     respond_to do |format|
@@ -111,7 +111,7 @@ class LocationsController < ApplicationController
   end
 
   def registered_students
-    @location = Location.find(params[:id])
+    set_location
     @active_registrations = @location.active_registrations
 
     respond_to do |format|
@@ -121,6 +121,14 @@ class LocationsController < ApplicationController
   end
 
   private
+    def location_params
+      params.require(:location).permit(:address, :city, :franchise, :name, :state, :zip, :technical_information)
+    end
+
+    def set_location
+      @location = Location.find(params[:id])
+    end
+
     def set_chart_data
       @last_twelve_months = Date::MONTHNAMES[1..12].reverse.rotate(1-Time.now.month).reverse
 
@@ -162,7 +170,7 @@ class LocationsController < ApplicationController
           end
         end
         reports_by_month << monthly_reports
-        @monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size
+        @monthly_averages << reports_by_month[i].sum{|report| report.total_enrollment} / reports_by_month[i].size if reports_by_month[i].size > 0
       end
     end
 end

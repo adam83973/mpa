@@ -1,35 +1,41 @@
 class Student < ActiveRecord::Base
 
-  attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
-                  :start_date, :xp_total, :credits, :rank, :active, :status,
-                  :restart_date, :return_date, :end_date, :hold_status,
-                  :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color
+  #attr_accessible :birth_date, :first_name, :last_name, :offering_ids, :user_id,
+                  # :start_date, :xp_total, :credits, :rank, :active, :status,
+                  # :restart_date, :return_date, :end_date, :hold_status,
+                  # :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color
 
   attr_accessor :opportunity_id
 
   validates_presence_of :first_name, :last_name, :user_id
   #validate presence of offerings
 
-  has_paper_trail
+  has_paper_trail if Rails.env.development? || Rails.env.production?
 
   belongs_to :user
   belongs_to :location
   belongs_to :avatar
+  belongs_to :learning_plan
+  has_many :assignments, dependent: :destroy
   has_many :badge_requests
-  has_many :badges, :through => :badge_requests,
+  has_many :badges, -> { where('badge_requests.approved = ?',true) },
+           :through => :badge_requests,
            :class_name => "Badge",
-           :source => :badge,
-           :conditions => ['badge_requests.approved = ?',true]
+           :source => :badge
+  has_many :attendances, dependent: :destroy
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
   has_many :grades, dependent: :destroy
+  has_many :help_session_records
+  has_many :learning_plans
   has_many :lessons , :through => :grades
   has_many :locations, :through => :offerings
   has_many :notes, as: :notable
   has_many :occupations, :through => :courses
   has_many :offerings, :through => :registrations
   has_many :opportunities
+  has_many :transactions
   has_many :registrations, dependent: :destroy
 
   scope :active, lambda{where("status = ?", "Active")}
@@ -79,20 +85,20 @@ class Student < ActiveRecord::Base
     experience_points.sum(:points)
   end
 
-  def last_attendance_xp
-    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Attendance%").first
+  def last_attendance
+    attendances.order("date desc").limit(1).first
   end
 
-  def attendance_last_month
-    experience_points.joins(:experience).where("name LIKE ?", "%Attendance%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+  def attendances_last_month
+    attendances.where("date >= ? AND date <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
   def assignments_last_month
-    experience_points.joins(:experience).where("name LIKE ?", "%Homework%").where("experience_points.created_at >= ? AND experience_points.created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+    assignments.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
-  def last_assignment_xp
-    experience_points.order("created_at desc").limit(1).joins(:experience).where("name LIKE ?", "%Homework%").first
+  def last_assignment
+    assignments.order("created_at desc").limit(1).first
   end
 
   def xp_sum_by_occupation(cat)
@@ -105,7 +111,7 @@ class Student < ActiveRecord::Base
     t
   end
 
-  def calculate_xp
+  def update_xp_total
     update_column(:xp_total, xp_sum)
   end
 
@@ -114,7 +120,7 @@ class Student < ActiveRecord::Base
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
   end
 
-  def add_credit(newcredit)
+  def add_remove_credits(newcredit)
     if self.credits.nil?
       update_column(:credits, 1)
     else
@@ -122,70 +128,17 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def redeem_credit(creds)
-    credits = creds.to_i
-    credits = - credits
-      increment!(:credits,  credits)
+  def redeem_credit(credits)
+    credits = credits.to_i
+    decrement!(:credits,  credits)
   end
 
   #-----Student rank-----
-  def calculate_rank(experience_point)
-    ((xp_sum + experience_point.points)/1000 - ((xp_sum)/1000))
-  end
-
-  def update_rank
-    if self.rank.nil?
-      update_column(:rank, 'Classified')
-    elsif self.rank == "Classified"
-      update_column(:rank, 'Confidential')
-    elsif self.rank == "Confidential"
-      update_column(:rank, 'Secret')
-    elsif self.rank == "Secret"
-      update_column(:rank, 'Top Secret')
-    else self.rank == "Top Secret"
-      update_column(:rank, 'Classified')
-    end
-  end
-
-  def decrease_rank
-    if self.rank == "Confidential"
-      update_column(:rank, 'Classified')
-    elsif self.rank == "Secret"
-      update_column(:rank, 'Confidential')
-    else self.rank == "Top Secret"
-      update_column(:rank, 'Secret')
-    end
-  end
-
-  def next_rank
-    if self.rank == 'Classified'
-      "Confidential"
-    elsif self.rank == 'Confidential'
-      "Secret"
-    elsif self.rank == "Secret"
-      "Top Secret"
-    else self.rank == "Top Secret"
-      "You've reached the top... For now."
-    end
-  end
-
-  def rank_points
-    if self.rank == 'Classified'
-      0
-    elsif self.rank == 'Confidential'
-      1000
-    elsif self.rank == "Secret"
-      2000
-    else self.rank == "Top Secret"
-      3000
-    end
-  end
-
   def level_comp_percentage
     ((self.xp_sum.to_f - self.rank_points)/(1000)*100).round
   end
 
-#takes an array of offerings and converts to an array of the offerings course ids
+  #takes an array of offerings and converts to an array of the offerings course ids
   def class_ids
     self.offerings.map{|h| h['course_id'].to_i}
   end
@@ -283,15 +236,13 @@ class Student < ActiveRecord::Base
 
   def update_level(occupation_name)
     occupation = Occupation.where("title=?", occupation_name).first
-    case occupation_name
-    when "Mathematician"
+    case occupation_name.downcase
+    when "mathematician"
       update_column(:math_level, current_level(occupation_name).to_i)
-    when "Engineer"
+    when "engineer"
       update_column(:eng_level, current_level(occupation_name).to_i)
-    when "Programmer"
+    when "programmer"
       update_column(:prog_level, current_level(occupation_name).to_i)
-    else
-      true
     end
   end
 
@@ -365,15 +316,9 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def homework_scores_last(number_of_days, experience_id=1)
-    number_of_days = number_of_days.to_i
-    experience_id = experience_id.to_i
-    if experience_id == 1 || experience_id == 4 || experience_id == 5
-      experience_points.
-        where("created_at > ? and experience_id = ?", number_of_days.days.ago, experience_id).count
-    else
-      0
-    end
+  def assignment_scores_last_90_days(score)
+    #possible grades ["perfect", "complete", "incomplete"]
+    assignments.where("created_at > ? and score = ?", Date.today - 90.days, Assignment::SCORES.index(score.capitalize))
   end
 
   def active_registrations

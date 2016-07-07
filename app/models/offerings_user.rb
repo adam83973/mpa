@@ -1,5 +1,5 @@
 class OfferingsUser < ActiveRecord::Base
-  attr_accessible :offering_id, :user_id
+  #attr_accessible :offering_id, :user_id
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

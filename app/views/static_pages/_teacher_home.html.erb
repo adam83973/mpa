@@ -8,11 +8,11 @@
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <%= render 'teachers_offerings' %>
+        <%= render 'class_in_session_roster' %>
       </div>
     </div>
   </div>
-
+  <hr>
   <%= render 'attendance_modal' %>
 
   <%= render 'class_summary_modal' %>
@@ -20,9 +20,14 @@
 <% else %>
   <!-- Starts A Class -->
   <div class="row">
-    <div class="classform col-md-4 col-xs-12">
+    <div class="classform col-md-6">
       <%= render 'start_a_class' %>
     </div>
+    <div class="col-md-6">
+      <%= render 'start_hw_help' %>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-8 col-xs-12">
       <%= render 'teachers_offerings' %>
     </div>

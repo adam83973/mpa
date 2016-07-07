@@ -1,0 +1,2 @@
+module HelpSessionRecordsHelper
+end

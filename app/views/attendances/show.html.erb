@@ -1,0 +1,17 @@
+<p>
+  <strong>Student:</strong>
+  <%= link_to @attendance.student.full_name, @attendance.student %>
+</p>
+
+<p>
+  <strong>Date Attended:</strong>
+  <%= @attendance.date.strftime('%A, %b %d, %Y') %>
+</p>
+
+<p>
+  <strong>Class:</strong>
+  <%= link_to @attendance.offering.offering_name, @attendance.offering %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>

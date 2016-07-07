@@ -1,15 +1,16 @@
 class BadgeRequest < ActiveRecord::Base
-  attr_accessible :approved, :badge_id, :parent_submission, :student_id, :user_id,
-                  :date_approved, :write_up
+  #attr_accessible :approved, :badge_id, :parent_submission, :student_id, :user_id,
+                  # :date_approved, :write_up
 
 if Rails.env.development?
-  attr_accessible :created_at, :updated_at
+  #attr_accessible :created_at, :updated_at
 end
 
   belongs_to :badge
   belongs_to :student
   belongs_to :user
   has_many   :modules, class_name: 'BadgeModule', source: :badge_modules
+  has_one    :experience_point
 
   before_save :update_parent_submission
 

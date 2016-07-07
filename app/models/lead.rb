@@ -1,5 +1,5 @@
 class Lead < ActiveRecord::Base
-  attr_accessible :email, :first_name, :last_name, :phone, :stage_id, :student_information, :user_id, :active, :location_id, :appointment_date
+  #attr_accessible :email, :first_name, :last_name, :phone, :stage_id, :student_information, :user_id, :active, :location_id, :appointment_date
 
   belongs_to :user
   belongs_to :location

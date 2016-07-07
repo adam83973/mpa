@@ -71,7 +71,7 @@
           <p class="text-center"><u>Total Credits:</u> <%= student.credits %></p>
           <p class="text-center"><u>Total XP:</u> <%= student.xp_total %></p>
           <p style="height:50px;overflow:scroll;" class="text-center"><u>Recent comment:</u>
-            "<%= student.last_assignment_xp ? student.last_assignment_xp.comment : "There are no comments on file." %>"
+            "<%= student.last_assignment ? student.last_assignment.comment : "There are no comments on file." %>"
           </p>
         </div>
         <% if student.is_active_mathematician? %>
@@ -87,20 +87,20 @@
               <div class="col-xs-4 text-center">
                 <h3>Perfect</h3>
                 <h3 style="color:green;">
-                  <%= student.homework_scores_last(90, 5) %>
+                  <%= student.assignment_scores_last_90_days("perfect").count %>
                 </h3>
               </div>
               <div class="col-xs-4 text-center">
                 <h3>Complete</h3>
                 <h3>
-                  <%= student.homework_scores_last(90, 1) %>
+                  <%= student.assignment_scores_last_90_days("complete").count + student.assignment_scores_last_90_days("perfect").count %>
                 </h3>
               </div>
               <div class="col-xs-4 text-center">
                 <h3 class="hidden-xs">Incomplete</h3>
                 <h3 class="hidden-sm hidden-md hidden-lg">Inc.</h3>
                 <h3 style="color:red;">
-                  <%= student.homework_scores_last(90, 4) %>
+                  <%= student.assignment_scores_last_90_days("incomplete").count %>
                 </h3>
               </div>
             </div>

@@ -16,8 +16,13 @@ class ClassSessionsController < ApplicationController
   def remove_student
     @student = Student.find(params[:student_id])
 
+    # Find last attendance that corresponded with being added to class.
+    @todays_attendance = Attendance.where(student_id: @student.id, date: Date.today).last
+    # Delete attendance since student was removed from class.
+    @todays_attendance.destroy if @todays_attendance
+
     class_session.remove_student(@student.id)
-    redirect_to root_url, notice: "Student removed from class. Be sure to delete attendance xp by going #{view_context.link_to "here", @student}.".html_safe
+    redirect_to root_url, notice: "Student removed from class. Attendance was deleted."
   end
 
   def end_class

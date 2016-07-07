@@ -21,13 +21,13 @@ class BadgeRequestsController < ApplicationController
   end
 
   def edit
-    @badge_request = BadgeRequest.find(params[:id])
+    set_badge_request
     @badge = Badge.find(@badge_request.badge_id)
     @user = User.find(@badge_request.user_id)
   end
 
   def create
-    @badge_request = BadgeRequest.new(params[:badge_request])
+    @badge_request = BadgeRequest.new(badge_request_params)
     @badge = Badge.find(@badge_request.badge_id)
     @user = User.find(@badge_request.user_id)
     @student = Student.find(@badge_request.student_id)
@@ -44,12 +44,12 @@ class BadgeRequestsController < ApplicationController
   end
 
   def update
-    @badge_request.update_attributes(params[:badge_request])
+    @badge_request.update_attributes(badge_request_params)
     respond_with(@badge_request)
   end
 
   def approval
-    @badge_request = BadgeRequest.find(params[:id])
+    set_badge_request
     @student = @badge_request.student
     @parent = @badge_request.user
     @badge = @badge_request.badge
@@ -59,7 +59,7 @@ class BadgeRequestsController < ApplicationController
     if @parent
       NotificationMailer.badge_request_approval_confirmation(@badge_request, @parent).deliver
     end
-    
+
     render nothing: true
   end
 
@@ -71,6 +71,11 @@ class BadgeRequestsController < ApplicationController
   private
     def set_badge_request
       @badge_request = BadgeRequest.find(params[:id])
+    end
+
+    def badge_request_params
+      params.require(:badge_request).permit(:approved, :badge_id, :parent_submission, :student_id, :user_id,
+                                            :date_approved, :write_up)
     end
 
     def save_badge_request

@@ -16,12 +16,11 @@
       <%= f.input :last_name %>
       <%= f.input :birth_date, as: :string, label: "Birth Date" %>
       <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name, input_html: { class: "chosen" } if params[:user_id] %>
-      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name, input_html: { class: "chosen" } unless params[:user_id] %>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <%= f.input :status, collection: ["Active","Hold","Inactive"], as: :hidden %>
-      <%= f.input :credits, as: :hidden, input_html: { value: 1 } %>
+      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label: 'Parent', label_method: :full_name, input_html: { class: "chosen" } unless params[:user_id] %>
       <%= f.association :avatar, label_method: :name %>
+      <%= f.input :has_learning_plan %>
   </div>
 </div>
 <div class="row">
