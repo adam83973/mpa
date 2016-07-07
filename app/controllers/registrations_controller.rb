@@ -82,22 +82,19 @@ class RegistrationsController < ApplicationController
     # Class that student is switching to.
     @new_offering = Offering.find(params[:registration][:offering_id])
 
-    respond_to do |format|
-      if @new_registration = Registration.create!(start_date: params[:registration][:switch_date],
-                                                  offering_id: @new_offering.id,
-                                                  student_id: @student.id,
-                                                  attended_first_class: true,
-                                                  switch: true,
-                                                  status: 0)
-        @registration.update_attributes({end_date: params[:registration][:switch_date], switch_id: @new_registration.id})
-        if @new_registration.start_date <= Date.today
-          @new_registration.update_attribute :status, 1
-        end
-        format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit.' }
+    if @new_registration = Registration.create!(start_date: params[:registration][:switch_date],
+                                                offering_id: @new_offering.id,
+                                                student_id: @student.id,
+                                                attended_first_class: true,
+                                                switch: true,
+                                                status: 0)
+      @registration.update_attributes({end_date: params[:registration][:switch_date], switch_id: @new_registration.id})
+      if @new_registration.start_date <= Date.today
+        @new_registration.update_attribute :status, 1
       end
+      redirect_to @student, notice: 'Change of classes has been submitted.'
+    else
+      redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit.'
     end
   end
 
