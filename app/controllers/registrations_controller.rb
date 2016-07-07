@@ -77,7 +77,7 @@ class RegistrationsController < ApplicationController
   end
 
   def switch
-    set_registration
+    @registration = Registration.find(params[:registration][:id])
     @student = @registration.student
     # Class that student is switching to.
     @new_offering = Offering.find(params[:registration][:offering_id])
@@ -102,7 +102,7 @@ class RegistrationsController < ApplicationController
   end
 
   def drop
-    set_registration
+    @registration = Registration.find(params[:registration][:id])
     @student = @registration.student
     @parent = @student.user
 
@@ -125,7 +125,7 @@ class RegistrationsController < ApplicationController
   end
 
   def cancel_drop
-    set_registration
+    @registration = Registration.find(params[:registration][:id])
     @student = Student.find(@registration.student_id)
 
     respond_to do |format|
