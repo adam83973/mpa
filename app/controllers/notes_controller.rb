@@ -55,7 +55,7 @@ class NotesController < ApplicationController
       @opportunity = Opportunity.find(params[:note][:opportunity_id])
     end
 
-    @note = @notable.notes.build(params[:note])
+    @note = @notable.notes.build(note_params)
 
     respond_to do |format|
       if @note.save
@@ -75,7 +75,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
 
     respond_to do |format|
-      if @note.update_attributes(params[:note])
+      if @note.update_attributes(note_params)
         format.html { redirect_to root_url, notice: 'Note was successfully updated.' }
         format.json { head :no_content }
       else
@@ -121,5 +121,10 @@ class NotesController < ApplicationController
       format.html { redirect_to root_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def note_params
+    params.require(:note).permit(:content, :action_date, :completed, :user_id, :location_id, :notable_type, :notable_id, :opportunity_id, :completed_by)
   end
 end
