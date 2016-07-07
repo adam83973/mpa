@@ -120,7 +120,7 @@ class StudentsController < ApplicationController
 
   def create_from_opportunity
     @opportunity = Opportunity.find(params[:student][:opportunity_id])
-    @student = Student.new(params[:student].except!(:opportunity_id))
+    @student = Student.new(student_params)
 
     respond_to do |format|
       if @student.save
