@@ -29,7 +29,7 @@ $transaction_product_id.on 'change', ->
 $transaction_location_id.on 'change', ->
 	$.ajax
 		type:'get',
-		url: 'http://app.mathplusacademy.com/products/products_by_location.json'
+		url: '/products/products_by_location.json'
 		data: {location_id: $(this).val(), credits: $transaction_product_id.data('credits')}
 		success: (data, status, xhr) ->
 			products = data

@@ -13,7 +13,7 @@ class Transaction < ActiveRecord::Base
 
   def compute_credits
     if process == 0
-      self.credits_redeemed = product.credits
+      self.credits_redeemed = self.product.credits
     end
   end
 
