@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629230248) do
+ActiveRecord::Schema.define(version: 20160707172241) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 20160629230248) do
 
   create_table "appointment_requests", force: :cascade do |t|
     t.text     "data"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "new_post",   :default => false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "new_post",   default: false
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 20160629230248) do
     t.integer  "offering_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-
     t.text     "comment"
     t.integer  "experience_point_id"
   end
@@ -281,6 +280,7 @@ ActiveRecord::Schema.define(version: 20160629230248) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
   create_table "issues", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "summary"
@@ -308,7 +308,6 @@ ActiveRecord::Schema.define(version: 20160629230248) do
     t.integer  "location_id"
   end
 
-<<<<<<< HEAD
   create_table "learning_plan_goals", force: :cascade do |t|
     t.string   "name",                             null: false
     t.boolean  "completed",        default: false
@@ -603,7 +602,6 @@ ActiveRecord::Schema.define(version: 20160629230248) do
     t.integer  "prog_level",                          default: 0
     t.integer  "hold_status"
     t.date     "start_hold_date"
-<<<<<<< HEAD
     t.integer  "mathematics_xp",                      default: 0
     t.integer  "engineering_xp",                      default: 0
     t.integer  "programmer_xp",                       default: 0
@@ -612,16 +610,6 @@ ActiveRecord::Schema.define(version: 20160629230248) do
     t.integer  "avatar_id",                           default: 0
     t.string   "avatar_background_color", limit: 255, default: "#ffffff"
     t.boolean  "has_learning_plan",                   default: false
-=======
-    t.integer  "mathematics_xp",          :default => 0
-    t.integer  "engineering_xp",          :default => 0
-    t.integer  "programmer_xp",           :default => 0
-    t.date     "start_date"
-    t.boolean  "attended_first_class"
-    t.integer  "avatar_id",               :default => 0
-    t.string   "avatar_background_color", :default => "#ffffff"
-    t.boolean  "has_learning_plan",       :default => false
->>>>>>> master
   end
 
   create_table "time_punches", force: :cascade do |t|
@@ -644,14 +632,15 @@ ActiveRecord::Schema.define(version: 20160629230248) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.integer  "student_id",       null: false
+    t.integer  "user_id",                      null: false
+    t.integer  "student_id"
     t.integer  "credits_redeemed"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "product_id"
     t.integer  "location_id"
     t.integer  "process"
+    t.integer  "quantity",         default: 0
   end
 
   create_table "users", force: :cascade do |t|

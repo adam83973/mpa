@@ -24,21 +24,21 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
 
     if @transaction.save
-      @student = @transaction.student
+      @student = @transaction.student if @transaction.student_id
       @product = @transaction.product
       if @transaction.process == 0
         #check to see if student has enough credits
         if @student.credits >= @transaction.credits_redeemed
           # redeem credits from student's account
           @student.redeem_credit(@transaction.credits_redeemed)
-          # adjust quantity for product redeemed with credits
-          @product.decrease_stock_by_one
           redirect_to @student, notice: 'Credits were successfully redeemed.'
         else
           #destroy transaction
           @transaction.destroy
           redirect_to @student, flash: { error: 'Student does not have enough credits.' }
         end
+      elsif @transaction.process == 2 || @transaction.process == 3
+        redirect_to new_transaction_path, notice: "#{@transaction.quantity} units of #{@transaction.product.name} #{@transaction.process == 2 ? "added to" : "removed from"} #{@transaction.location.name}'s inventory."
       else
         redirect_to root_url, notice: "Transaction was successfully completed."
       end
@@ -70,6 +70,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def transaction_params
-      params.require(:transaction).permit(:process, :user_id, :student_id, :credits_redeemed, :product_id, :location_id)
+      params.require(:transaction).permit(:process, :user_id, :student_id, :credits_redeemed, :product_id, :location_id, :quantity)
     end
 end

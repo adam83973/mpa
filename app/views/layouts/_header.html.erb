@@ -30,19 +30,12 @@
               <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
             </li>
           <% end %>
-
           <%= render 'layouts/nav_links' if current_user.employee? %>
-
           <%= render 'layouts/admin_links' if current_user.admin? %>
-
           <%= render 'layouts/nav_dropdown' %>
-
           <%= render 'shared/user_search' if current_user.employee? %>
-
         <% else %>
-
           <li><%= link_to "Sign in", new_user_session_path %></li>
-
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

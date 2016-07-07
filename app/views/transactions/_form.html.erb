@@ -1,14 +1,15 @@
-<%= simple_form_for(@transaction) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :process, collection: Transaction::PROCESSES.zip((0..Transaction::PROCESSES.count-1).to_a), input_html: { class: "chosen" } %>
-    <%= f.input :user_id %>
-    <%= f.input :student_id %>
-    <%= f.input :credits_redeemed %>
+<div class="row">
+  <div class="col-md-4">
+    <%= simple_form_for(@transaction) do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :process, label: "Select a process", collection: Transaction::PROCESSES.zip((0..Transaction::PROCESSES.count-1).to_a), input_html: { class: "chosen" } %>
+      <%= f.association :location, label: "Select a location:", wrapper_html: { style:"display:none;" } %>
+      <%= f.association :student, collection: Student.order(:last_name).all.to_a.delete_if{ |student| !student.is_active? }, label_method: :full_name, wrapper_html: { style:"display:none;" } %>
+      <%# f.input :credits_redeemed %>
+      <%= f.association :product, label_method: :name, collection: [], input_html: { data: { credits: false } }, wrapper_html: { style:"display:none;" } %>
+      <%= f.input :quantity, as: :string, wrapper_html: { style: "display:none;"} %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+      <%= f.button :submit, class: 'btn btn-success' %>
+    <% end %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+</div>

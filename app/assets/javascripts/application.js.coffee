@@ -28,6 +28,7 @@
 //= require standards
 //= require static_pages
 //= require students
+//= require transactions
 //= require users
 //= require enrollment_change_requests
 //= require leads

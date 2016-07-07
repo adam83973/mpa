@@ -48,7 +48,16 @@ class ProductsController < ApplicationController
   def products_by_location
     products = Product.where(location_id: params[:location_id])
     products_list = []
-    products.each{|product| products_list << [product.id, "#{product.name} (#{product.credits})", product.credits]}
+
+    products.each do |product|
+      if params[:credits] == 'true'
+        credits = "(#{product.credits})"
+      else
+        credits = ""
+      end
+
+      products_list << [product.id, "#{product.name} #{credits}", product.credits]
+    end
 
     respond_to do |format|
       format.html
