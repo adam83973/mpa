@@ -147,7 +147,7 @@ class RegistrationsController < ApplicationController
   end
 
   def hold
-    set_registration
+    @registration = Registration.find(params[:registration][:id])
     @restart_registration = Registration.new
     @student = @registration.student
     @parent = @student.user
@@ -179,7 +179,7 @@ class RegistrationsController < ApplicationController
   end
 
   def cancel_hold
-    set_registration
+    @registration = Registration.find(params[:registration][:id])
     @restarting_registration = @ending_registration.holding
     @student = @ending_registration.student
 
