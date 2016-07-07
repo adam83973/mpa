@@ -71,7 +71,7 @@ def send_to_slack(details)
             text: "#{details[:body]}"
           }
         ]
-    }.encode("iso-8859-1").force_encoding("utf-8").to_json,
+    }.to_s.encode("iso-8859-1").force_encoding("utf-8").to_json,
     :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
   })
 end
