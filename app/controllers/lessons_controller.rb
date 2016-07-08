@@ -44,7 +44,7 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(params[:lesson])
+    @lesson = Lesson.new(lesson_params)
 
     respond_to do |format|
       if @lesson.save
@@ -63,7 +63,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
 
     respond_to do |format|
-      if @lesson.update_attributes(params[:lesson])
+      if @lesson.update_attributes(lesson_params)
         format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,5 +88,11 @@ class LessonsController < ApplicationController
   def import
     Lesson.import(params[:file])
     redirect_to lessons_path, notice: "Lessons imported."
+  end
+
+  def lesson_params
+    params.require(:lesson).require(:assessment, :assessment_key, :assignment,
+                                    :assignment_key, :standard_id, :name, :week,
+                                    {resource_ids: []}, {problem_ids: []})
   end
 end

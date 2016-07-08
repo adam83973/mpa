@@ -139,7 +139,7 @@ class OfferingsController < ApplicationController
   private
   def offering_params
     params.require(:offering).permit(:comments, :course_id, :day, :graduation_year,
-                                     :location_id, :time, :user_ids, :active,
+                                     :location_id, :time, {user_ids: []}, :active,
                                      :classroom, :hidden, :day_number)
   end
 end
