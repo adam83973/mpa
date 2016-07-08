@@ -6,14 +6,17 @@
         <%= f.association :student, selected: params[:student_id], label_method: :full_name, input_html: { class: "chosen" }  %>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
         <%= f.input :date, as: :string, input_html: { value: params[:date], class: "datepicker" } %>
+        <%= f.input :session_length, as: :select, collection: [["30 Minutes", 30],["60 Minutes", 60],["90 Minutes", 90]] %>
         <% if @student && @student.has_learning_plan %>
           <%= f.input :learning_plan_id, as: :hidden, input_html: { value: @student.learning_plans.last.id } %>
         <% end %>
 
   </div>
   <div class="col-sm-4">
-        <%= f.input :comments, placeholder: "What was accomplished? What should be worked on? Any major milestones?", hint: "Please note: These comments are intended for parents to view." input_html: { rows: 5 } %>
+        <%= f.input :comments, placeholder: "What was accomplished? What should be worked on? Any major milestones?", hint: "Please note: These comments are intended for parents to view.", input_html: { rows: 5 } %>
   </div>
+
+</div>
   <div class="row">
     <div class="col-sm-12">
       <div class="form-actions">
@@ -22,4 +25,3 @@
     </div>
   </div>
   <% end %>
-</div>

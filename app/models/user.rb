@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :assignments
   has_many :badge_requests
+  has_many :help_session_records
   has_many :messages
   has_many :emails, class_name: "Ahoy::Message"
   has_many :notings, class_name: "Note", foreign_key: "user_id"

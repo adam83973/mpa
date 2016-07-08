@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    set_student
+    @student = Student.includes(:registrations, :opportunities).find(params[:id])
     @registrations = @student.registrations.order(:status).includes(:offering, :course, :location)
     @note = Note.new
     @transaction = Transaction.new
@@ -57,16 +57,10 @@ class StudentsController < ApplicationController
       end
 
     #Tags negative comments to allow styling in student show
-      @student_xp_comments = ExperiencePoint.includes(:user).where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20')
-      @student_comment_feed = @student_xp_comments
-
-        @student_xp_comments.each do |xp|
-          if xp.points == 0 && xp.experience_id != 3
-            xp[:negative] = 1
-          else
-            xp[:negative] = 0
-          end
-        end
+      @student_comments = ExperiencePoint.includes(:user).where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20').to_a
+      help_session_records = @student.help_session_records
+      help_session_records.each{|help_session_record| @student_comments << help_session_record}
+      @student_comments.sort!{|a, b| b['created_at'] <=> a['created_at']}
 
       @student_xps = ExperiencePoint.where("student_id = ?", @student.id)
       @robotics_achievements = Experience.where("category = ?", "Robotics").order("id asc")

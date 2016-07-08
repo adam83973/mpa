@@ -1,25 +1,34 @@
-<% if @student_xp_comments.empty? %>
+<% if @student_comments.empty? %>
 
 <% else %>
   <h3>Recent Comments</h3>
   <div class="activity_feed">
     <div id="inner-content-div">
-     <% @student_xp_comments.each do |xp|%>
-     <% if xp.negative? %>
-       <p style="color:red;">
-        <em><%= xp.experience.name %></em>
-        <b>"<%= xp.comment %>"</b>
-        by: <%= xp.user.full_name %>
-        <%= time_ago_in_words(xp.updated_at) %> ago
-       </p>
-     <% else%>
-       <p>
-        <em><%= xp.experience.name %></em>
-        <b>"<%= xp.comment %>"</b>
-         <%= "by: #{xp.user.full_name}" if xp.user %>
-        <%= time_ago_in_words(xp.updated_at) %> ago
-       </p>
-     <% end %>
+     <% @student_comments.each do |comment|%>
+     <% if comment.class.name == "ExperiencePoint" %>
+      <% if comment.negative? %>
+        <p style="color:red;">
+          <em><%= comment.experience.name %></em>
+          <b>"<%= comment.comment %>"</b>
+          by: <%= comment.user.full_name %>
+          <%= time_ago_in_words(comment.updated_at) %> ago
+        </p>
+      <% else%>
+        <p>
+          <em><%= comment.experience.name %></em>
+          <b>"<%= comment.comment %>"</b>
+          <%= "by: #{comment.user.full_name}" if comment.user %>
+          <%= time_ago_in_words(comment.updated_at) %> ago
+        </p>
+       <% end %>
+      <% elsif comment.class.name == "HelpSessionRecord" %>
+        <p>
+          <em>Help Session</em> -
+          <b>"<%= comment.comments %>"</b>
+          <%= "by: #{comment.user.full_name}" if comment.user %>
+          <%= time_ago_in_words(comment.updated_at) %> ago
+        </p>
+      <% end %>
      <% end %>
     </div>
   </div>

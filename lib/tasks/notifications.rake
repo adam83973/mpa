@@ -33,7 +33,7 @@ end
 def restart_reminders
   registrations_restarting_in_a_week = Registration.where(restart_date: Date.today + 7.days)
 
-  registrations_restarting_in_a_week.each do |regsitration|
+  registrations_restarting_in_a_week.each do |registration|
     NotificationMailer.class_restarting_reminder(registration).deliver
   end
 end

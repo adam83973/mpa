@@ -1,5 +1,7 @@
 class HelpSessionRecordsController < ApplicationController
   before_action :set_help_session_record, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :authorize_employee
 
   # GET /help_session_records
   def index
@@ -57,6 +59,6 @@ class HelpSessionRecordsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def help_session_record_params
-      params.require(:help_session_record).permit(:student_id, :user_id, :date, :learning_plan_id, :comments)
+      params.require(:help_session_record).permit(:student_id, :user_id, :date, :learning_plan_id, :comments, :session_length)
     end
 end
