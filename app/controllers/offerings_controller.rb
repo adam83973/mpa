@@ -60,7 +60,7 @@ class OfferingsController < ApplicationController
   # POST /offerings
   # POST /offerings.json
   def create
-    @offering = Offering.new(params[:offering])
+    @offering = Offering.new(offering_params)
 
     respond_to do |format|
       if @offering.save
@@ -79,7 +79,7 @@ class OfferingsController < ApplicationController
     @offering = Offering.find(params[:id])
 
     respond_to do |format|
-      if @offering.update_attributes(params[:offering])
+      if @offering.update_attributes(offering_params)
         format.html { redirect_to @offering, notice: 'Offering was successfully updated.' }
         format.json { head :no_content }
       else
@@ -134,5 +134,12 @@ class OfferingsController < ApplicationController
       format.html
       format.json { render json: response }
     end
+  end
+
+  private
+  def offering_params
+    params.require(:offering).permit(:comments, :course_id, :day, :graduation_year,
+                                     :location_id, :time, :user_ids, :active,
+                                     :classroom, :hidden, :day_number)
   end
 end
