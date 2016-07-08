@@ -57,6 +57,6 @@ class HelpSessionRecordsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def help_session_record_params
-      params.require(:help_session_record).permit(:student_id, :user_id, :date, :learning_plan_id, :comments, :parent_feedback)
+      params.require(:help_session_record).permit(:student_id, :user_id, :date, :learning_plan_id, :comments)
     end
 end

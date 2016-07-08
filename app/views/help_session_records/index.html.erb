@@ -10,7 +10,6 @@
       <th>Date</th>
       <th>Learning plan</th>
       <th>Comments</th>
-      <th>Parent feedback</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,7 +22,6 @@
         <td><%= help_session_record.date %></td>
         <td><%= help_session_record.learning_plan_id %></td>
         <td><%= help_session_record.comments %></td>
-        <td><%= help_session_record.parent_feedback %></td>
         <td><%= link_to 'Show', help_session_record %></td>
         <td><%= link_to 'Edit', edit_help_session_record_path(help_session_record) %></td>
         <td><%= link_to 'Destroy', help_session_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>

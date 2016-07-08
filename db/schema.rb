@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707172241) do
+ActiveRecord::Schema.define(version: 20160707235847) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -276,7 +276,6 @@ ActiveRecord::Schema.define(version: 20160707172241) do
     t.date     "date"
     t.integer  "learning_plan_id"
     t.text     "comments"
-    t.text     "parent_feedback"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
