@@ -5,9 +5,8 @@
     <%= f.input :name %>
     <%= f.association :location, label_method: :name, input_html: { class: 'chosen'} %>
     <%= f.input :sku %>
-    <%= f.input :price %>
+    <%= f.input :price, placeholder: "Enter $19.00 as 1900 or $19.99 as 1999" %>
     <%= f.input :credits %>
-    <%= f.input :quantity %>
 
     <%= f.button :submit, class: 'btn btn-lg btn-success' %>
   </div>
