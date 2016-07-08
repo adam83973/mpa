@@ -65,10 +65,10 @@ def send_to_slack(details)
       attachments:
         [
           {
-            fallback: "#{details[:body][0...20]}...",
+            fallback: "#{details[:body][0...20].force_encoding('ISO-8859-1')}...",
             color: "#36a64f",
             pretext: "View message:",
-            text: "#{details[:body]}".encode("iso-8859-1").force_encoding("utf-8")
+            text: "#{details[:body].force_encoding('ISO-8859-1')}"
           }
         ]
     }.to_json,
