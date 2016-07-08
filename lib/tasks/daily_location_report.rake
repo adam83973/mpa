@@ -9,8 +9,8 @@ end
 def daily_batch
   locations = Location.all
   locations.each do |location|
-    hw_help_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37118).delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
-    assessment_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37117).delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+    hw_help_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37118).to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+    assessment_appointments = location.appointments.where("time < ? AND time > ?", Time.now.end_of_day, Time.now.beginning_of_day).where(reasonId: 37117).to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
     opportunities_won_count = Opportunity.where(location_id: location.id).where(date_won: Date.today).count.to_i
     opportunities_lost_count = Opportunity.where(location_id: location.id).where(date_lost: Date.today).count.to_i
     student_assessments_count = assessment_appointments.count
