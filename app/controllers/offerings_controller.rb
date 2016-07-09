@@ -1,7 +1,7 @@
 class OfferingsController < ApplicationController
   before_filter :authenticate_user!, except: :offerings_by_location
   before_filter :authorize_employee, except: [:show, :offerings_by_location]
-  before_filter :authorize_admin, except: [:show, :index, :offerings_by_location]
+  before_filter :authorize_admin, except: [:show, :index, :offerings_by_location, :attendance_report]
 
   # GET /offerings
   # GET /offerings.json
@@ -98,6 +98,10 @@ class OfferingsController < ApplicationController
       format.html
       format.json { render json: @offerings_list }
     end
+  end
+
+  def attendance_report
+    @offering = Offering.find(params[:id])
   end
 
   # DELETE /offerings/1

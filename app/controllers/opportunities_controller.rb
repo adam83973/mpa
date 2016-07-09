@@ -231,7 +231,6 @@ class OpportunitiesController < ApplicationController
 
     #add note with actionable item
     @note1 = @user.notes.build({
-      title: "Trial",
       content: "#{@user.first_name} has scheduled a trial. Please create or link this to a student account.",
       user_id: @user.system_admin_id,
       location_id: @opportunity.location_id,

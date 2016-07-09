@@ -146,6 +146,7 @@ MathPlus::Application.routes.draw do
       post :import
       get :offerings_by_location
       get :at_capacity
+      get '/:id/attendance_report', to: 'offerings#attendance_report'
     end
   end
 
@@ -156,9 +157,9 @@ MathPlus::Application.routes.draw do
 
 
   namespace :operations_pages do
-      get :main
-      get :trial_applet
-      get :creating_an_opportunity
+    get :main
+    get :trial_applet
+    get :creating_an_opportunity
   end
 
   resources :opportunities do
