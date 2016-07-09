@@ -6,7 +6,8 @@
       <%= f.input :email, :required => false, :autofocus => true %>
       <%= f.input :password, :required => false %>
       <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
-      <%= f.button :submit, "asdf in", class: "btn btn-success" %>
+      <br>
+      <%= f.button :submit, "Sign In", class: "btn btn-success" %>
       <br><br>
       <%= render "devise/shared/links" %>
     <% end %>
