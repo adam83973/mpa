@@ -97,7 +97,7 @@ class OpportunitiesController < ApplicationController
     @status = @opportunity.status
 
     respond_to do |format|
-      if @opportunity.update_attributes(params[:opportunity])
+      if @opportunity.update_attributes(opportunity_params)
         if @status.to_i == 8 #lost
           @opportunity.update_attribute :date_lost, Date.today
         elsif status.to_i == 4 #undecided
