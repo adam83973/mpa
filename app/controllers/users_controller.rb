@@ -459,24 +459,25 @@ class UsersController < ApplicationController
         email = "emailinvadlid#{SecureRandom.hex(3)}@mathplusacademy.com"
       end
 
+      # Add location information to user
+      if appointment['location']['locationId'] == 10935
+        location_id = 1
+      elsif appointment['location']['locationId'] == 10936
+        location_id = 2
+      elsif appointment['location']['locationId'] == 23402
+        location_id = 3
+      end
+
       @parent = User.create!(
                     check_appointments_id:    appointment['client']['clientId'],
                     first_name:               appointment['client']['firstName'],
                     last_name:                appointment['client']['lastName'],
+                    location_id:              location_id,
                     email:                    appointment['client']['emailAddress'],
                     phone:                    appointment['client']['cellPhone'],
                     password:                 @generated_password,
                     active:                   false,
                     role:                     "Parent")
-
-      # Add location information to user
-      if appointment['location']['locationId'] == 10935
-        @parent.update_attribute :location_id, 1
-      elsif appointment['location']['locationId'] == 10936
-        @parent.update_attribute :location_id, 2
-      elsif appointment['location']['locationId'] == 23402
-        @parent.update_attribute :location_id, 3
-      end
 
       # Add appointment to system
       @appointment = Appointment.create!(
