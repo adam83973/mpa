@@ -466,6 +466,8 @@ class UsersController < ApplicationController
         location_id = 2
       elsif appointment['location']['locationId'] == 23402
         location_id = 3
+      else
+        location_id = 1
       end
 
       @parent = User.create!(
