@@ -38873,227 +38873,6 @@ if (typeof jQuery === 'undefined') {
 
 	return $.fn.dataTable;
 }));
-/*! DataTables Bootstrap 3 integration
- * ©2011-2015 SpryMedia Ltd - datatables.net/license
- */
-
-/**
- * DataTables integration for Bootstrap 3. This requires Bootstrap 3 and
- * DataTables 1.10 or newer.
- *
- * This file sets the defaults and adds options to DataTables to style its
- * controls using Bootstrap. See http://datatables.net/manual/styling/bootstrap
- * for further information.
- */
-
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				// Require DataTables, which attaches to jQuery, including
-				// jQuery if needed and have a $ property so we can access the
-				// jQuery object that is used
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
-
-
-/* Set the defaults for DataTables initialisation */
-$.extend( true, DataTable.defaults, {
-	dom:
-		"<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-	renderer: 'bootstrap'
-} );
-
-
-/* Default class modification */
-$.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper form-inline dt-bootstrap",
-	sFilterInput:  "form-control input-sm",
-	sLengthSelect: "form-control input-sm",
-	sProcessing:   "dataTables_processing panel panel-default"
-} );
-
-
-/* Bootstrap paging button renderer */
-DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
-	var classes = settings.oClasses;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass, counter=0;
-
-	var attach = function( container, buttons ) {
-		var i, ien, node, button;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
-
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
-
-			if ( $.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				btnDisplay = '';
-				btnClass = '';
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '&#x2026;';
-						btnClass = 'disabled';
-						break;
-
-					case 'first':
-						btnDisplay = lang.sFirst;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'previous':
-						btnDisplay = lang.sPrevious;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'active' : '';
-						break;
-				}
-
-				if ( btnDisplay ) {
-					node = $('<li>', {
-							'class': classes.sPageButton+' '+btnClass,
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null
-						} )
-						.append( $('<a>', {
-								'href': '#',
-								'aria-controls': settings.sTableId,
-								'aria-label': aria[ button ],
-								'data-dt-idx': counter,
-								'tabindex': settings.iTabIndex
-							} )
-							.html( btnDisplay )
-						)
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-
-					counter++;
-				}
-			}
-		}
-	};
-
-	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
-	var activeEl;
-
-	try {
-		// Because this approach is destroying and recreating the paging
-		// elements, focus is lost on the select button which is bad for
-		// accessibility. So we want to restore focus once the draw has
-		// completed
-		activeEl = $(host).find(document.activeElement).data('dt-idx');
-	}
-	catch (e) {}
-
-	attach(
-		$(host).empty().html('<ul class="pagination"/>').children('ul'),
-		buttons
-	);
-
-	if ( activeEl ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
-	}
-};
-
-
-/*
- * TableTools Bootstrap compatibility
- * Required TableTools 2.1+
- */
-if ( DataTable.TableTools ) {
-	// Set the classes that TableTools uses to something suitable for Bootstrap
-	$.extend( true, DataTable.TableTools.classes, {
-		"container": "DTTT btn-group",
-		"buttons": {
-			"normal": "btn btn-default",
-			"disabled": "disabled"
-		},
-		"collection": {
-			"container": "DTTT_dropdown dropdown-menu",
-			"buttons": {
-				"normal": "",
-				"disabled": "disabled"
-			}
-		},
-		"print": {
-			"info": "DTTT_print_info"
-		},
-		"select": {
-			"row": "active"
-		}
-	} );
-
-	// Have the collection use a bootstrap compatible drop down
-	$.extend( true, DataTable.TableTools.DEFAULTS.oTags, {
-		"collection": {
-			"container": "ul",
-			"button": "li",
-			"liner": "a"
-		}
-	} );
-}
-
-
-return DataTable;
-}));
 /*! Responsive 2.0.0
  * 2014-2015 SpryMedia Ltd - datatables.net/license
  */
@@ -41226,6 +41005,26 @@ return Responsive;
 
 }).call(this);
 (function() {
+  jQuery(function() {
+    $('#help_session_student_id').on('change', function() {
+      if ($(this).val() === "") {
+        return $('#start-hw-help').prop('disabled', true);
+      } else {
+        return $('#start-hw-help').prop('disabled', false);
+      }
+    });
+    $('#launchLearningPlanModal').on('click', function() {
+      return $('#learningPlanModal').modal('show');
+    });
+    return $('#exampleModal').on('show', function() {
+      return $('#learning_plan_course_id').chosen({
+        allow_single_deselect: true
+      });
+    });
+  });
+
+}).call(this);
+(function() {
   var note;
 
   $(".new_note").each(function() {
@@ -41646,13 +41445,15 @@ function setup() {
     dateFormat: 'yy-mm-dd'
   });
 
-  $('#creditsModal').modal('hide');
-
   $('#gradesModalButton').on('click', function() {
     var student_id;
     student_id = $('#studentId').data('studentid');
     $('#grade_student_id').val(student_id);
     return $('#grade_experience_point_attributes_student_id').val(student_id);
+  });
+
+  $('#creditsModal').on('shown.bs.modal', function() {
+    return $('.chosen', this).chosen('destroy').chosen();
   });
 
   $("#credits_form").bind('ajax:beforeSend', function(evt, xhr, settings) {
@@ -41732,6 +41533,63 @@ function setup() {
       allow_single_deselect: true,
       no_results_text: 'No results matched',
       width: '200px'
+    });
+  });
+
+}).call(this);
+(function() {
+  var $transaction_location_id, $transaction_process, $transaction_product_id, $transaction_student_id;
+
+  $transaction_product_id = $('#transaction_product_id');
+
+  $transaction_process = $('#transaction_process');
+
+  $transaction_location_id = $('#transaction_location_id');
+
+  $transaction_student_id = $('#transaction_student_id');
+
+  $transaction_process.on('change', function() {
+    switch ($(this).val()) {
+      case '0':
+        $('.transaction_location').show();
+        return $('.transaction_student').show();
+      case '1':
+        $('.transaction_location').show();
+        return $('.transaction_student').hide().val('');
+      case '2':
+      case '3':
+        $('.transaction_location').show();
+        return $('.transaction_student').hide('');
+    }
+  });
+
+  $transaction_product_id.on('change', function() {
+    if ($transaction_process.val() === '2' || $transaction_process.val() === '3') {
+      return $('.transaction_quantity').show();
+    }
+  });
+
+  $transaction_location_id.on('change', function() {
+    return $.ajax({
+      type: 'get',
+      url: '/products/products_by_location.json',
+      data: {
+        location_id: $(this).val(),
+        credits: $transaction_product_id.data('credits')
+      },
+      success: function(data, status, xhr) {
+        var products;
+        products = data;
+        $transaction_product_id.html("");
+        $.each(data, function(index, value) {
+          return $transaction_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1]));
+        });
+        $(".transaction_product").show().find(".chosen-disabled").removeClass("chosen-disabled");
+        $transaction_product_id.removeClass("disabled").prop('disabled', false);
+        return $transaction_product_id.chosen('destroy').chosen();
+      },
+      error: function(xhr, status, e) {},
+      dataType: 'JSON'
     });
   });
 
@@ -42101,8 +41959,8 @@ function setup() {
   $('#registrationHoldModal').on('shown.bs.modal', function() {
     var button, hold_date, restart_date;
     button = modal.setButton($(this));
-    hold_date = $('#hold_hold_date');
-    restart_date = $('#hold_restart_date');
+    hold_date = $('#registration_hold_date');
+    restart_date = $('#registration_restart_date');
     restart_date.attr('disabled', 'disabled');
     hold_date.on('change', function() {
       restart_date.val('');
@@ -47032,7 +46890,10 @@ jscolor.addEvent(document, 'page:load', jscolor.init);
       pagingType: "simple_numbers",
       bPaginate: true,
       bFilter: true,
-      bJQueryUI: true
+      renderer: {
+        header: "jqueryui",
+        pageButton: "jqueryui"
+      }
     });
     $(".chosen").chosen({
       allow_single_deselect: true
