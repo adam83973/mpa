@@ -34,8 +34,8 @@ $('#registrationSwitchModal').on 'shown.bs.modal', ->
 $('#registrationHoldModal').on 'shown.bs.modal', ->
 
   button = modal.setButton($(this))
-  hold_date = $('#hold_hold_date')
-  restart_date = $('#hold_restart_date')
+  hold_date = $('#registration_hold_date')
+  restart_date = $('#registration_restart_date')
 
   restart_date.attr('disabled', 'disabled')
 
