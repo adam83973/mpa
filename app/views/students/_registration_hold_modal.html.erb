@@ -10,7 +10,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <%= simple_form_for :registration, url: url_for(action: 'hold', controller: 'registrations'), method: 'get' do |f| %>
               <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
-              <%= f.input :id, as: :hidden, input_html: { id: "drop_registration_id"} %>
+              <%= f.input :id, as: :hidden, input_html: { id: "hold_registration_id"} %>
               <%= f.input :hold_date, as: :string, label: "Hold starts on:", input_html: { class: "datepickerTodayAndOn" } %>
               <%= f.input :restart_date, as: :string, label: "Student will restart on:",  input_html: { class: "datepickerTodayAndOn" } %>
           </div>

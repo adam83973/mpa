@@ -247,7 +247,7 @@ class RegistrationsController < ApplicationController
     end
 
     def registration_params
-      params.require(:registration).permit(:id, :admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later)
+      params.require(:registration).permit(:admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later)
     end
 
     def set_registration
