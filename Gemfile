@@ -5,6 +5,7 @@ ruby '2.3.1'
 gem 'rails', '4.2'
 
 gem 'ahoy_email'
+gem "attr_encrypted", "~> 3.0.0"
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'carrierwave'

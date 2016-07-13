@@ -60,6 +60,8 @@ GEM
       rails
       safely_block
     arel (6.0.3)
+    attr_encrypted (3.0.1)
+      encryptor (~> 3.0.0)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
@@ -132,6 +134,7 @@ GEM
       actionmailer (>= 3.2.6)
       devise (>= 3.2.0)
     diff-lcs (1.2.5)
+    encryptor (3.0.0)
     errbase (0.0.3)
     erubis (2.7.0)
     excon (0.49.0)
@@ -534,6 +537,7 @@ PLATFORMS
 
 DEPENDENCIES
   ahoy_email
+  attr_encrypted (~> 3.0.0)
   autoprefixer-rails
   bootstrap-sass
   bullet
@@ -600,3 +604,9 @@ DEPENDENCIES
   web-console (~> 2.0)
   will_paginate (~> 3.0.6)
   woocommerce_api
+
+RUBY VERSION
+   ruby 2.3.1p112
+
+BUNDLED WITH
+   1.12.3

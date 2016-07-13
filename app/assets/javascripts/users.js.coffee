@@ -1,22 +1,79 @@
 # User Form View
+$user_ssn = $('.user_ssn')
+$user_bank_account = $('.user_bank_account')
+$user_routing_number = $('.user_routing_number')
+$user_shirt_size = $(".user_shirt_size")
+$user_passion = $(".user_passion")
+$user_has_key = $(".user_has_key")
+$user_admin = $(".user_admin")
+$user_billing_note = $('.user_billing_note')
+$user_infusion_id = $(".user_infusion_id")
+
+if $("#user_role").val() in ["Teacher", "Admin", "Teaching Assitant", "Robotics Instructor", "Programming Instrutor", "Chess Instructor"]
+	$user_passion.show()
+	$user_shirt_size.show()
+	$user_has_key.show()
+	$user_ssn.show()
+	$user_bank_account.show()
+	$user_routing_number.show()
+	if $("#user_role").val() is "Admin"
+		$user_admin.show()
+else if $('#user_role').val() is "Parent"
+	$user_billing_note.show()
+	$user_infusion_id.show()
+
 $("#user_role").on "change", ->
-	if $(this).val() is "Parent"
-		$(".user_passion").hide()
-		$(".user_shirt_size").hide()
-		$(".user_has_key").hide()
-		$(".user_admin").hide()
+	if $(this).val = "Admin"
+		$('#user_admin').prop('checked', true)
 	else
-		$(".user_infusion_id").hide()
-		$(".user_passion").show()
-		$(".user_shirt_size").show()
-		$(".user_has_key").show()
-		$(".user_admin").show()
+		$('#user_admin').prop('checked', false)
+
+	if $(this).val() is "Parent"
+		$user_shirt_size.hide()
+		$('#user_shirt_size').val('')
+		$user_has_key.hide()
+		$('#user_has_key').prop('checked', false)
+		$user_admin.hide()
+		$('#user_admin').prop('checked', false)
+		$user_ssn.hide()
+		$user_ssn.find('#user_ssn').val('')
+		$user_bank_account.hide()
+		$('#user_bank_account').val('')
+		$user_routing_number.hide()
+		$('#user_routing_number').val('')
+		$user_passion.hide()
+		$('#user_passion').val('')
+		$user_billing_note.show()
+		$user_infusion_id.show()
+	else
+		$user_infusion_id.hide()
+		$('#user_infusion_id').val('')
+		$user_billing_note.hide()
+		$('#user_billing_note').val('')
+		$user_passion.show()
+		$user_shirt_size.show()
+		$user_has_key.show()
+		$user_admin.show()
+		$user_ssn.show()
+		$user_bank_account.show()
+		$user_routing_number.show()
 
 $("#user_role").on "change", ->
 	if !($(this).val() is "Admin")
 		$(".user_admin").hide()
 	else
 		$(".user_admin").show()
+
+$user_ssn = $('.user_ssn')
+$user_bank_account = $('.user_bank_account')
+$user_routing_number = $('.user_routing_number')
+
+$('#user_role').on 'change', ->
+	if $(this).val() != "Parent"
+	else
+		$user_ssn.hide()
+		$user_bank_account.hide()
+		$user_routing_number.hide()
 
 $("#new_user")
 .bind 'ajax:beforeSend', (evt, xhr, settings) ->

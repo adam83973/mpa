@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708003359) do
+ActiveRecord::Schema.define(version: 20160713181744) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -644,48 +644,57 @@ ActiveRecord::Schema.define(version: 20160708003359) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",              limit: 255
-    t.string   "last_name",               limit: 255
-    t.string   "phone",                   limit: 255
-    t.string   "passion",                 limit: 255
-    t.string   "shirt_size",              limit: 255
+    t.string   "first_name",                  limit: 255
+    t.string   "last_name",                   limit: 255
+    t.string   "phone",                       limit: 255
+    t.string   "passion",                     limit: 255
+    t.string   "shirt_size",                  limit: 255
     t.boolean  "has_key"
-    t.boolean  "active",                              default: true
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.boolean  "active",                                  default: true
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "location_id"
-    t.string   "email",                   limit: 255, default: "",    null: false
-    t.string   "encrypted_password",      limit: 255, default: ""
-    t.string   "reset_password_token",    limit: 255
+    t.string   "email",                       limit: 255, default: "",    null: false
+    t.string   "encrypted_password",          limit: 255, default: ""
+    t.string   "reset_password_token",        limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       default: 0
+    t.integer  "sign_in_count",                           default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",      limit: 255
-    t.string   "last_sign_in_ip",         limit: 255
-    t.boolean  "admin",                               default: false
-    t.string   "role",                    limit: 255
-    t.string   "invitation_token",        limit: 60
+    t.string   "current_sign_in_ip",          limit: 255
+    t.string   "last_sign_in_ip",             limit: 255
+    t.boolean  "admin",                                   default: false
+    t.string   "role",                        limit: 255
+    t.string   "invitation_token",            limit: 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
-    t.string   "invited_by_type",         limit: 255
+    t.string   "invited_by_type",             limit: 255
     t.integer  "infusion_id"
     t.text     "last_payment"
-    t.boolean  "active_subscription",                 default: false
-    t.integer  "subscription_count",                  default: 0
-    t.integer  "balance_due",                         default: 0
-    t.boolean  "year_end_campaign",                   default: false
+    t.boolean  "active_subscription",                     default: false
+    t.integer  "subscription_count",                      default: 0
+    t.integer  "balance_due",                             default: 0
+    t.boolean  "year_end_campaign",                       default: false
     t.integer  "check_appointments_id"
     t.integer  "default_location"
-    t.boolean  "appointment_rescheduled",             default: false
-    t.boolean  "confirmation_opt_out",                default: false
-    t.text     "billing_note",                        default: ""
-    t.boolean  "hide_badge_banner",                   default: false
-    t.boolean  "termination_sequence",                default: false
-    t.boolean  "first_email_reminder",                default: false
+    t.boolean  "appointment_rescheduled",                 default: false
+    t.boolean  "confirmation_opt_out",                    default: false
+    t.text     "billing_note",                            default: ""
+    t.boolean  "hide_badge_banner",                       default: false
+    t.boolean  "termination_sequence",                    default: false
+    t.boolean  "first_email_reminder",                    default: false
+    t.text     "ssn"
+    t.text     "bank_account"
+    t.text     "routing_number"
+    t.string   "encrypted_ssn"
+    t.string   "encrypted_ssn_iv"
+    t.string   "encrypted_bank_account"
+    t.string   "encrypted_bank_account_iv"
+    t.string   "encrypted_routing_number"
+    t.string   "encrypted_routing_number_iv"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -102,4 +102,9 @@ class ResourcesController < ApplicationController
     Resource.import(params[:file])
     redirect_to resources_path, notice: "Resources imported."
   end
+
+  private
+  def resource_params
+    params.require(:resource).permit(:filename, :content_type, :file_size, :file, {problem_ids: []}, {activity_ids: []}, {lesson_ids: []}, { experience_id: [] }, :category)
+  end
 end

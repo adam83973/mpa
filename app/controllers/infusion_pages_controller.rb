@@ -210,9 +210,12 @@ class InfusionPagesController < ApplicationController
     daysUntilCharge = (startDate - DateTime.now).to_i + 1
     result = nil
     # add subcription with default price and qty = 1
-    result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
-    # DID NOT WORK: result = Infusionsoft.invoice_add_recurring_order_with_price(params[:ContactId], false, params[:cProgramId].to_s, params[:qty].to_i, params[:price].to_i , false, params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
-    # DID NOT WORK: result = Infusionsoft.invoice_add_recurring_order_with_price('5843', false, 7, 1, 1 , false, 5, 1669, 0, 24)
+    if Rails.env.production?
+      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
+    else
+      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], 1, params[:creditCardId].to_i, 0, daysUntilCharge)
+    end
+
     data = { :Qty => params[:qty], :BillingAmt => params[:price] }
     Infusionsoft.data_update('RecurringOrder', result, data)
     if result
