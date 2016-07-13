@@ -90,9 +90,9 @@ class LessonsController < ApplicationController
     redirect_to lessons_path, notice: "Lessons imported."
   end
   private
-  
+
   def lesson_params
-    params.require(:lesson).require(:assessment, :assessment_key, :assignment,
+    params.require(:lesson).permit(:assessment, :assessment_key, :assignment,
                                     :assignment_key, :standard_id, :name, :week,
                                     {resource_ids: []}, {problem_ids: []})
   end
