@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713181744) do
+ActiveRecord::Schema.define(version: 20160713185447) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -686,9 +686,6 @@ ActiveRecord::Schema.define(version: 20160713181744) do
     t.boolean  "hide_badge_banner",                       default: false
     t.boolean  "termination_sequence",                    default: false
     t.boolean  "first_email_reminder",                    default: false
-    t.text     "ssn"
-    t.text     "bank_account"
-    t.text     "routing_number"
     t.string   "encrypted_ssn"
     t.string   "encrypted_ssn_iv"
     t.string   "encrypted_bank_account"

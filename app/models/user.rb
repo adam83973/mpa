@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :role, :location_id, :email
 
-  attr_encrypted :ssn, key: :encryption_key, attribute: 'ssn_encrypted'
-  attr_encrypted :bank_account, key: :encryption_key, attribute: 'bank_account_encrypted'
-  attr_encrypted :routing_number, key: :encryption_key, attribute: 'routing_number_encrypted'
+  attr_encrypted :ssn, key: :encryption_key
+  attr_encrypted :bank_account, key: :encryption_key
+  attr_encrypted :routing_number, key: :encryption_key
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 

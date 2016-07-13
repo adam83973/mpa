@@ -18,6 +18,20 @@
       <b>Location:</b>
       <%= @user.location.name if @user.location %>
     </p>
+    <% if (['1','2'].include?(current_user.id) && @user.employee?) || Rails.env.development? %>
+    <p>
+      <b>SSN:</b>
+      <%= @user.ssn %>
+    </p>
+    <p>
+      <b>Bank Account:</b>
+      <%= @user.bank_account %>
+    </p>
+    <p>
+      <b>Routing Number:</b>
+      <%= @user.routing_number %>
+    </p>
+    <% end %>
     <% if @user.role  == "Parent" && current_user.admin? %>
       <% if @user.infusion_id != nil %>
       <p>
