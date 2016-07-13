@@ -564,6 +564,36 @@ class UsersController < ApplicationController
     end
   end
 
+  def retention_call
+    parent = User.find_by_infusion_id(params[:contactId].to_i)
+
+    note = parent.notes.build({
+      content: "Please call for follow up on termination and ask about any possible
+               issues that spurred the termination.",
+      user_id: parent.system_admin_id,
+      location_id: parent.location_id,
+      action_date: Date.today})
+
+    note.save!
+
+    render nothing: true, status: 200
+  end
+
+  def restart_request
+    parent = User.find_by_infusion_id(params[:contactId].to_i)
+
+    note = parent.notes.build({
+      content: "Please call #{parent.full_name} about restarting classes.
+      They responded to an email and are interested in restarting classes.",
+      user_id: parent.system_admin_id,
+      location_id: parent.location_id,
+      action_date: Date.today})
+
+    note.save!
+
+    render nothing: true, status: 200
+  end
+
   private
     def set_user
       @user = User.find(params[:id])

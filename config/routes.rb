@@ -244,6 +244,8 @@ MathPlus::Application.routes.draw do
       get   :send_hold_form
       get   :send_termination_form
       post  :infusion_request
+      post  :restart_request
+      post  :retention_call
       get   :missed_appointment
       post  :appointment_reschedule_request
       get   :year_end_promotion
