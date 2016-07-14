@@ -94,9 +94,11 @@ class ExperiencesController < ApplicationController
 
   def experience_params
     params.require(:experience).permit(:category, :content, :name, :points,
-                                       :image, :remove_image, :resource_ids,
+                                       :image, :remove_image, {resource_ids:[]},
                                        :remote_image_url, :occupation_id, :active,
-                                       :badge_attributes)
+                                       {badge_attributes: [:write_up_required,
+                                        :multiple, :requires_approval, :image,
+                                        :remove_image, :requirements, :name, :experience_id]})
   end
 
   def set_experience
