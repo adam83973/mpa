@@ -44,7 +44,7 @@ class ResourcesController < ApplicationController
   # POST /resources
   # POST /resources.json
   def create
-    @resource = Resource.create(params[:resource])
+    @resource = Resource.create(resource_params)
 
     # @resource = Resource.new(params[:resource])
 
