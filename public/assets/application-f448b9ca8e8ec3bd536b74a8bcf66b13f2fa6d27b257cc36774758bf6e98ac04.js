@@ -40170,7 +40170,7 @@ return Responsive;
     $('#infusion_page_startBillDate').datepicker({
       dateFormat: 'yy-mm-dd'
     });
-    return $('#load_attendance').on('click', function() {
+    $('#load_attendance').on('click', function() {
       return $.each($('.active-registration'), function(index, value) {
         var $active_registration, student_id;
         $active_registration = $(this);
@@ -40190,6 +40190,39 @@ return Responsive;
           }
         });
       });
+    });
+    return $('#end_subscription').bind('click', function() {
+      var $contactId;
+      $contactId = $('#end_subscription').data('contactid');
+      if (confirm("Is this customer terminating a class? OK to confirm.")) {
+        if (confirm("By clicking OK this customer will receive a termination confirmation.")) {
+          return $.ajax({
+            type: 'get',
+            url: '/infusion_pages/add_to_terimination_sequence',
+            data: {
+              contactId: $contactId
+            },
+            success: function(data, status, xhr) {
+              return alert("Parent added to termination sequence.");
+            },
+            error: function(data) {
+              return alert("Error. Parent was not added to termination sequence.");
+            }
+          });
+        } else {
+          if (confirm("Do you still want to cancel this subscription? OK to confirm.")) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else {
+        if (confirm("Do you still want to cancel this subscription? OK to confirm.")) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     });
   });
 
@@ -41595,18 +41628,76 @@ function setup() {
 
 }).call(this);
 (function() {
+  var $user_admin, $user_bank_account, $user_billing_note, $user_has_key, $user_infusion_id, $user_passion, $user_routing_number, $user_shirt_size, $user_ssn, ref;
+
+  $user_ssn = $('.user_ssn');
+
+  $user_bank_account = $('.user_bank_account');
+
+  $user_routing_number = $('.user_routing_number');
+
+  $user_shirt_size = $(".user_shirt_size");
+
+  $user_passion = $(".user_passion");
+
+  $user_has_key = $(".user_has_key");
+
+  $user_admin = $(".user_admin");
+
+  $user_billing_note = $('.user_billing_note');
+
+  $user_infusion_id = $(".user_infusion_id");
+
+  if ((ref = $("#user_role").val()) === "Teacher" || ref === "Admin" || ref === "Teaching Assitant" || ref === "Robotics Instructor" || ref === "Programming Instrutor" || ref === "Chess Instructor") {
+    $user_passion.show();
+    $user_shirt_size.show();
+    $user_has_key.show();
+    $user_ssn.show();
+    $user_bank_account.show();
+    $user_routing_number.show();
+    if ($("#user_role").val() === "Admin") {
+      $user_admin.show();
+    }
+  } else if ($('#user_role').val() === "Parent") {
+    $user_billing_note.show();
+    $user_infusion_id.show();
+  }
+
   $("#user_role").on("change", function() {
-    if ($(this).val() === "Parent") {
-      $(".user_passion").hide();
-      $(".user_shirt_size").hide();
-      $(".user_has_key").hide();
-      return $(".user_admin").hide();
+    if ($(this).val = "Admin") {
+      $('#user_admin').prop('checked', true);
     } else {
-      $(".user_infusion_id").hide();
-      $(".user_passion").show();
-      $(".user_shirt_size").show();
-      $(".user_has_key").show();
-      return $(".user_admin").show();
+      $('#user_admin').prop('checked', false);
+    }
+    if ($(this).val() === "Parent") {
+      $user_shirt_size.hide();
+      $('#user_shirt_size').val('');
+      $user_has_key.hide();
+      $('#user_has_key').prop('checked', false);
+      $user_admin.hide();
+      $('#user_admin').prop('checked', false);
+      $user_ssn.hide();
+      $user_ssn.find('#user_ssn').val('');
+      $user_bank_account.hide();
+      $('#user_bank_account').val('');
+      $user_routing_number.hide();
+      $('#user_routing_number').val('');
+      $user_passion.hide();
+      $('#user_passion').val('');
+      $user_billing_note.show();
+      return $user_infusion_id.show();
+    } else {
+      $user_infusion_id.hide();
+      $('#user_infusion_id').val('');
+      $user_billing_note.hide();
+      $('#user_billing_note').val('');
+      $user_passion.show();
+      $user_shirt_size.show();
+      $user_has_key.show();
+      $user_admin.show();
+      $user_ssn.show();
+      $user_bank_account.show();
+      return $user_routing_number.show();
     }
   });
 
@@ -41615,6 +41706,22 @@ function setup() {
       return $(".user_admin").hide();
     } else {
       return $(".user_admin").show();
+    }
+  });
+
+  $user_ssn = $('.user_ssn');
+
+  $user_bank_account = $('.user_bank_account');
+
+  $user_routing_number = $('.user_routing_number');
+
+  $('#user_role').on('change', function() {
+    if ($(this).val() !== "Parent") {
+
+    } else {
+      $user_ssn.hide();
+      $user_bank_account.hide();
+      return $user_routing_number.hide();
     }
   });
 
