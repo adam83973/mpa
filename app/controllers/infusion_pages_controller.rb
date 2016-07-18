@@ -206,7 +206,7 @@ class InfusionPagesController < ApplicationController
     @user = User.find_by_infusion_id(params[:ContactId])
     # calculate days from now until bill date
     startBilling = params[:startBillDate]
-    startDate = DateTime.parse(startBilling[:day]+"-"+startBilling[:month]+"-"+startBilling[:year])
+    startDate = DateTime.parse(startBilling)
     daysUntilCharge = (startDate - DateTime.now).to_i + 1
     result = nil
     # add subcription with default price and qty = 1
@@ -258,10 +258,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def end_subscription
-    #
-    # ADD A CONFIRM POP-UP!
-    #
-
     today = DateTime.now
     result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N"})
     if result
@@ -291,6 +287,16 @@ class InfusionPagesController < ApplicationController
 
     respond_to do |format|
       format.html
+    end
+  end
+
+  def add_to_terimination_sequence
+    contactId = params[:contactId]
+    group_id = Rails.env.production? ? 1744 : 111
+    if Infusionsoft.contact_add_to_group(contactId, group_id)
+      render nothing: true, status: 200
+    else
+      render text: "Sequence was not started.", status: :bad_request
     end
   end
 

@@ -83,6 +83,7 @@ MathPlus::Application.routes.draw do
   resources :help_session_records
 
   namespace :infusion_pages do
+    get :add_to_terimination_sequence
     get :registration_audit
     get :subscription_audit
     get :home

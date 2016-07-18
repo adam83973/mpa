@@ -19,3 +19,26 @@ jQuery ->
         complete: (data1) ->
           last_attendance = data1.responseText
           $active_registration.append("(#{last_attendance})")
+
+  $('#end_subscription').bind 'click', ->
+    $contactId = $('#end_subscription').data('contactid')
+    if confirm "Is this customer terminating a class? OK to confirm."
+      if confirm "By clicking OK this customer will receive a termination confirmation."
+        $.ajax
+          type:'get'
+          url: '/infusion_pages/add_to_terimination_sequence'
+          data: { contactId: $contactId }
+          success: (data, status, xhr) ->
+            alert "Parent added to termination sequence."
+          error: (data) ->
+            alert "Error. Parent was not added to termination sequence."
+      else
+        if confirm "Do you still want to cancel this subscription? OK to confirm."
+          true
+        else
+          false
+    else
+      if confirm "Do you still want to cancel this subscription? OK to confirm."
+        true
+      else
+        false

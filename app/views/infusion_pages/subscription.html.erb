@@ -23,6 +23,7 @@
 				</thead>
 				<tbody>
 					<% @active_subscription.each do |i| %>
+					<%= i %>
 					<% if i["Status"] == "Inactive" %>
 						<tr class="warning">
 					<% else %>
@@ -39,7 +40,7 @@
 								<td></td>
 							<% else %>
 								<td>
-									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-small btn-danger' %>
+									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-small btn-danger', id: "end_subscription", data: { contactId: @user.infusion_id } %>
 								</td>
 							<% end %>
 						</tr>
@@ -88,11 +89,11 @@
 					</div>
 					<br>
 					<label>First Bill Date </label>
-					<%= select_date Date.today, { prefix: :startBillDate }, { class: 'form-control' } %>
+					<%= text_field_tag :startBillDate, Date.today, class: 'form-control datepickerFutureOnly', style: 'margin-bottom:20px;' %>
 				 	<label>Deposit </label>
 					<div class="input-group">
 						<span class="input-group-addon">$</span>
-						<%= text_field_tag :deposit, 0, class: 'form-control' %>
+						<%= text_field_tag :deposit, 0, class: 'form-control', style: "z-index:0;" %>
 						<span class="input-group-addon">.00</span>
 					</div>
 					<br>
