@@ -23,7 +23,6 @@
 				</thead>
 				<tbody>
 					<% @active_subscription.each do |i| %>
-					<%= i %>
 					<% if i["Status"] == "Inactive" %>
 						<tr class="warning">
 					<% else %>
