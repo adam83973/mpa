@@ -22,8 +22,8 @@ jQuery ->
 
   $('#end_subscription').bind 'click', ->
     $contactId = $('#end_subscription').data('contactid')
-    if confirm "Is this customer terminating a class? OK to confirm."
-      if confirm "By clicking OK this customer will receive a termination confirmation."
+    if confirm "Would you like to cancel this subscription? OK to confirm."
+      if confirm "Would you like the customer to receive a termination confirmation?"
         $.ajax
           type:'get'
           url: '/infusion_pages/add_to_terimination_sequence'
@@ -33,12 +33,6 @@ jQuery ->
           error: (data) ->
             alert "Error. Parent was not added to termination sequence."
       else
-        if confirm "Do you still want to cancel this subscription? OK to confirm."
-          true
-        else
-          false
-    else
-      if confirm "Do you still want to cancel this subscription? OK to confirm."
         true
-      else
-        false
+    else
+      false
