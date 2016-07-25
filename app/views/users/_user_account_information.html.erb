@@ -18,7 +18,7 @@
       <b>Location:</b>
       <%= @user.location.name if @user.location %>
     </p>
-    <% if (['1','2'].include?(current_user.id) && @user.employee?) || Rails.env.development? %>
+    <% if ['1','2'].include?(current_user.id) || Rails.env.development? %>
     <p>
       <b>SSN:</b>
       <%= @user.ssn %>
