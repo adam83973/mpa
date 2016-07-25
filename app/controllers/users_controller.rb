@@ -360,7 +360,7 @@ class UsersController < ApplicationController
         @appointment.update_attributes({
           reasonId:      appointment['reason']['reasonId'],
           visitMinutes:  appointment['reason']['visitMinutes'],
-          time:          DateTime.parse(appointment['appointmentDateTimeClient']),
+          time:          DateTime.parse(appointment['appointmentDateTimeClient']).to_time,
           note:          appointment['note'],
           status:        appointment['status']})
       else
@@ -642,7 +642,7 @@ class UsersController < ApplicationController
 
       end
 
-      content = content + "Appointment: #{app_obj.time.strftime("%b %d,%l:%M%p")}\n"
+      content = content + "Appointment: #{app_obj.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}\n"
 
       content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}\n"
 

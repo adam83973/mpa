@@ -1,4 +1,4 @@
-module OpportunitiesHelper
+  module OpportunitiesHelper
   def opportunity_status(opp)
     case opp.status
     when 0
