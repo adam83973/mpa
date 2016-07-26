@@ -179,7 +179,7 @@ class OpportunitiesController < ApplicationController
 
   def add_to_class
     @opportunity = Opportunity.find(params[:registration][:opportunity_id])
-    @registration = Registration.new(params[:registration].except!(:opportunity_id))
+    @registration = Registration.new(registration_params)
     @student = Student.find(params[:registration][:student_id])
     @parent = @student.user
 
@@ -321,5 +321,9 @@ class OpportunitiesController < ApplicationController
     def opportunity_params
       params.require(:opportunity).permit(:admin_id, :attended_trial, :offering_id, :possible_restart_date,
                                           :registration_id, :status, :student_id, :trial_date, :appointment_date, :parent_name, :course_id, :location_id, :student_name, :date_won, :date_lost, :source, :title, :parent_phone, :parent_email, :interest_level, :other_source, :undecided_date, :user_id, :promotion_sent, :promotion_id, :missed_trial)
+    end
+
+    def registration_params
+      params.require(:registration).permit(:admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later)
     end
 end
