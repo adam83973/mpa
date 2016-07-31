@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   attr_encrypted :bank_account, key: :encryption_key
   attr_encrypted :routing_number, key: :encryption_key
 
+  after_save :update_status
+
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
   has_many :assignments
@@ -188,6 +190,19 @@ class User < ActiveRecord::Base
       757
     elsif Rails.env.development?
       460
+    end
+  end
+
+  def update_status
+    if self.parent? && self.infusion_id
+      if Rails.env.production?
+        # Add or remove active tag in infusionsoft production application
+        self.active ? Infusionsoft.contact_add_to_group(infusion_id, 1694) : Infusionsoft.contact_remove_from_group(infusion_id, 1694)
+      elsif Rails.env.development?
+        puts "Status Updated"
+        # Add or remove active tag in infusionsoft development application
+        self.active ? Infusionsoft.contact_add_to_group(infusion_id, 113) : Infusionsoft.contact_remove_from_group(infusion_id, 113)
+      end
     end
   end
 end
