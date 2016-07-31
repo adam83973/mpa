@@ -196,8 +196,12 @@ class User < ActiveRecord::Base
   def update_status
     if self.parent? && self.infusion_id
       if Rails.env.production?
-        # Add or remove active tag in infusionsoft production application
-        self.active ? Infusionsoft.contact_add_to_group(infusion_id, 1694) : Infusionsoft.contact_remove_from_group(infusion_id, 1694)
+        begin
+          self.active ? Infusionsoft.contact_add_to_group(infusion_id, 1694) : Infusionsoft.contact_remove_from_group(infusion_id, 1694)
+        rescue => error
+          puts infusion_id
+          $!message
+        end
       elsif Rails.env.development?
         puts "Status Updated"
         # Add or remove active tag in infusionsoft development application
