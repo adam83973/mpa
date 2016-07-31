@@ -200,7 +200,7 @@ class User < ActiveRecord::Base
           self.active ? Infusionsoft.contact_add_to_group(infusion_id, 1694) : Infusionsoft.contact_remove_from_group(infusion_id, 1694)
         rescue => error
           puts infusion_id
-          $!message
+          puts $!.message #
         end
       elsif Rails.env.development?
         puts "Status Updated"
