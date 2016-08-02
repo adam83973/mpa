@@ -1,7 +1,7 @@
 class Assignment < ActiveRecord::Base
 
   validates_presence_of :student_id, :score, :week, :offering_id
-  validates :course_id, uniqueness: { scope: :week }
+  # validates :course_id, uniqueness: { scope: :week }
 
   validates :comment, presence: true, length: {
     minimum: 5,
@@ -30,6 +30,10 @@ class Assignment < ActiveRecord::Base
   end
 
   private
+    def add_course_id
+      self.course_id = Offering.find(offering_id).course_id
+    end
+
     def add_experience_point
       if Rails.env.development?
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
