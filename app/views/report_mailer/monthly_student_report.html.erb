@@ -376,7 +376,7 @@ background: #970b0e !important;
 
       		<%= render 'student_report_registration', active_math_classes: @active_math_classes, student: @student %>
 
-          <%= render 'student_report_assignments', student: student, assignments: @assignments %>
+          <%= render 'student_report_assignments', student: @student, assignments: @assignments %>
 
           <%= render 'student_report_help_sessions' if @hw_help_sessions.any? %>
 
