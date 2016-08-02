@@ -37,12 +37,12 @@ module ApplicationHelper
   end
 
 	def assignment_status(assignment)
-	  case assignment.experience.id
+	  case assignment.score
 	  when 1
 			'<span style="color: green; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Complete</span>'.html_safe
-		when 4
+		when 0
 			'<span style="color: red; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Incomplete</span>'.html_safe
-		when 5
+		when 2
 			'<span style="color: blue; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; margin: 0; padding: 0;">Perfect</span>'.html_safe
 	  end
 	end
