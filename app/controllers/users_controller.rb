@@ -635,18 +635,18 @@ class UsersController < ApplicationController
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i
       when 2
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})"
+        content = content + ",\n#{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']})"
       when 3
-        content = content + ", #{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']}) \n"
+        content = content + ",\n#{appointment['customField4'] if appointment['customField4']} (#{appointment['customField5'] if appointment['customField5']}), #{appointment['customField6'] if appointment['customField6']} (#{appointment['customField7'] if appointment['customField7']})"
       else
 
       end
 
-      content = content + "Appointment: #{app_obj.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}\n"
+      content = content + "\nAppointment: #{app_obj.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}\n"
 
-      content = content + "Comments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}\n"
+      content = content + "\nComments: #{appointment['customField9'] ? appointment['customField9'] : "No comments."}"
 
-      content = content + "Source: #{appointment['customField10'] ? appointment['customField10'] : "No source."}\n"
+      content = content + "\nSource: #{appointment['customField10'] ? appointment['customField10'] : "No source."}"
 
       content
     end
