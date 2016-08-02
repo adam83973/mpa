@@ -17,7 +17,6 @@
       <th>Last name</th>
       <th>Parent</th>
       <th>Parent Email</th>
-      <th>Offerings</th>
       <th></th>
       <% if current_user.admin? %>
       <th></th>
@@ -41,15 +40,7 @@
         <% else %>
         <td><em>no email on file</em></td>
       <%end%>
-      <td>
-        <% if student.offerings.any? %>
-        <% student.offerings.includes(:location, :course).each do |offering| %>
-        <%= offering.offering_name %>
-        <% end %>
-        <% else %>
-        <em>Student not enrolled.</em>
-        <% end %>
-      </td>
+      
       <td><%= link_to 'Show', student, :target => "_blank" %></td>
       <% if current_user.admin? %>
       <td><%= link_to 'Edit', edit_student_path(student), :target => "_blank" %></td>
