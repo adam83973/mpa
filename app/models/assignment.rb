@@ -1,6 +1,8 @@
 class Assignment < ActiveRecord::Base
 
   validates_presence_of :student_id, :score, :week, :offering_id
+  validates :course_id, uniqueness: { scope: :week }
+
   validates :comment, presence: true, length: {
     minimum: 5,
     tokenizer: lambda { |str| str.split(/\s+/) },
@@ -10,6 +12,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :user
   belongs_to :experience_point
 
+  before_save :add_course_id
   after_create :add_experience_point
   after_destroy :clean_up
 
