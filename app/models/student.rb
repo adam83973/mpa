@@ -91,6 +91,10 @@ class Student < ActiveRecord::Base
     assignments.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
+  def help_sessions_last_month
+    help_session_records.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+  end
+
   def last_assignment
     assignments.order("created_at desc").limit(1).first
   end
