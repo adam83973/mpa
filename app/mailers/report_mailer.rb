@@ -6,7 +6,7 @@ class ReportMailer < ActionMailer::Base
     @date = Date.parse("#{month}/#{year}")
     @student = student
     @parent = parent
-    @assignments = student.assignments_last_month
+    @assignments = student.assignments_last_month.order(:course_id, :week)
     @active_math_classes = student.active_math_classes
     @todays_date = Date.today
     track user: @parent unless @parent.id == 1
