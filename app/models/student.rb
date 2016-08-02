@@ -92,10 +92,10 @@ class Student < ActiveRecord::Base
   end
 
   def help_sessions_last_month
-    help_sessions_last_month.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+    help_session_records.where("created_at >= ? AND created_at <= ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
   end
 
-  def attended_help_sessions_last_month
+  def attended_help_sessions_last_month?
     help_sessions_last_month.any?
   end
 
@@ -328,7 +328,7 @@ class Student < ActiveRecord::Base
   end
 
   def active_math_classes
-    active_registrations.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
+    active_registrations.to_a.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
   end
 
   #-----Student Information Management-----

@@ -5,7 +5,12 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments
   def index
-    @assignments = Assignment.all
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+      @assignments = @student.assignments
+    else
+      @assignments = Assignment.all
+    end
   end
 
   # GET /assignments/1
@@ -25,10 +30,13 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.new(assignment_params)
 
-    if @assignment.save
-      redirect_to root_url, notice: 'Assignment was successfully created.'
-    else
+    begin
+      @assignment.save!
+    rescue
+      flash[:error] = "It looks like an assignment for this week and course already exists. Please double check the #{ view_context.link_to("student's account", @assignment.student) }.".html_safe
       render :new
+    else
+      redirect_to root_url, notice: 'Assignment was successfully created.'
     end
   end
 

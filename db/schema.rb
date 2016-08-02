@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713185447) do
+ActiveRecord::Schema.define(version: 20160802195927) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -92,7 +92,10 @@ ActiveRecord::Schema.define(version: 20160713185447) do
     t.datetime "updated_at",                          null: false
     t.text     "comment"
     t.integer  "experience_point_id"
+    t.integer  "course_id"
   end
+
+  add_index "assignments", ["id", "course_id", "week"], name: "index_assignments_on_id_and_course_id_and_week", unique: true
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "student_id"

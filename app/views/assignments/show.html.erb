@@ -2,7 +2,7 @@
 
 <p>
   <strong>Student:</strong>
-  <%= @assignment.student.full_name if @assignment.student %>
+  <%= link_to @assignment.student.full_name, @assignment.student if @assignment.student %>
 </p>
 
 <p>
