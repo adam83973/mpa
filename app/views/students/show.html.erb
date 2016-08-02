@@ -79,7 +79,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% @student.assignment.includes(:offering).order("week desc").limit(100).each do |assignment| %>
+                      <% @student.assignments.includes(:offering).order("week desc").limit(100).each do |assignment| %>
                       <tr>
                         <td><%= assignment.offering.name %></td>
                         <td><%= assignment.week %></td>
