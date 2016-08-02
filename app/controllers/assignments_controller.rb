@@ -5,7 +5,7 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments
   def index
-    if params[:sudent_id]
+    if params[:student_id]
       @student = Student.find(params[:student_id])
       @assignments = @student.assignments
     else
