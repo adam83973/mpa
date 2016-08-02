@@ -231,6 +231,8 @@ MathPlus::Application.routes.draw do
       post :import
       post :create_from_opportunity
     end
+
+    resources :assignments
     resources :notes
   end
   get 'students/attended_first_class', to: 'students#attended_first_class'
