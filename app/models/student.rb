@@ -320,7 +320,7 @@ class Student < ActiveRecord::Base
   end
 
   def active_math_classes
-    active_registrations.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
+    active_registrations.to_a.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
   end
 
   #-----Student Information Management-----
