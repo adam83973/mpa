@@ -376,6 +376,11 @@ background: #970b0e !important;
 
       		<%= render 'student_report_registration', active_math_classes: @active_math_classes, student: @student %>
 
+          <%= render 'student_report_assignments', student: student, assignments: @assignments %>
+
+          <%= render 'student_report_help_sessions' if @hw_help_sessions.any? %>
+
+
           <hr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #d9d9d9; height: 1px; background: #d9d9d9; margin-top: 25px; margin-bottom:15px; padding: 0; border: none;" />
 
           <!-- Badges -->

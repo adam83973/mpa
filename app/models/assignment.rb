@@ -29,6 +29,10 @@ class Assignment < ActiveRecord::Base
     self.where(student_id: student_id, week: week).any?
   end
 
+  def course_name
+    offering.name
+  end
+
   private
     def add_course_id
       self.course_id = Offering.find(offering_id).course_id

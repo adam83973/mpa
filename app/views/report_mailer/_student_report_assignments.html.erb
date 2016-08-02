@@ -32,8 +32,8 @@
 					  <ul style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.6; margin: 0 0 10px; padding: 0;">
               <% @assignments.each_with_index do |assignment, i| %>
                 <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: none;">
-                  <h3>Assignment #<%= i + 1 %> - <%= assignment_status(assignment).html_safe if assignment_status(assignment) %></h3>
-                  <%= assignment.comment %><br>
+                  <h3><%= assignment.course_name %>- Week <%= assignment.week %> (<%= assignment_status(assignment).html_safe if assignment_status(assignment) %>)</h3>
+                  <%= assignment.comments %><br>
                   (<%= assignment.created_at.strftime("%A, %b %d") %>)
                 </li>
                 <%= '<hr>'.html_safe unless @assignments.count == i + 1 %>

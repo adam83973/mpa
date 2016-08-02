@@ -1,0 +1,49 @@
+<!-- HW Help Sessions -->
+  <div class="content" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; max-width: 600px; display: block; margin: 0 auto; padding: 15px;">
+    <table bgcolor="" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0; padding: 0;">
+      <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
+        <td style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top">
+
+        <!-- Content header -->
+        <table class="row" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; position: relative; margin: 0; padding: 0px;">
+          <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
+            <td class="wrapper" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 20px 0px 0px;" align="left" valign="top">
+              <table style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0; padding: 0;">
+                <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
+                  <td style="width: 10%; font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0 10px 0 0;" class="small" align="left" valign="top">
+                      <!-- <img src="https://s3.amazonaws.com/MPAEmailImages/Math+Plus+Web+Application+App/status_email-02.png" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; max-width: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; float: left; clear: both; display: block; margin: 0; padding: 0;" align="left" /> -->
+                    </td>
+                  <td style="vertical-align: middle; font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; text-align: left; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="middle">
+                    <h3 class="section-header" style="font-family: 'Helvetica', 'Arial', sans-serif; line-height: 1.3; color: #222222; font-weight: normal; font-size: 32px; text-align: left; word-break: normal; margin: 0 0 15px; padding: 0;" align="left">
+                      Homework Help Sessions
+                    </h3>
+                    <p style="font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; font-size: 14px; line-height: 19px; color: #222222; text-align: left; margin: 0 0 10px; padding: 0;" align="left">
+                      Below is a record of last month's homework help sessions. <strong>Since this is a new addition to the monthly report some sessions may be missing or incomplete.</strong>>
+                    </p>
+                  </td>
+                  <td class="expander" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table><!-- /content header -->
+        <table class="row" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; position: relative; margin: 0; padding: 0px;">
+          <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;" align="left">
+            <td class="wrapper" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 20px 0px 50px;" align="left" valign="top">
+  					  <ul style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.6; margin: 0 0 10px; padding: 0;">
+                <% @hw_help_sessions.each_with_index do |hw_help_session, i| %>
+                  <li style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; margin: 0 0 0 5px; padding: 0; list-style: none;">
+                    <h3>Help Session: <%= hw_help_session.date.strftime("%A, %b %d") %></h3>
+                    <%= hw_help_session.comments %>
+                  </li>
+                  <%= '<hr>'.html_safe unless @hw_help_sessions.count == i + 1 %>
+                <% end %>
+  					  </ul>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<!-- /HW Help Sessions -->
