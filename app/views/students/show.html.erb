@@ -65,7 +65,7 @@
                 </a>
               </h4>
             </div>
-            <div id="#collapse-assignments" class="panel-collapse collapse">
+            <div id="collapse-assignments" class="panel-collapse collapse">
               <div class="panel-body">
                 <div class="tscroll a-achievements">
                   <table class="table table-striped">
@@ -84,7 +84,7 @@
                         <td><%= assignment.offering.name %></td>
                         <td><%= assignment.week %></td>
                         <td><%= Assignment::SCORES[assignment.score] %></td>
-                        <td><%= assignment.corrected %></td>
+                        <td><%= assignment.score == 2 ? "N/A" : assignment.corrected %></td>
                         <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
                         <td>
                           <%= link_to "Add Correction", edit_assignment_path(assignment) if !assignment.corrected && assignment.score != 2 %>
