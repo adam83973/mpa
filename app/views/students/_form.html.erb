@@ -20,7 +20,6 @@
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label: 'Parent', label_method: :full_name, input_html: { class: "chosen" } unless params[:user_id] %>
       <%= f.association :avatar, label_method: :name %>
-      <%= f.input :has_learning_plan %>
   </div>
 </div>
 <div class="row">
