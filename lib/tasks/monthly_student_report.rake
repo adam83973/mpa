@@ -18,7 +18,7 @@ def send_student_reports
   reports_not_sent = []
   active_last_month.each do |parent|
     parent.students.each do |student|
-      if student.attendance_last_month.any?
+      if student.attendances_last_month.any?
         begin
           ReportMailer.monthly_student_report(student, parent, month, year).deliver
           count += 1
