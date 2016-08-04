@@ -1,7 +1,8 @@
 class Assignment < ActiveRecord::Base
 
   validates_presence_of :student_id, :score, :week, :offering_id
-  validates :student_id, uniqueness: { scope: [ :course_id, :week ] }
+  # validate :student_unique_per_class_per_week
+  validates :student_id, uniqueness: { scope: [:course_id, :week]}
 
   validates :comment, presence: true, length: {
     minimum: 5,
@@ -12,7 +13,6 @@ class Assignment < ActiveRecord::Base
   belongs_to :user
   belongs_to :experience_point
 
-  before_save :add_course_id
   after_create :add_experience_point
   after_destroy :clean_up
   after_update :update_experience_point
@@ -35,22 +35,19 @@ class Assignment < ActiveRecord::Base
   end
 
   private
-    def add_course_id
-      self.course_id = Offering.find(offering_id).course_id
-    end
 
     def add_experience_point
       if Rails.env.development?
-        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
+        assignment_experience_point = ExperiencePoint.create!(student_id: self.student_id, experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[self.score], comment: self.comment, points: EXPERIENCE_POINTS_CONVERSION[self.score], user_id: user_id )
       elsif Rails.env.production?
-        attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
+        assignment_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: PRODUCTION_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
       else
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: TEST_ASSIGNMENT_EXPERIENCE_ID, comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: 20 )
       end
 
-      attendance_experience_point.save!
+      assignment_experience_point.save!
 
-      self.update_attribute :experience_point_id, attendance_experience_point.id
+      self.update_attribute :experience_point_id, assignment_experience_point.id
     end
 
     def update_experience_point
@@ -64,6 +61,12 @@ class Assignment < ActiveRecord::Base
     def clean_up
       if self.experience_point
         self.experience_point.destroy
+      end
+    end
+
+    def student_unique_per_class_per_week
+      if self.class.exists?(student_id: student_id, course_id: course_id, week: week)
+        errors.add :assignment, 'already exists for this combination of student, class, and week.'
       end
     end
 end

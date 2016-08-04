@@ -31,24 +31,27 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.new(assignment_params)
 
-    begin
-      @assignment.save!
-    rescue => e
-      flash[:error] = "It looks like an assignment for this week and course already exists. Please double check the #{ view_context.link_to("student's account", @assignment.student) }. #{e.message}".html_safe
-      render :new
-    else
+    # begin
+    if  @assignment.save!
+    # rescue => e
+    #   flash[:error] = "It looks like an assignment for this week and course already exists. Please double check the #{ view_context.link_to("student's account", @assignment.student) }. #{e.message}".html_safe
+    #   render :new
+    # else
       if class_session && class_session.in_session?
         redirect_to root_url, notice: 'Assignment was successfully created.'
       else
         redirect_to @assignment.student, notice: 'Assignment was added.'
       end
+    # end
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /assignments/1
   def update
     if @assignment.update(assignment_params)
-      redirect_to @assignment, notice: 'Assignment was successfully updated.'
+      redirect_to @assignment.student, notice: 'Assignment was successfully updated.'
     else
       render :edit
     end

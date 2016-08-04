@@ -74,6 +74,7 @@ class ExperiencePoint < ActiveRecord::Base
         self.negative = true
       else
         self.negative = false
+        true
       end
     end
 
