@@ -10,7 +10,7 @@ class ExperiencePoint < ActiveRecord::Base
   belongs_to :badge_request
   has_one :attendance
 
-  before_save :mark_negative
+  before_save :toggle_negative
   after_save :update_student_xp_level_credits_on_save
   after_update :update_student_xp_level_credits_on_save
   after_destroy :update_student_xp_level_credits_on_destroy, :cleanup
@@ -69,9 +69,11 @@ class ExperiencePoint < ActiveRecord::Base
       self.attendance.destroy unless self.attendance.destroyed?
     end
 
-    def mark_negative
+    def toggle_negative
       if points == 0 && experience_id != 3
         self.negative = true
+      else
+        self.negative = false
       end
     end
 

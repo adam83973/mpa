@@ -15,6 +15,7 @@ class Assignment < ActiveRecord::Base
   before_save :add_course_id
   after_create :add_experience_point
   after_destroy :clean_up
+  after_update :update_experience_point
 
   has_paper_trail if Rails.env.development? || Rails.env.production?
 
@@ -50,6 +51,14 @@ class Assignment < ActiveRecord::Base
       attendance_experience_point.save!
 
       self.update_attribute :experience_point_id, attendance_experience_point.id
+    end
+
+    def update_experience_point
+      if Rails.env.development?
+        self.experience_point.update_attributes(experience_id: DEVELOPMENT_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
+      elsif Rails.env.production?
+        self.experience_point.update_attributes(experience_id: PRODUCTION_ASSIGNMENT_EXPERIENCE_ID[score], comment: comment, points: EXPERIENCE_POINTS_CONVERSION[score], user_id: user_id )
+      end
     end
 
     def clean_up
