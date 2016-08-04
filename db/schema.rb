@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804154654) do
+ActiveRecord::Schema.define(version: 20160804202113) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.text     "hwHelpReason"
   end
 
+  add_index "appointments", ["location_id"], name: "index_appointments_on_location_id"
+
   create_table "assignments", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "score"
@@ -94,6 +96,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.integer  "experience_point_id"
     t.integer  "course_id"
   end
+
+  add_index "assignments", ["student_id"], name: "index_assignments_on_student_id"
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "student_id"
@@ -140,6 +144,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.date     "date_approved"
     t.text     "write_up"
   end
+
+  add_index "badge_requests", ["student_id"], name: "index_badge_requests_on_student_id"
 
   create_table "badges", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -247,6 +253,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.integer  "grade_id"
     t.boolean  "negative",      default: false
   end
+
+  add_index "experience_points", ["student_id"], name: "index_experience_points_on_student_id"
 
   create_table "experiences", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -394,6 +402,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.integer  "completed_by"
   end
 
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
+
   create_table "occupation_levels", force: :cascade do |t|
     t.integer  "level"
     t.integer  "points"
@@ -438,6 +448,9 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.boolean  "hidden",                      default: false
     t.integer  "day_number"
   end
+
+  add_index "offerings", ["course_id"], name: "index_offerings_on_course_id"
+  add_index "offerings", ["location_id"], name: "index_offerings_on_location_id"
 
   create_table "offerings_students", id: false, force: :cascade do |t|
     t.integer "offering_id"
@@ -484,6 +497,8 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.boolean  "missed_trial",                      default: false
     t.boolean  "appointment_complete",              default: false
   end
+
+  add_index "opportunities", ["location_id"], name: "index_opportunities_on_location_id"
 
   create_table "problems", force: :cascade do |t|
     t.string   "title",         limit: 255
@@ -544,6 +559,9 @@ ActiveRecord::Schema.define(version: 20160804154654) do
     t.integer  "drop_reason"
     t.boolean  "payment_information_later", default: false
   end
+
+  add_index "registrations", ["offering_id"], name: "index_registrations_on_offering_id"
+  add_index "registrations", ["student_id"], name: "index_registrations_on_student_id"
 
   create_table "resources", force: :cascade do |t|
     t.string   "resource",     limit: 255
