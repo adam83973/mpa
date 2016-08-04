@@ -19,6 +19,7 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
+    @offerings = Offering.order(:course_id, :location_id, :day_number).all
     @assignment = Assignment.new
   end
 
