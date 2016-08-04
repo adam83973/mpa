@@ -140,10 +140,19 @@ class OfferingsController < ApplicationController
     end
   end
 
-  private
-  def offering_params
-    params.require(:offering).permit(:comments, :course_id, :day, :graduation_year,
-                                     :location_id, :time, {user_ids: []}, :active,
-                                     :classroom, :hidden, :day_number)
+  def course_id
+    offering = Offering.find(params[:id])
+    course_id = offering.course_id
+
+    respond_to do |format|
+      format.json { render json: course_id }
+    end
   end
+
+  private
+    def offering_params
+      params.require(:offering).permit(:comments, :course_id, :day, :graduation_year,
+                                       :location_id, :time, {user_ids: []}, :active,
+                                       :classroom, :hidden, :day_number)
+    end
 end

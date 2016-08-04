@@ -144,6 +144,7 @@ MathPlus::Application.routes.draw do
 
   resources :offerings do
     collection do
+      get :course_id
       post :import
       get :offerings_by_location
       get :at_capacity

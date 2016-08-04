@@ -11,6 +11,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/dataTables.responsive
 //= require dnd
+//= require assignments
 //= require experience_points
 //= require infusion_pages
 //= require issues

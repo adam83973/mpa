@@ -1,7 +1,7 @@
 class Assignment < ActiveRecord::Base
 
   validates_presence_of :student_id, :score, :week, :offering_id
-  # validates :course_id, uniqueness: { scope: :week }
+  validates :course_id, uniqueness: { scope: [ :id, :week ] }
 
   validates :comment, presence: true, length: {
     minimum: 5,

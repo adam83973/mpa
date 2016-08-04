@@ -32,11 +32,15 @@ class AssignmentsController < ApplicationController
 
     begin
       @assignment.save!
-    rescue
-      flash[:error] = "It looks like an assignment for this week and course already exists. Please double check the #{ view_context.link_to("student's account", @assignment.student) }.".html_safe
+    rescue => e
+      flash[:error] = "It looks like an assignment for this week and course already exists. Please double check the #{ view_context.link_to("student's account", @assignment.student) }. #{e.message}".html_safe
       render :new
     else
-      redirect_to root_url, notice: 'Assignment was successfully created.'
+      if class_session && class_session.in_session?
+        redirect_to root_url, notice: 'Assignment was successfully created.'
+      else
+        redirect_to @assignment.student, notice: 'Assignment was added.'
+      end
     end
   end
 
@@ -63,6 +67,6 @@ class AssignmentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def assignment_params
-      params.require(:assignment).permit(:student_id, :score, :corrected, :user_id, :week, :offering_id, :comment, :experience_point_id)
+      params.require(:assignment).permit(:student_id, :score, :corrected, :user_id, :week, :offering_id, :comment, :experience_point_id, :course_id)
     end
 end
