@@ -7,9 +7,9 @@ class AddIndeciesToANumberOfTables < ActiveRecord::Migration
     add_index :offerings, :course_id
     add_index :experience_points, :student_id
     add_index :notes, :user_id
-    add_index :notes, :student_id
     add_index :registrations, :student_id
-    add_index :registrations, :location_id
+    add_index :registrations, :offering_id
+    add_index :offerings, :location_id
     add_index :opportunities, :location_id
   end
 end
