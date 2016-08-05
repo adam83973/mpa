@@ -80,7 +80,7 @@ class Student < ActiveRecord::Base
   end
 
   def last_attendance
-    attendances.order("date desc").limit(1).first
+    attendances.order("date desc").first
   end
 
   def attendances_last_month
