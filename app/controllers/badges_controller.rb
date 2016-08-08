@@ -45,7 +45,7 @@ class BadgesController < ApplicationController
   # POST /badges
   # POST /badges.json
   def create
-    @badge = Badge.new(params[:badge])
+    @badge = Badge.new(badge_params)
 
     respond_to do |format|
       if @badge.save
@@ -64,7 +64,7 @@ class BadgesController < ApplicationController
     set_badge
 
     respond_to do |format|
-      if @badge.update_attributes(params[:badge])
+      if @badge.update_attributes(badge_params)
         format.html { redirect_to @badge, notice: 'Badge was successfully updated.' }
         format.json { head :no_content }
       else
@@ -98,7 +98,13 @@ class BadgesController < ApplicationController
   end
 
   private
-  def set_badge
-    @badge = Badge.find(params[:id])
-  end
+    def set_badge
+      @badge = Badge.find(params[:id])
+    end
+
+    def badge_params
+      params.require(:badge).permit(:image, :name, :file, :filename, :experience_id,
+      :remove_image, :requirements, :badge_category_id, :submission_type,
+      :write_up_required,:multiple, :requires_approval, :parent_can_request, :module_id)
+    end
 end
