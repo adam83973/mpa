@@ -100,6 +100,46 @@ footer{
   margin:20px 0 20px 0;
 }
 
+.end-class-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.end-class-button:hover{
+  background-color: #fcadad !important;
+}
+
+.attendance-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.attendance-button:hover{
+  background-color: #fcf7ad !important;
+}
+
+.student-stats-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.student-stats-button:hover{
+  background-color: #add9fc !important;
+}
+
+.record-homework-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.record-homework-button:hover{
+  background-color: #fcd5ad !important;
+}
+
 .nav-font{
 	font-family: Arial;
 }

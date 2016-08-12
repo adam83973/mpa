@@ -2861,11 +2861,59 @@ footer {
 }
 
 /* line 103, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.end-class-button {
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+/* line 109, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.end-class-button:hover {
+  background-color: #fcadad !important;
+}
+
+/* line 113, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.attendance-button {
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+/* line 119, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.attendance-button:hover {
+  background-color: #fcf7ad !important;
+}
+
+/* line 123, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.student-stats-button {
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+/* line 129, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.student-stats-button:hover {
+  background-color: #add9fc !important;
+}
+
+/* line 133, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.record-homework-button {
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+/* line 139, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+.record-homework-button:hover {
+  background-color: #fcd5ad !important;
+}
+
+/* line 143, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .nav-font {
   font-family: Arial;
 }
 
-/* line 107, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 147, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .student_attending {
   margin: 5px;
   background-color: #e4e4e4;
@@ -2878,44 +2926,44 @@ footer {
   border: 1px solid white;
 }
 
-/* line 122, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 162, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .class_offering form {
   display: inline;
   margin: 0;
 }
-/* line 125, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 165, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .class_offering form .m-btn {
   margin: 0 10px 0 0;
   height: 20px;
 }
-/* line 130, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 170, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .class_offering a {
   display: inline;
 }
 
-/* line 135, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 175, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 ul {
   padding: 0;
   margin: 0;
 }
 
-/* line 140, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 180, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .padding {
   padding-right: 10px;
 }
 
-/* line 144, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 184, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .modal-body-stats {
   margin: 10px;
 }
 
-/* line 148, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 188, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .modal-body-grades .modal-body-stats {
   max-height: 1000px;
   padding-top: 20px;
 }
 
-/* line 153, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 193, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .stages {
   border: solid lightgray 1px;
   margin-top: 10px;
@@ -2923,17 +2971,17 @@ ul {
   padding-left: 10px;
 }
 
-/* line 164, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 204, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .fat-menu .m-btn {
   padding: 8px 14px 8px 14px;
 }
 
-/* line 169, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 209, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .inactive {
   background-color: #d74242;
 }
 
-/* line 173, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 213, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .new_students {
   height: 208px;
   max-height: 208px;
@@ -2942,12 +2990,12 @@ ul {
   margin: 20px 0 0 0;
 }
 
-/* line 181, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 221, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .dashboard {
   height: 300px;
 }
 
-/* line 185, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
+/* line 225, /Users/travis/code/mpa/app/assets/stylesheets/static_pages.scss */
 .opportunity_group li {
   list-style: none;
 }
