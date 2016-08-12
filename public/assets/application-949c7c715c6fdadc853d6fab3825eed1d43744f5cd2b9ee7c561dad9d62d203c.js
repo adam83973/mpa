@@ -41057,21 +41057,37 @@ return Responsive;
 
 }).call(this);
 (function() {
-  jQuery(function() {
-    $('#help_session_student_id').on('change', function() {
-      if ($(this).val() === "") {
+  $('#help_session_student_id').on('change', function() {
+    if ($(this).val() === "") {
+      return $('#start-hw-help').prop('disabled', true);
+    } else {
+      if ($('#help_session_date').val() === "") {
         return $('#start-hw-help').prop('disabled', true);
       } else {
         return $('#start-hw-help').prop('disabled', false);
       }
-    });
-    $('#launchLearningPlanModal').on('click', function() {
-      return $('#learningPlanModal').modal('show');
-    });
-    return $('#exampleModal').on('show', function() {
-      return $('#learning_plan_course_id').chosen({
-        allow_single_deselect: true
-      });
+    }
+  });
+
+  $('#help_session_date').on('change', function() {
+    if ($(this).val() === "") {
+      return $('#start-hw-help').prop('disabled', true);
+    } else {
+      if ($('#help_session_student_id').val() === "") {
+        return $('#start-hw-help').prop('disabled', true);
+      } else {
+        return $('#start-hw-help').prop('disabled', false);
+      }
+    }
+  });
+
+  $('#launchLearningPlanModal').on('click', function() {
+    return $('#learningPlanModal').modal('show');
+  });
+
+  $('#exampleModal').on('show', function() {
+    return $('#learning_plan_course_id').chosen({
+      allow_single_deselect: true
     });
   });
 
