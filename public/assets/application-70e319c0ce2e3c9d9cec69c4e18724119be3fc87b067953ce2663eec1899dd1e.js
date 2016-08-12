@@ -40131,6 +40131,33 @@ return Responsive;
 }).call(this);
 (function() {
   jQuery(function() {
+    return $('#assignment_offering_id').on('change', function() {
+      var offering_id;
+      offering_id = $(this).val();
+      if (offering_id) {
+        return $.ajax({
+          type: 'GET',
+          url: '/offerings/course_id.json',
+          data: {
+            id: offering_id
+          },
+          dataType: 'JSON',
+          error: function(xhr) {
+            return console.log(xhr);
+          },
+          success: function(data) {
+            return $('#assignment_course_id').val(data);
+          }
+        });
+      } else {
+        return $('#assignment_course_id').val(null);
+      }
+    });
+  });
+
+}).call(this);
+(function() {
+  jQuery(function() {
     var $form;
     $("#xp").dataTable({
       bPaginate: true,
