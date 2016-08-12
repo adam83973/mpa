@@ -1,50 +1,62 @@
-<%= link_to "Edit", edit_learning_plan_path(@learning_plan), class: "btn btn-default pull-right" %>
+<div class="row">
+  <div class="col-sm-12" style="margin-bottom:30px;">
+    <%= link_to "Edit", edit_learning_plan_path(@learning_plan), class: "btn btn-default pull-right" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h2 style="margin:0 0 25px 0;">Learning Plan</h2>
+    <p>
+      <strong>Student:</strong>
+      <%= link_to @learning_plan.student.full_name, @learning_plan.student %>
+    </p>
 
-<p>
-  <strong>Student:</strong>
-  <%= link_to @learning_plan.student.full_name, @learning_plan.student %>
-</p>
+    <p>
+      <strong>Grade:</strong>
+      <%= @learning_plan.grade %>
+    </p>
 
-<p>
-  <strong>Grade:</strong>
-  <%= @learning_plan.grade %>
-</p>
+    <p>
+      <strong>Course:</strong>
+      <%= @learning_plan.course.name %>
+    </p>
 
-<p>
-  <strong>Course:</strong>
-  <%= @learning_plan.course.name %>
-</p>
+    <p>
+      <strong>Issue:</strong>
+      <%= @learning_plan.learning_plan_issue.title %>
+    </p>
 
-<p>
-  <strong>Issue:</strong>
-  <%= @learning_plan.learning_plan_issue.title %>
-</p>
+    <p>
+      <strong>Notes:</strong>
+      <%= @learning_plan.notes %>
+    </p>
 
-<p>
-  <strong>Notes:</strong>
-  <%= @learning_plan.notes %>
-</p>
+    <p>
+      <strong>Strengths:</strong>
+      <%= @learning_plan.strengths %>
+    </p>
 
-<p>
-  <strong>Strengths:</strong>
-  <%= @learning_plan.strengths %>
-</p>
-
-<p>
-  <strong>Goals:</strong><br>
-  <ol>
-    <% @learning_plan.goals.each do |goal| %>
-    <li><%= goal.name %></li>
+    <p>
+      <strong>Goals:</strong><br>
+      <ol>
+        <% @learning_plan.goals.each do |goal| %>
+        <li><%= goal.name %></li>
+        <% end %>
+      </ol>
+    </p>
+  </div>
+  <div class="col-sm-6 learning_plans_help_sessions">
+    <% if @learning_plan.help_session_records.any? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Past Homework Help Sessions</div>
+      <div class="panel-body">
+        <ul>
+          <% @learning_plan.help_session_records.each do |help_session_record| %>
+          <li class="help_session_record"><%= "#{help_session_record.comments} (#{help_session_record.date.strftime('%D')})" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
     <% end %>
-  </ol>
-</p>
-<% if @learning_plan.help_session_records.any? %>
-<p>
-  <strong>Past Homework Help Sessions:</strong><br>
-  <ol>
-    <% @learning_plan.help_session_records.each do |help_session_record| %>
-    <li><%= "#{help_session_record.comments} (#{help_session_record.date.strftime('%D')})" %></li>
-    <% end %>
-  </ol>
-</p>
-<% end %>
+  </div>
+</div>
