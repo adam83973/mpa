@@ -12,7 +12,9 @@
       </div>
     </div>
   </div>
-  <hr>
+  <% unless current_user.admin? %>
+    <hr>
+  <% end %>
   <%= render 'attendance_modal' %>
 
   <%= render 'class_summary_modal' %>
