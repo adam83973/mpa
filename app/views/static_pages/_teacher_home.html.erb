@@ -35,5 +35,5 @@
 <% end %>
 
 <% if !(@location_hw_help_appointments.empty?) %>
-  <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
+  <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) || current_user.admin? %>
 <% end %>

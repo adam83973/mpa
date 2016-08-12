@@ -30,7 +30,9 @@
           <% if !(@location_hw_help_appointments.empty?) %>
             <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
           <% end %>
-          <hr>
+          <% unless !(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?) %>
+            <hr>
+          <% end %>
         <% end %>
 
         <%= render 'daily_schedule' if current_user.admin? %>
