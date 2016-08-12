@@ -1,18 +1,24 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-jQuery ->
-  # toggle disabled on button to prevent user from starting session without student
-  $('#help_session_student_id').on 'change', ->
-    if $(this).val() == ""
+$('#help_session_student_id').on 'change', ->
+  if $(this).val() == ""
+    $('#start-hw-help').prop('disabled', true)
+  else
+    if $('#help_session_date').val() == ""
       $('#start-hw-help').prop('disabled', true)
     else
       $('#start-hw-help').prop('disabled', false)
 
-  $('#launchLearningPlanModal').on 'click', ->
-    $('#learningPlanModal').modal('show')
+$('#help_session_date').on 'change', ->
+  if $(this).val() == ""
+    $('#start-hw-help').prop('disabled', true)
+  else
+    if $('#help_session_student_id').val() == ""
+      $('#start-hw-help').prop('disabled', true)
+    else
+      $('#start-hw-help').prop('disabled', false)
 
-  $('#exampleModal').on 'show', ->
-    $('#learning_plan_course_id').chosen
-      allow_single_deselect: true
+$('#launchLearningPlanModal').on 'click', ->
+  $('#learningPlanModal').modal('show')
+
+$('#exampleModal').on 'show', ->
+  $('#learning_plan_course_id').chosen
+    allow_single_deselect: true
