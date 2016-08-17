@@ -207,7 +207,8 @@ class StudentsController < ApplicationController
       format.json { render json: @last_attendance_date }
     end
   end
-
+  helper_method :last_attendance_date
+  
   private
     # def last_attendance_date(attendance)
     #   date = @last_attendance
