@@ -80,7 +80,12 @@ class Student < ActiveRecord::Base
   end
 
   def last_attendance
-    attendances.last
+    last_attendance = student.attendances.last
+    if last_attendance
+      return last_attendance
+    else
+      last_attendance = student1.experience_points.joins(:experience).where('experiences.name LIKE ?', '%Attendance%').last
+    end
   end
 
   def attendances_last_month
