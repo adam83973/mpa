@@ -82,9 +82,9 @@ class Student < ActiveRecord::Base
   def last_attendance
     last_attendance = attendances.last
     if last_attendance
-      return last_attendance
+      last_attendance = last_attendance.date.to_date
     else
-      last_attendance = experience_points.joins(:experience).where('experiences.name LIKE ?', '%Attendance%').last
+      last_attendance = student1.experience_points.joins(:experience).where('experiences.name LIKE ?', '%Attendance%').last.created_at.to_date
     end
   end
 
