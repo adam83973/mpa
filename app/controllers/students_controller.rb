@@ -198,7 +198,7 @@ class StudentsController < ApplicationController
 
     if @last_attendance
       # add switch to send span with styling based on how long ago attendance was
-      last_attendance_date(@last_attendance)
+      @last_attendance_date last_attendance_date @last_attendance
     else
       @last_attendance_date = 'No Attendance'
     end
@@ -209,16 +209,16 @@ class StudentsController < ApplicationController
   end
 
   private
-    def last_attendance_date(attendance)
-      date = @last_attendance
-      if date > Date.today - 14.days == true
-        @last_attendance_date = "<span style='color:green;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-      elsif date <= Date.today - 14.days && date >= Date.today - 30.days == true
-        @last_attendance_date = "<span style='color:orange;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-      elsif date < Date.today - 30.days == true
-        @last_attendance_date = "<span style='color:red;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-      end
-    end
+    # def last_attendance_date(attendance)
+    #   date = @last_attendance
+    #   if date > Date.today - 14.days == true
+    #     @last_attendance_date = "<span style='color:green;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+    #   elsif date <= Date.today - 14.days && date >= Date.today - 30.days == true
+    #     @last_attendance_date = "<span style='color:orange;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+    #   elsif date < Date.today - 30.days == true
+    #     @last_attendance_date = "<span style='color:red;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
+    #   end
+    # end
     def set_student
       @student = Student.find(params[:id])
     end

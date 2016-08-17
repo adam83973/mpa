@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  helper_method :last_attendance_date
 
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
