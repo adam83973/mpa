@@ -198,7 +198,7 @@ class StudentsController < ApplicationController
 
     if @last_attendance
       # add switch to send span with styling based on how long ago attendance was
-      @last_attendance_date last_attendance_date @last_attendance
+      @last_attendance_date = last_attendance_date @last_attendance
     else
       @last_attendance_date = 'No Attendance'
     end
@@ -208,7 +208,7 @@ class StudentsController < ApplicationController
     end
   end
   helper_method :last_attendance_date
-  
+
   private
     # def last_attendance_date(attendance)
     #   date = @last_attendance
