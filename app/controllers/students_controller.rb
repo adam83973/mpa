@@ -2,8 +2,6 @@ class StudentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_employee, except: [ :show, :update, :badges ]
 
-  include AttendanceHelper
-
   def badges
     @student = Student.find(params[:id])
     @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse
@@ -198,7 +196,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:student_id])
     @last_attendance = @student.last_attendance
 
-    @last_attendance_date = last_attendance_date @last_attendance
+    @last_attendance_date = view_context.last_attendance_date @last_attendance
 
     respond_to do |format|
       format.json { render json: @last_attendance_date }
