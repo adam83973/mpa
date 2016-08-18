@@ -7,8 +7,6 @@ module AttendancesHelper
       "<span style='color:orange;'>#{date.strftime("%D")}</span>".html_safe
     elsif date < Date.today - 30.days == true
       "<span style='color:red;'>#{date.strftime("%D")}</span>".html_safe
-    else
-      "<span>No Attendance</span>"
     end
   end
 end
