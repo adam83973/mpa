@@ -196,7 +196,11 @@ class StudentsController < ApplicationController
     student = Student.find(params[:student_id])
     last_attendance = student.last_attendance
 
-    last_attendance ? last_attendance_date = view_context.last_attendance_date last_attendance : last_attendance_date = "<span>No Attendance</span>"
+    if last_attendance
+      last_attendance_date = view_context.last_attendance_date last_attendance
+    else
+      last_attendance_date = "<span>No Attendance</span>"
+    end
 
     respond_to do |format|
       format.json { render json: last_attendance_date }
