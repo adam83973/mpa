@@ -196,12 +196,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:student_id])
     @last_attendance = @student.last_attendance
 
-    if @last_attendance
-      # add switch to send span with styling based on how long ago attendance was
-      @last_attendance_date = last_attendance_date @last_attendance
-    else
-      @last_attendance_date = 'No Attendance'
-    end
+    @last_attendance_date = last_attendance_date @last_attendance
 
     respond_to do |format|
       format.json { render json: @last_attendance_date }
