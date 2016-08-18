@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_employee, except: [ :show, :update, :badges ]
 
-  helper_method :last_attendance_date
+  include AttendanceHelper
 
   def badges
     @student = Student.find(params[:id])
