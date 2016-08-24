@@ -81,7 +81,7 @@
                     <tbody>
                       <% @student.assignments.includes(offering: [ :course, :location ]).order("week desc").limit(100).each do |assignment| %>
                       <tr>
-                        <td><%= assignment.offering.name %></td>
+                        <td><%= assignment.course.course_name if assignment.course %></td>
                         <td><%= assignment.week %></td>
                         <td><%= Assignment::SCORES[assignment.score] %></td>
                         <td><%= assignment.score == 2 ? "N/A" : assignment.corrected %></td>
