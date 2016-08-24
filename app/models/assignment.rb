@@ -10,6 +10,7 @@ class Assignment < ActiveRecord::Base
     too_short: "please write %{count} or more words"}
   belongs_to :student
   belongs_to :offering
+  belongs_to :course
   belongs_to :user
   belongs_to :experience_point
 
