@@ -23,13 +23,13 @@ class BadgeCategoriesController < ApplicationController
   end
 
   def create
-    @badge_category = BadgeCategory.new(params[:badge_category])
+    @badge_category = BadgeCategory.new(badge_category_params)
     @badge_category.save
     respond_with(@badge_category)
   end
 
   def update
-    @badge_category.update_attributes(params[:badge_category])
+    @badge_category.update_attributes(badge_category_params)
     respond_with(@badge_category)
   end
 
