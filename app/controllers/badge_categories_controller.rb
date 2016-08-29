@@ -42,4 +42,8 @@ class BadgeCategoriesController < ApplicationController
     def set_badge_category
       @badge_category = BadgeCategory.find(params[:id])
     end
+
+    def badge_category_params
+      params.require(:badge_category).permit(:name, :write_up_required, :parent_can_request, :multiple)
+    end
 end
