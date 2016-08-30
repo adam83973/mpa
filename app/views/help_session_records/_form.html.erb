@@ -12,7 +12,6 @@
         <% if @student && @student.has_learning_plan %>
           <%= f.input :learning_plan_id, as: :hidden, input_html: { value: @student.learning_plans.last.id } %>
         <% end %>
-
   </div>
   <div class="col-sm-4">
         <%= f.input :comments, placeholder: "What was accomplished? What should be worked on? Any major milestones?", hint: "Please note: These comments are intended for parents to view.", input_html: { rows: 5 } %>
