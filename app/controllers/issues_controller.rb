@@ -43,7 +43,7 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    @issue = Issue.new(params[:issue])
+    @issue = Issue.new(issue_params)
 
     respond_to do |format|
       if @issue.save
@@ -64,7 +64,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
 
     respond_to do |format|
-      if @issue.update_attributes(params[:issue])
+      if @issue.update_attributes(issue_params)
         if @issue.resolved? && @issue.status == 4
           IssueMailer.issue_closed_notification(@issue).deliver
         end
@@ -88,4 +88,9 @@ class IssuesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def issue_params
+      params.require(:issue).includes(:name, :priority, :resolved, :status, :summary, :user_id)
+    end
 end
