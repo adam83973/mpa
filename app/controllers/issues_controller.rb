@@ -91,6 +91,6 @@ class IssuesController < ApplicationController
 
   private
     def issue_params
-      params.require(:issue).includes(:name, :priority, :resolved, :status, :summary, :user_id)
+      params.require(:issue).permit(:name, :priority, :resolved, :status, :summary, :user_id)
     end
 end
