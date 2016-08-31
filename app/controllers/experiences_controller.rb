@@ -97,7 +97,7 @@ class ExperiencesController < ApplicationController
                                        :image, :remove_image, {resource_ids:[]},
                                        :remote_image_url, :occupation_id, :active,
                                        {badge_attributes: [:write_up_required,
-                                        :multiple, :requires_approval, :image, :category, :submission_type,
+                                        :multiple, :requires_approval, :image, :category_id, :submission_type,
                                         :remove_image, :requirements, :name, :experience_id]})
   end
 
