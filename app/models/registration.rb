@@ -33,6 +33,10 @@ class Registration < ActiveRecord::Base
     status == 1
   end
 
+  def self.active_registrations_by_locations_and_course(location_id, course_id)
+    self.joins(:offering).joins(:course).where(status: 1, location_id: location_id).where("offerings.course_id = ?", course_id)
+  end
+
   def restarting?
     status == 2 && restart_date < 20.days.from_now
   end
