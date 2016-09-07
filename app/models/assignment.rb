@@ -32,7 +32,7 @@ class Assignment < ActiveRecord::Base
   end
 
   def course_name
-    offering.name
+    course ? course.name : ""
   end
 
   private
