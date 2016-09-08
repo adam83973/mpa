@@ -52,7 +52,7 @@
         end
       else
         if attribute == 'status'
-          content = content + "<li>#{attribute.gsub('_', ' ').split.map(&:capitalize).join(' ')} changed from <span style='color:red;'>#{Opportunity::STATUSES[changes[0]]}</span> to <span style='color:green;'>#{Opportunity::STATUSES[changes[1]]}</span>.</li>"
+          content = content + "<li>#{attribute.gsub('_', ' ').split.map(&:capitalize).join(' ')} changed from <span style='color:red;'>#{changes[0] ? Opportunity::STATUSES[changes[0]] : "nil" }</span> to <span style='color:green;'>#{changes[1] ? Opportunity::STATUSES[changes[1]] : "nil" }</span>.</li>"
         elsif attribute == 'course_id'
           content = content + "<li>Course changed from <span style='color:red;'>#{Course.find(changes[0]).course_name}</span> to <span style='color:green;'>#{Course.find(changes[1]).course_name}</span>.</li>"
         elsif attribute == 'offering_id'
