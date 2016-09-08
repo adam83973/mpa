@@ -5,7 +5,11 @@
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
           <%= link_to "Parent: #{opportunity.parent_name}", opportunity if !(opportunity.student) && ( opportunity.student_name.empty? || opportunity.student_name.nil? ) %>
           <%= link_to "Student: #{opportunity.student_name}", opportunity unless opportunity.student || opportunity.student_name.empty? %>
-          <%= link_to "Student: #{opportunity.student.full_name}", opportunity if opportunity.student %> - <span style="font-weight:bold;">Last Note: <%= opportunity.notes.last ? opportunity.notes.last.created_at.strftime("%D") : "None" %></span> (Added: <%= opportunity.created_at.strftime("%D") %>)
+          <%= link_to "Student: #{opportunity.student.full_name}", opportunity if opportunity.student %> - <span style="font-weight:bold;">Last Note:
+          <% if opportunity.student && opportunity.student.user %>
+            <%= opportunity.student.user.notes.last ? opportunity.student.user.notes.last.created_at.strftime("%D") : "None" %>
+          <% end %>
+          </span> (Added: <%= opportunity.created_at.strftime("%D") %>)
         </div> <!-- /span9 -->
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <div class="flame">
