@@ -11,6 +11,14 @@
     <%= link_to "CSV", offerings_path(format: "csv") %>
   </p>
 <% end %>
+<p>
+  <% if params[:students] == 'all' %>
+    <%= link_to "Show Active", offerings_path %>
+  <% else %>
+    <%= link_to "Show All", offerings_path(students: "all") %>
+  <% end %>
+
+</p>
 
 <table id="datatable" class="display">
     <thead>
