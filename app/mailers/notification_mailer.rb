@@ -51,6 +51,14 @@ class NotificationMailer < AdminMailer
     @parent ? mail(to: @parent.email, subject: 'You have a trial coming up!') : mail(to: @opportunity.parent_email, subject: 'You have a trial coming up!')
   end
 
+  def trial_attended(opportunity)
+    @opportunity = opportunity
+    @parent = @opportunity.user
+    track user: @parent if @parent
+
+    @parent ? mail(to: @parent.email, subject: 'Thank you for attending your trial.') : mail(to: @opportunity.parent_email, subject: 'Thank you for attending your trial.')
+  end
+
   def parent_login_reminder(user)
     @parent = user
     track user: @parent

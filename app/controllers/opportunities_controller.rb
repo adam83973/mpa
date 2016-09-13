@@ -248,10 +248,16 @@ class OpportunitiesController < ApplicationController
     set_opportunity
 
     if @student
+      # change opportunity status to 'undecided'
       if @opportunity.update_attributes attended_trial: true, status: 4
         redirect_to root_path, notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
+
+        # note account to indicate student attended trial
         @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment. Moved opportunity to undecided.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
+
+        # send thank you note
+        
       end
     else
       redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
