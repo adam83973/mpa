@@ -8,6 +8,7 @@ namespace :operations do
     end_date
     deactivate_parents
     termination_campaign
+    new_users_to_infusionsoft
   end
 end
 
