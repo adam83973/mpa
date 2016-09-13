@@ -102,6 +102,19 @@ def termination_campaign
   end
 end
 
+def new_users_to_infusionsoft
+  users = User.where(created_at: Date.today, infusion_id: nil)
+
+  users.each do |user|
+    # search Infusionsoft by email to find lead.
+    contact = Infusionsoft.contact_find_by_email(user.email, [:Id])
+
+    if !contact.empty? # if Infusionsoft returns an id add it to the user.
+      user.update_attribute :infusion_id, contact[0]['Id'].to_i if contact[0]
+    end
+  end
+end
+
 # --- return from hold tasks ---
 
 # def return_from_hold_notification

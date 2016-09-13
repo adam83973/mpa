@@ -219,24 +219,25 @@ class OpportunitiesController < ApplicationController
   end
 
   def add_trial
-    @opportunity = Opportunity.new(opportunity_params)
-    @opportunity.status = 3
-    @opportunity.interest_level = 2
+    opportunity = Opportunity.new(opportunity_params)
+    opportunity.status = 3 # sets opportunity status to 'trial'
+    opportunity.interest_level = 2
 
     if @opportunity.save
-      @user = check_add_user_with_email(@opportunity) # add user to opportunity or create and add if not
-      NotificationMailer.trial_confirmation(@opportunity).deliver #send trial registration confirmation
+      @user = check_add_user_with_email(opportunity) # add user to opportunity or create and add if not
+      NotificationMailer.trial_confirmation(opportunity).deliver # trial registration confirmation
+
       redirect_to "http://www.mathplusacademy.com/trial-scheduled/"
     end
 
     #add note with actionable item
-    @note1 = @user.notes.build({
+    note = user.notes.build({
       content: "#{@user.first_name} has scheduled a trial. Please create or link this to a student account.",
-      user_id: @user.system_admin_id,
-      location_id: @opportunity.location_id,
+      user_id: user.system_admin_id,
+      location_id: opportunity.location_id,
       action_date: Date.today})
 
-    @note1.save!
+    note.save!
   end
 
   def appointment_completed
