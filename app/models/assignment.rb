@@ -46,7 +46,7 @@ class Assignment < ActiveRecord::Base
         attendance_experience_point = ExperiencePoint.create!(student_id: student_id, experience_id: TEST_ASSIGNMENT_EXPERIENCE_ID, comment: COMMENTS[rand(0..(COMMENTS.count - 1))], points: 20 )
       end
 
-      assignment_experience_point.save!
+      # assignment_experience_point.save!
 
       self.update_attribute :experience_point_id, assignment_experience_point.id
     end
