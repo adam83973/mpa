@@ -24,7 +24,7 @@ class Attendance < ActiveRecord::Base
                                                             points: 20,
                                                             user_id: user_id )
 
-      attendance_experience_point.save!
+      # attendance_experience_point.save!
 
       self.update_attribute :experience_point_id, attendance_experience_point.id
     end

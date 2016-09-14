@@ -53,7 +53,6 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points.json
   def create
     @experience_point = ExperiencePoint.new(experience_point_params)
-    puts 'xp loaded'
     if !@experience_point.student_id
       respond_to do |format|
         format.html { render action: "new" }
@@ -61,11 +60,7 @@ class ExperiencePointsController < ApplicationController
       end
       false
     else
-      puts 'adding credit'
       @student = Student.find(@experience_point.student_id)
-      @student_json = @student.to_json
-      @credits = @student.calculate_credit(@experience_point)
-      @response = @student.to_json
 
       respond_to do |format|
         if @experience_point.save
