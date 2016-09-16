@@ -1,6 +1,6 @@
 class OpportunitiesController < ApplicationController
-  before_filter :authenticate_user!, except: :add_trial
-  before_filter :authorize_employee, except: :add_trial
+  before_filter :authenticate_user!, except: [:add_trial, :join_class]
+  before_filter :authorize_employee, except: [:add_trial, :join_class]
 
   # GET /opportunities
   # GET /opportunities.json
@@ -272,10 +272,18 @@ class OpportunitiesController < ApplicationController
 
     if joining_class
       # add note to parent's account to indicate whether they are joining class or not.
-      note = parent.notes.build({content: "#{@student.full_name} has attended their trial and would like to join #{opportunity.offering.offering_name}", user_id: User.system_admin_id, action_date: Date.today, location_id: parent.location_id})
+      note = parent.notes.build({content: "#{student.full_name} has attended their trial and would like to join #{opportunity.offering.offering_name}", user_id: User.system_admin_id, action_date: Date.today, location_id: parent.location_id})
 
       note.save
+
+      redirect_to thank_you_path(action: "joining")
     else
+      # add note to parent's account to indicate whether they are joining class or not.
+      note = parent.notes.build({content: "#{student.full_name} has attended their trial and has chose not #{opportunity.offering.offering_name}", user_id: User.system_admin_id, action_date: Date.today, location_id: parent.location_id})
+
+      note.save
+
+      redirect_to thank_you_path(action: "not_joining")
     end
   end
 
