@@ -257,10 +257,25 @@ class OpportunitiesController < ApplicationController
         @note.save
 
         # send thank you note
-        
+
       end
     else
       redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
+    end
+  end
+
+  def join_class
+    opportunity = Opportunity.find(params[:opportunity_id])
+    student = opportunity.student
+    parent = student.user
+    joining_class = params[:joining]
+
+    if joining_class
+      # add note to parent's account to indicate whether they are joining class or not.
+      note = parent.notes.build({content: "#{@student.full_name} has attended their trial and would like to join #{opportunity.offering.offering_name}", user_id: User.system_admin_id, action_date: Date.today, location_id: parent.location_id})
+
+      note.save
+    else
     end
   end
 

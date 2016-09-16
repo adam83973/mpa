@@ -154,6 +154,12 @@
     table.twitter:hover td {
     background: #0087bb !important;
     }
+    table.accept:hover td {
+    background: #047d3c !important;
+    }
+    table.decline:hover td {
+    background: #8b3232 !important;
+    }
     table.google-plus:hover td {
     background: #CC0000 !important;
     }
@@ -373,8 +379,23 @@
                         <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
                           <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
                             <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 26px; font-size: 22px; margin: 0 0 20px 0; padding: 0;" align="left">
-                              <b style="font-weight:bold;"><strong>Thanks for attending your trial!</strong></b> See below for additional information regarding your trial.
+                              <b style="font-weight:bold;"><strong>Thanks for attending your trial!</strong></b> See below for additional information regarding your trial. Please select one of the following options:
                             </p>
+                            <table class="tiny-button accept" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;">
+                              <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
+                                <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; background: #00bb56; margin: 0; padding: 5px 0 4px; border: 1px solid #027d3a;" align="center" bgcolor="#00bb56" valign="top">
+                                  <a href="<%= join_class_opportunities_url(opportunity_id: @opportunity.id, joining: true) %>" style="color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;">We Would Like To Join This Class</a>
+                                </td>
+                              </tr>
+                            </table>
+                            <hr>
+                            <table class="tiny-button decline" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;">
+                              <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
+                                <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; background: #bf4242; margin: 0; padding: 5px 0 4px; border: 1px solid #870303;" align="center" bgcolor="#bf4242" valign="top">
+                                  <a href="<%= join_class_opportunities_url(opportunity_id: @opportunity.id, joining: false) %>" style="color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;">We Are Not Interested In Joining At This Time</a>
+                                </td>
+                              </tr>
+                            </table>
                             <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 26px; font-size: 22px; margin: 10px 0 10px 0; padding: 0;" align="left">
                               <ul style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal;line-height: 26px; font-size: 22px; margin: 0 0 10px; list-style-type: none;">
                                 <li><strong>Student:</strong> <%= @opportunity.student ? @opportunity.student.full_name : @opportunity.student_name %> </li>
@@ -386,9 +407,9 @@
                               <em>The Math Plus Academy Team</em>
                             </p>
                             <br>
-                            <p style="color: #a42a2a; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 26px; font-size: 22px; margin: 0 0 10px; padding: 0;" align="left">
+                            <!-- <p style="color: #a42a2a; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 26px; font-size: 22px; margin: 0 0 10px; padding: 0;" align="left">
                               If you cannot attend this trial do us a favor and give us a ring to let us know. 614-792-6284
-                            </p>
+                            </p> -->
                           </td>
                           <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
                         </tr>
