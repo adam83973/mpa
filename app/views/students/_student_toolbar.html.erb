@@ -2,7 +2,7 @@
   <%if current_user.employee? %>
     <div class="btn-group btn-group-justified">
       <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-default student_tool_button"%>
-      <%= link_to "Award Badge", badge_categories_path,class: "btn btn-default student_tool_button" %>
+      <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-default student_tool_button" %>
       <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-default student_tool_button" } %>
       <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-default student_tool_button" %>
       <%= link_to "Add Attendance", new_attendance_path(attendance: {student_id: @student.id}), class: "btn btn-default student_tool_button" %>
@@ -22,7 +22,7 @@
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-default student_tool_button" } %>
       </li>
       <li>
-        <%= link_to "Award Badge", badge_categories_path, class: "btn btn-default student_tool_button" %>
+        <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-default student_tool_button" %>
       </li>
       <li>
         <%= link_to "Add Attendance", new_attendance_path(student_id: @student.id), class: "btn btn-default student_tool_button" %>

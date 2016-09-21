@@ -1,5 +1,13 @@
-<h1>New badge_request</h1>
+<% title 'Badge Request' %>
+<h1>New Badge Request</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', badge_requests_path %>
+<div class="row">
+  <div class="col-md-4">
+    <%= simple_form_for @badge_request do |f| %>
+      <%= f.input :student_id, collection: Student.order(:last_name).all, selected: params[:student_id], label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>
+      <%= f.input :badge_id, collection: Badge.all, input_html: { class: 'chosen', style: "width:100%;" } %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+      <%= f.submit "Submit", class: 'btn btn-lg btn-success' %>
+    <% end %>
+  </div>
+</div>

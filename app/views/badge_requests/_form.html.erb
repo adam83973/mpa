@@ -1,7 +1,7 @@
 <% if (current_user.parent? && badge.parent_can_request) || current_user.employee? %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <% if current_page?(action: 'edit') %>
+      <% if controller_name == 'badge_requests' && action_name == 'edit' %>
         <h1 style="margin:10px 0 10px 0;">Edit Badge Request.</h1>
       <% else %>
         <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Request this badge!</h1>
@@ -9,7 +9,7 @@
     </div>
     <div class="panel-body">
       <%= simple_form_for badge_request do |f| %>
-        <% if user.employee? %>
+        <% if current_user.employee? %>
           <%= f.input :student_id, collection: Student.order(:last_name).all, label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>
         <% else %>
           <%= f.input :student_id, collection: user.students, label_method: :full_name, input_html: { class: 'chosen', style: "width:100%;" } %>

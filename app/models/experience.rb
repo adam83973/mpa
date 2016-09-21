@@ -3,7 +3,7 @@ class Experience < ActiveRecord::Base
                   # :resource_ids, :remote_image_url, :occupation_id, :active,
                   # :badge_attributes
 
-  validates_presence_of :points, :category, :name
+  validates_presence_of :points, :category, :name, :occupation
 
   has_paper_trail if Rails.env.development? || Rails.env.production?
 
@@ -16,6 +16,8 @@ class Experience < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   accepts_nested_attributes_for :badge
+
+  before_validation :mark_badge_for_destruction
 
   CATEGORY = [
               "Mathematics",
@@ -33,6 +35,12 @@ class Experience < ActiveRecord::Base
       experience = find_by_id(row["id"]) || new
       experience.attributes = row.to_hash.slice(*accessible_attributes)
       experience.save!
+    end
+  end
+
+  def mark_badge_for_destruction
+    if badge.name.blank?
+      badge.mark_for_destruction
     end
   end
 
