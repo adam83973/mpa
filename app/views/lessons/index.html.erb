@@ -20,6 +20,7 @@
           <th>Course</th>
           <th>Status</th>
           <th></th>
+          <th></th>
         </tr>
   </thead>
   <tbody>
@@ -30,6 +31,7 @@
         <td><%= lesson.course.course_name if lesson.standard %></td>
         <td><%= lesson_status(lesson) %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+        <td><%= link_to 'View', lesson %></td>
       </tr>
     <% end %>
   </tbody>

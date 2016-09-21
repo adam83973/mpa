@@ -1,6 +1,7 @@
 <% title @lesson.title %>
 <p>
   <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-default pull-right" if current_user.employee? %>
+  <%= link_to "Search Lessons", lessons_path, class: "btn btn-default pull-right", style: "margin-right:20px;" if current_user.employee? %>
 </p>
 <div class="row" style="margin-bottom:40px;">
   <div class="col-sm-12">
@@ -8,10 +9,12 @@
       <strong><%= @lesson.title %></strong>
     </h2>
     <div style="margin-top:30px;">
-      <% if @lesson.contains_error == true %>
-        <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>" checked>
-      <% else %>
-          <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>">
+      <% if current_user.employee? %>
+        <% if @lesson.contains_error == true %>
+          <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>" checked>
+        <% else %>
+            <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>">
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -64,45 +67,35 @@
         There are no activities associated with this lesson.
       <% end %>
     </p>
-
-    <div hidden>
-      <p>
-       <b>Videos:</b>
-      </p>
-
-      <% @lesson.videos.each do |video| %>
-        <p>
-          <%=raw YouTubeAddy.youtube_embed_url("#{video.url}",420,315) if video.url %>
-        </p>
-      <% end %>
-    </div>
   </div>
   <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Notes</h3>
-      </div>
-      <div class="panel-body">
-        <%= simple_form_for [@lesson, Note.new], remote: true do |f| %>
-          <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
-              <%= f.input :lesson_id, as: :hidden, input_html: { value: @lesson.id } %>
+    <% if current_user.employee? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Notes</h3>
+        </div>
+        <div class="panel-body">
+          <%= simple_form_for [@lesson, Note.new], remote: true do |f| %>
+            <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+                <%= f.input :lesson_id, as: :hidden, input_html: { value: @lesson.id } %>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.input :action_date, as: :string, input_html: { class: :datepicker } %>
+              </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <%= f.input :action_date, as: :string, input_html: { class: :datepicker } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.button :submit, class: "btn btn-xs btn-success" %>
+          <% end %>
+          <div class="notes">
+            <div id="lesson_notes">
+              <%= render '/lessons/lesson_notes' %>
             </div>
-          </div>
-          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-          <%= f.button :submit, class: "btn btn-xs btn-success" %>
-        <% end %>
-        <div class="notes">
-          <div id="lesson_notes">
-            <%= render '/lessons/lesson_notes' %>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
