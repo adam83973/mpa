@@ -39,6 +39,10 @@
         <%= f.input :admin if current_user.admin? %>
         <%= f.input :active if current_user.admin? %>
       <% end %>
+      <%= f.input :address %>
+      <%= f.input :city %>
+      <%= f.input :state %>
+      <%= f.input :zip %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
@@ -66,19 +70,24 @@
         <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"] if current_user.employee? %>
         <%= f.input :first_name, label: "First Name" %>
         <%= f.input :last_name, label: "Last Name" %>
+        <%= f.input :email %>
         <%= f.input :billing_note, input_html: { rows: 2}, wrapper_html: { style: 'display:none;'}  %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <%= f.input :phone %>
-        <%= f.input :email %>
         <% if  @contacts || (@user.role == "Parent" && @user.infusion_id == nil) %>
           <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { style: "background:yellow;" } if current_user.employee? %>
         <% else %>
           <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', wrapper_html: { style: 'display:none;'}  if current_user.employee? %>
         <% end %>
+        <%= f.input :address %>
+        <%= f.input :city %>
+        <%= f.input :state %>
+        <%= f.input :zip %>
         <%= f.input :ssn, label: 'SSN', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
         <%= f.input :bank_account, label: 'Bank Account #', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
         <%= f.input :routing_number, label: 'Routing #', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
+        <%= f.input :exemptions, wrapper_html: { style: 'display:none;'} %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <% if current_user.employee? %>

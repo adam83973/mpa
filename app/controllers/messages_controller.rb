@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
+    @message = Message.new(messages_params)
 
     respond_to do |format|
       if @message.save
@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-    @message.update_attributes(params[:message])
+    @message.update_attributes(messages_params)
     respond_with(@message)
   end
 
@@ -58,5 +58,11 @@ class MessagesController < ApplicationController
   private
     def set_message
       @message = Message.find(params[:id])
+    end
+
+    def messages_params
+      params.require(:message).permit(:content, :important, :read, :recipient_id,
+                                      :subject, :user_id, :general, :location_id,
+                                      :status, :updated_by)
     end
 end

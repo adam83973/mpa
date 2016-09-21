@@ -602,7 +602,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :password, :current_password, :password_confirmation, :remember_me,
                                     :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder,
-                                    :ssn, :bank_account, :routing_number)
+                                    :ssn, :bank_account, :routing_number, :address, :city, :state, :zip, :allowances)
     end
 
     def rescue_from_timeout

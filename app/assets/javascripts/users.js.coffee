@@ -8,6 +8,11 @@ $user_has_key = $(".user_has_key")
 $user_admin = $(".user_admin")
 $user_billing_note = $('.user_billing_note')
 $user_infusion_id = $(".user_infusion_id")
+$user_address = $(".user_address")
+$user_city = $(".user_city")
+$user_state = $(".user_state")
+$user_zip = $(".user_zip")
+$user_exemptions = $(".user_exemptions")
 
 if $("#user_role").val() in ["Teacher", "Admin", "Teaching Assitant", "Robotics Instructor", "Programming Instrutor", "Chess Instructor"]
 	$user_passion.show()
@@ -16,6 +21,7 @@ if $("#user_role").val() in ["Teacher", "Admin", "Teaching Assitant", "Robotics 
 	$user_ssn.show()
 	$user_bank_account.show()
 	$user_routing_number.show()
+	$user_exemptions.show()
 	if $("#user_role").val() is "Admin"
 		$user_admin.show()
 else if $('#user_role').val() is "Parent"
@@ -43,6 +49,8 @@ $("#user_role").on "change", ->
 		$('#user_routing_number').val('')
 		$user_passion.hide()
 		$('#user_passion').val('')
+		$user_exemptions.hide()
+		$('#user_exemptions').val('')
 		$user_billing_note.show()
 		$user_infusion_id.show()
 	else
@@ -57,6 +65,7 @@ $("#user_role").on "change", ->
 		$user_ssn.show()
 		$user_bank_account.show()
 		$user_routing_number.show()
+		$user_exemptions.show()
 
 $("#user_role").on "change", ->
 	if !($(this).val() is "Admin")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921145042) do
+ActiveRecord::Schema.define(version: 20160921183014) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -713,6 +713,11 @@ ActiveRecord::Schema.define(version: 20160921145042) do
     t.string   "encrypted_bank_account_iv"
     t.string   "encrypted_routing_number"
     t.string   "encrypted_routing_number_iv"
+    t.string   "address",                                 default: ""
+    t.string   "city",                                    default: ""
+    t.string   "state",                                   default: ""
+    t.string   "zip",                                     default: ""
+    t.string   "exemptions",                              default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
