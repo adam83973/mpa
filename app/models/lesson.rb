@@ -7,7 +7,7 @@ class Lesson < ActiveRecord::Base
   has_and_belongs_to_many :problems
   belongs_to :standard
   has_many :grades
-  has_one :course, through: :standard
+  belongs_to :course
   has_many  :notes, as: :notable, dependent: :destroy
 
   searchable do

@@ -104,7 +104,7 @@ class LessonsController < ApplicationController
 
   def lesson_params
     params.require(:lesson).permit(:assessment, :assessment_key, :assignment, :contains_error,
-                                   :assignment_key, :standard_id, :name, :week,
+                                   :assignment_key, :standard_id, :name, :week, :course_id,
                                    {resource_ids: []}, {problem_ids: []})
   end
 end

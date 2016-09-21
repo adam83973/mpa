@@ -12,7 +12,7 @@
           </ul>
         </div>
       <% end %>
-
+        <%= f.association :course, input_html: { class: 'chosen' } %>
         <%= f.input :name %>
         <%= f.input :week %>
         <%= f.association :standard, label_method: :name %>
