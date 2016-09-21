@@ -7,6 +7,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap
+//= require bootstrap-switch
 //= require chosen-jquery
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/dataTables.responsive

@@ -17,7 +17,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.includes(:standard).find(params[:id])
+    @lesson = Lesson.includes(:standard, notes: [:notable, :user]).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -73,6 +73,17 @@ class LessonsController < ApplicationController
     end
   end
 
+  def toggle_error
+    lesson = Lesson.find params[:lesson][:id]
+
+    if lesson.update_attribute :contains_error, params[:lesson][:contains_error]
+      response = params[:lesson][:contains_error]
+      respond_to do |format|
+        format.json { render json: response }
+      end
+    end
+  end
+
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
@@ -92,8 +103,8 @@ class LessonsController < ApplicationController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:assessment, :assessment_key, :assignment,
-                                    :assignment_key, :standard_id, :name, :week,
-                                    {resource_ids: []}, {problem_ids: []})
+    params.require(:lesson).permit(:assessment, :assessment_key, :assignment, :contains_error,
+                                   :assignment_key, :standard_id, :name, :week,
+                                   {resource_ids: []}, {problem_ids: []})
   end
 end

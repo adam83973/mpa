@@ -81,6 +81,10 @@ class Offering < ActiveRecord::Base
     end
   end
 
+  def lesson(week)
+    Lesson.where(course_id: course_id, week: week).first
+  end
+
   def capacity
     if course
       course.capacity

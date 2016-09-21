@@ -5,6 +5,7 @@
       <h3>In Session: <%= offering.offering_name if class_session.offering %></h3>
       <h4>Week: <%= class_session.week %></h4>
       <%= link_to "Course Page", offering.course, class: "btn btn-primary pull-right" if class_session.offering %>
+      <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-default pull-right", style: "margin-right:20px;" if offering.lesson(class_session.week) %>
     </div>
   </div>
   <div class="row">

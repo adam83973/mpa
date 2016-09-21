@@ -110,7 +110,12 @@ MathPlus::Application.routes.draw do
   end
 
   resources :lessons do
-    collection { post :import }
+    collection do
+      post :import
+      get :toggle_error
+    end
+
+    resources :notes
   end
 
   resources :locations do

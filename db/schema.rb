@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804202113) do
+ActiveRecord::Schema.define(version: 20160921145042) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -348,11 +348,13 @@ ActiveRecord::Schema.define(version: 20160804202113) do
     t.integer  "week"
     t.text     "assignment"
     t.text     "assignment_key"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.text     "assessment"
     t.text     "assessment_key"
     t.integer  "standard_id"
+    t.boolean  "contains_error",             default: false
+    t.integer  "course_id"
   end
 
   create_table "lessons_problems", id: false, force: :cascade do |t|

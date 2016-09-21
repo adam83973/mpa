@@ -45,6 +45,9 @@ class NotesController < ApplicationController
     if params[:student_id]
       @notable = Student.find(params[:student_id])
       @student = @notable
+    elsif params[:lesson_id]
+      @notable = Lesson.find(params[:lesson_id])
+      @lesson = @notable
     elsif params[:user_id]
       @notable = User.find(params[:user_id])
       @note_user = @notable

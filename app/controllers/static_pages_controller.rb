@@ -107,28 +107,21 @@ class StaticPagesController < ApplicationController
     def set_class_session
       @attendance = Attendance.new
       @class_session_offering = Offering.includes(:course).find(class_session.offering)
-      @lessons = Lesson.includes(:standard, :resources, :problems).where("week = ?", "#{class_session.week}")
+      @lessons = Lesson.includes(:resources, :problems).where("week = ?", "#{class_session.week}")
       @lessons.each do |lesson|
-        if lesson.standard
-          @todays_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id
-        end
+        @todays_lesson = lesson if lesson.course_id == @class_session_offering.course_id
       end
       if class_session.week.to_i - 1 == 0
         @last_weeks_lessons = Lesson.where("week = ?", "48")
         @last_weeks_lessons.each do |lesson|
-          if lesson.standard
-            if @class_session_offering.course_id == 1
-              nil
-            else
-              @last_weeks_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id.to_i - 1
-            end
+          if @class_session_offering.course_id == 1
+            nil
+          else
+            @last_weeks_lesson = lesson if lesson.course_id == @class_session_offering.course_id.to_i - 1
           end
         end
       else
-        @last_weeks_lessons = Lesson.includes(:standard).where("week = ?", "#{class_session.week.to_i - 1}")
-        @last_weeks_lessons.each do |lesson|
-          @last_weeks_lesson = lesson if lesson.standard.course_id == @class_session_offering.course_id
-        end
+        @last_weeks_lesson = Lesson.where("week = ? AND course_id = ?", "#{class_session.week.to_i - 1}", @class_session_offering.course_id).last
       end
     end
 

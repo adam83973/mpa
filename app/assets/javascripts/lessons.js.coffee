@@ -1,9 +1,21 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-jQuery ->
-	$('#lessons').dataTable()
-	$('#lesson_assignment').chosen()
-	$('#lesson_assignment_key').chosen()
-	$('#lesson_problem_ids').chosen()
-	$('#lesson_resource_ids').chosen()
+$('#lessons').dataTable()
+$('#lesson_assignment').chosen()
+$('#lesson_assignment_key').chosen()
+$('#lesson_problem_ids').chosen()
+$('#lesson_resource_ids').chosen()
+
+$("[name='lesson-error']").bootstrapSwitch
+	onText: 		'Contains Errors',
+	offText: 		'No Errors',
+	onColor: 		'danger',
+	offColor: 	'success'
+
+alert
+
+$('input[name="lesson-error"]').on 'switchChange.bootstrapSwitch', (event, state) ->
+
+	$.ajax
+		url: '/lessons/toggle_error',
+		data: lesson: { id: $(this).data('lessonid'), contains_error: state }
+		success: (data) ->
+			console.log data

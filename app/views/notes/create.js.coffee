@@ -4,6 +4,8 @@ else if document.getElementById("student_notes")
   $('#student_notes').html('<%= escape_javascript(render "/students/students_notes") %>')
 else if document.getElementById("opportunity_notes")
   $('#opportunity_notes').html('<%= escape_javascript(render "/opportunities/opportunity_notes") %>')
+else if document.getElementById("lesson_notes")
+  $('#lesson_notes').html('<%= escape_javascript(render "/lessons/lesson_notes") %>')
 
   # Hide Show Note Info ---
 $('.note_info_toggle').on "click", ->

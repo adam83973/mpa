@@ -1,3 +1,4 @@
+<% title @student.full_name %>
 <% if @student.has_learning_plan && current_user.employee? %>
   <div class="lp_icon">
     <%= link_to @student.learning_plans.last do %>

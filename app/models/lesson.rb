@@ -7,7 +7,8 @@ class Lesson < ActiveRecord::Base
   has_and_belongs_to_many :problems
   belongs_to :standard
   has_many :grades
-  has_one :course, through: :standard
+  belongs_to :course
+  has_many  :notes, as: :notable, dependent: :destroy
 
   searchable do
     # text :name
@@ -17,15 +18,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def title
-  	if standard
-      standard.course.course_name + "-" + week.to_s + ": " + name
-    else
-      week.to_s + ": " + name
-  	end
-  end
-
-  def course_id
-    course.id
+      course.course_name + "-" + week.to_s + ": " + name
   end
 
   def course_name
@@ -33,11 +26,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def course_name_and_week
-    if standard
-      "#{standard.course.course_name} #{week}"
-    else
-      week.to_s + ": " + name
-    end
+    "#{course.course_name} #{week}"
   end
 
   def self.import(file)
