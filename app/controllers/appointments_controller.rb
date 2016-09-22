@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
   # POST /appointments
   # POST /appointments.json
   def create
-    @appointment = Appointment.new(params[:appointment])
+    @appointment = Appointment.new(appointment_params)
 
     respond_to do |format|
       if @appointment.save
@@ -62,7 +62,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
 
     respond_to do |format|
-      if @appointment.update_attributes(params[:appointment])
+      if @appointment.update_attributes(appointment_params)
         format.html { redirect_to root_url, notice: 'Appointment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -82,5 +82,12 @@ class AppointmentsController < ApplicationController
       format.html { redirect_to appointments_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def appointment_params
+    params.require(:appointment).permit(:clientId, :locationId, :location_id, :reasonId,
+                                        :time, :user_id, :calendarId, :visitMinutes, :note, :status, :hwHelpChild, :hwHelpClass, :hwHelpReason)
   end
 end

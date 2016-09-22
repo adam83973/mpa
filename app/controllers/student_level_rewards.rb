@@ -11,6 +11,9 @@ class StudentLevelRewardsController < ApplicationController
 
   def create
     @student_level_reward = StudentLevelReward.new(student_level_reward_params)
+
+    #when a record is added a transaction should be created to track the prize they redeemed
+    
   end
 
   private
