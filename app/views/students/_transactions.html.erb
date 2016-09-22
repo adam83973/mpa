@@ -1,0 +1,39 @@
+<h3>Transactions</h3>
+<div class="panel-group" id="accordion-transactions">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion-transactions" href="#collapse-transactions">
+          Transactions: <%= @student.transactions.count %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-transactions" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="tscroll a-achievements">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Credits Redeemed</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.transactions.where(process: 0).each do |transaction| %>
+                <tr>
+                  <td>
+                    <%= transaction.created_at.strftime('%m/%d/%Y') %>
+                  </td>
+                  <td><%= transaction.product.name if transaction.product %></td>
+                  <td><%= transaction.credits_redeemed %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
