@@ -99,6 +99,10 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def filename_created_at
+    "#{self.filename[0..50].gsub(/\s\w+\s*$/, '...')} (Added: #{self.created_at.strftime('%m/%d/%Y')})".html_safe
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names
