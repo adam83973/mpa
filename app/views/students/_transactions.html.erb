@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @student.transactions.where(process: 0).each do |transaction| %>
+              <% @student.transactions.order(created_at: :desc).where(process: 0).each do |transaction| %>
                 <tr>
                   <td>
                     <%= transaction.created_at.strftime('%m/%d/%Y') %>
