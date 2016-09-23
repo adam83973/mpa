@@ -120,7 +120,13 @@ def new_users_to_infusionsoft
 end
 
 def send_assignments_report
-  users = User.where(assignments_reports: true)
+  if Date.today.sunday?
+    users = User.where(assignments_reports: true)
+
+    users.each do |user|
+      ReportMailer.weekly_assignments_report(user).deliver_now
+    end
+  end
 end
 # --- return from hold tasks ---
 
