@@ -1,0 +1,7 @@
+Week of <%= @date %> Assignments Report
+
+<%= @lessons_with_errors.count %> lessons with errors.
+
+Incomplete Assignments: <%= @assignments.where(score: 0).count %>
+Complete Assignments: <%= @assignments.where(score: 1).count %>
+Perfect Assignments: <%= @assignments.where(score: 2).count %>

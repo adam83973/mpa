@@ -10,6 +10,9 @@ namespace :operations do
     termination_campaign
     new_users_to_infusionsoft
   end
+  task reports: :environment do
+    send_assignments_report
+  end
 end
 
 def start_hold
@@ -116,6 +119,9 @@ def new_users_to_infusionsoft
   end
 end
 
+def send_assignments_report
+  users = User.where(assignments_reports: true)
+end
 # --- return from hold tasks ---
 
 # def return_from_hold_notification

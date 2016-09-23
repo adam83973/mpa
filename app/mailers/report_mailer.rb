@@ -14,4 +14,13 @@ class ReportMailer < ActionMailer::Base
 
     mail(to: @parent.email, subject: 'Your Monthly Student Report') if @parent && @active_math_classes.any?
   end
+
+  def weekly_assignments_report(user)
+    @lessons_with_errors = Lesson.where(contains_error: true)
+    @assignments = Assignment.where("created_at > ?", Date.today - 7.days)
+    @date = (Date.today - 7.days).strftime('%m/%d/%Y')
+    mail(to: user.email, subject: "#{@date} - Weekly Assignments Report") do |format|
+      format.text
+    end
+  end
 end
