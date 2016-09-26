@@ -36,6 +36,14 @@ class Resource < ActiveRecord::Base
     !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<teacher-resource>\s*\bTEACHER RESOURCE\b\s*)/)
   end
 
+  def filename_abr
+    self.filename[0..30].gsub(/\s\w+\s*$/, '...')
+  end
+
+  def filename_created_at
+    "#{self.filename[0..50].gsub(/\s\w+\s*$/, '...')} (Added: #{self.created_at.strftime('%m/%d/%Y')})".html_safe
+  end
+
   private
 
   def add_resource_to_lesson
@@ -97,14 +105,6 @@ class Resource < ActiveRecord::Base
         self.category = "Miscelaneous"
       end
     end
-  end
-
-  def filename_abr
-    self.filename[0..30].gsub(/\s\w+\s*$/, '...')
-  end
-
-  def filename_created_at
-    "#{self.filename[0..50].gsub(/\s\w+\s*$/, '...')} (Added: #{self.created_at.strftime('%m/%d/%Y')})".html_safe
   end
 
   def self.to_csv
