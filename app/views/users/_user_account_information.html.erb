@@ -23,16 +23,16 @@
       <%= @user.location.name if @user.location %>
     </p>
     <p>
-      <strong>Address:</strong><br>
-      <% if @user.full_address? %>
-        <%= @user.address %><br>
-        <%= "#{@user.city}, #{@user.state} #{@user.zip}" %>
-      <% else %>
-        <% if @user.parent? %>
+      <strong>Address:</strong>
+        <% if @user.parent? && !@user.full_address? %>
           <%= link_to 'Please add an address.', edit_parent_users_path(@user) %>
         <% else %>
           <%= link_to 'Please add an address.', edit_employee_users_path(@user) %>
         <% end %>
+      <br>
+      <% if @user.full_address? %>
+        <%= @user.address %><br>
+        <%= "#{@user.city}, #{@user.state} #{@user.zip}" %>
       <% end %>
     </p>
     <% if ([1,2].include?(current_user.id) || Rails.env.development?) && @user.employee? %>
