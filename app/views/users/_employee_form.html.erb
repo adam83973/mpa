@@ -34,16 +34,23 @@
       <%= f.input :additional_withholding, label: 'Additional Withholding' %>
       <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
       <%= f.input :active %>
-      <fieldset>
-        <legend>Reports</legend>
-        <%= f.input :assignments_reports, label: 'Send Me Assignment Reports' %>
-        <%= f.input :opportunities_reports, label: 'Send Me Opportunities Reports' %>
-      </fieldset>
     <% end %>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Reports</div>
+      <div class="panel-body">
+        <%= f.input :assignments_reports, label: 'Send Me Assignment Reports' %>
+        <%= f.input :opportunities_reports, label: 'Send Me Opportunities Reports' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+  <div class="col-md-4">
     <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
   </div>
 </div>
