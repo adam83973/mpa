@@ -56,7 +56,11 @@ class User < ActiveRecord::Base
 
   def self.search(search)
     if search
+      if search.split.count == 2
+        where('lower(first_name) LIKE ? AND lower(last_name) LIKE ?', "%#{search.split.first.downcase}%", "%#{search.split.last.downcase}%")
+      else
        where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%")
+     end
     end
   end
 
