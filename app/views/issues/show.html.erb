@@ -1,30 +1,30 @@
 <p>
-  <b>Name:</b>
+  <strong>Name:</strong>
   <%= @issue.name %>
 </p>
 
 <p>
-  <b>Summary:</b>
+  <strong>Summary:</strong>
   <%= @issue.summary %>
 </p>
 
 <p>
-  <b>User:</b>
+  <strong>User:</strong>
   <%= @issue.user_id %>
 </p>
 
 <p>
-  <b>Priority:</b>
+  <strong>Priority:</strong>
   <%= Issue::PRIORITY_LEVELS[@issue.priority.to_i] %>
 </p>
 
 <p>
-  <b>Resolved:</b>
+  <strong>Resolved:</strong>
   <%= @issue.resolved %>
 </p>
 
 <p>
-  <b>Status:</b>
+  <strong>Status:</strong>
   <%= Issue::STATUS_LEVELS[@issue.status.to_i] %>
 </p>
 

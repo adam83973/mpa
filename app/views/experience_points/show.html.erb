@@ -1,34 +1,34 @@
 <div class="row">
   <div class="col-lg-6 col-md-6">
     <p>
-      <b>Experience:</b>
+      <strong>Experience:</strong>
       <%= @experience_point.experience.name %>
     </p>
 
     <p>
-      <b>Student:</b>
+      <strong>Student:</strong>
       <%= @experience_point.student.full_name %>
     </p>
 
     <p>
-      <b>Points:</b>
+      <strong>Points:</strong>
       <%= @experience_point.points %>
     </p>
 
     <p>
-      <b>Last Updated:</b>
+      <strong>Last Updated:</strong>
       <%= @experience_point.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%A, %B %e, %l:%M %p") %>
     </p>
 
     <% if @experience_point.comment? %>
       <p>
-        <b>Comment:</b>
+        <strong>Comment:</strong>
         <%= @experience_point.comment %>
       </p>
     <% end %>
 
     <p>
-      <b>Created By:</b>
+      <strong>Created By:</strong>
       <%= @experience_point.user.full_name %>
     </p>
 

@@ -6,34 +6,34 @@
     </p>
 
     <p>
-      <b>Phone:</b>
+      <strong>Phone:</strong>
       <%= @lead.phone %>
     </p>
 
     <p>
-      <b>Email:</b>
+      <strong>Email:</strong>
       <%= @lead.email %>
     </p>
 
     <p>
-      <b>User:</b>
+      <strong>User:</strong>
       <%= @lead.user ? @lead.user.full_name : "There is no one asigned to this lead. Please assign someone to this lead." %>
     </p>
 
     <p>
-      <b>Stage:</b>
+      <strong>Stage:</strong>
       <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
     </p>
 
     <% unless @lead.student_information == "" %>
       <p>
-        <b>Student information:</b>
+        <strong>Student information:</strong>
         <%= @lead.student_information %>
       </p>
     <% end %>
 
     <p>
-      <b>Active:</b>
+      <strong>Active:</strong>
       <%= @lead.active? %>
     </p>
 

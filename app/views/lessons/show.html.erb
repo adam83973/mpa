@@ -23,31 +23,31 @@
 <div class="row">
   <div class="col-md-6">
     <p>
-      <b>Standard:</b>
+      <strong>Standard:</strong>
       <%= @lesson.standard.name if @lesson.standard %>
     </p>
 
     <p>
-      <b>Course:</b>
+      <strong>Course:</strong>
       <%= @lesson.standard.course.course_name if @lesson.standard %>
     </p>
 
     <p>
-      <b>Assignment:</b>
+      <strong>Assignment:</strong>
       <% if @lesson.assignment %>
         <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment == '#' || @lesson.assignment == "" %>
       <% end %>
     </p>
 
     <p>
-      <b>Assignment key:</b>
+      <strong>Assignment key:</strong>
       <% if @lesson.assignment_key %>
         <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment_key) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
       <% end %>
     </p>
 
     <p>
-      <b>Additional Resources:</b>
+      <strong>Additional Resources:</strong>
       <% if @lesson.resources %>
         <% @lesson.resources.each do |resource| %>
           <p>- <%= link_to "#{resource.filename}", resource %></p>
@@ -58,7 +58,7 @@
     </p>
 
     <p>
-      <b>Activities/Games/Problems:</b>
+      <strong>Activities/Games/Problems:</strong>
       <% if @lesson.problems %>
         <% @lesson.problems.each do |problem| %>
           <p>- <%= link_to "#{problem.title}", problem %></p>

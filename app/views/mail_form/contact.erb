@@ -27,7 +27,7 @@
     end
   %>
 
-    <p><b><%= I18n.t attribute, :scope => [ :mail_form, :request ], :default => attribute.to_s.humanize %>:</b>
+    <p><strong><%= I18n.t attribute, :scope => [ :mail_form, :request ], :default => attribute.to_s.humanize %>:</strong>
     <%= value.include?("\n") ? simple_format(value) : value %></p>
   <% end %>
   <br />

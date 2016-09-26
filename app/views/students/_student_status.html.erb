@@ -6,7 +6,7 @@
 			<%= @student.first_name %> is on <%= student_status(@student).html_safe%>
 		</p>
 		<p>
-			Return: <b><%= @student.restart_date.strftime("%a, %b %e, %Y") %></b>
+			Return: <strong><%= @student.restart_date.strftime("%a, %b %e, %Y") %></strong>
 		</p>
 	<% else %>
 		<p><%= @student.first_name %> is <%= student_status(@student).html_safe%></p>

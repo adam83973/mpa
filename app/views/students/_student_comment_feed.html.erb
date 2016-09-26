@@ -9,14 +9,14 @@
       <% if comment.negative? %>
         <p style="color:red;">
           <em><%= comment.experience.name %></em>
-          <b>"<%= comment.comment %>"</b>
+          <strong>"<%= comment.comment %>"</strong>
           by: <%= comment.user.full_name %>
           <%= time_ago_in_words(comment.updated_at) %> ago
         </p>
       <% else%>
         <p>
           <em><%= comment.experience.name %></em>
-          <b>"<%= comment.comment %>"</b>
+          <strong>"<%= comment.comment %>"</strong>
           <%= "by: #{comment.user.full_name}" if comment.user %>
           <%= time_ago_in_words(comment.updated_at) %> ago
         </p>
@@ -24,7 +24,7 @@
       <% elsif comment.class.name == "HelpSessionRecord" %>
         <p>
           <em>Help Session</em> -
-          <b>"<%= comment.comments %>"</b>
+          <strong>"<%= comment.comments %>"</strong>
           <%= "by: #{comment.user.full_name}" if comment.user %>
           <%= time_ago_in_words(comment.updated_at) %> ago
         </p>

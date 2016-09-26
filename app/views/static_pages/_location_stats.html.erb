@@ -3,19 +3,19 @@
     <h4><%= @user_location.name%> Stats</h4>
   </div>
   <p>
-    <b># of Offerings: </b>
+    <strong># of Offerings: </strong>
     <%= @user_location.offerings.where("active = ?", true).count %>
   </p>
   <p>
-    <b># of Students: </b>
+    <strong># of Students: </strong>
     <%= @user_location.active_students.count + @student_restart.count %>
   </p>
   <p>
-    <b># of Students On Hold: </b>
+    <strong># of Students On Hold: </strong>
     <%= @hold_student_count %>
   </p>
   <p>
-    <b>Avg. Students/Offering: </b>
+    <strong>Avg. Students/Offering: </strong>
     <% if @user_location.offerings.count == 0 %>
       <p><em>There are no students enrolled.</em></p>
     <% else %>

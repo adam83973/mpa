@@ -1,12 +1,12 @@
 <% if @user.role  == "Parent" %>
   <% if @user.infusion_id != nil %>
   <p>
-    <b>Infusionsoft Id:</b>
+    <strong>Infusionsoft Id:</strong>
     <%= @user.infusion_id %>
   </p>
   <% else %>
     <p>
-      <b>Infusionsoft Id is Undefined</b>
+      <strong>Infusionsoft Id is Undefined</strong>
     </p>
   <% end %>
 <% end %>

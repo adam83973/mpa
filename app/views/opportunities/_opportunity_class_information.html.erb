@@ -5,12 +5,12 @@
   </div>
   <div class="panel-body">
     <p>
-      <b>Course:</b>
+      <strong>Course:</strong>
       <%= @opportunity.course ? @opportunity.course.course_name : ( link_to "Add Course", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
     </p>
 
     <p>
-      <b>Offering:</b>
+      <strong>Offering:</strong>
       <% if @opportunity.offering %>
         <%= link_to @opportunity.offering_name, @opportunity.offering %>
       <% else %>
@@ -19,19 +19,19 @@
     </p>
 
     <p>
-      <b>Trial date:</b>
+      <strong>Trial date:</strong>
       <%= @opportunity.trial_date ? ( link_to @opportunity.trial_date.strftime('%D'), "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) %>
 
     </p>
 
     <p>
-      <b>Attended trial:</b>
+      <strong>Attended trial:</strong>
       <%= @opportunity.attended_trial %>
     </p>
 
     <% if @opportunity.status == 6 %>
       <p>
-        <b>Possible restart date:</b>
+        <strong>Possible restart date:</strong>
         <%= @opportunity.possible_restart_date %>
       </p>
     <% end %>

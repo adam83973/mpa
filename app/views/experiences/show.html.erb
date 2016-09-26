@@ -50,7 +50,7 @@
       <%= link_to image_tag(@experience.image_url, width: "200"), @experience.image.url if @experience.image_url %>
     <% unless @experience.resources.empty? %>
         <p>
-          <b>Resources:</b>
+          <strong>Resources:</strong>
           <% @experience.resources.each do |resource| %>
             <div class="resource_thumb" style="background:white;">
               <div class="name"><%= resource.filename %></div>

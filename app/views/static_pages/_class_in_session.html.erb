@@ -77,7 +77,7 @@
   <hr>
 <% else %>
   <hr>
-  <p><b>Students in Attendance:</b></p>
+  <p><strong>Students in Attendance:</strong></p>
   <ul style="list-style-type:none;" id="sortable">
     <% class_session.students.each do |student_id| %>
       <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %> student_attending" data-studentname="<%= Student.find(student_id).full_name %>">

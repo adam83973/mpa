@@ -11,7 +11,7 @@
 
         <% else %>
           <% student.offerings.includes(:course, :location).each do |offering| %>
-            <p><b><%= link_to "#{student.full_name}", student %></b> is starting in: <b><%= offering.offering_name %></b></p>
+            <p><strong><%= link_to "#{student.full_name}", student %></strong> is starting in: <strong><%= offering.offering_name %></strong></p>
           <% end %>
         <% end %>
       <% end %>

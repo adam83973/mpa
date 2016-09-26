@@ -655,7 +655,7 @@ class UsersController < ApplicationController
     end
 
     def add_note_content(appointment, app_obj)
-      content = "<b>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</b> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
+      content = "<strong>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</strong> \n Number of students: #{appointment['customField1']}\n #{'Student'.pluralize(appointment['customField1'].to_i)}: #{appointment['customField2']} (#{appointment['customField3']})"
 
       # add student information to note it there are more than one students
       case appointment['customField1'].to_i

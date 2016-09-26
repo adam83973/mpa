@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well">
-			<b>Drag and drop images or PDFs to add them to Resources</b>
+			<strong>Drag and drop images or PDFs to add them to Resources</strong>
 			<%= form_for Resource.new do |f| %>
 			  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
 			<% end %>
