@@ -1,41 +1,74 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 style="display:inline;" class="panel-title">Account Information</h3>
-    <%= link_to "Edit", edit_user_path(@user), class: "pull-right" %>
+    <% if @user.parent? %>
+      <%= link_to "Edit", edit_parent_users_url(id: @user), class: "pull-right" %>
+    <% else %>
+      <%= link_to "Edit", edit_employee_users_url(id: @user), class: "pull-right" %>
+    <% end %>
   </div>
   <div class="panel-body">
     <p>
-      <b>Email:</b>
+      <strong>Email:</strong>
       <%= mail_to @user.email, @user.email if current_user.admin? %>
       <%= @user.email unless current_user.admin? %>
     </p>
 
     <p>
-      <b>Phone:</b>
+      <strong>Phone:</strong>
       <%= @user.phone %>
     </p>
     <p>
-      <b>Location:</b>
+      <strong>Location:</strong>
       <%= @user.location.name if @user.location %>
     </p>
-    <% if [1,2].include?(current_user.id) || Rails.env.development? %>
     <p>
-      <b>SSN:</b>
-      <%= @user.ssn %>
+      <strong>Address:</strong><br>
+      <% if @user.full_address? %>
+        <%= @user.address %><br>
+        <%= "#{@user.city}, #{@user.state} #{@user.zip}" %>
+      <% else %>
+        <% if @user.parent? %>
+          <%= link_to 'Please add an address.', edit_parent_users_path(@user) %>
+        <% else %>
+          <%= link_to 'Please add an address.', edit_employee_users_path(@user) %>
+        <% end %>
+      <% end %>
     </p>
-    <p>
-      <b>Bank Account:</b>
-      <%= @user.bank_account %>
-    </p>
-    <p>
-      <b>Routing Number:</b>
-      <%= @user.routing_number %>
-    </p>
+    <% if ([1,2].include?(current_user.id) || Rails.env.development?) && @user.employee? %>
+      <p>
+        <strong>SSN:</strong>
+        <%= @user.ssn %>
+      </p>
+      <p>
+        <strong>Bank Account:</strong>
+        <%= @user.bank_account %>
+      </p>
+      <p>
+        <strong>Routing Number:</strong>
+        <%= @user.routing_number %>
+      </p>
+      <p>
+        <strong>Exemptions:</strong>
+        <% unless @user.exemptions.blank? %>
+          <%= @user.exemptions %>
+        <% else %>
+          <%= link_to "Add exemptions", edit_employee_users_path(@user) %>
+        <% end %>
+      </p>
+      <p>
+        <strong>Additional Withholding:</strong>
+        <% unless @user.additional_withholding.blank? %>
+          $<%= @user.additional_withholding %>
+        <% else %>
+          <%= link_to "Add additional withholding", edit_employee_users_path(@user) %>
+        <% end %>
+      </p>
     <% end %>
     <% if @user.role  == "Parent" && current_user.admin? %>
       <% if @user.infusion_id != nil %>
       <p>
-        <b>Infusionsoft Id:</b>
+        <strong>Infusionsoft Id:</strong>
         <%= @user.infusion_id %>
       </p>
       <% else %>

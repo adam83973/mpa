@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+  <%= simple_form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+
+      <ul style="margin-left:20px;">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.association :location, label_method: :name if current_user.employee? %>
+    <%= f.input :role, as: :select, collection: User::ROLES - ['Parent'] %>
+    <%= f.input :first_name, label: "First Name" %>
+    <%= f.input :last_name, label: "Last Name" %>
+    <%= f.input :email, required: true %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= f.input :phone %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <% if current_user.admin? %>
+      <%= f.input :ssn, label: 'SSN', as: :string %>
+      <%= f.input :bank_account, label: 'Bank Account #', as: :string %>
+      <%= f.input :routing_number, label: 'Routing #', as: :string %>
+      <%= f.input :exemptions, label: 'Number Of Exemptions' %>
+      <%= f.input :additional_withholding, label: 'Additional Withholding' %>
+      <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+      <%= f.input :active %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+  </div>
+</div>
+<% end %>

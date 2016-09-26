@@ -120,6 +120,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def new_employee
+    @user = User.new
+    @generated_password = Devise.friendly_token.first(8)
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  def new_parent
+    @user = User.new
+    @generated_password = Devise.friendly_token.first(8)
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user }
+    end
+  end
+
   # GET /users/1/edit
   def edit
     set_user
@@ -138,6 +158,25 @@ class UsersController < ApplicationController
     ########
   end
 
+  def edit_parent
+    set_user
+
+    @contacts = nil
+    if @user.role == "Parent" && @user.infusion_id == nil
+      # get contacts with matching last name
+      @contacts = Infusionsoft.data_query_order_by('Contact', 50, 0, {:LastName=> @user.last_name}, [:Id, :FirstName, :LastName, :ContactType, :Email], :FirstName, true)
+      # data clean up - blank out missing names, create ContactId = Id
+      @contacts.each do |i|
+        i["FirstName"] == nil ? i["FirstName"]="" : nil
+        i["ContactId"] = i["Id"]
+      end
+    end
+  end
+
+  def edit_employee
+    set_user
+  end
+
   # POST /users
   # POST /users.json
   def create
@@ -150,7 +189,12 @@ class UsersController < ApplicationController
         format.js
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new" }
+        if @user.role == 'Parent'
+          format.html { render action: "new_parent" }
+        else
+          format.html { render action: "new_employee" }
+        end
+
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -602,7 +646,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :password, :current_password, :password_confirmation, :remember_me,
                                     :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder,
-                                    :ssn, :bank_account, :routing_number, :address, :city, :state, :zip, :allowances)
+                                    :ssn, :bank_account, :routing_number, :address, :city, :state, :zip, :exemptions, :additional_withholding)
     end
 
     def rescue_from_timeout

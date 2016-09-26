@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable
 
-  validates_presence_of :first_name, :last_name, :role, :location_id, :email
+  validates_presence_of :first_name, :last_name, :role, :location_id
 
   attr_encrypted :ssn, key: :encryption_key
   attr_encrypted :bank_account, key: :encryption_key
@@ -44,8 +44,14 @@ class User < ActiveRecord::Base
   scope :teachers, lambda{where("role = ?", 'Teacher').where(active: true).order('last_name asc')}
   scope :teaching_assistants, lambda{where("role = ?", 'Teaching Assistant').where(active: true).order('last_name asc')}
 
+  ROLES = ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"]
+
   def full_name
       first_name + " " + last_name
+  end
+
+  def full_address?
+    !address.blank? && !city.blank? && !state.blank? && !zip.blank?
   end
 
   def self.search(search)

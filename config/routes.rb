@@ -265,6 +265,10 @@ MathPlus::Application.routes.draw do
       get   :confirmation_opt_out
       get   :hide_badge_banner
       get   :show_badge_banner
+      get   :new_parent
+      get   :new_employee
+      get   'edit_parent', to: 'users#edit_parent'
+      get   'edit_employee', to: 'users#edit_employee'
     end
     resources :notes
   end
