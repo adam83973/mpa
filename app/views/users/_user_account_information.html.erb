@@ -25,9 +25,9 @@
     <p>
       <strong>Address:</strong>
         <% if @user.parent? && !@user.full_address? %>
-          <%= link_to 'Please add an address.', edit_parent_users_path(@user) %>
-        <% else %>
-          <%= link_to 'Please add an address.', edit_employee_users_path(@user) %>
+          <%= link_to 'Please add an address.', edit_parent_users_url(id: @user) %>
+        <% elsif @user.employee? && !@user.full_address? %>
+          <%= link_to 'Please add an address.', edit_employee_users_url(id: @user) %>
         <% end %>
       <br>
       <% if @user.full_address? %>
