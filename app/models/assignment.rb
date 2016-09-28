@@ -7,6 +7,7 @@ class Assignment < ActiveRecord::Base
     minimum: 5,
     tokenizer: lambda { |str| str.split(/\s+/) },
     too_short: "please write %{count} or more words"}
+    
   belongs_to :student
   belongs_to :offering
   belongs_to :course
