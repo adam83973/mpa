@@ -1,12 +1,12 @@
 class Assignment < ActiveRecord::Base
 
   validates_presence_of :student_id, :score, :week, :offering_id
-  validates :student_id, uniqueness: { scope: [:course_id, :week], message: 'already has an assignment recorded for this week and class.' }
+  validates :student_id, uniqueness: { scope: [:course_id, :week], message: 'already has an assignment recorded for this week # and class.' }
 
   validates :comment, presence: true, length: {
     minimum: 5,
     tokenizer: lambda { |str| str.split(/\s+/) },
-    too_short: "please write %{count} or more words"}
+    too_short: "this comment is not long enough. Write something a bit longer ;) These comments go a long way."}
 
   belongs_to :student
   belongs_to :offering
