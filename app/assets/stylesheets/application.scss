@@ -1,28 +1,26 @@
-/*
- *= require jquery-ui/core
- *= require jquery-ui/menu
- *= require jquery-ui/accordion
- *= require jquery-ui/tooltip
- *= require jquery-ui/datepicker
- *= require chosen
- *= require dataTables/jquery.dataTables
- *= require tomorrow
- *= require normalize-rails
- *= require badges
- *= require learning_plans
- *= require locations
- *= require notes
- *= require occupations
- *= require offerings
- *= require resources
- *= require static_pages
- *= require students
- *= require timeline
- *= require enrollment_change_requests
- *= require registrations
- *= require opportunities
- */
 
+@import "jquery-ui/core";
+@import "jquery-ui/menu";
+@import "jquery-ui/accordion";
+@import "jquery-ui/tooltip";
+@import "jquery-ui/datepicker";
+@import "chosen";
+@import "dataTables/jquery.dataTables";
+@import "tomorrow";
+@import "normalize-rails";
+@import "badges";
+@import "learning_plans";
+@import "locations";
+@import "notes";
+@import "occupations";
+@import "offerings";
+@import "resources";
+@import "static_pages";
+@import "students";
+@import "timeline";
+@import "enrollment_change_requests";
+@import "registrations";
+@import "opportunities";
 @import "compass";
 @import "font-awesome";
 @import "bootstrap";

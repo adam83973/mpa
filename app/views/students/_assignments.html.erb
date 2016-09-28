@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @student.assignments.includes(offering: [ :course, :location ]).order(course_id: :desc, week: :desc).limit(100).each do |assignment| %>
+              <% @student.assignments.includes(:course, offering: [:location]).order(course_id: :desc, week: :desc).limit(100).each do |assignment| %>
               <tr>
                 <td><%= assignment.course.course_name if assignment.course %></td>
                 <td><%= assignment.week %></td>

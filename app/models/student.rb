@@ -79,6 +79,10 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student XP-----
+  def redeemed_reward?(occupation_level_id)
+    StudentLevelReward.exists?(occupation_level_id: occupation_level_id, student_id: id)
+  end
+
   def xp_sum
     experience_points.sum(:points)
   end

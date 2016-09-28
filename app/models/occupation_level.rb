@@ -3,6 +3,7 @@ class OccupationLevel < ActiveRecord::Base
                   # :image, :remove_image, :remote_image_url
 
   belongs_to :occupation
+  belongs_to :product
 
   mount_uploader :image, ImageUploader
 

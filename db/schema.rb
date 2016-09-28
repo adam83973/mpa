@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926153907) do
+ActiveRecord::Schema.define(version: 20160928155607) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -417,6 +417,7 @@ ActiveRecord::Schema.define(version: 20160926153907) do
     t.integer  "occupation_id"
     t.integer  "bonus_credits",             default: 0
     t.string   "image",         limit: 255
+    t.integer  "product_id"
   end
 
   create_table "occupations", force: :cascade do |t|
@@ -660,15 +661,16 @@ ActiveRecord::Schema.define(version: 20160926153907) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "user_id",                      null: false
+    t.integer  "user_id",                         null: false
     t.integer  "student_id"
     t.integer  "credits_redeemed"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "product_id"
     t.integer  "location_id"
     t.integer  "process"
-    t.integer  "quantity",         default: 0
+    t.integer  "quantity",            default: 0
+    t.integer  "occupation_level_id"
   end
 
   create_table "users", force: :cascade do |t|

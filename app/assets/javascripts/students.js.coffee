@@ -8,6 +8,21 @@ $(document).ready ->
 $(window).bind "unload", ->
 	dial.load()
 
+# When prize redemption modal is launched, levels modal is hidden.
+
+$('.redeem-prize').on 'click', ->
+	$('#mathematicianModal').modal('hide')
+	$('#prizeRedemptionModal').find('#prize-name').text($(this).data('prizename'))
+	$('#transaction_occupation_level_id').val($(this).data('levelid'))
+
+
+$('#prizeRedemptionModal').on 'shown.bs.modal', ->
+	$('.chosen', this).chosen('destroy').chosen()
+
+$('#prizeRedemptionModal').on 'hidden.bs.modal', ->
+	$(this).find('form')[0].reset()
+	$('#transaction_product_id').prop('disabled', true).trigger("chosen:updated")
+
 $("#student_offering_ids").chosen()
 
 $('#student_birth_date').datepicker
