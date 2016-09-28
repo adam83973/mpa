@@ -9,6 +9,7 @@
               <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
                 <i style="color:#e7e63a;position:relative;top:0;" class="fa fa-star fa-3x pull-left"></i>
                 <%= link_to "Redeem", "#", class: "btn btn-xs btn-primary redeem-prize hidden-lg hidden-md pull-right", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id } if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                <%= link_to "Redeemed", "#", class: "btn btn-success btn-xs hidden-lg hidden-md pull-right", disabled: true if @student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
               <% else %>
                 <i class="fa fa-star fa-3x pull-left" style="position:relative;top:0;"></i>
               <% end %>
@@ -17,7 +18,8 @@
           <div class="row hidden-sm hidden-xs">
             <div class="col-sm-12">
               <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-                <%= link_to "Redeem", "#", class: "btn btn-xs btn-primary redeem-prize redeem-prize", style: "margin:40px 0 0 0;", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id} if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                <%= link_to "Redeem", "#", class: "btn btn-xs btn-primary redeem-prize", style: "margin:40px 0 0 0;", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id} if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                <%= link_to "Redeemed", "#", class: "btn btn-success btn-xs", style: 'margin-top:40px;', disabled: true if @student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
               <% else %>
               <% end %>
             </div>
