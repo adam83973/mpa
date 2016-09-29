@@ -40,3 +40,20 @@ $transaction_location_id.on 'change', ->
         $(".transaction_product").show().find(".chosen-disabled").removeClass("chosen-disabled")
         $transaction_product_id.removeClass("disabled").prop('disabled', false)
         $transaction_product_id.chosen('destroy').chosen()
+
+$transaction_credits_product_id = $('#transaction_credits_product_id')
+$('#transaction_credits_location_id').on 'change', ->
+	$.ajax
+		type:'get',
+		url: '/products/products_by_location.json'
+		data: {location_id: $(this).val(), credits: true}
+		dataType: 'JSON'
+		success: (data, status, xhr) ->
+			products = data
+			$transaction_credits_product_id.html("")
+			$.each data, (index, value) ->
+        $transaction_credits_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1]))
+        $transaction_credits_product_id.prop('disabled', false).trigger("chosen:updated")
+        # $(".transaction_product").show().find(".chosen-disabled").removeClass("chosen-disabled")
+        # $transaction_credits_product_id.removeClass("disabled").prop('disabled', false)
+        # $transaction_credits_product_id.chosen('destroy').chosen()
