@@ -27,7 +27,7 @@
         <% if signed_in? %>
           <% if current_user.parent? %>
             <li>
-              <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
+              <strong><a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a></strong>
             </li>
           <% end %>
           <%= render 'layouts/nav_links' if current_user.employee? %>
