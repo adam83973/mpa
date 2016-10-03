@@ -1,9 +1,12 @@
 
-@import "jquery-ui/core";
-@import "jquery-ui/menu";
-@import "jquery-ui/accordion";
-@import "jquery-ui/tooltip";
-@import "jquery-ui/datepicker";
+@import "compass";
+@import "jquery.ui.core";
+@import "jquery.ui.theme";
+@import "jquery.ui.datepicker";
+@import "jquery.ui.menu";
+@import "jquery.ui.accordion";
+@import "jquery.ui.tooltip";
+@import "themes/jquery.ui.smoothness";
 @import "chosen";
 @import "dataTables/jquery.dataTables";
 @import "tomorrow";
@@ -16,15 +19,12 @@
 @import "offerings";
 @import "resources";
 @import "static_pages";
-@import "students";
 @import "timeline";
 @import "enrollment_change_requests";
 @import "registrations";
 @import "opportunities";
-@import "compass";
 @import "font-awesome";
 @import "bootstrap";
-@import "bootstrap3-switch";
 @import "bootstrap_and_overrides";
 
 .search-choice-close{

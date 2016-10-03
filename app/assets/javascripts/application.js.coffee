@@ -1,9 +1,9 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui/sortable
-//= require jquery-ui/draggable
-//= require jquery-ui/droppable
-//= require jquery-ui/datepicker
+//= require jquery.ui.sortable
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
+//= require jquery.ui.datepicker
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap
@@ -39,7 +39,6 @@
 //= require timeline
 //= require jscolor
 //= require badges
-//= require Chart
 
 jscolor.dir = '/path/to/assets/'
 

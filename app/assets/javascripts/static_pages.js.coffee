@@ -7,11 +7,6 @@ jQuery ->
     url = "http://app.mathplusacademy.com?location_id=" + id
     window.location.replace(url)
 
-  $( ".datepicker" ).datepicker
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear:true
-
   $("#hide_schedule").on 'click', ->
     if $("#hide_schedule").text() is "Hide Schedule"
       $(".daily-schedule").slideUp()

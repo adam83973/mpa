@@ -25,7 +25,7 @@ $('#prizeRedemptionModal').on 'hidden.bs.modal', ->
 
 $("#student_offering_ids").chosen()
 
-$('#student_birth_date').datepicker
+$('.birth-date').datepicker
 	dateFormat: 'yy-mm-dd',
 	changeMonth: true,
 	changeYear:true
@@ -111,10 +111,3 @@ dial =
       $("#engineer-dial").parent("div").addClass("outside")
       $("#programmer-dial").parent("div").addClass("outside")
     ), 100
-
-$("#attendanceModal").bind "show", ->
-  # enable chosen js
-  $('.chosen-select').chosen
-    allow_single_deselect: true
-    no_results_text: 'No results matched'
-    width: '200px'

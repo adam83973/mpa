@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928155607) do
+ActiveRecord::Schema.define(version: 20161003143855) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -730,6 +730,7 @@ ActiveRecord::Schema.define(version: 20160928155607) do
     t.boolean  "assignments_reports",                     default: false
     t.boolean  "opportunities_reports",                   default: false
     t.string   "additional_withholding"
+    t.date     "birth_date"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

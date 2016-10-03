@@ -27,6 +27,7 @@
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <% if current_user.admin? %>
+      <%= f.input :birth_date, as: :string, input_html: { class: 'birth-date' } %>
       <%= f.input :ssn, label: 'SSN', as: :string %>
       <%= f.input :bank_account, label: 'Bank Account #', as: :string %>
       <%= f.input :routing_number, label: 'Routing #', as: :string %>
