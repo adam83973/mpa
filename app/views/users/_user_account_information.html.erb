@@ -37,6 +37,10 @@
     </p>
     <% if ([1,2].include?(current_user.id) || Rails.env.development?) && @user.employee? %>
       <p>
+        <strong>DOB:</strong>
+        <%= @user.birth_date.strftime('%m/%d/%Y') %>
+      </p>
+      <p>
         <strong>SSN:</strong>
         <%= @user.ssn %>
       </p>
