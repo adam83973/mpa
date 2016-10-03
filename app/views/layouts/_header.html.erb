@@ -35,7 +35,7 @@
           <%= render 'layouts/nav_dropdown' %>
           <%= render 'shared/user_search' if current_user.employee? %>
         <% else %>
-          <li><%= link_to "Sign in", new_user_session_path %></li>
+          <li><strong><%= link_to "Sign in", new_user_session_path %></strong></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
