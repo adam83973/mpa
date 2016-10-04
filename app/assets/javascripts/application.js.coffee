@@ -39,6 +39,7 @@
 //= require timeline
 //= require jscolor
 //= require badges
+//= require Chart
 
 jscolor.dir = '/path/to/assets/'
 
