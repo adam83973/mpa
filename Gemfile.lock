@@ -60,7 +60,7 @@ GEM
       rails
       safely_block (>= 0.1.1)
     arel (6.0.3)
-    attr_encrypted (3.0.3)
+    attr_encrypted (3.0.1)
       encryptor (~> 3.0.0)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
@@ -542,7 +542,7 @@ PLATFORMS
 
 DEPENDENCIES
   ahoy_email
-  attr_encrypted (~> 3.0.0)
+  attr_encrypted (= 3.0.1)
   autoprefixer-rails
   bootstrap-sass
   bootstrap-switch-rails
