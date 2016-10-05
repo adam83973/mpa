@@ -16,6 +16,8 @@ namespace :operations do
   end
 end
 
+###### Enrollment/Registrations Management ######
+
 def start_hold
   #Look for registrations with start hold date. Change status to inactive.
   registrations = Registration.where("hold_date <= ? AND status = ?", Date.today, 1)
@@ -119,6 +121,29 @@ def new_users_to_infusionsoft
     end
   end
 end
+
+###### Opportunity Management ######
+
+def opportunitities_maintenance
+  # Create needs action notes for opportunities that do not have needs action notes and haven't been updated in over a week.
+
+  active_opportunities = Opportunity.active
+
+  active_opportunities.each do |opportunity|
+    user = opportunity.user
+    if user && opportunity.created_at < Date.today - 8.days
+      unless user.has_action_note?
+        note = user.notes.build({
+                                  content: "Please review and update active opportunities for #{user.full_name}. Please note their account with an update and leave a needs action note if there are outstanding opportunities that have not been marked as won or lost.",
+                                  user_id: User.system_admin_id},
+                                  action_date: Date.today,
+                                  location_id: opportunity.location_id)
+      end
+    end
+  end
+end
+
+###### Admin Reports ######
 
 def send_assignments_report
   if Date.today.sunday?

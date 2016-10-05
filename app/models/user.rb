@@ -219,4 +219,8 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def has_action_note?
+    notes.where("completed = ? AND action_date IS NOT ?", false, nil).any?
+  end
 end

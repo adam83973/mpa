@@ -20,6 +20,8 @@ class Opportunity < ActiveRecord::Base
 
   has_many  :notes
 
+  scope :active, -> { where("status < ?", 7) }
+
   STATUSES = ["Interested", "Appointment Scheduled", "Appointment Missed", "Trial", "Undecided", "Waitlisted", "Possible Restart", "Won", "Lost"]
 
   SOURCES = ["Word Of Mouth", "Online Search", "Google Ad", "TV/Newspaper", "Direct Mail", "Event", "Unknown", "Other"]
