@@ -25,10 +25,11 @@ class ReportMailer < ActionMailer::Base
     end
   end
 
-  def weekly_opportunities_report
+  def weekly_opportunities_report(user)
     @date = (Date.today - 7.days)
     @opportunities_this_week = Opportunity.order(:location_id).where("created_at > ?", @date)
     @opportunities_last_30 = Opportunity.where("created_at >= ?", Date.today - 30.days)
+    @opportunities_ytd = Opportunity.where("created_at >= ?", Date.today.beginning_of_year)
 
     mail(to: user.email, subject: "#{@date.strftime('%m/%d/%Y')} - Weekly Opportunities Report") do |format|
       format.text

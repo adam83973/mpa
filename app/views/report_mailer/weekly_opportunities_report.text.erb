@@ -18,5 +18,6 @@ Total Trials Scheduled and Attended: <%= Opportunity.where("trial_date >= ? AND 
 
 ## Past Opportunities Update ##
 
-Total Outstanding Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7) %>
-Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7) %>
+Total Outstanding Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7).count %>
+Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7).count %>
+Conversion Rate YTD: <%= "#{((@opportunities_ytd.where(status: 7).count.to_f / @opportunities_ytd.count.to_f.round(2))*100).round(2)}%" %>
