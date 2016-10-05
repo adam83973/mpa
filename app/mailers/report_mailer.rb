@@ -16,11 +16,28 @@ class ReportMailer < ActionMailer::Base
   end
 
   def weekly_assignments_report(user)
+    @date = Date.today - 7.days
     @lessons_with_errors = Lesson.where(contains_error: true)
-    @assignments = Assignment.where("created_at > ?", Date.today - 7.days)
-    @date = (Date.today - 7.days).strftime('%m/%d/%Y')
-    mail(to: user.email, subject: "#{@date} - Weekly Assignments Report") do |format|
+    @assignments = Assignment.where("created_at > ?", @date)
+
+    mail(to: user.email, subject: "#{@date.strftime('%m/%d/%Y')} - Weekly Assignments Report") do |format|
+      format.text
+    end
+  end
+
+  def weekly_opportunities_report
+    @date = (Date.today - 7.days)
+    @opportunities_this_week = Opportunity.order(:location_id).where("created_at > ?", @date)
+    @opportunities_last_30 = Opportunity.where("created_at >= ?", Date.today - 30.days)
+
+    mail(to: user.email, subject: "#{@date.strftime('%m/%d/%Y')} - Weekly Opportunities Report") do |format|
       format.text
     end
   end
 end
+
+Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year)
+
+Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 7).count
+
+Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 8).count

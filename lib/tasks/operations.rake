@@ -12,6 +12,7 @@ namespace :operations do
   end
   task reports: :environment do
     send_assignments_report
+    send_opportunities_report
   end
 end
 
@@ -128,9 +129,13 @@ def send_assignments_report
     end
   end
 end
-# --- return from hold tasks ---
 
-# def return_from_hold_notification
-#   This method should send an email to parents who have a student who have left, but who have
-#   a probable return date 14 days from now.
-# end
+def send_opportunities_report
+  if Date.today.sunday?
+    users = User.where(opportunities_reports: true)
+
+    users.each do |user|
+      ReportMailer.weekly_opportunities_report(user).deliver_now
+    end
+  end
+end
