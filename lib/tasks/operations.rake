@@ -9,6 +9,7 @@ namespace :operations do
     deactivate_parents
     termination_campaign
     new_users_to_infusionsoft
+    opportunitities_maintenance
   end
   task reports: :environment do
     send_assignments_report
