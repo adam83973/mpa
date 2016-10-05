@@ -26,7 +26,8 @@
     <%= f.input :zip %>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]} if current_user.employee? && if params[:infusion_id] %>
+    <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]} if current_user.employee? && params[:infusion_id] %>
+    <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning" } unless current_user.employee? && params[:infusion_id] %>
     <%= f.input :billing_note, input_html: { rows: 2 } if current_user.admin? %>
     <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
     <%= f.input :active if current_user.admin? %>
