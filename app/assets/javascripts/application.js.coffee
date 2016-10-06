@@ -73,7 +73,7 @@ jQuery ->
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
-    yearRange: '1950:2016'
+    yearRange: '1950:2019'
 
   $(".datepickerFutureOnly").datepicker
     dateFormat: 'yy-mm-dd',
