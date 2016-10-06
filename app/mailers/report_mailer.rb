@@ -37,8 +37,8 @@ class ReportMailer < ActionMailer::Base
   end
 end
 
-Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year)
-
-Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 7).count
-
-Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 8).count
+# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year)
+#
+# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 7).count
+#
+# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 8).count

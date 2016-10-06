@@ -136,9 +136,10 @@ def opportunitities_maintenance
       unless user.has_action_note?
         note = user.notes.build({
                                   content: "Please review and update active opportunities for #{user.full_name}. Please note their account with an update and leave a needs action note if there are outstanding opportunities that have not been marked as won or lost.",
-                                  user_id: User.system_admin_id},
+                                  user_id: User.system_admin_id,
                                   action_date: Date.today,
-                                  location_id: opportunity.location_id)
+                                  location_id: opportunity.location_id})
+        note.save
       end
     end
   end
