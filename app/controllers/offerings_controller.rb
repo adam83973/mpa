@@ -7,10 +7,11 @@ class OfferingsController < ApplicationController
   # GET /offerings.json
   def index
     if current_user.employee?
+      @offerings = Offering.includes(:course, :location, :users).order(:id)
       if params[:students] == "all"
-        @offerings = Offering.order(:id)
+        @offerings = Offering.includes(:course, :location, :users).order(:id)
       else
-        @offerings = Offering.order(:id).where(active: true)
+        @offerings = @offerings.where(active: true)
       end
       @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
       @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")

@@ -97,6 +97,7 @@ class Offering < ActiveRecord::Base
   end
 
   def students_wait_listed?
+    opportunities.where(status: 5).any?
   end
 
   def self.to_csv

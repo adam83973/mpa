@@ -30,6 +30,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/new.json
   def new
     @registration = Registration.new
+    @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
 
     respond_to do |format|
       format.html # new.html.erb

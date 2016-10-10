@@ -89,6 +89,7 @@ class StaticPagesController < ApplicationController
       @new_parent = User.new
       @generated_password = Devise.friendly_token.first(8)
       @new_student = Student.new
+      @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
       @messages = Message.where(location_id: @user_location.id, status: 0)
       @badge_requests = @user_location.badge_requests.where(approved: false).uniq
       @user_notes = @user.notes
