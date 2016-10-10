@@ -9,7 +9,7 @@
         <%= simple_form_for(@opportunity) do |f| %>
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <%= f.input :status, collection: Opportunity::STATUSES.zip((0..8).to_a) %>
+              <%= f.input :status, collection: Opportunity::STATUSES.zip((0..6).to_a) %>
               <%= f.button :submit, class: "pull-right btn btn-lg btn-success" %>
             </div>
           </div>
