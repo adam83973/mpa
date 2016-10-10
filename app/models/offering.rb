@@ -43,6 +43,10 @@ class Offering < ActiveRecord::Base
     course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
+  def name_with_count
+    course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p") + " (#{active_students_count})"
+  end
+
   def returning_students_count
     self.registrations.where("status = ?", 2).count
   end
