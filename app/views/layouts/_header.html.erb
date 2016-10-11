@@ -26,9 +26,7 @@
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
           <% if current_user.parent? %>
-            <li>
-              <strong><a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a></strong>
-            </li>
+            <li><a href="http://www.mathplusacademy.com/book-appointment"><strong>Schedule HW Help</strong></a></li>
           <% end %>
           <%= render 'layouts/nav_links' if current_user.employee? %>
           <%= render 'layouts/admin_links' if current_user.admin? %>
