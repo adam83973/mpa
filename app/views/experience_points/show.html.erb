@@ -14,12 +14,12 @@
       <strong>Points:</strong>
       <%= @experience_point.points %>
     </p>
-
+    <% if current_user.employee? %>
     <p>
       <strong>Last Updated:</strong>
       <%= @experience_point.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%A, %B %e, %l:%M %p") %>
     </p>
-
+    <% end %>
     <% if @experience_point.comment? %>
       <p>
         <strong>Comment:</strong>
@@ -32,7 +32,7 @@
       <%= @experience_point.user.full_name %>
     </p>
 
-    <% if @experience_point.attendance %>
+    <% if @experience_point.attendance && current_user.employee? %>
       <p>
         <%= link_to "Attendance Record", @experience_point.attendance %>
       </p>
