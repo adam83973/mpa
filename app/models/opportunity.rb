@@ -5,7 +5,7 @@ class Opportunity < ActiveRecord::Base
                   # :parent_email, :interest_level, :other_source, :undecided_date, :user_id,
                   # :promotion_sent, :promotion_id, :missed_trial
 
-  validates_presence_of :location_id
+  validates_presence_of :location_id, :status
 
   has_paper_trail if Rails.env.development? || Rails.env.production?
 
