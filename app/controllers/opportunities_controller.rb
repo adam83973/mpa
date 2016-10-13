@@ -234,7 +234,7 @@ class OpportunitiesController < ApplicationController
     opportunity.status = 3 # sets opportunity status to 'trial'
     opportunity.interest_level = 2
 
-    if @opportunity.save
+    if opportunity.save
       user = check_add_user_with_email(opportunity) # add user to opportunity or create and add if not
       NotificationMailer.trial_confirmation(opportunity).deliver # trial registration confirmation
 
