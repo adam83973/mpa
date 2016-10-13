@@ -95,6 +95,7 @@ class OpportunitiesController < ApplicationController
   # PUT /opportunities/1.json
   def update
     @opportunity = Opportunity.find(params[:id])
+    @parents = User.where(:role => "Parent").order('last_name asc')
     @parent = @opportunity.user
     @status = @opportunity.status
 
