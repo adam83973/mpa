@@ -29,6 +29,7 @@ class OpportunitiesController < ApplicationController
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
     set_active_offerings
+    set_statuses
 
     if @opportunity.promotion_sent && @opportunity.promotion_id
       @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @opportunity.promotion_id}[0]
@@ -50,6 +51,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     set_parents
     set_active_offerings
+    set_statuses
 
     respond_to do |format|
       format.html # new.html.erb
@@ -60,6 +62,11 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1/edit
   def edit
     @opportunity = Opportunity.find(params[:id])
+    set_parents
+    set_active_offerings
+    set_statuses
+    @statuses_without_won = @statuses
+    @statuses_without_won.delete_at(7)
   end
 
   # POST /opportunities
@@ -332,6 +339,12 @@ class OpportunitiesController < ApplicationController
 
     def set_parents
       @parents = User.where(:role => "Parent").order('last_name asc')
+    end
+
+    def set_statuses
+      @statuses = Opportunity::STATUSES.zip((0..8).to_a)
+      @statuses_without_won = @statuses
+      @statuses_without_won.delete_at(7)
     end
 
     def add_payment_note

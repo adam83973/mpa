@@ -27,7 +27,7 @@
         <%= f.association :admin, as: :hidden, label_method: :full_name, selected: current_user.id, collection: User.where("admin = ?", true) %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <%= f.input :status, collection: Opportunity::STATUSES.zip((0..6).to_a) %>
+        <%= f.input :status, collection: @statuses_without_won %>
         <%= f.input :appointment_date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.input :trial_date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.input :possible_restart_date, as: :string, input_html: { class: "datepicker"} %>

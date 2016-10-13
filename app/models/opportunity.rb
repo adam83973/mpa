@@ -107,4 +107,8 @@ class Opportunity < ActiveRecord::Base
     update_column(:status, id.to_i)
     status_actions
   end
+
+  def statuses_select_without_win
+    # For select options. Includes index and value
+  end
 end
