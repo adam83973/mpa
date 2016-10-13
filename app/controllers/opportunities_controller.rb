@@ -28,7 +28,7 @@ class OpportunitiesController < ApplicationController
     @new_parent = User.new
     @opp_student = @opportunity.student if @opportunity.student
     @generated_password = Devise.friendly_token.first(8)
-    @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
+    set_active_offerings
 
     if @opportunity.promotion_sent && @opportunity.promotion_id
       @promotion_name = Opportunity::PROMOTIONS.select {|array| array[1] == @opportunity.promotion_id}[0]
@@ -48,8 +48,8 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/new.json
   def new
     @opportunity = Opportunity.new
-    @parents = User.where(:role => "Parent").order('last_name asc')
-    @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
+    set_parents
+    set_active_offerings
 
     respond_to do |format|
       format.html # new.html.erb
@@ -95,9 +95,10 @@ class OpportunitiesController < ApplicationController
   # PUT /opportunities/1.json
   def update
     @opportunity = Opportunity.find(params[:id])
-    @parents = User.where(:role => "Parent").order('last_name asc')
     @parent = @opportunity.user
     @status = @opportunity.status
+    set_parents
+    set_active_offerings
 
     respond_to do |format|
       if @opportunity.update_attributes(opportunity_params)
@@ -323,6 +324,14 @@ class OpportunitiesController < ApplicationController
       @opportunity = Opportunity.find(params[:id])
       @student = Student.find(@opportunity.student_id) if @opportunity.student_id
       @parent = @opportunity.user
+    end
+
+    def set_active_offerings
+      @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
+    end
+
+    def set_parents
+      @parents = User.where(:role => "Parent").order('last_name asc')
     end
 
     def add_payment_note
