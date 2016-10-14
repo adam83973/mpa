@@ -571,12 +571,18 @@ class UsersController < ApplicationController
   def appointment_request_new
     message_type = request.headers["x-amz-sns-message-type"]
     if message_type == "SubscriptionConfirmation"
+      response = request.body.read
+      body = JSON.parse(response)
+      puts body
+      HTTParty.get(body['SubscribeURL'])
     elsif message_type == "Notification"
+      body = JSON.parse(response)
+      puts body
     end
-    response = request.body.read
-    appointment = JSON.parse(response)
-    puts appointment
-    AppointmentRequest.create(data: response, new_post: true)
+    # response = request.body.read
+    # appointment = JSON.parse(response)
+    # puts appointment
+    # AppointmentRequest.create(data: response, new_post: true)
 
     render nothing: true, status: 200
   end
