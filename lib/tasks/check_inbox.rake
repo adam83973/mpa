@@ -32,8 +32,6 @@ def get_details(id)
 
   body = Base64.decode64(data['payload']['parts'][0]['parts'][0]['body']['data']) if data['payload']['parts'][0]['parts'][0]['body']['data']
 
-  puts body
-
   {subject: get_gmail_attribute(data, 'Subject'),
    from: get_gmail_attribute(data, 'From',),
    body: body}

@@ -569,6 +569,10 @@ class UsersController < ApplicationController
   end
 
   def appointment_request_new
+    message_type = request.headers["x-amz-sns-message-type"]
+    if message_type == "SubscriptionConfirmation"
+    elsif message_type == "Notification"
+    end
     response = request.body.read
     appointment = JSON.parse(response)
     puts appointment
