@@ -574,7 +574,8 @@ class UsersController < ApplicationController
       response = request.body.read
       body = JSON.parse(response)
       puts body
-      HTTParty.get(body['SubscribeURL'])
+      get_response = HTTParty.get(body['SubscribeURL'])
+      puts get_response
     elsif message_type == "Notification"
       body = JSON.parse(response)
       puts body
