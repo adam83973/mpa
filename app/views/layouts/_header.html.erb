@@ -33,7 +33,7 @@
           <%= render 'layouts/nav_dropdown' %>
           <%= render 'shared/user_search' if current_user.employee? %>
         <% else %>
-          <li><strong><%= link_to "Sign in", new_user_session_path %></strong></li>
+          <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
