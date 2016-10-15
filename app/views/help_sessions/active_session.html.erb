@@ -13,7 +13,7 @@
   <strong>Student:</strong> <%= link_to @student.full_name, @student if @student %>
 </p>
 <p>
-  <strong>Date:</strong> <%= Date.parse(help_session.date).strftime("%D") %>
+  <strong>Date:</strong> <%= help_session.date ? Date.parse(help_session.date).strftime("%D") : 'No Date Set' %>
 </p>
 <% unless @student.has_learning_plan %>
 <p>
