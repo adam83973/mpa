@@ -2,16 +2,19 @@ Opportunities Report - <%= @date %>
 --------------------
 
 ## Opportunities Added This Week ##
+--------------------
 
 Total: <%= @opportunities_this_week.count %>
 
 Total With Trial: <%= @opportunities_this_week.where.not(trial_date: nil).count %>
 
 Total Attended Trial: <%= @opportunities_this_week.where(attended_trial: true).count %>
+
 Total Won: <%= @opportunities_this_week.where(status: 7).count %>
 
 
 ## Opportunities Status Last 30 days ##
+--------------------
 
 Total Created: <%= @opportunities_last_30.count %>
 
@@ -25,6 +28,7 @@ Total Trials Scheduled and Attended: <%= Opportunity.where("trial_date >= ? AND 
 
 
 ## Past Opportunities Update ##
+--------------------
 
 Total Outstanding Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7).count %>
 
