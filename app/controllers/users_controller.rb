@@ -580,6 +580,10 @@ class UsersController < ApplicationController
     elsif message_type == "Notification"
       body = JSON.parse(response)
       puts body
+      appointment_request = AppointmentRequest.create!(data: response)
+      puts 'Appointment Request Completed'
+    else
+      puts "Type: #{message_type} received."
     end
     # response = request.body.read
     # appointment = JSON.parse(response)
