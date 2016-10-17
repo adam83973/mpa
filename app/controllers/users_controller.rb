@@ -571,8 +571,8 @@ class UsersController < ApplicationController
   def appointment_request_new
     message_type = request.headers["x-amz-sns-message-type"]
     puts message_type
+    response = request.body.read
     if message_type == "SubscriptionConfirmation"
-      response = request.body.read
       body = JSON.parse(response)
       puts body
       get_response = HTTParty.get(body['SubscribeURL'])
