@@ -34,6 +34,7 @@
       <%= f.input :exemptions, label: 'Number Of Exemptions' %>
       <%= f.input :additional_withholding, label: 'Additional Withholding' %>
       <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+      <%= f.input :admin %>
       <%= f.input :active %>
     <% end %>
   </div>
