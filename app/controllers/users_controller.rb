@@ -573,6 +573,7 @@ class UsersController < ApplicationController
 
     message_type = request.headers["x-amz-sns-message-type"]
     puts message_type
+
     response = request.body.read
     if message_type == "SubscriptionConfirmation"
       body = JSON.parse(response)
@@ -580,14 +581,15 @@ class UsersController < ApplicationController
       get_response = HTTParty.get(body['SubscribeURL'])
       puts get_response
     elsif message_type == "Notification"
-      body = JSON.parse(response)
-      puts body
-      appointment_request = AppointmentRequest.create!(data: response)
-      puts 'Appointment Request Completed'
+      # body = JSON.parse(response)
+      # puts body
+      # appointment_request = AppointmentRequest.create!(data: response)
+      # puts 'Appointment Request Completed'
     else
       puts "Type: #{message_type} received."
     end
     puts 'appointment request new run'
+
     head :ok
   end
 
