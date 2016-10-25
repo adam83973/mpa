@@ -587,7 +587,7 @@ class UsersController < ApplicationController
     #   puts "Type: #{message_type} received."
     # end
 
-    render nothing: true, status: 200
+    head :ok
   end
 
   def confirmation_opt_out
