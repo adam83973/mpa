@@ -570,6 +570,8 @@ class UsersController < ApplicationController
   end
 
   def appointment_request_new
+    if request.headers['Content-Type'] == 'application/json'
+    end
     # message_type = request.headers["x-amz-sns-message-type"]
     # puts message_type
     # response = request.body.read
