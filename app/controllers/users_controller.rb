@@ -587,7 +587,7 @@ class UsersController < ApplicationController
       puts "Type: #{message_type} received."
     end
 
-    render notion: true
+    render nothing: true
   end
 
   def confirmation_opt_out
