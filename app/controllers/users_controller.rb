@@ -581,10 +581,12 @@ class UsersController < ApplicationController
       get_response = HTTParty.get(body['SubscribeURL'])
       puts get_response
     elsif message_type == "Notification"
-      # body = JSON.parse(response)
-      # puts body
-      # appointment_request = AppointmentRequest.create!(data: response)
-      # puts 'Appointment Request Completed'
+      unless response.empty?
+        body = JSON.parse(response)
+        puts body
+        appointment_request = AppointmentRequest.create!(data: response)
+        puts 'Appointment Request Completed'
+      end
     else
       puts "Type: #{message_type} received."
     end
