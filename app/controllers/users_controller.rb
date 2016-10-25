@@ -585,12 +585,8 @@ class UsersController < ApplicationController
     else
       puts "Type: #{message_type} received."
     end
-    # response = request.body.read
-    # appointment = JSON.parse(response)
-    # puts appointment
-    # AppointmentRequest.create(data: response, new_post: true)
 
-    render nothing: true, status: 200
+    head :ok
   end
 
   def confirmation_opt_out
