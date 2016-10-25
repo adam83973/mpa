@@ -12,7 +12,6 @@ MathPlus::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-
   resources :activities do
     collection { post :import }
   end
@@ -245,8 +244,7 @@ MathPlus::Application.routes.draw do
   get 'students/attended_first_class', to: 'students#attended_first_class'
   post 'students/update_credits', to: 'students#update_credits'
 
-  post  'users/appointment_request_new', to: 'users#appointment_request_new'
-  
+
   resources :users do
     collection do
       post  :create_from_opportunity
@@ -263,6 +261,7 @@ MathPlus::Application.routes.draw do
       get   :year_end_promotion
       get   :promotion
       post  :appointment_request
+      post  :appointment_request_new
       get   :confirmation_opt_out
       get   :hide_badge_banner
       get   :show_badge_banner
