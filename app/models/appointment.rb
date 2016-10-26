@@ -8,7 +8,7 @@ class Appointment < ActiveRecord::Base
 
   def self.process(appointment_request)
     # response is appointment information type: JSON
-    location_id = Location.find_by_check_appointments_id(appointment_request['location']['locationId']).id
+    location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
     puts "Location #{location_id} cached"
     appointment_time = appointment_request['appointmentDateTimeClient'] ? DateTime.parse(appointment_request['appointmentDateTimeClient']) : DateTime.now
     puts "Appointment time cached"
