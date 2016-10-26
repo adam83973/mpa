@@ -114,16 +114,16 @@ class Appointment < ActiveRecord::Base
 
     def self.format_assessment_fields(appointment_request)
       puts appointment_request['fields'].inspect
-      assessment_fields = {"Number Of Children:" =>  appointment_request['fields'][0]['value'],
-                           "Child 1 Name:" =>        appointment_request['fields'][1]['value'],
-                           "Child 1 Grade:" =>       appointment_request['fields'][2]['value'],
-                           "Child 2 Name:" =>        appointment_request['fields'][3]['value'],
-                           "Child 2 Grade:" =>       appointment_request['fields'][4]['value'],
-                           "Child 3 Name:" =>        appointment_request['fields'][5]['value'],
-                           "Child 3 Grade:" =>       appointment_request['fields'][6]['value'],
-                           "My Child " =>            MY_CHILD[appointment_request['fields'][7]['value'].to_i],
-                           "Comments:" =>            appointment_request['fields'][8]['value'],
-                           "Source:" =>              appointment_request['fields'][9]['value']
+      assessment_fields = {"Number Of Children:" =>  appointment_request['fields'][4]['value'],
+                           "Child 1 Name:" =>        appointment_request['fields'][5]['value'],
+                           "Child 1 Grade:" =>       appointment_request['fields'][6]['value'],
+                           "Child 2 Name:" =>        appointment_request['fields'][7]['value'],
+                           "Child 2 Grade:" =>       appointment_request['fields'][8]['value'],
+                           "Child 3 Name:" =>        appointment_request['fields'][9]['value'],
+                           "Child 3 Grade:" =>       appointment_request['fields'][10]['value'],
+                           "My Child " =>            appointment_request['fields'][11]['value'],
+                           "Comments:" =>            appointment_request['fields'][12]['value'],
+                           "Source:" =>              appointment_request['fields'][13]['value']
                           }
       assessment_fields
     end
