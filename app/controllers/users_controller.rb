@@ -579,21 +579,22 @@ class UsersController < ApplicationController
     headers = request.headers.each{|k,v| puts "#{k}: #{v}"}
 
     response = request.body.read
-    if message_type == "SubscriptionConfirmation"
-      body = JSON.parse(response)
-      puts body
-      get_response = HTTParty.get(body['SubscribeURL'])
-      puts get_response
-    elsif message_type == "Notification"
-      unless response.empty?
-        body = JSON.parse(response)
-        puts body
-        appointment_request = AppointmentRequest.create!(data: response)
-        puts 'Appointment Request Completed'
-      end
-    else
-      puts "Type: #{message_type} received."
-    end
+    pp response
+    # if message_type == "SubscriptionConfirmation"
+    #   body = JSON.parse(response)
+    #   puts body
+    #   get_response = HTTParty.get(body['SubscribeURL'])
+    #   puts get_response
+    # elsif message_type == "Notification"
+    #   unless response.empty?
+    #     body = JSON.parse(response)
+    #     puts body
+    #     appointment_request = AppointmentRequest.create!(data: response)
+    #     puts 'Appointment Request Completed'
+    #   end
+    # else
+    #   puts "Type: #{message_type} received."
+    # end
     puts 'appointment request new run'
 
     head :ok
