@@ -576,6 +576,7 @@ class UsersController < ApplicationController
 
     response = request.body.read
     puts response
+    
     # if message_type == "SubscriptionConfirmation"
     #   body = JSON.parse(response)
     #   puts body
