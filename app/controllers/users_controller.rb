@@ -573,7 +573,8 @@ class UsersController < ApplicationController
 
     message_type = request.headers["x-amz-sns-message-type"]
     puts "Message Type: #{message_type}"
-    puts "Entire request \n ############################################# \n" + request.env
+    puts "Entire request \n ############################################# \n"
+    request.env.each{|k, v| puts k + ": " v + "\n"}
 
     response = request.body.read
     if message_type == "SubscriptionConfirmation"
