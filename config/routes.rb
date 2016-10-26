@@ -260,7 +260,6 @@ MathPlus::Application.routes.draw do
       post  :appointment_reschedule_request
       get   :year_end_promotion
       get   :promotion
-      post  :appointment_request
       post  :appointment_request_new
       get   :confirmation_opt_out
       get   :hide_badge_banner
