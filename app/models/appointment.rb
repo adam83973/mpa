@@ -113,7 +113,7 @@ class Appointment < ActiveRecord::Base
     end
 
     def self.format_assessment_fields(appointment_request)
-      puts appointment_request['fields'].inspect
+      # puts appointment_request['fields'].inspect
       assessment_fields = {"Number Of Children:" =>  appointment_request['fields'][4]['value'],
                            "Child 1 Name:" =>        appointment_request['fields'][5]['value'],
                            "Child 1 Grade:" =>       appointment_request['fields'][6]['value'],

@@ -393,7 +393,7 @@ class UsersController < ApplicationController
 
   def appointment_request_new
     appointment_request = JSON.parse(request.body.read)
-
+    puts pp appointment_request
     Appointment.process(appointment_request)
 
     head :ok
