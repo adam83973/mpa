@@ -571,15 +571,11 @@ class UsersController < ApplicationController
 
   def appointment_request_new
 
-    message_type = request.headers["x-amz-sns-message-type"]
-    # puts "Message Type: #{message_type.empty? ? message_type : 'No message type.'}" if message_type
-    # puts "Entire request \n #############################################"
-    # request.env.each{|k, v| puts "#{k}: #{v}"}
     puts "Body \n #############################################"
     # headers = request.headers.each{|k,v| puts "#{k}: #{v}"}
 
     response = request.body.read
-    pp response
+    puts response
     # if message_type == "SubscriptionConfirmation"
     #   body = JSON.parse(response)
     #   puts body
