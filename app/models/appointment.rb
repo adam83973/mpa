@@ -44,8 +44,7 @@ class Appointment < ActiveRecord::Base
       puts pp appointment.inspect
 
       # Update appointment record if appointment exists
-      appointment.update_attributes(
-                                    reasonId:      appointment_request['reason']['reasonId'],
+      appointment.update_attributes(reasonId:      appointment_request['reason']['reasonId'],
                                     visitMinutes:  appointment_request['reason']['visitMinutes'],
                                     time:          DateTime.parse(appointment_request['appointmentDateTimeClient']).to_time,
                                     note:          appointment_request['note'],
@@ -67,7 +66,7 @@ class Appointment < ActiveRecord::Base
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
         if appointment_request['reason']['reasonId'] == 37117
-          self.slack_and_app_notifications(parent, appointment_request, appointment)
+          slack_and_app_notifications(parent, appointment_request, appointment)
         end
       end
     end
@@ -84,8 +83,7 @@ class Appointment < ActiveRecord::Base
   private
     def self.slack_and_app_notifications(parent, appointment_request, appointment)
       # Application note
-      note = parent.notes.build(
-                                content: self.application_note_content(appointment_request, appointment),
+      note = parent.notes.build(content: self.application_note_content(appointment_request, appointment),
                                 user_id: parent.system_admin_id,
                                 location_id: appointment.location_id,
                                 action_date: Date.today)
