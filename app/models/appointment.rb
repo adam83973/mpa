@@ -44,12 +44,12 @@ class Appointment < ActiveRecord::Base
       puts pp appointment.inspect
 
       # Update appointment record if appointment exists
-      appointment.update_attributes({
-        reasonId:      appointment_request['reason']['reasonId'],
-        visitMinutes:  appointment_request['reason']['visitMinutes'],
-        time:          DateTime.parse(appointment_request['appointmentDateTimeClient']).to_time,
-        note:          appointment_request['note'],
-        status:        appointment_request['status']})
+      appointment.update_attributes(
+                                    reasonId:      appointment_request['reason']['reasonId'],
+                                    visitMinutes:  appointment_request['reason']['visitMinutes'],
+                                    time:          DateTime.parse(appointment_request['appointmentDateTimeClient']).to_time,
+                                    note:          appointment_request['note'],
+                                    status:        appointment_request['status'])
         puts "Appointment updated!"
     else
       appointment = create!(
@@ -62,8 +62,7 @@ class Appointment < ActiveRecord::Base
                             user_id:       parent.id,
                             location_id:   location_id,
                             note:          appointment_request['note'],
-                            status:        appointment_request['status']
-                          )
+                            status:        appointment_request['status'])
       puts "Appointment created!"
 
       unless appointment_request['status'] == "CANCELLED"
@@ -77,21 +76,21 @@ class Appointment < ActiveRecord::Base
     # If appointment is hw help add related information.
     if appointment_request['reason']['reasonId'] == 37118
       puts "HW Help information added!"
-      appointment.update_attributes({
-        hwHelpChild:   appointment_request['fieldDataList'][4]['value'],
-        hwHelpClass:   appointment_request['fieldDataList'][5]['value'],
-        hwHelpReason:  appointment_request['fieldDataList'][6]['value']})
+      appointment.update_attributes(
+                                    hwHelpChild:   appointment_request['fieldDataList'][4]['value'],
+                                    hwHelpClass:   appointment_request['fieldDataList'][5]['value'],
+                                    hwHelpReason:  appointment_request['fieldDataList'][6]['value'])
     end
   end
 
   private
     def self.slack_and_app_notifications(parent, appointment_request, appointment)
       # Application note
-      note = parent.notes.build({
-        content: self.application_note_content(appointment_request, appointment),
-        user_id: parent.system_admin_id,
-        location_id: appointment.location_id,
-        action_date: Date.today})
+      note = parent.notes.build(
+                                content: self.application_note_content(appointment_request, appointment),
+                                user_id: parent.system_admin_id,
+                                location_id: appointment.location_id,
+                                action_date: Date.today)
 
       note.save!
       puts "Application note added!"
