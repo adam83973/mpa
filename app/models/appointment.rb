@@ -41,7 +41,6 @@ class Appointment < ActiveRecord::Base
 
     # Check to see if appointment already exists
     if appointment = find_by_calendarId(appointment_request['calendarid'])
-      puts pp appointment.inspect
 
       # Update appointment record if appointment exists
       appointment.update_attributes(reasonId:      appointment_request['reason']['reasonId'],
