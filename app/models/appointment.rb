@@ -52,8 +52,7 @@ class Appointment < ActiveRecord::Base
                                     status:        appointment_request['status'])
         puts "Appointment updated!"
     else
-      appointment = create!(
-                            clientId:      appointment_request['client']['clientId'],
+      appointment = create!(clientId:      appointment_request['client']['clientId'],
                             calendarId:    appointment_request['calendarid'],
                             locationId:    appointment_request['location']['locationId'],
                             reasonId:      appointment_request['reason']['reasonId'],
@@ -65,7 +64,7 @@ class Appointment < ActiveRecord::Base
                             status:        appointment_request['status'])
       puts "Appointment created!"
 
-      unless appointment_request['status'] == "CANCELLED"
+      if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
         if appointment_request['reason']['reasonId'] == 37117
           self.slack_and_app_notifications(parent, appointment_request, appointment)
