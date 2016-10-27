@@ -11,12 +11,14 @@ class Appointment < ActiveRecord::Base
     location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
     puts "Location #{location_id} cached"
 
+    # format appointment DateTime
     appointment_time = appointment_request['appointmentDateTimeClient'] ? DateTime.parse(appointment_request['appointmentDateTimeClient']) : DateTime.now
     puts "Appointment time cached"
 
     # see if parent is already associated with an appointment_id
     parent = User.find_by_check_appointments_id( appointment_request['client']['clientId'] )
     puts "Find parent by clientId"
+
     # if parent can't be found with appointment id and they have an email try searching with email
     if !parent && !appointment_request['client']['emailAddress'].empty?
       parent = User.find_by_email appointment_request['client']['emailAddress'].downcase
@@ -38,9 +40,9 @@ class Appointment < ActiveRecord::Base
     end
 
     # Check to see if appointment already exists
-    if appointment = find_by_calendarId(appointment_request['calendarId'])
+    if appointment = find_by_calendarId(appointment_request['calendarid'])
       puts pp appointment.inspect
-      
+
       # Update appointment record if appointment exists
       appointment.update_attributes({
         reasonId:      appointment_request['reason']['reasonId'],
