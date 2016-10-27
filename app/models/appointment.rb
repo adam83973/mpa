@@ -106,7 +106,7 @@ class Appointment < ActiveRecord::Base
 
       content = ""
 
-      assessment_fields.each_with_index{|(k, v), i| content += "#{k} #{v}\n" if !v.empty?}
+      assessment_fields.each_with_index{|k, v| content += "#{k} #{v}\n"}
 
       content += "Appointment: #{appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}"
 
@@ -114,7 +114,6 @@ class Appointment < ActiveRecord::Base
     end
 
     def self.application_note_content(appointment_request, appointment)
-      assessment_fields = format_assessment_fields(appointment_request)
       "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + slack_note_content(appointment_request, appointment)
     end
 
