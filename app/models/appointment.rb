@@ -10,8 +10,10 @@ class Appointment < ActiveRecord::Base
     # response is appointment information type: JSON
     location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
     puts "Location #{location_id} cached"
+
     appointment_time = appointment_request['appointmentDateTimeClient'] ? DateTime.parse(appointment_request['appointmentDateTimeClient']) : DateTime.now
     puts "Appointment time cached"
+
     # see if parent is already associated with an appointment_id
     parent = User.find_by_check_appointments_id( appointment_request['client']['clientId'] )
     puts "Find parent by clientId"
@@ -37,6 +39,8 @@ class Appointment < ActiveRecord::Base
 
     # Check to see if appointment already exists
     if appointment = find_by_calendarId(appointment_request['calendarId'])
+      puts pp appointment.inspect
+      
       # Update appointment record if appointment exists
       appointment.update_attributes({
         reasonId:      appointment_request['reason']['reasonId'],
