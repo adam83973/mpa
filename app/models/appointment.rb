@@ -106,7 +106,7 @@ class Appointment < ActiveRecord::Base
 
       content = ""
 
-      assessment_fields.each_with_index{|k, v| content += "#{k} #{v}\n"}
+      assessment_fields.each{|k, v| content += "#{k} #{v}\n" if v }
 
       content += "Appointment: #{appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}"
 
