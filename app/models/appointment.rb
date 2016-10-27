@@ -66,7 +66,7 @@ class Appointment < ActiveRecord::Base
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
         if appointment_request['reason']['reasonId'] == 37117
-          slack_and_app_notifications(parent, appointment_request, appointment)
+          self.slack_and_app_notifications(parent, appointment_request, appointment)
         end
       end
     end
@@ -114,7 +114,7 @@ class Appointment < ActiveRecord::Base
     end
 
     def self.application_note_content(appointment_request, appointment)
-      "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + slack_note_content(appointment_request, appointment)
+      "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + self.slack_note_content(appointment_request, appointment)
     end
 
     def self.format_assessment_fields(appointment_request)
