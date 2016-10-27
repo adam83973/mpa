@@ -115,22 +115,25 @@ class Appointment < ActiveRecord::Base
 
     def self.application_note_content(appointment_request, appointment)
       assessment_fields = format_assessment_fields(appointment_request)
-      "<strong>Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:</strong>\n" + slack_note_content(appointment_request, appointment)
+      "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + slack_note_content(appointment_request, appointment)
     end
 
     def self.format_assessment_fields(appointment_request)
-      # puts appointment_request['fields'].inspect
-      assessment_fields = {"Number Of Children:" =>  appointment_request['fields'][4]['value'],
-                           "Child 1 Name:" =>        appointment_request['fields'][5]['value'],
-                           "Child 1 Grade:" =>       appointment_request['fields'][6]['value'],
-                           "Child 2 Name:" =>        appointment_request['fields'][7]['value'],
-                           "Child 2 Grade:" =>       appointment_request['fields'][8]['value'],
-                           "Child 3 Name:" =>        appointment_request['fields'][9]['value'],
-                           "Child 3 Grade:" =>       appointment_request['fields'][10]['value'],
-                           "My Child " =>            appointment_request['fields'][11]['value'],
-                           "Comments:" =>            appointment_request['fields'][12]['value'],
-                           "Source:" =>              appointment_request['fields'][13]['value']
-                          }
+      assessment_fields = {}
+      # field label values that need to be titleized
+      title_field_ids = [66356, 66358, 66360, 66361, 66362, 66364, 66365, 66368]
+
+      appointment_request['fields'].each do |field|
+        case field['schedulerPreferenceFieldDefnId']
+        when *title_field_ids
+          # add fields whose label needs titlized
+          assessment_fields["#{field['label'].titleize}:"] = field['value']
+        when 66366
+          # fields doesn't need titleized
+          assessment_fields["#{field['label'].titleize}:"] = field['value']
+        end
+      end
+
       assessment_fields
     end
 end
