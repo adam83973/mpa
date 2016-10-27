@@ -52,19 +52,21 @@ class Appointment < ActiveRecord::Base
         status:        appointment_request['status']})
         puts "Appointment updated!"
     else
-      appointment = create!(
-                            clientId:      appointment_request['client']['clientId'],
-                            calendarId:    appointment_request['calendarid'],
-                            locationId:    appointment_request['location']['locationId'],
-                            reasonId:      appointment_request['reason']['reasonId'],
-                            visitMinutes:  appointment_request['reason']['visitMinutes'],
-                            time:          DateTime.parse(appointment_request['appointmentDateTimeClient']),
-                            user_id:       parent.id,
-                            location_id:   location_id,
-                            note:          appointment_request['note'],
-                            status:        appointment_request['status']
-                          )
-      puts "Appointment created!"
+      unless appointment_request == "CANCELLED"
+        appointment = create!(
+                              clientId:      appointment_request['client']['clientId'],
+                              calendarId:    appointment_request['calendarid'],
+                              locationId:    appointment_request['location']['locationId'],
+                              reasonId:      appointment_request['reason']['reasonId'],
+                              visitMinutes:  appointment_request['reason']['visitMinutes'],
+                              time:          DateTime.parse(appointment_request['appointmentDateTimeClient']),
+                              user_id:       parent.id,
+                              location_id:   location_id,
+                              note:          appointment_request['note'],
+                              status:        appointment_request['status']
+                            )
+        puts "Appointment created!"
+      END
 
       # If appointment is assessment post note to app and to slack_note_content
       if appointment_request['reason']['reasonId'] == 37117
