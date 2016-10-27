@@ -120,7 +120,7 @@ class Appointment < ActiveRecord::Base
     def self.format_assessment_fields(appointment_request)
       assessment_fields = {}
       # field label values that need to be titleized
-      title_field_ids = [66356, 66358, 66360, 66361, 66362, 66364, 66365, 66368]
+      title_field_ids = [66356, 66358, 66360, 66361, 66362, 66364, 66365, 66367, 66368]
 
       appointment_request['fields'].each do |field|
         case field['schedulerPreferenceFieldDefnId']
