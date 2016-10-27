@@ -65,6 +65,11 @@ class Appointment < ActiveRecord::Base
                             status:        appointment_request['status']
                           )
       puts "Appointment created!"
+
+      # If appointment is assessment post note to app and to slack_note_content
+      if appointment_request['reason']['reasonId'] == 37117
+        self.slack_and_app_notifications(parent, appointment_request, appointment)
+      end
     end
 
     # If appointment is hw help add related information.
@@ -75,9 +80,10 @@ class Appointment < ActiveRecord::Base
         hwHelpClass:   appointment_request['fieldDataList'][5]['value'],
         hwHelpReason:  appointment_request['fieldDataList'][6]['value']})
     end
+  end
 
-    # If appointment is assessment post note to app and to slack_note_content
-    if appointment_request['reason']['reasonId'] == 37117
+  private
+    def self.slack_and_app_notifications(parent, appointment_request, appointment)
       # Application note
       note = parent.notes.build({
         content: self.application_note_content(appointment_request, appointment),
@@ -97,9 +103,6 @@ class Appointment < ActiveRecord::Base
                   })
       puts "Slack message sent!"
     end
-  end
-
-  private
 
     def self.slack_note_content(appointment_request, appointment)
       assessment_fields = self.format_assessment_fields(appointment_request)
