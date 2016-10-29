@@ -71,14 +71,15 @@ class Appointment < ActiveRecord::Base
     end
 
     # If appointment is hw help add related information.
-    if appointment_request['reason']['reasonId'] == 37118
-      hw_help_info = self.format_hw_help_fields(appointment_request)
-
-      puts "HW Help information added!"
-      appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
-                                    hwHelpClass:   hw_help_info["Child's Class"],
-                                    hwHelpReason:  hw_help_info["Reason for HW Help"])
-    end
+    # if appointment_request['reason']['reasonId'] == 37118
+    #   hw_help_info = self.format_hw_help_fields(appointment_request)
+    #   puts appointment_request
+    #
+    #   puts "HW Help information added!"
+    #   appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
+    #                                 hwHelpClass:   hw_help_info["Child's Class"],
+    #                                 hwHelpReason:  hw_help_info["Reason for HW Help"])
+    # end
   end
 
   private
