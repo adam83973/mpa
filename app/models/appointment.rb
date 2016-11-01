@@ -70,6 +70,10 @@ class Appointment < ActiveRecord::Base
       end
     end
 
+    if appointment_request['reason']['reasonId'] == 37118
+      puts "################## HW HELP ##################"
+      puts pp appointment_request
+    end
     # If appointment is hw help add related information.
     # if appointment_request['reason']['reasonId'] == 37118
     #   hw_help_info = self.format_hw_help_fields(appointment_request)
