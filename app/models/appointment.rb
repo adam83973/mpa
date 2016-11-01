@@ -77,7 +77,7 @@ class Appointment < ActiveRecord::Base
       puts pp appointment_request
 
       hw_help_info = self.format_hw_help_fields(appointment_request)
-      puts hw_help_into
+      puts hw_help_info
 
       puts "HW Help information added!"
       if appointment_request['fields']
