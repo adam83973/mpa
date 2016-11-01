@@ -70,7 +70,7 @@ class Appointment < ActiveRecord::Base
       end
     end
 
-    If appointment is hw help add related information.
+    # If appointment is hw help add related information.
     if appointment_request['reason']['reasonId'] == 37118
       puts "################## HW HELP ##################"
       puts pp appointment_request
