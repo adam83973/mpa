@@ -153,7 +153,7 @@ class Appointment < ActiveRecord::Base
           case field['schedulerPreferenceFieldDefnId']
           when *title_field_ids
             # add fields whose label needs titlized
-            assessment_fields["#{field['label'].titleize}:"] = field['value']
+            hw_help_fields["#{field['label'].titleize}:"] = field['value']
           end
         end
       end
