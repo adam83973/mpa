@@ -77,13 +77,13 @@ class Appointment < ActiveRecord::Base
       puts pp appointment_request
 
       hw_help_info = self.format_hw_help_fields(appointment_request)
-      puts appointment_request
+      puts hw_help_into
 
       puts "HW Help information added!"
       if appointment_request['fields']
-      appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
-                                    hwHelpClass:   hw_help_info["Child's Class"],
-                                    hwHelpReason:  hw_help_info["Reason for HW Help"])
+        appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
+                                      hwHelpClass:   hw_help_info["Child's Class"],
+                                      hwHelpReason:  hw_help_info["Reason for HW Help"])
       else
         puts '################## No Fields ##################'
       end
