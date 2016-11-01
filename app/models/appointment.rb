@@ -70,20 +70,23 @@ class Appointment < ActiveRecord::Base
       end
     end
 
+    If appointment is hw help add related information.
     if appointment_request['reason']['reasonId'] == 37118
       puts "################## HW HELP ##################"
       puts pp appointment_request
+
+      hw_help_info = self.format_hw_help_fields(appointment_request)
+      puts appointment_request
+
+      puts "HW Help information added!"
+      if appointment_request['fields']
+      appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
+                                    hwHelpClass:   hw_help_info["Child's Class"],
+                                    hwHelpReason:  hw_help_info["Reason for HW Help"])
+      else
+        puts '################## No Fields ##################'
+      end
     end
-    # If appointment is hw help add related information.
-    # if appointment_request['reason']['reasonId'] == 37118
-    #   hw_help_info = self.format_hw_help_fields(appointment_request)
-    #   puts appointment_request
-    #
-    #   puts "HW Help information added!"
-    #   appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
-    #                                 hwHelpClass:   hw_help_info["Child's Class"],
-    #                                 hwHelpReason:  hw_help_info["Reason for HW Help"])
-    # end
   end
 
   private
@@ -145,12 +148,13 @@ class Appointment < ActiveRecord::Base
     def self.format_hw_help_fields(appointment_request)
       hw_help_fields = {}
       title_field_ids = [66355, 66357, 66359]
-
-      appointment_request['fields'].each do |field|
-        case field['schedulerPreferenceFieldDefnId']
-        when *title_field_ids
-          # add fields whose label needs titlized
-          assessment_fields["#{field['label'].titleize}:"] = field['value']
+      if appointment_request['fields']
+        appointment_request['fields'].each do |field|
+          case field['schedulerPreferenceFieldDefnId']
+          when *title_field_ids
+            # add fields whose label needs titlized
+            assessment_fields["#{field['label'].titleize}:"] = field['value']
+          end
         end
       end
     end
