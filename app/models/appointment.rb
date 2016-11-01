@@ -158,5 +158,7 @@ class Appointment < ActiveRecord::Base
           end
         end
       end
+      
+      hw_help_fields
     end
 end
