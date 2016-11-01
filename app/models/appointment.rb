@@ -22,6 +22,7 @@ class Appointment < ActiveRecord::Base
     # if parent can't be found with appointment id and they have an email try searching with email
     if !parent && !appointment_request['client']['emailAddress'].empty?
       parent = User.find_by_email appointment_request['client']['emailAddress'].downcase
+      puts "Client Email: #{appointment_request['client']['emailAddress']}"
       puts "Find parent by email"
       if !parent
         generated_password = Devise.friendly_token.first(8)
