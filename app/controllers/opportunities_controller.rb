@@ -5,7 +5,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = Opportunity.all
+    @opportunities = Opportunity.includes(:user, :student, offering: [:location, :course]).active
 
     respond_to do |format|
       format.html # index.html.erb
@@ -323,6 +323,16 @@ class OpportunitiesController < ApplicationController
       if @opportunity.update_attribute :interest_level, params[:interest_level].to_i
         format.js
       end
+    end
+  end
+
+  def data
+    data = Opportunity.report_data
+
+    respond_to do |format|
+      format.json {
+        render :json => data
+      }
     end
   end
 

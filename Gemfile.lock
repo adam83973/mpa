@@ -119,6 +119,8 @@ GEM
       sass-rails (< 5.1)
       sprockets (< 4.0)
     concurrent-ruby (1.0.2)
+    d3-rails (4.3.0)
+      railties (>= 3.1)
     debug_inspector (0.0.2)
     delayed_job (4.1.2)
       activesupport (>= 3.0, < 5.1)
@@ -554,6 +556,7 @@ DEPENDENCIES
   chosen-rails
   coffee-rails
   compass-rails
+  d3-rails
   delayed_job_active_record
   devise
   devise_invitable

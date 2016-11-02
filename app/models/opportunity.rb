@@ -111,4 +111,21 @@ class Opportunity < ActiveRecord::Base
   def statuses_select_without_win
     # For select options. Includes index and value
   end
+
+  def self.report_data
+    data = []
+    opportunities = Opportunity.active
+    Location.all.each do |location|
+      location_stats = {}
+      location_stats['location'] = location.name
+      location_stats['opportunities'] = {}
+      STATUSES.each_with_index do |status, i|
+        if i < 7
+          location_stats['opportunities'][status.downcase.gsub(' ', '_')] = opportunities.where(status: i, location_id: location.id).count
+        end
+      end
+      data << location_stats
+    end
+    data
+  end
 end

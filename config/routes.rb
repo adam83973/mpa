@@ -181,6 +181,7 @@ MathPlus::Application.routes.draw do
       post :add_trial
       get :add_trial
       get :join_class
+      get :data, defaults: { format: 'json' }
     end
   end
 

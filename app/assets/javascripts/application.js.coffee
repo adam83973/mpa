@@ -9,6 +9,7 @@
 //= require bootstrap
 //= require bootstrap-switch
 //= require chosen-jquery
+//= require d3
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/dataTables.responsive
 //= require dnd
