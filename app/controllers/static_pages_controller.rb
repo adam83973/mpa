@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
   def events
     woocommerce = set_woo
 
-    @workshops = woocommerce.get('products', {filter: {category: 'workshop', limit: 20} }).parsed_response['products']
+    @workshops = woocommerce.get('products', {filter: {category: 'wintercamp2016', limit: 20} }).parsed_response['products']
   end
 
   def event_enrollment
@@ -191,7 +191,7 @@ class StaticPagesController < ApplicationController
 
     def set_woo
       woocommerce = WooCommerce::API.new(
-        "http://www.mathplusacademy.com/",
+        "https://www.mathplusacademy.com/",
         ENV['WOO_CONSUMER_KEY'],
         ENV['WOO_CONSUMER_SECRET'],
         { meta: true }
