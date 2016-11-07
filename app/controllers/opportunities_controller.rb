@@ -336,6 +336,16 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def aging_data
+    data = Opportunity.aging_data
+
+    respond_to do |format|
+      format.json {
+        render :json => data
+      }
+    end
+  end
+
   private
     def set_opportunity
       @opportunity = Opportunity.find(params[:id])

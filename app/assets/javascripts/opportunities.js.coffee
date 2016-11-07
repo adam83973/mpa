@@ -220,13 +220,13 @@ dashboard = (id, fData) ->
   # compute total for each location.
   segColor = (c) ->
     {
-      'interested': '#807dba'
-      'appointment_scheduled': '#7d99ba'
-      'appointment_missed': '#7db8ba'
-      'trial': '#7dba85'
-      'undecided': '#b2ba7d'
-      'waitlisted': '#ba7d7d'
-      'possible_restart': '#b57dba'
+      'interested': '#2980b9'
+      'appointment_scheduled': '#c0392b'
+      'appointment_missed': '#27ae60'
+      'trial': '#8e44ad'
+      'undecided': '#d35400'
+      'waitlisted': '#f39c12'
+      'possible_restart': '#16a085'
     }[c]
 
   # function to handle histogram.
@@ -275,10 +275,14 @@ dashboard = (id, fData) ->
     ], 0.1).domain(fD.map((d) ->
       d[0]
     ))
+
     # Add x-axis to the histogram svg.
-    hGsvg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + hGDim.h + ')').call   d3.axisBottom().scale(x)
+    hGsvg.append('g')
+         .attr('class', 'x axis')
+         .attr('transform', 'translate(0,' + hGDim.h + ')')
+         .call   d3.axisBottom().scale(x)
     # Create function for y-axis map.
-    y = d3.scaleLinear().range([
+    y = d3.scaleLinear().rangeRound([
       hGDim.h
       0
     ]).domain([
@@ -287,8 +291,14 @@ dashboard = (id, fData) ->
         d[1]
       )
     ])
+
     # Create bars for histogram to contain rectangles and opportunities labels.
-    bars = hGsvg.selectAll('.bar').data(fD).enter().append('g').attr('class', 'bar')
+    bars = hGsvg.selectAll('.bar')
+                .data(fD)
+                .enter()
+                .append('g')
+                .attr('class', 'bar')
+
     #create the rectangles.
     bars.append('rect').attr('x', (d) ->
       x d[0]
@@ -402,30 +412,46 @@ dashboard = (id, fData) ->
   legend = (lD) ->
     leg = {}
     # create table for legend.
-    legend = d3.select(id).append('table').attr('class', 'legend')
+    legend = d3.select(id)
+               .append('table')
+               .attr('class', 'legend')
     # create one row per segment.
-    tr = legend.append('tbody').selectAll('tr').data(lD).enter().append('tr')
+    tr = legend.append('tbody')
+               .selectAll('tr')
+               .data(lD)
+               .enter()
+               .append('tr')
     # create the first column for each segment.
 
     getLegend = (d, aD) ->
       # Utility function to compute percentage.
-      d3.format('%') d.opportunities / d3.sum(aD.map((v) ->
+      d3.format(',.1%') d.opportunities / d3.sum(aD.map((v) ->
         v.opportunities
       ))
 
-    tr.append('td').append('svg').attr('width', '16').attr('height', '16').append('rect').attr('width', '16').attr('height', '16').attr 'fill', (d) ->
-      segColor d.type
+    tr.append('td')
+      .append('svg')
+      .attr('width', '16')
+      .attr('height', '16')
+      .append('rect')
+      .attr('width', '16')
+      .attr('height', '16')
+      .attr 'fill', (d) ->
+        segColor d.type
+
     # create the second column for each segment.
     tr.append('td').text (d) ->
       d.type
+
     # create the third column for each segment.
     tr.append('td').attr('class', 'legendFreq').text (d) ->
       d3.format(',') d.opportunities
+
     # create the fourth column for each segment.
     tr.append('td').attr('class', 'legendPerc').text (d) ->
       getLegend d, lD
-    # Utility function to be used to update the legend.
 
+    # Utility function to be used to update the legend.
     leg.update = (nD) ->
       # update the data attached to the row elements.
       l = legend.select('tbody').selectAll('tr').data(nD)
@@ -478,4 +504,99 @@ $.ajax
   dataType: 'json'
   success: (data) ->
     dashboard('#dashboard', data)
+  error: (result) ->
+
+
+$.ajax
+  type: 'GET'
+  contentType: 'application/json; charset=utf-8'
+  url: 'opportunities/aging_data'
+  dataType: 'json'
+  success: (aging_data) ->
+    console.log aging_data
+    tickLables = []
+    for status in aging_data
+      tickLables.push status.name
+    set_tick_lables tickLables
+  error: (result) ->
+
+set_tick_lables = (tickLables) ->
+  tickLables = tickLables
+
+# aging report
+width = 1200
+height = 400
+padding = 100
+
+# create an svg container
+vis = d3.select('#aging_report')
+        .append('svg:svg')
+        .attr('width', width)
+        .attr('height', height)
+
+# define the y scale  (vertical)
+yScale = d3.scaleLinear().domain([
+  0
+  tickLables.length()
+]).range([
+  height - padding
+  padding
+])
+# map these to the chart height, less padding.
+#REMEMBER: y axis range has the bigger number first because the y value of zero is at the top of chart and increases as you go down.
+
+# define the x scale (horizontal)
+xScale = d3.scaleLinear().domain([
+  1
+  60
+]).range([
+  padding
+  width - (padding * 2)
+])
+# map these the the chart width = total width minus padding at both sides
+# define the y axis
+tickValues = [ 1, 2, 3, 4, 5, 6 ]
+yAxis = d3.axisLeft(yScale).ticks(6).tickValues(tickValues).tickFormat((d, i) -> tickLables[i])
+
+
+# define the y axis
+xAxis = d3.axisBottom(xScale).ticks(60, d3.format("d"))
+
+# draw y axis with labels and move in from the size by the amount of padding
+vis.append('g')
+   .attr('transform', 'translate(' + padding + ',0)')
+   .call yAxis
+
+# # draw x axis with labels and move to the bottom of the chart area
+vis.append('g')
+   .attr('class', 'xaxis')
+   .attr('transform', 'translate(0,' + (height - padding) + ')')
+   .call xAxis
+
+# # text label for the x axis
+vis.append("text")
+   .attr("transform",
+          "translate(" + (width/2) + " ," + (height - padding/2) + ")")
+   .style("text-anchor", "middle")
+   .text("Days Old");
+
+# # text label for the y axis
+vis.append("text")
+   .attr("transform",
+         "translate(" + (padding/3) + " ," + (height/2) + "), rotate(-90)")
+   .style("text-anchor", "middle")
+   .text("Status");
+
+
+$.ajax
+  type: 'GET'
+  contentType: 'application/json; charset=utf-8'
+  url: 'opportunities/aging_data'
+  dataType: 'json'
+  success: (aging_data) ->
+    console.log aging_data
+    tickLables = []
+    for status in aging_data
+      tickLables.push status.name
+    console.log tickLables
   error: (result) ->
