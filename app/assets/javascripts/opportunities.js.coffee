@@ -511,7 +511,7 @@ if document.getElementById("dashboard") != null
 aging_table = (aging_data, tickLables) ->
   # aging report
   width = 1300
-  height = 400
+  height = 500
   padding = 100
   data = []
 
@@ -554,8 +554,8 @@ aging_table = (aging_data, tickLables) ->
   ])
   # map these the the chart width = total width minus padding at both sides
   # define the y axis
-  tickValues = [ 1, 2, 3, 4, 5, 6 ]
-  yAxis = d3.axisLeft(yScale).ticks(6).tickValues(tickValues).tickFormat((d, i) -> tickLables[i].replace("_", "\n"))
+  tickValues = Array(tickLables.length).fill().map((x,i)=>i+1)
+  yAxis = d3.axisLeft(yScale).ticks(tickLables.length).tickValues(tickValues).tickFormat((d, i) -> tickLables[i].replace("_", "\n"))
 
 
   # define the y axis
