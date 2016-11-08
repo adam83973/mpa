@@ -591,7 +591,7 @@ aging_table = (aging_data, tickLables) ->
     .attr("r", 3.5)
     .attr("cx", (d) -> xScale(parseInt(d[0])))
     .attr("cy", (d) -> yScale(d[1]))
-    .attr("fill", (d) -> location_colors[d[2]]);
+    .attr("fill", (d) -> location_colors[d[2]-1]);
 
   # # text label for the y axis
   # vis.append("text")
