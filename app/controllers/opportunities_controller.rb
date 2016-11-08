@@ -408,7 +408,7 @@ class OpportunitiesController < ApplicationController
 
     def send_slack_notification(opportunity)
       HTTParty.post("https://hooks.slack.com/services/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",
-      {:body => {text: "Location: #{opportunity.location.name}\nClass: #{opportunity.offering_name}\nDate: #{opportunity.trial_date.strftime("%b %d, %Y")}",
+      {:body => {text: "#{opportunity.offering_name}\nDate: #{opportunity.trial_date.strftime("%b %d, %Y")}",
                   username: "Trial Scheduled",
                   icon_emoji: ":smiley:",}.to_json,
                   :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
