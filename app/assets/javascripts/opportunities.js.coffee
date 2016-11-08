@@ -588,7 +588,7 @@ aging_table = (aging_data, tickLables) ->
     .data(data)
     .enter()
     .append("a")
-    .attr "xlink:href", (d) -> "http://localhost:3000/opportunities/#{d[3]}"
+    .attr "xlink:href", (d) -> "/opportunities/#{d[3]}"
     .attr "target", "_blank"
     .append("circle")
     .attr("r", 3.5)
