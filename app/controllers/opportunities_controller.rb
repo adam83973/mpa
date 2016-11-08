@@ -4,7 +4,7 @@ class OpportunitiesController < ApplicationController
 
   def analytics
   end
-  
+
   # GET /opportunities
   # GET /opportunities.json
   def index
@@ -240,6 +240,7 @@ class OpportunitiesController < ApplicationController
     if opportunity.save
       user = check_add_user_with_email(opportunity) # add user to opportunity or create and add if not
       NotificationMailer.trial_confirmation(opportunity).deliver # trial registration confirmation
+      send_slack_notification(opportunity) # send notification to Slack
 
       redirect_to "http://www.mathplusacademy.com/trial-scheduled/"
     end
@@ -403,5 +404,14 @@ class OpportunitiesController < ApplicationController
 
     def registration_params
       params.require(:registration).permit(:admin_id, :attended_first_class, :attended_trial, :end_date, :hold_date, :offering_id, :start_date, :status, :student_id, :trial_date, :hold_id, :switch_id, :switch, :restart_date, :drop_reason, :payment_information_later)
+    end
+
+    def send_slack_notification(opportunity)
+      HTTParty.post("https://hooks.slack.com/services/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",
+      {:body => {text: "Location: #{opportunity.location.name}\nClass: #{oportunity.offering_name}\nDate: #{offering.trial_date.strftime("%b %d, %Y")}",
+                  username: "Trial Scheduled",
+                  icon_emoji: ":smiley:",}.to_json,
+                  :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+                  })
     end
 end

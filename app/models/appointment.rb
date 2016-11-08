@@ -9,21 +9,16 @@ class Appointment < ActiveRecord::Base
   def self.process(appointment_request)
     # response is appointment information type: JSON
     location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
-    puts "Location #{location_id} cached"
 
     # format appointment DateTime
     appointment_time = appointment_request['appointmentDateTimeClient'] ? DateTime.parse(appointment_request['appointmentDateTimeClient']) : DateTime.now
-    puts "Appointment time cached"
 
     # see if parent is already associated with an appointment_id
     parent = User.find_by_check_appointments_id( appointment_request['client']['clientId'] )
-    puts "Find parent by clientId"
 
     # if parent can't be found with appointment id and they have an email try searching with email
     if !parent && !appointment_request['client']['emailAddress'].empty?
       parent = User.find_by_email appointment_request['client']['emailAddress'].downcase
-      puts "Client Email: #{appointment_request['client']['emailAddress']}"
-      puts "Find parent by email"
       if !parent
         generated_password = Devise.friendly_token.first(8)
         puts "Create parent"
@@ -49,7 +44,6 @@ class Appointment < ActiveRecord::Base
                                     time:          DateTime.parse(appointment_request['appointmentDateTimeClient']).to_time,
                                     note:          appointment_request['note'],
                                     status:        appointment_request['status'])
-        puts "Appointment updated!"
     else
       appointment = create!(clientId:      appointment_request['client']['clientId'],
                             calendarId:    appointment_request['calendarid'],
@@ -61,7 +55,6 @@ class Appointment < ActiveRecord::Base
                             location_id:   location_id,
                             note:          appointment_request['note'],
                             status:        appointment_request['status'])
-      puts "Appointment created!"
 
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
@@ -92,16 +85,14 @@ class Appointment < ActiveRecord::Base
                                 action_date: Date.today})
 
       note.save!
-      puts "Application note added!"
 
       # Slack Message
       HTTParty.post("https://hooks.slack.com/services/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",
-      {:body => {text: "Location: #{appointment.location.name}\n #{self.slack_note_content(appointment_request, appointment)}",
+      {:body => {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
                   username: "Assessment Scheduled",
                   icon_emoji: ":smiley:",}.to_json,
                   :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
                   })
-      puts "Slack message sent!"
     end
 
     def self.slack_note_content(appointment_request, appointment)
