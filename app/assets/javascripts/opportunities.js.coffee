@@ -587,6 +587,9 @@ aging_table = (aging_data, tickLables) ->
   vis.selectAll("circle")
     .data(data)
     .enter()
+    .append("a")
+    .attr "xlink:href", (d) -> "http://localhost:3000/opportunities/#{d[3]}"
+    .attr "target", "_blank"
     .append("circle")
     .attr("r", 3.5)
     .attr "cx", (d) ->
@@ -595,9 +598,9 @@ aging_table = (aging_data, tickLables) ->
     .attr "cy", (d) ->
       if parseInt(d[0]) > 1 and parseInt(d[0]) < 60
         yScale(d[1])
-    .attr("fill", (d) ->
+    .attr "fill", (d) ->
       if location_colors[d[2]-1]
-        location_colors[d[2]-1][0]);
+        location_colors[d[2]-1][0]
 
   legendRectSize = 5;
   legendSpacing = .5;
