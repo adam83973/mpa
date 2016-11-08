@@ -131,7 +131,7 @@ class Opportunity < ActiveRecord::Base
 
   def self.aging_data
     data = []
-    opportunities = Opportunity.active
+    opportunities = Opportunity.where("created_at > ?", Date.today - 60.days)
 
     STATUSES.each_with_index do |status, i|
       status_data = {}
