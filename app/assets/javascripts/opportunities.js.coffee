@@ -608,8 +608,8 @@ aging_table = (aging_data, tickLables) ->
     .append('g')
     .attr('class', 'legend')
     .attr 'transform', (d, i) ->
-      horz = width - padding *3;
-      vert = (i+1) * 30;
+      horz = width - padding * 3;
+      vert = (i+1) * 15;
       'translate(' + horz + ',' + vert + ')';
 
   legend.append('circle')
