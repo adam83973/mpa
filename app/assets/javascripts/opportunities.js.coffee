@@ -582,7 +582,7 @@ aging_table = (aging_data, tickLables) ->
      .text("Days Old")
 
   # Add the scatterplot
-  location_colors = ["#27ae60", "#d35400", "#f39c12"]
+  location_colors = [["#27ae60", "Powell"], ["#d35400", "New Albany"], ["#f39c12", "Mill Run"]]
 
   vis.selectAll("circle")
     .data(data)
@@ -591,7 +591,31 @@ aging_table = (aging_data, tickLables) ->
     .attr("r", 3.5)
     .attr("cx", (d) -> xScale(parseInt(d[0])))
     .attr("cy", (d) -> yScale(d[1]))
-    .attr("fill", (d) -> location_colors[d[2]-1]);
+    .attr("fill", (d) ->
+      if location_colors[d[2]-1]
+        location_colors[d[2]-1][0]);
+
+  legendRectSize = 5;
+  legendSpacing = .5;
+
+  legend = vis.selectAll('.legend')
+    .data(location_colors)
+    .enter()
+    .append('g')
+    .attr('class', 'legend')
+    .attr 'transform', (d, i) ->
+      horz = width - padding *3;
+      vert = (i+1) * 30;
+      'translate(' + horz + ',' + vert + ')';
+
+  legend.append('circle')
+    .attr('r', legendRectSize)
+    .style('fill', (d) -> d[0])
+
+  legend.append('text')
+    .attr('x', legendRectSize + legendSpacing + 5)
+    .attr('y', legendRectSize - legendSpacing)
+    .text (d) -> d[1]
 
   # # text label for the y axis
   # vis.append("text")
