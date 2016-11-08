@@ -6,15 +6,15 @@
   <div class="panel-body">
 
     <p>
-      Name: <%= @opportunity.parent_name ? @opportunity.parent_name : "Please add parent name." unless @opportunity.user %>
+      <strong>Name:</strong> <%= @opportunity.parent_name ? @opportunity.parent_name : "Please add parent name." unless @opportunity.user %>
       <%= link_to @opportunity.user.full_name, @opportunity.user if @opportunity.user  %>
     </p>
     <p>
-      Phone: <%= @opportunity.parent_phone ? @opportunity.parent_phone : "Please add parent phone." unless @opportunity.user %>
+      <strong>Phone:</strong> <%= @opportunity.parent_phone ? @opportunity.parent_phone : "Please add parent phone." unless @opportunity.user %>
       <%= @opportunity.user.phone if @opportunity.user %>
     </p>
     <p>
-      Email: <%= @opportunity.parent_email ? @opportunity.parent_email : "Please add parent email." unless @opportunity.user %>
+      <strong>Email:</strong> <%= @opportunity.parent_email ? @opportunity.parent_email : "Please add parent email." unless @opportunity.user %>
       <%= @opportunity.user.email if @opportunity.user %>
     </p>
   </div>
