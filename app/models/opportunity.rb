@@ -128,4 +128,26 @@ class Opportunity < ActiveRecord::Base
     end
     data
   end
+
+  def self.aging_data
+    data = []
+    opportunities = Opportunity.active
+
+    STATUSES.each_with_index do |status, i|
+      if i < 7
+        status_data = {}
+        status_data['name'] = status.downcase.gsub(' ', '_')
+        status_data['opportunities'] = []
+
+        opportunities.where(status: i).each do |opp|
+          opportunity = {id: opp.id, location_id: opp.location_id, age: (Date.today - opp.created_at.to_date).to_i}
+          status_data['opportunities'] << opportunity
+        end
+
+        data << status_data
+      end
+    end
+
+    data
+  end
 end
