@@ -589,8 +589,12 @@ aging_table = (aging_data, tickLables) ->
     .enter()
     .append("circle")
     .attr("r", 3.5)
-    .attr("cx", (d) -> xScale(parseInt(d[0])))
-    .attr("cy", (d) -> yScale(d[1]))
+    .attr "cx", (d) ->
+      if parseInt(d[0]) > 1 and parseInt(d[0]) < 60
+        xScale(parseInt(d[0]))
+    .attr "cy", (d) ->
+      if parseInt(d[0]) > 1 and parseInt(d[0]) < 60
+        yScale(d[1])
     .attr("fill", (d) ->
       if location_colors[d[2]-1]
         location_colors[d[2]-1][0]);
@@ -617,14 +621,7 @@ aging_table = (aging_data, tickLables) ->
     .attr('y', legendRectSize - legendSpacing)
     .text (d) -> d[1]
 
-  # # text label for the y axis
-  # vis.append("text")
-  #    .attr("transform",
-  #          "translate(" + (padding/3) + " ," + (height/2) + "), rotate(-90)")
-  #    .style("text-anchor", "middle")
-  #    .text("Status");
 
-# only load if on aging_report div exists
 if document.getElementById("aging_report") != null
   $.ajax
     type: 'GET'
@@ -641,7 +638,6 @@ if document.getElementById("aging_report") != null
 
 ## Opportunity and business analytics
  # Step 2: Load the library.
-
 
 ((w, d, s, g, js, fjs) ->
   g = w.gapi or (w.gapi = {})
