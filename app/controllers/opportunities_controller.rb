@@ -2,6 +2,9 @@ class OpportunitiesController < ApplicationController
   before_filter :authenticate_user!, except: [:add_trial, :join_class]
   before_filter :authorize_employee, except: [:add_trial, :join_class]
 
+  def analytics
+  end
+  
   # GET /opportunities
   # GET /opportunities.json
   def index

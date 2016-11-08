@@ -75,9 +75,11 @@ class Appointment < ActiveRecord::Base
     if appointment_request['reason']['reasonId'] == 37118
       hw_help_info = self.format_hw_help_fields(appointment_request)
 
-      appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
-                                    hwHelpClass:   hw_help_info["Child's Class"],
-                                    hwHelpReason:  hw_help_info["Reason for HW Help"])
+      if hw_help_info
+        appointment.update_attributes(hwHelpChild:   hw_help_info["Child's Name"],
+                                      hwHelpClass:   hw_help_info["Child's Class"],
+                                      hwHelpReason:  hw_help_info["Reason for HW Help"])
+      end
     end
   end
 

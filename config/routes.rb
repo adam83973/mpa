@@ -173,6 +173,7 @@ MathPlus::Application.routes.draw do
     collection do
       get :add_parent
       get :add_student
+      get :analytics
       get :trial_date
       get :attended_trial
       get :missed_trial
