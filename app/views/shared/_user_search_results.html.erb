@@ -1,3 +1,4 @@
+<% title 'Search Results' %>
 <%if @users_search %>
   <% if @users_search.empty? && @students_search.empty? && @offerings_search.empty? && @lessons_search.empty? %>
   <div class="row">
@@ -51,6 +52,6 @@
         <%= render 'shared/search_reset' %>
       </div>
     </div>
-    <hr>
+    <hr style='margin-bottom:40px;'>
   <% end %>
 <% end %>
