@@ -14,7 +14,6 @@ class Opportunity < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
   belongs_to :offering
-  belongs_to :opportunity
   belongs_to :registration
   belongs_to :admin, class_name: "User", foreign_key: "admin_id"
 

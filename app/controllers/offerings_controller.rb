@@ -30,6 +30,7 @@ class OfferingsController < ApplicationController
   # GET /offerings/1.json
   def show
     @offering = Offering.find(params[:id])
+    @upcomming_trials = @offering.opportunities.where("trial_date >= ?", Date.today)
 
     respond_to do |format|
       format.html # show.html.erb
