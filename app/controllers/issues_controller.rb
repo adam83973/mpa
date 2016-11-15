@@ -16,7 +16,7 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
-    @issue = Issue.find(params[:id])
+    set_issue
 
     respond_to do |format|
       format.html # show.html.erb
@@ -61,7 +61,7 @@ class IssuesController < ApplicationController
   # PUT /issues/1
   # PUT /issues/1.json
   def update
-    @issue = Issue.find(params[:id])
+    set_issue
 
     respond_to do |format|
       if @issue.update_attributes(issue_params)
@@ -80,7 +80,7 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    @issue = Issue.find(params[:id])
+    set_issue
     @issue.destroy
 
     respond_to do |format|
@@ -89,8 +89,22 @@ class IssuesController < ApplicationController
     end
   end
 
+  def resolved
+    set_issue
+
+    if @issue.update_attribute :status, 4
+      redirect_to issues_path, notice: 'Issue was marked as closed.'
+    else
+      redirect_to issues_path, warning: 'Something went wrong and issue was not closed.'
+    end
+  end
+
   private
     def issue_params
       params.require(:issue).permit(:name, :priority, :resolved, :status, :summary, :user_id)
+    end
+
+    def set_issue
+      @issue = Issue.find(params[:id])
     end
 end

@@ -8,11 +8,11 @@ class Issue < ActiveRecord::Base
   PRIORITY_LEVELS = %w(Low Medium High)
   STATUS_LEVELS = %w(New Acknowledged Confirmed Assigned Closed)
 
-  before_save :mark_as_completed
+  before_update :mark_as_completed
 
   def mark_as_completed
     if status == 4 && !resolved
-      resolved == true
+      self.resolved = true
     end
   end
 end

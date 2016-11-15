@@ -102,7 +102,11 @@ MathPlus::Application.routes.draw do
     get :tag_contact
   end
 
-  resources :issues
+  resources :issues do
+    collection do
+      get :resolved
+    end
+  end
 
   resources :leads do
     resources :notes

@@ -1,12 +1,9 @@
+<% title 'Open Issues' %>
+
 <h1>Open Issues</h1>
-
-<br>
-
-<%= link_to "All Issues", issues_path(all_issues: true) %>
-
-<br>
-<br>
-
+<p>
+  <%= link_to "All Issues", issues_path(all_issues: true) %>
+</p>
 <table id="datatable" class="display">
   <thead>
     <tr>
@@ -17,7 +14,6 @@
       <th>Resolved</th>
       <th>Status</th>
       <% if current_user.admin? %>
-        <th></th>
         <th></th>
         <th></th>
       <% end %>
@@ -34,8 +30,7 @@
         <td><%= Issue::STATUS_LEVELS[issue.status.to_i] %></td>
         <% if current_user.admin? %>
           <td><%= link_to 'Show', issue %></td>
-          <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-          <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to "Close Issue", resolved_issues_path(id: issue.id) %></td>
         <% end %>
       </tr>
     <% end %>
