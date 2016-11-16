@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @messages.order(:created_at, :desc).each do |message| %>
+    <% @messages.order(:created_at).each do |message| %>
       <tr>
         <td><%= message.content %></td>
         <td><%= message.user_id %></td>
