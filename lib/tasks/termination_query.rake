@@ -12,7 +12,7 @@ def run_query
       invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false).first
       if invoice
         time = invoice['DateCreated'].to_time
-        if time < Time.now - 60.days && time > Time.now - 365.days
+        if time < Time.now - 60.days && time > Time.now - 1095.days
           non_restarts << parent
         end
       end
