@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
   def events
     woocommerce = set_woo
 
-    @workshops = woocommerce.get('products', {filter: {category: 'wintercamp2016', limit: 20} }).parsed_response['products']
+    @workshops = woocommerce.get('products', {filter: {category: 'plus-series-event', limit: 20} }).parsed_response['products']
   end
 
   def event_enrollment
