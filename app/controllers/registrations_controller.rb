@@ -41,6 +41,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1/edit
   def edit
     set_registration
+    @active_offerings = Offering.order(:course_id, :location_id, :day_number).includes(:course, :location).where("active = ?", true)
   end
 
   # POST /registrations
