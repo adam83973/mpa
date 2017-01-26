@@ -60,6 +60,10 @@ class Opportunity < ActiveRecord::Base
     notes.last
   end
 
+  def mark_as_won
+    self.update_attributes status: 7, date_won: Date.today
+  end
+
   def offering_name
     if offering
       offering.offering_name
