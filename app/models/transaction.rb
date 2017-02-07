@@ -10,7 +10,7 @@ class Transaction < ActiveRecord::Base
 
   validates_presence_of :location_id, :product_id
 
-  PROCESSES = ["Redeem Credits", "Purchase", "Add Inventory", "Reduce Intventory", "Redeem Prize"]
+  PROCESSES = ["Redeem Credits", "Purchase", "Add Inventory", "Reduce Inventory", "Redeem Prize"]
 
   def compute_credits
     if process == 0

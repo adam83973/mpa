@@ -35,7 +35,7 @@ $transaction_location_id.on 'change', ->
 			products = data
 			$transaction_product_id.html("")
 			$.each data, (index, value) ->
-        $transaction_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1]))
+        $transaction_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1] + " " + "(" + value[3] + " in stock)"))
         $transaction_product_id.prop('disabled', false).trigger("chosen:updated").show()
         $(".transaction_product").show().find(".chosen-disabled").removeClass("chosen-disabled")
         $transaction_product_id.removeClass("disabled").prop('disabled', false)
@@ -52,7 +52,7 @@ $('#transaction_credits_location_id').on 'change', ->
 			products = data
 			$transaction_credits_product_id.html("")
 			$.each data, (index, value) ->
-        $transaction_credits_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1]))
+        $transaction_credits_product_id.append($("<option></option>").attr("data-credits", value[2]).attr("value", value[0]).text(value[1] + " " + "(" + value[3] + " in stock)"))
         $transaction_credits_product_id.prop('disabled', false).trigger("chosen:updated")
         # $(".transaction_product").show().find(".chosen-disabled").removeClass("chosen-disabled")
         # $transaction_credits_product_id.removeClass("disabled").prop('disabled', false)

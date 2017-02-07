@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
         credits = ""
       end
 
-      products_list << [product.id, "#{product.name} #{credits}", product.credits]
+      products_list << [product.id, "#{product.name} #{credits}", product.credits, product.quantity]
     end
 
     respond_to do |format|
