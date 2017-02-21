@@ -37,7 +37,7 @@ gem 'lodash-rails'
 gem 'mail_form'
 gem 'mini_magick', '3.8.0'
 gem 'newrelic_rpm'
-gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
+gem "nested_form", git: "https://github.com/ryanb/nested_form.git"
 gem 'normalize-rails'
 gem 'modernizr-rails', '~> 2.6.2.1'
 gem 'oj', '~> 2.12.14'
@@ -64,7 +64,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'will_paginate', '~> 3.0.6'
 gem 'web-console', '~> 2.0', group: :development
 gem 'woocommerce_api'
-gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
 
 group :development, :test do
   gem 'bullet'
