@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
   after_filter :set_access_control_headers
-  # force_ssl if: :ssl_configured?
+  force_ssl if: :ssl_configured?
 
   def ssl_configured?
     !Rails.env.development?
