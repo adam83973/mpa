@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/rweng/jquery-datatables-rails.git
+  remote: https://github.com/rweng/jquery-datatables-rails
   revision: d486b31b192a2924b1913e080ad23460e6b96d31
   specs:
     jquery-datatables-rails (3.4.0)
@@ -9,7 +9,7 @@ GIT
       sass-rails
 
 GIT
-  remote: git://github.com/ryanb/nested_form.git
+  remote: https://github.com/ryanb/nested_form.git
   revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
   specs:
     nested_form (0.3.2)
