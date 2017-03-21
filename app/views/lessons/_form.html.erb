@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-md-4">
     <%= simple_form_for(@lesson) do |f| %>
       <% if @lesson.errors.any? %>
         <div id="error_explanation">
@@ -14,14 +14,17 @@
       <% end %>
         <%= f.association :course, input_html: { class: 'chosen' } %>
         <%= f.input :name %>
-        <%= f.input :week %>
+        <%= f.input :week, as: :select, collection: (1..48).to_a, input_html: { class: 'chosen' } %>
         <%= f.association :standard, label_method: :name %>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="col-md-4">
         <%= f.input :assignment, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignments"), label_method: :filename_created_at %>
         <%= f.input :assignment_key, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignment Keys"), label_method: :filename_created_at %>
         <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline' %>
         <%= f.association :problems, label: "Activites", label_method: :title %>
+  </div>
+  <div class="col-md-4">
+    <%= f.input :starter, input_html: { rows: 4 } %>
   </div>
 </div>
 <div class="row">

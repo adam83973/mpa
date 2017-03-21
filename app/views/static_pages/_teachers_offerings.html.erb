@@ -1,5 +1,5 @@
+<% if @user.offerings.any? %>
 <!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
-
 <h3 style="margin-bottom:20px;">
   <%= @user.first_name + "'s " + "Class".pluralize(@user.offerings.count) unless class_session && class_session.in_session?%>
   <small style="color:purple;"><%= "If you've started one of your classes you can add attendance by opening the class below, or you can click the button below" if class_session && class_session.in_session? %></small>
@@ -59,4 +59,5 @@
       </div>
     </div>
   </div>
+<% end %>
 <% end %>

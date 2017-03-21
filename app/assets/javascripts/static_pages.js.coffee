@@ -4,7 +4,7 @@ jQuery ->
   # change locations
   $("#location_id").on 'change', ->
     id = $(this).val()
-    url = "http://app.mathplusacademy.com?location_id=" + id
+    url = $(this).data('url') + "?location_id=" + id
     window.location.replace(url)
 
   $("#hide_schedule").on 'click', ->
