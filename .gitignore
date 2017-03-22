@@ -22,3 +22,6 @@ solr/pids
 solr/test
 solr/development
 solr/default/data
+
+# Ignore dev enviroment variables
+/config/app_environment_variables.rb

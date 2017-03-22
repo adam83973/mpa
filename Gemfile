@@ -46,6 +46,7 @@ gem 'omniauth-google-oauth2'
 gem 'paper_trail', '~> 4.0.0', group: [:production, :development, :test]
 gem 'populator'
 gem 'progress_bar'
+gem 'puma'
 gem 'rack-timeout'
 gem 'rails-observers'
 gem 'rest_client'
