@@ -1,44 +1,89 @@
 # Create courses
+course_names_and_descriptions = [
+  ['Recruits','KG - 1st Grade'], ['Techs','1st - 2nd Grade'],
+  ['Operatives', '2nd - 3rd Grade'], ['Analysts', '3rd - 4th Grade'],
+  ['Agents', '4th-5th Grade'], ['Special Ops','5th - 6th Grade'],
+  ['Pre-Algebra','6th - 7th Grade'], ['Algebra', '7th - 8th Grade'],
+  ['Geometry', '8th - 9th Grade'], ['Chess Club','4th - 8th Grade'],
+  ['Problem Solving Lab','7th - 8th Grade'], ['Programming Lab','4th - 8th Grade']]
 
-Course.create!(name:              "Recruits",
-               description:       "KG - 1st Grade")
-
-Course.create!(name:              "Techs",
-               description:       "1st - 2nd Grade")
-
-Course.create!(name:              "Operatives",
-               description:       "2nd - 3rd Grade")
-
-Course.create!(name:              "Analysts",
-               description:       "3rd - 4th Grade")
-
-Course.create!(name:              "Agents",
-               description:       "4th - 5th Grade")
-
-Course.create!(name:               "Special Ops",
-               description:       "5th - 6th Grade")
-
-Course.create!(name:               "Pre-Algebra",
-               description:       "6th - 7th Grade")
-
-Course.create!(name:               "Algebra",
-               description:       "7th - 8th Grade")
-
-Course.create!(name:               "Geometry",
-               description:       "8th - 9th Grade")
-
-Course.create!(name:               "Chess Club",
-               description:       "4th - 8th Grade")
-
-Course.create!(name:               "Problem Solving Lab",
-               description:       "7th - 8th Grade")
-
-Course.create!(name:               "Programming Lab",
-               description:       "4th - 8th Grade")
+course_names_and_descriptions.each do |course_info|
+  Course.create!(name:              course_info[0],
+                 description:       course_info[1])
+end
 
 # Create occupations
+Occupation.create!(title:             'Mathematician',
+                   description:       'Your working to master the ins and
+                                      outs of math. Keep up the good work and
+                                      and good luck on your journey!')
 
-# Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
+Occupation.create!(title:             'Engineer',
+                   description:       'So you like making things? This is
+                                      a great track for your. Keep your nose
+                                      to the grind stone and let\'s see what
+                                      you can create!')
+
+Occupation.create!(title:             'Programmer',
+                   description:       'It\'s fun telling people to do things
+                                      for you. Why not learn to do the same
+                                      with computers? They\'re much faster than
+                                      humans.')
+
+occupations_id_and_name = Occupation.pluck(:id, :title)
+
+# Add occupation levels. This sets up the leveling system for students
+occupations_id_and_name.each do |occupation_info|
+  next if occupation_info[1].downcase == 'badges'
+  10.times do |n|
+    image = "MATHPLUS-#{occupation_info[1].downcase}-L#{"%02d" % (n+1)}.png"
+    OccupationLevel.create!(level:                1,
+                            points:               1000 * n+1,
+                            rewards:              "Level #{n+1} Reward",
+                            occupation_id:        occupation_info[0],
+                            image:                image)
+  end
+end
 
 # Create badges - A few basic badges are seeded and their images are added as
 # assets. Additional badges can be added and their images uploaded.
+
+badge_names = ['Attention To Detail', 'Dedicaation', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematicians', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
+
+badge_names.times do |name|
+  Badge.create!(name:     name,
+                image:    "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png",
+                multiple: true)
+end
+
+
+# Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
+
+# Experiences for badges
+
+badge_names.each do |badge_name|
+  badge = Badge.where(name: badge_name).first
+
+  Experience.create!(name:            "#{badge_name} Badge",
+                     content:         "Please update this with a description the
+                                       of the badge.",
+                     points:           75
+  )
+end
+
+# Experiences for attendance
+
+Experience.create!(name:            "Attendance",
+                   content:         "You attended class. That's half the battle!",
+                   points:           20
+)
+
+# Experiences for assignments
+assignment_statuses_and_points = [["Incomplete", 0], ["Complete", 60], ["Perfect", 80]]
+
+assignment_statuses_and_points.each do |assignment_info|
+  Experience.create!(name:            assignment_info[0],
+                     content:         "You attended class. That's half the battle!",
+                     points:           assignment_info[1]
+  )
+end

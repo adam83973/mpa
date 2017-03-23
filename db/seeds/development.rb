@@ -26,7 +26,8 @@ admin = User.create!(first_name: 'Travis',
                      zip: Faker::Address.zip,
                      location_id: Location.first.id,
                      active: true,
-                     admin: true)
+                     admin: true,
+                     role: 'Admin')
 
 # Create employees (directors, teachers, teaching assistants)
 
@@ -110,8 +111,17 @@ parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)
 end
 
 # Create offerings (with teacher associations) for each location
+120.times do
+  teacher = User.where(role: "Teacher").order("RANDOM()").first
+  course = Course.order("RANDOM()").first
+  location = Location.order("RANDOM()").first
+
+
+end
 
 # Create notes for parents
+
+# Create needs action notes for parents for each location 
 
 # Create lessons that are associated to each course
 
