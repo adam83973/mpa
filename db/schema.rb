@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321180924) do
+ActiveRecord::Schema.define(version: 20170323010403) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -51,10 +50,9 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.datetime "sent_at"
     t.datetime "opened_at"
     t.datetime "clicked_at"
+    t.index ["token"], name: "index_ahoy_messages_on_token"
+    t.index ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type"
   end
-
-  add_index "ahoy_messages", ["token"], name: "index_ahoy_messages_on_token"
-  add_index "ahoy_messages", ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type"
 
   create_table "appointment_requests", force: :cascade do |t|
     t.text     "data"
@@ -79,9 +77,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.string   "hwHelpChild",  limit: 255
     t.string   "hwHelpClass",  limit: 255
     t.text     "hwHelpReason"
+    t.index ["location_id"], name: "index_appointments_on_location_id"
   end
-
-  add_index "appointments", ["location_id"], name: "index_appointments_on_location_id"
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "student_id"
@@ -95,9 +92,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.text     "comment"
     t.integer  "experience_point_id"
     t.integer  "course_id"
+    t.index ["student_id"], name: "index_assignments_on_student_id"
   end
-
-  add_index "assignments", ["student_id"], name: "index_assignments_on_student_id"
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "student_id"
@@ -143,9 +139,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.datetime "updated_at",                        null: false
     t.date     "date_approved"
     t.text     "write_up"
+    t.index ["student_id"], name: "index_badge_requests_on_student_id"
   end
-
-  add_index "badge_requests", ["student_id"], name: "index_badge_requests_on_student_id"
 
   create_table "badges", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -169,9 +164,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
   create_table "badges_students", id: false, force: :cascade do |t|
     t.integer "badge_id"
     t.integer "student_id"
+    t.index ["badge_id", "student_id"], name: "index_badges_students_on_badge_id_and_student_id"
   end
-
-  add_index "badges_students", ["badge_id", "student_id"], name: "index_badges_students_on_badge_id_and_student_id"
 
   create_table "courses", force: :cascade do |t|
     t.string   "course_name",    limit: 255
@@ -187,9 +181,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
   create_table "courses_problems", id: false, force: :cascade do |t|
     t.integer "problem_id"
     t.integer "course_id"
+    t.index ["problem_id", "course_id"], name: "index_courses_problems_on_problem_id_and_course_id"
   end
-
-  add_index "courses_problems", ["problem_id", "course_id"], name: "index_courses_problems_on_problem_id_and_course_id"
 
   create_table "daily_location_reports", force: :cascade do |t|
     t.integer  "location_id"
@@ -218,9 +211,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "enrollment_change_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -252,9 +244,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.text     "comment"
     t.integer  "grade_id"
     t.boolean  "negative",      default: false
+    t.index ["student_id"], name: "index_experience_points_on_student_id"
   end
-
-  add_index "experience_points", ["student_id"], name: "index_experience_points_on_student_id"
 
   create_table "experiences", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -266,17 +257,6 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.string   "image",         limit: 255
     t.integer  "occupation_id"
     t.boolean  "active"
-  end
-
-  create_table "grades", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "lesson_id"
-    t.integer  "score"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.text     "comment"
-    t.integer  "user_id"
-    t.string   "grade_type", limit: 255
   end
 
   create_table "help_session_records", force: :cascade do |t|
@@ -299,22 +279,6 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.integer  "status",                 default: 0
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-  end
-
-  create_table "leads", force: :cascade do |t|
-    t.string   "first_name",          limit: 255
-    t.string   "last_name",           limit: 255
-    t.string   "phone",               limit: 255
-    t.string   "email",               limit: 255
-    t.integer  "user_id"
-    t.integer  "stage_id"
-    t.text     "student_information"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "source",              limit: 255
-    t.boolean  "active",                          default: true
-    t.date     "appointment_date"
-    t.integer  "location_id"
   end
 
   create_table "learning_plan_goals", force: :cascade do |t|
@@ -404,9 +368,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.integer  "location_id"
     t.integer  "opportunity_id"
     t.integer  "completed_by"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
-
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "occupation_levels", force: :cascade do |t|
     t.integer  "level"
@@ -452,24 +415,21 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.string   "classroom",       limit: 255
     t.boolean  "hidden",                      default: false
     t.integer  "day_number"
+    t.index ["course_id"], name: "index_offerings_on_course_id"
+    t.index ["location_id"], name: "index_offerings_on_location_id"
   end
-
-  add_index "offerings", ["course_id"], name: "index_offerings_on_course_id"
-  add_index "offerings", ["location_id"], name: "index_offerings_on_location_id"
 
   create_table "offerings_students", id: false, force: :cascade do |t|
     t.integer "offering_id"
     t.integer "student_id"
+    t.index ["student_id", "offering_id"], name: "index_offerings_students_on_student_id_and_offering_id"
   end
-
-  add_index "offerings_students", ["student_id", "offering_id"], name: "index_offerings_students_on_student_id_and_offering_id"
 
   create_table "offerings_users", id: false, force: :cascade do |t|
     t.integer "offering_id"
     t.integer "user_id"
+    t.index ["user_id", "offering_id"], name: "index_offerings_users_on_user_id_and_offering_id"
   end
-
-  add_index "offerings_users", ["user_id", "offering_id"], name: "index_offerings_users_on_user_id_and_offering_id"
 
   create_table "opportunities", force: :cascade do |t|
     t.integer  "registration_id"
@@ -501,9 +461,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.integer  "promotion_id"
     t.boolean  "missed_trial",                      default: false
     t.boolean  "appointment_complete",              default: false
+    t.index ["location_id"], name: "index_opportunities_on_location_id"
   end
-
-  add_index "opportunities", ["location_id"], name: "index_opportunities_on_location_id"
 
   create_table "problems", force: :cascade do |t|
     t.string   "title",         limit: 255
@@ -528,9 +487,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
   create_table "problems_strategies", id: false, force: :cascade do |t|
     t.integer "problem_id"
     t.integer "strategy_id"
+    t.index ["problem_id", "strategy_id"], name: "index_problems_strategies_on_problem_id_and_strategy_id"
   end
-
-  add_index "problems_strategies", ["problem_id", "strategy_id"], name: "index_problems_strategies_on_problem_id_and_strategy_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name",                    null: false
@@ -563,10 +521,9 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.boolean  "switch",                    default: false
     t.integer  "drop_reason"
     t.boolean  "payment_information_later", default: false
+    t.index ["offering_id"], name: "index_registrations_on_offering_id"
+    t.index ["student_id"], name: "index_registrations_on_student_id"
   end
-
-  add_index "registrations", ["offering_id"], name: "index_registrations_on_offering_id"
-  add_index "registrations", ["student_id"], name: "index_registrations_on_student_id"
 
   create_table "resources", force: :cascade do |t|
     t.string   "resource",     limit: 255
@@ -641,17 +598,6 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.integer  "avatar_id",                           default: 0
     t.string   "avatar_background_color", limit: 255, default: "#ffffff"
     t.boolean  "has_learning_plan",                   default: false
-  end
-
-  create_table "time_punches", force: :cascade do |t|
-    t.datetime "in"
-    t.datetime "out"
-    t.text     "comment"
-    t.integer  "period"
-    t.boolean  "modified"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -733,12 +679,11 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.boolean  "opportunities_reports",                   default: false
     t.string   "additional_withholding"
     t.date     "birth_date"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      limit: 255,        null: false
@@ -748,9 +693,8 @@ ActiveRecord::Schema.define(version: 20170321180924) do
     t.text     "object",         limit: 1073741823
     t.datetime "created_at"
     t.text     "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
   create_table "videos", force: :cascade do |t|
     t.string   "title",      limit: 255

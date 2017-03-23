@@ -85,7 +85,6 @@ class StaticPagesController < ApplicationController
     def set_admin
       @opportunity = Opportunity.new
       @note = Note.new
-      @grade = Grade.new
       @new_parent = User.new
       @generated_password = Devise.friendly_token.first(8)
       @new_student = Student.new
