@@ -50,7 +50,7 @@
 #   students.each do |student|
 #     student_info = "#{student.full_name} ("
 #     student_courses = ""
-#     student.registrations.each{|reg| student_courses = student_courses + "#{reg.course.course_name}" if reg && reg.course }
+#     student.registrations.each{|reg| student_courses = student_courses + "#{reg.course.name}" if reg && reg.course }
 #     student_info = student_info + student_courses + ")"
 #     children = children + " #{student_info}"
 #   end

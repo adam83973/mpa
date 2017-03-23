@@ -18,7 +18,7 @@ def assignment_to_lesson
     if l
       lessons_k = Lesson.where("week = ?", "#{l[:week]}")
       lessons_k.each do |lesson|
-        if lesson.standard.course.course_name == l[:course]
+        if lesson.standard.course.name == l[:course]
           puts "#{lesson.name} #{l[:course]}, #{l[:week]} #{i.id}"
           lesson.assignment_key ||= i.id
           lesson.save
@@ -34,7 +34,7 @@ def assignment_to_lesson
     if r
       lessons_a = Lesson.where("week = ?", "#{r[:week]}")
       lessons_a.each do |lesson|
-        if lesson.standard.course.course_name == r[:course]
+        if lesson.standard.course.name == r[:course]
           puts "#{lesson.name} #{r[:course]}, #{r[:week]} #{i.id}"
           lesson.assignment ||= i.id
           lesson.save

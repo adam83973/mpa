@@ -6,7 +6,7 @@
   <div class="panel-body">
     <p>
       <strong>Course:</strong>
-      <%= @opportunity.course ? @opportunity.course.course_name : ( link_to "Add Course", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
+      <%= @opportunity.course ? @opportunity.course.name : ( link_to "Add Course", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
     </p>
 
     <p>

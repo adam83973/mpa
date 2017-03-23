@@ -18,15 +18,15 @@ class Lesson < ActiveRecord::Base
   end
 
   def title
-      course.course_name + "-" + week.to_s + ": " + name
+      course.name + "-" + week.to_s + ": " + name
   end
 
   def course_name
-    course.course_name
+    course.name
   end
 
   def course_name_and_week
-    "#{course.course_name} #{week}"
+    "#{course.name} #{week}"
   end
 
   def self.import(file)

@@ -13,7 +13,7 @@
         </div>
       <% end %>
 
-        <%= f.association :course, label_method: :course_name %>
+        <%= f.association :course, label_method: :name %>
         <%= f.association :location %>
         <%= f.input :day, collection: Date::DAYNAMES %>
         <%= f.label :time %>

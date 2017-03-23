@@ -29,23 +29,23 @@ class Offering < ActiveRecord::Base
   end
 
   def name
-    course.course_name
+    course.name
   end
 
   def offering_name_dashboard
-    course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_name
-    course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
+    course.name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_trial_name
-    course.course_name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def name_with_count
-    course.course_name + " | " + location.name + " | " + day + " - " + time.strftime("%I:%M %p") + " (#{active_students_count})"
+    offering_name + " (#{active_students_count})"
   end
 
   def returning_students_count
@@ -62,7 +62,7 @@ class Offering < ActiveRecord::Base
 
   # def self.search(search)
   #   if search
-  #     joins(:course).where('lower(courses.course_name) LIKE ?', "%#{search.downcase}%")
+  #     joins(:course).where('lower(courses.name) LIKE ?', "%#{search.downcase}%")
   #   end
   # end
 

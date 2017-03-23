@@ -106,25 +106,25 @@ def make_locations
 end
 
 def make_courses
-  Course.create!(course_name:       "Recruits",
+  Course.create!(name:              "Recruits",
                  description:       "KG - 1st Grade")
 
-  Course.create!(course_name:       "Techs",
+  Course.create!(name:              "Techs",
                  description:       "1st - 2nd Grade")
 
-  Course.create!(course_name:       "Operatives",
+  Course.create!(name:              "Operatives",
                  description:       "2nd - 3rd Grade")
 
-  Course.create!(course_name:       "Analysts",
+  Course.create!(name:              "Analysts",
                  description:       "3rd - 4th Grade")
 
-  Course.create!(course_name:       "Agents",
+  Course.create!(name:              "Agents",
                  description:       "4th - 5th Grade")
 
-  Course.create!(course_name:       "Special Ops",
+  Course.create!(name:               "Special Ops",
                  description:       "5th - 6th Grade")
 
-  Course.create!(course_name:       "Pre-Algebra",
+  Course.create!(name:               "Pre-Algebra",
                  description:       "6th - 7th Grade")
 end
 

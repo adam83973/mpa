@@ -1,5 +1,4 @@
 class Course < ActiveRecord::Base
-  #attr_accessible :course_name, :description, :grade, :occupation_id, :capacity
 
   has_many :offerings
   has_many :opportunities
@@ -23,9 +22,5 @@ class Course < ActiveRecord::Base
       course.attributes = row.to_hash.slice(*accessible_attributes)
       course.save!
     end
-  end
-
-  def name
-    course_name
   end
 end

@@ -17,7 +17,7 @@
       <% @location.visible_offerings.includes(:users, :course).order(:course_id).order(:day_number).order(:time).each do |offering| %>
       <tr>
         <td>
-          <%= offering.course.course_name%><%= raw offering_capacity(offering)%>
+          <%= offering.course.name%><%= raw offering_capacity(offering)%>
         </td>
         <td><%= offering.course.grade if offering.course.grade %></td>
         <td>

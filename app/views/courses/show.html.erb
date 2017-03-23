@@ -2,7 +2,7 @@
   <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default pull-right' %>
 <% end %>
 <h2 style="margin-bottom:30px;">
-  <%= @course.course_name %>
+  <%= @course.name %>
 </h2>
 <p>
   Grade: <%= @course.grade %>
@@ -33,7 +33,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          Click Here For <%= @course.course_name %> Lessons
+          Click Here For <%= @course.name %> Lessons
         </a>
       </h4>
     </div>

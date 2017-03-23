@@ -12,7 +12,7 @@
     <%= f.association :strategies, label_method: :name, as: :select, item_wrapper_class: 'inline', input_html: { class: "chosen" } %>
     <%= f.input :variations, as: :text, :input_html => { :rows => 4 } %>
     <%= f.association :lessons, label_method: :title, item_wrapper_class: 'inline' %>
-    <%= f.association :courses, label_method: :course_name, as: :select, item_wrapper_class: 'inline', input_html: { class: "chosen" } %>
+    <%= f.association :courses, label_method: :name, as: :select, item_wrapper_class: 'inline', input_html: { class: "chosen" } %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 sol-xs-12">
     <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline' %>

@@ -28,7 +28,7 @@
       <tr>
         <td><%= link_to lesson.name, lesson, target: '_blank' %></td>
         <td><%= lesson.week %></td>
-        <td><%= lesson.course.course_name if lesson.standard %></td>
+        <td><%= lesson.course.name if lesson.standard %></td>
         <td><%= lesson_status(lesson) %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
         <td><%= link_to 'View', lesson %></td>

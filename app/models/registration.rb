@@ -46,17 +46,17 @@ class Registration < ActiveRecord::Base
   end
 
   def course_name
-    course.course_name if course
+    course.name if course
   end
 
   def offering_name
     if offering
-      course.course_name + " | " + location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
+      course.name + " | " + location.name + " | " + offering.day + " - " + offering.time.strftime("%I:%M %p")
     end
   end
 
   def offering_name_dashboard
-      course.course_name + " | " + offering.day[0..2] + " - " + offering.time.strftime("%I:%M %p")
+      course.name + " | " + offering.day[0..2] + " - " + offering.time.strftime("%I:%M %p")
   end
 
   def past_end_date

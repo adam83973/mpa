@@ -10,7 +10,7 @@
           <%= simple_form_for lp do |f| %>
             <%= f.association :student, label_method: :full_name, selected: student.id %>
             <%= f.input :grade, collection: LearningPlan::GRADES %>
-            <%= f.association :course, label_method: :course_name %>
+            <%= f.association :course, label_method: :name %>
             <%= f.association :learning_plan_issue, label_method: :title %>
             <%= f.input :notes, input_html: { rows: 5 } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>

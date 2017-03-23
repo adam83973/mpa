@@ -24,7 +24,7 @@ gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
 gem "factory_girl_rails", require: false, group: :test
-gem 'faker', '1.0.1'
+gem 'faker', '~> 1.7', '>= 1.7.3'
 gem 'fog'
 gem 'font-awesome-rails'
 gem 'google-api-client', '<0.9'

@@ -26,7 +26,7 @@
 <% @courses.each do |course| %>
   <tr>
     <td><%= course.id %></td>
-    <td><%= course.course_name %></td>
+    <td><%= course.name %></td>
     <td><%= course.description %></td>
     <td><%= link_to 'Show', course %></td>
     <% if current_user.admin? %>

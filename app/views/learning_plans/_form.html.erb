@@ -5,7 +5,7 @@
     <%= f.association :student, input_html: { class: 'chosen'}, selected: params[:student_id], label_method: :full_name if params[:student_id]%>
     <%= f.association :student, input_html: { class: 'chosen'}, label_method: :full_name unless params[:student_id]%>
     <%= f.input :grade, as: :select, collection: LearningPlan::GRADES %>
-    <%= f.association :course, input_html: { class: 'chosen'}, label_method: :course_name %>
+    <%= f.association :course, input_html: { class: 'chosen'}, label_method: :name %>
     <%= f.association :learning_plan_issue, label_method: :title %>
     <%= f.input :notes %>
     <%= f.input :strengths %>

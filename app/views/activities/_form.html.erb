@@ -6,7 +6,7 @@
     <%= f.input :objective, label: 'Objective / Description', as: :text, :input_html => { :rows => 4 } %>
     <%= f.input :setup, label: 'Setup / Materials', as: :text, :input_html => { :rows => 4 } %>
     <%= f.input :content, label: 'Instructions / Guidelines', as: :text, :input_html => { :rows => 4 } %>
-    <%= f.association :courses, label_method: :course_name, as: :check_boxes, item_wrapper_class: 'inline' %>
+    <%= f.association :courses, label_method: :name, as: :check_boxes, item_wrapper_class: 'inline' %>
     <%= f.association :standards, label_method: :name, item_wrapper_class: 'inline' %>
     <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline' %>
     <%= f.input :variations, as: :text, :input_html => { :rows => 4 } %>
