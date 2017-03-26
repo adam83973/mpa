@@ -1,10 +1,11 @@
-<li style="max-width:270px;">
-    <%= form_tag root_path, :method => 'get', :id => "users_search", class: "navbar-form navbar-left", role: "search" do %>
+<%= form_tag root_path, method: 'get',
+                        id: "users_search",
+                        class: "form-inline my-2 my-lg-0",
+                        role: "search" do %>
   <div class="input-group">
-      <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "form-control" %>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-      </span>
+    <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "form-control" %>
+    <span class="input-group-btn">
+      <button class="btn btn-outline-success my-2 my-sm-0 nav_search_button" type="submit"><i class="fa fa-search"></i></button>
+    </span>
   </div><!-- /input-group -->
-    <% end %>
-</li>
+<% end %>

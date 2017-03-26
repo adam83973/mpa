@@ -1,9 +1,9 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 style="display:inline;" class="panel-title">Students</h3>
+<div class="card card-default">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Students</h3>
     <%= link_to "Add Student", "javascript:void(0)", data: { toggle: "modal", target: "#newStudentUserModal" }, class: "pull-right" if current_user.admin? %>
   </div>
-  <div class="panel-body">
+  <div class="card-block">
     <!-- displays each student for user -->
     <%= render 'parents_students' %>
   </div>

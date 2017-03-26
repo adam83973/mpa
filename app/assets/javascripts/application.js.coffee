@@ -6,6 +6,8 @@
 //= require jquery-ui/widgets/datepicker
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require tether
+//= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-switch
 //= require chosen-jquery
@@ -68,7 +70,7 @@ jQuery ->
   $(".chosen-select").chosen()
 
   $( "#sortable" ).sortable()
-  $( "#sortable" ).disableSelection()
+  # $( "#sortable" ).disableSelection()
 
   $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',

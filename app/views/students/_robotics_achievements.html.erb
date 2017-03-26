@@ -1,17 +1,17 @@
 <% if @student.in_robotics_class? %>
 
 <h3>Robotics Achievements</h3>
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
+<div class="card-group" id="accordion">
+  <div class="card card-default">
+    <div class="card-header">
+      <h4 class="card-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
           Robotics Acheivements:
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
+    <div id="collapseTwo" class="card-collapse collapse">
+      <div class="card-block">
         <div class="tscroll r-achievements">
          <% @robotics_achievements.each do |achievement| %>
            <p>

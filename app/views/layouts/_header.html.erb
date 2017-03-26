@@ -1,41 +1,35 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%# image_tag('MP-logo.png', size: "40x40") %>  app.MPA
-      <% end %>
-      <% if signed_in? && help_session.in_session? %>
-        <%= link_to help_sessions_active_session_path(student_id: help_session.student_id) do %>
-          <span class="label label-info" style="position:absolute;top:17px;">HW Help In Session</span>
-        <% end %>
-      <% end %>
-      <% if signed_in? && class_session.in_session? %>
-        <%= link_to root_url do %>
-          <span class="label label-success" style="position:absolute;top:17px;">Class In Session</span>
-        <% end %>
-      <% end %>
+<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md justify-content-right">
+  <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbar-collapse-1">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <% if signed_in? %>
-          <% if current_user.parent? %>
-            <li><a href="http://www.mathplusacademy.com/book-appointment"><strong>Schedule HW Help</strong></a></li>
-          <% end %>
-          <%= render 'layouts/nav_links' if current_user.employee? %>
-          <%= render 'layouts/admin_links' if current_user.admin? %>
-          <%= render 'layouts/nav_dropdown' %>
-          <%= render 'shared/user_search' if current_user.employee? %>
-        <% else %>
-          <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path %></li>
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag('mp_logo.png', height: "15", style: 'margin-bottom:3px;') %>  Math Plus Academy
+  <% end %>
+  <% if signed_in? && help_session.in_session? %>
+    <%= link_to help_sessions_active_session_path(student_id: help_session.student_id) do %>
+      <span class="label label-info" style="position:absolute;top:17px;">HW Help In Session</span>
+    <% end %>
+  <% end %>
+  <% if signed_in? && class_session.in_session? %>
+    <%= link_to root_url do %>
+      <span class="label label-success" style="position:absolute;top:17px;">Class In Session</span>
+    <% end %>
+  <% end %>
+  <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-1">
+    <ul class="navbar-nav">
+      <% if signed_in? %>
+        <% if current_user.parent? %>
+          <li class="nav-item"><a class="nav-link" href="http://www.mathplusacademy.com/book-appointment"><strong>Schedule HW Help</strong></a></li>
         <% end %>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container -->
+        <%= render 'layouts/nav_links' if current_user.employee? %>
+        <%= render 'layouts/admin_links' if current_user.admin? %>
+        <%= render 'layouts/nav_dropdown' %>
+      <% else %>
+        <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path %></li>
+      <% end %>
+    </ul>
+    <%= render 'shared/user_search' if current_user.employee? %>
+  </div><!-- /.navbar-collapse -->
 </nav>

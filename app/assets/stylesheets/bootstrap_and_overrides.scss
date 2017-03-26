@@ -6,8 +6,9 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  padding-top: 80px;
 }
+
+nav{margin-bottom: 80px;}
 
 h1, h2, h3, h4, li {
   font-weight: 200;
@@ -336,4 +337,9 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
 .header-fixed > thead > tr > th {
     width: 50%;
     float: left;
+}
+
+.nav_search_button{
+  padding-top:5px;
+  padding-bottom:5px;
 }

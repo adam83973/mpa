@@ -17,12 +17,12 @@
 </div>
 <div class="row">
   <div class="col-md-6 col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card card-default">
+      <div class="card-header">
         <h1 style="margin:10px 0 10px 0;">Message Center</h1>
         <h3 style="margin:10px 0 10px 0;"><small>Do you have a compliment, concern, or question? This is the place.</small></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-block">
         <%= simple_form_for @message do |f| %>
           <%= f.input :subject, label: false, placeholder: "Subject" %>
           <%= f.input :content, as: :text, label: false, placeholder: "Message", input_html: { rows: 6, style: "resize:vertical;" } %>
@@ -35,11 +35,11 @@
     </div>
   </div>
   <div class="col-md-6 col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="card card-default">
+      <div class="card-header">
         <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Badges Are Here!</h1>
       </div>
-      <div class="panel-body text-center">
+      <div class="card-block text-center">
         <%= link_to badge_home_path do %>
           <h2>More Information</h2>
         <% end %>
@@ -60,14 +60,14 @@
     <div class="row">
   <% end %>
     <div class="col-md-6 col-xs-12">
-      <div id="student-<%= student.id %>" class="panel panel-default parent-student-home" style="height:100%;">
-        <div class="panel-heading">
+      <div id="student-<%= student.id %>" class="card card-default parent-student-home" style="height:100%;">
+        <div class="card-header">
           <div class="text-center">
             <%= image_tag(student.avatar.image_url, size: "75x75") if student.avatar %>
           </div>
           <h3 class="text-center"><%= link_to student.full_name, student %></h3>
         </div>
-        <div class="panel-body">
+        <div class="card-block">
           <p class="text-center"><u>Total Credits:</u> <%= student.credits %></p>
           <p class="text-center"><u>Total XP:</u> <%= student.xp_total %></p>
           <p style="height:50px;overflow:scroll;" class="text-center"><u>Recent comment:</u>
@@ -75,7 +75,7 @@
           </p>
         </div>
         <% if student.is_active_mathematician? %>
-          <div class="panel-footer">
+          <div class="card-footer">
 
             <div class="row">
               <div class="col-xs-12 text-center">

@@ -1,11 +1,13 @@
 jQuery ->
-  $('#opportunities_by_status').html('<div class="well well-lg">
+  $('#opportunities_by_status').html('<div class="card">
+    <div class="card-block">
     <h4><u><%= Opportunity::STATUSES[@status.to_i] %></u></h4>
     <ul>
     <% @user_location.opportunities.where("status = ?", "#{ @status }").each do |opp| %>
     <%= escape_javascript(render "/shared/lead_group", opportunity: opp) %>
     <% end %>
     </ul>
+    </div>
     </div>')
 
   $(".new_note").each ->

@@ -1,15 +1,17 @@
 <% Opportunity::STATUSES.each_with_index do |opp, i| %>
   <% if i < 6 || i == 8 %>
     <div
-    class="opportunity_statuses well well-sm text-center"
+    class="opportunity_statuses card text-center mb-2"
     id="<%= opp.downcase.gsub(" ", "_") %>"
     data-status="<%= i %>" data-locationid="<%= @user_location.id %>">
-      <%= link_to "javascript:void(0)", data: { status: i, locationid: @user_location.id } do %>
-      <h4>
-        <%= opp %><span><%= ": #{@user_location.opportunities.where(status: i).count}" unless i == 7 || i == 8 %></span>
-      </h4>
-      <% end %>
-      <p></p>
+      <div class="card-block">
+        <%= link_to "javascript:void(0)", data: { status: i, locationid: @user_location.id } do %>
+        <h4>
+          <%= opp %><span><%= ": #{@user_location.opportunities.where(status: i).count}" unless i == 7 || i == 8 %></span>
+        </h4>
+        <% end %>
+        <p></p>
+      </div>
     </div><!-- /.leads -->
   <% end %>
 <% end %>

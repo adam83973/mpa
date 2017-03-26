@@ -1,5 +1,5 @@
 <%= link_to note.notable do %>
-  <div class="well well-sm">
+  <div class="card">
     <div style="padding:7px 10px 0 10px;">
       <p>
         <%= sanitize(note.content.gsub("\n", "<br />"), :tags => %w(br), :attributes => %w()) %>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="text-right">
-            <%= note.user.full_name%> (<%= note.created_at.strftime("%D")%>)
+            <%= note.user.full_name if note.user %> (<%= note.created_at.strftime("%D")%>)
           </div>
         </div>
       </div>

@@ -1,52 +1,64 @@
 <div id="home_tabs">
   <!-- Nav tabs -->
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active badge1"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a></li>
-        <li role="presentation" class="badge1" <%= "data-badge=#{@opps_need_action.count}" unless @opps_need_action.empty? %>><a href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a></li>
-        <li role="presentation" class="badge1" <%= "data-badge=#{@badge_requests.count}" unless @badge_requests.empty? %>><a href="#badges" aria-controls="badges" role="tab" data-toggle="tab">Badges</a></li>
-        <li role="presentation" class="badge1" <%= "data-badge=#{@messages.count}" unless @messages.empty? %>><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+        <li role="presentation" class="nav-item badge1">
+          <a class="nav-link active" href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a>
+        </li>
+        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@opps_need_action.count}" unless @opps_need_action.empty? %>>
+          <a class="nav-link" href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a>
+        </li>
+        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@badge_requests.count}" unless @badge_requests.empty? %>>
+          <a class="nav-link" href="#badges" aria-controls="badges" role="tab" data-toggle="tab">Badges</a>
+        </li>
+        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@messages.count}" unless @messages.empty? %>>
+          <a class="nav-link" href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>
+        </li>
       </ul>
     </div>
   </div>
-
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" style="padding-top:40px;" id="today">
+    <div role="tabcard" class="tab-pane active" style="padding-top:40px;" id="today">
+      <div class="dashboard mb-lg-5 mb-md-3 mb-sm-3 mb-3">
         <div class="row">
-          <div class="dashboard">
-            <%= render 'todays_overview' %>
+          <%= render 'todays_overview' %>
 
-            <%= render 'action_notes' if current_user.admin? %>
-          </div>
+          <%= render 'action_notes' if current_user.admin? %>
         </div>
-
-        <% unless class_session.in_session? %>
-          <% if !(@location_assessment_appointments.empty?) %>
-            <h2>Today's Assessments</h2>
-            <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless !(current_user.admin?) %>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <% unless class_session.in_session? %>
+            <% if !(@location_assessment_appointments.empty?) %>
+              <h2>Today's Assessments</h2>
+              <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless !(current_user.admin?) %>
+            <% end %>
+            <% if !(@location_hw_help_appointments.empty?) %>
+              <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
+            <% end %>
+            <% unless !(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?) %>
+              <hr>
+            <% end %>
           <% end %>
-          <% if !(@location_hw_help_appointments.empty?) %>
-            <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
-          <% end %>
-          <% unless !(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?) %>
-            <hr>
-          <% end %>
-        <% end %>
-
-        <%= render 'daily_schedule' if current_user.admin? %>
-
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <%= render 'daily_schedule' if current_user.admin? %>
+        </div>
+      </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="opportunities">
-      <%= render 'lead_management' %>
+    <div role="tabcard" class="tab-pane" style="padding-top:40px;" id="opportunities">
+      <%= render 'opportunity_management' %>
     </div>
-    <div role="tabpanel" class="tab-pane" style="padding-top:40px;" id="badges">
+    <div role="tabcard" class="tab-pane" style="padding-top:40px;" id="badges">
       <div class="row">
         <%= render 'admin_badge_requests' %>
       </div>
     </div>
-    <div role="tabpanel" class="tab-pane" style="padding-top:40px;" id="messages">
+    <div role="tabcard" class="tab-pane" style="padding-top:40px;" id="messages">
       <div class="row">
         <%= render 'admin_messages' %>
       </div>

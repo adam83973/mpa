@@ -1,25 +1,25 @@
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <strong>Find/Edit</strong><span class="caret"></span>
+<li class='nav-item dropdown'>
+  <a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown'>
+    <strong>Find/Edit</strong><span class='caret'></span>
   </a>
-  <ul class="dropdown-menu">
-    <li><%= link_to "Users", users_path %></li>
-    <li><%= link_to "Students", students_path %></li>
-    <li><%= link_to "Badges", badges_path %></li>
-    <li><%= link_to "Badge Categories", badge_categories_path %></li>
-    <li><%= link_to "Events", events_path %></li>
-    <li><%= link_to "Achievements", experiences_path %></li>
-    <li><%= link_to "Courses", courses_path %></li>
-    <li><%= link_to "Classes", offerings_path %></li>
-    <li><%= link_to "Lessons", lessons_path %></li>
-    <li><%= link_to "Opportunities", opportunities_path %></li>
-    <li><%= link_to "Problems & Activities", problems_path %></li>
+  <div class='dropdown-menu'>
+    <%= link_to 'Users', users_path, class: 'dropdown-item' %>
+    <%= link_to 'Students', students_path, class: 'dropdown-item' %>
+    <%= link_to 'Badges', badges_path, class: 'dropdown-item' %>
+    <%= link_to 'Badge Categories', badge_categories_path, class: 'dropdown-item' %>
+    <%= link_to 'Events', events_path, class: 'dropdown-item' %>
+    <%= link_to 'Achievements', experiences_path, class: 'dropdown-item' %>
+    <%= link_to 'Courses', courses_path, class: 'dropdown-item' %>
+    <%= link_to 'Classes', offerings_path, class: 'dropdown-item' %>
+    <%= link_to 'Lessons', lessons_path, class: 'dropdown-item' %>
+    <%= link_to 'Opportunities', opportunities_path, class: 'dropdown-item' %>
+    <%= link_to 'Problems & Activities', problems_path, class: 'dropdown-item' %>
     <% if current_user.admin? %>
-      <li><%= link_to "Products", products_path %></li>
+      <%= link_to 'Products', products_path, class: 'dropdown-item' %>
     <% end %>
-    <li><%= link_to "Resources", resources_path %></li>
+    <%= link_to 'Resources', resources_path, class: 'dropdown-item' %>
     <% if current_user.admin? %>
-      <li><%= link_to "Student Note QC", qc_experience_points_path %></li>
+      <%= link_to 'Student Note QC', qc_experience_points_path, class: 'dropdown-item' %>
     <% end %>
-  </ul>
+  </div>
 </li>

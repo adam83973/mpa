@@ -47,9 +47,9 @@
   </div>
   <div class="col-sm-6 learning_plans_help_sessions">
     <% if @learning_plan.help_session_records.any? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">Past Homework Help Sessions</div>
-      <div class="panel-body">
+    <div class="card card-default">
+      <div class="card-header">Past Homework Help Sessions</div>
+      <div class="card-block">
         <ul>
           <% @learning_plan.help_session_records.each do |help_session_record| %>
           <li class="help_session_record"><%= "#{help_session_record.comments} (#{help_session_record.date.strftime('%D')})" %></li>
