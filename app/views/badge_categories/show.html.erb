@@ -15,7 +15,7 @@
             <div class="well well-sm badge_card">
               <div id="badge_<%= badge.id %>" class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
-                  <%= image_tag(badge.image.url, size: "100x100") if  badge.image %>
+                  <%= image_tag(badge.image.url, size: "100x100") unless !badge.image || badge.image.blank? %>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-center" style="
             position: relative;height:200px;">
