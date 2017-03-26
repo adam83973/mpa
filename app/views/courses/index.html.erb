@@ -38,5 +38,5 @@
 <br />
 
 <% if signed_in? && current_user.try(:admin?) %>
-  <%= render 'layouts/import_form.html.erb' resource: @courses %>
+  <%= render 'layouts/import_form.html.erb', resource: @courses %>
 <% end %>
