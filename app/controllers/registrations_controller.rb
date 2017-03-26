@@ -85,16 +85,20 @@ class RegistrationsController < ApplicationController
     @new_offering = Offering.find(params[:registration][:offering_id])
 
     respond_to do |format|
-      if @new_registration = Registration.create!(start_date: params[:registration][:switch_date],
-                                                  offering_id: @new_offering.id,
-                                                  student_id: @student.id,
-                                                  attended_first_class: true,
-                                                  switch: true,
-                                                  status: 0)
-        @registration.update_attributes({end_date: params[:registration][:switch_date], switch_id: @new_registration.id})
+      if @new_registration = Registration.create!(start_date:             params[:registration][:switch_date],
+                                                  offering_id:            @new_offering.id,
+                                                  student_id:             @student.id,
+                                                  attended_first_class:   true,
+                                                  switch:                 true,
+                                                  status:                 0)
+
+        @registration.update_attributes(end_date:       params[:registration][:switch_date],
+                                        switch_id:      @new_registration.id)
+
         if @new_registration.start_date <= Date.today
           @new_registration.update_attribute :status, 1
         end
+        
         format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
@@ -165,8 +169,8 @@ class RegistrationsController < ApplicationController
                                                       status: 2,
                                                       attended_first_class: true,
                                                       hold_id: @registration.id)
-                                                      ``
-        note = @parent.notes.build({content: "#{@student.first_name} has entered a hold.      Please double check their subscriptions.",
+
+        note = @parent.notes.build({content: "#{@student.first_name} has entered a hold. Please double check their subscriptions.",
                                     user_id: @parent.system_admin_id,
                                     location_id: @registration.location.id,
                                     action_date: Date.tomorrow})

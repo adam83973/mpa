@@ -15,7 +15,7 @@
         <em> no teachers assigned</em>
     <% end %>
   </h3>
-  <%= link_to "#{@offering.name} Lessons", @offering.course, class: "btn btn-primary pull-right", style: 'margin-bottom:40px', target: "_blank" %>
+  <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right", style: 'margin-bottom:40px', target: "_blank" %>
 </div>
 
 <% if current_user.employee?%>

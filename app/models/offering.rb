@@ -21,14 +21,23 @@ class Offering < ActiveRecord::Base
 
   before_save :set_day_number
 
-  searchable do
-    text :offering_name
-    integer :course_id
-    time :time
-    integer :user_ids, :multiple => true
+  if Rails.env.development?
+    searchable :auto_index => false do
+      text :offering_name
+      integer :course_id
+      time :time
+      integer :user_ids, :multiple => true
+    end
+  else
+    searchable do
+      text :offering_name
+      integer :course_id
+      time :time
+      integer :user_ids, :multiple => true
+    end
   end
 
-  def name
+  def course_name
     course.name
   end
 

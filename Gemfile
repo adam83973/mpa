@@ -9,6 +9,8 @@ ruby '2.3.1'
 
 gem 'rails', '~> 5.0', '>= 5.0.2'
 
+gem 'pg'
+
 gem 'ahoy_email'
 gem 'attr_encrypted', '3.0.1'
 gem 'autoprefixer-rails'
@@ -49,17 +51,21 @@ gem 'omniauth-google-oauth2'
 gem 'paper_trail', '~> 4.0.0', group: [:production, :development, :test]
 gem 'populator'
 gem 'progress_bar'
+gem 'puma', '~> 3.0'
 gem 'rack-timeout'
 # gem 'rails-observers'
 gem 'rest-client'
 gem 'rmagick', :require => 'RMagick'
 gem 'rollbar'
+gem 'sass-rails', '~> 5.0'
 gem 'selectivizr-rails'
 gem 'sendgrid-ruby'
 gem 'simple_form'
 gem 'sunspot_rails'
 gem 'sunspot_solr', group: [:development, :production]
 gem 'test-unit'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '~> 3.0.6'
 gem 'woocommerce_api'
 gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
@@ -93,11 +99,7 @@ gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-
 
 
 
-gem 'sqlite3'
-gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'turbolinks', '~> 5'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 

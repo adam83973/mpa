@@ -25,7 +25,7 @@
                         <% if offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "A" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -38,7 +38,7 @@
                         <% elsif offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "B" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -51,7 +51,7 @@
                         <% elsif offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "C" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul>
                                     <% offering.users.each do |teacher| %>
@@ -74,7 +74,7 @@
                         <% if offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "A" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -87,7 +87,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "B" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -100,7 +100,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "C" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -123,7 +123,7 @@
                         <% if offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "A" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -136,7 +136,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "B" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -149,7 +149,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "C" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -172,7 +172,7 @@
                         <% if offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "A" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -185,7 +185,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "B" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -198,7 +198,7 @@
                         <% elsif offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "C" %>
                         <% i = true %>
                             <td>
-                                <p><strong><%= offering.name %></strong></p>
+                                <p><strong><%= offering.course_name %></strong></p>
                                 <u>Teachers:</u>
                                 <ul style="list-style-type:none;">
                                     <% offering.users.each do |teacher| %>
@@ -222,7 +222,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -241,7 +241,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -260,7 +260,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -282,7 +282,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -301,7 +301,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -320,7 +320,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -342,7 +342,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -361,7 +361,7 @@
                     <% if !offerings.empty? %>
                         <% offerings.each do |offering| %>
                         <td>
-                            <p><strong><%= link_to offering.name, offering, target: "_blank" %></strong></p>
+                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
                             <u>Teachers:</u>
                             <ul style="list-style-type:none;">
                                 <% offering.users.each do |teacher| %>
@@ -382,7 +382,7 @@
                         <td>
                             <p>
                               <strong>
-                              <%= link_to offering.name, offering, target: "_blank" %>
+                              <%= link_to offering.course_name, offering, target: "_blank" %>
                               </strong>
                             </p>
                             <u>Teachers:</u>

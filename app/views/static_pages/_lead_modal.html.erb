@@ -32,7 +32,7 @@
             <%= f.input :status, collection: Opportunity::STATUSES.zip((0..8).to_a) %>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <%= f.association :course, label_method: :course, input_html: { class: 'chosen' } %>
+            <%= f.association :course, label_method: :name, input_html: { class: 'chosen' } %>
             <%= f.association :offering, collection: @active_offerings.map{ |offering| [ offering.offering_name + " (#{offering.active_students_count})", offering.id] }, input_html: { class: 'chosen' } %>
             <%= f.input :appointment_date, as: :string, input_html: { class: "datepicker"} %>
             <%= f.input :trial_date, as: :string, input_html: { class: "datepickerFutureOnly"} %>

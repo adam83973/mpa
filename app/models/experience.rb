@@ -1,9 +1,6 @@
 class Experience < ActiveRecord::Base
-  #attr_accessible :category, :content, :name, :points, :image, :remove_image,
-                  # :resource_ids, :remote_image_url, :occupation_id, :active,
-                  # :badge_attributes
 
-  validates_presence_of :points, :category, :name, :occupation
+  validates_presence_of :points, :name
 
   has_paper_trail if Rails.env.development? || Rails.env.production?
 
@@ -39,7 +36,7 @@ class Experience < ActiveRecord::Base
   end
 
   def mark_badge_for_destruction
-    if badge.name.blank?
+    if badge && badge.name.blank?
       badge.mark_for_destruction
     end
   end

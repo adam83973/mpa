@@ -9,7 +9,8 @@ course_names_and_descriptions = [
 
 course_names_and_descriptions.each do |course_info|
   Course.create!(name:              course_info[0],
-                 description:       course_info[1])
+                 description:       course_info[1],
+                 capacity:          10)
 end
 
 # Create occupations
@@ -48,9 +49,9 @@ end
 # Create badges - A few basic badges are seeded and their images are added as
 # assets. Additional badges can be added and their images uploaded.
 
-badge_names = ['Attention To Detail', 'Dedicaation', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematicians', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
+badge_names = ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematicians', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
 
-badge_names.times do |name|
+badge_names.each do |name|
   Badge.create!(name:     name,
                 image:    "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png",
                 multiple: true)
@@ -64,11 +65,11 @@ end
 badge_names.each do |badge_name|
   badge = Badge.where(name: badge_name).first
 
-  Experience.create!(name:            "#{badge_name} Badge",
-                     content:         "Please update this with a description the
-                                       of the badge.",
-                     points:           75
-  )
+  experience = Experience.create!(name:            "#{badge_name} Badge",
+                                  content:         "Please update this with a description the
+                                                   of the badge.",
+                                  points:          75)
+  badge.update_attribute :experience_id, experience.id
 end
 
 # Experiences for attendance
