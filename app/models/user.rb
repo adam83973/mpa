@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       user = find_by_id(row["id"]) || new
-      user.attributes = row.to_hash.slice(*accessible_attributes)
+      user.attributes = row.to_hash.slice(*column_names)
       user.save!(:validate => false)
     end
   end

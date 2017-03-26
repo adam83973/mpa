@@ -64,10 +64,7 @@
     </tbody>
 </table>
 
-<% if signed_in? && current_user.admin? %>
-<h3> Import Students</h3>
-  <%= form_tag import_students_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+
+<% if signed_in? && current_user.try(:admin?) %>
+  <%= render 'layouts/import_form.html.erb' resource: @students %>
 <% end %>
