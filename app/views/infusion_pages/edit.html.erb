@@ -69,7 +69,7 @@
 			</tbody>
 		</table>
 		<h4>Add New Credit Card</h4>
-		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
+		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card', enforce_utf8: false), {:method => :get, class: 'form-horizontal'} do %>
 			<%= hidden_field_tag :Id, params[:ContactId] %>
 				<label class="control-label">Name on Card </label>
 				<%= text_field_tag :NameOnCard, nil, class:"form-control" %>
@@ -78,7 +78,7 @@
 				<label class="control-label">Credit Card Number </label>
 				<%= text_field_tag :CardNumber, nil, class:"form-control" %>
 				<label class="control-label">Expiration Month </label>
-				<%= select_tag 'ExpirationMonth', options_for_select((1..12).to_a), include_blank: true, class: "form-control", type: "text" %>
+				<%= select_tag 'ExpirationMonth', options_for_select(['01','02','03','04','05','06','07','08','09','10','11','12']), include_blank: true, class: "form-control", type: "text" %>
 				<label class="control-label">Expiration Year </label>
 				<%= select_year Date.today, { start_year: Date.today.year, max_years_allowed: 8 }, { class: "form-control", id: "ExpirationYear", name: "ExpirationYear", type: "text"  } %>
 				<br>

@@ -134,7 +134,10 @@ class InfusionPagesController < ApplicationController
   	# add ContactId to hash (renaming Id)
   	@credit_card.merge!(ContactId: @credit_card[:Id])
   	# remove kay,value pairs from hash
-  	@credit_card.except!(:utf8, :Id, :controller, :action)
+  	@credit_card.extract!(:utf8, :Id, :controller, :action)
+    # convert params to hash
+    hash = {}
+    @credit_card = @credit_card.each{|k,v| hash[k] = v}
 
   	result = Infusionsoft.data_add('CreditCard', @credit_card)
 
