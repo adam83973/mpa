@@ -2,8 +2,8 @@
 
 <div class="row">
 	<div class="col-sm-12">
-		<h4 class="hidden-sm hidden-xs">Classes</h4>
-		<h3 class="hidden-lg hidden-md" style="display:inline;">Classes</h3>
+		<h4 class="hidden-sm-down">Classes</h4>
+		<h3 class="hidden-md-up" style="display:inline;">Classes</h3>
 		<% @registrations.each do |reg| %>
 			<% if (0..2) === reg.status %>
 			  <%= render 'student_registration_card', reg: reg, student: @student, editable: true %>
@@ -15,15 +15,15 @@
 <% if current_user && current_user.employee? %>
 	<hr style="margin-bottom:10px;">
 
-	<div class="row">
+	<div class="row mt-3">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-			<h4 class="hidden-sm hidden-xs">Opportunities</h4>
-			<h3 class="hidden-lg hidden-md" style= "margin-top:5px;">Opportunities</h3>
+			<h4 class="hidden-sm-down">Opportunities</h4>
+			<h3 class="hidden-md-up" style= "margin-top:5px;">Opportunities</h3>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="text-right">
-				<%= link_to "New Opp", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-sm btn-success hidden-sm hidden-xs", style: "margin-top:10px;"%>
-					<%= link_to "New Opportunity", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-md btn-success hidden-lg hidden-md" %>
+				<%= link_to "New Opp", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-sm btn-success hidden-sm-down" %>
+					<%= link_to "New Opportunity", new_opportunity_path(student_id: @student.id, user_id: @student.user_id), class: "btn btn-md btn-success hidden-md-up" %>
 			</div>
 		</div>
 	</div>

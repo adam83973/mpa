@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323152859) do
+ActiveRecord::Schema.define(version: 20170327234659) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.datetime "sent_at"
     t.datetime "opened_at"
     t.datetime "clicked_at"
-    t.index ["token"], name: "index_ahoy_messages_on_token"
-    t.index ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type"
+    t.index ["token"], name: "index_ahoy_messages_on_token", using: :btree
+    t.index ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type", using: :btree
   end
 
   create_table "appointment_requests", force: :cascade do |t|
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.string   "hwHelpChild",  limit: 255
     t.string   "hwHelpClass",  limit: 255
     t.text     "hwHelpReason"
-    t.index ["location_id"], name: "index_appointments_on_location_id"
+    t.index ["location_id"], name: "index_appointments_on_location_id", using: :btree
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -92,7 +95,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.text     "comment"
     t.integer  "experience_point_id"
     t.integer  "course_id"
-    t.index ["student_id"], name: "index_assignments_on_student_id"
+    t.index ["student_id"], name: "index_assignments_on_student_id", using: :btree
   end
 
   create_table "attendances", force: :cascade do |t|
@@ -139,7 +142,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.datetime "updated_at",                        null: false
     t.date     "date_approved"
     t.text     "write_up"
-    t.index ["student_id"], name: "index_badge_requests_on_student_id"
+    t.index ["student_id"], name: "index_badge_requests_on_student_id", using: :btree
   end
 
   create_table "badges", force: :cascade do |t|
@@ -164,7 +167,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
   create_table "badges_students", id: false, force: :cascade do |t|
     t.integer "badge_id"
     t.integer "student_id"
-    t.index ["badge_id", "student_id"], name: "index_badges_students_on_badge_id_and_student_id"
+    t.index ["badge_id", "student_id"], name: "index_badges_students_on_badge_id_and_student_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -181,7 +184,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
   create_table "courses_problems", id: false, force: :cascade do |t|
     t.integer "problem_id"
     t.integer "course_id"
-    t.index ["problem_id", "course_id"], name: "index_courses_problems_on_problem_id_and_course_id"
+    t.index ["problem_id", "course_id"], name: "index_courses_problems_on_problem_id_and_course_id", using: :btree
   end
 
   create_table "daily_location_reports", force: :cascade do |t|
@@ -211,7 +214,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "enrollment_change_requests", force: :cascade do |t|
@@ -244,7 +247,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.text     "comment"
     t.integer  "grade_id"
     t.boolean  "negative",      default: false
-    t.index ["student_id"], name: "index_experience_points_on_student_id"
+    t.index ["student_id"], name: "index_experience_points_on_student_id", using: :btree
   end
 
   create_table "experiences", force: :cascade do |t|
@@ -368,7 +371,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.integer  "location_id"
     t.integer  "opportunity_id"
     t.integer  "completed_by"
-    t.index ["user_id"], name: "index_notes_on_user_id"
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
 
   create_table "occupation_levels", force: :cascade do |t|
@@ -415,20 +418,20 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.string   "classroom",       limit: 255
     t.boolean  "hidden",                      default: false
     t.integer  "day_number"
-    t.index ["course_id"], name: "index_offerings_on_course_id"
-    t.index ["location_id"], name: "index_offerings_on_location_id"
+    t.index ["course_id"], name: "index_offerings_on_course_id", using: :btree
+    t.index ["location_id"], name: "index_offerings_on_location_id", using: :btree
   end
 
   create_table "offerings_students", id: false, force: :cascade do |t|
     t.integer "offering_id"
     t.integer "student_id"
-    t.index ["student_id", "offering_id"], name: "index_offerings_students_on_student_id_and_offering_id"
+    t.index ["student_id", "offering_id"], name: "index_offerings_students_on_student_id_and_offering_id", using: :btree
   end
 
   create_table "offerings_users", id: false, force: :cascade do |t|
     t.integer "offering_id"
     t.integer "user_id"
-    t.index ["user_id", "offering_id"], name: "index_offerings_users_on_user_id_and_offering_id"
+    t.index ["user_id", "offering_id"], name: "index_offerings_users_on_user_id_and_offering_id", using: :btree
   end
 
   create_table "opportunities", force: :cascade do |t|
@@ -461,7 +464,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.integer  "promotion_id"
     t.boolean  "missed_trial",                      default: false
     t.boolean  "appointment_complete",              default: false
-    t.index ["location_id"], name: "index_opportunities_on_location_id"
+    t.index ["location_id"], name: "index_opportunities_on_location_id", using: :btree
   end
 
   create_table "problems", force: :cascade do |t|
@@ -487,7 +490,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
   create_table "problems_strategies", id: false, force: :cascade do |t|
     t.integer "problem_id"
     t.integer "strategy_id"
-    t.index ["problem_id", "strategy_id"], name: "index_problems_strategies_on_problem_id_and_strategy_id"
+    t.index ["problem_id", "strategy_id"], name: "index_problems_strategies_on_problem_id_and_strategy_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -521,8 +524,8 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.boolean  "switch",                    default: false
     t.integer  "drop_reason"
     t.boolean  "payment_information_later", default: false
-    t.index ["offering_id"], name: "index_registrations_on_offering_id"
-    t.index ["student_id"], name: "index_registrations_on_student_id"
+    t.index ["offering_id"], name: "index_registrations_on_offering_id", using: :btree
+    t.index ["student_id"], name: "index_registrations_on_student_id", using: :btree
   end
 
   create_table "resources", force: :cascade do |t|
@@ -598,6 +601,7 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.integer  "avatar_id",                           default: 0
     t.string   "avatar_background_color", limit: 255, default: "#ffffff"
     t.boolean  "has_learning_plan",                   default: false
+    t.integer  "current_occupation_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -679,21 +683,21 @@ ActiveRecord::Schema.define(version: 20170323152859) do
     t.boolean  "opportunities_reports",                   default: false
     t.string   "additional_withholding"
     t.date     "birth_date"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,        null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",          limit: 255,        null: false
+    t.string   "item_type",      limit: 255, null: false
+    t.integer  "item_id",                    null: false
+    t.string   "event",          limit: 255, null: false
     t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 1073741823
+    t.text     "object"
     t.datetime "created_at"
     t.text     "object_changes"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
   create_table "videos", force: :cascade do |t|
