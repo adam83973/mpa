@@ -9,10 +9,6 @@
   text-align: center;
 }
 
-.paddingtop15{
-  padding-top: 15px;
-}
-
 .student_tool_button{
   margin: 15px 0 15px 0;
 }
@@ -41,17 +37,6 @@
 .student-button{
 	padding-bottom: 50px;
 }
-
-/*.studentofferings{
-  -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border: solid 1px #cecece;
-    border-radius: 5px;
-  padding-left: 10px;
-  height: 200px;
-  overflow: scroll;
-}*/
 
 .achievementcompleted{
   color: #17ce00
@@ -83,11 +68,10 @@
   .student-occupations div:nth-child(2){
     margin: 0;
   }
-
   .inside{
     position:absolute;
-    top:73px;
-    left:35px;
+    top:81px;
+    left:38px;
     z-index:1;
   }
   .outside{
@@ -98,14 +82,22 @@
 
 
 @media only screen and (max-width : 1199px) {
-  .student-occupations div:nth-child(2){
-    margin: 0;
+  .student-occupations{
+    div:nth-child(2){
+      margin: 0;
+    }
+    h4{
+      font-size: 1em;
+      font-weight: bold;
+    }
   }
+
+
 
   .inside{
     position:absolute;
-    top:73px;
-    left:43.9%;
+    top:72px;
+    left:21px;
     z-index:1;
   }
   .outside{
@@ -116,14 +108,11 @@
 
 
 @media only screen and (max-width : 992px) {
-  .student-occupations div:nth-child(2){
-    margin: 0;
-  }
 
   .inside{
     position:absolute;
-    top:73px;
-    left:42%;
+    top:72px;
+    left:42.5%;
     z-index:1;
   }
   .outside{
@@ -134,14 +123,25 @@
 
 
 @media only screen and (max-width : 755px) {
-  .student-occupations div:nth-child(2){
-    margin: 0;
-  }
 
   .inside{
     position:absolute;
-    top:73px;
-    left:34.5%;
+    top:72px;
+    left:39.75%;
+    z-index:1;
+  }
+  .outside{
+    position:relative;
+    z-index:2;
+  }
+}
+
+@media only screen and (max-width : 450px) {
+
+  .inside{
+    position:absolute;
+    top:72px;
+    left:37.75%;
     z-index:1;
   }
   .outside{
@@ -181,8 +181,8 @@
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
   .inside{
     position:absolute;
-    top:79px;
-    left:276px;
+    top:72px;
+    left:201px;
     z-index:1;
   }
   .outside{
@@ -194,8 +194,8 @@
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
   .inside{
     position:absolute;
-    top:79px;
-    left:130px;
+    top:72px;
+    left:119px;
     z-index:1;
   }
   .outside{

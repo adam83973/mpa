@@ -1,4 +1,4 @@
-<div class="hidden-sm hidden-xs hidden-md">
+<div class="hidden-sm hidden-xs hidden-md d-flex justify-content-center mt-3 mb-3">
   <%if current_user.employee? %>
     <div class="btn-group btn-group-justified">
       <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-secondary student_tool_button"%>
@@ -9,24 +9,14 @@
     </div>
   <% end %>
 </div>
-<div class="hidden-lg col-md-12 col-sm-12 col-xs-12">
-  <ul class="nav list-inline">
+<div class="hidden-lg-up col-md-12">
+  <div class="nav list-inline">
     <%if current_user.employee? %>
-      <li>
-        <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary student_tool_button" %>
-      </li>
-      <li>
-        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-secondary student_tool_button"%>
-      </li>
-      <li>
+        <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary btn-block" %>
+        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-secondary btn-block"%>
         <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-secondary student_tool_button" } %>
-      </li>
-      <li>
-        <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary student_tool_button" %>
-      </li>
-      <li>
-        <%= link_to "Add Attendance", new_attendance_path(student_id: @student.id), class: "btn btn-secondary student_tool_button" %>
-      </li>
+        <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+        <%= link_to "Add Attendance", new_attendance_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
     <% end %>
-  </ul>
+  </div>
 </div>

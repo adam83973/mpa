@@ -7,16 +7,19 @@
   </div>
 <% end %>
 <% if current_user.employee? %>
-  <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary pull-right", style: "margin-bottom:15px;" %>
-  <% unless @student.has_learning_plan %>
-    <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary pull-right", style: "margin-right:10px;" %>
-  <% end %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary pull-right", style: "margin-bottom:15px;" %>
+      <% unless @student.has_learning_plan %>
+        <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary pull-right", style: "margin-right:10px;" %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
-
 
 <%= render 'student_stats' %>
 
-<div class="row paddingtop15">
+<div class="row">
   <div class="col-md-3 class_list">
     <%= render 'student_class_list' %>
   </div>
