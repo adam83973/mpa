@@ -1,6 +1,6 @@
 <%= simple_form_for(@opportunity) do |f| %>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-sm-12">
       <%= f.error_notification %>
       <%= f.input :title, input_html: { id: "oppotunity_title" }, placeholder: "Type a short description of this opportunity." %>
         <%= f.label "Interest Level:" %>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-sm-12">
         <%= f.button :submit, class: "pull-right btn btn-lg btn-success" %>
     </div>
   </div>

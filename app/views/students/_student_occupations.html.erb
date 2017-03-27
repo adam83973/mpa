@@ -1,4 +1,4 @@
-<div class="student-occupations col-lg-9 col-md-12 col-sm-12 col-xs-12">
+<div class="student-occupations col-lg-9">
 
     <!-- Mathematics student information -->
     <% if @student.is_mathematician? %>
@@ -31,7 +31,7 @@
     <% end %>
 
     <div class="text-center hidden-sm hidden-xs hidden-md col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
-      <div class="well well-sm" style='margin:0;'>
+      <div class="card" style='margin:0;'>
         <h3 style="margin:0 0 10px;">Badge Count</h3>
         <div class="text-center">
           <h1 style='font-size:10em;margin:15px 0 56px 0;'><%= @student.badges.count %></h1>

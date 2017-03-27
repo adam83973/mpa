@@ -121,10 +121,10 @@ class Student < ActiveRecord::Base
     assignments.order("created_at desc").limit(1).first
   end
 
-  def xp_sum_by_occupation(cat)
+  def xp_sum_by_occupation(occupation_name)
     t = 0
     experience_points.where( "created_at > ?", Student::RESET_DATE ).includes(:experience, :occupation).each do |xp|
-      if xp.occupation && xp.occupation.title == cat
+      if xp.occupation && xp.occupation.title == occupation_name
         t += xp.points
       end
     end

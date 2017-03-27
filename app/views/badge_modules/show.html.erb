@@ -1,12 +1,12 @@
 <% if current_user.admin? %>
   <div class="row" style="margin-bottom:20px;">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-sm-12">
       <%= link_to "Edit", edit_badge_module_path(@badge_module), class: "btn btn-secondary pull-right" %>
     </div>
   </div>
 <% end %>
 <div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="col-sm-12">
     <h1><%= @badge_module.name %></h1>
     <h2><%= @badge_module.badge_category.name %></h2>
   </div>

@@ -12,18 +12,18 @@
     <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary pull-right", style: "margin-right:10px;" %>
   <% end %>
 <% end %>
-<div class="row">
-  <%= render 'student_stats' %>
-</div>
+
+
+<%= render 'student_stats' %>
 
 <div class="row paddingtop15">
-  <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 class_list">
+  <div class="col-md-3 class_list">
     <%= render 'student_class_list' %>
   </div>
 
-  <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 achievements">
+  <div class="col-md-9 achievements">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'student_toolbar' %>
       </div>
     </div>
@@ -31,25 +31,25 @@
       <hr style="margin:0 0 10px 0;">
     <% end %>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'badges_earned' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'student_achievements' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12 col-xs-12">
         <%= render 'assignments' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'transactions' %>
 
       </div>
@@ -62,7 +62,7 @@
 
 <% if current_user.employee? %>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-sm-12">
       <h2 style="margin-bottom:40px;"><u>Student Account Administration</u></h2>
       <div class="card card-default">
         <div class="card-header">

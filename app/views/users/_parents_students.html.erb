@@ -1,7 +1,7 @@
 <% if @user.role  == "Parent" %>
   <% @user.students.each_with_index do |student, i| %>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= "<hr>".html_safe if i > 0 %>
       </div>
     </div>

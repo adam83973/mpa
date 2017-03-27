@@ -142,7 +142,7 @@ $('#addUserInformationModal').on 'shown.bs.modal', ->
 
 # Toggle opportunity information and actions from student show
 $('.opportunity_info_toggle').on "click", ->
-    $opp_info = $(this).closest('.well').find('.opportunity_info')
+    $opp_info = $(this).closest('.card').find('.opportunity_info')
     if $opp_info.css("display") is "none"
       $opp_info.slideDown()
       $(this).find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up")

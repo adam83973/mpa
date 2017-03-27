@@ -27,9 +27,9 @@
         <%= render 'layouts/admin_links' if current_user.admin? %>
         <%= render 'layouts/nav_dropdown' %>
       <% else %>
-        <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path %></li>
+        <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path, class: 'nav-link' %></li>
       <% end %>
     </ul>
-    <%= render 'shared/user_search' if current_user.employee? %>
+    <%= render 'shared/user_search' if signed_in? && current_user.employee? %>
   </div><!-- /.navbar-collapse -->
 </nav>

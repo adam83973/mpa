@@ -1,3 +1,7 @@
+def seed_image(asset_folder, file_name)
+  File.open(File.join(Rails.root, "/app/assets/images/#{asset_folder}/#{file_name}"))
+end
+
 # Create courses
 course_names_and_descriptions = [
   ['Recruits','KG - 1st Grade'], ['Techs','1st - 2nd Grade'],
@@ -10,7 +14,8 @@ course_names_and_descriptions = [
 course_names_and_descriptions.each do |course_info|
   Course.create!(name:              course_info[0],
                  description:       course_info[1],
-                 capacity:          10)
+                 capacity:          10,
+                 occupation_id:     1)
 end
 
 # Create occupations
@@ -34,26 +39,27 @@ Occupation.create!(title:             'Programmer',
 occupations_id_and_name = Occupation.pluck(:id, :title)
 
 # Add occupation levels. This sets up the leveling system for students
-occupations_id_and_name.each do |occupation_info|
+occupations_id_and_name.each_with_index do |occupation_info, i|
   next if occupation_info[1].downcase == 'badges'
   10.times do |n|
-    image = "MATHPLUS-#{occupation_info[1].downcase}-L#{"%02d" % (n+1)}.png"
-    OccupationLevel.create!(level:                1,
+    image_file = "MATHPLUS-#{occupation_info[1].downcase}-L#{"%02d" % (n)}.png"
+    OccupationLevel.create!(level:                n,
                             points:               1000 * n+1,
-                            rewards:              "Level #{n+1} Reward",
+                            rewards:              "Level #{n} Reward",
                             occupation_id:        occupation_info[0],
-                            image:                image)
+                            image:                seed_image("math_plus_icons", image_file))
   end
 end
 
 # Create badges - A few basic badges are seeded and their images are added as
 # assets. Additional badges can be added and their images uploaded.
 
-badge_names = ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematicians', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
+badge_names = ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematician', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
 
 badge_names.each do |name|
+  image_file = "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png"
   Badge.create!(name:     name,
-                image:    "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png",
+                image:    seed_image("badges", image_file),
                 multiple: true)
 end
 
@@ -66,8 +72,7 @@ badge_names.each do |badge_name|
   badge = Badge.where(name: badge_name).first
 
   experience = Experience.create!(name:            "#{badge_name} Badge",
-                                  content:         "Please update this with a description the
-                                                   of the badge.",
+                                  content:         "Please update this with a description the of the badge.",
                                   points:          75)
   badge.update_attribute :experience_id, experience.id
 end

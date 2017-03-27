@@ -85,7 +85,7 @@ end
 end
 
 # Create parents
-50.times do
+300.times do
   User.create!(first_name: Faker::Name.first_name,
                last_name: Faker::Name.last_name,
                email: Faker::Internet.email,
@@ -104,11 +104,13 @@ end
 parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)
 
 # Create students with parent associations
-50.times do
+450.times do
   parent_info = parent_id_and_last_name.sample #array of parent ids and last names
-  Student.create!(first_name: Faker::Name.first_name,
-                  last_name: parent_info[1],
-                  user_id: parent_info[0])
+  Student.create!(first_name:           Faker::Name.first_name,
+                  last_name:            parent_info[1],
+                  user_id:              parent_info[0],
+                  xp_total:             0,
+                  credits:              1)
 end
 
 student_ids = Student.pluck(:id)

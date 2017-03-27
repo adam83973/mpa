@@ -11,7 +11,7 @@
       <div class="modal-body">
         <%= simple_form_for(@opportunity) do |f| %>
           <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-12">
               <%= f.error_notification %>
                 <%= f.association :user, collection: User.where(role: "Parent"), label_method: :full_name, label: "Add to parent account", input_html: { class: 'chosen' } %>
             </div>
