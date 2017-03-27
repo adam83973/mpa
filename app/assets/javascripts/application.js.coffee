@@ -68,13 +68,20 @@ jQuery ->
   $(".chosen-select").chosen()
 
   $( "#sortable" ).sortable()
-  $( "#sortable" ).disableSelection()
 
   $( ".datepicker" ).datepicker
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
     yearRange: '1950:2019'
+
+  $('.modal').on 'shown.bs.modal', ->
+    $( ".datepicker" ).datepicker
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: '1950:2019'
+
 
   $(".datepickerFutureOnly").datepicker
     dateFormat: 'yy-mm-dd',
