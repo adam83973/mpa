@@ -34,7 +34,7 @@
                         <%= f.input :offering_id, input_html: { value: @offering_in_session.id }, as: :hidden %>
                         <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
                       </div>
-                        <%= f.button :submit, "Add to Class", class: "btn btn-xs btn-default" %>
+                        <%= f.button :submit, "Add to Class", class: "btn btn-xs btn-secondary" %>
                     <% end %>
                   <% end %>
                   <%= link_to student.full_name, student %>

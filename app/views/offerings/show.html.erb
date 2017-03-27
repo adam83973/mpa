@@ -1,5 +1,5 @@
 <div class="well well-lg" style="padding-bottom:55px;">
-  <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-default pull-right', target: "_blank" if current_user.admin? %>
+  <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-secondary pull-right', target: "_blank" if current_user.admin? %>
   <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
 
   <p>

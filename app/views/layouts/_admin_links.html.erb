@@ -19,6 +19,7 @@
     <% Location.all.each do |location| %>
       <%= link_to location.name, location, class: 'dropdown-item' %>
     <% end %>
+    <div class="dropdown-divider"></div>
     <%= link_to "Billing Audit", '/infusion_pages/audit', class: 'dropdown-item' %>
     <%= link_to "Reports", '/reports/new', class: 'dropdown-item' %>
   </div>

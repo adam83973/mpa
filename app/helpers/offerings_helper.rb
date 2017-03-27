@@ -1,9 +1,9 @@
 module OfferingsHelper
   def offering_capacity(offering)
     if offering.at_capacity?
-      "<span class='label label-danger pull-right'>Full</span>"
+      "<span class='badge badge-danger pull-right'>Full</span>"
     else
-      "<span class='label label-success pull-right'>Open</span>"
+      "<span class='badge badge-success pull-right'>Open</span>"
     end
   end
 

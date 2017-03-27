@@ -31,7 +31,7 @@
 				<td><%= i["LastName"] %></td>
 				<td><%= i["Email"] %></td>
 				<td>
-					<%= link_to 'Edit', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-default btn-sm' %>
+					<%= link_to 'Edit', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-secondary btn-sm' %>
 					<%= link_to 'Subscriptions', infusion_pages_subscription_path(ContactId: i["Id"]), class: 'btn btn-primary btn-sm' %>
  					<%= link_to 'Delete', infusion_pages_delete_user_path(Id: i["Id"]), class: 'btn btn-sm btn-danger' %>
 				</td>

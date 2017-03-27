@@ -8,7 +8,7 @@
       <%= f.input :password, :required => false  %>
       <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
       <br>
-      <%= f.button :submit, "Sign in", class: "btn btn-lg btn-default" %>
+      <%= f.button :submit, "Sign in", class: "btn btn-lg btn-secondary" %>
       <br>
       <div class="home_screen_links">
         <%= render "devise/shared/links" %>

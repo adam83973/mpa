@@ -46,8 +46,6 @@
       </div>
     </div>
 
-    <%= javascript_include_tag "application" %>
-
     <% if content_for? :fb_conversion %>
       <%= yield :fb_conversion %>
     <% end %>
@@ -55,6 +53,7 @@
     <% if content_for? :fb_pixel %>
       <%= yield :fb_pixel %>
     <% end %>
-
+    
+    <%= javascript_include_tag "application" %>
   </body>
 </html>

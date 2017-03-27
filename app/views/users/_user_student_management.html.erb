@@ -1,9 +1,9 @@
-<div class="card card-default">
+<div class="card card-default mb-3">
   <div class="card-header">
     <h3 style="display:inline;" class="card-title">Students</h3>
-    <%= link_to "Add Student", "javascript:void(0)", data: { toggle: "modal", target: "#newStudentUserModal" }, class: "pull-right" if current_user.admin? %>
+    <%= link_to "Add Student", "javascript:void(0)", data: { toggle: "modal", target: "#newStudentUserModal" }, class: "float-right" if current_user.admin? %>
   </div>
-  <div class="card-block">
+  <div class="card-block pb-0">
     <!-- displays each student for user -->
     <%= render 'parents_students' %>
   </div>

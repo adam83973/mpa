@@ -5,9 +5,9 @@ module LessonsHelper
 
   def lesson_status(lesson)
     if lesson.contains_error
-      "<span class='label label-danger'>Needs Review</span>".html_safe
+      "<span class='badge badge-danger'>Needs Review</span>".html_safe
     else
-      "<span class='label label-success'>OK</span>".html_safe
+      "<span class='badge badge-success'>OK</span>".html_safe
     end
   end
 end

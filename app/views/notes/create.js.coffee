@@ -9,7 +9,7 @@ else if document.getElementById("lesson_notes")
 
   # Hide Show Note Info ---
 $('.note_info_toggle').on "click", ->
-  $note_info = $(this).closest('.well').find('.note_info')
+  $note_info = $(this).closest('.card').find('.note_info')
   if $note_info.css("display") is "none"
     $note_info.slideDown()
     $(this).find(".fa-angle-double-down").removeClass("fa-angle-double-down").addClass("fa-angle-double-up")

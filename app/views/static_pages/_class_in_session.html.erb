@@ -5,7 +5,7 @@
       <h3>In Session: <%= offering.offering_name if class_session.offering %></h3>
       <h4>Week: <%= class_session.week %></h4>
       <%= link_to "Course Page", offering.course, class: "btn btn-primary pull-right" if class_session.offering %>
-      <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-default pull-right", style: "margin-right:20px;" if offering.lesson(class_session.week) %>
+      <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-secondary pull-right", style: "margin-right:20px;" if offering.lesson(class_session.week) %>
     </div>
   </div>
   <div class="row">
@@ -85,9 +85,9 @@
           <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
           <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
           <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right" %>
-          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-default btn-xs pull-right", style: "margin:0 40px 0 0;" unless Assignment.completed?(student_id, class_session.week.to_i - 1) %>
+          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-secondary btn-xs pull-right", style: "margin:0 40px 0 0;" unless Assignment.completed?(student_id, class_session.week.to_i - 1) %>
           <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-warning btn-xs pull-right", style: "margin:0 40px 0 0;" if Assignment.completed?(student_id, class_session.week.to_i - 1) %>
-          <%= link_to "Add Badge", new_badge_request_path(student_id: student_id), class: "btn btn-default btn-xs pull-right", style: "margin:0 15px 0 0;" %>
+          <%= link_to "Add Badge", new_badge_request_path(student_id: student_id), class: "btn btn-secondary btn-xs pull-right", style: "margin:0 15px 0 0;" %>
         </li>
       </div>
     <% end %>

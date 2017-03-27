@@ -1,7 +1,7 @@
 <% title @lesson.title %>
 <p>
-  <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-default pull-right" if current_user.employee? %>
-  <%= link_to "Search Lessons", lessons_path, class: "btn btn-default pull-right", style: "margin-right:20px;" if current_user.employee? %>
+  <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-secondary pull-right" if current_user.employee? %>
+  <%= link_to "Search Lessons", lessons_path, class: "btn btn-secondary pull-right", style: "margin-right:20px;" if current_user.employee? %>
 </p>
 <div class="row" style="margin-bottom:40px;">
   <div class="col-sm-12">

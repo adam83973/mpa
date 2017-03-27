@@ -1,32 +1,7 @@
-<div class="hidden-sm hidden-xs">
-  <div class="pull-right">
-    <ul class="nav ul-padding">
-        <li>
-          <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary student_tool_button", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
-        </li>
-        <% if @user.parent? %>
-          <li>
-            <%= link_to "Email Hold Form", {controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning student_tool_button", data: { confirm: "Are you sure you want to send a hold form?" } } %>
-          </li>
-          <li>
-            <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger student_tool_button", data: { confirm: "Are you sure you want to send a termination form?" } } %>
-          </li>
-        <% end %>
-    </ul>
-  </div>
-</div>
-<div class="hidden-lg hidden-md">
-  <ul class="nav list-inline">
-    <li>
-      <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary student_tool_button", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
-    </li>
-      <% if @user.parent? %>
-        <li>
-          <%= link_to "Email Hold Form", {controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning student_tool_button", data: { confirm: "Are you sure you want to send a hold form?" } } %>
-        </li>
-        <li>
-          <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger student_tool_button", data: { confirm: "Are you sure you want to send a termination form?" } } %>
-        </li>
-      <% end %>
-  </ul>
+<div class="float-lg-right mt-lg-0 mt-3">
+  <%= link_to "Send Password Reset", {controller: "users", action: "password_reset", id: @user.id}, { class: "btn btn-primary btn-block", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
+  <% if @user.parent? %>
+    <%= link_to "Email Hold Form", {controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning btn-block", data: { confirm: "Are you sure you want to send a hold form?" } } %>
+    <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger btn-block", data: { confirm: "Are you sure you want to send a termination form?" } } %>
+  <% end %>
 </div>

@@ -1,15 +1,15 @@
 module StudentsHelper
   def student_status(student)
     if student.registrations.any? { |reg| reg.status == 1 }
-      "<span class='label label-success'>Active</span>"
+      "<span class='badge badge-success'>Active</span>"
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 2 }
-      "<span class='label label-warning'>Hold</span>"
+      "<span class='badge badge-warning'>Hold</span>"
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 3 }
-      "<span class='label label-waitlist'>Waitlisted</span>"
+      "<span class='badge badge-waitlist'>Waitlisted</span>"
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 0 }
-      "<span class='label label-trial'>Hold</span>"
+      "<span class='badge badge-trial'>Hold</span>"
     else
-      "<span class='label label-danger'>Inactive</span>"
+      "<span class='badge badge-danger'>Inactive</span>"
     end
   end
 end

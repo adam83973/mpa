@@ -7,7 +7,7 @@
       <%= link_to @opportunity.student.full_name, @opportunity.student %>
     <% elsif @opportunity.student_name.empty? %>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 cl-xs-12">
+      <div class="col-sm-12">
         <div style="margin-bottom:0;" class="alert alert-danger" role="alert">
           Please <a data-toggle="modal" data-target="#addStudentInformationModal" href="javascript:void(0)" class="alert-link">add student information</a>. Or <a href="#" data-toggle="modal" data-target="#addStudentInformationModal" class="alert-link">attach to student account</a>.
         </div>

@@ -9,12 +9,12 @@
   <% end %>
   <% if signed_in? && help_session.in_session? %>
     <%= link_to help_sessions_active_session_path(student_id: help_session.student_id) do %>
-      <span class="label label-info" style="position:absolute;top:17px;">HW Help In Session</span>
+      <span class="tag tag-info" style="position:absolute;top:17px;">HW Help In Session</span>
     <% end %>
   <% end %>
   <% if signed_in? && class_session.in_session? %>
     <%= link_to root_url do %>
-      <span class="label label-success" style="position:absolute;top:17px;">Class In Session</span>
+      <span class="tag tag-success" style="position:absolute;top:17px;">Class In Session</span>
     <% end %>
   <% end %>
   <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-1">

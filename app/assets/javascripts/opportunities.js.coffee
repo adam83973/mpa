@@ -36,7 +36,7 @@ $("#new_opportunity")
   $form[0].reset()
 
 # Reset new opportunity form if form is closed and reapply chosen on modal show
-$("#opportunityModal").on 'shown.bs.modal', ->
+$("#opportunityModal").on 'show.bs.modal', ->
     $('.opportunity_other_source').hide()
     $('.chosen').chosen('destroy').chosen()
     $('#opportunity_appointment_date, #opportunity_trial_date').datepicker

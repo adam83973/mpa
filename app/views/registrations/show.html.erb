@@ -1,4 +1,4 @@
-<%= link_to "Edit", edit_registration_path(@registration), class: "btn btn-default pull-right" if current_user.admin? %>
+<%= link_to "Edit", edit_registration_path(@registration), class: "btn btn-secondary pull-right" if current_user.admin? %>
 <h1 style="margin:0 0 30px 0;">Class Registration</h1>
 <h2 style="margin:0 0 30px 0;color:gray;">Student - <%= @student.full_name %></h2>
 <div class="well well-sm" style="padding:0 0 0 0;">
@@ -36,7 +36,7 @@
 				 		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 					    <div class='text-center' style="margin-left:5px;">
 					    	<div class="btn-group btn-group-sm">
-								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-default", data: { registrationid: @registration.id, offeringid: @registration.offering_id } unless @registration.end_date || (@registration.switch_id && @registration.start_date > Date.today) || @registration.hold_date %>
+								  <%= link_to "Switch", "javascript:void(0)", class: "btn switch btn-secondary", data: { registrationid: @registration.id, offeringid: @registration.offering_id } unless @registration.end_date || (@registration.switch_id && @registration.start_date > Date.today) || @registration.hold_date %>
 								  <!-- Status 1 is active, which requires different actions. -->
 								  <% if @registration.status == 1 %>
 								  	<%= link_to "Hold", "javascript:void(0)", class: "btn hold btn-warning", data: { registrationid: @registration.id } unless @registration.end_date || @registration.hold_date %>

@@ -221,3 +221,12 @@ ul{
 .opportunity_group li {
   list-style: none;
 }
+
+#user_action_needed{
+  .card-block{
+    padding:10px;
+  }
+  .notes{
+    border: none;
+  }
+}

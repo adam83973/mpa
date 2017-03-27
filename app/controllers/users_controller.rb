@@ -66,13 +66,13 @@ class UsersController < ApplicationController
           @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
           @invoices.each do |i|
             if i["PayStatus"] == 0
-              i["Status"] = "<span class='label label-important'>Unpaid</span>"
+              i["Status"] = "<span class='badge badge-important'>Unpaid</span>"
             elsif i["RefundStatus"] == 1
-              i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+              i["Status"] = "<span class='badge badge-warning'>Partial Refund</span>"
             elsif i["RefundStatus"] == 2
-              i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+              i["Status"] = "<span class='badge badge-warning'>Full Refund</span>"
             else
-              i["Status"] = "<span class='label label-success'>Paid</span>"
+              i["Status"] = "<span class='badge badge-success'>Paid</span>"
             end
           end
         end

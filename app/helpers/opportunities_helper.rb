@@ -1,24 +1,24 @@
-  module OpportunitiesHelper
+module OpportunitiesHelper
   def opportunity_status(opp)
     case opp.status
     when 0
-      "<span class='label label-warning'>Interested</span>"
+      "<span class='badge badge-warning'>Interested</span>"
     when 1
-      "<span class='label label-purple'>Appointment Scheduled</span>"
+      "<span class='badge badge-purple'>Appointment Scheduled</span>"
     when 2
-      "<span class='label label-danger'>Appointment Missed</span>"
+      "<span class='badge badge-danger'>Appointment Missed</span>"
     when 3
-      "<span class='label label-yellow'>Trial</span>"
+      "<span class='badge badge-yellow'>Trial</span>"
     when 4
-      "<span class='label label-default'>Undecided</span>"
+      "<span class='badge badge-default'>Undecided</span>"
     when 5
-      "<span class='label label-blue'>Waitlisted</span>"
+      "<span class='badge badge-blue'>Waitlisted</span>"
     when 6
-      "<span class='label label-brown'>Possible Restart</span>"
+      "<span class='badge badge-brown'>Possible Restart</span>"
     when 7
-      "<span class='label label-success'>Won</span>"
+      "<span class='badge badge-success'>Won</span>"
     when 8
-      "<span class='label label-danger'>Lost</span>"
+      "<span class='badge badge-danger'>Lost</span>"
     end
   end
 

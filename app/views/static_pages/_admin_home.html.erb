@@ -3,16 +3,16 @@
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="nav-item badge1">
+        <li role="presentation" class="nav-item">
           <a class="nav-link active" href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a>
         </li>
-        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@opps_need_action.count}" unless @opps_need_action.empty? %>>
+        <li role="presentation" class="nav-item">
           <a class="nav-link" href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Opportunities</a>
         </li>
-        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@badge_requests.count}" unless @badge_requests.empty? %>>
+        <li role="presentation" class="nav-item">
           <a class="nav-link" href="#badges" aria-controls="badges" role="tab" data-toggle="tab">Badges</a>
         </li>
-        <li role="presentation" class="nav-item badge1" <%= "data-badge=#{@messages.count}" unless @messages.empty? %>>
+        <li role="presentation" class="nav-item">
           <a class="nav-link" href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>
         </li>
       </ul>

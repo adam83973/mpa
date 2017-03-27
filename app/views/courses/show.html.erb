@@ -1,5 +1,5 @@
 <% if current_user.admin?%>
-  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default pull-right' %>
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-secondary pull-right' %>
 <% end %>
 <h2 style="margin-bottom:30px;">
   <%= @course.name %>
