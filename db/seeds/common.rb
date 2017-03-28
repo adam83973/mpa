@@ -18,6 +18,15 @@ course_names_and_descriptions.each do |course_info|
                  occupation_id:     1)
 end
 
+# Create avatars
+avatar_names = ['Boy', 'Girl', 'Robot']
+
+avatar_names.each do |name|
+  file_name = "MATHPLUS-avatar-#{name.downcase}.png"
+  Avatar.create!(name:           name,
+                 image:          seed_image('avatars', file_name))
+end
+
 # Create occupations
 Occupation.create!(title:             'Mathematician',
                    description:       'Your working to master the ins and

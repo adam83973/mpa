@@ -128,7 +128,7 @@ class Student < ActiveRecord::Base
     when "Programmer"
       programmer_experience_points
     when "Engineer"
-      programmer_experience_points
+      engineer_experience_points
     end
   end
 

@@ -240,6 +240,7 @@ MathPlus::Application.routes.draw do
       get 'badges'
     end
     collection do
+      get :change_current_occupation
       get :last_attendance
       post :import
       post :create_from_opportunity

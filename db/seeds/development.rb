@@ -104,13 +104,21 @@ end
 parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)
 
 # Create students with parent associations
+avatar_ids = Avatar.pluck(:id)
+occupation_ids = Occupation.pluck(:id)
+
 450.times do
   parent_info = parent_id_and_last_name.sample #array of parent ids and last names
-  Student.create!(first_name:           Faker::Name.first_name,
-                  last_name:            parent_info[1],
-                  user_id:              parent_info[0],
-                  xp_total:             0,
-                  credits:              1)
+  Student.create!(first_name:                          Faker::Name.first_name,
+                  last_name:                           parent_info[1],
+                  user_id:                             parent_info[0],
+                  avatar_id:                           avatar_ids.sample,
+                  mathematician_experience_points:     [0, 100, 300, 500].sample,
+                  engineer_experience_points:          [0, 100, 300, 500].sample,
+                  programmer_experience_points:        [0, 100, 300, 500].sample,
+                  current_occupation_id:               occupation_ids.sample,
+                  xp_total:                            0,
+                  credits:                             1)
 end
 
 student_ids = Student.pluck(:id)
