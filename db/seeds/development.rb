@@ -109,10 +109,12 @@ occupation_ids = Occupation.pluck(:id)
 
 450.times do
   parent_info = parent_id_and_last_name.sample #array of parent ids and last names
+  hex_value = (0..2).map{"%0x" % (rand * 0x80 + 0x80)}.join.upcase # color for avatar bg
   Student.create!(first_name:                          Faker::Name.first_name,
                   last_name:                           parent_info[1],
                   user_id:                             parent_info[0],
                   avatar_id:                           avatar_ids.sample,
+                  avatar_background_color:             "##{hex_value}",
                   mathematician_experience_points:     [0, 100, 300, 500].sample,
                   engineer_experience_points:          [0, 100, 300, 500].sample,
                   programmer_experience_points:        [0, 100, 300, 500].sample,
@@ -158,7 +160,8 @@ end
                       content:           Faker::Lorem.sentence(3, false, 6),
                       notable_id:        parent_id_and_last_name.sample[0],
                       notable_type:      "User",
-                      action_date:       Date.today - 1.day)
+                      action_date:       Date.today - 1.day,
+                      location_id:       rand(1..3))
 
   note.update_attribute :created_at, Date.today - rand(0..5).days
 end

@@ -24,7 +24,7 @@
         Active
       </div>
     <% else %>
-      <a class="card-footer text-muted p-0 bg-faded" href="/students/change_current_occupation?student_id=<%= @student.id %>&occupation_id=<%= Occupation.find_by_title(occupation.capitalize).id %>" onclick="return confirm('Are you sure you want to make this the active occupation?')">
+      <a class="card-footer text-muted p-0 bg-faded" href="/students/change_current_occupation?student_id=<%= @student.id %>&occupation_id=<%= Occupation.find_by_title(occupation.capitalize).id %>" onclick="return confirm('Are you sure you want to make this the active occupation? You can only have one active at a time.')">
         Activate
       </a>
     <% end %>
