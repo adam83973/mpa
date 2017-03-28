@@ -2,7 +2,7 @@
 	<div style="padding:5px 10px 0 10px;">
 	  <div class="row">
 	    <div class='col-sm-12'>
-				<%= current_user.employee? ? link_to(reg.offering_name, reg) : reg.offering.offering_name %>
+				<%= current_user.employee? ? link_to(reg.offering_name, reg, class: 'offering-link') : reg.offering.offering_name %>
 				<%= render '/students/registration_dates', reg: reg %>
 				</div>
 			</div>

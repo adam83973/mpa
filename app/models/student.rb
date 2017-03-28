@@ -78,6 +78,11 @@ class Student < ActiveRecord::Base
     end
   end
 
+  #-----Student Opportunities-----
+  def active_opportunities?
+    opportunities.where(status: 0..6).any?
+  end
+
   #-----Student XP-----
   def redeemed_reward?(occupation_level_id)
     StudentLevelReward.exists?(occupation_level_id: occupation_level_id, student_id: id)
