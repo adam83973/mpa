@@ -26,7 +26,7 @@ class Student < ActiveRecord::Base
   has_many :lessons , :through => :grades
   has_many :locations, :through => :offerings
   has_many :notes, as: :notable
-  has_many :occupations, :through => :courses
+  # has_many :occupations, :through => :courses
   has_many :offerings, :through => :registrations
   has_many :opportunities
   has_many :transactions
@@ -122,13 +122,14 @@ class Student < ActiveRecord::Base
   end
 
   def xp_sum_by_occupation(occupation_name)
-    t = 0
-    experience_points.where( "created_at > ?", Student::RESET_DATE ).includes(:experience, :occupation).each do |xp|
-      if xp.occupation && xp.occupation.title == occupation_name
-        t += xp.points
-      end
+    case occupation_name
+    when "Mathematician"
+      mathematician_experience_points
+    when "Programmer"
+      programmer_experience_points
+    when "Engineer"
+      programmer_experience_points
     end
-    t
   end
 
   def update_xp_total
@@ -164,48 +165,32 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student Occupation-----
+  def occupations
+    occupations = []
+    occupations << "Mathematician" if is_mathematician?
+    occupations << "Engineer" if is_engineer?
+    occupations << "Programmer" if is_programmer?
+    occupations
+  end
+
+  def current_occupation_title
+    Occupation.find(current_occupation_id).title
+  end
+
   def in_robotics_class? #returns true if student is robotics student
     class_ids.include?(11)
   end
 
-  def is_active_mathematician?
-    math_class = false
-    registrations.active.includes(:offering).each do |registration|
-      if registration.offering.occupation.id == 1 # 1 = id for Mathematician
-        math_class = true
-      end
-    end
-    math_class
-  end
-
   def is_mathematician?
-    math_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 1 # 1 = id for Mathematician
-        math_class = true
-      end
-    end
-    math_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Mathematician' || mathematician_experience_points > 0
   end
 
   def is_engineer?
-    engineering_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 2 # 2 = id for Engineer
-        engineering_class = true
-      end
-    end
-    engineering_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Engineer' || engineer_experience_points > 0
   end
 
   def is_programmer?
-    programming_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 3 # 1 = id for Programmer
-        programming_class = true
-      end
-    end
-    programming_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Programmer' || programmer_experience_points > 0
   end
 
   #-----Student Levels-----

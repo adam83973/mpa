@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327234659) do
+ActiveRecord::Schema.define(version: 20170328003652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -576,32 +576,35 @@ ActiveRecord::Schema.define(version: 20170327234659) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string   "first_name",              limit: 255
-    t.string   "last_name",               limit: 255
+    t.string   "first_name",                      limit: 255
+    t.string   "last_name",                       limit: 255
     t.date     "birth_date"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "user_id"
-    t.string   "rank",                    limit: 255
+    t.string   "rank",                            limit: 255
     t.integer  "credits"
     t.integer  "xp_total"
     t.date     "restart_date"
     t.date     "return_date"
     t.date     "end_date"
-    t.integer  "math_level",                          default: 0
-    t.integer  "eng_level",                           default: 0
-    t.integer  "prog_level",                          default: 0
+    t.integer  "math_level",                                  default: 0
+    t.integer  "eng_level",                                   default: 0
+    t.integer  "prog_level",                                  default: 0
     t.integer  "hold_status"
     t.date     "start_hold_date"
-    t.integer  "mathematics_xp",                      default: 0
-    t.integer  "engineering_xp",                      default: 0
-    t.integer  "programmer_xp",                       default: 0
+    t.integer  "mathematics_xp",                              default: 0
+    t.integer  "engineering_xp",                              default: 0
+    t.integer  "programmer_xp",                               default: 0
     t.date     "start_date"
     t.boolean  "attended_first_class"
-    t.integer  "avatar_id",                           default: 0
-    t.string   "avatar_background_color", limit: 255, default: "#ffffff"
-    t.boolean  "has_learning_plan",                   default: false
+    t.integer  "avatar_id",                                   default: 0
+    t.string   "avatar_background_color",         limit: 255, default: "#ffffff"
+    t.boolean  "has_learning_plan",                           default: false
     t.integer  "current_occupation_id"
+    t.integer  "mathematician_experience_points",             default: 0
+    t.integer  "engineer_experience_points",                  default: 0
+    t.integer  "programmer_experience_points",                default: 0
   end
 
   create_table "tokens", force: :cascade do |t|
