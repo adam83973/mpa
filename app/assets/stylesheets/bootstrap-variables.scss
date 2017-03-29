@@ -1,5 +1,5 @@
 // Override Bootstrap variables here (defaults from bootstrap v4.0.0-alpha.6):
-
+$mpa_green: #30b34a;
 
 // Table of Contents
 //
@@ -74,16 +74,16 @@
 // Grayscale and brand colors for use across Bootstrap.
 
 // Start with assigning color names to specific hex values.
-// $white:  #fff;
-// $black:  #000;
-// $red:    #d9534f;
-// $orange: #f0ad4e;
-// $yellow: #ffd500;
-// $green:  #5cb85c;
-// $blue:   #0275d8;
-// $teal:   #5bc0de;
-// $pink:   #ff5b77;
-// $purple: #613d7c;
+$white:  #fff;
+$black:  #000;
+$red:    #d9534f;
+$orange: #f0ad4e;
+$yellow: #ffd500;
+$green:  #5cb85c;
+$blue:   #0275d8;
+$teal:   #5bc0de;
+$pink:   #ff5b77;
+$purple: #613d7c;
 
 // Create grayscale
 // $gray-dark:                 #292b2c;
@@ -599,9 +599,9 @@ $font-family-base:       $font-family-sans-serif;
 // $navbar-inverse-toggler-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-inverse-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"), "#", "%23");
 // $navbar-inverse-toggler-border:        rgba($white,.1);
 
-// $navbar-light-color:                rgba($black,.5);
-// $navbar-light-hover-color:          rgba($black,.7);
-// $navbar-light-active-color:         rgba($black,.9);
+   $navbar-light-color:                   rgb(59, 59, 58);
+   $navbar-light-hover-color:             rgb(0, 0, 0);
+   $navbar-light-active-color:            rgba($black,.9);
 // $navbar-light-disabled-color:       rgba($black,.3);
 // $navbar-light-toggler-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"), "#", "%23");
 // $navbar-light-toggler-border:       rgba($black,.1);

@@ -164,7 +164,7 @@ class StaticPagesController < ApplicationController
     def set_teacher
       @attendance = Attendance.new
       @user_offerings = @user.offerings.where(active: true).includes(:course, :location)
-      @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC") unless class_session.in_session?
+      @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC").order("location_id ASC").order("day_number ASC") unless class_session.in_session?
       @students = Student.all
       @offering_in_session = Offering.find(class_session.offering) if class_session.in_session?
       @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')

@@ -7,8 +7,8 @@ class ClassSessionsController < ApplicationController
 
   def start_class
     @class_session = ClassSession.new(session)
-    @class_session.add_week(params[:week])
-    @class_session.add_offering_id(params[:offering])
+    @class_session.add_week(params[:class_session][:week])
+    @class_session.add_offering_id(params[:class_session][:offering])
 
     redirect_to root_url
   end
