@@ -97,8 +97,10 @@ class ExperiencesController < ApplicationController
                                        :image, :remove_image, {resource_ids:[]},
                                        :remote_image_url, :occupation_id, :active,
                                        {badge_attributes: [:write_up_required,
-                                        :multiple, :requires_approval, :image, :badge_category_id, :submission_type,
-                                        :remove_image, :requirements, :name, :experience_id]})
+                                       :multiple, :requires_approval, :image,
+                                       :badge_category_id, :submission_type,
+                                       :attendance, :course_id,:remove_image,
+                                       :requirements, :name, :experience_id]})
   end
 
   def set_experience

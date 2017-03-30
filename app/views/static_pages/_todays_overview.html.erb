@@ -18,12 +18,12 @@
       </div>
       <div style="padding-top:0;" class="card-block">
         <div class="new_students">
-          <table class="table table-hover table-condensed">
+          <table class="table table-hover table-sm table-responsive">
             <% @new_students_today_location.each do |registration| %>
             <tr <%= "style=background:#fcb5a8;" if registration.start_has_passed? %>>
               <td>
-                <%= link_to "#{registration.student.full_name}", registration.student, target: "_blank" %> -
-                <%= registration.offering_name_dashboard %>
+                <%= link_to "#{registration.student.full_name}", registration.student, target: "_blank" %>
+                <span class="hidden-lg-down"> - <%= registration.offering_name_dashboard %><span>
               </td>
               <td>
                 <% if registration.start_date && registration.start_date < Date.today %>

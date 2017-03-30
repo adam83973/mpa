@@ -2,6 +2,15 @@ class StudentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_employee, except: [ :show, :update, :badges ]
 
+  def change_current_occupation
+    @student = Student.find(params[:student_id])
+    if @student.update_attribute :current_occupation_id, params[:occupation_id]
+      redirect_to @student, notice: 'Student occupation changed!'
+    else
+      redirect_to @student, danger: 'We were unable to change your occupation.'
+    end
+  end
+
   def badges
     @student = Student.find(params[:id])
     @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse

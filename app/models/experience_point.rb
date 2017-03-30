@@ -12,7 +12,6 @@ class ExperiencePoint < ActiveRecord::Base
 
   before_save :toggle_negative
   after_save :update_student_xp_level_credits_on_save
-  # after_update :update_student_xp_level_credits_on_save
   after_destroy :update_student_xp_level_credits_on_destroy, :cleanup
 
   def add_badge?(student)
@@ -70,7 +69,7 @@ class ExperiencePoint < ActiveRecord::Base
     end
 
     def toggle_negative
-      if points == 0 && experience_id != 3
+      if points == 0 && !(experience.name =~ /\bAttendance\b/)
         self.negative = true
       else
         self.negative = false
@@ -84,10 +83,8 @@ class ExperiencePoint < ActiveRecord::Base
       credits = (student.xp_sum - points)/100 - ((student.xp_sum)/100)
       # Remove credits lost
       student.add_remove_credits(credits)
-      # Recalculate current level
-      student.update_level(occupation.title)
-      # Update student xp
-      student.update_xp_total
+      # Updating current occupation xp, occupation levels and total xp
+      student.update_occupation_experience_points_and_level(-points)
     end
 
     def update_student_xp_level_credits_on_save
@@ -95,11 +92,9 @@ class ExperiencePoint < ActiveRecord::Base
       credits = (student.xp_sum + points)/100 - ((student.xp_sum)/100)
       # Add credits earned.
       student.add_remove_credits(credits)
-      puts "*****************Added Credits!*****************"      
+      puts "*****************Added Credits!*****************"
       puts "*****************Credits :: #{credits}*****************"
-      # Recalculate current level
-      student.update_level(occupation.title)
-      # Update student's xp
-      student.update_xp_total
+      # Updating current occupation xp, occupation levels and total xp
+      student.update_occupation_experience_points_and_level(points)
     end
 end

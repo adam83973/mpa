@@ -1,73 +1,96 @@
-<div class="well well-lg center-block">
-  <div class="row" style="margin-bottom:20px;">
-    <div class="col-lg-12 col-md-12 col-sm-12col-xs-12">
-      <% offering  = Offering.find(class_session.offering) if class_session.offering %>
-      <h3>In Session: <%= offering.offering_name if class_session.offering %></h3>
-      <h4>Week: <%= class_session.week %></h4>
-      <%= link_to "Course Page", offering.course, class: "btn btn-primary pull-right" if class_session.offering %>
-      <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-secondary pull-right", style: "margin-right:20px;" if offering.lesson(class_session.week) %>
-    </div>
+<% offering = Offering.find(class_session.offering) if class_session.offering %>
+<div class="card mb-4">
+  <div class="card-header" style="background:rgba(92, 184, 92, 0.33);">
+    <h3 class="mb-0">Class In Session</h3>
   </div>
-  <div class="row">
-    <div class="col-lg-4 col-md-3 col-xs-12">
-      <% if @todays_lesson && @todays_lesson.assignment %>
-        <div class="card">
-          <p>Lesson:</p>
-          <div class="text-center">
-              <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if resource_lookup(@todays_lesson.assignment) %>
-          </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-8">
+        <h3 class='card-title'>
+        <%= offering.offering_name if class_session.offering %>
+        </h3>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Week: <%= class_session.week %>
+        </h6>
+      </div>
+      <div class="col-lg-4">
+        <div class="btn-group pull-right">
+          <%= link_to "Course Page", offering.course, class: "btn btn-primary" if class_session.offering %>
+          <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-secondary" if offering.lesson(class_session.week) %>
         </div>
-      <% else %>
-        <div class="card">
-          <p>
-            No lesson on file.
-          </p>
-        </div>
-      <% end %>
+      </div>
     </div>
-    <div class="col-lg-4 col-md-3 col-xs-12">
-      <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key && !(@last_weeks_lesson.assignment_key.empty?) %>
-        <div class="card">
-          <p>Key:</p>
-          <div class="text-center">
-              <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
-          </div>
-        </div>
-      <% else %>
-        <div class="card">
-          <p>
-            No lesson on file.
-          </p>
-        </div>
-      <% end %>
-    </div>
-    <div class="col-md-4 col-xs-12">
-      <div class="card">
-        <% if @todays_lesson && (@todays_lesson.problems || @todays_lesson.resources) %>
-          <p>Activities/Additional Resources:</p>
-          <div class="text-center">
-            <% if @todays_lesson && @todays_lesson.problems %>
-              <% @todays_lesson.problems.each do |problem| %>
-                <p>- <%= link_to "#{problem.title}", problem %></p>
-              <% end %>
-            <% end %>
-            <% if @todays_lesson && @todays_lesson.resources %>
-              <% @todays_lesson.resources.each do |resource| %>
-                <p>- <%= link_to "#{resource.filename}", resource %></p>
-              <% end %>
-            <% end %>
+    <div class="row">
+      <div class="col-lg-4 col-md-3">
+        <% if @todays_lesson && @todays_lesson.assignment %>
+          <div class="card">
+            <div class="card-block">
+              <p>Lesson:</p>
+              <div class="text-center">
+                  <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if resource_lookup(@todays_lesson.assignment) %>
+              </div>
+            </div>
           </div>
         <% else %>
-          <p>
-            No problems or resources.
-          </p>
+          <div class="card">
+            <div class="card-block text-center">
+              <p>
+                No lesson on file.
+              </p>
+            </div>
+          </div>
         <% end %>
+      </div>
+      <div class="col-lg-4 col-md-3">
+        <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key && !(@last_weeks_lesson.assignment_key.empty?) %>
+          <div class="card">
+            <div class="card-block text-center">
+              <p>Key:</p>
+              <div class="text-center">
+                  <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="card">
+            <div class="card-block text-center">
+              <p>
+                No lesson on file.
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <div class="card">
+          <div class="card-block text-center">
+            <% if @todays_lesson && (@todays_lesson.problems || @todays_lesson.resources) %>
+              <p>Activities/Additional Resources:</p>
+              <div class="text-center">
+                <% if @todays_lesson && @todays_lesson.problems %>
+                  <% @todays_lesson.problems.each do |problem| %>
+                    <p>- <%= link_to "#{problem.title}", problem %></p>
+                  <% end %>
+                <% end %>
+                <% if @todays_lesson && @todays_lesson.resources %>
+                  <% @todays_lesson.resources.each do |resource| %>
+                    <p>- <%= link_to "#{resource.filename}", resource %></p>
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              <p>
+                No problems or resources.
+              </p>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-12 d-flex justify-content-center">
     <%= render 'attendance_grades_buttons' %>
   </div>
 </div>

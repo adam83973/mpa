@@ -8,7 +8,7 @@ class ClassSession
 
   def add_offering_id(offering)
     # offering is hash. e.g. {"id"=>"1"}
-    @session[:offering] = offering["id"].to_i
+    @session[:offering] = offering.to_i
   end
 
   def add_student(student)

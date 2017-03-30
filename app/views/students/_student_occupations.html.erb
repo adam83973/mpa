@@ -2,39 +2,18 @@
   <div class="student-occupations col-lg-9">
     <div class="row">
       <!-- Mathematics student information -->
-      <% if @student.is_mathematician? %>
-        <%= render 'occupation_stats', occupation: "mathematician" %>
-      <% end %>
+      <%= render 'occupation_stats', occupation: "mathematician" %>
 
       <!-- Engineering student information -->
-      <% if @student.is_engineer? %>
-        <%= render 'occupation_stats', occupation: "engineer" %>
-      <% end %>
+      <%= render 'occupation_stats', occupation: "engineer" %>
 
       <!-- Programming student information -->
-      <% if @student.is_programmer? %>
-        <%= render 'occupation_stats', occupation: "programmer" %>
-      <% end %>
-
-      <% if @student.occupations.uniq.count == 0 %>
-        <div style="position:relative; z-index:2;" class="text-center col-lg-9">
-        </div>
-      <% end %>
-
-      <% if @student.occupations.uniq.count == 1 %>
-        <div style="position:relative; z-index:2;" class="text-center col-lg-6">
-        </div>
-      <% end %>
-
-      <% if @student.occupations.uniq.count == 2 %>
-        <div style="position:relative; z-index:2;" class="text-center col-lg-3">
-        </div>
-      <% end %>
+      <%= render 'occupation_stats', occupation: "programmer" %>
 
       <div class="text-center hidden-md-down col-lg-3">
         <div class="card d-flex justify-content-center">
           <div class="card-block">
-            <h3>Badge Count</h3>
+            <h4>Badges</h4>
             <div class="text-center">
               <h1 style='font-size:10em;'>
                 <%= @student.badges.count %>

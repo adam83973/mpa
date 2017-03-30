@@ -1,14 +1,12 @@
-<fieldset>
-  <legend>Start A Class</legend>
-  <%= form_tag({controller: "class_sessions", action: "start_class", method: "post"}, class: "simple_form form-inline") do %>
-    <%= label_tag "Class" %>
-    <%= collection_select :offering, :id, @offerings, :id, :offering_name,{},{class: "form-control"} %>
-    <br>
-    <br>
-    <%= label_tag "Week" %>
-    <%= text_field_tag :week, params[:week], class:"form-control" %>
-    <br>
-    <br>
-    <%= submit_tag "Start Class", id: :startclass, disabled: :disabled, class: "btn btn-sm btn-success" %>
-  <% end %>
-</fieldset>
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-0">Start A Class</h3>
+  </div>
+  <div class="card-block">
+    <%= simple_form_for :class_session, as: :post, url: class_sessions_start_class_path do |f| %>
+      <%= f.input :offering, as: :select, collection: @offerings, input_html: {class: "chosen form-control"}, label: "Class", label_method: :offering_name %>
+      <%= f.input :week, as: :select, collection: (1..48).to_a, input_html: { class: "chosen", id: "week" } %>
+      <%= f.submit "Start Class", id: :startclass, disabled: :disabled, class: "btn btn-sm btn-success" %>
+    <% end %>
+  </div>
+</div>

@@ -18,6 +18,15 @@ course_names_and_descriptions.each do |course_info|
                  occupation_id:     1)
 end
 
+# Create avatars
+avatar_names = ['Boy', 'Girl', 'Robot']
+
+avatar_names.each do |name|
+  file_name = "MATHPLUS-avatar-#{name.downcase}.png"
+  Avatar.create!(name:           name,
+                 image:          seed_image('avatars', file_name))
+end
+
 # Create occupations
 Occupation.create!(title:             'Mathematician',
                    description:       'Your working to master the ins and
@@ -67,22 +76,36 @@ end
 # Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
 
 # Experiences for badges
-
 badge_names.each do |badge_name|
   badge = Badge.where(name: badge_name).first
 
   experience = Experience.create!(name:            "#{badge_name} Badge",
                                   content:         "Please update this with a description the of the badge.",
-                                  points:          75)
+                                  points:          75,
+                                  active:          true)
   badge.update_attribute :experience_id, experience.id
 end
 
 # Experiences for attendance
+Experience.create!(name:            "Attendance - Math Class",
+                   content:         "Points for attending a class. Plain and simple.",
+                   points:          20,
+                   active:          true,
+                   attendance:      true)
 
-Experience.create!(name:            "Attendance",
-                   content:         "You attended class. That's half the battle!",
-                   points:           20
-)
+Experience.create!(name:            "Attendance - Chess Club",
+                   content:         "Points for attending a class. Plain and simple.",
+                   points:          20,
+                   active:          true,
+                   attendance:      true,
+                   course_id:       Course.where(name: 'Chess Club').pluck(:id).first)
+
+Experience.create!(name:            "Attendance - Programming Lab",
+                   content:         "Points for attending a class. Plain and simple.",
+                   points:          20,
+                   active:          true,
+                   attendance:      true,
+                   course_id:       Course.where(name: 'Programming Lab').pluck(:id).first)
 
 # Experiences for assignments
 assignment_statuses_and_points = [["Incomplete", 0], ["Complete", 60], ["Perfect", 80]]
@@ -90,6 +113,7 @@ assignment_statuses_and_points = [["Incomplete", 0], ["Complete", 60], ["Perfect
 assignment_statuses_and_points.each do |assignment_info|
   Experience.create!(name:            assignment_info[0],
                      content:         "You attended class. That's half the battle!",
-                     points:           assignment_info[1]
-  )
+                     points:          assignment_info[1],
+                     assignment:      true,
+                     active:          true)
 end

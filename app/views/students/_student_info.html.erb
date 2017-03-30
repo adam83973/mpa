@@ -15,13 +15,15 @@
   <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
     <h3>Credits: <%= @student.credits %></h3>
   </div><!--/#totalCredits -->
+  <div class="text-muted">
+    <small>Experience Points: <%= @student.experience_point_total %></small>
+  </div>
   <% if current_user.employee? %>
     <div id="studentId" data-studentId="<%= @student.id %>">
     </div>
-
     <p>
       <strong>Parent:</strong>
-      <%= link_to @student.parent_name, @student.user %> (<%= mail_to @student.user.email, @student.user.email, target: "_blank" %>)
+      <%= link_to @student.parent_name, @student.user %>
     </p>
  <% else %>
     <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
