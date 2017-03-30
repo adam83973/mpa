@@ -126,21 +126,6 @@ class Student < ActiveRecord::Base
     assignments.order("created_at desc").limit(1).first
   end
 
-  def xp_sum_by_occupation(occupation_name)
-    case occupation_name
-    when "Mathematician"
-      mathematician_experience_points
-    when "Programmer"
-      programmer_experience_points
-    when "Engineer"
-      engineer_experience_points
-    end
-  end
-
-  def update_xp_total
-    update_column(:xp_total, xp_sum)
-  end
-
   #-----Student Credits-----
   def calculate_credit(experience_point)
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
@@ -200,12 +185,12 @@ class Student < ActiveRecord::Base
 
   #-----Student Levels-----
   def current_level(occupation_name)
-    points = xp_sum_by_occupation(occupation_name)
+    student_total_points_by_occupation = xp_sum_by_occupation(occupation_name)
     current_level = 0
-    occupation = Occupation.find_by_title(occupation_name)
-    occupation.occupation_levels.order(:level).each do |level|
-      if level.points <= points
-        current_level = level.level
+    occupation = Occupation.where("title = ?", occupation_name).first
+    occupation.occupation_levels.order(:level).each do |occupation_level|
+      if occupation_level.points <= student_total_points_by_occupation
+        current_level = occupation_level.level
       end
     end
     current_level
@@ -223,8 +208,8 @@ class Student < ActiveRecord::Base
   end
 
   def current_level_obj(occupation_name)
-    occupation_id = Occupation.find_by_title(occupation_name).id
-    current_level_obj = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
+    occupation_id = Occupation.where("title = ?", occupation_name).first.id
+    OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
   end
 
   def points_to_next_level(occupation_name)
@@ -244,15 +229,45 @@ class Student < ActiveRecord::Base
     (((xp_sum_by_occupation(occupation_name).to_f - current_level_obj(occupation_name).points.to_f)/(next_level(occupation_name).points.to_f - current_level_obj(occupation_name).points.to_f))*100).to_i
   end
 
-  def update_level(occupation_name)
-    occupation = Occupation.where("title=?", occupation_name).first
-    case occupation_name.downcase
+  def sum_occupation_experience_points
+    mathematician_experience_points + programmer_experience_points + engineer_experience_points
+  end
+
+  def xp_sum_by_occupation(occupation_name)
+    case occupation_name
+    when "Mathematician"
+      mathematician_experience_points
+    when "Programmer"
+      programmer_experience_points
+    when "Engineer"
+      engineer_experience_points
+    end
+  end
+
+  def update_occupation_experience_point_total(points)
+    case Occupation.find(current_occupation_id).title
+    when "Mathematician"
+      increment!(:mathematician_experience_points, points)
+    when "Programmer"
+      increment!(:programmer_experience_points, points)
+    when "Engineer"
+      increment!(:engineer_experience_points, points)
+    end
+
+    update_column(:experience_point_total, sum_occupation_experience_points)
+  end
+
+  def update_occupation_experience_points_and_level(points)
+    occupation = Occupation.find(current_occupation_id)
+    update_occupation_experience_point_total(points)
+    occupation_title = occupation.title
+    case occupation_title.downcase
     when "mathematician"
-      update_column(:math_level, current_level(occupation_name).to_i)
+      update_column(:mathematician_level, current_level(occupation_title).to_i)
     when "engineer"
-      update_column(:eng_level, current_level(occupation_name).to_i)
+      update_column(:engineer_level, current_level(occupation_title).to_i)
     when "programmer"
-      update_column(:prog_level, current_level(occupation_name).to_i)
+      update_column(:programmer_level, current_level(occupation_title).to_i)
     end
   end
 

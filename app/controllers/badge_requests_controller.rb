@@ -40,7 +40,7 @@ class BadgeRequestsController < ApplicationController
       save_badge_request
     end
 
-    respond_with(@badge_request, location: root_url)
+    redirect_to @student
   end
 
   def update
@@ -83,7 +83,7 @@ class BadgeRequestsController < ApplicationController
         badge = @badge_request.badge
         experience = badge.experience
 
-        flash_content = "Your badge request was received."
+        flash_content = "Your badge request was received. "
 
         if @badge_request.badge.requires_approval?
           flash_content = flash_content +  "We will process it shortly."
