@@ -1,3 +1,6 @@
+def seed_image(asset_folder, file_name)
+  File.open(File.join(Rails.root, "/app/assets/sample_lessons/#{asset_folder}/#{file_name}"))
+end
 # Create companies
 
 # Create locations
@@ -330,7 +333,18 @@ end
   registration_1.update_attribute(:switch_id, registration_2.id)
 end
 
-# Create lessons that are associated to each course
+# Create lessons that are associated to each course. Only seeding and uploading
+# lessons for one class.
+
+48.times do |n|
+  resource = Resource.create!(file:              seed_image("recruits", "recruit#{n+1}.pdf"),
+                              category:          0)
+  lesson = Lesson.create!(name:             "Recruits #{n+1}- Assignment",
+                          week:             n,
+                          assignment:       resource.id.to_s
+                          assignment_key:   nil
+                          course_id:        1)
+end
 
 # Create assignments that are associated to students
 
