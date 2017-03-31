@@ -14,6 +14,7 @@ course_names_and_descriptions = [
 course_names_and_descriptions.each do |course_info|
   Course.create!(name:              course_info[0],
                  description:       course_info[1],
+                 grade:             course_info[1].gsub(' Grade', ''),
                  capacity:          10,
                  occupation_id:     1)
 end

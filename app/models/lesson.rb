@@ -10,11 +10,13 @@ class Lesson < ActiveRecord::Base
   belongs_to :course
   has_many  :notes, as: :notable, dependent: :destroy
 
-  searchable do
-    # text :name
-    text :course_name
-    integer :week
-    text :course_name_and_week
+  if Rails.env.production?
+    searchable do
+      # text :name
+      text :course_name
+      integer :week
+      text :course_name_and_week
+    end
   end
 
   def title

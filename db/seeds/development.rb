@@ -339,10 +339,11 @@ end
 48.times do |n|
   resource = Resource.create!(file:              seed_image("recruits", "recruit#{n+1}.pdf"),
                               category:          0)
-  lesson = Lesson.create!(name:             "Recruits #{n+1}- Assignment",
-                          week:             n,
-                          assignment:       resource.id.to_s
-                          assignment_key:   nil
+
+  lesson = Lesson.create!(name:             "Lesson #{n+1}",
+                          week:             n+1,
+                          assignment:       resource.id.to_s,
+                          assignment_key:   nil,
                           course_id:        1)
 end
 

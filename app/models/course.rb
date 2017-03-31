@@ -3,7 +3,7 @@ class Course < ActiveRecord::Base
   has_many :offerings
   has_many :opportunities
   has_many :standards
-  has_many :lessons, through: :standards
+  has_many :lessons
   has_and_belongs_to_many :problems
   belongs_to :occupation
 
