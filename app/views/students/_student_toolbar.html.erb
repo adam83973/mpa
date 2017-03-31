@@ -3,7 +3,6 @@
     <div class="btn-group btn-group-justified">
       <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-secondary student_tool_button"%>
       <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary student_tool_button" %>
-      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-secondary student_tool_button" } %>
       <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary student_tool_button" %>
       <%= link_to "Add Attendance", new_attendance_path(attendance: {student_id: @student.id}), class: "btn btn-secondary student_tool_button" %>
     </div>
@@ -14,7 +13,6 @@
     <div class="mb-4">
       <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary btn-block" %>
       <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-secondary btn-block"%>
-      <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "btn btn-secondary btn-block" } %>
       <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
       <%= link_to "Add Attendance", new_attendance_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
     </div>

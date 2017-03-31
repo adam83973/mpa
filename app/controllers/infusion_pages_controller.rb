@@ -98,19 +98,16 @@ class InfusionPagesController < ApplicationController
   def update
   	# put all user params into an instance variable hash
   	@user_update = params
-    @new_customer = params[:NewCustomer]
   	# get the infusionsoft user id from the hash
   	user_update_id = params[:Id]
   	# remove key,value pairs from hash
     count = 0
+
+    @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
+
     begin
   	   @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
-  	  result = Infusionsoft.contact_update(user_update_id, @user_update)
-
-      if @new_customer
-        Infusionsoft.contact_add_to_group(user_update_id, 1648)
-        new_customer = true
-      end
+  	  result = Infusionsoft.contact_update(user_update_id, @user_update.to_unsafe_h)
     rescue
       if count < 3
         count = count + 1
@@ -135,11 +132,8 @@ class InfusionPagesController < ApplicationController
   	@credit_card.merge!(ContactId: @credit_card[:Id])
   	# remove kay,value pairs from hash
   	@credit_card.extract!(:utf8, :Id, :controller, :action)
-    # convert params to hash
-    hash = {}
-    @credit_card = @credit_card.each{|k,v| hash[k] = v}
 
-  	result = Infusionsoft.data_add('CreditCard', @credit_card)
+  	result = Infusionsoft.data_add('CreditCard', @credit_card.to_unsafe_h)
 
   	result ? flash[:notice] = "CC Added" : flash[:error] = "CC Add Failed"
 
@@ -170,15 +164,9 @@ class InfusionPagesController < ApplicationController
         @active_subscription.sort_by! {|hsh| hsh["Status"]}
       rescue
         count < 3 ? retry : ""
-        # loop through array of hashes and remove inactive subscriptions
-        # @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
-        # attach subscription plan names
-        @active_subscription.each do |i|
-          subscriptions.each do |j|
-            if i["ProgramId"].to_i == j["Id"].to_i
-              i["ProgramName"] = j["ProgramName"]
-            end
-          end
+
+        @active_subscriptions.each do |active_subscription|
+          active_subscription["ProgramName"] = "One Student Classes"
         end
       end
       # get invoices and display recent ones
@@ -247,10 +235,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def delete_user
-    #
-    # ADD A CONFIRM POP-UP!
-    #
-
     result = Infusionsoft.data_delete('Contact', params[:Id])
     if result
       flash[:notice] = "User deleted"

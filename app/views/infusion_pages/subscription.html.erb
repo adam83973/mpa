@@ -39,8 +39,8 @@
 							<% if i["Status"] == "Inactive" %>
 								<td></td>
 							<% else %>
-								<td>
-									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-small btn-danger', id: "end_subscription", data: { contactId: @user.infusion_id } %>
+								<td class="text-center">
+									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-sm btn-danger', id: "end_subscription", data: { contactId: @user.infusion_id } %>
 								</td>
 							<% end %>
 						</tr>
