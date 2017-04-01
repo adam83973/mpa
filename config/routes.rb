@@ -1,15 +1,14 @@
+class SubdomainConstraint
+  def matches?(request)
+    !request.subdomain.present? || request.subdomain == 'www'
+  end
+end
+
 MathPlus::Application.routes.draw do
 
-  resources :companies
-  resources :transactions
-
-  resources :products do
-    collection do
-      get :products_by_location
-    end
+  constraints(SubdomainConstraint.new) do
+    root :to => 'static_pages#landing'
   end
-
-  resources :learning_plans
 
   root to: 'static_pages#home'
 
@@ -44,6 +43,8 @@ MathPlus::Application.routes.draw do
   post "class_sessions/start_class"
   get "class_sessions/end_class"
   get "class_sessions/remove_student"
+
+  resources :companies
 
   resources :courses do
     collection { post :import }
@@ -112,6 +113,8 @@ MathPlus::Application.routes.draw do
   resources :leads do
     resources :notes
   end
+
+  resources :learning_plans
 
   resources :lessons do
     collection do
@@ -196,6 +199,12 @@ MathPlus::Application.routes.draw do
     collection { post :import }
   end
 
+  resources :products do
+    collection do
+      get :products_by_location
+    end
+  end
+
   resources :registrations do
     collection do
       post :switch
@@ -226,6 +235,7 @@ MathPlus::Application.routes.draw do
   end
 
   get 'mission_lookup', to: 'static_pages#mission_lookup'
+  get 'application_lookup', to: 'static_pages#application_lookup'
   get 'code', to: 'static_pages#enter_code'
   get 'events', to: 'static_pages#events'
   get 'event_enrollment', to: 'static_pages#event_enrollment'
@@ -253,6 +263,7 @@ MathPlus::Application.routes.draw do
   get 'students/attended_first_class', to: 'students#attended_first_class'
   post 'students/update_credits', to: 'students#update_credits'
 
+  resources :transactions
 
   resources :users do
     collection do

@@ -2,6 +2,9 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authorize_active, only: [:enter_code, :mission_lookup]
   before_filter :authorize_admin, only: [ :events, :event_enrollment ]
 
+  def landing
+  end
+
   def home
     if signed_in?
       @user = current_user
@@ -58,6 +61,15 @@ class StaticPagesController < ApplicationController
   end
 
   def thank_you
+  end
+
+  def application_lookup
+    subdomain = params[:company][:name].downcase
+    if company = Company.find_by_subdomain(subdomain)
+      redirect_to root_url(subdomain: subdomain)
+    else
+      redirect_to root_url, flash: { warning: "It doesn't look like there is an application that matches that name. Application names are all lower with no spaces or special characters." }
+    end
   end
 
   def mission_lookup

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  around_action :scope_current_company
+    # around_action :scope_current_company
 
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   	helper_method :help_session
 
     def current_company
-      @current_company ||= Company.find_by_subdomain!(request.subdomain)
+      @current_company ||= Company.find_by_subdomain(request.subdomain)
     end
     helper_method :current_company
 
