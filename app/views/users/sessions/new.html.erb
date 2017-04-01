@@ -1,16 +1,29 @@
 <% title "Sign In" %>
-<h2>Sign In</h2>
-
-<div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= simple_form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
-      <%= f.input :email, :required => false, :autofocus => true %>
-      <%= f.input :password, :required => false %>
-      <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
-      <br>
-      <%= f.button :submit, "Sign In", class: "btn btn-success" %>
-      <br><br>
-      <%= render "devise/shared/links" %>
-    <% end %>
+<div class="row login-page">
+  <div class="col-md-4 offset-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="mb-0 text-center">Sign In</h3>
+      </div>
+      <div class="card-block">
+        <%= simple_form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
+          <%= f.input :email, wrapper: :vertical_input_group do %>
+            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+            <%= f.input_field :email, :required => false, :autofocus => true, class: "form-control" %>
+          <% end %>
+          <%= f.input :password, wrapper: :vertical_input_group do %>
+            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock"></i></span>
+            <%= f.input_field :password, :required => true, class: "form-control" %>
+          <% end %>
+          <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
+          <br>
+          <%= f.button :submit, "Sign in", class: "btn btn-secondary pull-right" %>
+          <br>
+        <% end %>
+      </div>
+      <div class="card-footer text-center text-muted">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
   </div>
 </div>

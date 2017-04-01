@@ -1,3 +1,10 @@
+.gradient-primary {
+  background-image: -webkit-linear-gradient(top,#ffffff,#eeeeee);
+  background-image: linear-gradient(to bottom,#ffffff,#eeeeee);
+  background-color: #eeeeee;
+  min-height: 100vh;
+}
+
 @media (min-width: 992px) {
   .signin {
 		height: 600px;
@@ -23,15 +30,6 @@
 
 div.form-group.location_id{
 	margin-bottom:0;
-}
-.home_screen_links{
-	border:solide 1px white;
-	-webkit-border-radius: 3px;
-		 -moz-border-radius: 3px;
-					border-radius: 3px;
-	background-color: rgba(255,255,255,0.7);
-
-	display: inline-block;
 }
 
 footer{

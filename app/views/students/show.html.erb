@@ -8,11 +8,19 @@
 <% end %>
 <% if current_user.employee? %>
   <div class="row">
-    <div class="col-lg-3 offset-lg-9 mb-4 mb-lg-3">
-      <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary btn-block" %>
-      <% unless @student.has_learning_plan %>
-        <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
-      <% end %>
+    <div class="col-sm-12 col-xs-12 mb-4 mb-lg-3">
+      <div class="btn-group pull-right hidden-md-down">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+      <div class="hidden-lg-up">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary btn-block" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

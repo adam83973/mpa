@@ -31,17 +31,19 @@
 
     <%= render 'layouts/header' %>
 
-    <div class="container">
+    <%= render 'layouts/flash_message' %>
 
-      <%= render 'layouts/flash_message' %>
+    <div class="page-wrapper gradient-primary">
+      <div class="container" style="padding:60px 0 40px 0;">
 
-      <%= yield %>
+        <%= yield %>
 
-      <%= render 'layouts/footer' %>
+        <%= render 'layouts/footer' %>
 
-      <div class="card">
-        <div class="card-block">
-          <%= debug(params) if Rails.env.development? %>
+        <div class="card mt-4">
+          <div class="card-block">
+            <%= debug(params) if Rails.env.development? %>
+          </div>
         </div>
       </div>
     </div>
@@ -53,7 +55,7 @@
     <% if content_for? :fb_pixel %>
       <%= yield :fb_pixel %>
     <% end %>
-    
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
