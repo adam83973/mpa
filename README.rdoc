@@ -1,3 +1,5 @@
 == App For Managing Math Plus Branches and Locations
 
 Setup puma-dev for easier management of subdomains in the development environment. https://github.com/puma/puma-dev
+
+Clone repository and run `bundle install`
