@@ -2,7 +2,7 @@
 
 Setup puma-dev for easier management of subdomains in the development environment. https://github.com/puma/puma-dev
 
-Once you've installed puma-dev run `cd ~/.puma-dev; ln -s /path/to/my/app mathplusacademy`. This will allow you to access the application at mathplusacademy.dev.
+Once you've installed puma-dev run `cd ~/.puma-dev; ln -s /path/to/my/app mathplusacademy`. This will allow you to access the application at mathplusacademy.dev. Be sure to replace `/path/to/my/app` with the correct local path to the cloned repository.
 
 Clone repository and run `bundle install`
 
