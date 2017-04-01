@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-    # around_action :scope_current_company
-
+  around_action :scope_current_company
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
   after_filter :set_access_control_headers
@@ -52,6 +51,10 @@ class ApplicationController < ActionController::Base
     helper_method :current_company
 
     def scope_current_company(&block)
-      current_company.scope_schema("public", &block)
+      if current_company.nil?
+        yield
+      else
+        current_company.scope_schema("public", &block)
+      end
     end
 end
