@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  around_action :scope_current_company
+
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
   after_filter :set_access_control_headers
@@ -16,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin
-    redirect_to root_path, :flash => {:alert => "Not authorized."} unless current_user && current_user.admin?
+    redirect_to root_path, alert: "Not authorized." unless current_user && current_user.admin?
   end
 
   def authorize_employee
@@ -34,14 +36,22 @@ class ApplicationController < ActionController::Base
 
   private
 
-	def class_session
-	  @class_session ||= ClassSession.new(session)
-	end
-	helper_method :class_session
+  	def class_session
+  	  @class_session ||= ClassSession.new(session)
+  	end
+  	helper_method :class_session
 
-  def help_session
-	  @help_session ||= HelpSession.new(session)
-	end
-	helper_method :help_session
+    def help_session
+  	  @help_session ||= HelpSession.new(session)
+  	end
+  	helper_method :help_session
 
+    def current_company
+      @current_company ||= Company.find_by_subdomain!(request.subdomain)
+    end
+    helper_method :current_company
+
+    def scope_current_company(&block)
+      current_company.scope_schema("public", &block)
+    end
 end

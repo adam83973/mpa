@@ -3,13 +3,12 @@ def seed_image(asset_folder, file_name)
 end
 # Create companies
 
-# Create locations
-locations = ['Powell', 'Hilliard', 'New Albany']
-
-locations.each do |location|
-  Location.create!(name: location,
+#create locations
+3.times do
+  city = Faker::Address.city
+  Location.create!(name: city,
                    address: Faker::Address.street_address,
-                   city: Faker::Address.city,
+                   city: city,
                    state: Faker::Address.state,
                    zip: Faker::Address.city)
 end

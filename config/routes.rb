@@ -1,5 +1,6 @@
 MathPlus::Application.routes.draw do
 
+  resources :companies
   resources :transactions
 
   resources :products do
