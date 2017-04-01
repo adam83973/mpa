@@ -9,3 +9,5 @@ Clone repository and run `bundle install`
 To set up development environment run `rake development:setup`
 
 Then to see second instance of a company run `rake new:company`
+
+After completing the above commands you will have access to columbus.mathplusacademy.dev and india.mathplusacademy.dev.s
