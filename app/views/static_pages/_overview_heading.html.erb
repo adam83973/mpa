@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-4 col-xs-5">
     <%= simple_form_for :location do |f| %>
-      <%= f.input :id, collection: Location.all, label_method: :name, selected: @user_location.id, label: false, input_html: { data: {url: root_url}}  %>
+      <%= f.input :id, collection: Location.all, label_method: :name, selected: @user_location.id, label: false, input_html: { data: {url: root_url(subdomain: current_company.subdomain)}}  %>
     <% end %>
   </div>
 </div>
