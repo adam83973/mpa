@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_filter :authorize_employee
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -73,6 +74,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:name, :sku, :price, :credits, :quantity, :location_id)
+      params.require(:product).permit(:name, :sku, :price, :credits, :quantity, :location_id, :virtual)
     end
 end

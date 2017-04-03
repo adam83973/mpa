@@ -21,7 +21,7 @@
         <td><%= product.location ? product.location.name : "Please add a location to this product." %></td>
         <td><%= product.price ? "$#{product.price_in_dollars}" : "Please add price." %></td>
         <td><%= product.credits %></td>
-        <td><%= product.quantity %></td>
+        <td><%= !product.virtual? ? product.quantity : 'n/a' %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
       </tr>

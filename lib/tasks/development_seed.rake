@@ -15,6 +15,28 @@ def seed_lessons(asset_folder, file_name)
 end
 
 def seed_common
+  create_courses
+  create_avatars
+  create_occupations
+  create_occupation_levels
+  create_badges
+  create_experiences
+end
+
+
+
+def seed_development_environment
+  create_locations
+  create_users
+  create_offerings
+  create_notes
+  create_registrations
+  create_offerings
+  create_lessons
+  create_products
+end
+
+def create_courses
   # Create courses
   course_names_and_descriptions = [
     ['Recruits','KG - 1st Grade'], ['Techs','1st - 2nd Grade'],
@@ -31,7 +53,9 @@ def seed_common
                    capacity:          10,
                    occupation_id:     1)
   end
+end
 
+def create_avatars
   # Create avatars
   avatar_names = ['Boy', 'Girl', 'Robot']
 
@@ -40,7 +64,9 @@ def seed_common
     Avatar.create!(name:           name,
                    image:          seed_image('avatars', file_name))
   end
+end
 
+def create_occupations
   # Create occupations
   Occupation.create!(title:             'Mathematician',
                      description:       'Your working to master the ins and
@@ -58,7 +84,9 @@ def seed_common
                                         for you. Why not learn to do the same
                                         with computers? They\'re much faster than
                                         humans.')
+end
 
+def create_occupation_levels
   occupations_id_and_name = Occupation.pluck(:id, :title)
 
   # Add occupation levels. This sets up the leveling system for students
@@ -73,11 +101,15 @@ def seed_common
                               image:                seed_image("math_plus_icons", image_file))
     end
   end
+end
 
+def badge_names
+  ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematician', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
+end
+
+def create_badges
   # Create badges - A few basic badges are seeded and their images are added as
   # assets. Additional badges can be added and their images uploaded.
-
-  badge_names = ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematician', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
 
   badge_names.each do |name|
     image_file = "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png"
@@ -85,8 +117,9 @@ def seed_common
                   image:    seed_image("badges", image_file),
                   multiple: true)
   end
+end
 
-
+def create_experiences
   # Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
 
   # Experiences for badges
@@ -133,7 +166,7 @@ def seed_common
   end
 end
 
-def seed_development_environment
+def create_locations
   #create locations
   3.times do
     city = Faker::Address.city
@@ -143,10 +176,14 @@ def seed_development_environment
                      state: Faker::Address.state,
                      zip: Faker::Address.city)
   end
+end
 
-  location_ids = Location.all.pluck(:id)
+def location_ids
+  Location.pluck(:id)
+end
+
+def create_users
   # Create admins
-
   admin = User.create!(first_name: 'Travis',
                        last_name: 'Sperry',
                        email: 'admin@mathplusacademy.dev',
@@ -181,7 +218,6 @@ def seed_development_environment
                  admin: true,
                  role: 'Admin')
   end
-  director_ids = User.where(role: 'Admin').pluck(:id)
 
   # Teachers
   20.times do
@@ -256,12 +292,13 @@ def seed_development_environment
                              credits:                             1)
     student.update_attribute :experience_point_total, student.sum_occupation_experience_points
   end
+end
 
-  student_ids = Student.pluck(:id)
-
+def create_offerings
   # Create offerings (with teacher associations) for each location
   120.times do
     teacher = User.where(role: "Teacher").order("RANDOM()").first
+    teaching_assistant = User.where(role: "Teaching Assistant").order("RANDOM()").first
     course = Course.order("RANDOM()").first
     location = Location.order("RANDOM()").first
     day_number = rand(1..6)
@@ -276,9 +313,13 @@ def seed_development_environment
                                 time:                  time)
 
     OfferingsUser.create!(offering_id: offering.id, user_id: teacher.id)
+    OfferingsUser.create!(offering_id: offering.id, user_id: teaching_assistant.id)
   end
+end
 
-  offering_ids = Offering.pluck(:id)
+def create_notes
+  director_ids = User.where(role: 'Admin').pluck(:id)
+  parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)
 
   # Create notes for parents
   30.times do
@@ -320,6 +361,12 @@ def seed_development_environment
                         action_date:       Date.today + rand(20..60).days,
                         location_id:       rand(1..3))
   end
+end
+
+def create_registrations
+  director_ids = User.where(role: 'Admin').pluck(:id)
+  student_ids = Student.pluck(:id)
+  offering_ids = Offering.pluck(:id)
 
   # Create registrations
   450.times do
@@ -463,7 +510,9 @@ def seed_development_environment
 
     registration_1.update_attribute(:switch_id, registration_2.id)
   end
+end
 
+def create_lessons
   # Create lessons that are associated to each course. Only seeding and uploading
   # lessons for one class.
 
@@ -476,5 +525,30 @@ def seed_development_environment
                             assignment:       resource.id.to_s,
                             assignment_key:   nil,
                             course_id:        1)
+  end
+end
+
+def create_products
+  products = ['Settlers of Catan', 'Swish', 'Set', 'Rush Hour', 'Tipover', 'Sleeping Queens']
+  virtual_products = ['iTunes Gift Card', 'Amazon Gift Card']
+  3.times do |n|
+    products.each do |product|
+      Product.create!(name:                     product,
+                      price:                    [1499, 1899, 2599].sample,
+                      credits:                  [15, 20, 25].sample,
+                      location_id:              n,
+                      quantity:                 rand(6..15))
+    end
+  end
+
+  3.times do |n|
+    virtual_products.each do |product|
+      Product.create!(name:                     product,
+                      price:                    1000,
+                      credits:                  25,
+                      location_id:              n,
+                      quantity:                 0,
+                      virtual:                  true)
+    end
   end
 end
