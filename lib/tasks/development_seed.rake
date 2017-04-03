@@ -254,7 +254,7 @@ def seed_development_environment
                              current_occupation_id:               occupation_ids.sample,
                              xp_total:                            0,
                              credits:                             1)
-    student.update_attribute :xp_total, student.sum_occupation_experience_points
+    student.update_attribute :experience_point_total, student.sum_occupation_experience_points
   end
 
   student_ids = Student.pluck(:id)

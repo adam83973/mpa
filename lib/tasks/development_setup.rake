@@ -11,7 +11,7 @@ namespace :development do
 
     company = Company.create!(name: 'ScoreGetter', subdomain: 'india')
     puts "Seeding #{company.name} information."
-    company.scope_schema { Rake::Task['new:company'].invoke } if company
+    Rake::Task['new:company'].invoke
 
   end
 end
