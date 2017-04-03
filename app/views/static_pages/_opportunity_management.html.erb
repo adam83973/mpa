@@ -2,27 +2,25 @@
 <p>
   <%= link_to "New Opportunity", "#opportunityModal", data: {toggle: :modal}, class: "btn btn-md btn-success", id: "opportunityModalButton" %>
 </p>
-<br>
-<div class="row">
-  <div class="col-lg-6">
-    <div id="opportunities_by_status">
-      <div class="card card-default">
-        <div class="card-block">
-          <h4 class="card-title"><u>Interested</u></h4>
-          <ul>
-            <% @user_location.opportunities.includes(:student, :user).where(status: 0).each do |opp| %>
-              <%= render '/shared/lead_group', opportunity: opp %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 mt-lg-0 mt-md-3 mt-sm-3 mt-3">
-    <div id="stage_droppable">
-      <%= render 'droppable_stages' %>
-    </div><!-- /#stage_droppable -->
-  </div><!-- /.span4 -->
-</div><!-- /.row -->
+<table class="table table-bordered table-small">
+  <thead>
+    <tr>
+      <% 6.times do |n| %>
+        <th>
+          <%= Opportunity::STATUSES[n] %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% 6.times do |n| %>
+        <th>
+          <%= Opportunity.where(status: n).count %>
+        </th>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
 <%= render 'opportunity_modal' %>
