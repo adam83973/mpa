@@ -140,7 +140,7 @@ student_ids = Student.pluck(:id)
                               day:                   Date::DAYNAMES[day_number],
                               day_number:            day_number,
                               active:                true,
-                              classroom:             rand(1..3),
+                              classroom:             %w(A B C).sample,
                               time:                  time)
 
   OfferingsUser.create!(offering_id: offering.id, user_id: teacher.id)
