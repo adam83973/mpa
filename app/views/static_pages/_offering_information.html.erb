@@ -1,0 +1,7 @@
+<%= link_to offering do %>
+  <%= offering.time.strftime('%I:%M %p') %> - <%= offering.course_name %>
+<% end %>
+<br>
+Teacher: <%= offering.teacher.full_name if offering.teacher %>
+<br>
+Assistant Teacher: <%= offering.assistant_teacher.full_name if offering.assistant_teacher %>

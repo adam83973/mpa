@@ -153,14 +153,16 @@ class StaticPagesController < ApplicationController
     def set_location
       if current_user.admin?
         @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
+
         @user_location.notes.includes(:notable, :user).where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
         #add location notes to user_action needed
 
-        if Offering.any_today_location?(@user_location)
-          @todays_offering_by_location = Offering.includes(:users).where("active = ? AND location_id = ?", true,      @user_location.id).includes(:course).reject{|hash| hash[:day] != Time.now.strftime('%A') }
-        else
-          @todays_offering_by_location = []
-        end
+        @classroom_a_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "A").order(:time)
+        @classroom_b_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "B").order(:time)
+        @classroom_c_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "C").order(:time)
+
+        @todays_offerings = @classroom_a_offerings + @classroom_b_offerings + @classroom_c_offerings
+
         @location_offerings_count = @location_offerings.count
       end
 

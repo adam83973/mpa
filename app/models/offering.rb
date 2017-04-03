@@ -75,6 +75,27 @@ class Offering < ActiveRecord::Base
   #   end
   # end
 
+  def teacher
+    users.where(role: 'Teacher').first
+  end
+
+  def assistant_teacher
+    users.where(role: 'Assistant Teacher').first
+  end
+
+  def room_number
+    case classroom
+    when 'A'
+      0
+    when 'B'
+      1
+    when 'C'
+      2
+    else
+      ""
+    end
+  end
+
   def type
     id = self.course_id
     case id
