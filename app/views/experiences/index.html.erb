@@ -50,5 +50,5 @@
 </table>
 
 <% if signed_in? && current_user.admin? %>
-  <%= render 'layouts/import_form.html.erb', resource: @experiences %>
+  <%= render 'layouts/import_form', resource: @experiences %>
 <% end %>

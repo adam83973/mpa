@@ -27,6 +27,7 @@
 //= require problems
 //= require processing_challenge_1
 //= require processing_challenge_3
+//= require products
 //= require reports
 //= require resources
 //= require standards

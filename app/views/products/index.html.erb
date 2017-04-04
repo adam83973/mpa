@@ -17,11 +17,13 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
-        <td><%= product.location ? product.location.name : "Please add a location to this product." %></td>
-        <td><%= product.price ? "$#{product.price_in_dollars}" : "Please add price." %></td>
+        <td data-name="<%= product.name %>"><%= product.name %></td>
+        <td data-name="<%= product.location ? product.location.name : "" %>">
+          <%= product.location ? product.location.name : "Please add a location to this product." %>
+        </td>
+        <td><%= product.price ? number_to_currency(product.price/100) : "Please add price." %></td>
         <td><%= product.credits %></td>
-        <td><%= !product.virtual? ? product.quantity : 'n/a' %></td>
+        <td data-id="<%= product.id %>"><%= !product.virtual? ? link_to(product.quantity, 'javascript:void(0)', class: 'update-product-quantity') : 'n/a' %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
       </tr>
@@ -31,8 +33,10 @@
 
 <br>
 <p>
-  <%= link_to 'Add Product', new_product_path, class: "btn btn-success btn-lg" %>
+  <%= link_to 'Add Product', new_product_path, class: "btn btn-success" %>
 </p>
 <p>
-  <%= link_to 'Manage Inventory', new_transaction_path, class: "btn btn-secondary btn-lg" %>
+  <%= link_to 'Manage Inventory', new_transaction_path, class: "btn btn-secondary" %>
 </p>
+
+<%= render 'update_quantity_modal' %>

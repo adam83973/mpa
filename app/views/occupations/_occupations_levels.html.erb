@@ -1,6 +1,6 @@
 <ul style="list-style-type:none;">
   <% occupation.occupation_levels.order(:level).each do |occupation_level|  %>
-  <li class="well" style="position:relative;">
+  <li class="card" style="position:relative;">
     <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i + 1 %>
       <div class="row">
         <div class="col-md-2">

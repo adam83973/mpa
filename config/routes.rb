@@ -202,8 +202,10 @@ MathPlus::Application.routes.draw do
   resources :products do
     collection do
       get :products_by_location
+      get :update_quantity
     end
   end
+  get 'update_quantity', to: 'products#update_quantity'
 
   resources :registrations do
     collection do

@@ -72,7 +72,7 @@
 			</table>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-			<div class="well">
+			<div class="card">
 				<h4>Add a Subscription</h4>
 				<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
 					<%= hidden_field_tag :ContactId, @user.infusion_id %>

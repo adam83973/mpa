@@ -34,10 +34,17 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      redirect_to product_path, notice: 'Product was successfully updated.'
     else
       render :edit
     end
+  end
+
+  def update_quantity
+    @product = Product.find(params[:product][:id])
+    @product.update_attribute :quantity, params[:product][:quantity]
+
+    redirect_to products_path
   end
 
   # DELETE /products/1

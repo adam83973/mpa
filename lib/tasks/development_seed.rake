@@ -284,13 +284,13 @@ def create_users
                              user_id:                             parent_info[0],
                              avatar_id:                           avatar_ids.sample,
                              avatar_background_color:             "##{hex_value}",
-                             mathematician_experience_points:     [0, 100, 300, 500].sample,
-                             engineer_experience_points:          [0, 100, 300, 500].sample,
-                             programmer_experience_points:        [0, 100, 300, 500].sample,
+                             mathematician_experience_points:     [0, 100, 300, 500, 1500, 2000].sample,
+                             engineer_experience_points:          [0, 100, 300, 500, 1500, 2000].sample,
+                             programmer_experience_points:        [0, 100, 300, 500, 1500, 2000].sample,
                              current_occupation_id:               occupation_ids.sample,
-                             xp_total:                            0,
-                             credits:                             1)
-    student.update_attribute :experience_point_total, student.sum_occupation_experience_points
+                             xp_total:                            0)
+    student.update_attributes experience_point_total:             student.sum_occupation_experience_points,
+                              credits:                            student.sum_occupation_experience_points/100
   end
 end
 
