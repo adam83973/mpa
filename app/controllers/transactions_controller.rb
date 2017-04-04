@@ -31,11 +31,11 @@ class TransactionsController < ApplicationController
         if @student.credits >= @transaction.credits_redeemed
           # redeem credits from student's account
           @student.redeem_credit(@transaction.credits_redeemed)
-          redirect_to @student, notice: 'Credits were successfully redeemed.'
+          redirect_to student_path(id: @student.id), notice: 'Credits were successfully redeemed.'
         else
           #destroy transaction
           @transaction.destroy
-          redirect_to @student, flash: { error: 'Student does not have enough credits.' }
+          redirect_to student_path(id: @student.id), flash: { error: 'Student does not have enough credits.' }
         end
       elsif @transaction.process == 2 || @transaction.process == 3
         redirect_to new_transaction_path, notice: "#{@transaction.quantity} units of #{@transaction.product.name} #{@transaction.process == 2 ? "added to" : "removed from"} #{@transaction.location.name}'s inventory."
@@ -50,7 +50,7 @@ class TransactionsController < ApplicationController
   # PATCH/PUT /transactions/1
   def update
     if @transaction.update(transaction_params)
-      redirect_to @transaction, notice: 'Transaction was successfully updated.'
+      redirect_to transaction_path(@transaction), notice: 'Transaction was successfully updated.'
     else
       render :edit
     end

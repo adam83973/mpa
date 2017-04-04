@@ -73,36 +73,42 @@
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 			<div class="card">
-				<h4>Add a Subscription</h4>
-				<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
-					<%= hidden_field_tag :ContactId, @user.infusion_id %>
-					<%= select_tag :cProgramId, options_for_select(@dropdown, 5), {class: 'form-control'} %>
-					<%= hidden_field_tag :merchantAccountId, 5 %>
-				 	<label>Qty </label>
-					<%= text_field_tag :qty, 1, class: 'form-control' %>
-					<br>
-					<label>Price </label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-							<%= text_field_tag :price, 147, class: 'form-control' %>
-						<span class="input-group-addon">.00</span>
-					</div>
-					<br>
-					<label>First Bill Date </label>
-					<%= text_field_tag :startBillDate, Date.today, class: 'form-control datepickerFutureOnly', style: 'margin-bottom:20px;' %>
-				 	<label>Deposit </label>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						<%= text_field_tag :deposit, 0, class: 'form-control', style: "z-index:0;" %>
-						<span class="input-group-addon">.00</span>
-					</div>
-					<br>
-					<label>Credit Card </label>
-					<%= select_tag :creditCardId, options_for_select(@credit_card_options), { class: 'form-control'} %>
-					<hr>
-					<%= submit_tag "Add Subscription", :name => nil, class: 'btn btn-success btn-small' %>
-					<%= link_to 'New Credit Card', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn  btn-primary' %>
-				<% end %>
+				<div class="card-header">
+					<h4 class="mb-0">Add a Subscription</h4>
+				</div>
+				<div class="card-block">
+					<%= form_tag url_for(controller: 'infusion_pages', action: 'add_subscription'), {:method => :get, class: 'simple_form form-group-sm'} do %>
+						<%= hidden_field_tag :ContactId, @user.infusion_id %>
+						<%= select_tag :cProgramId, options_for_select(@dropdown, 5), {class: 'form-control'} %>
+						<%= hidden_field_tag :merchantAccountId, 5 %>
+					 	<label>Qty </label>
+						<%= text_field_tag :qty, 1, class: 'form-control' %>
+						<br>
+						<label>Price </label>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+								<%= text_field_tag :price, 147, class: 'form-control' %>
+							<span class="input-group-addon">.00</span>
+						</div>
+						<br>
+						<label>First Bill Date </label>
+						<%= text_field_tag :startBillDate, Date.today, class: 'form-control datepickerFutureOnly', style: 'margin-bottom:20px;' %>
+					 	<label>Deposit </label>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<%= text_field_tag :deposit, 0, class: 'form-control', style: "z-index:0;" %>
+							<span class="input-group-addon">.00</span>
+						</div>
+						<br>
+						<div class="clearfix">
+							<label>Credit Card </label>
+							<%= select_tag :creditCardId, options_for_select(@credit_card_options), { class: 'form-control'} %>
+							<%= link_to 'New Credit Card', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-sm btn-primary pull-right mt-2' %>
+						</div>
+						<hr>
+						<%= submit_tag "Add Subscription", :name => nil, class: 'btn btn-success btn-small' %>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>

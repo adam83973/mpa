@@ -5,9 +5,9 @@ class StudentsController < ApplicationController
   def change_current_occupation
     @student = Student.find(params[:student_id])
     if @student.update_attribute :current_occupation_id, params[:occupation_id]
-      redirect_to @student, notice: 'Student occupation changed!'
+      redirect_to student_path(@student), notice: 'Student occupation changed!'
     else
-      redirect_to @student, danger: 'We were unable to change your occupation.'
+      redirect_to student_path(@student), danger: 'We were unable to change your occupation.'
     end
   end
 
@@ -112,7 +112,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
         format.json { render json: @student, status: :created, location: @student }
       else
         format.html { render action: "new" }
@@ -128,7 +128,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
         @opportunity.update_attribute :student_id, @student.id
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
         format.js
         format.json { render json: @student, status: :created, location: @student }
       else
@@ -145,7 +145,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update_attributes(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -181,7 +181,7 @@ class StudentsController < ApplicationController
                   content: "Redeemed #{@credits} credits for #{@item}.")
 
       respond_to do |format|
-        format.html { redirect_to @student, notice: "#{@student.full_name} spent #{@credits} credits." }
+        format.html { redirect_to student_path(@student), notice: "#{@student.full_name} spent #{@credits} credits." }
         format.json { render json: @credits }
         format.js
       end
@@ -217,16 +217,6 @@ class StudentsController < ApplicationController
   end
 
   private
-    # def last_attendance_date(attendance)
-    #   date = @last_attendance
-    #   if date > Date.today - 14.days == true
-    #     @last_attendance_date = "<span style='color:green;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   elsif date <= Date.today - 14.days && date >= Date.today - 30.days == true
-    #     @last_attendance_date = "<span style='color:orange;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   elsif date < Date.today - 30.days == true
-    #     @last_attendance_date = "<span style='color:red;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   end
-    # end
     def set_student
       @student = Student.find(params[:id])
     end

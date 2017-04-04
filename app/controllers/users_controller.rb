@@ -186,7 +186,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to user_path(@user), notice: 'User was successfully created.' }
         format.js
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -233,7 +233,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to user_path(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -276,12 +276,12 @@ class UsersController < ApplicationController
 
     if @user.send_reset_password_instructions
       respond_to do |format|
-        format.html { redirect_to @user, notice: "Password reset instructions sent." }
+        format.html { redirect_to user_path(@user), notice: "Password reset instructions sent." }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @user, notice: "Error sending instructions." }
+        format.html { redirect_to user_path(@user), notice: "Error sending instructions." }
         format.json { head :no_content }
       end
     end
@@ -298,10 +298,10 @@ class UsersController < ApplicationController
           user_id: current_user.id})
 
         @note1.save!
-        format.html { redirect_to @user, notice: "Hold form sent." }
+        format.html { redirect_to user_path(@user), notice: "Hold form sent." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @user, notice: "Error sending hold form." }
+        format.html { redirect_to user_path(@user), notice: "Error sending hold form." }
         format.json { head :no_content }
       end
     end
@@ -318,10 +318,10 @@ class UsersController < ApplicationController
           user_id: current_user.id})
         @note1.save!
 
-        format.html { redirect_to @user, notice: "Termination form sent." }
+        format.html { redirect_to user_path(@user), notice: "Termination form sent." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @user, notice: "Error sending termination form." }
+        format.html { redirect_to user_path(@user), notice: "Error sending termination form." }
         format.json { head :no_content }
       end
     end

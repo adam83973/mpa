@@ -204,11 +204,12 @@ class InfusionPagesController < ApplicationController
     if Rails.env.production?
       result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
     else
-      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], 1, params[:creditCardId].to_i, 0, daysUntilCharge)
+      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId].to_i, true, params[:cProgramId].to_i, 1, params[:creditCardId].to_i, 1, daysUntilCharge)
     end
 
     data = { :Qty => params[:qty], :BillingAmt => params[:price] }
     Infusionsoft.data_update('RecurringOrder', result, data)
+
     if result
       flash[:notice] = "Subscription Added"
       # update recurring order with qty and price from form input

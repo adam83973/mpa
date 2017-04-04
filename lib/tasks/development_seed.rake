@@ -31,7 +31,6 @@ def seed_development_environment
   create_offerings
   create_notes
   create_registrations
-  create_offerings
   create_lessons
   create_products
 end

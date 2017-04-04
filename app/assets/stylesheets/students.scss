@@ -30,7 +30,8 @@
 .a-achievements{
   margin: 15px;
   padding-left: 5px;
-  height: 200px;
+  height: auto;
+  max-height: 250px;
   overflow: auto;
 }
 
