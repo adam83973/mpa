@@ -2,8 +2,8 @@
 
 <% if signed_in? && current_user.employee? %>
   <p>
-    <%= link_to 'New Problem', new_problem_path(params.merge(:type => 'problem')), class: 'btn btn-success' %>
-    <%= link_to 'New Activity/Game', new_problem_path(params.merge(:type => 'activity')), class: 'btn btn-success' %>
+    <%# link_to 'New Problem', new_problem_path(params.merge(:type => 'problem')), class: 'btn btn-success' %>
+    <%# link_to 'New Activity/Game', new_problem_path(params.merge(:type => 'activity')), class: 'btn btn-success' %>
   </p>
 <% end %>
 
