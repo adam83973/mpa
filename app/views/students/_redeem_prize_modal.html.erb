@@ -10,7 +10,7 @@
           <%= simple_form_for @transaction, html: { id: 'credits_form' } do |f| %>
             <%= f.error_notification %>
             <div class="row">
-              <div class="col-md-8 offset-md-2 col-sm-12 text-center">
+              <div class="col-md-8 offset-md-2 text-center">
                 <%= f.association :location, label: "Select a location.", label_method: :name, input_html: { class: "chosen" } %>
                 <p class='alert alert-success'>
                   <strong>Prize to redeem:</strong> <span id="prize-name"></span>

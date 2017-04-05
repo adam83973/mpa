@@ -20,13 +20,20 @@
               </tr>
             </thead>
             <tbody>
-              <% @student.transactions.includes(:product).order(created_at: :desc).where(process: 0).each do |transaction| %>
+              <% @student.transactions.includes(:product).order(created_at: :desc).where("process = ? OR process = ?", 0, 4).each do |transaction| %>
                 <tr>
                   <td>
                     <%= transaction.created_at.strftime('%m/%d/%Y') %>
                   </td>
                   <td><%= transaction.product.name if transaction.product %></td>
-                  <td><%= transaction.credits_redeemed %></td>
+                  <td>
+                    <% if transaction.process == 0 %>
+                      <%= transaction.credits_redeemed %>
+                    <% else %>
+                      Leveling Up Prize
+                    <% end %>
+
+                  </td>
                 </tr>
               <% end %>
             </tbody>

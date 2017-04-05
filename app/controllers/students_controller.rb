@@ -46,26 +46,26 @@ class StudentsController < ApplicationController
     @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse.first(7)
 
     if current_user.employee? || current_user.id == @student.user_id
-  # Sets instance variable for student offering, used to print binder
-  # for elementary classes.
+      # Sets instance variable for student offering, used to print binder
+      # for elementary classes.
       if @student.offerings
         @agent_offerings = @student.offerings.where("course_id < ?", 7)
         @agent_offering = @agent_offerings.first
       end
-  # Sets instance variable for student offering, used to print binder for
-  # middle school and brain builder classes.
+      # Sets instance variable for student offering, used to print binder for
+      # middle school and brain builder classes.
       if @student.offerings
         @offerings = @student.offerings.where("course_id > ?", 6)
         @second_offering = @offerings.first
       end
 
-      @student.offerings.each do |offering|
-        if [11].include?(offering.course_id)
-          @robotics_student = true
-        end
-      end
+      # @student.offerings.each do |offering|
+      #   if [11].include?(offering.course_id)
+      #     @robotics_student = true
+      #   end
+      # end
 
-    #Tags negative comments to allow styling in student show
+      #Tags negative comments to allow styling in student show
       @student_comments = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20').to_a
       help_session_records = @student.help_session_records
       help_session_records.each{|help_session_record| @student_comments << help_session_record}

@@ -2,7 +2,7 @@
   <%= simple_form_for @transaction, html: { id: 'credits_form' } do |f| %>
     <%= f.error_notification %>
     <div class="row">
-      <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 text-center">
+      <div class="col-lg-8 offset-lg-2 text-center">
         <%= f.association :location, label: "Select a location.", label_method: :name, input_html: { id: "transaction_credits_location_id" }%>
         <%= f.association :product, label: "Select a product.", disabled: true, collection: [], label_method: :name, input_html: { class: "chosen", data: { credits: true }, id: "transaction_credits_product_id" } %>
         <%= f.input :process, as: :hidden, input_html: { value: 0 } %>

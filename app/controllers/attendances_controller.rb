@@ -34,7 +34,7 @@ class AttendancesController < ApplicationController
 
       respond_to do |format|
         format.js
-        format.html {redirect_to @student, notice: "Attendance added"}
+        format.html {redirect_to student_path(@student), notice: "Attendance added"}
       end
     else
       render :new

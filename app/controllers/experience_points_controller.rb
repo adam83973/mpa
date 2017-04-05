@@ -64,7 +64,7 @@ class ExperiencePointsController < ApplicationController
 
       respond_to do |format|
         if @experience_point.save
-          format.html { redirect_to @student, notice: "Experience point added for #{@student.first_name} : #{@experience_point.experience.name}." }
+          format.html { redirect_to student_path(@student), notice: "Experience point added for #{@student.first_name} : #{@experience_point.experience.name}." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else
           format.html { render action: "new" }

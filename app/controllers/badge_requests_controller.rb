@@ -40,7 +40,7 @@ class BadgeRequestsController < ApplicationController
       save_badge_request
     end
 
-    redirect_to @student
+    redirect_to student_path(@student)
   end
 
   def update

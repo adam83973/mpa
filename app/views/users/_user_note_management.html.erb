@@ -22,12 +22,20 @@
       <div class="card">
         <div class="card-block p-3 notes" style="border:none;">
           <div id="user_notes">
-            <%= render 'user_notes' %>
+            <% if @user.notes.any? %>
+              <%= render 'user_notes' %>
+            <% else %>
+              <h3 class="text-center card-title text-muted mt-5">
+                No notes for this user.
+              </h3>
+            <% end %>
           </div>
         </div>
+        <% if @user.notes && @user.notes.count > 1 %>
         <div class="card-footer more-notes text-center p-0">
           <small><i class="fa fa-chevron-down"></i> Scroll for more notes. <i class="fa fa-chevron-down"></i></small>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

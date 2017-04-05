@@ -53,7 +53,7 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       if @registration.save
         activate_registration
-        format.html { redirect_to @student, notice: 'Registration was successfully created.' }
+        format.html { redirect_to student_path(@student), notice: 'Registration was successfully created.' }
         format.json { render json: @registration, status: :created, location: @registration }
       else
         format.html { render action: "new" }
@@ -99,10 +99,10 @@ class RegistrationsController < ApplicationController
           @new_registration.update_attribute :status, 1
         end
         
-        format.html { redirect_to @student, notice: 'Change of classes has been submitted.' }
+        format.html { redirect_to student_path(@student), notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit.' }
+        format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit.' }
       end
     end
   end
@@ -125,7 +125,7 @@ class RegistrationsController < ApplicationController
         format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: "End date has been added. Please update this user's subscriptions." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+        format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
     end
   end
@@ -140,14 +140,14 @@ class RegistrationsController < ApplicationController
           # delete registration if one was created through switching classes
           Registration.find(@registration.switch_id).destroy
           @registration.update_attribute :switch_id, nil # remove switch ID from current reg
-          format.html { redirect_to @student, notice: 'End date has been removed. This registration was being switched to another class. The registration associated with this switch has been deleted.' }
+          format.html { redirect_to student_path(@student), notice: 'End date has been removed. This registration was being switched to another class. The registration associated with this switch has been deleted.' }
           format.json { head :no_content }
         else
           format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'End date has been removed. If a subscription has been ended please start a new one.' }
           format.json { head :no_content }
         end
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+        format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
     end
   end
@@ -179,7 +179,7 @@ class RegistrationsController < ApplicationController
         format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+        format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
     end
   end
@@ -197,7 +197,7 @@ class RegistrationsController < ApplicationController
           format.json { head :no_content }
         end
       else
-        format.html { redirect_to @student, notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
+        format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
     end
   end
@@ -219,7 +219,7 @@ class RegistrationsController < ApplicationController
     @registration.destroy
 
     respond_to do |format|
-      format.html { redirect_to @student }
+      format.html { redirect_to student_path(@student) }
       format.json { head :no_content }
     end
   end
@@ -233,13 +233,13 @@ class RegistrationsController < ApplicationController
         @registration.update_attribute :status, 1
 
         respond_to do |format|
-          format.html { redirect_to @student, notice: 'Registration Activated.' }
+          format.html { redirect_to student_path(@student), notice: 'Registration Activated.' }
           format.json { head :no_content }
         end
       end
     else
       respond_to do |format|
-        format.html { redirect_to @student, notice: 'You must enter a start date for this registration.' }
+        format.html { redirect_to student_path(@student), notice: 'You must enter a start date for this registration.' }
         format.json { head :no_content }
       end
     end

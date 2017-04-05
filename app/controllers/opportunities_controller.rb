@@ -86,7 +86,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       if @opportunity.save
         if @opportunity.student
-          format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully created.' }
+          format.html { redirect_to student_path(@opportunity.student), notice: 'Opportunity was successfully created.' }
           format.json { render json: @opportunity, status: :created, location: @opportunity }
           format.js
         else
@@ -215,7 +215,7 @@ class OpportunitiesController < ApplicationController
           if @registration.payment_information_later
             # For when billing information will be collected at first class.
             add_payment_note # add note to collect billing info at first class
-            format.html { redirect_to @student, notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
+            format.html { redirect_to student_path(@student), notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
             format.json { render json: @registration, status: :created, location: @registration }
           else
             format.html { redirect_to infusion_pages_subscription_path(userId: @parent.id), notice: 'Registration was successfully created.' }

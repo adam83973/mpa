@@ -38,12 +38,13 @@
   # show and hide hint that there are more notes than visible.
   $('.notes').on 'scroll', ->
     $last_li = $(this).find('li').last()
-    $last_li.css('margin-bottom:0;')
-    if $(this).position().top + $(this).height() + 5 > $last_li.position().top + $last_li.height() && !$('.more-notes').hasClass('hidden')
-      $('.more-notes').addClass('hidden').fadeOut()
+    if $last_li
+      $last_li.css('margin-bottom:0;')
+      if $(this).position().top + $(this).height() + 5 > $last_li.position().top + $last_li.height() && !$('.more-notes').hasClass('hidden')
+        $('.more-notes').addClass('hidden').fadeOut()
 
-    if $(this).position().top + $(this).height() + 10 < $last_li.position().top + $last_li.height() && $('.more-notes').hasClass('hidden')
-      $('.more-notes').removeClass('hidden').fadeIn()
+      if $(this).position().top + $(this).height() + 10 < $last_li.position().top + $last_li.height() && $('.more-notes').hasClass('hidden')
+        $('.more-notes').removeClass('hidden').fadeIn()
 
   #AJAX call to mark note completed
   note =
