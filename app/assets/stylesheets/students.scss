@@ -72,7 +72,7 @@
   .inside{
     position:absolute;
     top:81px;
-    left:38px;
+    left:41px;
     z-index:1;
   }
   .outside{
@@ -93,12 +93,10 @@
     }
   }
 
-
-
   .inside{
     position:absolute;
     top:72px;
-    left:21px;
+    left:24px;
     z-index:1;
   }
   .outside{
@@ -108,12 +106,12 @@
 }
 
 
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width : 991px) {
 
   .inside{
     position:absolute;
     top:72px;
-    left:42.5%;
+    left:306px;
     z-index:1;
   }
   .outside{
@@ -123,12 +121,12 @@
 }
 
 
-@media only screen and (max-width : 755px) {
+@media only screen and (max-width : 767px) {
 
   .inside{
     position:absolute;
     top:72px;
-    left:39.75%;
+    left:217px;
     z-index:1;
   }
   .outside{
