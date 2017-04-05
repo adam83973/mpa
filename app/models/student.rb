@@ -199,11 +199,11 @@ class Student < ActiveRecord::Base
   def current_level_by_occupation(occupation_name)
     case occupation_name
     when "mathematician"
-      math_level
+      mathematician_level
     when "engineer"
-      eng_level
+      engineer_level
     when "programmer"
-      prog_level
+      programmer_level
     end
   end
 
