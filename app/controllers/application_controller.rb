@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :find_subdomain
   around_action :scope_current_company
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
-  after_filter :set_access_control_headers
+  after_filter  :set_access_control_headers
   force_ssl if: :ssl_configured?
 
   def ssl_configured?
@@ -34,6 +35,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+    def find_subdomain
+      if current_company.nil?
+        redirect_to root_path, subdomain: false unless request.subdomain.blank? || request.subdomain == 'www'
+      end
+    end
 
   	def class_session
   	  @class_session ||= ClassSession.new(session)

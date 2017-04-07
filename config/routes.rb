@@ -1,6 +1,6 @@
 class SubdomainConstraint
   def matches?(request)
-    !request.subdomain.present? || request.subdomain == 'www'
+    !request.subdomain.present? || request.subdomain == 'www' || current_company.nil?
   end
 end
 
