@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       @student = @transaction.student if @transaction.student_id
       @product = @transaction.product
-      if @transaction.process == 0
+      if @transaction.process == 0 || @transaction.process == 4
         #check to see if student has enough credits
         if @student.credits >= @transaction.credits_redeemed
           # redeem credits from student's account
