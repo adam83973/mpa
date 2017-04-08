@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :find_subdomain
+  # before_filter :find_subdomain
   around_action :scope_current_company
   before_filter :set_paper_trail_whodunnit
   before_filter :authorize_active
@@ -37,8 +37,8 @@ class ApplicationController < ActionController::Base
   private
 
     def find_subdomain
-      if current_company.nil?
-        redirect_to root_path, subdomain: false unless request.subdomain.blank? || request.subdomain == 'www'
+      if current_company.nil? && !request.subdomain.blank?
+        redirect_to root_path, subdomain: false
       end
     end
 

@@ -1,13 +1,26 @@
 class SubdomainConstraint
   def matches?(request)
-    !request.subdomain.present? || request.subdomain == 'www' || current_company.nil?
+    !request.subdomain.present? || request.subdomain == 'www'
+  end
+end
+
+class AdminSubdomainConstraint
+  def matches?(request)
+    request.subdomain == 'admin'
   end
 end
 
 MathPlus::Application.routes.draw do
 
+  get 'admins/home', to: 'admins#home'
+  get 'admins/company/:id/', to:'admins#company'
+
   constraints(SubdomainConstraint.new) do
     root :to => 'static_pages#landing'
+  end
+
+  constraints(AdminSubdomainConstraint.new) do
+    root :to => 'admins#home'
   end
 
   root to: 'static_pages#home'
