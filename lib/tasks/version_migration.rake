@@ -14,3 +14,7 @@ Company.set_callback(:create, :after, :create_schema)
 # Student attributes
 
 students = Student.all
+
+students.each do |student|
+  
+end
