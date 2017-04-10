@@ -1,6 +1,16 @@
 class SubdomainConstraint
   def matches?(request)
-    !request.subdomain.present? || request.subdomain == 'www' || !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)
+    # !request.subdomain.present? || (request.subdomain.present? && !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)) || request.subdomain == 'www'
+    case request
+    when request.subdomain.present? && !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)
+      false
+    when !request.subdomain.present?
+      false
+    when request.subdomain == 'www'
+      false
+    else
+      true
+    end
   end
 end
 

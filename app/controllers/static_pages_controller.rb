@@ -3,6 +3,9 @@ class StaticPagesController < ApplicationController
   before_filter :authorize_admin, only: [ :events, :event_enrollment ]
 
   def landing
+    # if request.subdomain.present?
+    #   redirect_to root_url(subdomain: false)
+    # end
   end
 
   def home

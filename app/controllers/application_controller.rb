@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
     def find_subdomain
       if current_company.nil?
-        redirect_to root_path, subdomain: false unless request.subdomain.blank? || request.subdomain == 'www'
+        redirect_to root_url(subdomain: false) unless !request.subdomain.present?
       end
     end
 
