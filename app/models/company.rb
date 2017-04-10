@@ -1,9 +1,13 @@
 class Company < ApplicationRecord
+
   RESERVED_SUBDOMAINS = %w(
     admin api assets blog calendar camo dashboard demo developer developers docs files ftp git imap lab m mail manage mx pages pop sites smtp ssl staging status support www
   )
+
   validates_exclusion_of :subdomain, :in => RESERVED_SUBDOMAINS,
-                       :message => "Subdomain %{value} is reserved."
+                         :message => "Subdomain %{value} is reserved."
+
+  # create schema for company
   after_create :create_schema
 
   def create_schema
@@ -11,8 +15,6 @@ class Company < ApplicationRecord
     self.class.connection.execute("create schema company#{id}")
     scope_schema do
       load Rails.root.join("db/schema.rb")
-      # self.class.connection.execute("drop table #{self.class.table_name}")
-      # common_tables.each { |table_name| self.class.connection.execute("drop table #{table_name}") }
     end
   end
 
