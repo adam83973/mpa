@@ -3,12 +3,12 @@
     <h3 style="display:inline;" class="card-title">Registration History</h3>
   </div>
   <div class="card-block"
-  style="padding:20px 15px 0 15px;max-height:100px;overflow:scroll;">
+  style="padding:20px 15px 0 15px;max-height:300px;overflow:scroll;">
     <!-- displays note form and notes for student -->
     <% @registrations.each_with_index do |registration, i| %>
       <div class="row">
         <div class="col-sm-12">
-          <%= render 'student_registration_card', reg: registration, student: @student, editable: false %>
+          <%= render 'students/student_registration_card', reg: registration, student: @student, editable: false %>
         </div>
       </div>
     <% end %>

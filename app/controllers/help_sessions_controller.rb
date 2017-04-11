@@ -26,6 +26,7 @@ class HelpSessionsController < ApplicationController
 
   def active_session
     @student = Student.find(params[:student_id])
+    @registrations = @student.registrations.includes(offering: [:course, :location])
     @learning_plan = LearningPlan.new
     3.times{ @learning_plan.goals.build }
 

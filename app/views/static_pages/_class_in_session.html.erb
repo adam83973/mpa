@@ -27,7 +27,7 @@
             <div class="card-block">
               <p>Lesson:</p>
               <div class="text-center">
-                  <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if resource_lookup(@todays_lesson.assignment) %>
+                <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if resource_lookup(@todays_lesson.assignment) %>
               </div>
             </div>
           </div>

@@ -3,10 +3,16 @@
     <h3 style="display:inline;" class="card-title">HW Help Sessions
   </div>
   <div class="card-block"
-  style="padding:20px 15px 0 15px;max-height:400px;overflow:scroll;">
+  style="p-4 15px;max-height:400px;overflow:scroll;">
     <!-- displays note form and notes for student -->
-    <% @student.help_session_records.order('created_at DESC').each do |help_session| %>
-      <%= render 'help_session_card', help_session: help_session %>
+    <% if @student.help_session_records.any? %>
+      <% @student.help_session_records.order('created_at DESC').each do |help_session| %>
+        <%= render 'help_session_card', help_session: help_session %>
+      <% end %>
+    <% else %>
+      <h3 class="text-center card-title text-muted mt-3">
+        No help sessions <recorded class=""></recorded>
+      </h3>
     <% end %>
   </div>
 </div>
