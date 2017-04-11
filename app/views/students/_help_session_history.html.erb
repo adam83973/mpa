@@ -7,7 +7,7 @@
     <!-- displays note form and notes for student -->
     <% if @student.help_session_records.any? %>
       <% @student.help_session_records.order('created_at DESC').each do |help_session| %>
-        <%= render 'help_session_card', help_session: help_session %>
+        <%= render 'students/help_session_card', help_session: help_session %>
       <% end %>
     <% else %>
       <h3 class="text-center card-title text-muted mt-3">

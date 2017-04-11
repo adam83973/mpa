@@ -1,21 +1,23 @@
-<div class="card" style="padding-bottom:55px;">
-  <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-secondary pull-right', target: "_blank" if current_user.admin? %>
-  <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
+<div class="card mb-5">
+  <div class="card-block">
+    <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-secondary pull-right', target: "_blank" if current_user.admin? %>
+    <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
 
-  <p>
-    <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
-  </p>
-   <h3>
-    Teachers:
-    <% if @offering.users.any? %>
-      <% @offering.users.each do |teacher| %>
-        <%= teacher.full_name if teacher.active? %>
+    <p>
+      <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
+    </p>
+     <h3>
+      Teachers:
+      <% if @offering.users.any? %>
+        <% @offering.users.each do |teacher| %>
+          <%= teacher.full_name if teacher.active? %>
+        <% end %>
+        <% else %>
+          <em> no teachers assigned</em>
       <% end %>
-      <% else %>
-        <em> no teachers assigned</em>
-    <% end %>
-  </h3>
-  <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right", style: 'margin-bottom:40px', target: "_blank" %>
+    </h3>
+    <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right", target: "_blank" %>
+  </div>
 </div>
 
 <% if current_user.employee?%>
@@ -25,7 +27,3 @@
 <% end %>
 
 <%= link_to "Check Capacity", "javascript:void(0)", class: "btn btn-primary", id: 'capacity_check', data: { id: @offering.id } %>
-
-<%# simple_form :attendance_report, url:{ controller: 'offerings',  }, html: { class: 'form-horizontal' } do |f| %>
-
-<%# end %>
