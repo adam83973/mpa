@@ -3,9 +3,9 @@ class StaticPagesController < ApplicationController
   before_filter :authorize_admin, only: [ :events, :event_enrollment ]
 
   def landing
-    # if request.subdomain.present?
-    #   redirect_to root_url(subdomain: false)
-    # end
+    if request.subdomain.present?
+      redirect_to home_url(subdomain: current_company.subdomain)
+    end
   end
 
   def home
@@ -69,7 +69,7 @@ class StaticPagesController < ApplicationController
   def application_lookup
     subdomain = params[:company][:name].downcase
     if company = Company.find_by_subdomain(subdomain)
-      redirect_to root_url(subdomain: subdomain)
+      redirect_to home_url(subdomain: subdomain)
     else
       redirect_to root_url, flash: { warning: "It doesn't look like there is an application that matches that name. Application names are all lower with no spaces or special characters." }
     end

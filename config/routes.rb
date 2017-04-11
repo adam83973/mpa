@@ -1,6 +1,5 @@
 class SubdomainConstraint
   def matches?(request)
-    # !request.subdomain.present? || (request.subdomain.present? && !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)) || request.subdomain == 'www'
     case request
     when request.subdomain.present? && !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)
       false
@@ -17,7 +16,7 @@ end
 MathPlus::Application.routes.draw do
 
   constraints(SubdomainConstraint.new) do
-    root :to => 'static_pages#landing'
+    root to: 'static_pages#landing'
   end
 
   root to: 'static_pages#home'
@@ -247,6 +246,7 @@ MathPlus::Application.routes.draw do
   end
 
   get 'mission_lookup', to: 'static_pages#mission_lookup'
+  get 'home', to: 'static_pages#home'
   get 'application_lookup', to: 'static_pages#application_lookup'
   get 'code', to: 'static_pages#enter_code'
   get 'events', to: 'static_pages#events'
