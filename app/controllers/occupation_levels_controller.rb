@@ -16,7 +16,7 @@ class OccupationLevelsController < ApplicationController
   # GET /occupation_levels/1
   # GET /occupation_levels/1.json
   def show
-    @occupation_level = OccupationLevel.find(params[:id])
+    set_occupation_level
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,17 +37,17 @@ class OccupationLevelsController < ApplicationController
 
   # GET /occupation_levels/1/edit
   def edit
-    @occupation_level = OccupationLevel.find(params[:id])
+    set_occupation_level
   end
 
   # POST /occupation_levels
   # POST /occupation_levels.json
   def create
-    @occupation_level = OccupationLevel.new(params[:occupation_level])
+    @occupation_level = OccupationLevel.new(occupation_level_params)
 
     respond_to do |format|
       if @occupation_level.save
-        format.html { redirect_to @occupation_level, notice: 'Occupation level was successfully created.' }
+        format.html { redirect_to occupation_level_url(@occupation_level), notice: 'Occupation level was successfully created.' }
         format.json { render json: @occupation_level, status: :created, location: @occupation_level }
       else
         format.html { render action: "new" }
@@ -59,11 +59,11 @@ class OccupationLevelsController < ApplicationController
   # PUT /occupation_levels/1
   # PUT /occupation_levels/1.json
   def update
-    @occupation_level = OccupationLevel.find(params[:id])
+    set_occupation_level
 
     respond_to do |format|
-      if @occupation_level.update_attributes(params[:occupation_level])
-        format.html { redirect_to @occupation_level, notice: 'Occupation level was successfully updated.' }
+      if @occupation_level.update_attributes(occupation_level_params)
+        format.html { redirect_to occupation_level_url(@occupation_level), notice: 'Occupation level was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,7 +75,7 @@ class OccupationLevelsController < ApplicationController
   # DELETE /occupation_levels/1
   # DELETE /occupation_levels/1.json
   def destroy
-    @occupation_level = OccupationLevel.find(params[:id])
+    set_occupation_level
     @occupation_level.destroy
 
     respond_to do |format|
@@ -91,7 +91,7 @@ class OccupationLevelsController < ApplicationController
 
   private
     def set_occupation_level
-      @student = Student.find(params[:id])
+      @occupation_level = OccupationLevel.find(params[:id])
     end
 
     def occupation_level_params
