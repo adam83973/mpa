@@ -1,4 +1,10 @@
 CarrierWave.configure do |config|
+  if Rails.env.production?
+    region = ''
+  else
+    region = 'us-east-2'
+  end
+
   config.storage    = :aws
   config.aws_bucket = ENV['S3_BUCKET']
   config.aws_acl    = 'public-read'
@@ -6,7 +12,7 @@ CarrierWave.configure do |config|
   config.aws_credentials = {
     :access_key_id      => ENV['S3_KEY'],                # required
     :secret_access_key  => ENV['S3_SECRET'],             # required
-    :region                 => 'us-east-2'
+    :region             => region
   }
 
   # The maximum period for authenticated_urls is only 7 days.
