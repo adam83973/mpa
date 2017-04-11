@@ -84,10 +84,17 @@ class OccupationLevelsController < ApplicationController
     end
   end
 
-
-
   def import
     OccupationLevel.import(params[:file])
     redirect_to occupation_levels_path, notice: "Levels imported."
   end
+
+  private
+    def set_occupation_level
+      @student = Student.find(params[:id])
+    end
+
+    def occupation_level_params
+      params.require(:occupation_level).permit(:level, :points, :rewards, :privileges, :notes, :occupation_id, :bonus_credits, :image, :product_id)
+    end
 end
