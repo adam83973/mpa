@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
   if Rails.env.production?
-    region = ''
+    region = nil
   else
     region = 'us-east-2'
   end
