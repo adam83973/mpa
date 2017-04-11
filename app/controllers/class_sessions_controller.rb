@@ -10,7 +10,7 @@ class ClassSessionsController < ApplicationController
     @class_session.add_week(params[:class_session][:week])
     @class_session.add_offering_id(params[:class_session][:offering])
 
-    redirect_to root_url
+    redirect_to root_url(subdomain: current_company.subdomain)
   end
 
   def remove_student
