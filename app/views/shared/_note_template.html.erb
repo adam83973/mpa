@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col-sm-5 col-xs-5">
           <div class="text-center">
-            <%= note.notable.role if note.notable %>
+            <%= note.notable.role if note.notable && note.notable_type != 'Student' %>
           </div>
         </div>
         <div class="col-sm-7 col-xs-7">
