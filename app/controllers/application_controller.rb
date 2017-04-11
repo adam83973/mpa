@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   force_ssl if: :ssl_configured?
 
   def ssl_configured?
-    !Rails.env.development?
+    !Rails.env.development? && !ENV['STAGING_APP']
   end
 
   def set_access_control_headers
