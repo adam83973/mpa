@@ -49,7 +49,7 @@ class IssuesController < ApplicationController
       if @issue.save
         IssueMailer.issue_notification(@issue).deliver
         IssueMailer.issue_submission_notification(@issue).deliver
-        format.html { redirect_to root_path, notice: 'Issue was successfully created.' }
+        format.html { root_path(subdomain: current_company.subdomain), notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
       else
         format.html { render action: "new" }

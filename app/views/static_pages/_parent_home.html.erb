@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-12">
     <% if @user.hide_badge_banner? %>
       <%= link_to "Show Banner", show_badge_banner_users_path(id: @user.id), class: 'pull-right', style: 'margin-bottom:10px;' %>
     <% else %>
@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-12">
     <h4 style="color:red;margin: 0 0 20px 0;">Note: Not all badge descriptions are complete. They will be updated shortly. If it is unclear how a badge can be earned please check back for updates and additional resources. Thanks!</h4>
   </div>
 </div>

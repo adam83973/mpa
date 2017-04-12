@@ -98,7 +98,7 @@ class RegistrationsController < ApplicationController
         if @new_registration.start_date <= Date.today
           @new_registration.update_attribute :status, 1
         end
-        
+
         format.html { redirect_to student_path(@student), notice: 'Change of classes has been submitted.' }
         format.json { head :no_content }
       else
@@ -207,7 +207,7 @@ class RegistrationsController < ApplicationController
     @student = @registration.student
 
     if @registration.update_attributes attended_first_class: true, status: 1
-      redirect_to root_path, notice: "#{@student.full_name} has attended their first class."
+      root_path(subdomain: current_company.subdomain), notice: "#{@student.full_name} has attended their first class."
     end
   end
 

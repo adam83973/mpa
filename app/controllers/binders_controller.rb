@@ -17,7 +17,6 @@ class BindersController < ActionController::Base
   private
 
   def authorize_employee
-    redirect_to root_path unless current_user && current_user.employee?
+    root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
   end
 end
-

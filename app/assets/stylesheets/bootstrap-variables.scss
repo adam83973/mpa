@@ -1,6 +1,7 @@
 // Override Bootstrap variables here (defaults from bootstrap v4.0.0-alpha.6):
-$mpa_green: #30b34a;
-$mpa_blue: #0857a7;
+$mpa_green:  #30b34a;
+$mpa_blue:   #0857a7;
+$mpa_orange: #F9913D;
 
 // Table of Contents
 //
@@ -78,7 +79,7 @@ $mpa_blue: #0857a7;
 $white:  #fff;
 $black:  #000;
 $red:    #d9534f;
-$orange: #f0ad4e;
+$orange: $mpa_orange;
 $yellow: #ffd500;
 $green:  $mpa_green;
 $blue:   $mpa_blue;
@@ -94,7 +95,7 @@ $purple: #613d7c;
 // $gray-lightest:             #f7f7f9;
 
 // Reassign color vars to semantic color scheme
-$brand-primary:                $mpa_green;
+   $brand-primary:             $green;
 // $brand-success:             $green;
 // $brand-info:                $teal;
 // $brand-warning:             $orange;
@@ -349,7 +350,7 @@ $font-family-base:       $font-family-sans-serif;
 // $btn-active-box-shadow:          inset 0 3px 5px rgba($black,.125);
 
 // $btn-primary-color:              $white;
-   $btn-primary-bg:                 $mpa_blue;
+   $btn-primary-bg:                 $blue;
 // $btn-primary-border:             $btn-primary-bg;
 
 // $btn-secondary-color:            $gray-dark;

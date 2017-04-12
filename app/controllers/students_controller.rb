@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
         format.csv { send_data @students.to_csv }
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -84,7 +84,7 @@ class StudentsController < ApplicationController
         format.json { render json: @student }
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -192,7 +192,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
     if @student.update_attribute :attended_first_class, true
-      redirect_to root_path, notice: "It has been recorded that the student has attended their first class."
+      root_path(subdomain: current_company.subdomain), notice: "It has been recorded that the student has attended their first class."
     end
   end
 

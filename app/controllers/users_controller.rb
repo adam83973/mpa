@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
         end
       end
     else
-    redirect_to root_path
+    root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -420,7 +420,7 @@ class UsersController < ApplicationController
     set_user
 
     if @user.update_attribute :hide_badge_banner, true
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -428,7 +428,7 @@ class UsersController < ApplicationController
     set_user
 
     if @user.update_attribute :hide_badge_banner, false
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 

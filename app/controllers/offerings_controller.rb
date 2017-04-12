@@ -52,7 +52,7 @@ class OfferingsController < ApplicationController
         format.json { render json: @offering }
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 

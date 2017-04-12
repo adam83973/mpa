@@ -11,13 +11,13 @@ class ApplicationController < ActionController::Base
     if signed_in?
       if !current_user.active?
         sign_out current_user
-        redirect_to root_path, notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
+        redirect_to root_path(subdomain: current_company.subdomain), notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
       end
     end
   end
 
   def authorize_admin
-    redirect_to root_path, alert: "Not authorized." unless current_user && current_user.admin?
+    redirect_to root_path(subdomain: current_company.subdomain), alert: "Not authorized." unless current_user && current_user.admin?
   end
 
   def verify_current_company
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_employee
-    redirect_to root_path unless current_user && current_user.employee?
+    redirect_to root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
   end
 
   def ssl_configured?
