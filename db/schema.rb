@@ -590,8 +590,8 @@ ActiveRecord::Schema.define(version: 20170403205317) do
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
     t.date     "birth_date"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "user_id"
     t.integer  "credits"
     t.integer  "xp_total"

@@ -1,6 +1,4 @@
 class OccupationLevel < ActiveRecord::Base
-  #attr_accessible :level, :notes, :points, :privileges, :rewards, :occupation_id, :bonus_credits,
-                  # :image, :remove_image, :remote_image_url
 
   belongs_to :occupation
   belongs_to :product

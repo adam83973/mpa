@@ -22,7 +22,7 @@ class OfferingsController < ApplicationController
         format.csv { send_data @offerings.to_csv }
       end
     else
-      redirect_to root_path
+      redirect_to root_path(subdomain: current_company.subdomain)
     end
   end
 

@@ -23,19 +23,20 @@
             </thead>
             <tbody>
               <% @student.assignments.includes(:course, offering: [:location]).order(course_id: :desc, week: :desc).limit(100).each do |assignment| %>
-              <tr>
-                <td><%= assignment.course.name if assignment.course %></td>
-                <td><%= assignment.week %></td>
-                <td><%= Assignment::SCORES[assignment.score] %></td>
-                <td><%= assignment.score == 2 ? "N/A" : assignment.corrected %></td>
-                <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
-                <td>
-                  <%= link_to "Add Correction", edit_assignment_path(assignment) if !assignment.corrected && assignment.score != 2 %>
-                </td>
-                <% else %>
-                <td></td>
-                <% end %>
-              </tr>
+              <% next if assignment.course_id.nil? %>
+                <tr>
+                  <td><%= assignment.course.name if assignment.course %></td>
+                  <td><%= assignment.week %></td>
+                  <td><%= Assignment::SCORES[assignment.score] %></td>
+                  <td><%= assignment.score == 2 ? "N/A" : assignment.corrected %></td>
+                  <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
+                  <td>
+                    <%= link_to "Add Correction", edit_assignment_path(assignment) if !assignment.corrected && assignment.score != 2 %>
+                  </td>
+                  <% else %>
+                  <td></td>
+                  <% end %>
+                </tr>
               <% end %>
             </tbody>
           </table>

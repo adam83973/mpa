@@ -10,7 +10,7 @@ class ClassSessionsController < ApplicationController
     @class_session.add_week(params[:class_session][:week])
     @class_session.add_offering_id(params[:class_session][:offering])
 
-    redirect_to root_url
+    redirect_to root_url(subdomain: current_company.subdomain)
   end
 
   def remove_student
@@ -22,11 +22,11 @@ class ClassSessionsController < ApplicationController
     @todays_attendance.destroy if @todays_attendance
 
     class_session.remove_student(@student.id)
-    redirect_to root_url, notice: "Student removed from class. Attendance was deleted."
+    redirect_to root_url(subdomain: current_company.subdomain), notice: "Student removed from class. Attendance was deleted."
   end
 
   def end_class
     class_session.end_class
-    redirect_to root_url
+    redirect_to root_url(subdomain: current_company.subdomain)
   end
 end

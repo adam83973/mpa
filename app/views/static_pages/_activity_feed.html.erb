@@ -1,9 +1,7 @@
-<% if @user_activity_feed.empty? %>
-
-<% else %>
-  <h3>Activity Feed</h3>
-  <div class="activity_feed">
-    <div id="inner-content-div">
+<% if !@user_activity_feed.empty? %>
+  <h3 class='mt-4'>Activity Feed</h3>
+  <div class="card">
+    <div class="card-block" id="inner-content-div">
      <% @user_activity_feed.each do |xp|%>
        <p>
         <em>Added:</em> <%= xp.experience.name %> for

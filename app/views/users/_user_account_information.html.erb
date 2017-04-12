@@ -2,9 +2,9 @@
   <div class="card-header">
     <h3 style="display:inline;" class="card-title">Account Information</h3>
     <% if @user.parent? %>
-      <%= link_to "Edit", edit_parent_users_url(id: @user), class: "pull-right" %>
+      <%= link_to "Edit", edit_parent_users_url(subdomain: current_company.subdomain, id: @user), class: "pull-right" %>
     <% else %>
-      <%= link_to "Edit", edit_employee_users_url(id: @user), class: "pull-right" %>
+      <%= link_to "Edit", edit_employee_users_url(subdomain: current_company.subdomain, id: @user), class: "pull-right" %>
     <% end %>
   </div>
   <div class="card-block">

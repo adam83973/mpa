@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   force_ssl if: :ssl_configured?
 
   def ssl_configured?
-    !Rails.env.development?
+    !Rails.env.development? && !ENV['STAGING_APP']
   end
 
   def set_access_control_headers
@@ -37,8 +37,8 @@ class ApplicationController < ActionController::Base
   private
 
     def find_subdomain
-      if current_company.nil? && !request.subdomain.blank?
-        redirect_to root_path, subdomain: false
+      if current_company.nil? && request.subdomain != 'www'
+        redirect_to root_url(subdomain: 'www')
       end
     end
 

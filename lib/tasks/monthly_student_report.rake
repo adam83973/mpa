@@ -29,6 +29,7 @@ def send_student_reports
     end
   end
 
+
   puts count.to_s + " Reports Sent"
 end
 

@@ -1,3 +1,4 @@
+<% title 'Homework Help Session' %>
 <% if @student.has_learning_plan && current_user.employee? %>
   <div class="lp_icon">
     <%= link_to @student.learning_plans.last do %>
@@ -5,20 +6,30 @@
     <% end %>
   </div>
 <% end %>
-<% if help_session.in_session? %>
-  <%= link_to "End HW Help Session", help_sessions_end_hw_help_path, class: "btn btn-danger pull-right" %>
-<% end %>
-<h1>HW Help Session</h1>
-<p>
-  <strong>Student:</strong> <%= link_to @student.full_name, @student if @student %>
-</p>
-<p>
-  <strong>Date:</strong> <%= help_session.date ? Date.parse(help_session.date).strftime("%D") : 'No Date Set' %>
-</p>
-<% unless @student.has_learning_plan %>
-<p>
-  <%= link_to "Create Learning Plan", "javascript:void(0)", class: "btn btn-primary", id: "launchLearningPlanModal" %>
-</p>
-<% end %>
+<div class="row">
+  <div class="col-lg-9">
+    <h1>HW Help Session</h1>
+    <p>
+      <strong>Student:</strong> <%= link_to @student.full_name, @student if @student %>
+    </p>
+    <p>
+      <strong>Date:</strong> <%= help_session.date ? Date.parse(help_session.date).strftime("%D") : 'No Date Set' %>
+    </p>
+  </div>
+  <div class="col-lg-3 mb-3">
+    <% if help_session.in_session? %>
+      <%= link_to "End HW Help Session", help_sessions_end_hw_help_path, class: "btn btn-danger btn-block" %>
+      <%= link_to "Create Learning Plan", "javascript:void(0)", class: "btn btn-primary btn-block", id: "launchLearningPlanModal" unless @student.has_learning_plan %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <%= render 'students/registration_history' %>
+  </div>
+  <div class="col-lg-6">
+    <%= render 'students/help_session_history' %>
+  </div>
+</div>
 
 <%= render 'learning_plan_modal', lp: @learning_plan, student: @student unless @student.has_learning_plan %>

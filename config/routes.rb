@@ -1,12 +1,13 @@
 class SubdomainConstraint
   def matches?(request)
-    !request.subdomain.present? || request.subdomain == 'www' || !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)
-  end
-end
-
-class AdminSubdomainConstraint
-  def matches?(request)
-    request.subdomain == 'admin'
+    case request
+    when !request.subdomain.present?
+      false
+    when request.subdomain == 'www'
+      false
+    else
+      true
+    end
   end
 end
 
@@ -16,7 +17,7 @@ MathPlus::Application.routes.draw do
   get 'admins/company/:id/', to:'admins#company'
 
   constraints(SubdomainConstraint.new) do
-    root :to => 'static_pages#landing'
+    root to: 'static_pages#landing'
   end
 
   constraints(AdminSubdomainConstraint.new) do
@@ -250,6 +251,7 @@ MathPlus::Application.routes.draw do
   end
 
   get 'mission_lookup', to: 'static_pages#mission_lookup'
+  get 'home', to: 'static_pages#home'
   get 'application_lookup', to: 'static_pages#application_lookup'
   get 'code', to: 'static_pages#enter_code'
   get 'events', to: 'static_pages#events'
