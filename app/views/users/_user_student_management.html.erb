@@ -5,6 +5,10 @@
   </div>
   <div class="card-block pb-0">
     <!-- displays each student for user -->
-    <%= render 'parents_students' %>
+    <% if @user.parent? && @user.students.any? %>
+      <%= render 'parents_students' %>
+    <% else %>
+      <h4 class="text-center text-muted mb-3">No Students</h4>
+    <% end %>
   </div>
 </div>

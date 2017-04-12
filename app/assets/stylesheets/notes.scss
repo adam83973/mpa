@@ -6,13 +6,9 @@
 }
 
 .notes{
-  border: 1px solid lightgray;
-  border-radius: 5px;
   height: 255px;
-  padding: 3px;
   overflow-y: scroll;
   overflow-x: hidden;
-  // margin: 20px 0 0 0;
 
   .card{
     background: #f7f7f9;

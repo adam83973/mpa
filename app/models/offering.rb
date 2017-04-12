@@ -42,7 +42,7 @@ class Offering < ActiveRecord::Base
   end
 
   def offering_name_dashboard
-    course.name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.name + " \n " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_name
@@ -68,12 +68,6 @@ class Offering < ActiveRecord::Base
   def active_students_count
     self.registrations.where("status = ? OR status = ?", 1, 0).count
   end
-
-  # def self.search(search)
-  #   if search
-  #     joins(:course).where('lower(courses.name) LIKE ?', "%#{search.downcase}%")
-  #   end
-  # end
 
   def teacher
     users.where(role: 'Teacher').first

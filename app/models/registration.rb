@@ -20,7 +20,6 @@ class Registration < ActiveRecord::Base
   has_one :holding, class_name: "Registration", foreign_key: "hold_id"
 
   scope :active, lambda{where("registrations.status = ?", "1")}
-  # scope :valid, lambda{where("registrations.status = ? OR registrations.status = ? OR registrations.status = ?", 0, 1, 2)}
   scope :future_adds, lambda{where("start_date > ?", Date.today).where("switch IS NULL OR switch = ?", false)}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ? AND switch_id IS NULL", Date.tomorrow, 30.days.ago)}
@@ -56,7 +55,7 @@ class Registration < ActiveRecord::Base
   end
 
   def offering_name_dashboard
-      course.name + " | " + offering.day[0..2] + " - " + offering.time.strftime("%I:%M %p")
+      course.name + " \n " + offering.day[0..2] + " - " + offering.time.strftime("%I:%M %p")
   end
 
   def past_end_date
