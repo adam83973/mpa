@@ -1,3 +1,8 @@
+class AdminSubdomainConstraint
+  def matches?(request)
+    request.subdomain.downcase == 'admin'
+  end
+end
 class SubdomainConstraint
   def matches?(request)
     case request
@@ -16,12 +21,12 @@ MathPlus::Application.routes.draw do
   get 'admins/home', to: 'admins#home'
   get 'admins/company/:id/', to:'admins#company'
 
-  constraints(SubdomainConstraint.new) do
-    root to: 'static_pages#landing'
-  end
-
   constraints(AdminSubdomainConstraint.new) do
     root :to => 'admins#home'
+  end
+
+  constraints(SubdomainConstraint.new) do
+    root to: 'static_pages#landing'
   end
 
   root to: 'static_pages#home'

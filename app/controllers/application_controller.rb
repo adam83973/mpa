@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   private
 
     def find_subdomain
-      if current_company.nil? && request.subdomain != 'www'
+      if current_company.nil? && %(www admin).include?(request.subdomain.downcase)
         redirect_to root_url(subdomain: 'www')
       end
     end

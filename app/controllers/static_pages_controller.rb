@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
 
   def landing
     if request.subdomain.present?
-      redirect_to home_url(subdomain: current_company.subdomain) unless request.subdomain == 'www'
+      redirect_to home_url(subdomain: current_company.subdomain) unless %W(www admin).include?(request.subdomain.downcase)
     end
   end
 
