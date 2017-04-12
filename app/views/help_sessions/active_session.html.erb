@@ -16,7 +16,7 @@
       <strong>Date:</strong> <%= help_session.date ? Date.parse(help_session.date).strftime("%D") : 'No Date Set' %>
     </p>
   </div>
-  <div class="col-lg-3">
+  <div class="col-lg-3 mb-3">
     <% if help_session.in_session? %>
       <%= link_to "End HW Help Session", help_sessions_end_hw_help_path, class: "btn btn-danger btn-block" %>
       <%= link_to "Create Learning Plan", "javascript:void(0)", class: "btn btn-primary btn-block", id: "launchLearningPlanModal" unless @student.has_learning_plan %>
