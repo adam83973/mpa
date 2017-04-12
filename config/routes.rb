@@ -1,8 +1,6 @@
 class SubdomainConstraint
   def matches?(request)
     case request
-    when request.subdomain.present? && !Company.all.pluck(:subdomain).include?(request.subdomain.downcase)
-      false
     when !request.subdomain.present?
       false
     when request.subdomain == 'www'
