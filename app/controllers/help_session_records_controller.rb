@@ -1,7 +1,7 @@
 class HelpSessionRecordsController < ApplicationController
   before_action :set_help_session_record, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /help_session_records
   def index

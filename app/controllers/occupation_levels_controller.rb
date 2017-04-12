@@ -1,5 +1,5 @@
 class OccupationLevelsController < ApplicationController
-  before_filter :authorize_admin
+  before_action :authorize_admin
 
   # GET /occupation_levels
   # GET /occupation_levels.json

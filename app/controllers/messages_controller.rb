@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [:new, :create]
-  before_filter :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [:new, :create]
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 

@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
-  before_filter :authorize_employee
-  before_filter :authorize_admin, only: [:destroy, :edit]
+  before_action :authorize_employee
+  before_action :authorize_admin, only: [:destroy, :edit]
   # GET /issues
   # GET /issues.json
   def index

@@ -1,6 +1,6 @@
 class InfusionPagesController < ApplicationController
-  before_filter :authenticate_user!, except: [:tag_contact]
-  before_filter :authorize_admin, except: [:tag_contact]
+  before_action :authenticate_user!, except: [:tag_contact]
+  before_action :authorize_admin, except: [:tag_contact]
 
   rescue_from Rack::Timeout::RequestTimeoutException, :with => :rescue_from_timeout
 

@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [ :show, :update, :badges ]
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [ :show, :update, :badges ]
 
   def change_current_occupation
     @student = Student.find(params[:student_id])

@@ -1,8 +1,8 @@
 class BadgeRequestsController < ApplicationController
 
-  before_filter :authenticate_user!
-  before_filter :authorize_admin, except: [ :show, :new, :create ]
-  before_filter :set_badge_request, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :authorize_admin, except: [ :show, :new, :create ]
+  before_action :set_badge_request, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 

@@ -1,12 +1,34 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # before_filter :find_subdomain
   around_action :scope_current_company
-  before_filter :set_paper_trail_whodunnit
-  before_filter :authorize_active
+  before_action :set_paper_trail_whodunnit
+  before_action :authorize_active
   after_filter  :set_access_control_headers
   force_ssl if: :ssl_configured?
+
+  def authorize_active
+    if signed_in?
+      if !current_user.active?
+        sign_out current_user
+        redirect_to root_path, notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
+      end
+    end
+  end
+
+  def authorize_admin
+    redirect_to root_path, alert: "Not authorized." unless current_user && current_user.admin?
+  end
+
+  def verify_current_company
+    if current_company.nil?
+      redirect_to root_path(subdomain: "www"), alert: "Please select your location's application." unless request.subdomain == 'admin'
+    end
+  end
+
+  def authorize_employee
+    redirect_to root_path unless current_user && current_user.employee?
+  end
 
   def ssl_configured?
     !Rails.env.development? && !ENV['STAGING_APP']
@@ -17,30 +39,7 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Method'] = %w{GET POST OPTIONS}.join(",")
   end
 
-  def authorize_admin
-    redirect_to root_path, alert: "Not authorized." unless current_user && current_user.admin?
-  end
-
-  def authorize_employee
-    redirect_to root_path unless current_user && current_user.employee?
-  end
-
-  def authorize_active
-    if signed_in?
-      if !current_user.active?
-        sign_out current_user
-        redirect_to root_path, flash: { alert:"Your account is no longer active. If you feel you have received this message in error please contact your Center Director."}
-      end
-    end
-  end
-
   private
-
-    def find_subdomain
-      if current_company.nil? && %(www admin).include?(request.subdomain.downcase)
-        redirect_to root_url(subdomain: 'www')
-      end
-    end
 
   	def class_session
   	  @class_session ||= ClassSession.new(session)

@@ -1,6 +1,6 @@
 class LeadsController < ApplicationController
 
-  before_filter :authorize_admin
+  before_action :authorize_admin
 
   # GET /leads
   # GET /leads.json
