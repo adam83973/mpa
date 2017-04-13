@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403205317) do
+ActiveRecord::Schema.define(version: 20170413025821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -590,8 +590,8 @@ ActiveRecord::Schema.define(version: 20170403205317) do
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
     t.date     "birth_date"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "user_id"
     t.integer  "credits"
     t.integer  "xp_total"
@@ -694,6 +694,7 @@ ActiveRecord::Schema.define(version: 20170403205317) do
     t.boolean  "opportunities_reports",                   default: false
     t.string   "additional_withholding"
     t.date     "birth_date"
+    t.string   "subdomain"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   around_action :scope_current_company
   before_action :set_paper_trail_whodunnit
   before_action :authorize_active
-  after_filter  :set_access_control_headers
+  after_action  :set_access_control_headers
   force_ssl if: :ssl_configured?
 
   def authorize_active

@@ -1,7 +1,6 @@
 def seed_image(asset_folder, file_name)
   File.open(File.join(Rails.root, "/app/assets/sample_lessons/#{asset_folder}/#{file_name}"))
 end
-# Create companies
 
 #create locations
 3.times do
