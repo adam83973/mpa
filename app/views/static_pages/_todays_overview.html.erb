@@ -67,7 +67,7 @@
                   <%= link_to "Edit", edit_student_path(registration.student), class: "btn btn-secondary btn-sm", :target => "_blank" %>
                 </td>
                 <td>
-                  <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-sm btn-yellow" } if !(registration.attended_first_class) %>
+                  <%= link_to "Returned", { :controller => "registrations", :action => "attended_first_class", :id => registration.id }, { :class => "btn btn-sm btn-warning" } if !(registration.attended_first_class) %>
                 </td>
                 <td></td>
               </tr>
@@ -76,8 +76,8 @@
               <tr>
                 <td>
                   <%= link_to "#{opportunity.student_name}", opportunity, target: "_blank" unless opportunity.student %><%= link_to "#{opportunity.student.full_name}", opportunity.student, target: "_blank" if opportunity.student %> -
-                  <%= opportunity.offering.offering_name_dashboard %>
                 </td>
+                <td><%= opportunity.offering.offering_name_dashboard %></td>
                 <td>
                   <% if opportunity.trial_date < Date.today %>
                    <span style="color:red;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
@@ -85,16 +85,15 @@
                    <span style="color:green;">(Trial:<%= opportunity.trial_date.strftime('%m/%d/%Y') %>)</span>
                   <% end %>
                 </td>
-                <td></td>
                 <td>
                   <%= link_to "Edit", opportunity, class: "btn btn-secondary btn-sm", :target => "_blank" %>
                 </td>
                 <td>
-                  <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-sm btn-yellow" } if !(opportunity.attended_trial) %>
+                  <%= link_to "Attended Trial", { :controller => "opportunities", :action => "attended_trial", :id => opportunity.id }, { :class => "btn btn-sm btn-warning" } if !(opportunity.attended_trial) %>
                 </td>
                 <td>
                   <%= link_to(url_for(controller: 'opportunities', action: 'missed_trial', id: opportunity.id), title: "Missed Trial", data: { confirm: "Are you sure you want to mark this trial as missed?", toggle: "tooltip", placement: "right"}) do %>
-                    &times;
+                    <i class="fa fa-times"></i>
                   <% end %>
                 </td>
               </tr>
