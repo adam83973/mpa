@@ -1,8 +1,8 @@
 namespace :development do
   desc "Seed development environment"
-  task seed: :environment do
+  task :seed, [:subdomain] => :environment do |task, args|
     seed_common
-    seed_development_environment
+    seed_development_environment(args)
   end
 end
 
@@ -25,9 +25,9 @@ end
 
 
 
-def seed_development_environment
+def seed_development_environment(args)
   create_locations
-  create_users
+  create_users(args)
   create_offerings
   create_notes
   create_registrations
@@ -181,7 +181,7 @@ def location_ids
   Location.pluck(:id)
 end
 
-def create_users
+def create_users(args)
   # Create admins
   admin = User.create!(first_name: 'Travis',
                        last_name: 'Sperry',
@@ -196,7 +196,8 @@ def create_users
                        location_id: Location.first.id,
                        active: true,
                        admin: true,
-                       role: 'Admin')
+                       role: 'Admin',
+                       subdomain: "#{args[:subdomain]}")
 
   # Create employees (directors, teachers, teaching assistants)
 
@@ -215,7 +216,8 @@ def create_users
                  location_id: Location.first.id,
                  active: true,
                  admin: true,
-                 role: 'Admin')
+                 role: 'Admin',
+                 subdomain: "#{args[:subdomain]}")
   end
 
   # Teachers
@@ -232,7 +234,8 @@ def create_users
                  zip: Faker::Address.zip,
                  location_id: location_ids.sample,
                  active: true,
-                 role: 'Teacher')
+                 role: 'Teacher',
+                 subdomain: "#{args[:subdomain]}")
   end
 
   # Teaching Assistants
@@ -249,7 +252,8 @@ def create_users
                  zip: Faker::Address.zip,
                  location_id: location_ids.sample,
                  active: true,
-                 role: 'Teaching Assistant')
+                 role: 'Teaching Assistant',
+                 subdomain: "#{args[:subdomain]}")
   end
 
   # Create parents
@@ -266,7 +270,8 @@ def create_users
                  zip: Faker::Address.zip,
                  location_id: location_ids.sample,
                  active: true,
-                 role: 'Parent')
+                 role: 'Parent',
+                 subdomain: "#{args[:subdomain]}")
   end
 
   parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)

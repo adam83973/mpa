@@ -4,7 +4,7 @@ namespace :new do
 
     company = Company.find 2
     puts "Seeding #{company.name} information."
-    company.scope_schema { Rake::Task['development:seed'].invoke }
+    company.scope_schema { Rake::Task['development:seed'].execute subdomain: company.subdomain }
 
   end
 end
