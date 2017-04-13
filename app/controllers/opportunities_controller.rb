@@ -265,7 +265,7 @@ class OpportunitiesController < ApplicationController
     if @student
       # change opportunity status to 'undecided'
       if @opportunity.update_attributes attended_trial: true, status: 4
-        root_path(subdomain: current_company.subdomain), notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
+        redirect_to root_url(subdomain: current_company.subdomain), notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
 
         # note account to indicate student attended trial
         @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment.  An email has also been sent to inquire about enrollment. Moved opportunity to undecided.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
@@ -275,7 +275,7 @@ class OpportunitiesController < ApplicationController
         NotificationMailer.trial_attended(@opportunity).deliver
       end
     else
-      root_path(subdomain: current_company.subdomain), flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
+      redirect_to root_url(subdomain: current_company.subdomain), flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
     end
   end
 
@@ -311,12 +311,12 @@ class OpportunitiesController < ApplicationController
 
     if @student
       if @opportunity.update_attributes missed_trial: true, status: 4
-        root_path(subdomain: current_company.subdomain), notice: "#{@student.full_name} has missed their trial."
+        redirect_to root_url(subdomain: current_company.subdomain), notice: "#{@student.full_name} has missed their trial."
         @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
       end
     else
-      root_path(subdomain: current_company.subdomain), flash: { alert: "You must add a student to this opportunity, before marking their trial as missed."}
+      redirect_to root_url(subdomain: current_company.subdomain), flash: { alert: "You must add a student to this opportunity, before marking their trial as missed."}
     end
   end
 
