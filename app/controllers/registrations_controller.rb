@@ -207,7 +207,7 @@ class RegistrationsController < ApplicationController
     @student = @registration.student
 
     if @registration.update_attributes attended_first_class: true, status: 1
-      root_path(subdomain: current_company.subdomain), notice: "#{@student.full_name} has attended their first class."
+      redirect_to root_url, notice: "#{@student.full_name} has attended their first class."
     end
   end
 
