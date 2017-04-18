@@ -18,7 +18,6 @@ namespace :operations do
 end
 
 ###### Enrollment/Registrations Management ######
-
 def start_hold
   #Look for registrations with start hold date. Change status to inactive.
   registrations = Registration.where("hold_date <= ? AND status = ?", Date.today, 1)

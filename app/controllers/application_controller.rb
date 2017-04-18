@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  # before_action :set_paper_trail_whodunnit
+  # # before_action :verify_current_company
+  # before_action :authorize_active
   around_action :scope_current_company
-  before_action :set_paper_trail_whodunnit
-  before_action :authorize_active
   after_action  :set_access_control_headers
   force_ssl if: :ssl_configured?
 
@@ -11,13 +12,13 @@ class ApplicationController < ActionController::Base
     if signed_in?
       if !current_user.active?
         sign_out current_user
-        redirect_to root_path(subdomain: current_company.subdomain), notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
+        redirect_to root_url, notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
       end
     end
   end
 
   def authorize_admin
-    redirect_to root_path(subdomain: current_company.subdomain), alert: "Not authorized." unless current_user && current_user.admin?
+    redirect_to root_url, alert: "Not authorized." unless current_user && current_user.admin?
   end
 
   def verify_current_company
@@ -27,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_employee
-    redirect_to root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
+    redirect_to root_url unless current_user && current_user.employee?
   end
 
   def ssl_configured?
