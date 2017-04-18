@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # before_action :set_paper_trail_whodunnit
-  # # before_action :verify_current_company
-  # before_action :authorize_active
+  before_action :set_paper_trail_whodunnit
+  before_action :verify_current_company
+  before_action :authorize_active
   around_action :scope_current_company
   after_action  :set_access_control_headers
   force_ssl if: :ssl_configured?
