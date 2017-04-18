@@ -1,22 +1,13 @@
 class StaticPagesController < ApplicationController
   skip_before_action :authorize_active, only: [:enter_code, :mission_lookup]
   before_action :authorize_admin, only: [ :events, :event_enrollment ]
-  # before_action :verify_current_company, except:[ :landing, :application_lookup ]
+  before_action :verify_current_company, except:[ :landing, :application_lookup ]
 
   def landing
     if request.subdomain.present?
-      if current_company
-        redirect_to home_url(subdomain: current_company.subdomain)
-      elsif reserved_subdomain_present?
-      else
-        redirect_to root_url(subdomain: 'www')
-      end
-    else
-      redirect_to root_url(subdomain: 'www')
+      redirect_to home_url(subdomain: current_company.subdomain) unless %W(www admin).include?(request.subdomain.downcase)
     end
   end
-
-
 
   def home
     if signed_in?
@@ -107,10 +98,6 @@ class StaticPagesController < ApplicationController
   end
 
   private
-    def reserved_subdomain_present?
-      %W(www admin).include?(request.subdomain.downcase)
-    end
-
     def set_admin
       @opportunity = Opportunity.new
       @note = Note.new

@@ -1,5 +1,4 @@
 class EmailsController < ActionController::Base
-  # before_action :authenticate_user!
   def show
     @email = Ahoy::Message.where(token: params[:token]).first
     @user = User.find(params[:id])

@@ -1,4 +1,5 @@
 class BadgeRequestsController < ApplicationController
+
   before_action :authenticate_user!
   before_action :authorize_admin, except: [ :show, :new, :create ]
   before_action :set_badge_request, only: [:show, :edit, :update, :destroy]

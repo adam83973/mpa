@@ -1,5 +1,4 @@
 class CompaniesController < ApplicationController
-  before_action :authorize_admin
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
   # GET /companies
