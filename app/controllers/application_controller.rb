@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin
-    redirect_to root_url, alert: "Not authorized." unless current_user && current_user.admin?
+    redirect_to root_url, alert: "You are not authorized to access this page. If you feel you have reached this message in error please contact your center director." unless current_user && current_user.admin?
   end
 
   def verify_current_company
