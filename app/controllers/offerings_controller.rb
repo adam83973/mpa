@@ -1,4 +1,5 @@
 class OfferingsController < ApplicationController
+  before_action :verify_current_company
   before_action :authenticate_user!, except: :offerings_by_location
   before_action :authorize_employee, except: [:show, :offerings_by_location]
   before_action :authorize_admin, except: [:show, :index, :offerings_by_location, :attendance_report]

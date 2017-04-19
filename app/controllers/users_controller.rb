@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :verify_current_company
   before_action :authenticate_user!, except: [:infusion_request, :appointment_request, :appointment_request_new]
 
   skip_before_action :verify_authenticity_token, only: [:infusion_request, :appointment_request, :appointment_request_new, :missed_appointments, :confirmation_opt_out]

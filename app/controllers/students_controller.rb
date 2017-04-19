@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :verify_current_company
   before_action :authenticate_user!
   before_action :authorize_employee, except: [ :show, :update, :badges ]
 

@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
+  before_action :verify_current_company, except:[ :landing, :application_lookup ]
   skip_before_action :authorize_active, only: [:enter_code, :mission_lookup]
   before_action :authorize_admin, only: [ :events, :event_enrollment ]
-  before_action :verify_current_company, except:[ :landing, :application_lookup ]
 
   def landing
     if request.subdomain.present?
