@@ -5,7 +5,15 @@ class StaticPagesController < ApplicationController
 
   def landing
     if request.subdomain.present?
-      redirect_to home_url(subdomain: current_company.subdomain) unless %W(www admin).include?(request.subdomain.downcase)
+      if current_company
+        redirect_to home_url(subdomain: current_company.subdomain)
+      elsif reserved_subdomain?(request.subdomain)
+        redirect_to root_url unless request.subdomain == 'www'
+      else
+        redirect_to root_url(subdomain: 'www'), notice: 'You must select a valid application name. If you are having trouble accessing you application please check your center director.'
+      end
+    else
+      redirect_to root_url(subdomain: 'www')
     end
   end
 
@@ -98,6 +106,9 @@ class StaticPagesController < ApplicationController
   end
 
   private
+    def reserved_subdomain?(subdomain)
+      %W(admin www).include?(subdomain)
+    end
     def set_admin
       @opportunity = Opportunity.new
       @note = Note.new

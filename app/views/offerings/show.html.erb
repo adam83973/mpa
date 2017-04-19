@@ -1,3 +1,4 @@
+<% title @offering.offering_name %>
 <div class="card mb-5">
   <div class="card-block">
     <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-secondary pull-right', target: "_blank" if current_user.admin? %>
@@ -16,7 +17,7 @@
           <em> no teachers assigned</em>
       <% end %>
     </h3>
-    <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right", target: "_blank" %>
+    <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right" %>
   </div>
 </div>
 
