@@ -21,6 +21,7 @@ def seed_common
   create_occupation_levels
   create_badges
   create_experiences
+  create_opportunities
 end
 
 
@@ -318,6 +319,31 @@ def create_offerings
 
     OfferingsUser.create!(offering_id: offering.id, user_id: teacher.id)
     OfferingsUser.create!(offering_id: offering.id, user_id: teaching_assistant.id)
+  end
+end
+
+def create_opportunities
+  director_ids = User.pluck(:id)
+  parents = User.where(role: 'Parent')
+  offerings = Offering.all
+
+  #create random trials
+  15.times do
+    parent = parents.sample
+    student = parent.students.sample
+    offering = offerings.sample
+
+    Opportunity.create!(status:                 3,
+                        location_id:            offering.location_id,
+                        admin_id:               director_ids.sample,
+                        user_id:                parent.id,
+                        student_id:             student.id,
+                        course_id:              offering.course_id,
+                        offering_id:            offering.id,
+                        trial_date:             Date.today + [0, 1, 5, 10].sample.days,
+                        attended_trial:         false,
+                        date_won:               nil,
+                        date_lost:              nil)
   end
 end
 
