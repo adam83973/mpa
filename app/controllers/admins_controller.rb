@@ -1,4 +1,5 @@
 class AdminsController < ApplicationController
+  skip_before_action :authorize_active
   def home
     @companies = Company.all
 
