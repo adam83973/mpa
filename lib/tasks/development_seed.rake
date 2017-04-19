@@ -21,7 +21,6 @@ def seed_common
   create_occupation_levels
   create_badges
   create_experiences
-  create_opportunities
 end
 
 
@@ -30,6 +29,7 @@ def seed_development_environment(args)
   create_locations
   create_users(args)
   create_offerings
+  create_opportunities
   create_notes
   create_registrations
   create_lessons
@@ -275,18 +275,17 @@ def create_users(args)
                  subdomain: "#{args[:subdomain]}")
   end
 
-  parent_id_and_last_name = User.where(role: 'Parent').pluck(:id, :last_name)
+  parents = User.where(role: 'Parent')
 
   # Create students with parent associations
   avatar_ids = Avatar.pluck(:id)
   occupation_ids = Occupation.pluck(:id)
 
-  450.times do
-    parent_info = parent_id_and_last_name.sample #array of parent ids and last names
+  parents.each do |parent|
     hex_value = (0..2).map{"%0x" % (rand * 0x80 + 0x80)}.join.upcase # color for avatar bg
     student = Student.create!(first_name:                          Faker::Name.first_name,
-                             last_name:                           parent_info[1],
-                             user_id:                             parent_info[0],
+                             last_name:                           parent.last_name,
+                             user_id:                             parent.id,
                              avatar_id:                           avatar_ids.sample,
                              avatar_background_color:             "##{hex_value}",
                              mathematician_experience_points:     [0, 100, 300, 500, 1500, 2000].sample,
@@ -296,6 +295,22 @@ def create_users(args)
                              xp_total:                            0)
     student.update_attributes experience_point_total:             student.sum_occupation_experience_points,
                               credits:                            student.sum_occupation_experience_points/100
+
+    if [0, 1].sample % 2 == 1
+      hex_value = (0..2).map{"%0x" % (rand * 0x80 + 0x80)}.join.upcase # color for avatar bg
+      student = Student.create!(first_name:                          Faker::Name.first_name,
+                               last_name:                           parent.last_name,
+                               user_id:                             parent.id,
+                               avatar_id:                           avatar_ids.sample,
+                               avatar_background_color:             "##{hex_value}",
+                               mathematician_experience_points:     [0, 100, 300, 500, 1500, 2000].sample,
+                               engineer_experience_points:          [0, 100, 300, 500, 1500, 2000].sample,
+                               programmer_experience_points:        [0, 100, 300, 500, 1500, 2000].sample,
+                               current_occupation_id:               occupation_ids.sample,
+                               xp_total:                            0)
+      student.update_attributes experience_point_total:             student.sum_occupation_experience_points,
+                                credits:                            student.sum_occupation_experience_points/100
+    end
   end
 end
 
@@ -331,6 +346,7 @@ def create_opportunities
   15.times do
     parent = parents.sample
     student = parent.students.sample
+
     offering = offerings.sample
 
     Opportunity.create!(status:                 3,
