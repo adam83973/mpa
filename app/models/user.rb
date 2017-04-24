@@ -187,10 +187,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def system_admin_id
-    where(system_administrator: true).first.id
-  end
-
   def self.system_admin_id
     where(system_administrator: true).first.id
   end

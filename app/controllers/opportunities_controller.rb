@@ -248,7 +248,7 @@ class OpportunitiesController < ApplicationController
     #add note with actionable item
     note = user.notes.build({
       content: "#{user.first_name} has scheduled a trial. Please create or link this to a student account.",
-      user_id: user.system_admin_id,
+      user_id: user.class.system_admin_id,
       location_id: opportunity.location_id,
       action_date: Date.today})
 
@@ -312,7 +312,7 @@ class OpportunitiesController < ApplicationController
     if @student
       if @opportunity.update_attributes missed_trial: true, status: 4
         redirect_to root_url(subdomain: current_company.subdomain), notice: "#{@student.full_name} has missed their trial."
-        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
+        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.class.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
       end
     else

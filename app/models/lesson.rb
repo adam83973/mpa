@@ -1,5 +1,4 @@
 class Lesson < ActiveRecord::Base
-  #attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week, :resource_ids, :problem_ids
 
   has_many :videos
   has_many :resourcings, as: :resourceable
@@ -12,7 +11,7 @@ class Lesson < ActiveRecord::Base
 
   if Rails.env.production?
     searchable do
-      # text :name
+      text :name
       text :course_name
       integer :week
       text :course_name_and_week
