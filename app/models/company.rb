@@ -10,6 +10,15 @@ class Company < ApplicationRecord
   # create schema for company
   after_create :create_schema
 
+
+  def self.current
+  	Thread.current[:current_company]
+  end
+
+  def self.current=(company)
+     Thread.current[:current_company] = company
+  end
+
   def create_schema
     self.class.connection.execute("create schema company#{id}")
     scope_schema do
@@ -24,5 +33,9 @@ class Company < ApplicationRecord
     yield
   ensure
     self.class.connection.schema_search_path = original_search_path
+  end
+
+  def scope_time_zone(&block)
+    Time.use_zone(time_zone, &block)
   end
 end

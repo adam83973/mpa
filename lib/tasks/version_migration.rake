@@ -5,6 +5,7 @@ namespace :version do
     create_company
     flag_achievements
     prepare_students
+    mark_system_administrator
   end
 end
 # The purpose of this task is to convert from version 1.x to version 2.x. This to be run after the database changes have been fully migrating.
@@ -14,7 +15,7 @@ end
 def create_company
   Company.skip_callback(:create, :after, :create_schema)
 
-  Company.create!(name: 'JMR Mathematics', subdomain: 'columbus')
+  Company.create!(name: 'JMR Mathematics', subdomain: 'columbus', time_zone: 'Eastern Time (US & Canada)')
 
   Company.set_callback(:create, :after, :create_schema)
 end
@@ -28,6 +29,11 @@ def flag_achievements
   math_attendance_experience.update_attributes         attendance: true, course_id: nil
   programming_attendance_experience.update_attributes  attendance: true, course_id: 15
   chess_attendance_experience.update_attributes        attendance: true, course_id: 10
+end
+
+def mark_system_administrator
+  u = User.find 757
+  u.update_attribute :system_administrator, true
 end
 
 

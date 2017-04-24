@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   around_action :scope_current_company
+  around_action :scope_company_time_zone
   before_action :set_paper_trail_whodunnit
   before_action :authorize_active
   after_action  :set_access_control_headers
@@ -61,6 +62,14 @@ class ApplicationController < ActionController::Base
         yield
       else
         current_company.scope_schema("public", &block)
+      end
+    end
+
+    def scope_company_time_zone(&block)
+      if current_company.nil?
+        yield
+      else
+        Time.use_zone(current_company.time_zone, &block)
       end
     end
 end

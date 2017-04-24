@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   attr_encrypted :bank_account, key: :encryption_key
   attr_encrypted :routing_number, key: :encryption_key
 
-  after_save :update_status
+  after_save :toggle_active_tag_infusionsoft
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
@@ -188,22 +188,16 @@ class User < ActiveRecord::Base
   end
 
   def system_admin_id
-    if Rails.env.production?
-      757
-    elsif Rails.env.development?
-      460
-    end
+    where(system_administrator: true).first.id
   end
 
   def self.system_admin_id
-    if Rails.env.production?
-      757
-    elsif Rails.env.development?
-      460
-    end
+    where(system_administrator: true).first.id
   end
 
-  def update_status
+  def toggle_active_tag_infusionsoft
+    # This is specific to JMR Mathematics and should not run if a parent does not
+    # have an infusionsoft id
     if self.parent? && self.infusion_id
       if Rails.env.production?
         begin

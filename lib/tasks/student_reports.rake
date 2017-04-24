@@ -1,9 +1,9 @@
-namespace :send do
+namespace :student_reports do
   desc "Refresh student data so it has current dates to test system."
-  task monthly_student_reports: :environment do
+  task send_monthly_report: :environment do
     send_student_reports
   end
-  task test_student_report: :environment do
+  task send_test_report: :environment do
     send_test_report
   end
 end

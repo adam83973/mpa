@@ -199,6 +199,24 @@ def create_users(args)
                        admin: true,
                        role: 'Admin',
                        subdomain: "#{args[:subdomain]}")
+                         # Create admins
+
+  system_admin = User.create!(first_name: 'System',
+                              last_name: 'Administrator',
+                              email: 'system_admin@mathplusacademy.dev',
+                              password: 'qwertyqwerty1',
+                              password_confirmation: 'qwertyqwerty1',
+                              phone: Faker::PhoneNumber.cell_phone,
+                              address: Faker::Address.street_address,
+                              city: Faker::Address.city,
+                              state: Faker::Address.state,
+                              zip: Faker::Address.zip,
+                              location_id: Location.first.id,
+                              active: true,
+                              admin: true,
+                              system_administrator: true,
+                              role: 'Admin',
+                              subdomain: "#{args[:subdomain]}")
 
   # Create employees (directors, teachers, teaching assistants)
 
