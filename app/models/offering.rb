@@ -1,6 +1,4 @@
 class Offering < ActiveRecord::Base
-  #attr_accessible :comments, :course_id, :day, :graduation_year, :location_id,
-                  # :time, :user_ids, :active, :classroom, :hidden, :day_number
 
   validates_presence_of :course_id, :day, :time, :location_id
 
