@@ -15,7 +15,7 @@ end
 def create_company
   Company.skip_callback(:create, :after, :create_schema)
 
-  Company.create!(name: 'JMR Mathematics', subdomain: 'columbus', time_zone: 'Eastern Time (US & Canada)')
+  Company.create!(name: 'JMR Mathematics', subdomain: 'columbus', time_zone: 'Eastern Time (US & Canada)', infusionsoft_integration: true)
 
   Company.set_callback(:create, :after, :create_schema)
 end
