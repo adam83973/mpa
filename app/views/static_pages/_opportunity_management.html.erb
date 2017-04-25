@@ -16,7 +16,9 @@
     <tr>
       <% 6.times do |n| %>
         <th>
-          <%= Opportunity.where(status: n).count %>
+          <%= link_to status_index_opportunities_path(status: n, location_id: @user_location.id), target: 'blank' do %>
+            <%= Opportunity.where(status: n, location_id: @user_location.id).count %>
+          <% end %>
         </th>
       <% end %>
     </tr>

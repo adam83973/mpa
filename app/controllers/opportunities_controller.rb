@@ -16,6 +16,17 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def status_index
+    @status = params[:status]
+    @location = Location.find params[:location_id]
+    @opportunities = Opportunity.where(status: params[:status], location_id: params[:location_id])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @opportunities }
+    end
+  end
+
   # GET /opportunities/1
   # GET /opportunities/1.json
   def show
@@ -119,7 +130,7 @@ class OpportunitiesController < ApplicationController
         elsif status.to_i == 2 #missed appointment
           @parent.missed_appointment
         end
-        format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
+        format.html { redirect_to opportunity_path(@opportunity), notice: 'Opportunity was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

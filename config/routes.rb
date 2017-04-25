@@ -216,6 +216,7 @@ MathPlus::Application.routes.draw do
         get  :join_class
         get  :data, defaults: { format: 'json' }
         get  :aging_data, defaults: { format: 'json' }
+        get :status_index
       end
     end
 

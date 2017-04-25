@@ -439,7 +439,7 @@ class UsersController < ApplicationController
     note = parent.notes.build({
       content: "Please call for follow up on termination and ask about any possible
                issues that spurred the termination.",
-      user_id: parent.system_admin_id,
+      user_id: parent.class.system_admin_id,
       location_id: parent.location_id,
       action_date: Date.today})
 
@@ -454,7 +454,7 @@ class UsersController < ApplicationController
     note = parent.notes.build({
       content: "Please call #{parent.full_name} about restarting classes.
       They responded to an email and are interested in restarting classes.",
-      user_id: parent.system_admin_id,
+      user_id: parent.class.system_admin_id,
       location_id: parent.location_id,
       action_date: Date.today})
 

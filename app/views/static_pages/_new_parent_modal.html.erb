@@ -23,17 +23,23 @@
           </div>
           <div class="col-lg-6">
             <%= f.input :opportunity_id, as: :hidden %>
-            <%= f.input :infusion_id, label: "Infusionsoft Id" %>
-            <p>
-              <%= link_to "Look Up Infusionsoft Id", "javascript:void(0)", class: "btn btn-sm btn-secondary pull-right", id: "infusion_id_lookup", style: "margin-bottom:10px;" %>
-            </p>
-            <div id="infusionsoft_results" style="overflow:scroll;">
+            <div class="infusionsoft" data-infusionsoft=<%= current_company.infusionsoft_integration %>>
+
             </div>
+            <% if current_company.infusionsoft_integration %>
+              <%= f.input :infusion_id, label: "Infusionsoft Id" %>
+              <p>
+                <%= link_to "Look Up Infusionsoft Id", "javascript:void(0)", class: "btn btn-sm btn-secondary pull-right", id: "infusion_id_lookup", style: "margin-bottom:10px;" %>
+              </p>
+              <div id="infusionsoft_results" style="overflow:scroll;">
+              </div>
+            <% else %>
+            <% end %>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
-              <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+              <%= f.button :submit, class: "btn btn-success pull-right" %>
             <% end %>
           </div>
         </div>

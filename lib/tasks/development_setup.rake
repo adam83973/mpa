@@ -5,7 +5,7 @@ namespace :development do
     Rake::Task['db:create'].execute
     Rake::Task['db:schema:load'].execute
 
-    company = Company.create!(name: 'JMR Mathematics', subdomain: 'columbus', time_zone: 'Eastern Time (US & Canada)')
+    company = Company.create!(name: 'JMR Mathematics', subdomain: 'columbus', time_zone: 'Eastern Time (US & Canada)', infusionsoft_integration: true)
     puts "Seeding #{company.name} information."
     company.scope_schema { Rake::Task['development:seed'].execute subdomain: company.subdomain }
 

@@ -69,7 +69,7 @@
         <% end %>
       </p>
     <% end %>
-    <% if @user.role  == "Parent" && current_user.admin? %>
+    <% if @user.role  == "Parent" && current_user.admin? && current_company.infusionsoft_integration %>
       <% if @user.infusion_id != nil %>
       <p>
         <strong>Infusionsoft Id:</strong>

@@ -117,7 +117,7 @@ class RegistrationsController < ApplicationController
         # Add note with action for the following day to ensure subscription has been cancelled.
         note = @parent.notes.build({
           content: "#{@student.first_name} has dropped a class. Please double check their subscriptions.",
-          user_id: @parent.system_admin_id,
+          user_id: @parent.class.system_admin_id,
           location_id: @registration.location.id,
           action_date: Date.tomorrow})
         note.save
@@ -171,7 +171,7 @@ class RegistrationsController < ApplicationController
                                                       hold_id: @registration.id)
 
         note = @parent.notes.build({content: "#{@student.first_name} has entered a hold. Please double check their subscriptions.",
-                                    user_id: @parent.system_admin_id,
+                                    user_id: @parent.class.system_admin_id,
                                     location_id: @registration.location.id,
                                     action_date: Date.tomorrow})
         note.save
