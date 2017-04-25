@@ -172,9 +172,9 @@ class StaticPagesController < ApplicationController
         @user_location.notes.includes(:notable, :user).where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
         #add location notes to user_action needed
 
-        @classroom_a_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "A").order(:time)
-        @classroom_b_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "B").order(:time)
-        @classroom_c_offerings = Offering.includes(:users).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "C").order(:time)
+        @classroom_a_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "A").order(:time)
+        @classroom_b_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "B").order(:time)
+        @classroom_c_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "C").order(:time)
 
         @todays_offerings = @classroom_a_offerings + @classroom_b_offerings + @classroom_c_offerings
 
@@ -185,9 +185,9 @@ class StaticPagesController < ApplicationController
       @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)
 
       #Pull students are starting or restarting within the next day.
-      @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
+      @new_students_today_location = @user_location.registrations.includes(:student, offering: [:course]).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
       @restarting_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
-      @trials_today_location = @user_location.opportunities.includes(:student, :offering).where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
+      @trials_today_location = @user_location.opportunities.includes(:student, offering: [:course]).where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
     end
 
     def set_teacher

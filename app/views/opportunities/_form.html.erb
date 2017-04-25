@@ -5,7 +5,7 @@
       <%= f.input :title, input_html: { id: "oppotunity_title" }, placeholder: "Type a short description of this opportunity." %>
         <%= f.label "Interest Level:" %>
         <div class="text-center">
-          <%= f.input :interest_level, as: :radio_buttons, item_wrapper_class: 'radio-inline', label: false, collection: Opportunity::INTEREST_LEVELS.zip((0..2).to_a) %>
+          <%= f.input :interest_level, as: :radio_buttons, item_wrapper_class: 'form-check form-check-inline', label: false, collection: Opportunity::INTEREST_LEVELS.zip((0..2).to_a) %>
         </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-        <%= f.button :submit, class: "pull-right btn btn-lg btn-success" %>
+        <%= f.button :submit, class: "pull-right btn btn-success" %>
     </div>
   </div>
 <% end %>
