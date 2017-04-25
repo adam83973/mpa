@@ -3,6 +3,7 @@ class InfusionPagesController < ApplicationController
   before_action :authorize_admin, except: [:tag_contact]
 
   rescue_from Rack::Timeout::RequestTimeoutException, :with => :rescue_from_timeout
+  rescue_from Infusionsoft::UnexpectedError, :with => :rescue_from_unexpected
 
   def home
   	if params[:search]
@@ -115,9 +116,7 @@ class InfusionPagesController < ApplicationController
       end
     end
 
-    if result && new_customer
-      flash[:notice] = "New Customer Sequence Started"
-    elsif result
+    if result
       flash[:notice] = "Contact Updated"
     else
       flash[:alert] = "Contact Update Failed"
@@ -247,7 +246,7 @@ class InfusionPagesController < ApplicationController
 
   def end_subscription
     today = DateTime.now
-    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N"})
+    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N", :BillingCycle => 2})
     if result
       flash[:notice] = "Subscription ended"
     else
@@ -291,5 +290,9 @@ class InfusionPagesController < ApplicationController
   private
     def rescue_from_timeout
       redirect_to :back, alert: 'Your request was not processed. Please try again.'
+    end
+
+    def rescue_from_unexpected
+      redirect_to infusion_pages_subscription_path(userId: @user.id)
     end
 end

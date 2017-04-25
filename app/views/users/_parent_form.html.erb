@@ -26,7 +26,7 @@
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <%= f.input :phone %>
-    <% if current_company.infusionsoft_integration %>
+    <% if current_company.infusionsoft_integration && current_user.employee? %>
       <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]} if current_user.employee? && params[:infusion_id] %>
       <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning" } unless current_user.employee? && params[:infusion_id] %>
     <% end %>

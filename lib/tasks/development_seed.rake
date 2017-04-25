@@ -47,12 +47,14 @@ def create_courses
     ['Geometry', '8th - 9th Grade'], ['Chess Club','4th - 8th Grade'],
     ['Problem Solving Lab','7th - 8th Grade'], ['Programming Lab','4th - 8th Grade']]
 
-  course_names_and_descriptions.each do |course_info|
+  course_names_and_descriptions.each_with_index do |course_info, i|
+    has_assignments = (i < 9) ? true : false
     Course.create!(name:              course_info[0],
                    description:       course_info[1],
                    grade:             course_info[1].gsub(' Grade', ''),
                    capacity:          10,
-                   occupation_id:     1)
+                   occupation_id:     1,
+                   has_assignments:   has_assignments)
   end
 end
 

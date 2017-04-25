@@ -354,6 +354,10 @@ class Student < ActiveRecord::Base
     active_registrations.to_a.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
   end
 
+  def has_course_with_assignments?
+    registrations.any?{|registration| registration.course.has_assignments if registration.course}
+  end
+
   #-----Student Information Management-----
 
   def self.import(file)

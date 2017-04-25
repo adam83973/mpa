@@ -6,6 +6,7 @@ namespace :version do
     flag_achievements
     prepare_students
     mark_system_administrator
+    mark_courses_with_assignments
   end
 end
 # The purpose of this task is to convert from version 1.x to version 2.x. This to be run after the database changes have been fully migrating.
@@ -64,4 +65,11 @@ def xp_sum_by_occupation(category, student)
     end
   end
   total
+end
+
+def mark_courses_with_assignments
+  courses = Course.find((1..9).to_a + [13,17])
+  courses.each do |course|
+    course.update_attribute :has_assignments, true
+  end
 end
