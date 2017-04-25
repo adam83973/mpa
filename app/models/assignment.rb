@@ -33,7 +33,7 @@ class Assignment < ActiveRecord::Base
   private
 
     def add_experience_point
-      experience = Experience.where("assignment = ? AND name IS LIKE", true, SCORES[score]).pluck(:id).first
+      experience = Experience.where("assignment = ? AND name LIKE ?", true, "%#{SCORES[score]}%").first
       assignment_xp = ExperiencePoint.create!(student_id:    student_id,
                                               experience_id: experience.id,
                                               comment:       comment,
@@ -44,9 +44,9 @@ class Assignment < ActiveRecord::Base
     end
 
     def update_experience_point
-      experience = Experience.where("assignment = ? AND name IS LIKE", true, SCORES[score]).pluck(:id).first
+      experience = Experience.where("assignment = ? AND name LIKE ?", true, "%#{SCORES[score]}%").first
 
-      experience_point.update_attributes(experience_id: experience_id,
+      experience_point.update_attributes(experience_id: experience.id,
                                          comment:       comment,
                                          points:        experience.points,
                                          user_id:       user_id)

@@ -34,6 +34,7 @@ def seed_development_environment(args)
   create_registrations
   create_lessons
   create_products
+  create_family_for_parent_ui_testing(args)
 end
 
 def create_courses
@@ -613,6 +614,67 @@ def create_products
                       location_id:              n,
                       quantity:                 0,
                       virtual:                  true)
+    end
+  end
+end
+
+def create_family_for_parent_ui_testing(args)
+  # Add parent
+  parent = User.create!(first_name: Faker::Name.first_name,
+                         last_name: Faker::Name.last_name,
+                         email: 'parent@mathplusacademy.dev',
+                         password: 'password',
+                         password_confirmation: 'password',
+                         phone: Faker::PhoneNumber.cell_phone,
+                         address: Faker::Address.street_address,
+                         city: Faker::Address.city,
+                         state: Faker::Address.state,
+                         zip: Faker::Address.zip,
+                         location_id: location_ids.sample,
+                         active: true,
+                         role: 'Parent',
+                         subdomain: "#{args[:subdomain]}")
+
+  # Add kids and associated registrations
+  3.times do
+    hex_value = (0..2).map{"%0x" % (rand * 0x80 + 0x80)}.join.upcase # color for avatar bg
+    director_id = User.where(role: 'Admin').pluck(:id).sample
+    offering_id = Offering.pluck(:id).sample
+    avatar_id = Avatar.pluck(:id).sample
+    occupation_id = Occupation.pluck(:id).sample
+
+    student = Student.create!(first_name:                          Faker::Name.first_name,
+                              last_name:                           parent.last_name,
+                              user_id:                             parent.id,
+                              avatar_id:                           avatar_id,
+                              avatar_background_color:             "##{hex_value}",
+                              mathematician_experience_points:     [0, 100, 300, 500, 1500, 2000].sample,
+                              engineer_experience_points:          [0, 100, 300, 500, 1500, 2000].sample,
+                              programmer_experience_points:        [0, 100, 300, 500, 1500, 2000].sample,
+                              current_occupation_id:               occupation_id,
+                              xp_total:                            0)
+    student.update_attributes experience_point_total:             student.sum_occupation_experience_points,
+                             credits:                    student.sum_occupation_experience_points/100
+
+    Registration.create!(start_date:               Date.today - rand(15..900).days,
+                         end_date:                 nil,
+                         hold_date:                nil,
+                         trial_date:               nil,
+                         attended_first_class:     true,
+                         attended_trial:           false,
+                         student_id:               student.id,
+                         offering_id:              offering_id,
+                         admin_id:                 director_id,
+                         status:                   1)
+
+    15.times do |n|
+       Assignment.create!(student_id:             student.id,
+                          score:                  rand(0..2),
+                          user_id:                director_id,
+                          week:                   n+1,
+                          offering_id:            offering_id,
+                          course_id:              Offering.find(offering_id).course_id,
+                          comment:                'Amazing work on this assignment! You did fantastic!')
     end
   end
 end
