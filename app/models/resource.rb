@@ -67,6 +67,7 @@ class Resource < ActiveRecord::Base
         lessons.each do |lesson|
           if lesson.course_name == r[:course]
             lesson.resources << self
+            lesson.save
           end
         end
       end
