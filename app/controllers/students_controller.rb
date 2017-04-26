@@ -6,9 +6,9 @@ class StudentsController < ApplicationController
   def change_current_occupation
     @student = Student.find(params[:student_id])
     if @student.update_attribute :current_occupation_id, params[:occupation_id]
-      redirect_to student_path(@student), notice: 'Student occupation changed!'
+      redirect_to student_path(@student), flash: { success: 'Student occupation changed!'}
     else
-      redirect_to student_path(@student), danger: 'We were unable to change your occupation.'
+      redirect_to student_path(@student), alert: 'We were unable to change your occupation.'
     end
   end
 

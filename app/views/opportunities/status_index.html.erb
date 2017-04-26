@@ -8,6 +8,7 @@
       <th>Student</th>
       <th>Parent</th>
       <th>Offering</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,7 @@
         <td><%= opportunity.student.full_name if opportunity.student %></td>
         <td><%= opportunity.user.full_name if opportunity.user %></td>
         <td><%= opportunity.offering.offering_name if opportunity.offering %></td>
+        <td><%= link_to 'View', opportunity_path(opportunity), target: '_blank' %></td>
       </tr>
     <% end %>
   </tbody>

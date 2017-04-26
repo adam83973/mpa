@@ -80,7 +80,7 @@ class StaticPagesController < ApplicationController
     if company = Company.find_by_subdomain(subdomain)
       redirect_to home_url(subdomain: subdomain)
     else
-      redirect_to root_url, flash: { warning: "It doesn't look like there is an application that matches that name. Application names are all lower with no spaces or special characters." }
+      redirect_to root_url, alert: "It doesn't look like there is an application that matches that name. Application names are all lower with no spaces or special characters."
     end
   end
 
