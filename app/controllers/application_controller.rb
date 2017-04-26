@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def catch_www
-    redirect_to root_path(subdomain: "www"), flash: { danger: 'You must select an application before trying to login.' }
+    redirect_to root_path(subdomain: "www"), alert: 'You must select an application before trying to login.'
   end
 
   def authorize_employee
