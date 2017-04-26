@@ -11,7 +11,7 @@ class Resource < ActiveRecord::Base
 
   before_create :default_name
   before_save :update_file_attributes
-  after_save :add_resource_to_lesson
+  # after_save :add_resource_to_lesson
 
   CATEGORIES = ["Assignments", "Assignment Keys", "Teacher Resource", "In-Class", "Miscelaneous", "Problem", "Games"]
 
