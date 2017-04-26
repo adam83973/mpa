@@ -15,11 +15,11 @@ class Attendance < ActiveRecord::Base
 
   private
     def add_experience_point
-      attendance_xp = ExperiencePoint.create!(student_id: student_id,
-                                                            experience_id: experience_id_lookup,
-                                                            comment: COMMENTS[rand(0..(COMMENTS.count - 1))] + "\n " + offering.offering_name,
-                                                            points: 20,
-                                                            user_id: user_id )
+      attendance_xp = ExperiencePoint.create!(student_id:           student_id,
+                                              experience_id:        experience_id_lookup,
+                                              comment:              COMMENTS[rand(0..(COMMENTS.count - 1))] + "\n " + offering.offering_name,
+                                              points:               20,
+                                              user_id:              user_id)
 
       self.update_attribute :experience_point_id, attendance_xp.id
     end
@@ -34,5 +34,7 @@ class Attendance < ActiveRecord::Base
        experience_id = Experience.where(attendance: true, course_id: offering.course_id).pluck(:id).first.to_i
 
        experience_id = Experience.where(attendance: true, course_id: nil).pluck(:id).first.to_i if experience_id ==  0
+
+       experience_id
     end
 end

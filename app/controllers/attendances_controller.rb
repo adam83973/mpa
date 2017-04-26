@@ -25,7 +25,7 @@ class AttendancesController < ApplicationController
   def create
     @attendance = Attendance.new(attendance_params)
 
-    if @attendance.save
+    if @attendance.save!
       @student = @attendance.student
 
       if class_session.in_session?
@@ -70,6 +70,6 @@ class AttendancesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def attendance_params
-      params.require(:attendance).permit(:student_id, :experience_point_id, :date, :offering_id, :user_id)
+      params.require(:attendance).permit(:student_id, :experience_point_id, :date, :offering_id, :user_id, :week)
     end
 end
