@@ -22,6 +22,7 @@ gem 'check_appointments'
 gem 'chosen-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'd3-rails'
+gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
 gem "factory_girl_rails", require: false, group: :test
