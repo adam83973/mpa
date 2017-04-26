@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def catch_www
+    redirect_to root_path(subdomain: "www"), alert: 'You must select an application before trying to login.'
+  end
+
   def authorize_employee
     redirect_to root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
   end

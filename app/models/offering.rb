@@ -40,7 +40,7 @@ class Offering < ActiveRecord::Base
   end
 
   def offering_name_dashboard
-    course.name + " \n " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.name + " <br> " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_name
