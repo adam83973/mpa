@@ -44,20 +44,20 @@
         <div class="col-sm-7 col-xs-7">
           <div class="text-center">
             <%=  mail_to(note.notable.user.email)  if note.notable.class.name == "Student" %>
-            <%= mail_to(note.notable.email) if note.notable.class.name == "User" || note.notable.class.name == "Lead" %>
+            <%= mail_to(note.notable.email) if note.notable.class.name == "User" || note.notable.class.name == "Opportunity" %>
           </div>
         </div>
       </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-5 col-xs-5">
           <div class="text-center">
-            <%= note.notable.role if note.notable && note.notable_type != 'Student' %>
+            <%= note.notable.role if note.notable && !['Student', 'Lesson'].include? note.notable_type %>
           </div>
         </div>
         <div class="col-sm-7 col-xs-7">
           <div class="text-center">
             <%= note.notable.user.phone if note.notable.class.name == "Student" %>
-            <%= note.notable.phone if note.notable.class.name == "User" || note.notable.class.name == "Lead" %>
+            <%= note.notable.phone if note.notable.class.name == "User" || note.notable.class.name == "Opportunity" %>
           </div>
         </div>
       </div><!-- /.row -->
