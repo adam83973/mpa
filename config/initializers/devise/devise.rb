@@ -258,3 +258,5 @@ Devise.setup do |config|
 
   config.secret_key = ENV['DEVISE_KEY']
 end
+
+Devise::SessionsController.before_filter :catch_www
