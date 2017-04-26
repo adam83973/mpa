@@ -31,7 +31,7 @@
         <td><%= lesson.course_name %></td>
         <td><%= lesson_status(lesson) %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'View', lesson %></td>
+        <td><%= link_to 'View', lesson, target: '_blank' %></td>
       </tr>
     <% end %>
   </tbody>
