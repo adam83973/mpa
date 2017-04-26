@@ -131,12 +131,6 @@ class InfusionPagesController < ApplicationController
   	@credit_card.merge!(ContactId: @credit_card[:Id])
   	# remove kay,value pairs from hash
   	@credit_card.extract!(:utf8, :Id, :controller, :action)
-<<<<<<< HEAD
-    # convert params to hash
-    hash = {}
-    @credit_card = @credit_card.each{|k,v| hash[k] = v}
-=======
->>>>>>> staging
 
   	result = Infusionsoft.data_add('CreditCard', @credit_card.to_unsafe_h)
 

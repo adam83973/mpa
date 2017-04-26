@@ -53,7 +53,7 @@ def prepare_students
     student.update_attribute :programmer_experience_points, xp_sum_by_occupation("Programmer", student)
 
     # recache occupation levels and total experience points
-    student.update_attributes mathematician_level: student.math_level, engineer_level: student.eng_level, programmer_level: student.prog_level, experience_point_total: student.xp_total
+    student.update_attributes mathematician_level: student.math_level, engineer_level: student.eng_level, programmer_level: student.prog_level, experience_point_total: student.xp_total, current_occupation_id: 1
   end
 end
 
