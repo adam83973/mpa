@@ -34,8 +34,6 @@
 	<thead>
 	  <tr>
 	    <th>File</th>
-	    <th>Type</th>
-	    <th>Size</th>
 	    <th></th>
 	    <th></th>
 	    <th></th>
@@ -44,9 +42,7 @@
 	<tbody>
 		<% @resources.each do |resource| %>
 		  <tr>
-		    <td><%= link_to resource.filename, resource.file.url %></td>
-		    <td><%= resource.content_type %></td>
-		    <td><%= resource.file_size %></td>
+		    <td><%= resource.filename %></td>
 		    <td><%= link_to 'Show', resource %></td>
 		    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
 		    <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
