@@ -202,10 +202,10 @@ class StaticPagesController < ApplicationController
     def set_search
       if params[:search]
         @users_search = User.search(params[:search])
-        @offerings_search = nil
+        @offerings_search = []
         @offerings_search.to_a.delete_if{ |offering| !(offering.active?) }
         @students_search = Student.search(params[:search])
-        @lessons_search = nil
+        @lessons_search = []
       end
     end
 
