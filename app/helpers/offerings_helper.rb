@@ -1,9 +1,9 @@
 module OfferingsHelper
   def offering_capacity(offering)
     if offering.at_capacity?
-      "<span class='label label-danger pull-right'>Full</span>"
+      "<span class='badge badge-danger pull-right'>Full</span>"
     else
-      "<span class='label label-success pull-right'>Open</span>"
+      "<span class='badge badge-success pull-right'>Open</span>"
     end
   end
 
@@ -46,11 +46,11 @@ module OfferingsHelper
   def offering_binder_cover(course_id, offering_id, student_id)
     case course_id
     when 1..6
-      "<a href=/binders/briefcase?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-xs' target='_blank'>Binder Cover</a>"
+      "<a href=/binders/briefcase?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-sm' target='_blank'>Binder Cover</a>"
     when 7..9
-      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-xs' target='_blank'>Binder Cover</a>"
+      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-sm' target='_blank'>Binder Cover</a>"
     when 13, 17
-      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-xs' target='_blank'>Binder Cover</a>"
+      "<a href=/binders/middleschool?offering_id=" + offering_id.to_s + "&student_id=" + student_id.to_s + " class='btn btn-primary btn-sm' target='_blank'>Binder Cover</a>"
     else
       ""
     end

@@ -1,6 +1,6 @@
 <hr>
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-lg-4">
     <%= simple_form_for(@help_session_record) do |f| %>
       <%= f.error_notification %>
         <%= f.association :student, selected: params[:student_id], label_method: :full_name, input_html: { class: "chosen" } if params[:student_id]  %>
@@ -13,15 +13,15 @@
           <%= f.input :learning_plan_id, as: :hidden, input_html: { value: @student.learning_plans.last.id } %>
         <% end %>
   </div>
-  <div class="col-sm-4">
-        <%= f.input :comments, placeholder: "What was accomplished? What should be worked on? Any major milestones?", hint: "Please note: These comments are intended for parents to view.", input_html: { rows: 5 } %>
+  <div class="col-lg-4">
+        <%= f.input :comments, placeholder: "What was accomplished? What should be worked on? Any major milestones?", hint: "These comments are intended to be viewed by the parents.", input_html: { rows: 9, class: 'mb-2' } %>
   </div>
 
 </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="form-actions">
-        <%= f.button :submit, class: 'btn btn-success btn-lg', data: { confirm: 'Are you sure you want to submit this learning plan? Please double check the information before confirming.' } %>
+        <%= f.button :submit, class: 'btn btn-success mt-3', data: { confirm: 'Are you sure you want to submit this learning plan? Please double check the information before confirming.' } %>
       </div>
     </div>
   </div>

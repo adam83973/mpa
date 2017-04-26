@@ -78,8 +78,8 @@ dial =
 	load: ->
 		$("#mathematician-dial").knob
 	    thickness: ".2"
-	    width: "150"
-	    height: "150"
+	    width: "125"
+	    height: "125"
 	    readOnly: true
 	    inputColor: "black"
 	    font: "Helvetica"
@@ -88,8 +88,8 @@ dial =
 
 	  $("#engineer-dial").knob
 	    thickness: ".2"
-	    width: "150"
-	    height: "150"
+	    width: "125"
+	    height: "125"
 	    readOnly: true
 	    inputColor: "black"
 	    font: "Helvetica"
@@ -98,8 +98,8 @@ dial =
 
 	  $("#programmer-dial").knob
 	    thickness: ".2"
-	    width: "150"
-	    height: "150"
+	    width: "125"
+	    height: "125"
 	    readOnly: true
 	    inputColor: "black"
 	    font: "Helvetica"

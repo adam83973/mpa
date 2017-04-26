@@ -1,26 +1,41 @@
 <% if current_user.admin? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Notes</h3>
+  <div class="card card-default">
+    <div class="card-header">
+      <h3 class="card-title mb-0">Notes</h3>
     </div>
-    <div class="panel-body">
-      <%= simple_form_for [@user, Note.new], remote: true do |f| %>
-        <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+    <div class="card-block">
+      <div class="mb-4">
+        <%= simple_form_for [@user, Note.new], remote: true do |f| %>
+          <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <%= f.input :action_date, as: :string, input_html: { class: :datepicker } if current_user.admin? %>
+            </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <%= f.input :action_date, as: :string, input_html: { class: :datepicker } if current_user.admin? %>
+          <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+          <%= f.button :submit, class: "btn btn-sm btn-success" %>
+        <% end %>
+      </div>
+      <div class="card">
+        <div class="card-block p-3 notes" style="border:none;">
+          <div id="user_notes">
+            <% if @user.notes.any? %>
+              <%= render 'user_notes' %>
+            <% else %>
+              <h3 class="text-center card-title text-muted mt-5">
+                No notes for this user.
+              </h3>
+            <% end %>
           </div>
         </div>
-        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-        <%= f.button :submit, class: "btn btn-xs btn-success" %>
-      <% end %>
-      <div class="notes">
-        <div id="user_notes">
-          <%= render 'user_notes' %>
+        <% if @user.notes && @user.notes.count > 1 %>
+        <div class="card-footer more-notes text-center p-0">
+          <small><i class="fa fa-chevron-down"></i> Scroll for more notes. <i class="fa fa-chevron-down"></i></small>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 class DailyLocationReportsController < ApplicationController
-  before_filter :authorize_employee
-  before_filter :authorize_admin
+  before_action :authorize_employee
+  before_action :authorize_admin
 
   def index
     @reports = DailyLocationReport.order(:id)

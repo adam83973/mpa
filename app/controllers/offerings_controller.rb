@@ -1,7 +1,8 @@
 class OfferingsController < ApplicationController
-  before_filter :authenticate_user!, except: :offerings_by_location
-  before_filter :authorize_employee, except: [:show, :offerings_by_location]
-  before_filter :authorize_admin, except: [:show, :index, :offerings_by_location, :attendance_report]
+  before_action :verify_current_company
+  before_action :authenticate_user!, except: :offerings_by_location
+  before_action :authorize_employee, except: [:show, :offerings_by_location]
+  before_action :authorize_admin, except: [:show, :index, :offerings_by_location, :attendance_report]
 
   # GET /offerings
   # GET /offerings.json
@@ -22,7 +23,7 @@ class OfferingsController < ApplicationController
         format.csv { send_data @offerings.to_csv }
       end
     else
-      redirect_to root_path
+      redirect_to root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -52,7 +53,7 @@ class OfferingsController < ApplicationController
         format.json { render json: @offering }
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 

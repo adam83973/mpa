@@ -1,9 +1,9 @@
 class ExperiencesController < ApplicationController
-  before_filter :authenticate_user!, except: [:show]
-  before_filter :authorize_employee, except: [:show]
+  before_action :authenticate_user!, except: [:show]
+  before_action :authorize_employee, except: [:show]
   before_action :set_experience, only: [:show, :edit, :update, :destroy]
 
-  skip_before_filter :authorize_active, only: :show
+  skip_before_action :authorize_active, only: :show
   # GET /experiences
   # GET /experiences.json
   def index
@@ -97,8 +97,10 @@ class ExperiencesController < ApplicationController
                                        :image, :remove_image, {resource_ids:[]},
                                        :remote_image_url, :occupation_id, :active,
                                        {badge_attributes: [:write_up_required,
-                                        :multiple, :requires_approval, :image, :badge_category_id, :submission_type,
-                                        :remove_image, :requirements, :name, :experience_id]})
+                                       :multiple, :requires_approval, :image,
+                                       :badge_category_id, :submission_type,
+                                       :attendance, :course_id,:remove_image,
+                                       :requirements, :name, :experience_id]})
   end
 
   def set_experience

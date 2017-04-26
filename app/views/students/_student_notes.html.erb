@@ -11,11 +11,11 @@
         </div>
       </div>
       <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-      <%= f.button :submit, class: "btn btn-success btn-xs" %>
+      <%= f.button :submit, class: "btn btn-success btn-sm" %>
     <% end %>
   </div>
   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-    <div id="student_notes" class="notes">
+    <div id="student_notes" class="card notes">
       <%= render 'students_notes' %>
     </div>
   </div>

@@ -66,5 +66,5 @@
 <br />
 
 <% if signed_in? && current_user.try(:admin?) %>
-  <%= render 'layouts/import_form.html.erb', resource: @users %>
+  <%= render 'layouts/import_form', resource: @users %>
 <% end %>

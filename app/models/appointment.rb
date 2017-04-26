@@ -80,7 +80,7 @@ class Appointment < ActiveRecord::Base
     def self.slack_and_app_notifications(parent, appointment_request, appointment)
       # Application note
       note = parent.notes.build({content: self.application_note_content(appointment_request, appointment),
-                                user_id: parent.system_admin_id,
+                                user_id: parent.class.system_admin_id,
                                 location_id: appointment.location_id,
                                 action_date: Date.today})
 

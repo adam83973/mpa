@@ -1,6 +1,6 @@
 class LearningPlanIssuesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [ :show ]
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [ :show ]
 
   before_action :set_learning_plan_issue, only: [:show, :edit, :update, :destroy]
 

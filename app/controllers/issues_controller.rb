@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
-  before_filter :authorize_employee
-  before_filter :authorize_admin, only: [:destroy, :edit]
+  before_action :authorize_employee
+  before_action :authorize_admin, only: [:destroy, :edit]
   # GET /issues
   # GET /issues.json
   def index
@@ -49,7 +49,7 @@ class IssuesController < ApplicationController
       if @issue.save
         IssueMailer.issue_notification(@issue).deliver
         IssueMailer.issue_submission_notification(@issue).deliver
-        format.html { redirect_to root_path, notice: 'Issue was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
       else
         format.html { render action: "new" }

@@ -1,7 +1,7 @@
 <% title @lesson.title %>
 <p>
-  <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-default pull-right" if current_user.employee? %>
-  <%= link_to "Search Lessons", lessons_path, class: "btn btn-default pull-right", style: "margin-right:20px;" if current_user.employee? %>
+  <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-secondary pull-right" if current_user.employee? %>
+  <%= link_to "Search Lessons", lessons_path, class: "btn btn-secondary pull-right", style: "margin-right:20px;" if current_user.employee? %>
 </p>
 <div class="row" style="margin-bottom:40px;">
   <div class="col-sm-12">
@@ -23,58 +23,57 @@
 <div class="row">
   <div class="col-md-6">
     <p>
-      <strong>Standard:</strong>
-      <%= @lesson.standard.name if @lesson.standard %>
-    </p>
-
-    <p>
       <strong>Course:</strong>
-      <%= @lesson.standard.course.name if @lesson.standard %>
+      <%= @lesson.course.name if @lesson.course %>
     </p>
 
     <p>
       <strong>Assignment:</strong>
       <% if @lesson.assignment %>
-        <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment) unless @lesson.assignment == '#' || @lesson.assignment == "" %>
+        <%= link_to resource_lookup(@lesson.assignment).filename, resource_lookup(@lesson.assignment).file.url, target: '_blank' unless @lesson.assignment == '#' || @lesson.assignment == "" %>
+      <% else %>
+        No assignment associated with this lesson.
       <% end %>
     </p>
 
     <p>
       <strong>Assignment key:</strong>
       <% if @lesson.assignment_key %>
-        <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment_key) unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+        <%= link_to resource_lookup(@lesson.assignment_key).filename, resource_lookup(@lesson.assignment_key).file.url, target: '_blank' unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+      <% else %>
+        No key associated with this lesson.
       <% end %>
     </p>
 
     <p>
       <strong>Additional Resources:</strong>
-      <% if @lesson.resources %>
+      <% if @lesson.resources.any? %>
         <% @lesson.resources.each do |resource| %>
           <p>- <%= link_to "#{resource.filename}", resource %></p>
         <% end %>
       <% else %>
-        There are no additional resources associated with this lesson.
+        No resources associated with this lesson.
       <% end %>
     </p>
 
     <p>
       <strong>Activities/Games/Problems:</strong>
-      <% if @lesson.problems %>
+      <% if @lesson.problems.any? %>
         <% @lesson.problems.each do |problem| %>
           <p>- <%= link_to "#{problem.title}", problem %></p>
         <% end %>
       <% else %>
-        There are no activities associated with this lesson.
+        No activities associated with this lesson.
       <% end %>
     </p>
   </div>
   <div class="col-md-6">
     <% if current_user.employee? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Notes</h3>
+      <div class="card card-default">
+        <div class="card-header">
+          <h3 class="card-title">Notes</h3>
         </div>
-        <div class="panel-body">
+        <div class="card-block">
           <%= simple_form_for [@lesson, Note.new], remote: true do |f| %>
             <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
             <div class="row">
@@ -87,7 +86,7 @@
               </div>
             </div>
             <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-            <%= f.button :submit, class: "btn btn-xs btn-success" %>
+            <%= f.button :submit, class: "btn btn-sm btn-success" %>
           <% end %>
           <div class="notes">
             <div id="lesson_notes">

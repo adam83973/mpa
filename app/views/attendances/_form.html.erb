@@ -7,6 +7,7 @@
         <%= f.association :student, label_method: :full_name, selected: params[:attendance][:student_id], input_html: { class: "chosen" } %>
         <%= f.input :date, as: :string, input_html: { class: "datepicker"} %>
         <%= f.association :offering, collection: Offering.order(course_id: :asc, location_id: :asc, day_number: :asc).all, label_method: :offering_name, input_html: { class: "chosen" } %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
       </div>
 
       <div class="form-actions">

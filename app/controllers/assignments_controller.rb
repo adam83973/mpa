@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: :show
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: :show
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   # GET /assignments

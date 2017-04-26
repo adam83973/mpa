@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
 
   # GET /attendances
@@ -34,7 +34,7 @@ class AttendancesController < ApplicationController
 
       respond_to do |format|
         format.js
-        format.html {redirect_to @student, notice: "Attendance added"}
+        format.html {redirect_to student_path(@student), notice: "Attendance added"}
       end
     else
       render :new

@@ -35,9 +35,12 @@ $("#new_opportunity")
   alert "Opportunity #{error}!"
   $form[0].reset()
 
-# Reset new opportunity form if form is closed
-$("#opportunityModal").on 'show', ->
+# Reset new opportunity form if form is closed and reapply chosen on modal show
+$("#opportunityModal").on 'shown.bs.modal', ->
     $('.opportunity_other_source').hide()
+    $('.chosen').chosen('destroy').chosen()
+    $('#opportunity_appointment_date, #opportunity_trial_date').datepicker
+      dateFormat: 'yy-mm-dd'
 
 $('#opportunity_source').on 'change', ->
   if $(this).val() is "7"
@@ -47,7 +50,7 @@ $('#opportunity_source').on 'change', ->
     $('#opportunity_other_source').val('')
 
 # Reset new opportunity form if form is closed
-$("#opportunityModal").on 'hide', ->
+$("#opportunityModal").on 'hide.bs.modal', ->
   $("#new_opportunity")[0].reset()
 
 # When no match is found user clicks "no match" parent lookup modal is closed and new user modal is opened
@@ -124,8 +127,6 @@ $('.interest_level').on 'click', ->
       alert 'Interest level updated.'
 
 # Apply chosen to select fields when Opportunity Modal is loaded fix for chosen rendering after modal
-$('#opportunityModal').on 'shown.bs.modal', ->
-  $('.chosen', this).chosen('destroy').chosen()
 
 $('#oppStudentInformationModal').on 'shown.bs.modal', ->
   $('.chosen', this).chosen('destroy').chosen()
@@ -141,7 +142,7 @@ $('#addUserInformationModal').on 'shown.bs.modal', ->
 
 # Toggle opportunity information and actions from student show
 $('.opportunity_info_toggle').on "click", ->
-    $opp_info = $(this).closest('.well').find('.opportunity_info')
+    $opp_info = $(this).closest('.card').find('.opportunity_info')
     if $opp_info.css("display") is "none"
       $opp_info.slideDown()
       $(this).find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up")
@@ -150,7 +151,7 @@ $('.opportunity_info_toggle').on "click", ->
       $(this).find(".fa-chevron-up").removeClass("fa-chevrone-up").addClass("fa-chevron-down")
 
 
-$('.panel-heading').find('.add_to_class').on 'click', ->
+$('.card-header').find('.add_to_class').on 'click', ->
   $registration_offering =  $('.registration_offering')
   $('#addToClassModal').modal('show')
   $('.registration_student').find('select').val($(this).data('studentid'))
@@ -525,8 +526,6 @@ aging_table = (aging_data, tickLables) ->
                  opportunity.id
                 ]
 
-  console.log data
-
   # create an svg container
   vis = d3.select('#aging_report')
           .append('svg:svg')
@@ -632,7 +631,6 @@ if document.getElementById("aging_report") != null
     url: 'opportunities/aging_data'
     dataType: 'json'
     success: (aging_data) ->
-      console.log aging_data
       tickLables = []
       for status in aging_data
         tickLables.push status.name
@@ -641,50 +639,50 @@ if document.getElementById("aging_report") != null
 
 ## Opportunity and business analytics
  # Step 2: Load the library.
+if document.getElementById('auth-button')
+  ((w, d, s, g, js, fjs) ->
+    g = w.gapi or (w.gapi = {})
+    g.analytics =
+      q: []
+      ready: (cb) ->
+        @q.push cb
+        return
+    js = d.createElement(s)
+    fjs = d.getElementsByTagName(s)[0]
+    js.src = 'https://apis.google.com/js/platform.js'
+    fjs.parentNode.insertBefore js, fjs
 
-((w, d, s, g, js, fjs) ->
-  g = w.gapi or (w.gapi = {})
-  g.analytics =
-    q: []
-    ready: (cb) ->
-      @q.push cb
+    js.onload = ->
+      g.load 'analytics'
       return
-  js = d.createElement(s)
-  fjs = d.getElementsByTagName(s)[0]
-  js.src = 'https://apis.google.com/js/platform.js'
-  fjs.parentNode.insertBefore js, fjs
 
-  js.onload = ->
-    g.load 'analytics'
     return
-
-  return
-) window, document, 'script'
-gapi.analytics.ready ->
-  # Step 3: Authorize the user.
-  CLIENT_ID = '950777332412-sdf1umnm4gdolumd59jnvg0gu8771hth.apps.googleusercontent.com'
-  gapi.analytics.auth.authorize
-    container: 'auth-button'
-    clientid: CLIENT_ID
-  viewSelector = new (gapi.analytics.ViewSelector)(container: 'view-selector')
-  timeline = new (gapi.analytics.googleCharts.DataChart)(
-    reportType: 'ga'
-    query:
-      'dimensions': 'ga:date'
-      'metrics': 'ga:sessions'
-      'start-date': '30daysAgo'
-      'end-date': 'yesterday'
-    chart:
-      type: 'LINE'
-      container: 'timeline')
-  gapi.analytics.auth.on 'success', (response) ->
-    viewSelector.execute()
+  ) window, document, 'script'
+  gapi.analytics.ready ->
+    # Step 3: Authorize the user.
+    CLIENT_ID = '950777332412-sdf1umnm4gdolumd59jnvg0gu8771hth.apps.googleusercontent.com'
+    gapi.analytics.auth.authorize
+      container: 'auth-button'
+      clientid: CLIENT_ID
+    viewSelector = new (gapi.analytics.ViewSelector)(container: 'view-selector')
+    timeline = new (gapi.analytics.googleCharts.DataChart)(
+      reportType: 'ga'
+      query:
+        'dimensions': 'ga:date'
+        'metrics': 'ga:sessions'
+        'start-date': '30daysAgo'
+        'end-date': 'yesterday'
+      chart:
+        type: 'LINE'
+        container: 'timeline')
+    gapi.analytics.auth.on 'success', (response) ->
+      viewSelector.execute()
+      return
+    viewSelector.on 'change', (ids) ->
+      newIds = query: ids: ids
+      timeline.set(newIds).execute()
+      return
     return
-  viewSelector.on 'change', (ids) ->
-    newIds = query: ids: ids
-    timeline.set(newIds).execute()
-    return
-  return
 
 wrap = (text, width) ->
   text.each ->

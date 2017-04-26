@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [:show]
-  before_filter :authorize_admin, except: [:show, :index]
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [:show]
+  before_action :authorize_admin, except: [:show, :index]
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
 
@@ -95,6 +95,6 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:name, :description, :grade, :occupation_id, :capacity)
+      params.require(:course).permit(:name, :description, :grade, :occupation_id, :capacity, :has_assignments)
     end
 end

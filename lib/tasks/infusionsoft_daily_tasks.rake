@@ -1,6 +1,7 @@
 namespace :infusionsoft do
   desc "Update parent's record with various information from Infusionsoft."
   task daily_maintenance: :environment do
+    # these tasks are run daily via jmr mathematics daily task
     subscription_information
   end
 end

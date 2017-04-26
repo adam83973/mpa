@@ -1,6 +1,6 @@
-namespace :report do
+namespace :location do
   desc "Update parent's information with last payment date."
-  task location_daily: :environment do
+  task daily_report: :environment do
     daily_batch
     cache_offering_information
   end

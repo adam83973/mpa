@@ -1,0 +1,33 @@
+<div class="modal fade" id="prizeRedemptionModal" tabindex="-1" role="dialog" aria-labelledby="prizeRedemptionModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Redeem Prize</h4>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <%= simple_form_for @transaction, html: { id: 'credits_form' } do |f| %>
+            <%= f.error_notification %>
+            <div class="row">
+              <div class="col-md-8 offset-md-2 text-center">
+                <%= f.association :location, label: "Select a location.", label_method: :name, input_html: { class: "chosen" } %>
+                <p class='alert alert-success'>
+                  <strong>Prize to redeem:</strong> <span id="prize-name"></span>
+                </p>
+                <%= f.association :product, label: "Select a product.", disabled: true, collection: [], label_method: :name, input_html: { class: "chosen", data: { credits: true } } %>
+                <%= f.input :process, as: :hidden, input_html: { value: 4 } %>
+                <%= f.input :occupation_level_id, as: :hidden %>
+                <%= f.input :student_id, as: :hidden, :input_html => { value: @student.id } %>
+                <%= f.input :user_id, as: :hidden, :input_html => { value: current_user.id } %>
+              </div>
+            </div>
+            <br>
+            <%= f.button :submit, "Redeem Prize", class: "btn btn-success" %>
+          <% end %>
+          <br>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

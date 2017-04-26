@@ -7,23 +7,34 @@
   </div>
 <% end %>
 <% if current_user.employee? %>
-  <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-default pull-right", style: "margin-bottom:15px;" %>
-  <% unless @student.has_learning_plan %>
-    <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-default pull-right", style: "margin-right:10px;" %>
-  <% end %>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 mb-4 mb-lg-3">
+      <div class="btn-group pull-right hidden-md-down">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+      <div class="hidden-lg-up">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary btn-block" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
-<div class="row">
-  <%= render 'student_stats' %>
-</div>
 
-<div class="row paddingtop15">
-  <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 class_list">
+<%= render 'student_stats' %>
+
+<div class="row">
+  <div class="col-md-3 class_list">
     <%= render 'student_class_list' %>
   </div>
 
-  <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 achievements">
+  <div class="col-md-9 achievements">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'student_toolbar' %>
       </div>
     </div>
@@ -31,25 +42,25 @@
       <hr style="margin:0 0 10px 0;">
     <% end %>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'badges_earned' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'student_achievements' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12 col-xs-12">
         <%= render 'assignments' %>
       </div>
     </div>
     <hr style="margin-bottom:0;">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= render 'transactions' %>
 
       </div>
@@ -57,18 +68,18 @@
   </div>
 </div>
 <% unless current_user.parent? %>
-  <hr>
+  <hr class="mt-5">
 <% end %>
 
 <% if current_user.employee? %>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h2 style="margin-bottom:40px;"><u>Student Account Administration</u></h2>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 style="display:inline;" class="panel-title">Notes</h3>
+    <div class="col-sm-12">
+      <h2 class="mt-4 mb-4"><u>Student Account Administration</u></h2>
+      <div class="card card-default mb-4">
+        <div class="card-header">
+          <h3 class="mb-0">Notes</h3>
         </div>
-        <div class="panel-body" style="padding-bottom:0;">
+        <div class="card-block">
           <%= render 'student_notes' %>
         </div>
       </div>
@@ -85,39 +96,7 @@
 <% end %>
 <!-- modal stuff below -->
 
-<div class="modal fade" id="prizeRedemptionModal" tabindex="-1" role="dialog" aria-labelledby="prizeRedemptionModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Redeem Prize</h4>
-      </div>
-      <div class="modal-body">
-        <div class="text-center">
-          <%= simple_form_for @transaction, html: { id: 'credits_form' } do |f| %>
-            <%= f.error_notification %>
-            <div class="row">
-              <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 text-center">
-                <%= f.association :location, label: "Select a location.", label_method: :name, input_html: { class: "chosen" } %>
-                <p class='alert alert-success'>
-                  <strong>Prize to redeem:</strong> <span id="prize-name"></span>
-                </p>
-                <%= f.association :product, label: "Select a product.", disabled: true, collection: [], label_method: :name, input_html: { class: "chosen", data: { credits: true } } %>
-                <%= f.input :process, as: :hidden, input_html: { value: 4 } %>
-                <%= f.input :occupation_level_id, as: :hidden %>
-                <%= f.input :student_id, as: :hidden, :input_html => { value: @student.id } %>
-                <%= f.input :user_id, as: :hidden, :input_html => { value: current_user.id } %>
-              </div>
-            </div>
-            <br>
-            <%= f.button :submit, "Redeem Prize", class: "btn btn-success" %>
-          <% end %>
-          <br>
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<%= render 'redeem_prize_modal' %>
 
 <%= render '/static_pages/grades_modal' %>
 

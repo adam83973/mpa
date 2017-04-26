@@ -1,6 +1,7 @@
-<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
-  <div class="text-center well well-sm" style="position:relative; z-index:2; margin:0;min-height:311px;">
-    <h3 style="margin-bottom:20px;"> <%= occupation.capitalize %> </h3>
+<div class="col-lg-3">
+  <div class="card text-center d-flex justify-content-center mb-lg-0 mb-3 bg-faded" style="position:relative; z-index:2; margin:0;min-height:311px;">
+    <div class="card-block" style="padding:5px;">
+      <h4 style="margin:20px 0 20px 0;"><%= occupation.capitalize %></h4>
       <input
         disabled
         id="<%= occupation %>-dial" class="outside"
@@ -8,14 +9,27 @@
         data-level="<%= @student.current_level_by_occupation(occupation) %>"
         data-displayInput="false"
       >
-      <%= image_tag(@student.current_level_obj(occupation.capitalize).image, size: "115x115", class: "inside")%>
-    <h3 style="margin:10px 0 10px 0;">
-      <%= @student.xp_sum_by_occupation(occupation.capitalize)%>xp
-    </h3>
-    <p style="margin:0;">
-      <%= link_to("##{occupation}Modal", data: {toggle: :modal}) do %>
-       Can You Level Up?
+      <%= image_tag(@student.current_level_obj(occupation.capitalize).image_url, size: "105x105", class: "inside")%>
+      <h3 style="margin:10px 0 10px 0;">
+        <%= @student.xp_sum_by_occupation(occupation.capitalize)%>xp
+      </h3>
+      <p style="margin:0;">
+        <%= link_to("##{occupation}Modal", data: {toggle: :modal}) do %>
+         Can You Level Up?
+        <% end %>
+      </p>
+    </div>
+    <% if occupation.capitalize == @student.current_occupation_title %>
+      <div class="card-footer text-white p-0 bg-success">
+        Active
+      </div>
+    <% else %>
+      <% if current_user.employee? %>
+        <a class="card-footer text-muted p-0 bg-faded" href="/students/change_current_occupation?student_id=<%= @student.id %>&occupation_id=<%= Occupation.find_by_title(occupation.capitalize).id %>" onclick="return confirm('Are you sure you want to make this the active occupation? You can only have one active at a time.')">
+          Activate
+        </a>
+      <% else %>
       <% end %>
-    </p>
+    <% end %>
   </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
 </div>

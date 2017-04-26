@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # config.to_prepare do
+  #   DeviseFilters.add_filters
+  # end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -55,7 +58,7 @@ Rails.application.configure do
      :enable_starttls_auto => true
    }
 
-   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+   config.action_mailer.default_url_options = { :host => 'mathplusacademy.dev' }
 
    config.after_initialize do
      Bullet.enable = true

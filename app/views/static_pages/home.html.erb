@@ -1,4 +1,4 @@
-<% title 'Home' %>
+<% title 'Home' unless !signed_in? %>
 <% if signed_in? %>
   <%= render 'first_login_password' %>
 
@@ -35,7 +35,7 @@
   <% end %>
 
 <% else %>
-
+  <% title 'Sign In' %>
   <%= render 'login_screen' %>
 
 <% end %>

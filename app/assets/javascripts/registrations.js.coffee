@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $('.registration_info_toggle').on "click", ->
-    $note_info = $(this).closest('.well').find('.registration_info')
+    $note_info = $(this).closest('.card').find('.registration_info')
     if $note_info.css("display") is "none"
       $note_info.slideDown()
       $(this).find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up")

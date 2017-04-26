@@ -1,407 +1,66 @@
-<% if !@todays_offering_by_location.empty? %>
+<% if @todays_offerings.any? %>
     <h3><%= @user_location.name %> Schedule</h3>
     <%= link_to "Show Schedule", "javascript:void(0)", id: "hide_schedule", style: "margin-bottom:20px;" %>
 <% end %>
 
-<% if @todays_offering_by_location.empty? %>
-    <strong>No Classes Scheduled.</strong>
+<% if !@todays_offerings.any? %>
+  <strong>No Classes Scheduled.</strong>
 <% else %>
-    <div style="display:none;margin-top:30px;" class='daily-schedule'>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Classroom A</th>
-                    <th>Classroom B</th>
-                    <th>Classroom C</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if Time.now.saturday? %>
-                <tr>
-                    <td> 9:30</td>
-                    <% i = false %>
-                    <% @todays_offering_by_location.each do |offering|%>
-                        <% if offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "A" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "B" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == " 9:30" && offering.classroom == "C" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul>
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% end %>
-                    <% end %>
-                        <% if !i %>
-                            <td></td>
-                        <% end %>
-                </tr>
-                <tr>
-                    <td>10:30</td>
-                    <% i = false %>
-                    <% @todays_offering_by_location.each do |offering|%>
-                        <% if offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "A" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "B" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "10:30" && offering.classroom == "C" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% end %>
-                    <% end %>
-                        <% if !i %>
-                            <td></td>
-                        <% end %>
-                </tr>
-                <tr>
-                    <td>11:30</td>
-                    <% i = false %>
-                    <% @todays_offering_by_location.each do |offering|%>
-                        <% if offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "A" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "B" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "11:30" && offering.classroom == "C" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% end %>
-                    <% end %>
-                        <% if !i %>
-                            <td></td>
-                        <% end %>
-                </tr>
-                <tr>
-                    <td>12:30</td>
-                    <% i = false %>
-                    <% @todays_offering_by_location.each do |offering|%>
-                        <% if offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "A" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "B" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% elsif offering.time.strftime("%l:%M") == "12:30" && offering.classroom == "C" %>
-                        <% i = true %>
-                            <td>
-                                <p><strong><%= offering.course_name %></strong></p>
-                                <u>Teachers:</u>
-                                <ul style="list-style-type:none;">
-                                    <% offering.users.each do |teacher| %>
-                                        <% if teacher.active? %>
-                                          <li><em><%= teacher.full_name %></em></li>
-                                        <% end %>
-                                    <% end %>
-                                </ul>
-                            </td>
-                        <% end %>
-                    <% end %>
-                    <% if !i %>
-                        <td></td>
-                    <% end %>
-                </tr>
-                <% else %>
-                <tr>
-                    <td> 4:30</td>
-                    <!-- 4:30 classroom A -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="A" && o[:time]=="2000-01-01 16:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 4:30 classroom B -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="B" && o[:time]=="2000-01-01 16:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 4:30 classroom C -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="C" && o[:time]=="2000-01-01 16:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                </tr>
-                <tr>
-                    <td>5:30</td>
-                    <!-- 5:30 classroom A -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="A" && o[:time]=="2000-01-01 17:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 5:30 classroom B -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="B" && o[:time]=="2000-01-01 17:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 5:30 classroom C -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="C" && o[:time]=="2000-01-01 17:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                </tr>
-                <tr>
-                    <td>6:30</td>
-                    <!-- 6:30 classroom A -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="A" && o[:time]=="2000-01-01 18:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 6:30 classroom B -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="B" && o[:time]=="2000-01-01 18:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p><strong><%= link_to offering.course_name, offering, target: "_blank" %></strong></p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <!-- 6:30 classroom C -->
-                    <% offerings = @todays_offering_by_location.select {|o| o[:classroom]=="C" && o[:time]=="2000-01-01 18:30:00"} %>
-                    <% if !offerings.empty? %>
-                        <% offerings.each do |offering| %>
-                        <td>
-                            <p>
-                              <strong>
-                              <%= link_to offering.course_name, offering, target: "_blank" %>
-                              </strong>
-                            </p>
-                            <u>Teachers:</u>
-                            <ul style="list-style-type:none;">
-                                <% offering.users.each do |teacher| %>
-                                    <% if teacher.active? %>
-                                      <li><em><%= teacher.full_name %></em></li>
-                                    <% end %>
-                                <% end %>
-                            </ul>
-                        </td>
-                        <% end %>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                </tr>
-                <% end %>
-            </tbody>
-        </table>
+  <div class="daily-schedule row"  style="display:none;margin-top:30px;">
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom A</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_a_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
- <% end %>
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_b_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_c_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
 <hr>

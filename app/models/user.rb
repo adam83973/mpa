@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   attr_encrypted :bank_account, key: :encryption_key
   attr_encrypted :routing_number, key: :encryption_key
 
-  after_save :update_status
+  after_save :toggle_active_tag_infusionsoft
 
   attr_accessor :current_password, :opportunity_id, :send_password_link
 
@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_many :enrollment_changings, class_name: "EnrollmentChangeRequest", foreign_key: "user_id"
   has_many :enrollment_change_requests, class_name: "EnrollmentChangeRequest", foreign_key: "admin_id"
   has_many :transactions
+
+  belongs_to :company
 
   scope :active, lambda{where("active = ?", true)}
   scope :employees, lambda{where("role = ? OR role = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor', 'Admin').where(active: true).order('last_name asc')}
@@ -92,13 +94,15 @@ class User < ActiveRecord::Base
   end
 
   def missed_appointment
-    Rails.env.production? ? tag_id = 1838 : tag_id = 109
-    unless appointment_rescheduled?
-      if Infusionsoft.contact_add_to_group(infusion_id, tag_id) #adds tag: "missed appt."
-        #this stops multiple reschedule requests from being submitted.
-        update_attribute :appointment_rescheduled, true
-        note = notes.build({user_id: system_admin_id, content: "#{full_name} missed their appointment. An email was sent on #{Date.today.strftime("%D")}. Please contact to reschedule if no response by #{(Date.today + 3.days).strftime("%D")}.", action_date: Date.today + 3.days, location_id: location.id })
-        note.save
+    if company_id && company_id == 1
+      Rails.env.production? ? tag_id = 1838 : tag_id = 109
+      unless appointment_rescheduled?
+        if Infusionsoft.contact_add_to_group(infusion_id, tag_id) #adds tag: "missed appt."
+          #this stops multiple reschedule requests from being submitted.
+          update_attribute :appointment_rescheduled, true
+          note = notes.build({user_id: system_admin_id, content: "#{full_name} missed their appointment. An email was sent on #{Date.today.strftime("%D")}. Please contact to reschedule if no response by #{(Date.today + 3.days).strftime("%D")}.", action_date: Date.today + 3.days, location_id: location.id })
+          note.save
+        end
       end
     end
   end
@@ -187,23 +191,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def system_admin_id
-    if Rails.env.production?
-      757
-    elsif Rails.env.development?
-      460
-    end
-  end
-
   def self.system_admin_id
-    if Rails.env.production?
-      757
-    elsif Rails.env.development?
-      460
-    end
+    where(system_administrator: true).first.id
   end
 
-  def update_status
+  def toggle_active_tag_infusionsoft
+    # This is specific to JMR Mathematics and should not run if a parent does not
+    # have an infusionsoft id
     if self.parent? && self.infusion_id
       if Rails.env.production?
         begin

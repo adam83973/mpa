@@ -105,7 +105,7 @@ jQuery ->
        alert 'Numbers only!'
 
   # Disable start class button until offering and week are selected. ---
-  $('.classform #week').on "keyup", ->
+  $('.classform #week').on "change", ->
     empty = false
     $week = $('#week')
     # $(".classform :input").each ->

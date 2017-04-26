@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!, :except => ["show", "list"]
-  before_filter :authorize_admin, :except => ["show", "list"]
+  before_action :authenticate_user!, :except => ["show", "list"]
+  before_action :authorize_admin, :except => ["show", "list"]
 
   # GET /locations
   # GET /locations.json

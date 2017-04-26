@@ -1,4 +1,4 @@
-<%= link_to "Edit", edit_badge_category_path(@badge_category), class: "btn btn-default pull-right" if current_user.admin? %>
+<%= link_to "Edit", edit_badge_category_path(@badge_category), class: "btn btn-secondary pull-right" if current_user.admin? %>
 <% badges_count = @badge_category.badges.count %>
 <h1>
   <%= @badge_category.name %> <%= 'Badge'.pluralize(badges_count) %>
@@ -12,7 +12,7 @@
       <div class="row text-center">
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
           <%= link_to badge, target: '_blank' do %>
-            <div class="well well-sm badge_card">
+            <div class="card badge_card">
               <div id="badge_<%= badge.id %>" class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
                   <%= image_tag(badge.image.url, size: "100x100") unless !badge.image || badge.image.blank? %>

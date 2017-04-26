@@ -1,6 +1,6 @@
 class BindersController < ActionController::Base
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   def briefcase
     @student = Student.find(params[:student_id])
@@ -17,7 +17,6 @@ class BindersController < ActionController::Base
   private
 
   def authorize_employee
-    redirect_to root_path unless current_user && current_user.employee?
+    root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
   end
 end
-

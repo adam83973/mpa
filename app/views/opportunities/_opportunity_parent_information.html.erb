@@ -1,9 +1,9 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 style="display:inline;" class="panel-title">Parent Information</h3>
+<div class="card card-default mb-4">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Parent Information</h3>
     <%= link_to "Add To Parent Account", "javascript:void(0)", class: "pull-right", data: { toggle: "modal", target: "#addUserInformationModal"} unless @opportunity.user %>
   </div>
-  <div class="panel-body">
+  <div class="card-block">
 
     <p>
       <strong>Name:</strong> <%= @opportunity.parent_name ? @opportunity.parent_name : "Please add parent name." unless @opportunity.user %>

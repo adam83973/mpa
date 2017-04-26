@@ -19,11 +19,11 @@ class Product < ActiveRecord::Base
   end
 
   def decrease_stock_by_one
-    decrement!(:quantity)
+    decrement!(:quantity) unless virtual?
   end
 
   def price_in_dollars
-    (price.to_d/100).to_s
+    price.to_d/100
   end
 
   def remove_stock(quantity)

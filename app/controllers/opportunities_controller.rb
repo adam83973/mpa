@@ -1,6 +1,6 @@
 class OpportunitiesController < ApplicationController
-  before_filter :authenticate_user!, except: [:add_trial, :join_class]
-  before_filter :authorize_employee, except: [:add_trial, :join_class]
+  before_action :authenticate_user!, except: [:add_trial, :join_class]
+  before_action :authorize_employee, except: [:add_trial, :join_class]
 
   def analytics
   end
@@ -9,6 +9,17 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     @opportunities = Opportunity.includes(:user, :student, offering: [:location, :course]).active
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @opportunities }
+    end
+  end
+
+  def status_index
+    @status = params[:status]
+    @location = Location.find params[:location_id]
+    @opportunities = Opportunity.where(status: params[:status], location_id: params[:location_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,7 +97,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       if @opportunity.save
         if @opportunity.student
-          format.html { redirect_to @opportunity.student, notice: 'Opportunity was successfully created.' }
+          format.html { redirect_to student_path(@opportunity.student), notice: 'Opportunity was successfully created.' }
           format.json { render json: @opportunity, status: :created, location: @opportunity }
           format.js
         else
@@ -119,7 +130,7 @@ class OpportunitiesController < ApplicationController
         elsif status.to_i == 2 #missed appointment
           @parent.missed_appointment
         end
-        format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
+        format.html { redirect_to opportunity_path(@opportunity), notice: 'Opportunity was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -215,7 +226,7 @@ class OpportunitiesController < ApplicationController
           if @registration.payment_information_later
             # For when billing information will be collected at first class.
             add_payment_note # add note to collect billing info at first class
-            format.html { redirect_to @student, notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
+            format.html { redirect_to student_path(@student), notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
             format.json { render json: @registration, status: :created, location: @registration }
           else
             format.html { redirect_to infusion_pages_subscription_path(userId: @parent.id), notice: 'Registration was successfully created.' }
@@ -248,7 +259,7 @@ class OpportunitiesController < ApplicationController
     #add note with actionable item
     note = user.notes.build({
       content: "#{user.first_name} has scheduled a trial. Please create or link this to a student account.",
-      user_id: user.system_admin_id,
+      user_id: user.class.system_admin_id,
       location_id: opportunity.location_id,
       action_date: Date.today})
 
@@ -265,7 +276,7 @@ class OpportunitiesController < ApplicationController
     if @student
       # change opportunity status to 'undecided'
       if @opportunity.update_attributes attended_trial: true, status: 4
-        redirect_to root_path, notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
+        redirect_to root_url(subdomain: current_company.subdomain), notice: "#{@student.full_name} has attended their trial. Moved opportunity to undecided."
 
         # note account to indicate student attended trial
         @note = @parent.notes.build({content: "#{@student.full_name} has attended their trial. Please follow-up to confirm enrollment.  An email has also been sent to inquire about enrollment. Moved opportunity to undecided.", user_id: current_user.id, action_date: Date.today, location_id: @parent.location_id})
@@ -275,7 +286,7 @@ class OpportunitiesController < ApplicationController
         NotificationMailer.trial_attended(@opportunity).deliver
       end
     else
-      redirect_to root_path, flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
+      redirect_to root_url(subdomain: current_company.subdomain), flash: { alert: "You must and a student to this opportunity, before marking their trial as attended."}
     end
   end
 
@@ -311,12 +322,12 @@ class OpportunitiesController < ApplicationController
 
     if @student
       if @opportunity.update_attributes missed_trial: true, status: 4
-        redirect_to root_path, notice: "#{@student.full_name} has missed their trial."
-        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
+        redirect_to root_url(subdomain: current_company.subdomain), notice: "#{@student.full_name} has missed their trial."
+        @note = @parent.notes.build({content: "#{@student.full_name} missed trial. Call to reschedule trial.", user_id: @parent.class.system_admin_id, action_date: Date.today, location_id: @parent.location_id})
         @note.save
       end
     else
-      redirect_to root_path, flash: { alert: "You must add a student to this opportunity, before marking their trial as missed."}
+      redirect_to root_url(subdomain: current_company.subdomain), flash: { alert: "You must add a student to this opportunity, before marking their trial as missed."}
     end
   end
 

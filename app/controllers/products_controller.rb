@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authorize_employee
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -24,7 +25,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      redirect_to product_path, notice: 'Product was successfully created.'
     else
       render :new
     end
@@ -33,10 +34,17 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      redirect_to product_path, notice: 'Product was successfully updated.'
     else
       render :edit
     end
+  end
+
+  def update_quantity
+    @product = Product.find(params[:product][:id])
+    @product.update_attribute :quantity, params[:product][:quantity]
+
+    redirect_to products_path
   end
 
   # DELETE /products/1
@@ -73,6 +81,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:name, :sku, :price, :credits, :quantity, :location_id)
+      params.require(:product).permit(:name, :sku, :price, :credits, :quantity, :location_id, :virtual)
     end
 end

@@ -1,15 +1,14 @@
 <% unless !class_session.in_session? %>
-  <div style="display:inline;" class="btn-group btn-group-md hidden-xs">
-    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-default quarter-btn ellipsis end-class-button" } %>
-    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-default quarter-btn attendance-button"%>
-    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, class: "btn btn-default quarter-btn student-stats-button", id: "studentStatsModalButton" %>
-    <%= link_to "Record Homework", new_assignment_path, { :class => "btn btn-default quarter-btn ellipsis record-homework-button" } %>
+  <div class="btn-group btn-group-justified hidden-md-down">
+    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-warning"%>
+    <%= link_to "Record Homework", new_assignment_path, { :class => "btn btn-secondary" } %>
+    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, class: "btn btn-primary", id: "studentStatsModalButton" %>
+    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-danger" } %>
   </div>
-  <div style="display:inline;" class="hidden-sm hidden-md hidden-lg">
-    <%= link_to "End Class", { :controller => "class_sessions", :action => "end_class", :method => "post"}, { :class => "btn btn-mobile  btn-default class-in-session-button end-class-button" } %>
-    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-mobile  btn-default class-in-session-button attendance-button"%>
-    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, id: "studentStatsModalButton", class: "btn btn-mobile btn-default quarter-btn class-in-session-button student-stats-button"%>
-    <%= link_to "Record Homework", { :controller => "experience_points", :action => "new", :homework => "1" }, { :class => "btn btn-mobile btn-default class-in-session-button record-homework-button" } %>
+  <div style="display:inline;" class="hidden-lg-up">
+    <%= link_to "Take Attendance", "#attendanceModal", data: {toggle: :modal}, id: "attendacemodalbutton", class: "btn btn-warning btn-block"%>
+    <%= link_to "Record Homework", { :controller => "experience_points", :action => "new", :homework => "1" }, { :class => "btn btn-secondary btn-block" } %>
+    <%= link_to "Student Stats", "#studentStatsModal", data: {toggle: :modal}, id: "studentStatsModalButton", class: "btn btn-primary btn-block"%>
+    <%= link_to "End Class", class_sessions_end_class_path(subdomain: current_company.subdomain), { :class => "btn btn-danger btn-block" } %>
   </div>
 <% end %>
- <!--  <%# link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn", id: "gradesModalButton"%> -->

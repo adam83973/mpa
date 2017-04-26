@@ -1,6 +1,21 @@
 class StaticPagesController < ApplicationController
-  skip_before_filter :authorize_active, only: [:enter_code, :mission_lookup]
-  before_filter :authorize_admin, only: [ :events, :event_enrollment ]
+  before_action :verify_current_company, except:[ :landing, :application_lookup ]
+  skip_before_action :authorize_active, only: [:enter_code, :mission_lookup]
+  before_action :authorize_admin, only: [ :events, :event_enrollment ]
+
+  def landing
+    if request.subdomain.present?
+      if current_company
+        redirect_to home_url(subdomain: current_company.subdomain)
+      elsif reserved_subdomain?(request.subdomain)
+        redirect_to root_url unless request.subdomain == 'www'
+      else
+        redirect_to root_url(subdomain: 'www'), notice: 'You must select a valid application name. If you are having trouble accessing you application please check your center director.'
+      end
+    else
+      redirect_to root_url(subdomain: 'www')
+    end
+  end
 
   def home
     if signed_in?
@@ -60,6 +75,15 @@ class StaticPagesController < ApplicationController
   def thank_you
   end
 
+  def application_lookup
+    subdomain = params[:company][:name].downcase
+    if company = Company.find_by_subdomain(subdomain)
+      redirect_to home_url(subdomain: subdomain)
+    else
+      redirect_to root_url, alert: "It doesn't look like there is an application that matches that name. Application names are all lower with no spaces or special characters."
+    end
+  end
+
   def mission_lookup
     @code = params[:code]
     @decoded = Base64.decode64(@code)
@@ -82,6 +106,9 @@ class StaticPagesController < ApplicationController
   end
 
   private
+    def reserved_subdomain?(subdomain)
+      %W(admin www).include?(subdomain)
+    end
     def set_admin
       @opportunity = Opportunity.new
       @note = Note.new
@@ -141,14 +168,16 @@ class StaticPagesController < ApplicationController
     def set_location
       if current_user.admin?
         @location_offerings = @user_location.offerings.where("active = ?", true).order(:time)
+
         @user_location.notes.includes(:notable, :user).where("completed = ? AND action_date <= ?", false, Date.today).each{ |note| @user_action_needed.push(note) unless @user_action_needed.include?(note)}
         #add location notes to user_action needed
 
-        if Offering.any_today_location?(@user_location)
-          @todays_offering_by_location = Offering.includes(:users).where("active = ? AND location_id = ?", true,      @user_location.id).includes(:course).reject{|hash| hash[:day] != Time.now.strftime('%A') }
-        else
-          @todays_offering_by_location = []
-        end
+        @classroom_a_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "A").order(:time)
+        @classroom_b_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "B").order(:time)
+        @classroom_c_offerings = Offering.includes(:users, :course).where("active = ? AND location_id = ? AND day_number = ? AND classroom = ?", true, @user_location.id, Date.today.wday, "C").order(:time)
+
+        @todays_offerings = @classroom_a_offerings + @classroom_b_offerings + @classroom_c_offerings
+
         @location_offerings_count = @location_offerings.count
       end
 
@@ -156,15 +185,15 @@ class StaticPagesController < ApplicationController
       @new_students_location = @user_location.registrations.where("start_date < ? and start_date > ?", 6.days.from_now, 6.days.ago).where(status: 0..1)
 
       #Pull students are starting or restarting within the next day.
-      @new_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
+      @new_students_today_location = @user_location.registrations.includes(:student, offering: [:course]).where("start_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
       @restarting_students_today_location = @user_location.registrations.includes(:student, :offering, :course).where("restart_date <= ? AND attended_first_class = ?", 1.day.from_now, false).where(status: 0..1)
-      @trials_today_location = @user_location.opportunities.includes(:student, :offering).where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
+      @trials_today_location = @user_location.opportunities.includes(:student, offering: [:course]).where("trial_date <= ? AND attended_trial = ? AND missed_trial = ?", 1.day.from_now, false, false)
     end
 
     def set_teacher
       @attendance = Attendance.new
       @user_offerings = @user.offerings.where(active: true).includes(:course, :location)
-      @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC") unless class_session.in_session?
+      @offerings = Offering.includes(:course, :location).where("active = ?", true).order("course_id ASC").order("location_id ASC").order("day_number ASC") unless class_session.in_session?
       @students = Student.all
       @offering_in_session = Offering.find(class_session.offering) if class_session.in_session?
       @user_activity_feed = ExperiencePoint.includes(:experience, :student).where("user_id  = ? AND updated_at > ?", @user.id, 180.minutes.ago ).order('created_at desc')

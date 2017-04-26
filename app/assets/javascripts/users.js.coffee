@@ -104,7 +104,7 @@ $("#new_user")
     alert "You must enter a first and last name."
     $submitButton.val( $submitButton.data('origtext') )
     false
-  else if !($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0
+  else if (!($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0) and $('.infusionsoft').data('infusionsoft') != false
     alert "You must link with an Infusionsoft contact. If there is not one to be linked you can add the parent to Infusionsoft."
     $submitButton.val( $submitButton.data('origtext') )
     false
@@ -133,7 +133,7 @@ $("#new_user")
 	    alert "You must enter a first and last name."
 	    $submitButton.val( $submitButton.data('origtext') )
 	    false
-	  else if !($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0
+	  else if (!($('#user_infusion_id').val()) or $('#user_infusion_id').length is 0) and $('.infusionsoft').data('infusionsoft') == false
 	    alert "You must link with an Infusionsoft contact. If there is not one to be linked you can add the parent to Infusionsoft."
 	    $submitButton.val( $submitButton.data('origtext') )
 	    false

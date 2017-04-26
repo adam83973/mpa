@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :verify_current_company
   before_action :authenticate_user!, except: [:infusion_request, :appointment_request, :appointment_request_new]
 
   skip_before_action :verify_authenticity_token, only: [:infusion_request, :appointment_request, :appointment_request_new, :missed_appointments, :confirmation_opt_out]
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -66,13 +67,13 @@ class UsersController < ApplicationController
           @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
           @invoices.each do |i|
             if i["PayStatus"] == 0
-              i["Status"] = "<span class='label label-important'>Unpaid</span>"
+              i["Status"] = "<span class='badge badge-important'>Unpaid</span>"
             elsif i["RefundStatus"] == 1
-              i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+              i["Status"] = "<span class='badge badge-warning'>Partial Refund</span>"
             elsif i["RefundStatus"] == 2
-              i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+              i["Status"] = "<span class='badge badge-warning'>Full Refund</span>"
             else
-              i["Status"] = "<span class='label label-success'>Paid</span>"
+              i["Status"] = "<span class='badge badge-success'>Paid</span>"
             end
           end
         end
@@ -88,7 +89,7 @@ class UsersController < ApplicationController
         end
       end
     else
-    redirect_to root_path
+    root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -186,7 +187,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to user_path(@user), notice: 'User was successfully created.' }
         format.js
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -233,7 +234,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to user_path(@user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -276,12 +277,12 @@ class UsersController < ApplicationController
 
     if @user.send_reset_password_instructions
       respond_to do |format|
-        format.html { redirect_to @user, notice: "Password reset instructions sent." }
+        format.html { redirect_to user_path(@user), notice: "Password reset instructions sent." }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @user, notice: "Error sending instructions." }
+        format.html { redirect_to user_path(@user), notice: "Error sending instructions." }
         format.json { head :no_content }
       end
     end
@@ -298,10 +299,10 @@ class UsersController < ApplicationController
           user_id: current_user.id})
 
         @note1.save!
-        format.html { redirect_to @user, notice: "Hold form sent." }
+        format.html { redirect_to user_path(@user), notice: "Hold form sent." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @user, notice: "Error sending hold form." }
+        format.html { redirect_to user_path(@user), notice: "Error sending hold form." }
         format.json { head :no_content }
       end
     end
@@ -318,10 +319,10 @@ class UsersController < ApplicationController
           user_id: current_user.id})
         @note1.save!
 
-        format.html { redirect_to @user, notice: "Termination form sent." }
+        format.html { redirect_to user_path(@user), notice: "Termination form sent." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @user, notice: "Error sending termination form." }
+        format.html { redirect_to user_path(@user), notice: "Error sending termination form." }
         format.json { head :no_content }
       end
     end
@@ -420,7 +421,7 @@ class UsersController < ApplicationController
     set_user
 
     if @user.update_attribute :hide_badge_banner, true
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -428,7 +429,7 @@ class UsersController < ApplicationController
     set_user
 
     if @user.update_attribute :hide_badge_banner, false
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -438,7 +439,7 @@ class UsersController < ApplicationController
     note = parent.notes.build({
       content: "Please call for follow up on termination and ask about any possible
                issues that spurred the termination.",
-      user_id: parent.system_admin_id,
+      user_id: parent.class.system_admin_id,
       location_id: parent.location_id,
       action_date: Date.today})
 
@@ -453,7 +454,7 @@ class UsersController < ApplicationController
     note = parent.notes.build({
       content: "Please call #{parent.full_name} about restarting classes.
       They responded to an email and are interested in restarting classes.",
-      user_id: parent.system_admin_id,
+      user_id: parent.class.system_admin_id,
       location_id: parent.location_id,
       action_date: Date.today})
 
@@ -471,7 +472,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :current_password, :password_confirmation, :remember_me,
                                     :offering_ids, :active, :address, :admin, :first_name, :has_key, :last_name, :location_id, :passion,:phone, :role, :shirt_size, :infusion_id, :last_payment, :active_subscription, :send_password_link, :opportunity_id, :subscription_count, :balance_due, :check_appointments_id, :default_location, :confirmation_opt_out,:billing_note, :hide_badge_banner, :first_email_reminder,
                                     :ssn, :bank_account, :routing_number, :address, :city, :state, :zip, :exemptions, :additional_withholding,
-                                    :assignments_reports, :opportunities_reports, :birth_date)
+                                    :assignments_reports, :opportunities_reports, :birth_date, :subdomain)
     end
 
     def rescue_from_timeout

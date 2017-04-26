@@ -30,7 +30,7 @@
 
     <p>
       <strong>Created By:</strong>
-      <%= @experience_point.user.full_name %>
+      <%= @experience_point.user ?  @experience_point.user.full_name : 'System Admin' %>
     </p>
 
     <% if @experience_point.attendance && current_user.employee? %>

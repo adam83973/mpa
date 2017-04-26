@@ -1,10 +1,14 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 style="display:inline;" class="panel-title">Students</h3>
-    <%= link_to "Add Student", "javascript:void(0)", data: { toggle: "modal", target: "#newStudentUserModal" }, class: "pull-right" if current_user.admin? %>
+<div class="card card-default mb-3">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Students</h3>
+    <%= link_to "Add Student", "javascript:void(0)", data: { toggle: "modal", target: "#newStudentUserModal" }, class: "float-right" if current_user.admin? %>
   </div>
-  <div class="panel-body">
+  <div class="card-block pb-0">
     <!-- displays each student for user -->
-    <%= render 'parents_students' %>
+    <% if @user.parent? && @user.students.any? %>
+      <%= render 'parents_students' %>
+    <% else %>
+      <h4 class="text-center text-muted mb-3">No Students</h4>
+    <% end %>
   </div>
 </div>

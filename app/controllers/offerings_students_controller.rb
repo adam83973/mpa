@@ -1,6 +1,6 @@
 class OfferingsStudentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_action :authenticate_user!
+  before_action :authorize_admin
 
   def index
     @offeringsstudents = OfferingsStudent.order(:student_id)

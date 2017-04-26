@@ -7,8 +7,6 @@ namespace :operations do
     restart_date
     end_date
     deactivate_parents
-    termination_campaign
-    new_users_to_infusionsoft
     opportunitities_maintenance
   end
   task reports: :environment do
@@ -50,7 +48,6 @@ def restart_date
 end
 
 def start_date
-  #script run
   #pull all students with start date equal to todays date
   registrations = Registration.where("start_date = ?", Date.today)
 
@@ -82,43 +79,10 @@ end
 
 def deactivate_parents
   parents = User.where("role = ? AND active = ?", "Parent", true)
-  parents.each do |p|
+  parents.each do |parent|
     #parent is not dectivated if student has a future start_date or a restart_date
-    unless p.active_students?
-      p.update_attribute :active, false
-      #add logic to allow opt out of drop campaign
-      #Infusionsoft.contact_add_to_group(p.infusion_id, 1648)
-    end
-  end
-end
-
-def termination_campaign
-  if Date.today.friday?
-    parents = User.where(active: false, role: "Parent", active_subscription: false, termination_sequence: false)
-
-    parents.each do |parent|
-      if parent.infusion_id
-        invoice = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false).first
-        if invoice
-          time = invoice['DateCreated'].to_time
-          if time < Time.now - 60.days && time > Time.now - 365.days
-            Infusionsoft.contact_add_to_group(parent.infusion_id, 2080)
-          end
-        end
-      end
-    end
-  end
-end
-
-def new_users_to_infusionsoft
-  users = User.where(created_at: Date.today, infusion_id: nil)
-
-  users.each do |user|
-    # search Infusionsoft by email to find lead.
-    contact = Infusionsoft.contact_find_by_email(user.email, [:Id])
-
-    if !contact.empty? # if Infusionsoft returns an id add it to the user.
-      user.update_attribute :infusion_id, contact[0]['Id'].to_i if contact[0]
+    unless parent.active_students?
+      parent.update_attribute :active, false
     end
   end
 end
@@ -148,21 +112,17 @@ end
 ###### Admin Reports ######
 
 def send_assignments_report
-  if Date.today.sunday?
-    users = User.where(assignments_reports: true)
+  users = User.where(assignments_reports: true)
 
-    users.each do |user|
-      ReportMailer.weekly_assignments_report(user).deliver_now
-    end
+  users.each do |user|
+    ReportMailer.weekly_assignments_report(user).deliver_now
   end
 end
 
 def send_opportunities_report
-  if Date.today.sunday?
-    users = User.where(opportunities_reports: true)
+  users = User.where(opportunities_reports: true)
 
-    users.each do |user|
-      ReportMailer.weekly_opportunities_report(user).deliver_now
-    end
+  users.each do |user|
+    ReportMailer.weekly_opportunities_report(user).deliver_now
   end
 end

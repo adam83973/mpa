@@ -1,25 +1,22 @@
-<% if @user.role  == "Parent" %>
+<% if @user.parent? %>
   <% @user.students.each_with_index do |student, i| %>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-sm-12">
         <%= "<hr>".html_safe if i > 0 %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="row mb-3">
+      <div class="col-sm-6">
         <%= "#{i+1}.  " %> <h4 style="display:inline;"><%= link_to student.full_name, student %></h4>
-        <% if current_user.admin? %>
-            <%= link_to "Edit", edit_student_path(student), class: "btn btn-default btn-xs" %>
-        <% end %>
-          <%# link_to "Enrollment Change", email_enrollment_change_requests_path(student_id: student.id, parent_id: @user.id), { class: "btn btn-default btn-xs", data: { confirm: "Are you sure? This action sends an email to the parent." } } if current_user.admin? %>
-          <br><br>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <%= link_to "Add Class", new_registration_url( student_id: student.id ), class: "pull-right", style: "margin-bottom:15px;" if current_user.admin %>
-          </div>
+        <div class="col-sm-6">
+          <% if current_user.admin? %>
+              <%= link_to "Edit Student", edit_student_path(student), class: "btn btn-secondary btn-sm float-right" %>
+          <% end %>
         </div>
+    </div>
+    <div class="row justify-content-md-right">
+      <div class="col-md-9 offset-md-3">
         <% student.registrations.includes(:offering, :course).where("status = ? OR status = ? OR status = ?", 0, 1, 2).each do |reg| %>
             <%= render '/students/student_registration_card', reg: reg, student: student, editable: false %>
         <% end %>

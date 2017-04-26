@@ -1,60 +1,65 @@
 <ul style="list-style-type:none;">
   <% occupation.occupation_levels.order(:level).each do |occupation_level|  %>
-  <li class="well" style="position:relative;">
-    <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i + 1 %>
-      <div class="row">
-        <div class="col-md-2">
-          <div class="row">
-            <div class="col-sm-12">
-              <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-                <i style="color:#e7e63a;position:relative;top:0;" class="fa fa-star fa-3x pull-left"></i>
-                <%= link_to "Redeem", "#", class: "btn btn-xs btn-primary redeem-prize hidden-lg hidden-md pull-right", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id } if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-                <%= link_to "Redeemed", "#", class: "btn btn-success btn-xs hidden-lg hidden-md pull-right", disabled: true if @student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-              <% else %>
-                <i class="fa fa-star fa-3x pull-left" style="position:relative;top:0;"></i>
-              <% end %>
-            </div>
-          </div>
-          <div class="row hidden-sm hidden-xs">
-            <div class="col-sm-12">
-              <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-                <%= link_to "Redeem", "#", class: "btn btn-xs btn-primary redeem-prize", style: "margin:40px 0 0 0;", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id} if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-                <%= link_to "Redeemed", "#", class: "btn btn-success btn-xs", style: 'margin-top:40px;', disabled: true if @student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
-              <% else %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <%= image_tag(occupation_level.image_url, size: "100x100") if occupation_level.image? %>
-        </div>
-        <div class="col-md-7">
-          <h1 style="margin:5px 0 5px 0;">Level <%= occupation_level.level %></h1>
-          <strong>XP:</strong> <%= occupation_level.points %></br>
-          <strong>Reward:</strong> <%= occupation_level.rewards %>
-        </div>
-      </div>
-    <% else %>
-      <div class="row">
-      `<div class="col-md-2">
+  <li class="card mt-3" style="position:relative;">
+    <div class="card-block">
+      <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i + 1 %>
         <div class="row">
-          <div class="col-sm-12">
-            <i class="fa fa-star fa-3x pull-left" style="position:relative;top:0;"></i>
-          </div>
-        </div>
-          <div class="row hidden-sm hidden-xs">
-            <div class="col-sm-12">
+          <div class="col-md-2">
+            <div class="row">
+              <div class="col-sm-12">
+                <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                  <i style="color:#e7e63a;position:relative;top:0;" class="fa fa-star fa-3x pull-left"></i>
+                  <%= link_to "Redeem", "#", class: "btn btn-sm btn-success redeem-prize hidden-md-up pull-right", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id } if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                <% else %>
+                  <i class="fa fa-star fa-3x pull-left" style="position:relative;top:0;"></i>
+                <% end %>
+              </div>
+            </div>
+            <div class="row hidden-sm-down">
+              <div class="col-sm-12">
+                <% if occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                  <%= link_to "Redeem", "#", class: "btn btn-sm btn-success redeem-prize mt-5", data: { toggle: 'modal', target: '#prizeRedemptionModal', prizeName: occupation_level.rewards, levelid: occupation_level.id} if current_user.employee? && occupation_level.level.to_i > 0 && !@student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i == @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+                <% else %>
+                <% end %>
+              </div>
             </div>
           </div>
-      </div>`
-        <div class="col-md-3">
-          <%= image_tag(occupation_level.image_url, size: "100x100", class: "blur") if occupation_level.image? %>
+          <div class="col-md-3">
+            <%= image_tag(occupation_level.image_url, size: "100x100") if occupation_level.image? %>
+          </div>
+          <div class="col-md-7">
+            <h1>Level <%= occupation_level.level %></h1>
+            <strong>XP:</strong> <%= occupation_level.points %></br>
+            <strong>Reward:</strong> <%= occupation_level.rewards %>
+          </div>
         </div>
-        <div class="col-md-7">
-          <h1 style="margin:5px 0 5px 0;">Level <%= occupation_level.level %></h1>
-          <h2 style="color:red;">Locked</h2>
-          <p>You must level up to see whats in store for the next level...</p>
+      <% else %>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="row">
+              <div class="col-sm-12">
+                <i class="fa fa-star fa-3x pull-left" style="position:relative;top:0;"></i>
+              </div>
+            </div>
+              <div class="row hidden-sm-down">
+                <div class="col-sm-12">
+                </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <%= image_tag(occupation_level.image_url, size: "100x100", class: "blur") if occupation_level.image? %>
+          </div>
+          <div class="col-md-7">
+            <h1 style="margin:5px 0 5px 0;">Level <%= occupation_level.level %></h1>
+            <h2 style="color:red;">Locked</h2>
+            <p>You must level up to see whats in store for the next level...</p>
+          </div>
         </div>
+      <% end %>
+    </div>
+    <% if @student.redeemed_reward?(occupation_level.id) && occupation_level.level.to_i <= @student.current_level_by_occupation(occupation.title.downcase).to_i %>
+      <div class="card-footer bg-success text-center text-white">
+        <strong>Redeemed</strong>
       </div>
     <% end %>
   </li>

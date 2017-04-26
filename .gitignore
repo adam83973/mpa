@@ -25,3 +25,6 @@ solr/default/data
 
 # Ignore dev enviroment variables
 /config/app_environment_variables.rb
+
+# Ignore byebug logs
+.byebug_history

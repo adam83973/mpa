@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
-  before_filter :authenticate_user!, :authorize_employee
-  skip_before_filter :verify_authenticity_token
+  before_action :authenticate_user!, :authorize_employee
+  skip_before_action :verify_authenticity_token
 
   # GET /appointments
   # GET /appointments.json

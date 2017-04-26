@@ -1,6 +1,6 @@
 class EnrollmentChangeRequestsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [:new, :create]
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [:new, :create]
   # GET /enrollment_change_requests
   # GET /enrollment_change_requests.json
   def index

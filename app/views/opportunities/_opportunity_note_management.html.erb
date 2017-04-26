@@ -1,8 +1,8 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Notes</h3>
+<div class="card card-default">
+  <div class="card-header">
+    <h3 class="card-title">Notes</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-block">
     <% if @opportunity.user %>
       <%= simple_form_for [@opportunity.user, Note.new], remote: true do |f| %>
         <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-        <%= f.button :submit, class: "btn btn-xs btn-success" %>
+        <%= f.button :submit, class: "btn btn-sm btn-success" %>
       <% end %>
       <div class="notes">
         <div id="opportunity_notes">

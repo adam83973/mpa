@@ -1,0 +1,6 @@
+<h1>Admin#home</h1>
+<p>Find me in app/views/admin/home.html.erb</p>
+
+<% @companies.each do |company| %>
+  <%= link_to "#{company.name} Page", "/admins/company/#{company.id}" %>
+<% end %>

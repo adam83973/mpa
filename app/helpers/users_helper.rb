@@ -15,9 +15,9 @@ module UsersHelper
   def user_status(user)
     case user.active
     when true
-      "<span class='label label-success'>Active</span>"\
+      "<span class='badge badge-success'>Active</span>"\
     else
-      "<span class='label label-danger'>Inactive</span>"
+      "<span class='badge badge-danger'>Inactive</span>"
     end
   end
 end

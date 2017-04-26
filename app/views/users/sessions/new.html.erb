@@ -1,15 +1,2 @@
-<h2>Sign in</h2>
-
-<div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <%= simple_form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
-      <%= f.input :email, :required => false, :autofocus => true %>
-      <%= f.input :password, :required => false %>
-      <%= f.input_field :remember_me, as: :boolean, inline_label: 'Remember me' if devise_mapping.rememberable? %>
-      <br>
-      <%= f.button :submit, "Sign In", class: "btn btn-success" %>
-      <br><br>
-      <%= render "devise/shared/links" %>
-    <% end %>
-  </div>
-</div>
+<%= title 'Sign In' %>
+<%= render 'layouts/sign_in_form' %>

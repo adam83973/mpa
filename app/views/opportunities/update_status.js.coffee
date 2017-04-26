@@ -1,10 +1,12 @@
-$('#opportunities_by_status').html('<div class="well well-lg">
+$('#opportunities_by_status').html('<div class="card">
+    <div class="card-block"
     <h4><u><%= Opportunity::STATUSES[@old_status.to_i] %></u></h4>
     <ul>
     <% @user_location.opportunities.where("status = ?", "#{ @old_status }").each do |opp| %>
     <%= escape_javascript(render "/shared/lead_group", opportunity: opp) %>
     <% end %>
     </ul>
+    </div>
     </div>')
 
 $("#stage_droppable").html('<%= escape_javascript(render "/static_pages/droppable_stages") %>')

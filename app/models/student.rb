@@ -26,7 +26,7 @@ class Student < ActiveRecord::Base
   has_many :lessons , :through => :grades
   has_many :locations, :through => :offerings
   has_many :notes, as: :notable
-  has_many :occupations, :through => :courses
+  # has_many :occupations, :through => :courses
   has_many :offerings, :through => :registrations
   has_many :opportunities
   has_many :transactions
@@ -78,6 +78,11 @@ class Student < ActiveRecord::Base
     end
   end
 
+  #-----Student Opportunities-----
+  def active_opportunities?
+    opportunities.where(status: 0..6).any?
+  end
+
   #-----Student XP-----
   def redeemed_reward?(occupation_level_id)
     StudentLevelReward.exists?(occupation_level_id: occupation_level_id, student_id: id)
@@ -121,20 +126,6 @@ class Student < ActiveRecord::Base
     assignments.order("created_at desc").limit(1).first
   end
 
-  def xp_sum_by_occupation(cat)
-    t = 0
-    experience_points.where( "created_at > ?", Student::RESET_DATE ).includes(:experience, :occupation).each do |xp|
-      if xp.occupation && xp.occupation.title == cat
-        t += xp.points
-      end
-    end
-    t
-  end
-
-  def update_xp_total
-    update_column(:xp_total, xp_sum)
-  end
-
   #-----Student Credits-----
   def calculate_credit(experience_point)
     ((xp_sum + experience_point.points)/100 - ((xp_sum)/100))
@@ -164,58 +155,42 @@ class Student < ActiveRecord::Base
   end
 
   #-----Student Occupation-----
+  def occupations
+    occupations = []
+    occupations << "Mathematician" if is_mathematician?
+    occupations << "Engineer" if is_engineer?
+    occupations << "Programmer" if is_programmer?
+    occupations
+  end
+
+  def current_occupation_title
+    Occupation.find(current_occupation_id).title
+  end
+
   def in_robotics_class? #returns true if student is robotics student
     class_ids.include?(11)
   end
 
-  def is_active_mathematician?
-    math_class = false
-    registrations.active.includes(:offering).each do |registration|
-      if registration.offering.occupation.id == 1 # 1 = id for Mathematician
-        math_class = true
-      end
-    end
-    math_class
-  end
-
   def is_mathematician?
-    math_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 1 # 1 = id for Mathematician
-        math_class = true
-      end
-    end
-    math_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Mathematician' || mathematician_experience_points > 0
   end
 
   def is_engineer?
-    engineering_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 2 # 2 = id for Engineer
-        engineering_class = true
-      end
-    end
-    engineering_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Engineer' || engineer_experience_points > 0
   end
 
   def is_programmer?
-    programming_class = false
-    offerings.includes(:occupation).each do |offering|
-      if offering.occupation.id == 3 # 1 = id for Programmer
-        programming_class = true
-      end
-    end
-    programming_class
+    Occupation.where(id: current_occupation_id).pluck(:title).first == 'Programmer' || programmer_experience_points > 0
   end
 
   #-----Student Levels-----
   def current_level(occupation_name)
-    points = xp_sum_by_occupation(occupation_name)
+    student_total_points_by_occupation = xp_sum_by_occupation(occupation_name)
     current_level = 0
-    occupation = Occupation.find_by_title(occupation_name)
-    occupation.occupation_levels.order(:level).each do |level|
-      if level.points <= points
-        current_level = level.level
+    occupation = Occupation.where("title = ?", occupation_name).first
+    occupation.occupation_levels.order(:level).each do |occupation_level|
+      if occupation_level.points <= student_total_points_by_occupation
+        current_level = occupation_level.level
       end
     end
     current_level
@@ -224,17 +199,17 @@ class Student < ActiveRecord::Base
   def current_level_by_occupation(occupation_name)
     case occupation_name
     when "mathematician"
-      math_level
+      mathematician_level
     when "engineer"
-      eng_level
+      engineer_level
     when "programmer"
-      prog_level
+      programmer_level
     end
   end
 
   def current_level_obj(occupation_name)
-    occupation_id = Occupation.find_by_title(occupation_name).id
-    current_level_obj = OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
+    occupation_id = Occupation.where("title = ?", occupation_name).first.id
+    OccupationLevel.where("occupation_id = ? AND level = ?", occupation_id, current_level(occupation_name)).first
   end
 
   def points_to_next_level(occupation_name)
@@ -254,15 +229,45 @@ class Student < ActiveRecord::Base
     (((xp_sum_by_occupation(occupation_name).to_f - current_level_obj(occupation_name).points.to_f)/(next_level(occupation_name).points.to_f - current_level_obj(occupation_name).points.to_f))*100).to_i
   end
 
-  def update_level(occupation_name)
-    occupation = Occupation.where("title=?", occupation_name).first
-    case occupation_name.downcase
+  def sum_occupation_experience_points
+    mathematician_experience_points + programmer_experience_points + engineer_experience_points
+  end
+
+  def xp_sum_by_occupation(occupation_name)
+    case occupation_name
+    when "Mathematician"
+      mathematician_experience_points
+    when "Programmer"
+      programmer_experience_points
+    when "Engineer"
+      engineer_experience_points
+    end
+  end
+
+  def update_occupation_experience_point_total(points)
+    case Occupation.find(current_occupation_id).title
+    when "Mathematician"
+      increment!(:mathematician_experience_points, points)
+    when "Programmer"
+      increment!(:programmer_experience_points, points)
+    when "Engineer"
+      increment!(:engineer_experience_points, points)
+    end
+
+    update_column(:experience_point_total, sum_occupation_experience_points)
+  end
+
+  def update_occupation_experience_points_and_level(points)
+    occupation = Occupation.find(current_occupation_id)
+    update_occupation_experience_point_total(points)
+    occupation_title = occupation.title
+    case occupation_title.downcase
     when "mathematician"
-      update_column(:math_level, current_level(occupation_name).to_i)
+      update_column(:mathematician_level, current_level(occupation_title).to_i)
     when "engineer"
-      update_column(:eng_level, current_level(occupation_name).to_i)
+      update_column(:engineer_level, current_level(occupation_title).to_i)
     when "programmer"
-      update_column(:prog_level, current_level(occupation_name).to_i)
+      update_column(:programmer_level, current_level(occupation_title).to_i)
     end
   end
 
@@ -347,6 +352,10 @@ class Student < ActiveRecord::Base
 
   def active_math_classes
     active_registrations.to_a.delete_if{|registration| registration.course.occupation_id != 1 || registration.course.id == 10}
+  end
+
+  def has_course_with_assignments?
+    registrations.any?{|registration| registration.course.has_assignments if registration.course}
   end
 
   #-----Student Information Management-----

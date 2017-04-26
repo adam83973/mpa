@@ -6,6 +6,7 @@
 //= require jquery-ui/widgets/datepicker
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require tether
 //= require bootstrap
 //= require bootstrap-switch
 //= require chosen-jquery
@@ -26,6 +27,7 @@
 //= require problems
 //= require processing_challenge_1
 //= require processing_challenge_3
+//= require products
 //= require reports
 //= require resources
 //= require standards

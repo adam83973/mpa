@@ -1,6 +1,16 @@
 class StudentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: [ :show, :update, :badges ]
+  before_action :verify_current_company
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [ :show, :update, :badges ]
+
+  def change_current_occupation
+    @student = Student.find(params[:student_id])
+    if @student.update_attribute :current_occupation_id, params[:occupation_id]
+      redirect_to student_path(@student), flash: { success: 'Student occupation changed!'}
+    else
+      redirect_to student_path(@student), alert: 'We were unable to change your occupation.'
+    end
+  end
 
   def badges
     @student = Student.find(params[:id])
@@ -11,7 +21,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if current_user.employee?
-      @students = Student.includes(:user, :offerings, :registrations)
+      @students = Student.includes(:user)
 
       respond_to do |format|
         format.html # index.html.erb
@@ -37,26 +47,26 @@ class StudentsController < ApplicationController
     @earned_badges_with_count = @student.earned_badges_with_count.sort_by{|k,v| v}.reverse.first(7)
 
     if current_user.employee? || current_user.id == @student.user_id
-  # Sets instance variable for student offering, used to print binder
-  # for elementary classes.
+      # Sets instance variable for student offering, used to print binder
+      # for elementary classes.
       if @student.offerings
         @agent_offerings = @student.offerings.where("course_id < ?", 7)
         @agent_offering = @agent_offerings.first
       end
-  # Sets instance variable for student offering, used to print binder for
-  # middle school and brain builder classes.
+      # Sets instance variable for student offering, used to print binder for
+      # middle school and brain builder classes.
       if @student.offerings
         @offerings = @student.offerings.where("course_id > ?", 6)
         @second_offering = @offerings.first
       end
 
-      @student.offerings.each do |offering|
-        if [11].include?(offering.course_id)
-          @robotics_student = true
-        end
-      end
+      # @student.offerings.each do |offering|
+      #   if [11].include?(offering.course_id)
+      #     @robotics_student = true
+      #   end
+      # end
 
-    #Tags negative comments to allow styling in student show
+      #Tags negative comments to allow styling in student show
       @student_comments = ExperiencePoint.where("student_id  = ? AND updated_at > ?", @student.id, 21.days.ago ).order('created_at desc').limit('20').to_a
       help_session_records = @student.help_session_records
       help_session_records.each{|help_session_record| @student_comments << help_session_record}
@@ -103,7 +113,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
         format.json { render json: @student, status: :created, location: @student }
       else
         format.html { render action: "new" }
@@ -119,7 +129,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
         @opportunity.update_attribute :student_id, @student.id
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
         format.js
         format.json { render json: @student, status: :created, location: @student }
       else
@@ -136,7 +146,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update_attributes(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -172,7 +182,7 @@ class StudentsController < ApplicationController
                   content: "Redeemed #{@credits} credits for #{@item}.")
 
       respond_to do |format|
-        format.html { redirect_to @student, notice: "#{@student.full_name} spent #{@credits} credits." }
+        format.html { redirect_to student_path(@student), notice: "#{@student.full_name} spent #{@credits} credits." }
         format.json { render json: @credits }
         format.js
       end
@@ -208,16 +218,6 @@ class StudentsController < ApplicationController
   end
 
   private
-    # def last_attendance_date(attendance)
-    #   date = @last_attendance
-    #   if date > Date.today - 14.days == true
-    #     @last_attendance_date = "<span style='color:green;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   elsif date <= Date.today - 14.days && date >= Date.today - 30.days == true
-    #     @last_attendance_date = "<span style='color:orange;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   elsif date < Date.today - 30.days == true
-    #     @last_attendance_date = "<span style='color:red;'>#{@last_attendance.date.strftime("%D")}</span>".html_safe
-    #   end
-    # end
     def set_student
       @student = Student.find(params[:id])
     end
@@ -226,6 +226,6 @@ class StudentsController < ApplicationController
       params.require(:student).permit(:birth_date, :first_name, :last_name, :offering_ids, :user_id,
                      :start_date, :xp_total, :credits, :rank, :active, :status,
                      :restart_date, :return_date, :end_date, :hold_status,
-                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color, :has_learning_plan)
+                     :start_hold_date, :opportunity_id, :avatar_id, :avatar_background_color, :has_learning_plan, :current_occupation_id)
     end
 end

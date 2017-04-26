@@ -7,23 +7,25 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="well">
-			<strong>Drag and drop images or PDFs to add them to Resources</strong>
-			<%= form_for Resource.new do |f| %>
-			  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
-			<% end %>
+		<div class="card bg-faded">
+      <div class="card-block">
+        <strong>Drag and drop images or PDFs to add them to Resources</strong>
+  			<%= form_for Resource.new do |f| %>
+  			  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
+  			<% end %>
 
-			<script id="template-upload" type="text/x-tmpl">
-			<div class="upload">
-			  {%=o.name%}
-			  <div class="progress"><div class="progress-bar" style="width: 0%"></div></div>
-			</div>
-			</script>
+  			<script id="template-upload" type="text/x-tmpl">
+  			<div class="upload">
+  			  {%=o.name%}
+  			  <div class="progress"><div class="progress-bar" style="width: 0%"></div></div>
+  			</div>
+  			</script>
 
-			<div id="uploads">
-			  <%= render @uploads if @uploads %>
-			</div>
- 		  	<div style="clear:both;"></div>
+  			<div id="uploads">
+  			  <%= render @uploads if @uploads %>
+  			</div>
+   		  <div style="clear:both;"></div>
+      </div>
 		</div>
 	</div>
 </div>
@@ -55,11 +57,6 @@
 <br />
 
 <% if signed_in? && current_user.try(:admin?) %>
-<h3> Import Resource </h3>
-<p style="color:red;">(CAUTION: Only for editing attributes! This is not for uploading files.)</p>
-  <%= form_tag import_resources_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <br>
-    <%= submit_tag "Import", class: "btn btn-default" %>
-  <% end %>
+  <p style="color:red;">(CAUTION: Only for editing attributes! This is not for uploading files.)</p>
+  <%= render 'layouts/import_form', resource: @resources %>
 <% end %>

@@ -1,8 +1,8 @@
 class OfferingHistoriesController < ApplicationController
 
-  before_filter :authorize_employee
-  before_filter :authorize_admin
-  before_filter :set_offering_history, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_employee
+  before_action :authorize_admin
+  before_action :set_offering_history, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 

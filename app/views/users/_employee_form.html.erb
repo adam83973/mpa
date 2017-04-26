@@ -34,6 +34,7 @@
       <%= f.input :exemptions, label: 'Number Of Exemptions' %>
       <%= f.input :additional_withholding, label: 'Additional Withholding' %>
       <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
       <%= f.input :admin %>
       <%= f.input :active %>
     <% end %>
@@ -41,9 +42,9 @@
 </div>
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">Reports</div>
-      <div class="panel-body">
+    <div class="card card-default">
+      <div class="card-header">Reports</div>
+      <div class="card-block">
         <%= f.input :assignments_reports, label: 'Send Me Assignment Reports' %>
         <%= f.input :opportunities_reports, label: 'Send Me Opportunities Reports' %>
       </div>
@@ -53,7 +54,7 @@
 
   </div>
   <div class="col-md-4">
-    <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    <%= f.button :submit, class: "btn btn-success pull-right" %>
   </div>
 </div>
 <% end %>

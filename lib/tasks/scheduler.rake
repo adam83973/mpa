@@ -1,23 +1,32 @@
-desc "This task is called by the Heroku scheduler add-on"
-task last_payment: :environment do
-  parents = User.where("role = ?", "Parent")
-    parents.each do |parent|
-      count = 0
-    begin
-      if parent.infusion_id
-        query = Infusionsoft.data_query_order_by('Invoice', 1, 0, {:ContactId => parent.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
-        query_to_json = query.to_json
-          parent.update_attributes last_payment: query_to_json
-      else
-        parent.update_attributes last_payment: [].to_json
-      end
-    rescue
-      if count > 3
-        next
-      else
-        count = count + 1
-        retry
-      end
-    end
+namespace :schedule do
+  desc "These are for daily tasks that run at certain hours of the day."
+  task hourly_tasks: :environment do
+    hourly_tasks
   end
+end
+
+def hourly_tasks
+  #load all companies
+  companies = Company.all
+
+  # Run various tasks for each company. All actions within a given task should be
+  # will be run at the same time. Time is scoped via the company's timezone attribute.
+  company.each do |company|
+    # Run daily tasks via scope of company
+    case company.scope_time_zone{ Time.zone.now.hour }
+    when 2 #early morning tasks
+      # - operations:maintenance (hour 2)
+      company.scope_schema { company.scope_time_zone{ Rake::Task['operations:maintenance'].execute } }
+    when 20 # early evening tasks
+      # - send:notifications (hour 21)
+      company.scope_schema { company.scope_time_zone{ Rake::Task['notifications:send'].execute } }
+    when 23 # late evening tasks
+      # - location:daily_report (hour 23)
+      company.scope_schema { Rake::Task['location:daily_report'].execute } if company.id == 1
+    end
+end
+
+
+  # Run weekly tasks
+  # -operations:reports (on sundays hour17)
 end

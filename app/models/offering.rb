@@ -1,6 +1,4 @@
 class Offering < ActiveRecord::Base
-  #attr_accessible :comments, :course_id, :day, :graduation_year, :location_id,
-                  # :time, :user_ids, :active, :classroom, :hidden, :day_number
 
   validates_presence_of :course_id, :day, :time, :location_id
 
@@ -42,7 +40,7 @@ class Offering < ActiveRecord::Base
   end
 
   def offering_name_dashboard
-    course.name + " | " + day[0..2] + " - " + time.strftime("%I:%M %p")
+    course.name + " \n " + day[0..2] + " - " + time.strftime("%I:%M %p")
   end
 
   def offering_name
@@ -69,11 +67,26 @@ class Offering < ActiveRecord::Base
     self.registrations.where("status = ? OR status = ?", 1, 0).count
   end
 
-  # def self.search(search)
-  #   if search
-  #     joins(:course).where('lower(courses.name) LIKE ?', "%#{search.downcase}%")
-  #   end
-  # end
+  def teacher
+    users.where(role: 'Teacher').first
+  end
+
+  def assistant_teacher
+    users.where(role: 'Assistant Teacher').first
+  end
+
+  def room_number
+    case classroom
+    when 'A'
+      0
+    when 'B'
+      1
+    when 'C'
+      2
+    else
+      ""
+    end
+  end
 
   def type
     id = self.course_id

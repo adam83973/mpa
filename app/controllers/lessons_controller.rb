@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /lessons
   # GET /lessons.json

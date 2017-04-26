@@ -1,0 +1,24 @@
+<% title "#{Opportunity::STATUSES[@status.to_i]} - Opportunities" %>
+<h1>Opportunities With Status: <%= Opportunity::STATUSES[@status.to_i] %></h1>
+<p><strong>Location:</strong> <%= @location.name %></p>
+
+<table id="datatable">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Parent</th>
+      <th>Offering</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= opportunity.student.full_name if opportunity.student %></td>
+        <td><%= opportunity.user.full_name if opportunity.user %></td>
+        <td><%= opportunity.offering.offering_name if opportunity.offering %></td>
+        <td><%= link_to 'View', opportunity_path(opportunity), target: '_blank' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,10 +1,23 @@
 <% title "Infusionsoft Information Management" %>
-<%= link_to "User Page", @app_user, class: "btn btn-default pull-right" if @app_user %>
+
+<div class="row">
+	<div class="col-sm-12 col-xs-12 mb-4 mb-lg-3">
+		<div class="btn-group pull-right hidden-md-down">
+			<%= link_to "User Page", @app_user, class: "btn btn-secondary" if @app_user %>
+			<%= link_to 'View Subscriptions', infusion_pages_subscription_path(userId: @app_user.id), class: 'btn btn-primary' %>
+		</div>
+		<div class="hidden-lg-up">
+			<%= link_to "User Page", @app_user, class: "btn btn-secondary btn-block" if @app_user %>
+			<%= link_to 'View Subscriptions', infusion_pages_subscription_path(userId: @app_user.id), class: 'btn btn-primary btn-block' %>
+		</div>
+	</div>
+</div>
+
 <h3>Edit Billing and Payment Info (Infusionsoft)</h3>
 
 <%= @new_customer %>
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+	<div class="col-md-6">
 		<h4>Billing Info</h4>
 		<%= form_tag url_for(controller: 'infusion_pages', action: 'update'), {:method => :get, class: 'simple_form'} do %>
 			<%= hidden_field_tag :Id, params[:ContactId] %>
@@ -35,9 +48,6 @@
 				<label class="control-label">Zip </label>
 				<%= text_field_tag :PostalCode, @user["PostalCode"], class:"form-control" %>
 				<br>
-				<label class="control-label">Launch New Customer Sequence</label>
-				<%= check_box_tag :NewCustomer, true, false, {} %>
-				<br>
 				<br>
 			<%= submit_tag "Save Changes", :name => nil, class: 'btn btn-success' %>
 		<% end %>
@@ -46,7 +56,7 @@
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<h4>Active Credit Cards</h4>
-		<table class="table table-striped table-bordered table-condensed">
+		<table class="table table-striped table-bordered table-sm">
 			<thead>
 				<tr>
 					<th>Name on Card</th>
@@ -69,7 +79,7 @@
 			</tbody>
 		</table>
 		<h4>Add New Credit Card</h4>
-		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card'), {:method => :get, class: 'form-horizontal'} do %>
+		<%= form_tag url_for(controller: 'infusion_pages', action: 'credit_card', enforce_utf8: false), {:method => :get, class: 'form-horizontal'} do %>
 			<%= hidden_field_tag :Id, params[:ContactId] %>
 				<label class="control-label">Name on Card </label>
 				<%= text_field_tag :NameOnCard, nil, class:"form-control" %>
@@ -78,7 +88,7 @@
 				<label class="control-label">Credit Card Number </label>
 				<%= text_field_tag :CardNumber, nil, class:"form-control" %>
 				<label class="control-label">Expiration Month </label>
-				<%= select_tag 'ExpirationMonth', options_for_select((1..12).to_a), include_blank: true, class: "form-control", type: "text" %>
+				<%= select_tag 'ExpirationMonth', options_for_select(['01','02','03','04','05','06','07','08','09','10','11','12']), include_blank: true, class: "form-control", type: "text" %>
 				<label class="control-label">Expiration Year </label>
 				<%= select_year Date.today, { start_year: Date.today.year, max_years_allowed: 8 }, { class: "form-control", id: "ExpirationYear", name: "ExpirationYear", type: "text"  } %>
 				<br>
@@ -87,27 +97,3 @@
 	</div>
 </div>
 <hr>
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h4>Link to Parent in MPA App</h4>
-		<% if @app_user %>
-			Linked to <%= @app_user.first_name %> <%= @app_user.last_name %> |
-			<%= link_to 'Edit', edit_user_path(@app_user), :target => "_blank" %> |
-			<%= link_to 'Show', user_path(@app_user), :target => "_blank" %>
-		<% else %>
-			This parent is not linked.<br />
-			<% if @candidates.empty? %>
-				No parents in the MPA App match by first and last name.<br /><br />
-				<%= link_to 'Create Parent', new_user_path(params.merge(first_name: @user["FirstName"], last_name: @user["LastName"], email: @user["Email"], phone: @user["Phone1"], infusion_id: params[:ContactId])), class: 'btn btn-small' %>
-			<% else %>
-				The following parents in the MPA app could be a match: <br />
-				<% @candidates.each do | candidate | %>
-					<%= candidate.first_name %> <%= candidate.last_name %> <%= candidate.infusion_id %> <%= candidate.email %> <%= candidate.phone %> | 		<%= link_to 'Update', edit_user_path(candidate, infusion_id: params[:ContactId]), :target => "_blank" %>
-				<% end %>
-			<% end %>
-		<% end %>
-		<hr>
-		<%= link_to 'View Subscriptions', infusion_pages_subscription_path(userId: @app_user.id), class: 'btn btn-primary' %>
-		<br />
-	</div>
-</div>

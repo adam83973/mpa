@@ -6,11 +6,11 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  padding-top: 80px;
+  min-height: 100vh;
 }
 
-h1, h2, h3, h4, li {
-  font-weight: 200;
+input{
+  font-family: 'Raleway', sans-serif;
 }
 
 b{
@@ -52,11 +52,11 @@ label {
   border-top: 1px solid #e5e5e5;
 }
 
-.btn{
-  font-weight: 200;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
+// .btn{
+//   font-weight: 200;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+// }
 
 .btn-black{
   color: white;
@@ -97,25 +97,25 @@ label {
           width: 100%;
 }
 
-.label-purple{
+.badge-purple{
   color: white;
   background-color:#5f56a1;
   border-color:#2a1e7d;
 }
 
-.label-yellow{
+.badge-yellow{
   color: gray;
   background-color:#e9d949;
   border-color:#c8ba3f;
 }
 
-.label-brown{
+.badge-brown{
   color: white;
   background-color:#a75f39;
   border-color:#7f482b;
 }
 
-.label-blue{
+.badge-blue{
   color: white;
   background-color:#3e84e9;
   border-color:#2f68b8;
@@ -336,4 +336,9 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
 .header-fixed > thead > tr > th {
     width: 50%;
     float: left;
+}
+
+.nav_search_button{
+  padding-top:5px;
+  padding-bottom:5px;
 }

@@ -1,29 +1,28 @@
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <strong>New</strong> <span class="caret"></span>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+    <strong>New</strong>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li><%= link_to "Employee", new_employee_users_path %></li>
-    <li><%= link_to "Parent", new_parent_users_path %></li>
-    <li><%= link_to "Achievement/Badge", new_experience_path %></li>
-    <li><%= link_to "Class", new_offering_path %></li>
-    <li><%= link_to "Course", new_course_path %></li>
-    <li><%= link_to "Opportunity", new_opportunity_path %></li>
-  </ul>
+  <div class="dropdown-menu" role="menu">
+    <%= link_to "Employee", new_employee_users_path, class: 'dropdown-item' %>
+    <%= link_to "Parent", new_parent_users_path, class: 'dropdown-item' %>
+    <%= link_to "Achievement/Badge", new_experience_path, class: 'dropdown-item' %>
+    <%= link_to "Class", new_offering_path, class: 'dropdown-item' %>
+    <%= link_to "Course", new_course_path, class: 'dropdown-item' %>
+    <%= link_to "Opportunity", new_opportunity_path, class: 'dropdown-item' %>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <strong>Locations/Billing</strong> <span class="caret"></span>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+    <strong>Locations<%= "/Billing" if current_company.infusionsoft_integration %></strong>
   </a>
-  <ul class="dropdown-menu" role="menu">
-
+  <div class="dropdown-menu" role="menu">
     <% Location.all.each do |location| %>
-      <li><%= link_to location.name, location %></li>
+      <%= link_to location.name, location, class: 'dropdown-item' %>
     <% end %>
-
-    <li class="divider"></li>
-
-    <li><%= link_to "Billing Audit", '/infusion_pages/audit' %></li>
-    <li><%= link_to "Reports", '/reports/new' %></li>
-  </ul>
+    <% if current_company.infusionsoft_integration %>
+      <div class="dropdown-divider"></div>
+      <%= link_to "Billing Audit", '/infusion_pages/audit', class: 'dropdown-item' %>
+      <%= link_to "Reports", '/reports/new', class: 'dropdown-item' %>
+    <% end %>
+  </div>
 </li>

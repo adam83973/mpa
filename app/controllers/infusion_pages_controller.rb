@@ -1,8 +1,9 @@
 class InfusionPagesController < ApplicationController
-  before_filter :authenticate_user!, except: [:tag_contact]
-  before_filter :authorize_admin, except: [:tag_contact]
+  before_action :authenticate_user!, except: [:tag_contact]
+  before_action :authorize_admin, except: [:tag_contact]
 
   rescue_from Rack::Timeout::RequestTimeoutException, :with => :rescue_from_timeout
+  rescue_from Infusionsoft::UnexpectedError, :with => :rescue_from_unexpected
 
   def home
   	if params[:search]
@@ -98,19 +99,16 @@ class InfusionPagesController < ApplicationController
   def update
   	# put all user params into an instance variable hash
   	@user_update = params
-    @new_customer = params[:NewCustomer]
   	# get the infusionsoft user id from the hash
   	user_update_id = params[:Id]
   	# remove key,value pairs from hash
     count = 0
+
+    @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
+
     begin
   	   @user_update.except!(:utf8, :Id, :NameOnCard, :CardType, :CardNumber, :ExpirationMonth, :ExpirationYear, :controller, :action, :NewCustomer)
-  	  result = Infusionsoft.contact_update(user_update_id, @user_update)
-
-      if @new_customer
-        Infusionsoft.contact_add_to_group(user_update_id, 1648)
-        new_customer = true
-      end
+  	  result = Infusionsoft.contact_update(user_update_id, @user_update.to_unsafe_h)
     rescue
       if count < 3
         count = count + 1
@@ -118,9 +116,7 @@ class InfusionPagesController < ApplicationController
       end
     end
 
-    if result && new_customer
-      flash[:notice] = "New Customer Sequence Started"
-    elsif result
+    if result
       flash[:notice] = "Contact Updated"
     else
       flash[:alert] = "Contact Update Failed"
@@ -135,11 +131,14 @@ class InfusionPagesController < ApplicationController
   	@credit_card.merge!(ContactId: @credit_card[:Id])
   	# remove kay,value pairs from hash
   	@credit_card.extract!(:utf8, :Id, :controller, :action)
+<<<<<<< HEAD
     # convert params to hash
     hash = {}
     @credit_card = @credit_card.each{|k,v| hash[k] = v}
+=======
+>>>>>>> staging
 
-  	result = Infusionsoft.data_add('CreditCard', @credit_card)
+  	result = Infusionsoft.data_add('CreditCard', @credit_card.to_unsafe_h)
 
   	result ? flash[:notice] = "CC Added" : flash[:error] = "CC Add Failed"
 
@@ -170,28 +169,22 @@ class InfusionPagesController < ApplicationController
         @active_subscription.sort_by! {|hsh| hsh["Status"]}
       rescue
         count < 3 ? retry : ""
-        # loop through array of hashes and remove inactive subscriptions
-        # @active_subscription.delete_if {|i| i["Status"] == "Inactive"}
-        # attach subscription plan names
-        @active_subscription.each do |i|
-          subscriptions.each do |j|
-            if i["ProgramId"].to_i == j["Id"].to_i
-              i["ProgramName"] = j["ProgramName"]
-            end
-          end
+
+        @active_subscriptions.each do |active_subscription|
+          active_subscription["ProgramName"] = "One Student Classes"
         end
       end
       # get invoices and display recent ones
       @invoices = Infusionsoft.data_query_order_by('Invoice', 10, 0, {:ContactId => @user.infusion_id}, [:Id, :InvoiceTotal, :TotalPaid, :TotalDue, :Description, :DateCreated, :RefundStatus, :PayStatus], "Id", false)
       @invoices.each do |i|
         if i["PayStatus"] == 0
-          i["Status"] = "<span class='label label-important'>Unpaid</span>"
+          i["Status"] = "<span class='badge badge-important'>Unpaid</span>"
         elsif i["RefundStatus"] == 1
-          i["Status"] = "<span class='label label-warning'>Partial Refund</span>"
+          i["Status"] = "<span class='badge badge-warning'>Partial Refund</span>"
         elsif i["RefundStatus"] == 2
-          i["Status"] = "<span class='label label-warning'>Full Refund</span>"
+          i["Status"] = "<span class='badge badge-warning'>Full Refund</span>"
         else
-          i["Status"] = "<span class='label label-success'>Paid</span>"
+          i["Status"] = "<span class='badge badge-success'>Paid</span>"
         end
       end
     else
@@ -216,11 +209,12 @@ class InfusionPagesController < ApplicationController
     if Rails.env.production?
       result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], params[:merchantAccountId].to_i, params[:creditCardId].to_i, 0, daysUntilCharge)
     else
-      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId], true, params[:cProgramId], 1, params[:creditCardId].to_i, 0, daysUntilCharge)
+      result = Infusionsoft.invoice_add_recurring_order(params[:ContactId].to_i, true, params[:cProgramId].to_i, 1, params[:creditCardId].to_i, 1, daysUntilCharge)
     end
 
     data = { :Qty => params[:qty], :BillingAmt => params[:price] }
     Infusionsoft.data_update('RecurringOrder', result, data)
+
     if result
       flash[:notice] = "Subscription Added"
       # update recurring order with qty and price from form input
@@ -247,10 +241,6 @@ class InfusionPagesController < ApplicationController
   end
 
   def delete_user
-    #
-    # ADD A CONFIRM POP-UP!
-    #
-
     result = Infusionsoft.data_delete('Contact', params[:Id])
     if result
       flash[:notice] = "User deleted"
@@ -262,7 +252,7 @@ class InfusionPagesController < ApplicationController
 
   def end_subscription
     today = DateTime.now
-    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N"})
+    result = Infusionsoft.data_update('RecurringOrder', params[:Id], {:EndDate => today, :Status => "Inactive", :AutoCharge => "N", :BillingCycle => 2})
     if result
       flash[:notice] = "Subscription ended"
     else
@@ -306,5 +296,9 @@ class InfusionPagesController < ApplicationController
   private
     def rescue_from_timeout
       redirect_to :back, alert: 'Your request was not processed. Please try again.'
+    end
+
+    def rescue_from_unexpected
+      redirect_to infusion_pages_subscription_path(userId: @user.id)
     end
 end

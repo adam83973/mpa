@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_filter :authorize_employee
+  before_action :authorize_employee
 
   # GET /notes
   # GET /notes.json

@@ -1,7 +1,7 @@
 class HelpSessionRecordsController < ApplicationController
   before_action :set_help_session_record, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /help_session_records
   def index
@@ -30,7 +30,7 @@ class HelpSessionRecordsController < ApplicationController
     student = Student.find(help_session_record_params[:student_id])
 
     if @help_session_record.save
-      redirect_to student, notice: 'Help session record was successfully created.'
+      redirect_to student_path(student), notice: 'Help session record was successfully created.'
     else
       render :new
     end
@@ -48,7 +48,7 @@ class HelpSessionRecordsController < ApplicationController
   # DELETE /help_session_records/1
   def destroy
     @help_session_record.destroy
-    redirect_to help_session_records_url, notice: 'Help session record was successfully destroyed.'
+    redirect_to help_session_records_url(subomain: current_company.subdomain), notice: 'Help session record was successfully destroyed.'
   end
 
   private

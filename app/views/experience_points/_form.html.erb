@@ -17,10 +17,6 @@
 			  </div>
 			    <%= f.button :submit, class: "btn btn-lg btn-success" %>
 			<% end %>
-			<br>
-			<p>
-		  	  <%= render '/students/nav_buttons' %>
-			</p>
 		<% elsif params[:attendance] %>
 			<%= simple_form_for @experience_point do |f| %>
 				  <%= f.error_notification %>
@@ -63,10 +59,6 @@
 			  </div>
 			    <%= f.button :submit, class: "btn btn-success btn-lg" %>
 			<% end %>
-			<br>
-			<p>
-		  	  <%= render '/students/nav_buttons' %>
-			</p>
 		<% end %>
 		</div>
 	</div>
