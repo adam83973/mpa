@@ -16,10 +16,10 @@
   <% elsif params[:search] == '' %>
   <% else %>
     <div class="row">
-      <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
+      <div class="hidden-md-up col-12">
         <%= render 'shared/mobile_reset_search' %>
       </div>
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+      <div class="col-md-9">
         <h3>Results</h3>
         <% @users_search.each do |user|%>
           <div class="user_search">
@@ -47,7 +47,7 @@
           </div>
         <% end %>
       </div>
-      <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+      <div class="col-md-3 hidden-sm-down">
         <%= render 'shared/search_reset' %>
       </div>
     </div>
