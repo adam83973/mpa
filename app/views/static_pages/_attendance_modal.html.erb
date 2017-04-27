@@ -15,6 +15,7 @@
             <%= f.input :offering_id, as: :hidden, input_html: { value: class_session.offering } %>
             <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
             <%= f.input :date, as: :hidden, input_html: { value: Date.today } %>
+            <%= f.input :week, input_html: { value: class_session.week }, as: :hidden %>
             <%= f.button :submit, "Add to Class", class: "btn btn-success", id: "attendance_modal_button" %>
         <% end %>
         <br>
