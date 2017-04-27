@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       @student = @transaction.student if @transaction.student_id
       @product = @transaction.product
-      if @transaction.process == 0 || @transaction.process == 4
+      if @transaction.process == 0
         #check to see if student has enough credits
         if @student.credits >= @transaction.credits_redeemed
           # redeem credits from student's account
@@ -39,6 +39,8 @@ class TransactionsController < ApplicationController
         end
       elsif @transaction.process == 2 || @transaction.process == 3
         redirect_to new_transaction_path, notice: "#{@transaction.quantity} units of #{@transaction.product.name} #{@transaction.process == 2 ? "added to" : "removed from"} #{@transaction.location.name}'s inventory."
+      elsif @transaction.process == 4
+        redirect_to student_path(@student), notice: 'Level Up Prize redeemed.'
       else
         redirect_to root_url, notice: "Transaction was successfully completed."
       end
