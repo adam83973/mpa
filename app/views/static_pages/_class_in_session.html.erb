@@ -14,7 +14,7 @@
         </h6>
       </div>
       <div class="col-lg-4">
-        <div class="btn-group pull-right">
+        <div class="btn-group pull-right mb-3">
           <%= link_to "Course Page", offering.course, class: "btn btn-primary" if class_session.offering %>
           <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-secondary" if offering.lesson(class_session.week) %>
         </div>
@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-3">
         <% if @todays_lesson && @todays_lesson.assignment %>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-block">
               <p>Lesson:</p>
               <div class="text-center">
@@ -32,7 +32,7 @@
             </div>
           </div>
         <% else %>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-block text-center">
               <p>
                 No lesson on file.
@@ -43,7 +43,7 @@
       </div>
       <div class="col-lg-4 col-md-3">
         <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key && !(@last_weeks_lesson.assignment_key.empty?) %>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-block text-center">
               <p>Key:</p>
               <div class="text-center">
@@ -52,7 +52,7 @@
             </div>
           </div>
         <% else %>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-block text-center">
               <p>
                 No lesson on file.
@@ -62,7 +62,7 @@
         <% end %>
       </div>
       <div class="col-md-4 col-xs-12">
-        <div class="card">
+        <div class="card mb-3">
           <div class="card-block text-center">
             <% if @todays_lesson && (@todays_lesson.problems || @todays_lesson.resources) %>
               <p>Activities/Additional Resources:</p>

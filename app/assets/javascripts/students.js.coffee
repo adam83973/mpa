@@ -12,6 +12,8 @@ $(window).bind "unload", ->
 
 $('.redeem-prize').on 'click', ->
 	$('#mathematicianModal').modal('hide')
+	$('#programmerModal').modal('hide')
+	$('#engineerModal').modal('hide')
 	$('#prizeRedemptionModal').find('#prize-name').text($(this).data('prizename'))
 	$('#transaction_occupation_level_id').val($(this).data('levelid'))
 
