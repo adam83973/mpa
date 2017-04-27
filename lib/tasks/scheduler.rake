@@ -11,7 +11,7 @@ def hourly_tasks
 
   # Run various tasks for each company. All actions within a given task should be
   # will be run at the same time. Time is scoped via the company's timezone attribute.
-  company.each do |company|
+  companies.each do |company|
     # Run daily tasks via scope of company
     case company.scope_time_zone{ Time.zone.now.hour }
     when 2 #early morning tasks
