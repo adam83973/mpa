@@ -1,5 +1,4 @@
 class BindersController < ActionController::Base
-  before_action :authenticate_user!
   before_action :authorize_employee
   around_action :scope_current_company
 
@@ -30,6 +29,6 @@ class BindersController < ActionController::Base
   private
 
   def authorize_employee
-    root_path(subdomain: current_company.subdomain) unless current_user && current_user.employee?
+    root_path unless current_user && current_user.employee?
   end
 end
