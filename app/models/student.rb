@@ -11,7 +11,7 @@ class Student < ActiveRecord::Base
   belongs_to :avatar
   belongs_to :learning_plan
   has_many :assignments, dependent: :destroy
-  has_many :badge_requests
+  has_many :badge_requests, dependent: :destroy
   has_many :badges, -> { where('badge_requests.approved = ?',true) },
            :through => :badge_requests,
            :class_name => "Badge",
@@ -20,16 +20,14 @@ class Student < ActiveRecord::Base
   has_many :courses, :through => :offerings
   has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
-  has_many :grades, dependent: :destroy
-  has_many :help_session_records
-  has_many :learning_plans
+  has_many :help_session_records, dependent: :destroy
+  has_many :learning_plans, dependent: :destroy
   has_many :lessons , :through => :grades
   has_many :locations, :through => :offerings
-  has_many :notes, as: :notable
-  # has_many :occupations, :through => :courses
+  has_many :notes, as: :notable, dependent: :destroy
   has_many :offerings, :through => :registrations
   has_many :opportunities
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
   has_many :registrations, dependent: :destroy
 
   scope :active, lambda{where("status = ?", "Active")}
