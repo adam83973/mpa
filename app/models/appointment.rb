@@ -21,7 +21,7 @@ class Appointment < ActiveRecord::Base
       parent = User.find_by_email appointment_request['client']['emailAddress'].downcase
       if !parent
         generated_password = Devise.friendly_token.first(8)
-        puts "Create parent"
+        puts "Created parent."
         parent = User.create!(
                               check_appointments_id:    appointment_request['client']['clientId'],
                               first_name:               appointment_request['client']['firstName'],
@@ -44,6 +44,7 @@ class Appointment < ActiveRecord::Base
                                     time:          DateTime.parse(appointment_request['appointmentDateTimeClient']).to_time,
                                     note:          appointment_request['note'],
                                     status:        appointment_request['status'])
+      puts 'Appointment updated.'
     else
       appointment = create!(clientId:      appointment_request['client']['clientId'],
                             calendarId:    appointment_request['calendarid'],
@@ -56,10 +57,12 @@ class Appointment < ActiveRecord::Base
                             note:          appointment_request['note'],
                             status:        appointment_request['status'])
 
+      puts 'Appointment created.'
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
         if appointment_request['reason']['reasonId'] == 37117
           self.slack_and_app_notifications(parent, appointment_request, appointment)
+          puts 'Slack notification sent.'
         end
       end
     end

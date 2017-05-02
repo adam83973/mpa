@@ -396,6 +396,7 @@ class UsersController < ApplicationController
     appointment_request = JSON.parse(request.body.read)
     # puts pp appointment_request
 
+    puts "Appointment processing..."
     Appointment.process(appointment_request)
     puts "Appointment processing completed."
 
