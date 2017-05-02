@@ -89,5 +89,5 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = { :host => 'app.mathplusacademy.com' }
+  config.action_mailer.default_url_options = { :host => 'columbus.mathplus.online' }
 end
