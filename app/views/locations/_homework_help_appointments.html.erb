@@ -14,7 +14,7 @@
         <% appointments.each do |appointment| %>
           <tr>
             <td>
-              <%= link_to appointment.user.full_name, appointment.user %>
+              <%= link_to appointment.user.full_name, appointment.user if appointment.user %>
             </td>
             <td>
               <%= appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M %P") %>
