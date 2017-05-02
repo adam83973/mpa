@@ -8,7 +8,12 @@ class Appointment < ActiveRecord::Base
 
   def self.process(appointment_request)
     # response is appointment information type: JSON
-    location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
+    if Location.where(check_appointments_id: appointment_request['location']['locationId']).first
+      location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
+    else
+      puts 'No valid location. Aborting appointment processing.'
+      break
+    end
 
     # format appointment DateTime
     appointment_time = appointment_request['appointmentDateTimeClient'] ? DateTime.parse(appointment_request['appointmentDateTimeClient']) : DateTime.now
