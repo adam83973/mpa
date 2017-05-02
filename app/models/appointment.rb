@@ -12,7 +12,7 @@ class Appointment < ActiveRecord::Base
       location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
     else
       puts 'No valid location. Aborting appointment processing.'
-      break
+      # break
     end
 
     # format appointment DateTime
