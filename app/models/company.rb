@@ -32,7 +32,8 @@ class Company < ApplicationRecord
   def build_application_defaults
     scope_schema do
       puts 'Building application defaults. This may take a while.'
-      Rake::Task['development:seed'].execute subdomain: subdomain
+      load Rails.root.join("lib/tasks/application_seed.rake")
+      Rake::Task['application:seed'].execute subdomain: subdomain
     end
   end
 

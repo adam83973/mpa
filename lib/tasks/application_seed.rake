@@ -17,6 +17,10 @@ def seed_application(args)
   puts 'Application seeding complete.'
 end
 
+def seed_image(asset_folder, file_name)
+  File.open(File.join(Rails.root, "/app/assets/images/#{asset_folder}/#{file_name}"))
+end
+
 def create_locations
   puts 'Building locations.'
   #create default location
