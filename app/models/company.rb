@@ -9,6 +9,8 @@ class Company < ApplicationRecord
 
   # create schema for company
   after_create :create_schema
+  # create required defaults for company's application
+  after_create :build_application_defaults
 
 
   def self.current
@@ -24,6 +26,13 @@ class Company < ApplicationRecord
     scope_schema do
       load Rails.root.join("db/schema.rb")
       self.class.connection.execute("drop table #{self.class.table_name}")
+    end
+  end
+
+  def build_application_defaults
+    scope_schema do
+      puts 'Building application defaults. This may take a while.'
+      Rake::Task['development:seed'].execute subdomain: subdomain
     end
   end
 
