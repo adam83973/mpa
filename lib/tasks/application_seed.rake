@@ -9,11 +9,11 @@ def seed_application(args)
   create_locations
   create_users(args)
   create_math_courses
-  create_avatars
+  create_avatars(args)
   create_occupations
-  create_occupation_levels
-  create_badges
-  create_experiences
+  create_occupation_levels(args)
+  create_badges(args)
+  create_experiences(args)
   puts 'Application seeding complete.'
 end
 
@@ -84,7 +84,7 @@ def create_math_courses
   puts 'Building default courses complete.'
 end
 
-def create_avatars
+def create_avatars(args)
   puts 'Building default avatars.'
   # Create avatars
   avatar_names = ['Boy', 'Girl', 'Robot']
@@ -92,7 +92,8 @@ def create_avatars
   avatar_names.each do |name|
     file_name = "MATHPLUS-avatar-#{name.downcase}.png"
     Avatar.create!(name:           name,
-                   image:          seed_image('avatars', file_name))
+                   image:          seed_image('avatars', file_name),
+                   subdomain:      "#{args[:subdomain]}")
   end
   puts 'Building default avatars complete.'
 end
@@ -119,7 +120,7 @@ def create_occupations
   puts 'Building default occupations complete.'
 end
 
-def create_occupation_levels
+def create_occupation_levels(args)
   puts 'Building default occupation levels.'
   occupations_id_and_name = Occupation.pluck(:id, :title)
 
@@ -132,7 +133,8 @@ def create_occupation_levels
                               points:               1000 * n+1,
                               rewards:              "Level #{n} Reward",
                               occupation_id:        occupation_info[0],
-                              image:                seed_image("math_plus_icons", image_file))
+                              image:                seed_image("math_plus_icons", image_file),
+                              subdomain:            "#{args[:subdomain]}")
     end
   end
   puts 'Building default occupation levels complete.'
@@ -142,21 +144,22 @@ def badge_names
   ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematician', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
 end
 
-def create_badges
+def create_badges(args)
   puts 'Building default badges.'
   # Create badges - A few basic badges are seeded and their images are added as
   # assets. Additional badges can be added and their images uploaded.
 
   badge_names.each do |name|
     image_file = "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png"
-    Badge.create!(name:     name,
-                  image:    seed_image("badges", image_file),
-                  multiple: true)
+    Badge.create!(name:               name,
+                  image:              seed_image("badges", image_file),
+                  multiple:           true,
+                  subdomain:          "#{args[:subdomain]}")
   end
   puts 'Building default badges complete.'
 end
 
-def create_experiences
+def create_experiences(args)
   puts 'Building default experiences.'
   # Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
 
@@ -167,7 +170,8 @@ def create_experiences
     experience = Experience.create!(name:            "#{badge_name} Badge",
                                     content:         "Please update this with a description the of the badge.",
                                     points:          75,
-                                    active:          true)
+                                    active:          true,
+                                    subdomain:       "#{args[:subdomain]}")
     badge.update_attribute :experience_id, experience.id
   end
 
@@ -176,21 +180,24 @@ def create_experiences
                      content:         "Points for attending a class. Plain and simple.",
                      points:          20,
                      active:          true,
-                     attendance:      true)
+                     attendance:      true,
+                     subdomain:       "#{args[:subdomain]}")
 
   Experience.create!(name:            "Attendance - Chess Club",
                      content:         "Points for attending a class. Plain and simple.",
                      points:          20,
                      active:          true,
                      attendance:      true,
-                     course_id:       Course.where(name: 'Chess Club').pluck(:id).first)
+                     course_id:       Course.where(name: 'Chess Club').pluck(:id).first,
+                     subdomain:       "#{args[:subdomain]}")
 
   Experience.create!(name:            "Attendance - Programming Lab",
                      content:         "Points for attending a class. Plain and simple.",
                      points:          20,
                      active:          true,
                      attendance:      true,
-                     course_id:       Course.where(name: 'Programming Lab').pluck(:id).first)
+                     course_id:       Course.where(name: 'Programming Lab').pluck(:id).first,
+                     subdomain:       "#{args[:subdomain]}")
 
   # Experiences for assignments
   assignment_statuses_and_points = [["Incomplete", 0], ["Complete", 60], ["Perfect", 80]]
@@ -200,7 +207,8 @@ def create_experiences
                        content:         "You attended class. That's half the battle!",
                        points:          assignment_info[1],
                        assignment:      true,
-                       active:          true)
+                       active:          true,
+                       subdomain:       "#{args[:subdomain]}")
   end
   puts 'Building default experiences complete.'
 end
