@@ -1,5 +1,4 @@
-class Stage < ActiveRecord::Base
-  #attr_accessible :name
+class Stage < ActiveRecord::Base]
 
   has_many :leads
 end
