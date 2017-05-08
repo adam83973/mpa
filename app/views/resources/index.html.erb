@@ -12,7 +12,7 @@
         <strong>Drag and drop images or PDFs to add them to Resources</strong>
   			<%= form_for Resource.new do |f| %>
   			  <%= f.file_field :file, multiple: true, name: "resource[file]" %>
-          <%= f.field :subdomain, multiple: true, name: "resource[file]" %>
+          <%= f.text_field :subdomain, value: current_company.subdomain, hidden:true %>
   			<% end %>
 
   			<script id="template-upload" type="text/x-tmpl">
