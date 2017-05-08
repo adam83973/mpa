@@ -1,7 +1,7 @@
 namespace :development do
   desc "Seed development environment"
   task :seed, [:subdomain] => :environment do |task, args|
-    seed_common
+    seed_common(args)
     seed_development_environment(args)
   end
 end
@@ -14,13 +14,13 @@ def seed_lessons(asset_folder, file_name)
   File.open(File.join(Rails.root, "/app/assets/sample_lessons/#{asset_folder}/#{file_name}"))
 end
 
-def seed_common
+def seed_common(args)
   create_courses
-  create_avatars
+  create_avatars(args)
   create_occupations
-  create_occupation_levels
-  create_badges
-  create_experiences
+  create_occupation_levels(args)
+  create_badges(args)
+  create_experiences(args)
 end
 
 
@@ -32,7 +32,7 @@ def seed_development_environment(args)
   create_opportunities
   create_notes
   create_registrations
-  create_lessons
+  create_lessons(args)
   create_products
   create_family_for_parent_ui_testing(args)
 end
@@ -58,14 +58,15 @@ def create_courses
   end
 end
 
-def create_avatars
+def create_avatars(args)
   # Create avatars
   avatar_names = ['Boy', 'Girl', 'Robot']
 
   avatar_names.each do |name|
     file_name = "MATHPLUS-avatar-#{name.downcase}.png"
-    Avatar.create!(name:           name,
-                   image:          seed_image('avatars', file_name))
+    Avatar.create!(name:            name,
+                   image:           seed_image('avatars', file_name),
+                   company_id:      args[:subdomain])
   end
 end
 
@@ -89,7 +90,7 @@ def create_occupations
                                         humans.')
 end
 
-def create_occupation_levels
+def create_occupation_levels(args)
   occupations_id_and_name = Occupation.pluck(:id, :title)
 
   # Add occupation levels. This sets up the leveling system for students
@@ -101,7 +102,8 @@ def create_occupation_levels
                               points:               1000 * n+1,
                               rewards:              "Level #{n} Reward",
                               occupation_id:        occupation_info[0],
-                              image:                seed_image("math_plus_icons", image_file))
+                              image:                seed_image("math_plus_icons", image_file),
+                              company_id:           args[:subdomain])
     end
   end
 end
@@ -110,29 +112,31 @@ def badge_names
   ['Attention To Detail', 'Dedication', 'Explorer', 'Helping Others', 'Hot Streak', 'Insightful Questions', 'Mathematician', 'Mental Math', 'Mind Bender', 'Number Cruncher', 'Perfection', 'Positive Attitude', 'Problem Solver', 'Scientist', 'Teamwork']
 end
 
-def create_badges
+def create_badges(args)
   # Create badges - A few basic badges are seeded and their images are added as
   # assets. Additional badges can be added and their images uploaded.
 
   badge_names.each do |name|
     image_file = "MATHPLUS-Badge-#{name.downcase.gsub(' ', '-')}.png"
-    Badge.create!(name:     name,
-                  image:    seed_image("badges", image_file),
-                  multiple: true)
+    Badge.create!(name:       name,
+                  image:      seed_image("badges", image_file),
+                  multiple:   true,
+                  company_id: args[:subdomain])
   end
 end
 
-def create_experiences
+def create_experiences(args)
   # Create experiences - A few experience points need to be seeded. XP that are associated to seeded badges. XP that are associated to attendance. XP that are associated to assignments. This seed should not include any non-production information.
 
   # Experiences for badges
   badge_names.each do |badge_name|
     badge = Badge.where(name: badge_name).first
 
-    experience = Experience.create!(name:            "#{badge_name} Badge",
-                                    content:         "Please update this with a description the of the badge.",
-                                    points:          75,
-                                    active:          true)
+    experience = Experience.create!(name:             "#{badge_name} Badge",
+                                    content:          "Please update this with a description the of the badge.",
+                                    points:           75,
+                                    active:           true,
+                                    company_id:       args[:subdomain])
     badge.update_attribute :experience_id, experience.id
   end
 
@@ -579,13 +583,14 @@ def create_registrations
   end
 end
 
-def create_lessons
+def create_lessons(args)
   # Create lessons that are associated to each course. Only seeding and uploading
   # lessons for one class.
 
   48.times do |n|
-    resource = Resource.create!(file:              seed_lessons("recruits", "recruit#{n+1}.pdf"),
-                                category:          0)
+    resource = Resource.create!(file:               seed_lessons("recruits", "recruit#{n+1}.pdf"),
+                                category:           0,
+                                company_id:         args[:subdomain])
 
     lesson = Lesson.create!(name:             "Lesson #{n+1}",
                             week:             n+1,
