@@ -17,6 +17,7 @@
     <%= f.input :rewards, input_html: { rows: 2 } %>
     <%= f.input :privileges, input_html: { rows: 2 } %>
     <%= f.input :notes, input_html: { rows: 2 } %>
+    <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
   </div>
 </div>
 <div class="row">
