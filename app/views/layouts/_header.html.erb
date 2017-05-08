@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <%= link_to root_path, class: "navbar-brand" do %>
+  <%= link_to root_url(subdomain: current_company.subdomain), class: "navbar-brand" do %>
     <%= image_tag('mp_logo.png', height: "15", style: 'margin-bottom:3px;') %>  Math Plus Academy
   <% end %>
   <% if signed_in? && help_session.in_session? %>
