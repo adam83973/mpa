@@ -3,6 +3,7 @@
 
 
   <%= f.input :name %>
+  <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
   <%= image_tag(@avatar.image_url, size: "200x200") if @avatar.image? %>
   <% if !@avatar.image? %>
     <%= f.input :image, as: :file, label: "Upload Image" %>

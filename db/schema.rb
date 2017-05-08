@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426235350) do
+ActiveRecord::Schema.define(version: 20170508161934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 20170426235350) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "name",       limit: 255
+    t.integer  "company_id"
+    t.string   "subdomain"
   end
 
   create_table "badge_categories", force: :cascade do |t|
@@ -163,6 +165,8 @@ ActiveRecord::Schema.define(version: 20170426235350) do
     t.boolean  "parent_can_request",             default: true
     t.integer  "module_id"
     t.text     "script"
+    t.integer  "company_id"
+    t.string   "subdomain"
   end
 
   create_table "badges_students", id: false, force: :cascade do |t|
@@ -274,6 +278,8 @@ ActiveRecord::Schema.define(version: 20170426235350) do
     t.boolean  "attendance",                default: false
     t.integer  "course_id"
     t.boolean  "assignment",                default: false
+    t.integer  "company_id"
+    t.string   "subdomain"
   end
 
   create_table "help_session_records", force: :cascade do |t|
@@ -400,6 +406,8 @@ ActiveRecord::Schema.define(version: 20170426235350) do
     t.integer  "bonus_credits",             default: 0
     t.string   "image",         limit: 255
     t.integer  "product_id"
+    t.integer  "company_id"
+    t.string   "subdomain"
   end
 
   create_table "occupations", force: :cascade do |t|
@@ -552,6 +560,8 @@ ActiveRecord::Schema.define(version: 20170426235350) do
     t.float    "file_size"
     t.string   "file",         limit: 255
     t.string   "category",     limit: 255
+    t.integer  "company_id"
+    t.string   "subdomain"
   end
 
   create_table "resourcings", force: :cascade do |t|

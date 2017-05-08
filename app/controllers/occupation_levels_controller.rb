@@ -95,6 +95,6 @@ class OccupationLevelsController < ApplicationController
     end
 
     def occupation_level_params
-      params.require(:occupation_level).permit(:level, :points, :rewards, :privileges, :notes, :occupation_id, :bonus_credits, :image, :product_id)
+      params.require(:occupation_level).permit(:level, :points, :rewards, :privileges, :notes, :occupation_id, :bonus_credits, :image, :product_id, :subdomain)
     end
 end

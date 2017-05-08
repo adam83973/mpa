@@ -42,7 +42,7 @@ class AvatarsController < ApplicationController
   # POST /avatars
   # POST /avatars.json
   def create
-    @avatar = Avatar.new(params[:avatar])
+    @avatar = Avatar.new(avatar_params)
 
     respond_to do |format|
       if @avatar.save
@@ -61,7 +61,7 @@ class AvatarsController < ApplicationController
     @avatar = Avatar.find(params[:id])
 
     respond_to do |format|
-      if @avatar.update_attributes(params[:avatar])
+      if @avatar.update_attributes(avatar_params)
         format.html { redirect_to @avatar, notice: 'Avatar was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,5 +81,9 @@ class AvatarsController < ApplicationController
       format.html { redirect_to avatars_url }
       format.json { head :no_content }
     end
+  end
+
+  def avatar_params
+    params.require(:avatar).permit(:name, :image, :subdomain)
   end
 end

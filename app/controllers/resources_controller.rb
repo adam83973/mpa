@@ -105,6 +105,6 @@ class ResourcesController < ApplicationController
 
   private
   def resource_params
-    params.require(:resource).permit(:filename, :content_type, :file_size, :file, {problem_ids: []}, {activity_ids: []}, {lesson_ids: []}, { experience_id: [] }, :category)
+    params.require(:resource).permit(:filename, :content_type, :file_size, :file, {problem_ids: []}, {activity_ids: []}, {lesson_ids: []}, { experience_id: [] }, :category, :subdomain)
   end
 end

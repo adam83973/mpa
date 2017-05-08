@@ -10,7 +10,8 @@
   </div>
   <div class="col-md-4">
       <%= f.input :content, as: :text, :input_html => { :rows => 10 } %>
-      <%= f.input :active, as: :boolean, label: false, inline_label: true %>
+      <%= f.input :active, as: :boolean, label: false, inline_label: true, input_html: { checked: true} %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
       <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @experience.image? %>
       <%= image_tag(@experience.image_url, width: '200') if @experience.image? %>
       <p>
@@ -29,13 +30,13 @@
               <%= badge_form.input :requirements, input_html: { rows: 6, style: "resize:vertical;"} %>
               <%= badge_form.input :write_up_required %>
               <%= badge_form.input :multiple, label: "This badge can be earned multiple times." %>
-              <%= badge_form.input :requires_approval, label: "This badge requires approval." %>
               <%= badge_form.input :parent_can_request, label: "A parent can request this badge" %>
               <%= badge_form.input :image, as: :file, label: "Upload Image" unless @experience.badge && @experience.badge.image? %>
               <div class="text-center">
               <%= image_tag(@experience.badge.image_url, size: '200x200') if @experience.badge && @experience.badge.image? %>
 
               <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @experience.badge && @experience.badge.image? %>
+              <%= badge_form.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
               </div>
             <% end %>
           </div>
