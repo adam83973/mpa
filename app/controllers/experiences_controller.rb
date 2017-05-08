@@ -51,7 +51,7 @@ class ExperiencesController < ApplicationController
 
     respond_to do |format|
       if @experience.save
-        format.html { redirect_to @experience, notice: 'Experience was successfully created.' }
+        format.html { redirect_to experience_path(@experience), notice: 'Experience was successfully created.' }
         format.json { render json: @experience, status: :created, location: @experience }
       else
         format.html { render action: "new" }
@@ -95,12 +95,12 @@ class ExperiencesController < ApplicationController
   def experience_params
     params.require(:experience).permit(:category, :content, :name, :points,
                                        :image, :remove_image, {resource_ids:[]},
-                                       :remote_image_url, :occupation_id, :active,
+                                       :remote_image_url, :occupation_id, :active,:subdomain,
                                        {badge_attributes: [:write_up_required,
                                        :multiple, :requires_approval, :image,
                                        :badge_category_id, :submission_type,
                                        :attendance, :course_id,:remove_image,
-                                       :requirements, :name, :experience_id]})
+                                       :requirements, :name, :experience_id, :subdomain]})
   end
 
   def set_experience

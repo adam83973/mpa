@@ -66,7 +66,7 @@ def create_avatars(args)
     file_name = "MATHPLUS-avatar-#{name.downcase}.png"
     Avatar.create!(name:            name,
                    image:           seed_image('avatars', file_name),
-                   company_id:      args[:subdomain])
+                   subdomain:       args[:subdomain])
   end
 end
 
@@ -103,7 +103,7 @@ def create_occupation_levels(args)
                               rewards:              "Level #{n} Reward",
                               occupation_id:        occupation_info[0],
                               image:                seed_image("math_plus_icons", image_file),
-                              company_id:           args[:subdomain])
+                              subdomain:            args[:subdomain])
     end
   end
 end
@@ -121,7 +121,7 @@ def create_badges(args)
     Badge.create!(name:       name,
                   image:      seed_image("badges", image_file),
                   multiple:   true,
-                  company_id: args[:subdomain])
+                  subdomain:  args[:subdomain])
   end
 end
 
@@ -136,7 +136,7 @@ def create_experiences(args)
                                     content:          "Please update this with a description the of the badge.",
                                     points:           75,
                                     active:           true,
-                                    company_id:       args[:subdomain])
+                                    subdomain:        args[:subdomain])
     badge.update_attribute :experience_id, experience.id
   end
 
@@ -590,7 +590,7 @@ def create_lessons(args)
   48.times do |n|
     resource = Resource.create!(file:               seed_lessons("recruits", "recruit#{n+1}.pdf"),
                                 category:           0,
-                                company_id:         args[:subdomain])
+                                subdomain:         args[:subdomain])
 
     lesson = Lesson.create!(name:             "Lesson #{n+1}",
                             week:             n+1,

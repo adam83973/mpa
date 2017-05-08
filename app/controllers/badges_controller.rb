@@ -105,6 +105,6 @@ class BadgesController < ApplicationController
     def badge_params
       params.require(:badge).permit(:image, :name, :file, :filename, :experience_id,
       :remove_image, :requirements, :badge_category_id, :submission_type,
-      :write_up_required,:multiple, :requires_approval, :parent_can_request, :module_id)
+      :write_up_required,:multiple, :requires_approval, :parent_can_request, :module_id, :subdomain)
     end
 end
