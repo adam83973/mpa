@@ -11,7 +11,7 @@ namespace :development do
     puts "Seeding #{company.name} information."
     company.scope_schema { Rake::Task['development:seed'].execute subdomain: company.subdomain }
 
-    company = Company.create!(name: 'ScoreGetter', subdomain: 'india', time_zone: 'Chennai')
+    company =
     puts "Seeding #{company.name} information."
     company.scope_schema { Rake::Task['development:seed'].execute subdomain: company.subdomain }
 
