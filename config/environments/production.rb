@@ -89,5 +89,10 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = { :host => 'columbus.mathplus.online' }
+  if ENV['STAGING_APP'] == true
+    config.action_mailer.default_url_options = { :host => 'travissperry.com' }
+  else
+    config.action_mailer.default_url_options = { :host => 'columbus.mathplus.online' }
+  end
+
 end
