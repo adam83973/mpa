@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508161934) do
+ActiveRecord::Schema.define(version: 20170509222035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -502,6 +502,7 @@ ActiveRecord::Schema.define(version: 20170508161934) do
     t.string   "image",         limit: 255
     t.string   "activity_type", limit: 255
     t.text     "setup"
+    t.string   "subdomain"
   end
 
   create_table "problems_standards", id: false, force: :cascade do |t|

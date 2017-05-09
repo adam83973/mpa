@@ -25,6 +25,9 @@ def cache_subdomain_values
       # avatars
       avatars = Avatar.all
       avatars.each{ |avatar| avatar.update_attribute :subdomain, company.subdomain }
+      # problems
+      problems = Problem.all
+      problems.each{ |problem| problem.update_attribute :subdomain, company.subdomain }
     end
   end
 end
