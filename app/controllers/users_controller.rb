@@ -243,6 +243,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+    @user = User.find(current_user.id)
+  end
+
+  def update_password
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      # Sign in the user by passing validation in case their password changed
+      bypass_sign_in(@user)
+      redirect_to root_path, notice: 'Your password has been updated.'
+    else
+      render "edit_password"
+    end
+  end
+
   def deactivate
     set_user
 

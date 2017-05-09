@@ -84,6 +84,13 @@ MathPlus::Application.routes.draw do
         put 'users' => 'devise/registrations#update',    :as => 'user_registration'
       end
 
+      resource :user, only: [:edit] do
+        collection do
+          get 'edit_password'
+          patch 'update_password'
+        end
+      end
+
     get  'view_email', to: 'emails#show'
 
     resources :experiences do

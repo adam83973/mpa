@@ -3,8 +3,8 @@
     <strong><i class="fa fa-user" style="margin-right:5px;"></i><%= current_user.full_name %></strong>
   </a>
   <div class="dropdown-menu">
-    <%= link_to "Profile", current_user, class: 'dropdown-item' %>
-    <%= link_to "Change Password", edit_user_registration_path, class: 'dropdown-item' %>
+    <%= link_to "Profile", user_path(current_user), class: 'dropdown-item' %>
+    <%= link_to "Change Password", edit_password_user_path, class: 'dropdown-item' %>
     <% if current_user.employee? %>
       <%= link_to "Report An Issue", new_issue_path, class: 'dropdown-item' %>
     <% end %>
