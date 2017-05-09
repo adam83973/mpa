@@ -78,7 +78,7 @@ MathPlus::Application.routes.draw do
 
     resources :devise
 
-    devise_for :users, :skip => [:registrations]
+    devise_for :users, :skip => [:registrations], :controllers => { :passwords => "passwords" }
       as :user do
         get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
         put 'users' => 'devise/registrations#update',    :as => 'user_registration'
