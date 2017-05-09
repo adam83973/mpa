@@ -22,6 +22,7 @@
           <%= f.input :image, as: :file, label: "Upload Image" %>
           <%= f.input :remote_image_url, label: "Or Copy Image from URL" %>
         <% end %>
+        <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
   </div>
 </div>
 <div class="row">

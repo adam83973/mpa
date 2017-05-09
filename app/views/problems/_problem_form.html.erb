@@ -23,6 +23,7 @@
       <% end %>
       <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline' %>
       <%= f.input :source %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
     </div>
 </div>
 <div class="row">

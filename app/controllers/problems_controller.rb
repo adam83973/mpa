@@ -43,7 +43,7 @@ class ProblemsController < ApplicationController
   # POST /problems
   # POST /problems.json
   def create
-    @problem = Problem.new(params[:problem])
+    @problem = Problem.new(problems_params)
 
     respond_to do |format|
       if @problem.save
@@ -62,7 +62,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
 
     respond_to do |format|
-      if @problem.update_attributes(params[:problem])
+      if @problem.update_attributes(problems_params)
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { head :no_content }
       else
@@ -87,6 +87,11 @@ class ProblemsController < ApplicationController
   def import
     Problem.import(params[:file])
     redirect_to problems_path, notice: "Activities / Problems imported."
+  end
+  private
+
+  def problems_params
+    params.require(:problem).permit(:title, :desc, :strategies, :source, :answer, :methods, :updated_at, :image, :activity_type, :setup, :subdomain)
   end
 
 end
