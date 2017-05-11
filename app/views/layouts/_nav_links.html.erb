@@ -18,7 +18,7 @@
       <%= link_to 'Products', products_path, class: 'dropdown-item' %>
     <% end %>
     <%= link_to 'Resources', resources_path, class: 'dropdown-item' %>
-    <% if current_user.admin? %>
+    <% if current_user.super_admin? %>
       <%= link_to 'Student Note QC', qc_experience_points_path, class: 'dropdown-item' %>
     <% end %>
   </div>
