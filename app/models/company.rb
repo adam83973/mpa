@@ -12,6 +12,9 @@ class Company < ApplicationRecord
   # create required defaults for company's application
   after_create :build_application_defaults
 
+  def self.switch(id)
+    ActiveRecord::Base.connection.schema_search_path = "company#{id.to_s}, public"
+  end
 
   def self.current
   	Thread.current[:current_company]

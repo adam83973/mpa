@@ -32,11 +32,10 @@
 </table>
 
 <br>
-<p>
-  <%= link_to 'Add Product', new_product_path, class: "btn btn-success" %>
-</p>
-<p>
-  <%= link_to 'Manage Inventory', new_transaction_path, class: "btn btn-secondary" %>
-</p>
+<% if current_user.super_admin? %>
+  <p>
+    <%= link_to 'Add Product', new_product_path, class: "btn btn-success" %>
+  </p>
+<% end %>
 
 <%= render 'update_quantity_modal' %>

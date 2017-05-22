@@ -65,6 +65,6 @@
 </table>
 <br />
 
-<% if signed_in? && current_user.try(:admin?) %>
+<% if signed_in? && current_user.super_admin? %>
   <%= render 'layouts/import_form', resource: @users %>
 <% end %>

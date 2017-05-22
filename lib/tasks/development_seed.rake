@@ -204,6 +204,7 @@ def create_users(args)
                        location_id: Location.first.id,
                        active: true,
                        admin: true,
+                       super_admin: true,
                        role: 'Admin',
                        subdomain: "#{args[:subdomain]}")
                          # Create admins
@@ -221,6 +222,7 @@ def create_users(args)
                               location_id: Location.first.id,
                               active: true,
                               admin: true,
+                              super_admin: true,
                               system_administrator: true,
                               role: 'Admin',
                               subdomain: "#{args[:subdomain]}")

@@ -37,6 +37,6 @@
   </tbody>
 </table>
 
-<% if signed_in? && current_user.admin? %>
+<% if signed_in? && current_user.super_admin? %>
   <%= render 'layouts/import_form', resource: @lessons %>
 <% end %>

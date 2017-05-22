@@ -57,7 +57,7 @@
 </table>
 <br />
 
-<% if signed_in? && current_user.try(:admin?) %>
+<% if signed_in? && current_user.super_admin? %>
   <p style="color:red;">(CAUTION: Only for editing attributes! This is not for uploading files.)</p>
   <%= render 'layouts/import_form', resource: @resources %>
 <% end %>
