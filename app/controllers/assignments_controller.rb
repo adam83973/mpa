@@ -36,7 +36,7 @@ class AssignmentsController < ApplicationController
         if class_session && class_session.in_session?
           format.html { redirect_to root_url, notice: 'Assignment was successfully created.' }
         else
-          format.html { redirect_to @assignment.student, notice: 'Assignment was added.' }
+          format.html { redirect_to student_path(@assignment.student), notice: 'Assignment was added.' }
         end
       else
         format.html { render action: "new" }
@@ -48,7 +48,7 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   def update
     if @assignment.update(assignment_params)
-      redirect_to @assignment.student, notice: 'Assignment was successfully updated.'
+      redirect_to student_path(@assignment.student), notice: 'Assignment was successfully updated.'
     else
       render :edit
     end

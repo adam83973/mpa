@@ -80,7 +80,7 @@ class ExperiencePoint < ActiveRecord::Base
     def update_student_xp_level_credits_on_destroy
       puts "*****************Credit Level Xp Update!*****************"
       # Calculate credits to be subtracted.
-      credits = (student.xp_sum - points)/100 - ((student.xp_sum)/100)
+      credits = (student.experience_point_total - points)/100 - ((student.experience_point_total)/100)
       # Remove credits lost
       student.add_remove_credits(credits)
       # Updating current occupation xp, occupation levels and total xp
@@ -89,7 +89,7 @@ class ExperiencePoint < ActiveRecord::Base
 
     def update_student_xp_level_credits_on_save
       # Calculate credits earned.
-      credits = (student.xp_sum + points)/100 - ((student.xp_sum)/100)
+      credits = (student.experience_point_total + points)/100 - ((student.experience_point_total)/100)
       # Add credits earned.
       student.add_remove_credits(credits)
       puts "*****************Added Credits!*****************"
