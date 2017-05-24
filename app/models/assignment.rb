@@ -33,7 +33,10 @@ class Assignment < ActiveRecord::Base
 
   private
     def set_course_id
-      #code
+      if offering
+        course_id = offering.course_id
+        save!
+      end
     end
 
     def add_experience_point
