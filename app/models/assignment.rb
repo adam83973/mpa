@@ -15,6 +15,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :experience_point
 
   after_create :add_experience_point
+  after_create :set_course_id
   after_destroy :clean_up
   after_update :update_experience_point
 
@@ -31,6 +32,9 @@ class Assignment < ActiveRecord::Base
   end
 
   private
+    def set_course_id
+      #code
+    end
 
     def add_experience_point
       experience = Experience.where("assignment = ? AND name LIKE ?", true, "%#{SCORES[score]}%").first
