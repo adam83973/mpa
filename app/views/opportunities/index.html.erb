@@ -27,10 +27,11 @@
       <th>Attended trial</th>
       <th>Trial date</th>
       <th>Status</th>
-      <th>Possible restart date</th>
       <th></th>
       <th></th>
-      <th></th>
+      <% if current_user.super_admin? %>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -42,10 +43,13 @@
         <td><%= opportunity.attended_trial %></td>
         <td><%= opportunity.trial_date %></td>
         <td><%= opportunity.status %></td>
-        <td><%= opportunity.possible_restart_date %></td>
         <td><%= link_to 'Show', opportunity %></td>
         <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
-        <td><%= link_to 'Destroy', opportunity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.super_admin? %>
+          <td>
+            <%= link_to 'Delete', opportunity, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

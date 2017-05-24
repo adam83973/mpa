@@ -2,7 +2,7 @@
 
 <h1><%= yield(:title)%></h1>
 
-<% if signed_in? && current_user.admin? %>
+<% if signed_in? && current_user.super_admin? %>
   <p>
     <%= link_to 'New Course', new_course_path, class: "btn btn-success" %>
   </p>

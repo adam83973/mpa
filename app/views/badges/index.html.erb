@@ -19,7 +19,7 @@
             <td><%= badge.id %></td>
             <td><%= badge.name %></td>
             <td><%= link_to 'Show', badge, target: "_blank" %></td>
-            <% if current_user.admin %>
+            <% if current_user.admin? %>
               <td><%= link_to 'Edit', edit_badge_path(badge), target: "_blank" %></td>
             <% end %>
           </tr>
