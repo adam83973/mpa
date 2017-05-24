@@ -11,28 +11,38 @@ class Resource < ActiveRecord::Base
 
   before_create :default_name
   before_save :update_file_attributes
-  # after_save :add_resource_to_lesson
+  after_create :add_resource_to_lesson
 
   CATEGORIES = ["Assignments", "Assignment Keys", "Teacher Resource", "In-Class", "Miscelaneous", "Problem", "Games"]
 
-  def is_lesson?
-    default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*)/)
+  def assignment_regex
+    #regex to match filename 'Course Week_Number - Lesson_Name ASSIGNMENT'
+    /(?<course>\b\w.*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}[\s-]*(?<lesson>\b\w.*).*(?<type>\bASSIGNMENT\b)/
   end
 
-  def is_lesson_key?
-    default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<key>\bKEY\b)/)
+  def key_regex
+    #regex to match filename 'Course Week_Number - Lesson_Name KEY'
+    /(?<course>\b\w.*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}[\s-]*(?<lesson>\b\w.*).*(?<type>\bKEY\b)/
   end
 
-  def is_inclass?
-    default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.*).*(?<in-class>\bIN-CLASS\b)/)
+  def resource_regex
+    #regex to match filename 'Course Week_Number - Resource_Name RESOURCE'
+    /(?<course>\b\w.*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}[\s-]*(?<lesson>\b\w.*).*(?<type>\bRESOURCE\b)/
   end
 
-  def is_teacher_resource?
+  def is_assignment?
     default_name
-    !!(self.filename =~ /(?<course>\w*.\w*.\w*)\s*(?<week>[0-9]|[1-9][0-9])\s*-{1}\s*(?<lesson>\b\w.\w.*).*(?<teacher-resource>\s*\bTEACHER RESOURCE\b\s*)/)
+    !!(self.filename =~ assignment_regex)
+  end
+
+  def is_key?
+    default_name
+    !!(self.filename =~ key_regex)
+  end
+
+  def is_resource?
+    default_name
+    !!(self.filename =~ resource_regex)
   end
 
   def filename_abr
@@ -46,43 +56,44 @@ class Resource < ActiveRecord::Base
   private
 
   def add_resource_to_lesson
-    lesson_regex = /(?<course>\w*.\w*.\w*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}[\s-]*(?<lesson>\b\w.\w.*)/
-    key_regex = /(?<course>\w*.\w*.\w*)\s(?<week>[0-9]|[1-9][0-9])\s-{1}\s(?<lesson>\b\w.\w.*).*(?<key>\bKEY\b)/
-    if self.is_lesson_key?
-      l = key_regex.match(self.filename)
-      if l
-        lessons = Lesson.includes(:standard).where("week = ?", "#{l[:week]}")
+    puts '********** Processing Uploaded Resource **********'
+    if is_assignment?
+      puts '********** Resource is an assignment. **********'
+      resource_information = assignment_regex.match(filename)
+      if resource_information
+        lessons = Lesson.where("week = ?", "#{resource_information[:week].strip}")
         lessons.each do |lesson|
-          if lesson.course_name == l[:course]
-            lesson.assignment_key ||= self.id
-            lesson.save
+          if lesson.course_name == resource_information[:course]
+            lesson.assignment = id
+            lesson.save!
+            puts '********** Resource Added to Lesson. **********'
           end
         end
       end
-    elsif self.is_teacher_resource? || self.is_inclass?
-      r = lesson_regex.match(self.filename)
-      if r
-        lessons = Lesson.where("week = ?", "#{r[:week]}")
+    elsif is_key?
+      resource_information = key_regex.match(filename)
+      if resource_information
+        lessons = Lesson.where("week = ?", "#{resource_information[:week].strip}")
         lessons.each do |lesson|
-          if lesson.course_name == r[:course]
+          if lesson.course_name == resource_information[:course].strip
+            lesson.assignment_key = id
+            lesson.save!
+          end
+        end
+      end
+    elsif is_resource?
+      resource_information = resource_regex.match(filename)
+      if resource_information
+        lessons = Lesson.where("week = ?", "#{resource_information[:week].strip}")
+        lessons.each do |lesson|
+          if lesson.course_name == resource_information[:course].strip
             lesson.resources << self
-            lesson.save
-          end
-        end
-      end
-    elsif self.is_lesson?
-      r = lesson_regex.match(self.filename)
-      if r
-        lessons = Lesson.where("week = ?", "#{r[:week]}")
-        lessons.each do |lesson|
-          if lesson.course_name == r[:course]
-            lesson.assignment ||= self.id
-            lesson.save
           end
         end
       end
     else
     end
+    puts '********** Resource Processing Complete **********'
   end
 
   def default_name
@@ -93,13 +104,11 @@ class Resource < ActiveRecord::Base
     if file.present? && file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      if is_lesson? && is_lesson_key?
+      if is_key?
         self.category = "Assignment Keys"
-      elsif is_lesson? && is_teacher_resource?
+      elsif is_resource?
         self.category = "Teacher Resource"
-      elsif is_lesson? && is_inclass?
-        self.category = "In-Class"
-      elsif is_lesson?
+      elsif is_assignment?
         self.category = "Assignments"
       else
         self.category = "Miscelaneous"
