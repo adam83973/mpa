@@ -89,7 +89,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  if ENV['STAGING_APP']
+  if ENV['STAGING_APP'] == true
     config.action_mailer.default_url_options = { :host => 'travissperry.com' }
   else
     config.action_mailer.default_url_options = { :host => 'mathplus.online' }
