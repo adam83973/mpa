@@ -49,7 +49,7 @@
       <strong>Additional Resources:</strong>
       <% if @lesson.resources.any? %>
         <% @lesson.resources.each do |resource| %>
-          <p>- <%= link_to "#{resource.filename.gsub('RESOURCE', '').strip}", target: '_blank' resource.file.url if resource.file %></p>
+          <p>- <%= link_to "#{resource.filename.gsub('RESOURCE', '').strip}", resource.file.url, target: '_blank' if resource.file %></p>
         <% end %>
       <% else %>
         No resources associated with this lesson.
