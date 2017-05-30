@@ -20,7 +20,7 @@
   <div class="col-md-4">
         <%= f.input :assignment, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignments"), label_method: :filename_created_at %>
         <%= f.input :assignment_key, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignment Keys"), label_method: :filename_created_at %>
-        <%= f.association :resources, label_method: :filename, item_wrapper_class: 'inline' %>
+        <%= f.association :resources, collection: Resource.all, label_method: :filename, item_wrapper_class: 'inline' %>
         <%= f.association :problems, label: "Activites", label_method: :title %>
   </div>
   <div class="col-md-4">
