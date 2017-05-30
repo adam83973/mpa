@@ -5,7 +5,7 @@
         Import <%= resource.klass.to_s.pluralize %>
       </div>
       <div class='card-block'>
-        <%= form_tag "/#{resource.klass.to_s.downcase}/import", multipart: true do %>
+        <%= form_tag "/#{resource.klass.to_s.downcase.pluralize}/import", multipart: true do %>
           <div class='form-group'>
             <%= file_field_tag :file, class: 'form-control-file' %>
             <small id='fileHelp' class='form-text text-muted'>Please select a CSV file for import. Import may take some time. Please only submit this form once.</small>
