@@ -33,7 +33,7 @@ class Lesson < ActiveRecord::Base
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       lesson = find_by_id(row["id"]) || new
-      lesson.attributes = row.to_hash.slice(*accessible_attributes)
+      lesson.attributes = row.to_hash.slice(*column_names)
       lesson.save!
     end
   end
