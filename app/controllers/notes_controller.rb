@@ -117,12 +117,29 @@ class NotesController < ApplicationController
   end
 
   def add_via_post
+    #  {"note_content"=>"This person has been asked to be contacted about starting in the fall.", "address"=>"", "city"=>"", "note_action_date"=>"2017-8-14", "last_name"=>"Sperry", "id"=>"3167", "state"=>"", "postal_code"=>"", "first_name"=>"Travis", "key"=> "", "email"=>"director@mathplusacademy.com", "controller"=>"notes", "action"=>"add_via_post"}
+
     params = request.params
     parent = User.where("infusion_id = ? OR email = ?", params['id'], params['email']).first
 
     if parent
-      puts parent
+      add_note(parent, params['note_action_date'], params['note_content'])
+    else
+      generated_password = Devise.friendly_token.first(8)
+
+      User.create!(first_name:              params['first_name'],
+                   last_name:               params['last_name'],
+                   email:                   params['email'],
+                   password:                generated_password,
+                   password_confirmation:   generated_password,
+                   address:                 params['address'],
+                   city:                    params['city'],
+                   state:                   params['state'],
+                   zip:                     params['postal_code'])
+
+      add_note(parent, params['note_action_date'], params['note_content'])
     end
+
     head :ok
   end
 
@@ -139,6 +156,12 @@ class NotesController < ApplicationController
   end
 
   private
+
+  def add_note(parent, action_date, content)
+    note = parent.notes.build({user_id: User.system_admin_id, content: content, action_date: action_date, location_id: 1 })
+    note.save
+  end
+
   def note_params
     params.require(:note).permit(:content, :action_date, :completed, :user_id, :location_id, :notable_type, :notable_id, :opportunity_id, :completed_by)
   end
