@@ -172,7 +172,7 @@ MathPlus::Application.routes.draw do
 
     resources :notes do
       collection do
-        post :request
+        post :add_via_post
         post :completed
       end
     end
