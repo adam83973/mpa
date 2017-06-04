@@ -1,5 +1,7 @@
 class NotesController < ApplicationController
-  before_action :authorize_employee
+  before_action :authorize_employee, except: [:add_via_post]
+
+  skip_before_action :verify_authenticity_token, only: [:add_via_post]
 
   # GET /notes
   # GET /notes.json
