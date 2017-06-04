@@ -170,8 +170,12 @@ MathPlus::Application.routes.draw do
       collection { get :update_status }
     end
 
-    resources :notes
-    post 'notes/completed', to: 'notes#completed'
+    resources :notes do
+      collection do
+        post :request
+        post :completed
+      end
+    end
 
     resources :occupation_levels do
       collection { post :import }

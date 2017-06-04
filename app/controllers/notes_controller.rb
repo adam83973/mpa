@@ -114,6 +114,13 @@ class NotesController < ApplicationController
     end
   end
 
+  def request
+    request = JSON.parse(request.body.read)
+    puts pp request
+
+    head :ok
+  end
+
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
