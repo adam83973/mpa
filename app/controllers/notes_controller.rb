@@ -118,7 +118,7 @@ class NotesController < ApplicationController
 
   def add_via_post
     note_request = JSON.parse(request.body.read)
-    puts note_request
+    puts pp note_request
 
     head :ok
   end
