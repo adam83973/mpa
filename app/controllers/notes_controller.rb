@@ -117,8 +117,8 @@ class NotesController < ApplicationController
   end
 
   def add_via_post
-    note_request = request.body.read
-    puts pp note_request
+    params = request.params
+    puts params
 
     head :ok
   end
