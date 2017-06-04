@@ -118,8 +118,11 @@ class NotesController < ApplicationController
 
   def add_via_post
     params = request.params
-    puts params
+    parent = User.where("infusion_id = ? OR email = ?", params['id'], params['email']).first
 
+    if parent
+      puts parent
+    end
     head :ok
   end
 
