@@ -5,7 +5,7 @@ module StudentsHelper
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 2 }
       "<span class='badge badge-warning'>Hold</span>"
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 3 }
-      "<span class='badge badge-waitlist'>Waitlisted</span>"
+      "<span class='badge badge-danger'>Inactive</span>"
     elsif !(student.registrations.any? { |reg| reg.status == 1 }) && student.registrations.any? { |reg| reg.status == 0 }
       "<span class='badge badge-trial'>Hold</span>"
     else
