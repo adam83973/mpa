@@ -28,12 +28,16 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     set_location
-    @location_students_restarting = @location.registrations.restarting
-    @total_location_students_count = @location.registrations.active.count
-    @location_future_adds = @location.registrations.future_adds
-    @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
-    @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
-    @location_trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
+    @active_offerings = @location.active_offerings
+    @total_student_count = @location.registrations.active.count
+    @future_adds = @location.registrations.future_adds
+    @future_restarts = @location.registrations.future_restarts
+    @students_restarting_next_20 = @location.registrations.restarting_next_20
+    @added_last_30 = @location.registrations.added_last_30
+    @dropped_last_30 = @location.registrations.dropped_last_30
+    @hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+    @assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+    @trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
 
     @offerings = @location.offerings
 

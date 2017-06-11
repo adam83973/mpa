@@ -1,5 +1,5 @@
 <% title @location.name %>
-<%= link_to "Edit", edit_location_path(@location), class: "btn btn-secondary pull-right" %>
+<%= link_to "Edit", edit_location_path(@location), class: "btn btn-secondary pull-right" if current_user.super_admin? %>
 <div class="row">
   <div class= "col-sm-12">
     <%= render 'location_stats' if current_user && current_user.admin? %>
@@ -9,11 +9,11 @@
 </div>
 <% if current_user && current_user.admin? %>
   <h2>This Week's Assessments</h2>
-  <%= render 'assessment_appointments', appointments: @location_assessment_appointments %>
+  <%= render 'assessment_appointments', appointments: @assessment_appointments %>
 
-  <%= render 'weekly_trials', opportunities: @location_trials %>
+  <%= render 'weekly_trials', opportunities: @trials %>
 
-  <%= render 'homework_help_appointments', appointments: @location_hw_help_appointments %>
+  <%= render 'homework_help_appointments', appointments: @hw_help_appointments %>
 
   <div class="row">
     <div class= "col-sm-12">
@@ -23,7 +23,10 @@
 
   <%= render 'adds_modal' %>
 
-  <%= render 'restarting_modal' %>
+  <%= render 'restarting_modal', students_restarting_next_20: @students_restarting_next_20 %>
+
+  <%= render 'future_restarts_modal', future_restarts: @future_restarts %>
+
 
   <%= render 'drops_modal' %>
 

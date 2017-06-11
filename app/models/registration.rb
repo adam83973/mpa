@@ -23,7 +23,8 @@ class Registration < ActiveRecord::Base
   scope :future_adds, lambda{where("start_date > ?", Date.today).where("switch IS NULL OR switch = ?", false)}
   scope :added_last_30, lambda{where("start_date < ? and start_date > ?", Date.today, 30.days.ago)}
   scope :dropped_last_30, lambda{where("end_date < ? and end_date > ? AND switch_id IS NULL", Date.tomorrow, 30.days.ago)}
-  scope :restarting, lambda{where("status = ? AND restart_date < ?", 2, 20.days.from_now)}
+  scope :restarting_next_20, lambda{where("restart_date < ? AND restart_date > ?", 20.days.from_now, Date.today)}
+  scope :future_restarts, lambda{where('restart_date > ?', Date.today)}
 
   STATUSES = ["New", "Active", "Hold", "Inactive"]
   DROP_REASONS = ["Moving", "Price", "Other Activity", "Dissatisfied", "Registered In Error", "Never Returned From Hold"]
