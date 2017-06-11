@@ -175,9 +175,13 @@ class RegistrationsController < ApplicationController
                                     location_id: @registration.location.id,
                                     action_date: Date.tomorrow})
         note.save
-
-        format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
-        format.json { head :no_content }
+        if current_company.infusionsoft_integration?
+          format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold request has been processed. Please adjust the subscription for this student.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to student_path(@student), notice: 'Hold request has been processed.' }
+          format.json { head :no_content }
+        end
       else
         format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }
       end
@@ -186,15 +190,20 @@ class RegistrationsController < ApplicationController
 
   def cancel_hold
     @registration = Registration.find(params[:registration][:id])
-    @restarting_registration = @ending_registration.holding
-    @student = @ending_registration.student
+    @restarting_registration = @registration.holding
+    @student = @registration.student
 
     respond_to do |format|
-      if @ending_registration.update_attribute :hold_date, nil
+      if @registration.update_attribute :hold_date, nil
         if @restarting_registration.destroy
           # delete registration if one was created through switching classes
-          format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold has been cancelled. Please adjust subscriptions.' }
-          format.json { head :no_content }
+          if current_company.infusionsoft_integration?
+            format.html { redirect_to infusion_pages_subscription_path(userId: @student.user.id), notice: 'Hold has been cancelled. Please adjust subscriptions.' }
+            format.json { head :no_content }
+          else
+            format.html { redirect_to student_path(@student), notice: 'Hold has been cancelled.' }
+            format.json { head :no_content }
+          end
         end
       else
         format.html { redirect_to student_path(@student), notice: 'There has been a problem processing your request. Please resubmit your request. If the problem persists contact Travis.' }

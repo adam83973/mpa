@@ -229,8 +229,13 @@ class OpportunitiesController < ApplicationController
             format.html { redirect_to student_path(@student), notice: 'Registration was successfully created. A note has been added to parent\'s account to collect payment information on start date.' }
             format.json { render json: @registration, status: :created, location: @registration }
           else
-            format.html { redirect_to infusion_pages_subscription_path(userId: @parent.id), notice: 'Registration was successfully created.' }
-            format.json { render json: @registration, status: :created, location: @registration }
+            if current_company.infusionsoft_integration?
+              format.html { redirect_to infusion_pages_subscription_path(userId: @parent.id), notice: 'Registration was successfully created.' }
+              format.json { render json: @registration, status: :created, location: @registration }
+            else
+              format.html { redirect_to student_path(@student), notice: 'Registration was successfully created.' }
+              format.json { render json: @registration, status: :created, location: @registration }
+            end
           end
         else
           format.html { render action: "new" }
