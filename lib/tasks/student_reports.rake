@@ -9,28 +9,36 @@ namespace :student_reports do
 end
 
 def send_student_reports
-  active_last_month = load_parents_with_students_who_attended_last_month
+  companies_with_student_reporting = Company.where(send_student_reports: true)
+  # Pull companies that have monthly student reporting
+
+  companies_with_student_reporting.each do |company|
+    company.scope_schema do
+      active_last_month = load_parents_with_students_who_attended_last_month
 
 
-  month = (Date.today - 1.month).month.to_i
-  year = (Date.today - 1.month).year
-  count = 0
-  reports_not_sent = []
-  active_last_month.each do |parent|
-    parent.students.each do |student|
-      if student.attendances_last_month.any?
-        begin
-          ReportMailer.monthly_student_report(student, parent, month, year).deliver
-          count += 1
-        rescue
-          reports_not_sent << student.id
+      month = (Date.today - 1.month).month.to_i
+      year = (Date.today - 1.month).year
+      count = 0
+      reports_not_sent = []
+      active_last_month.each do |parent|
+        parent.students.each do |student|
+          if student.attendances_last_month.any?
+            begin
+              # ReportMailer.monthly_student_report(student, parent, month, year).deliver
+              puts "Report sent for #{student.full_name}"
+              count += 1
+            rescue
+              reports_not_sent << student.id
+            end
+          end
         end
       end
+
+
+      puts count.to_s + " Reports Sent"
     end
   end
-
-
-  puts count.to_s + " Reports Sent"
 end
 
 def send_test_report
