@@ -25,8 +25,7 @@ def send_student_reports
         parent.students.each do |student|
           if student.attendances_last_month.any?
             begin
-              # ReportMailer.monthly_student_report(student, parent, month, year).deliver
-              puts "Report sent for #{student.full_name}"
+              ReportMailer.monthly_student_report(student, parent, month, year).deliver
               count += 1
             rescue
               reports_not_sent << student.id
