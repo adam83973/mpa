@@ -16,7 +16,6 @@ def send_student_reports
     company.scope_schema do
       active_last_month = load_parents_with_students_who_attended_last_month
 
-
       month = (Date.today - 1.month).month.to_i
       year = (Date.today - 1.month).year
       count = 0
@@ -24,18 +23,16 @@ def send_student_reports
       active_last_month.each do |parent|
         parent.students.each do |student|
           if student.attendances_last_month.any?
-            begin
-              ReportMailer.monthly_student_report(student, parent, month, year).deliver
-              count += 1
-            rescue
-              reports_not_sent << student.id
-            end
+            puts student.id
+            ReportMailer.monthly_student_report(student, parent, month, year)
+            count += 1
           end
         end
       end
 
 
       puts count.to_s + " Reports Sent"
+      puts reports_not_sent
     end
   end
 end
