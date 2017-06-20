@@ -35,6 +35,7 @@ def seed_development_environment(args)
   create_lessons(args)
   create_products
   create_family_for_parent_ui_testing(args)
+  create_student_report_information(args)
 end
 
 def create_courses
@@ -455,6 +456,18 @@ def create_registrations
                         status:                   1)
   end
 
+  # Ensure one registration is created for Student #1
+  Registration.create!(start_date:              Date.today - rand(15..900).days,
+                      end_date:                 nil,
+                      hold_date:                nil,
+                      trial_date:               nil,
+                      attended_first_class:     true,
+                      attended_trial:           false,
+                      student_id:               1,
+                      offering_id:              offering_ids.sample,
+                      admin_id:                 director_ids.sample,
+                      status:                   1)
+
   # Create registrations that are going to be added
   10.times do
     Registration.create!(start_date:              Date.today + rand(1..30).days,
@@ -685,5 +698,61 @@ def create_family_for_parent_ui_testing(args)
                           course_id:              Offering.find(offering_id).course_id,
                           comment:                'Amazing work on this assignment! You did fantastic!')
     end
+  end
+end
+
+def create_student_report_information(args)
+  # Add parent
+  director_id = User.where(role: 'Admin').pluck(:id).sample
+  student = Student.find(1)
+  registration = student.registrations.first
+  offering_id = registration.offering_id
+
+  math_classes = Offering.where(course_id: 1..10)
+
+  2.times do |n|
+    Registration.create!(
+      student_id:           student.id,
+      attended_first_class: true,
+      start_date:           Date.today - 5.days,
+      status:               1,
+      offering_id:          math_classes[n+1].id
+    )
+  end
+
+  date = ((Time.now - 1.month).end_of_month - (rand(0..28)).days).to_date
+
+  student.registrations.each do |registration|
+    4.times do |n|
+      assignment =  Assignment.create!(student_id:             student.id,
+                                       score:                  rand(0..2),
+                                       user_id:                director_id,
+                                       week:                   n+1,
+                                       offering_id:            registration.offering_id,
+                                       course_id:              registration.offering.course_id,
+                                       comment:                'Amazing work on this assignment! You did fantastic!')
+
+      assignment.update_attribute :created_at, date
+    end
+  end
+
+  4.times do |n|
+    date = ((Time.now - 1.month).end_of_month - (rand(0..28)).days).to_date
+
+    badge_request = BadgeRequest.create!(approved:                  true,
+                                         badge_id:                  Badge.pluck(:id).sample,
+                                         parent_submission:         false,
+                                         student_id:                student.id,
+                                         user_id:                   director_id,
+                                         date_approved:             date,
+                                         write_up:                  nil)
+
+    badge_request.update_attribute :created_at, date
+
+    attendance = Attendance.create(student_id:                      student.id,
+                                   date:                            date,
+                                   offering_id:                     offering_id,
+                                   user_id:                         director_id,
+                                   week:                            n+1)
   end
 end

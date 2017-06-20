@@ -74,8 +74,7 @@ class BadgeRequestsController < ApplicationController
     end
 
     def badge_request_params
-      params.require(:badge_request).permit(:approved, :badge_id, :parent_submission, :student_id, :user_id,
-                                            :date_approved, :write_up)
+      params.require(:badge_request).permit(:approved, :badge_id, :parent_submission, :student_id, :user_id, :date_approved, :write_up)
     end
 
     def save_badge_request

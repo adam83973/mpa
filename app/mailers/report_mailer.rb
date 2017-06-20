@@ -6,13 +6,15 @@ class ReportMailer < ActionMailer::Base
     @date = Date.parse("#{month}/#{year}")
     @student = student
     @parent = parent
+
+    # company = Company.find_by_subdomain(parent.subdomain)
     @assignments = student.assignments_last_month.order(:course_id, :week)
     @hw_help_sessions = student.help_sessions_last_month.order(:date)
     @active_math_classes = student.active_math_classes
     @todays_date = Date.today
-    track user: @parent unless @parent.id == 1
+    track user: @parent unless @parent.id == 1 || Rails.env.development?
 
-    mail(to: @parent.email, subject: 'Your Monthly Student Report') if @parent && @active_math_classes.any?
+    mail(to: @parent.email, subject: 'Your Monthly Student Report')
   end
 
   def weekly_assignments_report(user)

@@ -18,7 +18,7 @@
                     Badges
                   </h3>
                   <p style="font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; font-size: 14px; line-height: 19px; color: #222222; text-align: left; margin: 0 0 10px; padding: 0;" align="left">
-                    Below you will find information about badges that your student has earned this month and the total number of badges they have earned. You can find out more information about what badges are and how your student can earn more by <a href="http://app.mathplusacademy.com">logging in</a>.</p>
+                    Below you will find information about badges that your student has earned this month and the total number of badges they have earned. You can find out more information about what badges are and how your student can earn more by <%= link_to "logging in", root_url %>.</p>
                 </td>
                 <td class="expander" style="font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
               </tr>
@@ -97,7 +97,7 @@
       <table class="row" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; position: relative; margin: 0; padding: 0px;">
         <tr align="right" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; vertical-align: top; text-align: left; margin: 0; padding: 0;">
           <td align="right" style="text-align: right; font-family: 'Helvetica', 'Arial', sans-serif; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; color: #222222; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" valign="top">
-						<a class="btn" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #FFF; text-decoration: none; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; background: #666; margin: 0 10px 0 0; padding: 10px 16px;" href="http://app.mathplusacademy.com">View Badges »</a>
+						<a class="btn" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #FFF; text-decoration: none; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; background: #666; margin: 0 10px 0 0; padding: 10px 16px;" href="<%= root_url(subdomain: @parent.subdomain) %>">View Badges »</a>
 					</td>
 			  </tr>
       </table>
