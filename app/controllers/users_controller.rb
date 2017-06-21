@@ -47,16 +47,15 @@ class UsersController < ApplicationController
     end
 
     if current_user.employee? || current_user.id == @user.id
-      ########
       count = 0
       begin
         if @user.role == "Parent" && @user.infusion_id != nil
           # retrieve subscriptions for contact
-          @active_subscription = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id, :Status => "Active"}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
+          @active_subscriptions = Infusionsoft.data_query('RecurringOrder', 10, 0, {:ContactId => @user.infusion_id, :Status => "Active"}, [:Id, :ProgramId, :StartDate, :EndDate, :NextBillDate, :BillingAmt, :Qty, :Status, :AutoCharge] )
           # get active subscriptions from Infusiosoft
           subscriptions = Infusionsoft.data_query('CProgram', 50, 0, {:Status => "1"}, [:Id, :ProgramName, :DefaultPrice, :DefaultCycle, :DefaultFrequency] )
           # attach subscription plan names
-          @active_subscription.each do |i|
+          @active_subscriptions.each do |i|
             subscriptions.each do |j|
               if i["ProgramId"].to_i == j["Id"].to_i
                 i["ProgramName"] = j["ProgramName"]
