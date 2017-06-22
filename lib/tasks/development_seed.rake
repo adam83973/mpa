@@ -450,23 +450,11 @@ def create_registrations
                         trial_date:               nil,
                         attended_first_class:     true,
                         attended_trial:           false,
-                        student_id:               student_ids.sample,
+                        student_id:               (student_ids - [1]).sample,
                         offering_id:              offering_ids.sample,
                         admin_id:                 director_ids.sample,
                         status:                   1)
   end
-
-  # Ensure one registration is created for Student #1
-  Registration.create!(start_date:              Date.today - rand(15..900).days,
-                      end_date:                 nil,
-                      hold_date:                nil,
-                      trial_date:               nil,
-                      attended_first_class:     true,
-                      attended_trial:           false,
-                      student_id:               1,
-                      offering_id:              offering_ids.sample,
-                      admin_id:                 director_ids.sample,
-                      status:                   1)
 
   # Create registrations that are going to be added
   10.times do
@@ -476,7 +464,7 @@ def create_registrations
                         trial_date:               nil,
                         attended_first_class:     false,
                         attended_trial:           false,
-                        student_id:               student_ids.sample,
+                        student_id:               (student_ids - [1]).sample,
                         offering_id:              offering_ids.sample,
                         admin_id:                 director_ids.sample,
                         status:                   0)
@@ -485,7 +473,7 @@ def create_registrations
   # Create registrations that are going to go on hold
   15.times do
     rand_future_date = Date.today + rand(10..45).days
-    student_id = student_ids.sample
+    student_id = (student_ids - [1]).sample
     offering_id = offering_ids.sample
 
     registration_1 = Registration.create!(start_date:              Date.today - rand(60..900).days,
@@ -523,7 +511,7 @@ def create_registrations
   15.times do
     rand_past_date = Date.today - rand(10..45).days
     rand_future_date = Date.today + rand(10..45).days
-    student_id = student_ids.sample
+    student_id = (student_ids - [1]).sample
     offering_id = offering_ids.sample
 
     registration_1 = Registration.create!(start_date:               Date.today - rand(60..900).days,
@@ -561,7 +549,7 @@ def create_registrations
   # Create registrations that are switches
   5.times do
     rand_future_date = Date.today + rand(5..10).days
-    student_id = student_ids.sample
+    student_id = (student_ids - [1]).sample
     offering_id = offering_ids.sample
 
     registration_1 = Registration.create!(start_date:               Date.today - rand(60..900).days,
@@ -702,12 +690,10 @@ def create_family_for_parent_ui_testing(args)
 end
 
 def create_student_report_information(args)
-  # Add parent
+  # Everything created is to be used for student report testing. This report
+  # is sent monthly via student_reports.rake
   director_id = User.where(role: 'Admin').pluck(:id).sample
   student = Student.find(1)
-  registration = student.registrations.first
-  offering_id = registration.offering_id
-
   math_classes = Offering.where(course_id: 1..10)
 
   2.times do |n|
@@ -720,10 +706,16 @@ def create_student_report_information(args)
     )
   end
 
-  date = ((Time.now - 1.month).end_of_month - (rand(0..28)).days).to_date
+  # create date for last month
+  date = (Time.now - 1.month).beginning_of_month.to_date
 
   student.registrations.each do |registration|
+
+    # add assignment for last month
+    course_name = registration.offering.course_name
+    puts "Adding assignments for #{course_name}."
     4.times do |n|
+      puts "Adding assignment for #{course_name}, week #{n+1}"
       assignment =  Assignment.create!(student_id:             student.id,
                                        score:                  rand(0..2),
                                        user_id:                director_id,
@@ -732,27 +724,37 @@ def create_student_report_information(args)
                                        course_id:              registration.offering.course_id,
                                        comment:                'Amazing work on this assignment! You did fantastic!')
 
-      assignment.update_attribute :created_at, date
+      assignment.update_attribute :created_at, date + (7*n).days
+
+      # add attendances for last month
+      attendance = Attendance.create(student_id:                      student.id,
+                                     date:                            date + (7*n).days,
+                                     offering_id:                     registration.offering_id,
+                                     user_id:                         director_id,
+                                     week:                            n+1)
     end
   end
 
   4.times do |n|
-    date = ((Time.now - 1.month).end_of_month - (rand(0..28)).days).to_date
+    date = ((Time.now - 1.month).beginning_of_month).to_date
 
     badge_request = BadgeRequest.create!(approved:                  true,
                                          badge_id:                  Badge.pluck(:id).sample,
                                          parent_submission:         false,
                                          student_id:                student.id,
                                          user_id:                   director_id,
-                                         date_approved:             date,
+                                         date_approved:             date + (7*n).days,
                                          write_up:                  nil)
 
     badge_request.update_attribute :created_at, date
 
-    attendance = Attendance.create(student_id:                      student.id,
-                                   date:                            date,
-                                   offering_id:                     offering_id,
-                                   user_id:                         director_id,
-                                   week:                            n+1)
+    # add homework help session records for last month
+    comments = ['We accomplished a lot in this session nice!', 'Tre bien! Marviloso bonjour', 'I don\'t know if you could have done this by yourself. It\'s good you came','Sometime all you need is a little help. You crushed this assignment!!']
+    help_session_record = HelpSessionRecord.create(student_id:   student.id,
+                      user_id:        director_id,
+                      date:           date + (7*n).days,
+                      session_length: [30,60].sample,
+                      comments:       comments[n])
+    help_session_record.update_attribute :created_at, date + (7*n).days
   end
 end

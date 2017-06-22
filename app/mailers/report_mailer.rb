@@ -7,7 +7,6 @@ class ReportMailer < ActionMailer::Base
     @student = student
     @parent = parent
 
-    # company = Company.find_by_subdomain(parent.subdomain)
     @assignments = student.assignments_last_month.order(:course_id, :week)
     @hw_help_sessions = student.help_sessions_last_month.order(:date)
     @active_math_classes = student.active_math_classes
@@ -15,6 +14,13 @@ class ReportMailer < ActionMailer::Base
     track user: @parent unless @parent.id == 1 || Rails.env.development?
 
     mail(to: @parent.email, subject: 'Your Monthly Student Report')
+  end
+
+  def monthly_student_report_preview(student, parent, month, year)
+    company = Company.find_by_subdomain(parent.subdomain)
+    company.scope_schema do
+      monthly_student_report(student, parent, month, year)
+    end
   end
 
   def weekly_assignments_report(user)
@@ -38,9 +44,3 @@ class ReportMailer < ActionMailer::Base
     end
   end
 end
-
-# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year)
-#
-# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 7).count
-#
-# Opportunity.where("created_at <= ? AND created_at >= ?", (Date.today - 1.year).end_of_year, (Date.today - 1.year).beginning_of_year).where(status: 8).count

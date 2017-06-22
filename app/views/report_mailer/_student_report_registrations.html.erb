@@ -10,12 +10,16 @@
 				<h2 style="font-family: 'Helvetica', 'Arial', sans-serif; line-height: 1.3; color: #222222; font-weight: normal; font-size: 36px; text-align: left; word-break: normal; margin: 0; padding: 0;" align="left">
 					<%= @date.strftime("%B %Y") %> Progress
 				</h2>
-				<h3>Enrolled Math Classes:</h3>
-				<ul>
-					<% active_math_classes.each do |registration| %>
-						<li><%= registration.course_name %></li>
-					<% end %>
-				</ul>
+				<% if active_math_classes %>
+					<h3>Enrolled Math Classes:</h3>
+					<ul>
+						<% active_math_classes.each do |registration| %>
+							<li><%= registration.course_name %></li>
+						<% end %>
+					</ul>
+				<% else %>
+
+				<% end %>
 			</td>
 		</tr>
   </table>

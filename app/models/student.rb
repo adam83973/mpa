@@ -57,6 +57,10 @@ class Student < ActiveRecord::Base
     badges.where("badge_requests.created_at > ? AND badge_requests.created_at < ?", Date.today.beginning_of_month, Date.today.end_of_month)
   end
 
+  def badges_earned_last_month
+    badges.where("badge_requests.created_at > ? AND badge_requests.created_at < ?", (Date.today - 1.month).beginning_of_month, (Date.today - 1.month).end_of_month)
+  end
+
   #-----Student attributes-----
   def full_name
       first_name + " " + last_name
