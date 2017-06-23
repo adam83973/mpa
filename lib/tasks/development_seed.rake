@@ -175,14 +175,16 @@ def create_experiences(args)
 end
 
 def create_locations
+  check_appointments_ids =[10936, 23402, 10935]
   #create locations
-  3.times do
+  3.times do |n|
     city = Faker::Address.city
     Location.create!(name: city,
                      address: Faker::Address.street_address,
                      city: city,
                      state: Faker::Address.state,
-                     zip: Faker::Address.city)
+                     zip: Faker::Address.city,
+                     check_appointments_id: check_appointments_ids[n])
   end
 end
 

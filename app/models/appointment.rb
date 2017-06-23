@@ -94,13 +94,15 @@ class Appointment < ActiveRecord::Base
 
       note.save!
 
-      # Slack Message
-      HTTParty.post("https://hooks.slack.com/services/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",
-      {:body => {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
-                  username: "Assessment Scheduled",
-                  icon_emoji: ":smiley:",}.to_json,
-                  :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
-                  })
+      if Rails.env.development?
+        # Slack Message
+        HTTParty.post("https://hooks.slack.com/services/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",
+        {:body => {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
+                    username: "Assessment Scheduled",
+                    icon_emoji: ":smiley:",}.to_json,
+                    :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+                    })
+      end
     end
 
     def self.slack_note_content(appointment_request, appointment)
