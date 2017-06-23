@@ -9,10 +9,12 @@ class Appointment < ActiveRecord::Base
   def self.process(appointment_request)
     # response is appointment information type: JSON
     if Location.where(check_appointments_id: appointment_request['location']['locationId']).first
-      location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
+      location = Location.where(check_appointments_id: appointment_request['location']['locationId']).first
+      location_id = location.id
+      company = Company.find_by_subdomain(location.subdomain)
     else
       puts 'No valid location. Aborting appointment processing.'
-      # break
+      return
     end
 
     # format appointment DateTime
@@ -65,7 +67,7 @@ class Appointment < ActiveRecord::Base
       puts 'Appointment created.'
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
-        if appointment_request['reason']['reasonId'] == 37117
+        if appointment_request['reason']['reasonId'] == company.check_appointments_assessment_id
           self.slack_and_app_notifications(parent, appointment_request, appointment)
           puts 'Slack notification sent.'
         end
@@ -73,7 +75,7 @@ class Appointment < ActiveRecord::Base
     end
 
     # If appointment is hw help add related information.
-    if appointment_request['reason']['reasonId'] == 37118
+    if appointment_request['reason']['reasonId'] == company.check_appointments_homework_help_id
       hw_help_info = self.format_hw_help_fields(appointment_request)
 
       if hw_help_info
