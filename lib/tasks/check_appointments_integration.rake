@@ -1,5 +1,5 @@
-desc "Update "
-task :check_appointments_integration do
+desc "Prepare records for check appointments integration."
+task check_appointments_integration: :environment do
   set_company_flags_and_update_locations
 end
 
