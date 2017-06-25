@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612184111) do
+ActiveRecord::Schema.define(version: 20170623184637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,11 +178,15 @@ ActiveRecord::Schema.define(version: 20170612184111) do
   create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.string   "subdomain"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "time_zone"
-    t.boolean  "infusionsoft_integration", default: false
-    t.boolean  "send_student_reports",     default: false
+    t.boolean  "infusionsoft_integration",            default: false
+    t.boolean  "send_student_reports",                default: false
+    t.boolean  "timetap_integration",                 default: false
+    t.integer  "check_appointments_assessment_id"
+    t.integer  "check_appointments_homework_help_id"
+    t.boolean  "check_appointments_integration",      default: false
   end
 
   create_table "courses", force: :cascade do |t|
@@ -363,6 +367,8 @@ ActiveRecord::Schema.define(version: 20170612184111) do
     t.string   "time",                  limit: 255
     t.text     "technical_information"
     t.integer  "check_appointments_id"
+    t.integer  "timetap_location_id"
+    t.string   "subdomain"
   end
 
   create_table "messages", force: :cascade do |t|

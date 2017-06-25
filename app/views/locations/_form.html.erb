@@ -23,6 +23,9 @@
         <%= f.input :zip %>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <% if current_company.check_appointments_integration? %>
+        <%= f.input :check_appointments_id, label: 'Time Tap Location Id' %>
+      <% end %>
       <%= f.input :technical_information, as: :text, input_html: { rows: 8 } %>
     </div>
   </div>
