@@ -1,6 +1,6 @@
 <div class="row">
+  <div class="col-md-6">
   <%= simple_form_for(@learning_plan) do |f| %>
-  <div class="col-sm-6">
     <%= f.error_notification %>
     <%= f.association :student, input_html: { class: 'chosen'}, selected: params[:student_id], label_method: :full_name if params[:student_id]%>
     <%= f.association :student, input_html: { class: 'chosen'}, label_method: :full_name unless params[:student_id]%>
@@ -11,7 +11,7 @@
     <%= f.input :strengths %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <h3>Learning Plan Goals</h3>
     <%= f.simple_fields_for :goals do |b| %>
       <%= b.input :name, label: "Goal #{b.options[:child_index]+1}" %>
@@ -19,6 +19,8 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-md-12">
     <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
   <% end %>
+  </div>
 </div>

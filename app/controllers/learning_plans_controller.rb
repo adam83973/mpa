@@ -30,7 +30,7 @@ class LearningPlansController < ApplicationController
     @learning_plan = LearningPlan.new(learning_plan_params)
 
     if @learning_plan.save
-      redirect_to @learning_plan, notice: 'Learning plan was successfully created.'
+      redirect_to learning_plan_path(@learning_plan), notice: 'Learning plan was successfully created.'
     else
       render :new
     end
@@ -39,7 +39,7 @@ class LearningPlansController < ApplicationController
   # PATCH/PUT /learning_plans/1
   def update
     if @learning_plan.update(learning_plan_params)
-      redirect_to @learning_plan, notice: 'Learning plan was successfully updated.'
+      redirect_to learning_plan_path(@learning_plan), notice: 'Learning plan was successfully updated.'
     else
       render :edit
     end

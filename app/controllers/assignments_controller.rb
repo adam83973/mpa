@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.save
         if class_session && class_session.in_session?
-          format.html { redirect_to root_url, notice: 'Assignment was successfully created.' }
+          format.html { redirect_to root_path, notice: 'Assignment was successfully created.' }
         else
           format.html { redirect_to student_path(@assignment.student), notice: 'Assignment was added.' }
         end
