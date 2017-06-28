@@ -126,9 +126,9 @@ class StaticPagesController < ApplicationController
     end
 
     def set_appointments
-      @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37117).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+      @location_assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: current_company.check_appointments_assessment_id).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
 
-      @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: 37118).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
+      @location_hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @user_location.id).where(reasonId: current_company.check_appointments_homework_help_id).order(:time).to_a.to_a.delete_if{|appointment| appointment.status == "CANCELLED" || appointment.status == "DELETED"}
     end
 
     def set_class_session

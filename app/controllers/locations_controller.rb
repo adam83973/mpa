@@ -128,8 +128,8 @@ class LocationsController < ApplicationController
     end
 
     def set_location_appointments
-      @hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: 37118).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
-      @assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: 37117).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+      @hw_help_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 1.day, @location.id).where(reasonId: current_company.check_appointments_homework_help_id).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
+      @assessment_appointments = Appointment.where("time >= ? AND time < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).where(reasonId: current_company.check_appointments_assessment_id).order(:time).to_a.delete_if{|appointment| appointment.status == "CANCELLED"}
       @trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
     end
     def location_params
