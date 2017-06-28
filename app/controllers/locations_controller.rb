@@ -133,7 +133,7 @@ class LocationsController < ApplicationController
       @trials = Opportunity.where("trial_date >= ? AND trial_date < ? AND location_id = ?", Date.today, Date.today + 7.days, @location.id).order(:trial_date)
     end
     def location_params
-      params.require(:location).permit(:address, :city, :franchise, :name, :state, :zip, :technical_information)
+      params.require(:location).permit(:address, :city, :franchise, :name, :state, :zip, :technical_information, :subdomain)
     end
 
     def set_location

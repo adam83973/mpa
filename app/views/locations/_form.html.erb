@@ -27,6 +27,7 @@
         <%= f.input :check_appointments_id, label: 'Time Tap Location Id' %>
       <% end %>
       <%= f.input :technical_information, as: :text, input_html: { rows: 8 } %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain } %>
     </div>
   </div>
   <div class="row">
