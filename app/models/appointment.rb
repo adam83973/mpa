@@ -111,8 +111,6 @@ class Appointment < ActiveRecord::Base
     def self.note_content(appointment_request, appointment)
       content = appointment_request['customFieldDesc']
 
-      assessment_fields.each{|k, v| content += "#{k} #{v}\n" if v }
-
       content += "Appointment: #{appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d,%l:%M%p")}"
 
       content
