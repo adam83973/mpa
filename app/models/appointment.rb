@@ -9,10 +9,12 @@ class Appointment < ActiveRecord::Base
   def self.process(appointment_request)
     # response is appointment information type: JSON
     if Location.where(check_appointments_id: appointment_request['location']['locationId']).first
-      location_id = Location.where(check_appointments_id: appointment_request['location']['locationId']).first.id
+      location = Location.where(check_appointments_id: appointment_request['location']['locationId']).first
+      location_id = location.id
+      company = Company.find_by_subdomain(location.subdomain)
     else
       puts 'No valid location. Aborting appointment processing.'
-      # break
+      return
     end
 
     # format appointment DateTime
@@ -28,15 +30,15 @@ class Appointment < ActiveRecord::Base
         generated_password = Devise.friendly_token.first(8)
         puts "Created parent."
         parent = User.create!(
-                              check_appointments_id:    appointment_request['client']['clientId'],
-                              first_name:               appointment_request['client']['firstName'],
-                              last_name:                appointment_request['client']['lastName'],
-                              location_id:              location_id,
-                              email:                    appointment_request['client']['emailAddress'],
-                              phone:                    appointment_request['client']['cellPhone'],
-                              password:                 generated_password,
-                              active:                   false,
-                              role:                     "Parent")
+                check_appointments_id:    appointment_request['client']['clientId'],
+                first_name:               appointment_request['client']['firstName'],
+                last_name:                appointment_request['client']['lastName'],
+                location_id:              location_id,
+                email:                    appointment_request['client']['emailAddress'],
+                phone:                    appointment_request['client']['cellPhone'],
+                password:                 generated_password,
+                active:                   false,
+                role:                     "Parent")
       end
     end
 
@@ -65,7 +67,7 @@ class Appointment < ActiveRecord::Base
       puts 'Appointment created.'
       if appointment_request['status'] != "CANCELLED"
         # If appointment is assessment post note to app and to slack_note_content
-        if appointment_request['reason']['reasonId'] == 37117
+        if appointment_request['reason']['reasonId'] == company.check_appointments_assessment_id
           self.slack_and_app_notifications(parent, appointment_request, appointment)
           puts 'Slack notification sent.'
         end
@@ -73,7 +75,7 @@ class Appointment < ActiveRecord::Base
     end
 
     # If appointment is hw help add related information.
-    if appointment_request['reason']['reasonId'] == 37118
+    if appointment_request['reason']['reasonId'] == company.check_appointments_homework_help_id
       hw_help_info = self.format_hw_help_fields(appointment_request)
 
       if hw_help_info
@@ -94,19 +96,20 @@ class Appointment < ActiveRecord::Base
 
       note.save!
 
-      # Slack Message
-      HTTParty.post("https://hooks.slack.com/services/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",
-      {:body => {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
-                  username: "Assessment Scheduled",
-                  icon_emoji: ":smiley:",}.to_json,
-                  :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
-                  })
+      if Rails.env.production?
+        # Slack Message
+        HTTParty.post("https://hooks.slack.com/services/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",
+        {:body =>
+          {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
+          username: "Assessment Scheduled",
+          icon_emoji: ":smiley:",}.to_json,
+          :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        })
+      end
     end
 
-    def self.slack_note_content(appointment_request, appointment)
-      assessment_fields = self.format_assessment_fields(appointment_request)
-
-      content = ""
+    def self.note_content(appointment_request, appointment)
+      content = appointment_request['customFieldDesc']
 
       assessment_fields.each{|k, v| content += "#{k} #{v}\n" if v }
 
@@ -116,26 +119,7 @@ class Appointment < ActiveRecord::Base
     end
 
     def self.application_note_content(appointment_request, appointment)
-      "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + self.slack_note_content(appointment_request, appointment)
-    end
-
-    def self.format_assessment_fields(appointment_request)
-      assessment_fields = {}
-      # field label values that need to be titleized
-      title_field_ids = [66356, 66358, 66360, 66361, 66362, 66364, 66365, 66367, 66368]
-
-      appointment_request['fields'].each do |field|
-        case field['schedulerPreferenceFieldDefnId']
-        when *title_field_ids
-          # add fields whose label needs titlized
-          assessment_fields["#{field['label'].titleize}:"] = field['value']
-        when 66366
-          # fields doesn't need titleized
-          assessment_fields["#{field['label'].titleize}:"] = field['value']
-        end
-      end
-
-      assessment_fields
+      "Please add #{'Opportunity'.pluralize(appointment['customField1'].to_i)}:\n" + self.note_content(appointment_request, appointment)
     end
 
     def self.format_hw_help_fields(appointment_request)

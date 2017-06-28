@@ -26,7 +26,7 @@ end
 
 
 def seed_development_environment(args)
-  create_locations
+  create_locations(args)
   create_users(args)
   create_offerings
   create_opportunities
@@ -174,15 +174,27 @@ def create_experiences(args)
   end
 end
 
-def create_locations
+def create_locations(args)
+  if args[:subdomain] == 'columbus'
+    location_names = ['Powell', 'New Albany', 'Mill Run']
+    check_appointments_ids =[10936, 23402, 10935]
+    location_count = 3
+  elsif args[:subdomain] == 'india'
+    location_names = ['Adyar', 'Anna Nagar']
+    check_appointments_ids =[44301, 44649]
+    location_count = 2
+  end
+
   #create locations
-  3.times do
+  location_count.times do |n|
     city = Faker::Address.city
-    Location.create!(name: city,
+    Location.create!(name: location_names[n],
                      address: Faker::Address.street_address,
-                     city: city,
+                     city: location_names[n],
                      state: Faker::Address.state,
-                     zip: Faker::Address.city)
+                     zip: Faker::Address.city,
+                     subdomain: args[:subdomain],
+                     check_appointments_id: check_appointments_ids[n])
   end
 end
 
