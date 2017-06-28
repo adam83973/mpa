@@ -100,7 +100,7 @@ class Appointment < ActiveRecord::Base
         # Slack Message
         HTTParty.post("https://hooks.slack.com/services/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",
         {:body =>
-          {text: "Location: #{appointment.location.name}\n#{self.slack_note_content(appointment_request, appointment)}",
+          {text: "Location: #{appointment.location.name}\n#{self.note_content(appointment_request, appointment)}",
           username: "Assessment Scheduled",
           icon_emoji: ":smiley:",}.to_json,
           :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
