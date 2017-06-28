@@ -13,15 +13,11 @@ class Company < ApplicationRecord
   after_create :build_application_defaults
 
   def self.switch(id)
-    ActiveRecord::Base.connection.schema_search_path = "company#{id.to_s}, public"
+    ActiveRecord::Base.connection.schema_search_path = "company#{id.to_s}"
   end
 
-  def self.current
-  	Thread.current[:current_company]
-  end
-
-  def self.current=(company)
-     Thread.current[:current_company] = company
+  def self.reset
+    ActiveRecord::Base.connection.schema_search_path =  "\"$user\", public" 
   end
 
   def create_schema

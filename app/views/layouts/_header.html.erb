@@ -27,7 +27,9 @@
         <%= render 'layouts/admin_links' if current_user.admin? %>
         <%= render 'layouts/nav_dropdown' %>
       <% else %>
-        <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path, class: 'nav-link' %></li>
+        <% unless request.subdomain == 'admin' %>
+          <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path, class: 'nav-link' %></li>
+        <% end %>
       <% end %>
     </ul>
     <%= render 'shared/user_search' if signed_in? && current_user.employee? %>

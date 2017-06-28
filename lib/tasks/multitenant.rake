@@ -6,7 +6,7 @@ namespace :multitenant do
     task task_name => %w[environment db:load_config] do
       Company.find_each do |company|
         puts "Running #{task_name} for company#{company.id} (#{company.subdomain})"
-        company.scope_schema { Rake::Task[task_name].execute }
+        company.scope_schema{ Rake::Task[task_name].execute }
       end
     end
   end

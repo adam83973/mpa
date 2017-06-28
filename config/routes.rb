@@ -19,6 +19,7 @@ end
 
 MathPlus::Application.routes.draw do
 
+  devise_for :admins
   get 'admins/home', to: 'admins#home'
   get 'admins/company/:id/', to:'admins#company'
 

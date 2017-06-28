@@ -8,6 +8,13 @@ class ApplicationController < ActionController::Base
   after_action  :set_access_control_headers
   force_ssl if: :ssl_configured?
 
+  def after_sign_in_path_for(resource)
+    if request.subdomain == 'admin'
+    else
+      root_path
+    end
+  end
+
   def authorize_active
     if signed_in?
       if !current_user.active?
@@ -19,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def authorize_admin
     redirect_to root_path(subdomain: current_company.subdomain), alert: "Not authorized." unless current_user && current_user.admin?
+  end
+
+  def authorize_admin_access
+    redirect_to new_admin_session_path, alert: "You must log in to access this page." unless current_user && current_user.admin?
   end
 
   def verify_current_company
