@@ -12,10 +12,10 @@
       <%= f.input :time_zone, input_html: {class: 'chosen'} %>
     </div>
     <div class="col-md-6">
-      <%= f.input :check_appointments_integration, input_html: {class: 'bootstrapSwitch mr-3'} %>
-      <%= f.input :check_appointments_assessment_id %>
-      <%= f.input :check_appointments_homework_help_id %>
-      <%= f.input :infusionsoft_integration, input_html: {class: 'bootstrapSwitch'} %>
+      <%= f.input :check_appointments_integration, label: 'Time Tap Integration', input_html: {class: 'bootstrapSwitch mr-3'} %>
+      <%= f.input :check_appointments_assessment_id, label: 'Time Tap Assessment Id' %>
+      <%= f.input :check_appointments_homework_help_id, label: 'Time Tap Homework Help Id' %>
+      <%= f.input :infusionsoft_integration, label: 'Infusionsoft Integration', input_html: {class: 'bootstrapSwitch'} %>
       <%= f.input :send_student_reports, label: 'Send Monthly Student Reports', input_html: {class: 'bootstrapSwitch'} %>
     </div>
   </div>
