@@ -1,1 +1,22 @@
-<h1><%= @company.name %></h1>
+<div class="row">
+  <div class="col-sm-12">
+    <h1><%= @company.name %></h1>
+  </div>
+</div>
+
+<%= simple_form_for @company do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :name, disabled: true %>
+      <%= f.input :subdomain, disabled: true %>
+      <%= f.input :time_zone, input_html: {class: 'chosen'} %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :check_appointments_integration, input_html: {class: 'bootstrapSwitch mr-3'} %>
+      <%= f.input :check_appointments_assessment_id %>
+      <%= f.input :check_appointments_homework_help_id %>
+      <%= f.input :infusionsoft_integration, input_html: {class: 'bootstrapSwitch'} %>
+      <%= f.input :send_student_reports, label: 'Send Monthly Student Reports', input_html: {class: 'bootstrapSwitch'} %>
+    </div>
+  </div>
+<% end %>

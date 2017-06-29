@@ -10,6 +10,7 @@
 //= require bootstrap
 //= require bootstrap-switch
 //= require chosen-jquery
+//= require companies
 //= require d3
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/dataTables.responsive
