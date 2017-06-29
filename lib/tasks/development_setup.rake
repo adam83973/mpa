@@ -27,5 +27,9 @@ namespace :development do
     company.scope_schema { Rake::Task['development:seed'].execute subdomain: company.subdomain }
 
     Company.set_callback(:create, :after, :build_application_defaults)
+
+    Admin.create!(email:                      'admin@mathplusacademy.dev',
+                  password:                   'password',
+                  password_confirmation:      'password')
   end
 end

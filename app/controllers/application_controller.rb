@@ -9,14 +9,11 @@ class ApplicationController < ActionController::Base
   force_ssl if: :ssl_configured?
 
   def after_sign_in_path_for(resource)
-    if request.subdomain == 'admin'
-    else
-      root_path
-    end
+    root_path
   end
 
   def authorize_active
-    if signed_in?
+    if signed_in? && !current_admin
       if !current_user.active?
         sign_out current_user
         redirect_to root_path(subdomain: current_company.subdomain), notice: "Your account is no longer active. If you feel you have received this message in error please contact your Center Director."
@@ -29,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin_access
-    redirect_to new_admin_session_path, alert: "You must log in to access this page." unless current_user && current_user.admin?
+    redirect_to new_admin_session_path, alert: "You must log in to access this page." unless current_admin
   end
 
   def verify_current_company

@@ -12,14 +12,14 @@
       <span class="badge badge-info hidden-md-down" style="position:absolute;top:17px;">HW Help In Session</span>
     <% end %>
   <% end %>
-  <% if signed_in? && class_session.in_session? %>
+  <% if signed_in? && class_session.in_session? && !current_admin %>
     <%= link_to root_path do %>
       <span class="badge badge-success hidden-md-down mt-1">Class In Session</span>
     <% end %>
   <% end %>
   <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-1">
     <ul class="navbar-nav">
-      <% if signed_in? %>
+      <% if signed_in? && !current_admin %>
         <% if current_user.parent? %>
           <li class="nav-item"><a class="nav-link" href="https://www.mathplusacademy.com/schedule-homework-help/"><strong>Schedule HW Help</strong></a></li>
         <% end %>
@@ -31,7 +31,17 @@
           <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path, class: 'nav-link' %></li>
         <% end %>
       <% end %>
+      <% if signed_in? && current_admin %>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <strong>Menu</strong>
+          </a>
+          <div class="dropdown-menu">
+            <%= link_to "Sign Out", destroy_admin_session_path, :method => :delete, class: 'dropdown-item' %>
+          </div>
+        </li>
+      <% end %>
     </ul>
-    <%= render 'shared/user_search' if signed_in? && current_user.employee? %>
+    <%= render 'shared/user_search' if signed_in? && !current_admin && current_user.employee? %>
   </div><!-- /.navbar-collapse -->
 </nav>

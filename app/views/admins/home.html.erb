@@ -1,6 +1,27 @@
-<h1>Admin#home</h1>
-<p>Find me in app/views/admin/home.html.erb</p>
-
-<% @companies.each do |company| %>
-  <%= link_to "#{company.name} Page", "/admins/company/#{company.id}" %>
-<% end %>
+<div class="row">
+  <% @companies.each do |company| %>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          <%= link_to "#{company.name}", "/admins/company/#{company.id}" %>
+        </div>
+        <div class="card-block text-center">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th>Student Count</th>
+                <th>Location Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= company.scope_schema{Student.all.count} %></td>
+                <td><%= company.scope_schema{Location.all.count} %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
