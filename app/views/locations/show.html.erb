@@ -1,5 +1,5 @@
 <% title @location.name %>
-<%= link_to "Edit", edit_location_path(@location), class: "btn btn-secondary pull-right" if current_user.super_admin? %>
+<%= link_to "Edit", edit_location_path(@location), class: "btn btn-secondary pull-right" if current_user && current_user.super_admin? %>
 <div class="row">
   <div class= "col-sm-12">
     <%= render 'location_stats' if current_user && current_user.admin? %>
