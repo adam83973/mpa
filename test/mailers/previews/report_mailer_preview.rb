@@ -6,7 +6,7 @@ class ReportMailerPreview < ActionMailer::Preview
     company.scope_schema do
       student = Student.find 1
       parent = student.user
-      ReportMailer.monthly_student_report_preview(student, parent, "5", "2017")
+      ReportMailer.monthly_student_report_preview(student, parent, "6", "2017")
     end
   end
 end

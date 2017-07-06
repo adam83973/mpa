@@ -706,7 +706,9 @@ def create_student_report_information(args)
   # is sent monthly via student_reports.rake
   director_id = User.where(role: 'Admin').pluck(:id).sample
   student = Student.find(1)
-  math_classes = Offering.where(course_id: 1..10)
+  math_classes = []
+  math_classes << Offering.where(course_id: 1).first
+  math_classes << Offering.where(course_id: 2).first
 
   2.times do |n|
     Registration.create!(
@@ -714,7 +716,7 @@ def create_student_report_information(args)
       attended_first_class: true,
       start_date:           Date.today - 5.days,
       status:               1,
-      offering_id:          math_classes[n+1].id
+      offering_id:          math_classes[n].id
     )
   end
 

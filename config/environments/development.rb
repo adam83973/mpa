@@ -17,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Set host URL
-  config.action_controller.default_url_options = { host: 'mathplusacademy.dev' }
+  config.action_controller.default_url_options = { host: 'mathplus.dev' }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
