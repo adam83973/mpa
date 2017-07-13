@@ -1,7 +1,10 @@
 namespace :schedule do
-  desc "These are for daily tasks that run at certain hours of the day."
+  desc "These are for daily tasks that run at certain hours of the day or days of the month."
   task hourly_tasks: :environment do
     hourly_tasks
+  end
+  task monthly_tasks: :environment do
+    monthly_tasks
   end
 end
 
@@ -26,7 +29,13 @@ def hourly_tasks
     end
 end
 
-
+def monthly_tasks
+  #Tasks to be run at the beginning of the month
+  case Date.today.day
+  when 1
+    Rake::Task['student_reports:send_monthly_report'].execute
+  end
+end
   # Run weekly tasks
   # -operations:reports (on sundays hour17)
 end
