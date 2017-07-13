@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <% @parents_with_no_subscriptions.each_with_index do |parent, i| %>
-          <% if parent.active_registrations.any? %>
+          <% if parent.active_registration %>
 						<tr>
 							<td class="text-center"><%= i + 1 %></td>
 							<td ><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>

@@ -8,7 +8,7 @@ namespace :operations do
     end_date
     deactivate_parents
     opportunitities_maintenance
-    flag_for_active_registrations
+    flag_parents_for_active_registrations
   end
   task reports: :environment do
     send_assignments_report
@@ -88,11 +88,11 @@ def deactivate_parents
   end
 end
 
-def flag_for_active_registrations
+def flag_parents_for_active_registrations
   parents = User.where("role = ?", "Parent")
   parents.each do |parent|
     if parent.active_registrations.any?
-      parent.update_attribute :active_registrations, true
+      parent.update_attribute :active_registration, true
     end
   end
 end
