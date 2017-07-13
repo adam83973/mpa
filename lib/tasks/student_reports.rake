@@ -24,7 +24,7 @@ def send_student_reports
         parent.students.each do |student|
           if student.attendances_last_month.any?
             puts student.id
-            ReportMailer.monthly_student_report(student, parent, month, year)
+            ReportMailer.monthly_student_report(student, parent, month, year).deliver
             count += 1
           end
         end
