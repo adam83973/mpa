@@ -92,7 +92,7 @@ def flag_for_active_registrations
   parents = User.where("role = ?", "Parent")
   parents.each do |parent|
     if parent.active_registrations.any?
-      parent.update_attribute :active_regitsration, true
+      parent.update_attribute :active_registrations, true
     end
   end
 end
