@@ -264,7 +264,7 @@ class InfusionPagesController < ApplicationController
   end
 
   def registration_audit
-    @parents = User.where(role: 'Parent')
+    @parents_with_no_subscriptions = User.where(role: 'Parent', active_subscription: false)
   end
 
   def tag_contact
