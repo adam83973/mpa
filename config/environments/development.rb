@@ -58,7 +58,7 @@ Rails.application.configure do
      :enable_starttls_auto => true
    }
 
-   config.action_mailer.default_url_options = { :host => 'mathplusacademy.dev' }
+   config.action_mailer.default_url_options = { :host => 'mathplus.dev' }
 
    config.after_initialize do
      Bullet.enable = true

@@ -406,6 +406,7 @@ class OpportunitiesController < ApplicationController
                       email:                    @opportunity.parent_email,
                       password:                 @generated_password,
                       active:                   false,
+                      subdomain:                cuurent_company.subdomain,
                       role:                     "Parent")
       end
 

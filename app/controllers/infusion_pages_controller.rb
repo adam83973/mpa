@@ -209,7 +209,7 @@ class InfusionPagesController < ApplicationController
     data = { :Qty => params[:qty], :BillingAmt => params[:price] }
     Infusionsoft.data_update('RecurringOrder', result, data)
 
-    if result
+     if result
       flash[:notice] = "Subscription Added"
       # update recurring order with qty and price from form input
     else
