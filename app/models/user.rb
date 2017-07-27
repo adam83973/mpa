@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :role, :location_id
 
-  attr_encrypted :ssn, key: :encryption_key
-  attr_encrypted :bank_account, key: :encryption_key
-  attr_encrypted :routing_number, key: :encryption_key
+  attr_encrypted :ssn, key: :encryption_key, algorithm: 'aes-256-cbc', mode: :single_iv_and_salt, insecure_mode: true
+  attr_encrypted :bank_account, key: :encryption_key, algorithm: 'aes-256-cbc', mode: :single_iv_and_salt, insecure_mode: true
+  attr_encrypted :routing_number, key: :encryption_key, algorithm: 'aes-256-cbc', mode: :single_iv_and_salt, insecure_mode: true
 
   after_save :toggle_active_tag_infusionsoft
 

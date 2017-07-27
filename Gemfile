@@ -7,12 +7,12 @@ end
 
 ruby '2.3.1'
 
-gem 'rails', '~> 5.0', '>= 5.0.2'
+gem 'rails', '5.1.2'
 
 gem 'pg'
 
 gem 'ahoy_email'
-gem 'attr_encrypted', '3.0.1'
+gem 'attr_encrypted', "~> 3.0.0"
 gem 'autoprefixer-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'bootstrap-switch-rails'
@@ -49,7 +49,7 @@ gem "nested_form", git: "https://github.com/ryanb/nested_form.git"
 gem 'oj'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'paper_trail', '~> 4.0.0', group: [:production, :development, :test]
+gem 'paper_trail', '~> 4.2.0', group: [:production, :development, :test]
 gem 'populator'
 gem 'progress_bar'
 gem 'puma', '~> 3.0'

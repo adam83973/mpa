@@ -17,18 +17,18 @@ class Student < ActiveRecord::Base
            :class_name => "Badge",
            :source => :badge
   has_many :attendances, dependent: :destroy
-  has_many :courses, :through => :offerings
-  has_many :experiences, :through => :experience_points
   has_many :experience_points, dependent: :destroy
+  has_many :experiences, :through => :experience_points
   has_many :help_session_records, dependent: :destroy
   has_many :learning_plans, dependent: :destroy
   has_many :lessons , :through => :grades
-  has_many :locations, :through => :offerings
-  has_many :notes, as: :notable, dependent: :destroy
+  has_many :registrations, dependent: :destroy
   has_many :offerings, :through => :registrations
+  has_many :locations, :through => :offerings
+  has_many :courses, :through => :offerings
+  has_many :notes, as: :notable, dependent: :destroy
   has_many :opportunities
   has_many :transactions, dependent: :destroy
-  has_many :registrations, dependent: :destroy
 
   scope :active, lambda{where("status = ?", "Active")}
   scope :future_adds, lambda{where("start_date > ? AND status = ?", Date.today, "Inactive")}
