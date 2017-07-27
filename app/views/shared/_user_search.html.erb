@@ -1,12 +1,11 @@
-<form>
-
-    <h3>Search</h3>
-    <label>Find another Employee or Parent:</label>
-    <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
-  	  <%= text_field_tag :search, params[:search] %><br />
-    	  <%= button_tag(type: "submit", class: "m-btn blue") do %>
-        	Search <i class="icon-search icon-white"></i>
-    	  <% end %>
-    <% end %>
-</form>
-
+<%= form_tag home_url(subdomain: current_company.subdomain), method: 'get',
+                        id: "users_search",
+                        class: "form-inline my-2 my-lg-0",
+                        role: "search" do %>
+  <div class="input-group">
+    <%= text_field_tag :search, params[:search], placeholder: 'Users, Students, or Classes', class: "form-control" %>
+    <span class="input-group-btn">
+      <button class="btn btn-success my-sm-0 nav_search_button" style="border:none;" type="submit"><i class="fa fa-search"></i></button>
+    </span>
+  </div><!-- /input-group -->
+<% end %>

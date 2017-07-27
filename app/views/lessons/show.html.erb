@@ -1,35 +1,104 @@
-<p id="notice"><%= notice %></p>
-
+<% title @lesson.title %>
 <p>
-  <b>Name:</b>
-  <%= @lesson.name %>
+  <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-secondary pull-right" if current_user.employee? %>
+  <%= link_to "Search Lessons", lessons_path, class: "btn btn-secondary pull-right", style: "margin-right:20px;" if current_user.employee? %>
 </p>
+<div class="row" style="margin-bottom:40px;">
+  <div class="col-sm-12">
+    <h2>
+      <strong><%= @lesson.title %></strong>
+    </h2>
+    <div style="margin-top:30px;">
+      <% if current_user.employee? %>
+        <% if @lesson.contains_error == true %>
+          <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>" checked>
+        <% else %>
+            <input id="lesson_errors" type="checkbox" name="lesson-error" data-lessonid="<%= @lesson.id %>">
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Week:</b>
-  <%= @lesson.week %>
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <p>
+      <strong>Course:</strong>
+      <%= @lesson.course.name if @lesson.course %>
+    </p>
 
-<p>
-  <b>Standard:</b>
-  <%= @lesson.standard.name if @lesson.standard %>
-</p>
+    <p>
+      <strong>Assignment:</strong>
+      <% if @lesson.assignment %>
+        <%= link_to resource_lookup(@lesson.assignment).filename.gsub('ASSIGNMENT', '').strip, resource_lookup(@lesson.assignment).file.url, target: '_blank' unless @lesson.assignment == '#' || @lesson.assignment == "" %>
+      <% else %>
+        No assignment associated with this lesson.
+      <% end %>
+    </p>
 
-<p>
-  <b>Course:</b>
-  <%= @lesson.standard.course.course_name if @lesson.standard %>
-</p>
+    <p>
+      <strong>Assignment key:</strong>
+      <% if @lesson.assignment_key %>
+        <%= link_to resource_lookup(@lesson.assignment_key).filename.gsub('KEY', ''.strip), resource_lookup(@lesson.assignment_key).file.url, target: '_blank' unless @lesson.assignment_key == '#' || @lesson.assignment_key == "" %>
+      <% else %>
+        No key associated with this lesson.
+      <% end %>
+    </p>
 
-<p>
-  <b>Assignment:</b>
-  <%= link_to Resource.find(@lesson.assignment).filename, Resource.find(@lesson.assignment) if @lesson.assignment %>
-</p>
+    <p>
+      <strong>Additional Resources:</strong>
+      <% if @lesson.resources.any? %>
+        <% @lesson.resources.each do |resource| %>
+          <p>- <%= link_to "#{resource.filename.gsub('RESOURCE', '').strip}", resource.file.url, target: '_blank' if resource.file %></p>
+        <% end %>
+      <% else %>
+        No resources associated with this lesson.
+      <% end %>
+    </p>
 
-<p>
-  <b>Assignment key:</b>
-  <%= link_to Resource.find(@lesson.assignment_key).filename, Resource.find(@lesson.assignment) if @lesson.assignment_key %>
-</p>
-
-
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+    <p>
+      <strong>Activities/Games/Problems:</strong>
+      <% if @lesson.problems.any? %>
+        <% @lesson.problems.each do |problem| %>
+          <p>- <%= link_to "#{problem.title}", problem %></p>
+        <% end %>
+      <% else %>
+        No activities associated with this lesson.
+      <% end %>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <% if current_user.employee? %>
+      <div class="card card-default">
+        <div class="card-header">
+          <h3 class="card-title">Notes</h3>
+        </div>
+        <div class="card-block">
+          <div class="mb-4">
+            <%= simple_form_for [@lesson, Note.new], remote: true do |f| %>
+              <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+                  <%= f.input :lesson_id, as: :hidden, input_html: { value: @lesson.id } %>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <%= f.input :action_date, as: :string, input_html: { class: :datepicker } %>
+                </div>
+              </div>
+              <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+              <%= f.button :submit, class: "btn btn-sm btn-success" %>
+            <% end %>
+          </div>
+          <div class="card">
+            <div class="card-block p-3 notes" style="border:none;">
+              <div id="lesson_notes">
+                <%= render '/lessons/lesson_notes' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

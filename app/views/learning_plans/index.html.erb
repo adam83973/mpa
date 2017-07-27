@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Learning Plans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Grade</th>
+      <th>Course</th>
+      <th>Learning plan issue</th>
+      <th>Notes</th>
+      <th>Strengths</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @learning_plans.each do |learning_plan| %>
+      <tr>
+        <td><%= learning_plan.student_id %></td>
+        <td><%= learning_plan.grade %></td>
+        <td><%= learning_plan.course_id %></td>
+        <td><%= learning_plan.learning_plan_issue_id %></td>
+        <td><%= learning_plan.notes %></td>
+        <td><%= learning_plan.strengths %></td>
+        <td><%= link_to 'Show', learning_plan %></td>
+        <td><%= link_to 'Edit', edit_learning_plan_path(learning_plan) %></td>
+        <td><%= link_to 'Destroy', learning_plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Learning plan', new_learning_plan_path %>

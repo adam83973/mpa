@@ -1,17 +1,25 @@
-<li id="fat-menu" class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    Find/Edit Stuff <span class="caret"></span>
+<li class='nav-item dropdown'>
+  <a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown'>
+    <strong>Find/Edit</strong><span class='caret'></span>
   </a>
-  <ul class="dropdown-menu">
-    <li><%= link_to "Users", users_path %></li>
-    <li><%= link_to "Students", students_path %></li>
-    <li><%= link_to "Experience Points", experience_points_path %></li>
-    <li><%= link_to "Grades", grades_path %></li>
-    <li><%= link_to "Achievements", experiences_path %></li>
-    <li><%= link_to "Classes", offerings_path %></li>
-    <li><%= link_to "Lessons", lessons_path %></li>
-    <li><%= link_to "Problems & Activities", problems_path %></li>
-    <li><%# link_to "Activities", activities_path %></li>
-    <li><%= link_to "Resources", resources_path %></li>
-  </ul>
+  <div class='dropdown-menu'>
+    <%= link_to 'Users', users_path, class: 'dropdown-item' %>
+    <%= link_to 'Students', students_path, class: 'dropdown-item' %>
+    <%= link_to 'Badges', badges_path, class: 'dropdown-item' %>
+    <%= link_to 'Badge Categories', badge_categories_path, class: 'dropdown-item' %>
+    <%= link_to 'Events', events_path, class: 'dropdown-item' %>
+    <%= link_to 'Achievements', experiences_path, class: 'dropdown-item' %>
+    <%= link_to 'Courses', courses_path, class: 'dropdown-item' %>
+    <%= link_to 'Classes', offerings_path, class: 'dropdown-item' %>
+    <%= link_to 'Lessons', lessons_path, class: 'dropdown-item' %>
+    <%= link_to 'Opportunities', opportunities_path, class: 'dropdown-item' %>
+    <%= link_to 'Problems & Activities', problems_path, class: 'dropdown-item' %>
+    <% if current_user.admin? %>
+      <%= link_to 'Products', products_path, class: 'dropdown-item' %>
+    <% end %>
+    <%= link_to 'Resources', resources_path, class: 'dropdown-item' %>
+    <% if current_user.super_admin? %>
+      <%= link_to 'Student Note QC', qc_experience_points_path, class: 'dropdown-item' %>
+    <% end %>
+  </div>
 </li>

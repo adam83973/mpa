@@ -1,11 +1,12 @@
+<% title @resource.filename_abr %>
 <p>
   <h3><%= @resource.filename %></h2>
   <%= link_to image_tag(@resource.file_url(:thumb)), @resource.file.url %>
 </p>
-<p>Type: <%= @resource.category if @resource.category %></p>
+<p><strong>Type:</strong> <%= @resource.category if @resource.category %></p>
 
 <p>
-  <b>Associated to Activity(s):</b><br />
+  <strong>Associated to Activity(s):</strong><br />
   <% if @resource.activities %>
     <% @resource.activities.each do |activity| %>
     <%= activity.title %><br />
@@ -14,6 +15,3 @@
     "There are no activities associated with this resource."
   <% end%>
 </p>
-
-<%= link_to 'Edit', edit_resource_path(@resource), class: 'm-btn' %>
-<%= link_to 'Back', resources_path, class: 'm-btn' %>

@@ -1,0 +1,84 @@
+<div class="card card-default mb-3">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Account Information</h3>
+    <% if @user.parent? %>
+      <%= link_to "Edit", edit_parent_users_url(subdomain: current_company.subdomain, id: @user), class: "pull-right" %>
+    <% else %>
+      <%= link_to "Edit", edit_employee_users_url(subdomain: current_company.subdomain, id: @user), class: "pull-right" %>
+    <% end %>
+  </div>
+  <div class="card-block">
+    <p>
+      <strong>Email:</strong>
+      <%= mail_to @user.email, @user.email if current_user.admin? %>
+      <%= @user.email unless current_user.admin? %>
+    </p>
+
+    <p>
+      <strong>Phone:</strong>
+      <%= @user.phone %>
+    </p>
+    <p>
+      <strong>Location:</strong>
+      <%= @user.location.name if @user.location %>
+    </p>
+    <p>
+      <strong>Address:</strong>
+        <% if @user.parent? && !@user.full_address? %>
+          <%= link_to 'Please add an address.', edit_parent_users_url(id: @user) %>
+        <% elsif @user.employee? && !@user.full_address? %>
+          <%= link_to 'Please add an address.', edit_employee_users_url(id: @user) %>
+        <% end %>
+      <br>
+      <% if @user.full_address? %>
+        <%= @user.address %><br>
+        <%= "#{@user.city}, #{@user.state} #{@user.zip}" %>
+      <% end %>
+    </p>
+    <% if ([1,2].include?(current_user.id) || Rails.env.development?) && @user.employee? %>
+      <p>
+        <strong>DOB:</strong>
+        <%= @user.birth_date.to_time.strftime('%m/%d/%Y') if @user.birth_date %>
+      </p>
+      <p>
+        <strong>SSN:</strong>
+        <%= @user.ssn %>
+      </p>
+      <p>
+        <strong>Bank Account:</strong>
+        <%= @user.bank_account %>
+      </p>
+      <p>
+        <strong>Routing Number:</strong>
+        <%= @user.routing_number %>
+      </p>
+      <p>
+        <strong>Exemptions:</strong>
+        <% unless @user.exemptions.blank? %>
+          <%= @user.exemptions %>
+        <% else %>
+          <%= link_to "Add exemptions", edit_employee_users_path(@user) %>
+        <% end %>
+      </p>
+      <p>
+        <strong>Additional Withholding:</strong>
+        <% unless @user.additional_withholding.blank? %>
+          $<%= @user.additional_withholding %>
+        <% else %>
+          <%= link_to "Add additional withholding", edit_employee_users_path(@user) %>
+        <% end %>
+      </p>
+    <% end %>
+    <% if @user.role  == "Parent" && current_user.admin? && current_company.infusionsoft_integration %>
+      <% if @user.infusion_id != nil %>
+      <p>
+        <strong>Infusionsoft Id:</strong>
+        <%= @user.infusion_id %>
+      </p>
+      <% else %>
+        <%= link_to "Search Infusionsoft", "javascript:void(0)", class: "btn btn-sm btn-secondary infusion_id_lookup", data: { lastName: @user.last_name, userid: @user.id } %>
+        <div class="infusionsoft_results"></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

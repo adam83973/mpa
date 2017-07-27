@@ -1,0 +1,13 @@
+<h2>Select your report.</h2>
+<p>
+  *Return Date is for students who may return but do not have a confirmed restart date.
+  These students should be inactive.
+</p>
+
+<%= simple_form_for(:query, url: reports_display_path) do |f| %>
+  <%= f.input :type, as: :select, collection: Report::TYPE.zip((0..4).to_a) %>
+  <%= f.input :student_status, as: :select, collection: Student::STATUSES.zip((0..3).to_a) %>
+  <%= f.input :start_date_range %>
+  <%= f.input :end_date_range %>
+  <%= f.submit "Go", class: 'btn m-btn green small' %>
+<% end %>

@@ -16,3 +16,15 @@
 
 # Ignore all logfiles and tempfiles.
 /public/uploads/tmp
+
+# Ignore sunspot files
+solr/pids
+solr/test
+solr/development
+solr/default/data
+
+# Ignore dev enviroment variables
+/config/app_environment_variables.rb
+
+# Ignore byebug logs
+.byebug_history

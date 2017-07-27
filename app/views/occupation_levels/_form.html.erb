@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <%= simple_form_for(@occupation_level) do |f| %>
+    <%= f.error_notification %>
+    <%= f.association :occupation, label_metod: :title %>
+    <%= f.input :level, as: :select, collection: (0..15).to_a %>
+    <%= f.input :points, as: :string %>
+    <%= f.input :bonus_credits, as: :string %>
+    <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @occupation_level.image? %>
+    <%= image_tag(@occupation_level.image_url) if @occupation_level.image? %>
+    <p>
+      <%= f.input :image, as: :file, label: "Upload Image" unless @occupation_level.image? %>
+    </p>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <%# f.association :product, input_html: { class: 'chosen' } %>
+    <%= f.input :rewards, input_html: { rows: 2 } %>
+    <%= f.input :privileges, input_html: { rows: 2 } %>
+    <%= f.input :notes, input_html: { rows: 2 } %>
+    <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+        <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    <% end %>
+  </div>
+</div>

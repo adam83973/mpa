@@ -1,5 +1,4 @@
 class Standard < ActiveRecord::Base
-  attr_accessible :category, :description, :name, :course_id, :problem_ids, :activity_ids
 
   belongs_to :course
   has_many :lessons

@@ -1,47 +1,47 @@
-<header class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner nav-font">
-    <div class = "container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <%= link_to root_path, class: "brand" do %>
-      <%= image_tag('MP-logo.png') %> Math Plus Academy
+<nav class="navbar navbar-inverse navbar-toggleable-md justify-content-right" style="background-color:#403f3f;">
+  <button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbar-collapse-1">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag('mp_logo.png', height: "15", style: 'margin-bottom:3px;') %>  Math Plus Academy
+  <% end %>
+  <% if signed_in? && help_session.in_session? %>
+    <%= link_to help_sessions_active_session_path(student_id: help_session.student_id) do %>
+      <span class="badge badge-info hidden-md-down" style="position:absolute;top:17px;">HW Help In Session</span>
+    <% end %>
+  <% end %>
+  <% if signed_in? && class_session.in_session? && !current_admin %>
+    <%= link_to root_path do %>
+      <span class="badge badge-success hidden-md-down mt-1">Class In Session</span>
+    <% end %>
+  <% end %>
+  <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-1">
+    <ul class="navbar-nav">
+      <% if signed_in? && !current_admin %>
+        <% if current_user.parent? %>
+          <li class="nav-item"><a class="nav-link" href="https://www.mathplusacademy.com/schedule-homework-help/"><strong>Schedule HW Help</strong></a></li>
+        <% end %>
+        <%= render 'layouts/nav_links' if current_user.employee? %>
+        <%= render 'layouts/admin_links' if current_user.admin? %>
+        <%= render 'layouts/nav_dropdown' %>
+      <% else %>
+        <% unless request.subdomain == 'admin' %>
+          <li><%= link_to "<strong>Sign in</strong>".html_safe, new_user_session_path, class: 'nav-link' %></li>
+        <% end %>
       <% end %>
-      <div class="nav-collapse collapse">
-        <nav>
-          <ul class="nav pull-right ul-padding">
-
-            <% if signed_in? %>
-
-            <% if current_user.parent? %>
-            <li id="fat-menu">
-              <a href="http://www.mathplusacademy.com/book-appointment"> Schedule HW Help </a>
-            </li>
-            <li id="fat-menu">
-              <a href="http://hq.mathplusacademy.com"> Math Plus HQ </a>
-            </li>
-            <% end %>
-
-            <%if ["Teacher", "Teaching Assistant", "Admin"].include?(current_user.role) %>
-            <%= render 'layouts/nav_links' %>
-            <% end %>
-
-            <% if current_user.admin? %>
-            <%= render 'layouts/admin_tasks' %>
-            <% end %>
-
-            <%= render 'layouts/nav_dropdown' %>
-
-            <% else %>
-
-            <li><%= link_to "Sign in", new_user_session_path %></li>
-
-            <% end %>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-</header>
+      <% if signed_in? && current_admin %>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <strong>Menu</strong>
+          </a>
+          <div class="dropdown-menu">
+            <%= link_to "Sign Out", destroy_admin_session_path, :method => :delete, class: 'dropdown-item' %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <%= render 'shared/user_search' if signed_in? && !current_admin && current_user.employee? %>
+  </div><!-- /.navbar-collapse -->
+</nav>

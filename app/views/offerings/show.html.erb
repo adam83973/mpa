@@ -1,26 +1,30 @@
-<div class="row offering-info">
-    <h2><%= @offering.offering_name %></h2>
-   <h3>
-    Teachers:
+<% title @offering.offering_name %>
+<div class="card mb-5">
+  <div class="card-block">
+    <%= link_to 'Edit', edit_offering_path(@offering), class: 'btn btn-secondary pull-right', target: "_blank" if current_user.admin? %>
+    <h2><%= @offering.offering_name %></h2> Offering Id:<%= @offering.id %>
+
+    <p>
+      <%= link_to "Email Parents", offering_path(format: :csv) if current_user.employee? %>
+    </p>
+     <h3>
+      Teachers:
       <% if @offering.users.any? %>
         <% @offering.users.each do |teacher| %>
-          <%= teacher.full_name %>
+          <%= teacher.full_name if teacher.active? %>
         <% end %>
         <% else %>
           <em> no teachers assigned</em>
-      <% end %></h3>
-  <% if current_user.employee? %>
-    <%= link_to 'Edit', edit_offering_path(@offering) %> |
-  <% end %>
-  <%= link_to 'Back', offerings_path %>
+      <% end %>
+    </h3>
+    <%= link_to "#{@offering.course_name} Lessons", @offering.course, class: "btn btn-primary pull-right" %>
+  </div>
 </div>
 
 <% if current_user.employee?%>
-  <br />
-  <div class="row">
-    <%= render 'offerings/roster' %>
-  </span>
+  <%= render 'offerings/roster' if @offering.students %>
+
+  <%= render 'trials' if @upcomming_trials %>
 <% end %>
 
-
-
+<%= link_to "Check Capacity", "javascript:void(0)", class: "btn btn-primary", id: 'capacity_check', data: { id: @offering.id } %>

@@ -1,6 +1,6 @@
 <div class="hero-unit">
   <h1><%= @activity.title %></h1>
-  <table class="table table-condensed">
+  <table class="table table-sm">
     <tr>
       <td style="width:250px;">
         <% if @activity.image_url %>
@@ -8,13 +8,13 @@
         <% end %>
       </td>
       <td>
-        <b>Appropriate For:</b><br />
+        <strong>Appropriate For:</strong><br />
         <% @activity.courses.each do |course|%>
-          <%= course.course_name %><br />
+          <%= course.name %><br />
         <% end %>
       </td>
       <td>
-        <b>Standards:</b><br />
+        <strong>Standards:</strong><br />
         <% @activity.standards.each do |standard|%>
           <%= standard.name %><br />
         <% end %>
@@ -22,32 +22,32 @@
     </tr>
   </table>
   <p>
-    <b>Objective / Description:</b><br />
+    <strong>Objective / Description:</strong><br />
     <%= simple_format(@activity.objective) %>
   </p>
 
   <p>
-    <b>Setup / Materials:</b><br />
+    <strong>Setup / Materials:</strong><br />
     <%= simple_format(@activity.setup) %>
   </p>
 
   <p>
-    <b>Instructions / Guidelines:</b><br />
+    <strong>Instructions / Guidelines:</strong><br />
     <%= simple_format(@activity.content) %>
   </p>
 
   <p>
-    <b>Variations:</b><br />
+    <strong>Variations:</strong><br />
     <%= simple_format(@activity.variations) %>
   </p>
 
   <p>
-    <b>Source:</b>
+    <strong>Source:</strong>
     <%= simple_format(@activity.source) %>
   </p>
 
   <p>
-    <b>Resources:</b>
+    <strong>Resources:</strong>
     <% @activity.resources.each do |resource| %>
       <div class="resource_thumb" style="background:white;">
         <div class="name"><%= resource.filename %></div>

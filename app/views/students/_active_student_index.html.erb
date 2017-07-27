@@ -3,11 +3,11 @@
 <h1><%= yield(:title)%></h1>
 
 <p>
-  <%= link_to "Inactive Students", students_path(:students => :in_active) %> |
-  <%= link_to "All Students", students_path(:students => :all) %>
+  <%= link_to "Inactive Students", students_path(students: :in_active) %> |
+  <%= link_to "All Students", students_path(students: :all) %>
 </p>
 
-<table id="students_table" class="display">
+<table id="datatable" class="display">
     <thead>
       <tr>
         <th>Id</th>
@@ -35,7 +35,7 @@
             <% else %>
                <td><em>add parent</em></td>
             <%end%>
-            <% if student.user.email %>
+            <% if student.user %>
                <td><%= student.user.email %></td>
             <% else %>
                <td><em>no email on file</em></td>
@@ -47,7 +47,7 @@
             <%end%>
             <td>
               <% if student.offerings.any? %>
-                <% student.offerings.each do |offering| %>
+                <% student.offerings.includes(:course, :location).each do |offering| %>
                   <%= offering.offering_name %>
                 <% end %>
               <% else %>
@@ -64,10 +64,7 @@
     </tbody>
 </table>
 
-<% if signed_in? && current_user.admin? %>
-<h3> Import Students</h3>
-  <%= form_tag import_students_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+
+<% if signed_in? && current_user.try(:admin?) %>
+  <%= render 'layouts/import_form.html.erb', resource: @students %>
 <% end %>

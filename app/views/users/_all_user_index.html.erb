@@ -1,0 +1,66 @@
+<% title "All Users" %>
+
+<h1><%= yield(:title)%></h1>
+
+<p>
+  <%= link_to "Active Users", users_path %>
+</p>
+
+<p>
+  <%= link_to "Filter Parents", users_path(:users => :parents) %>
+</p>
+
+<% if current_user.super_admin? %>
+<p>
+  Download:
+  <%= link_to "CSV", users_path(format: "csv") %>
+</p>
+<% end %>
+
+
+
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Role</th>
+      <th>Phone</th>
+      <th>Location</th>
+      <th>Email</th>
+      <th>Active</th>
+      <th></th>
+      <% if current_user.admin? %>
+      <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.role %></td>
+      <td><%= user.phone %></td>
+      <% if user.location %>
+      <td><%= user.location.name %></td>
+      <% else %>
+      <td>invited</td>
+      <% end %>
+      <td><%= user.email %></td>
+      <td><%= user.active %></td>
+      <td><%= link_to 'Show', user, :target => "_blank" %></td>
+      <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_user_path(user), :target => "_blank" %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+
+<% if signed_in? && current_user.super_admin? %>
+  <%= render 'layouts/import_form', resource: @users %>
+<% end %>

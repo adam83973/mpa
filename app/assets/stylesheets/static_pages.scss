@@ -1,0 +1,233 @@
+.new_students .table td{
+  border-top: none;
+}
+
+.gradient-primary {
+  background-image: -webkit-linear-gradient(top,#ffffff,#eeeeee);
+  background-image: linear-gradient(to bottom,#ffffff,#eeeeee);
+  background-color: #eeeeee;
+  min-height: 100vh;
+}
+
+@media (min-width: 992px) {
+  .signin {
+		height: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .signin {
+		height: 500px;
+  }
+}
+
+.login_section{
+	background: rgb(84, 133, 205);
+	height: 300px;
+}
+
+.login_section_last{
+	background: rgb(84, 205, 100);
+	padding: 70px 0 80px 0;
+	height: 300px;
+}
+
+div.form-group.location_id{
+	margin-bottom:0;
+}
+
+footer{
+	margin-top:50px;
+}
+
+
+.user_search{
+	padding: 5px;
+}
+
+.user-info{
+	border-right: solid 1px #ebebeb;
+	padding: 15px;
+}
+
+.user_info_role{
+	padding-bottom: 10px
+}
+
+.activity_feed{
+	border: solid 1px #ebebeb;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+  padding:10px 0 10px 15px;
+	height: 200px;
+	overflow: auto;
+
+}
+
+.location-stats{
+	background-color: #ededed;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+}
+
+.location-name{
+	border-bottom: solid 1px #000000;
+	padding: 5px;
+}
+
+.quarter-btn{
+  width:25%;
+}
+
+#class_in_session{
+	h3{
+		margin-top: 0;
+	}
+	.lesson-section{
+		padding:10px;
+		margin: 5px;
+		background-color: #cccccc;
+	}
+	.alert{
+		margin-bottom: 5px;
+	}
+}
+
+.class-in-session-button{
+  margin:20px 0 20px 0;
+}
+
+.end-class-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.end-class-button:hover{
+  background-color: #fcadad !important;
+}
+
+.attendance-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.attendance-button:hover{
+  background-color: #fcf7ad !important;
+}
+
+.student-stats-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.student-stats-button:hover{
+  background-color: #add9fc !important;
+}
+
+.record-homework-button{
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+.record-homework-button:hover{
+  background-color: #fcd5ad !important;
+}
+
+.nav-font{
+	font-family: Arial;
+}
+
+.student_attending{
+	margin: 5px;
+	background-color: #e4e4e4;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border-color: #7f7f7f;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid white;
+}
+
+.class_offering{
+	form{
+		display: inline;
+		margin: 0;
+		.m-btn{
+			margin: 0 10px 0 0;
+			height: 20px;
+		}
+	}
+	a{
+		display: inline;
+	}
+}
+
+ul{
+	padding: 0;
+	margin: 0;
+}
+
+.padding{
+	padding-right: 10px;
+}
+
+.modal-body-stats{
+	margin:10px;
+}
+
+.modal-body-grades .modal-body-stats{
+	max-height: 1000px;
+	padding-top: 20px
+}
+
+.stages{
+	border: solid lightgray 1px;
+	margin-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	.ui-draggable{
+
+	}
+}
+
+.fat-menu{
+	.m-btn{
+		padding: 8px 14px 8px 14px;
+	}
+}
+
+.inactive{
+	background-color: #d74242;
+}
+
+.new_students{
+	height: 208px;
+	max-height: 208px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.opportunity_group li {
+  list-style: none;
+}
+
+#user_action_needed{
+  .card-block{
+    padding:10px;
+  }
+  .notes{
+    border: none;
+  }
+}

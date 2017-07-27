@@ -24,21 +24,21 @@
                 <% @student.grades.order('updated_at DESC').each do |grade| %>
                 <% if grade.score == 3 %>
                   <tr style='background-color:#339933;'>
-                    <td style='color:white;'><%= grade.lesson.standard.course.course_name if grade.lesson.standard %></td>
+                    <td style='color:white;'><%= grade.lesson.standard.course.name if grade.lesson.standard %></td>
                     <td style='color:white;'><%= grade.lesson.standard.name if grade.lesson.standard %></td>
                     <td style='color:white;'><%= grade.lesson.name %></td>
                     <td style='color:white;'><%= grade.score %></td>
                   </tr>
                 <% elsif grade.score == 2 %>
                   <tr style='background-color:#ffff66;'>
-                    <td><%= grade.lesson.standard.course.course_name if grade.lesson.standard %></td>
+                    <td><%= grade.lesson.standard.course.name if grade.lesson.standard %></td>
                     <td><%= grade.lesson.standard.name if grade.lesson.standard %></td>
                     <td><%= grade.lesson.name %></td>
                     <td><%= grade.score %></td>
                   </tr>
                 <% else %>
                   <tr style='background-color:#cf342b;'>
-                    <td style='color:white;'><%= grade.lesson.standard.course.course_name if grade.lesson.standard %></td>
+                    <td style='color:white;'><%= grade.lesson.standard.course.name if grade.lesson.standard %></td>
                     <td style='color:white;'><%= grade.lesson.standard.name if grade.lesson.standard %></td>
                     <td style='color:white;'><%= grade.lesson.name %></td>
                     <td style='color:white;'><%= grade.score %></td>

@@ -1,39 +1,48 @@
+<% title "Billing Audit" %>
 <h3>Payment Audit Report for Active Students</h3>
 <div class="row">
-	<div class="span12">
-		<table class="table table-striped table-bordered table-condensed">
+	<div class="col-sm-12">
+		<div class="pull-right" style="margin: 0 0 25px 0;">
+			<%= link_to "Load Attendance", '#', class: "btn btn-secondary", id: 'load_attendance' %>
+			<%= link_to "Registration Audit", infusion_pages_registration_audit_path, class: "btn btn-primary" %>
+			<%= link_to "Subscription Audit", infusion_pages_subscription_audit_path, class: "btn btn-warning" %>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-hover table-bordered table-sm table-responsive audit">
 			<thead>
 				<tr>
-					<th>Student Name</th>
+					<th></th>
 					<th>Parent Name</th>
-					<th>Location</th>
-					<th>Last Date Attended</th>
-					<th>Last Bill Date</th>
-					<th>Last Pmt</th>
-					<th>Pmt Status</th>
+					<th>Active Students</th>
+					<th>Active Subscriptions</th>
+					<th>Balance Due</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% @active_students.each do |student| %>
-				<tr>
-					<td><%= link_to student.full_name, student %></td>
-					<td><%= link_to student.user.full_name, student.user %></td>
-					<td><%= student.locations[0].name %></td>
-					<td><%= student.last_date_attended.updated_at.to_date().strftime("%b-%d-%y") if student.last_date_attended %></td>
-					<% if student.user.infusion_id %>
-						<td><%= student.user.last_payment[:pay_date] if student.user.last_payment[:pay_date] %></td>
-						<td><%= number_to_currency(student.user.last_payment[:total_paid]) if student.user.last_payment[:pay_date] %></td>
-						<td><%= raw student.user.last_payment[:status] if student.user.last_payment[:pay_date] %></td>
-					<% else %>
-						<td>N/A</td>
-						<td>N/A</td>
-						<td>N/A</td>
+				<% @parents.each_with_index do |parent, i| %>
+					<% if parent.active_students? %>
+						<tr <%= "class=danger" if parent.balance_due != 0 %>>
+							<td class="text-center"><%= i + 1 %></td>
+							<td ><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
+							<td>
+								<ol>
+									<% parent.active_registrations.each do |reg| %>
+										<li class='active-registration' data-student-id="<%= reg.student_id %>">
+											<%= reg.student.full_name %>
+										</li>
+									<% end %>
+								</ol>
+							</td>
+							<td class="text-center"><%= parent.subscription_count %></td>
+							<td class="text-center">$<%= parent.balance_due %></td>
+						</tr>
 					<% end %>
-				</tr>
 				<% end %>
 			</tbody>
 		</table>
-
 		<%= link_to 'Back', infusion_pages_home_path, class: 'm-btn m-btn-small' %>
 		<br />
 	</div>

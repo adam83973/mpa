@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  locationId: 1
+  location_id: 1
+  reasonId: 1
+  clientId: 1
+  user_id: 1
+  time: 2014-12-12 09:02:18
+
+two:
+  locationId: 1
+  location_id: 1
+  reasonId: 1
+  clientId: 1
+  user_id: 1
+  time: 2014-12-12 09:02:18

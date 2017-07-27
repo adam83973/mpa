@@ -1,33 +1,58 @@
- <h2><%= @course.course_name %></h2>
-   <% if current_user.admin?%>
-    <p><%= link_to 'Edit', edit_course_path(@course) %></p>
-   <% end %>
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <%= @course.course_name %> Lessons
-      </a>
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-secondary pull-right' %>
+<% end %>
+<h2 style="margin-bottom:30px;">
+  <%= @course.name %>
+</h2>
+<p>
+  Grade: <%= @course.grade %>
+</p>
+<p style="margin-bottom:30px;">
+ Student type: <%= @course.occupation.title.pluralize %>
+</p>
+<% if @course.id == 15 %>
+  <div class="row" style="margin-bottom:40px;">
+    <div class="col-sm-12">
+      <%= link_to BadgeModule.find(1) do %>
+        <%= image_tag 'scratch_banner.svg' %>
+      <% end %>
     </div>
-    <div id="collapseOne" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <div class="tscroll well well-small">
-          <table class= "table table-striped table-hover table-bordered">
-      <tr>
-        <th>Lesson Name</th>
-        <th>Assignment</th>
-        <th>Assignment KEY</th>
-      </tr>
-    <% @course.lessons.each do |lesson| %>
-      <tr>
-        <td><%= link_to lesson.name, lesson %></td>
-        <td><%= link_to "Week #{lesson.week} Assignment", lesson.assignment %></td>
-        <td><%= link_to "Week #{lesson.week} Assignment KEY", lesson.assignment_key %></td>
-      </tr>
-    <% end %>
-    </table>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= link_to BadgeModule.find(2) do %>
+        <%= image_tag 'processing_banner.svg' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% unless @course.id == 15 %>
+<div class="card-group" id="accordion">
+  <div class="card card-default">
+    <div class="card-header">
+      <h4 class="card-title mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Click Here For <%= @course.name %> Lessons
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="card-collapse collapse">
+      <div class="card-block">
+        <table class= "table table-striped table-hover table-bordered">
+          <tr>
+            <th align='center'>Week</th>
+            <th align='center'>Lesson Name</th>
+          </tr>
+          <% @course.lessons.order(:week).each_with_index do |lesson| %>
+            <tr>
+              <td width='50' align='center'><%= lesson.week %></td>
+              <td><%= link_to lesson.name, lesson, target: '_blank' %></td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>
 </div>
+<% end %>

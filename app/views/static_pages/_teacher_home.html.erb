@@ -1,0 +1,41 @@
+<% if class_session.in_session? %>
+  <!-- Class In Session -->
+  <div id='class_in_session'>
+    <div class="row mb-4">
+      <div class="col-sm-12">
+        <%= render 'class_in_session' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'class_in_session_roster' %>
+      </div>
+    </div>
+  </div>
+  <% unless current_user.admin? %>
+    <hr>
+  <% end %>
+  <%= render 'attendance_modal' %>
+
+  <%= render 'class_summary_modal' %>
+
+<% else %>
+  <!-- Starts A Class -->
+  <div class="row">
+    <div class="classform col-md-6 pb-3">
+      <%= render 'start_a_class' %>
+    </div>
+    <div class="col-md-6 pb-3">
+      <%= render 'start_hw_help' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-xs-12">
+      <%= render 'teachers_offerings' %>
+    </div>
+  </div>
+<% end %>
+
+<% if !(@location_hw_help_appointments.empty?) %>
+  <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) || current_user.admin? %>
+<% end %>

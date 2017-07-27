@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-0">Start HW Help</h3>
+  </div>
+  <div class="card-block">
+    <%= simple_form_for :help_session, as: :post, url: help_sessions_start_help_session_path do |f| %>
+      <%= f.input :student_id, collection: @students, label_method: :full_name, input_html: { class: "chosen" } %>
+      <%= f.input :date, input_html: { class: "datepicker" } %>
+      <%= submit_tag "Start HW Help", id: "start-hw-help", disabled: :disabled, class: "btn btn-sm btn-success" %>
+    <% end %>
+  </div>
+</div>

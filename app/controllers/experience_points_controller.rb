@@ -1,11 +1,11 @@
 class ExperiencePointsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee, except: :show
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: :show
 
   # GET /experience_points
   # GET /experience_points.json
   def index
-    @experience_points = ExperiencePoint.includes(:student, :user)
+    @experience_points = ExperiencePoint.includes(:student, :user, :experience).limit(500)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +16,7 @@ class ExperiencePointsController < ApplicationController
   # GET /experience_points/1
   # GET /experience_points/1.json
   def show
-    @experience_point = ExperiencePoint.find(params[:id])
+    set_experience_point
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,7 +28,6 @@ class ExperiencePointsController < ApplicationController
   # GET /experience_points/new.json
   def new
     @experience_point = ExperiencePoint.new
-
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,78 +52,19 @@ class ExperiencePointsController < ApplicationController
   # POST /experience_points
   # POST /experience_points.json
   def create
-    @student = Student.find(params[:experience_point][:student_id])
-    @student_json = @student.to_json
-    @experience_point = ExperiencePoint.new(params[:experience_point])
-    @credits = @student.calculate_credit(@experience_point)
-    @student_level = @student.calculate_rank(@experience_point)
-    @response = @student.to_json
-
-    #add credits and special redirect when attendance is taken
-    #add .js response for ajax
-    if params[:experience_point][:experience_id] == "2"
-
-      #add student attendance from teacher home page
-      if class_session.in_session?
-       class_session.add_student(@student)
-      end
-
+    @experience_point = ExperiencePoint.new(experience_point_params)
+    if !@experience_point.student_id
       respond_to do |format|
-        if @experience_point.save
-          if @credits > 0
-                @student.add_credit(@credits)
-          end
-
-          if @student.rank.nil? || @student_level > 0
-            @student.update_rank
-          end
-
-          format.html { redirect_to root_path, notice: "Attendance added for #{@student.first_name}." }
-          format.js
-          format.json { render json: @experience_point, status: :created, location: @experience_point }
-
-        else
-          format.html { render root_path }
-          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
-        end
+        format.html { render action: "new" }
+        format.json { render json: @experience_point.errors, status: :unprocessable_entity }
       end
-    # elsif params[:experience_point][:experience_id] == "1"
-
-    elsif ["1", "4", "5"].include?(params[:experience_point][:experience_id])
-
-      respond_to do |format|
-        if @experience_point.save
-          if @credits > 0
-                @student.add_credit(@credits)
-          end
-
-          if @student.rank.nil? || @student_level > 0
-            @student.update_rank
-          end
-
-          format.html { redirect_to new_experience_point_path(:homework => '1'), notice: "Grade added for #{@student.first_name} : #{@experience_point.experience.name}." }
-          format.json { render json: @experience_point, status: :created, location: @experience_point }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @experience_point.errors, status: :unprocessable_entity }
-        end
-      end
+      false
     else
+      @student = Student.find(@experience_point.student_id)
+
       respond_to do |format|
         if @experience_point.save
-          if @credits > 0
-                @student.add_credit(@credits)
-          end
-
-          if @student.rank.nil?
-            @student.update_rank
-          end
-
-          if @student_level > 0
-            @student.update_rank
-          end
-
-          format.html { redirect_to student_path(@student), notice: "Experience point was successfully created." }
+          format.html { redirect_to student_path(@student), notice: "Experience point added for #{@student.first_name} : #{@experience_point.experience.name}." }
           format.json { render json: @experience_point, status: :created, location: @experience_point }
         else
           format.html { render action: "new" }
@@ -141,7 +81,8 @@ class ExperiencePointsController < ApplicationController
     @experience_point = ExperiencePoint.find(params[:id])
 
     respond_to do |format|
-      if @experience_point.update_attributes(params[:experience_point])
+      if @experience_point.update_attributes(experience_point_params)
+
         format.html { redirect_to student_path(@student), notice: 'Experience point was successfully updated.' }
         format.json { head :no_content }
       else
@@ -156,13 +97,7 @@ class ExperiencePointsController < ApplicationController
   def destroy
     @experience_point = ExperiencePoint.find(params[:id])
     @student = Student.find(@experience_point.student_id)
-    @credits = ((@student.xp_sum - @experience_point.points)/100 - ((@student.xp_sum)/100))
-    @calculate_rank = ((@student.xp_sum - @experience_point.points)/1000 - ((@student.xp_sum)/1000))
-    @student.add_credit(@credits)
 
-    if @calculate_rank < 0
-      @student.decrease_rank
-    end
     @experience_point.destroy
 
     respond_to do |format|
@@ -170,4 +105,29 @@ class ExperiencePointsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def qc
+    if params[:request]
+      @user = User.find params[:request][:user_id] if params[:request][:user_id]
+      number_of_days = params[:request][:days] ? params[:request][:days].to_i : 30
+      @experience_points = ExperiencePoint.joins(:experience).where("experiences.name LIKE ?", "%Homework%").where("user_id = ? AND experience_points.created_at > ?", params[:request][:user_id], Date.today - number_of_days.days)
+    else
+      @experience_points = ExperiencePoint.joins(:experience).where("experiences.name LIKE ?", "%Homework%").last(30)
+    end
+  end
+
+  private
+
+    def update_level
+      # update level for occupation based on experience point's occupation relation
+      @student.update_level(@experience_point.occupation.title) if @experience_point.occupation
+    end
+
+    def set_experience_point
+      @experience_point = ExperiencePoint.find(params[:id])
+    end
+
+    def experience_point_params
+      params.require(:experience_point).permit(:experience_id, :points, :student_id, :user_id, :comment, :negative)
+    end
 end

@@ -1,0 +1,40 @@
+<div class="modal fade" id="studentStatsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">So this is what hard work looks like!</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+         <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Total XP</th>
+              <th>Current Level</th>
+              <th>Total Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% if class_session.students == [] %>
+            There are no students added to this class.
+          <% else %>
+            <% occupation = @class_session_offering.occupation.title %>
+            <% class_session.students.each do |student_id| %>
+            <% @student = Student.find(student_id)%>
+            <tr>
+              <td><%= @student.full_name %></td>
+              <td><%= @student.xp_sum_by_occupation(occupation) %></td>
+              <td><%= @student.current_level(occupation) %></td>
+              <td><%= @student.credits %></td>
+            </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

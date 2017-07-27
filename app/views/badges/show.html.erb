@@ -1,0 +1,47 @@
+<% if current_user.admin? %>
+  <div class="row" style="margin-bottom:20px;">
+    <div class="col-sm-12">
+      <%= link_to "Edit", edit_badge_path(@badge), class: "btn btn-secondary pull-right" %>
+      <%= link_to "Related Achievement", @badge.experience, class: "btn btn-primary pull-right", style: 'margin-right:15px;' if @badge.experience %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <div style="margin-bottom:0;" class="card card-default">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-xs-10">
+            <h1 style="margin-left:10px;margin-top:10px"><%= @badge.name %></h1>
+          </div>
+        </div>
+      </div>
+      <div class="card-block" style="padding-bottom:5px;">
+        <div class="text-center">
+          <%= image_tag(@badge.image.url, size: "150x150", style: "margin:10px 0 10px 0;") if @badge.image %>
+          <%= link_to "Please add image.", edit_badge_path(@badge) unless @badge.image %>
+        </div>
+        <div class="requirements">
+          <h3 style="color:#8a8a8a;margin-bottom:30px;">To earn this badge you must...</h3>
+          <div style='font-size:1.3em;'>
+            <%= sanitize @badge.requirements, tags: %w(strong span i b u br em a div ul ol li p code pre script hr), attributes: %w(href style class id target) %>
+          </div>
+        </div>
+        <hr>
+        <div class="requirements" style='text-align:center;'>
+          <% if @badge.write_up_required %>
+            <div class="write_up_instructions" style="margin-top:25px;">
+              <h3>
+                <strong style='color:red;'>Submit student write up in form to the right.</strong>
+              </h3>
+            </div>
+          <% end %>
+          <h3 style="color:#8a8a8a;margin:25px 0 20px 0;"><strong>THIS BADGE WILL EARN YOU <%= @badge.experience.points if @badge.experience%> xp</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <%= render 'badge_requests/form', badge_request: @badge_request, user: current_user, badge: @badge %>
+  </div>
+</div>

@@ -1,26 +1,39 @@
 class Lesson < ActiveRecord::Base
-  attr_accessible :assessment, :assessment_key, :assignment, :assignment_key, :standard_id, :name, :week, :resource_ids, :activity_ids
 
+  has_many :videos
   has_many :resourcings, as: :resourceable
   has_many :resources, through: :resourcings
-
-  has_and_belongs_to_many :activities
+  has_and_belongs_to_many :problems
   belongs_to :standard
   has_many :grades
+  belongs_to :course
+  has_many  :notes, as: :notable, dependent: :destroy
 
+  # if Rails.env.production?
+  #   searchable do
+  #     text :name
+  #     text :course_name
+  #     integer :week
+  #     text :course_name_and_week
+  #   end
+  # end
 
   def title
-  	if standar
-      standard.course.course_name + "-" + week.to_s + ": " + name
-    else
-      week.to_s + ": " + name
-  	end
+      course.name + "-" + week.to_s + ": " + name
+  end
+
+  def course_name
+    course.name
+  end
+
+  def course_name_and_week
+    "#{course.name} #{week}"
   end
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       lesson = find_by_id(row["id"]) || new
-      lesson.attributes = row.to_hash.slice(*accessible_attributes)
+      lesson.attributes = row.to_hash.slice(*column_names)
       lesson.save!
     end
   end

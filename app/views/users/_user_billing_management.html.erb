@@ -1,0 +1,19 @@
+<div class="card card-default mb-3">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Billing Information</h3>
+    <span class="pull-right">
+      <% if @user.infusion_id != nil %>
+        <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id) %> |
+        <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(userId: @user.id) %>
+      <% end %>
+    </span>
+  </div>
+  <div class="card-block">
+    <%= render 'billing_information' %>
+    <% if current_user.admin? %>
+      <% if @user.role == "Parent" && @user.infusion_id != nil %>
+        <%= render 'billing' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

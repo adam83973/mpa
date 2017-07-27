@@ -1,0 +1,17 @@
+<h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
+  <%= link_to "Edit User", edit_user_path(@user), class: "m-btn mini pull-right"%>
+<hr>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @user.location.name if @user.location %>
+</p>

@@ -1,0 +1,34 @@
+<div class="card card-default">
+  <div class="card-header">
+    <h3 class="card-title">Notes</h3>
+  </div>
+  <div class="card-block">
+      <% if @opportunity.user %>
+      <div class="mb-4">
+          <%= simple_form_for [@opportunity.user, Note.new], remote: true do |f| %>
+            <%= f.input :content, label: "Add note...", input_html: { style: "width:100%;", rows: 4 } %>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+                <%= f.input :opportunity_id, as: :hidden, input_html: { value: @opportunity.id } %>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.input :action_date, as: :string, input_html: { class: :datepicker } if current_user.admin? %>
+              </div>
+            </div>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.button :submit, class: "btn btn-sm btn-success" %>
+          <% end %>
+        </div>
+        <div class="card">
+          <div class="card-block p-3 notes" style="border:none;">
+            <div id="opportunity_notes">
+              <%= render 'opportunity_notes' %>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        You cannot add notes to this opportunity because it is not linked to a parent.
+      <% end %>
+  </div>
+</div>

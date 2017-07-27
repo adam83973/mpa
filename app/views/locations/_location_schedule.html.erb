@@ -1,0 +1,50 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Grade</th>
+        <th>Day/Time</th>
+        <th>Teacher</th>
+        <th>Classroom</th>
+        <% if current_user && current_user.employee? %>
+          <th># Students</th>
+          <th>Open Spots</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @location.visible_offerings.includes(:users, :course).order(:course_id).order(:day_number).order(:time).each do |offering| %>
+      <tr>
+        <td>
+          <%= offering.course.name%><%= raw offering_capacity(offering)%>
+        </td>
+        <td><%= offering.course.grade if offering.course.grade %></td>
+        <td>
+          <% if current_user && current_user.employee? %>
+            <%= link_to "#{offering.day} / #{offering.time.strftime("%I:%M %p")}", offering_path(offering), target: '_blank' %>
+          <% else %>
+            <%= "#{offering.day} / #{offering.time.strftime("%I:%M %p")}" %>
+          <% end %>
+        </td>
+        <td>
+          <% offering.users.each do |user| %>
+            <%= teacher_name_by_role user %>
+          <% end %>
+        </td>
+        <td>
+          <%= offering.classroom %>
+        </td>
+        <% if current_user && current_user.employee? %>
+        <td>
+          <%= roster_count offering %>
+        </td>
+        <td>
+          <%= open_spots offering %>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

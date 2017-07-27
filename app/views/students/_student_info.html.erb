@@ -1,0 +1,31 @@
+<div class="col-lg-3 studentname">
+  <h2><%= @student.full_name %></h2>
+  <div class="avatar-block">
+    <div style="
+      padding:20px 0 20px 0;
+      margin:0 auto;
+      width:218px;border-radius:50%;
+      background-color:<%= @student.avatar_background_color %>;"
+      class="text-center">
+
+      <%= render 'student_avatar', student: @student %>
+    </div>
+  </div>
+
+  <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
+    <h3>Credits: <%= @student.credits %></h3>
+  </div><!--/#totalCredits -->
+  <div class="text-muted">
+    <small>Experience Points: <%= @student.experience_point_total %></small>
+  </div>
+  <% if current_user.employee? %>
+    <div id="studentId" data-studentId="<%= @student.id %>">
+    </div>
+    <p>
+      <strong>Parent:</strong>
+      <%= link_to @student.parent_name, @student.user %>
+    </p>
+ <% else %>
+    <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
+ <% end %>
+</div><!--/.col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->

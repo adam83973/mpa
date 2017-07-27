@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  lead_id: 1
+  due: false
+  due_date: 2014-02-13
+  content: MyText
+
+two:
+  user_id: 1
+  lead_id: 1
+  due: false
+  due_date: 2014-02-13
+  content: MyText

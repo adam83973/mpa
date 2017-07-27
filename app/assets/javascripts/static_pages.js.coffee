@@ -1,6 +1,33 @@
-# ---- Attendance Modal ----------------
-# Handle ajax events ---
+# ---- Admin Page ----------------
+# Hide schedule from admin view
 jQuery ->
+  # change locations
+  $("#location_id").on 'change', ->
+    id = $(this).val()
+    url = $(this).data('url') + "?location_id=" + id
+    window.location.replace(url)
+
+  $("#hide_schedule").on 'click', ->
+    if $("#hide_schedule").text() is "Hide Schedule"
+      $(".daily-schedule").slideUp()
+      $("#hide_schedule").text('Show Schedule')
+    else if $("#hide_schedule").text() is "Show Schedule"
+      $(".daily-schedule").slideDown()
+      $("#hide_schedule").text('Hide Schedule')
+
+# ---- Attendance Modal ----------------
+  $('#attendanceModal').on 'shown.bs.modal', ->
+    $('.chzn', this).chosen(
+        allow_single_deselect: true
+      )
+    $submitButton = $('#attendance_modal_button').prop("disabled", true)
+    $('#attendance_modal_experience_point_student_id').on 'change', ->
+      if $('#attendance_modal_experience_point_student_id').val()
+        $submitButton.attr("disabled", false)
+  $('#attendanceModal').on 'hidden.bs.modal', ->
+    location.reload()
+
+# Handle attendance ajax events ---
   $("#attendance_form")
   .bind 'ajax:beforeSend', (evt, xhr, settings) ->
     $submitButton = $(this).find('input[name="commit"]')
@@ -13,12 +40,16 @@ jQuery ->
   .bind 'ajax:complete', (evt, xhr, status) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
+    $('#experience_point_student_id_chosen').find('span').html('Select an Option')
+    $('#experience_point_student_id_chosen').find('abbr').remove()
   .bind 'ajax:error', (evt, xhr, status, error) ->
     $submitButton = $(this).find('input[name="commit"]')
     $submitButton.val( $submitButton.data('origtext') )
     $form = $(this)
     alert "Student #{error}!"
     $form[0].reset()
+    $('#experience_point_student_id_chosen').find('abbr').remove()
+    $('#experience_point_student_id_chosen').find('span').html('Select an Option')
 
 # Autofocus student_id field on attendanceModal show ---
   $("#attendanceModal").on 'shown', ->
@@ -29,11 +60,20 @@ jQuery ->
     location.reload()
 
 # ---- Students Attending ----------------
-  # Update styling to attending students on mouse over and leave. ---
-  $('.student_attending').on('mouseover', -> $(this).css({"background-color":"#fbfbfb"; "border":"1px solid black"}))
-                          .on('mouseleave', -> $(this).css({ "background-color":"##e4e4e4"; "border":"1px solid white"}))
-                          .on('mouseover', 'a:not(:nth-child(2))', -> $(this).css({'color':'black'}))
-                          .on('mouseleave', 'a:not(:nth-child(2))', -> $(this).css({'color':'#0088cc'}))
+
+  #add student through button on class roll
+  $(".class_attendance_form")
+  .bind 'ajax:beforeSend', (evt, xhr, settings) ->
+    $submitButton = $(this).find('input[name="commit"]')
+    $('div[id^="accordion"]').find('input[name="commit"]').attr("disabled", "disabled")
+    $submitButton.attr( 'data-origText',  $submitButton.val() )
+    $submitButton.val( "Submitting..." )
+  .bind 'ajax:success', (evt, data, status, xhr) ->
+    $form = $(this)
+  .bind 'ajax:complete', (evt, xhr, status) ->
+    $form = $(this)
+    $form.hide()
+    $('div[id^="accordion"]').find('input[name="commit"]').removeAttr("disabled")
 
   #remove student without reload
   $('.student_attending')
@@ -51,6 +91,8 @@ jQuery ->
 
   # Add code to cancel if user rejects confirm.
   # .bind 'ajax:error', (evt, xhr, status, error) ->
+# ---- Start Class ----------------
+  $('#offering_id').chosen()
 
   # Hide form on close. ---
   $classform = $('.classform')
@@ -63,15 +105,15 @@ jQuery ->
        alert 'Numbers only!'
 
   # Disable start class button until offering and week are selected. ---
-  $('.classform :input').on "keypress change", ->
+  $('.classform #week').on "change", ->
     empty = false
-    $(".classform :input").each ->
-      empty = true if $(this).val() is ""
-      $week = $('#week')
-      if empty or isNaN($week.val())
-        $("#startclass").prop "disabled", true
-      else
-        $("#startclass").prop "disabled", false
+    $week = $('#week')
+    # $(".classform :input").each ->
+    empty = true if $week.val() is ""
+    if empty or isNaN($week.val())
+      $("#startclass").attr("disabled")
+    else
+      $("#startclass").removeAttr("disabled")
 
 # ---- Grades modal ----------------
   $('#grade_student_id')
@@ -147,3 +189,13 @@ jQuery ->
         $("#add-grade").attr "disabled", "disabled"
       else
         $("#add-grade").removeAttr "disabled"
+
+  $('#earn_badges_link').on 'click', ->
+     $('html, body').animate
+        scrollTop: $("#earn_badges").offset().top,
+        6000
+
+  $('#badge_information_link').on 'click', ->
+     $('html, body').animate
+        scrollTop: $("#badge_information").offset().top,
+        8000

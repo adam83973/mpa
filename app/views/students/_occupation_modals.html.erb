@@ -1,0 +1,18 @@
+<% @occupations.each do |occupation| %>
+<div class="modal fade" id="<%= occupation.title.downcase %>Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Can You Level Up?</h3>
+      </div>
+      <div class="modal-body">
+        <p style="display:block; margin:0 0 20px 10px;">
+          As you attend class and complete your assignments, not only do you earn credits, you also earn experience points. These experience points accumulate and allow you to level up. At each level you will earn valuable prizes. The best part? These prizes don't cost you any credits! Here's a look at the prizes you could win. Level up to unlock future prizes.
+        </p>
+        <%= render '/occupations/occupations_levels', occupation: occupation %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% end %>
+

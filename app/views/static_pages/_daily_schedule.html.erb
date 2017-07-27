@@ -1,0 +1,66 @@
+<% if @todays_offerings.any? %>
+    <h3><%= @user_location.name %> Schedule</h3>
+    <%= link_to "Show Schedule", "javascript:void(0)", id: "hide_schedule", style: "margin-bottom:20px;" %>
+<% end %>
+
+<% if !@todays_offerings.any? %>
+  <strong>No Classes Scheduled.</strong>
+<% else %>
+  <div class="daily-schedule row"  style="display:none;margin-top:30px;">
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom A</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_a_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_b_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Classroom C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom_c_offerings.each_with_index do |offering, i| %>
+            <tr>
+              <td>
+                <%= render 'offering_information', offering: offering %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+<hr>

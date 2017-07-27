@@ -1,0 +1,43 @@
+<h1>Experience Points QC</h1>
+<div class="row">
+  <div class="col-md-8">
+    <% if @experience_points.empty? && @user %>
+      <h2>No results for <%= @user.full_name %></h2>
+    <% else %>
+      <h2>Results</h2>
+      <table class="table table-hover table-sm table-bordered">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Student</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @experience_points.each do |xp| %>
+            <tr>
+              <td>
+                <%= xp.user.full_name %>
+              </td>
+              <td>
+                <%= xp.student.full_name %>
+              </td>
+              <td>
+                <%= xp.comment %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <!-- /.col-md-8 -->
+  <div class="col-md-4">
+    <h2>Search By Assistant</h2>
+    <%= simple_form_for :request, url: qc_experience_points_path, method: :get do |f| %>
+      <%= f.input :user_id, collection: User.teaching_assistants, label_method: :full_name, input_html: { class: 'chosen'} %>
+      <%= f.input :days, as: :select, collection: [30, 60, 90], label: "Last ... days." %>
+      <%= f.submit 'Submit', class: 'btn btn-lg btn-success' %>
+    <% end %>
+  </div>
+</div>

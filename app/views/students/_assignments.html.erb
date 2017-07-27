@@ -1,0 +1,47 @@
+<h3 class="mt-4">Assignments</h3>
+<div id="accordion-assignments">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion-assignments" href="#collapse-assignments">
+          Total Assignments: <%= @student.assignments.count %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-assignments" class="card-collapse collapse">
+      <div class="card-block">
+        <div class="tscroll a-achievements">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Week</th>
+                <th>Score</th>
+                <th>Corrected</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.assignments.includes(:course, offering: [:location]).order(course_id: :desc, week: :desc).limit(100).each do |assignment| %>
+              <% next if assignment.course_id.nil? %>
+                <tr>
+                  <td><%= assignment.course.name if assignment.course %></td>
+                  <td><%= assignment.week %></td>
+                  <td><%= Assignment::SCORES[assignment.score] %></td>
+                  <td><%= assignment.score == 2 ? "N/A" : assignment.corrected %></td>
+                  <%if ["Teacher", "Teaching Assistant", "Director", "Admin"].include?(current_user.role) %>
+                  <td>
+                    <%= link_to "Add Correction", edit_assignment_path(assignment) if !assignment.corrected && assignment.score != 2 %>
+                  </td>
+                  <% else %>
+                  <td></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

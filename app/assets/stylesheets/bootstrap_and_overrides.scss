@@ -1,0 +1,344 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,400italic,900,300);
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+  border: 0; //remove artifact from pagaination from datable rendering
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
+}
+
+input{
+  font-family: 'Raleway', sans-serif;
+}
+
+b{
+  font-weight: 300;
+}
+
+label {
+  font-weight: 300;
+}
+
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }
+
+.accordion-group.square{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+}
+
+.accordion-inner {
+  padding: 15px 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+.accordion-inner {
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #e5e5e5;
+}
+
+// .btn{
+//   font-weight: 200;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+// }
+
+.btn-black{
+  color: white;
+  font-weight: 200;
+  background-color:#282428;
+  border-color:#0c0b0c;
+}
+
+.btn-black:hover{
+  color: black;
+  font-weight: 200;
+  background-color:#808080;
+  border-color:#0c0b0c;
+}
+
+.btn-green{
+  color: white;
+  font-weight: 200;
+  background-color:#4dae4a;
+  border-color:#3b8839;
+}
+
+.btn-purple{
+  color: white;
+  font-weight: 200;
+  background-color:rgb(156, 151, 242);
+  border-color:rgb(107, 104, 167);
+}
+
+.btn-yellow{
+  color: black;
+  font-weight: 200;
+  background-color:#e9d949;
+  border-color:#c8ba3f;
+}
+
+.alert{
+          width: 100%;
+}
+
+.badge-purple{
+  color: white;
+  background-color:#5f56a1;
+  border-color:#2a1e7d;
+}
+
+.badge-yellow{
+  color: gray;
+  background-color:#e9d949;
+  border-color:#c8ba3f;
+}
+
+.badge-brown{
+  color: white;
+  background-color:#a75f39;
+  border-color:#7f482b;
+}
+
+.badge-blue{
+  color: white;
+  background-color:#3e84e9;
+  border-color:#2f68b8;
+}
+
+.checkbox input[type="checkbox"]{
+  position: relative;
+  margin: 0 10px 0 0;
+
+}
+
+.btn-mobile{
+  width: 100%;
+  height: 50px;
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+// chosen style overrides with bootstrap styling
+
+$chosen-background-color: #fff;
+$chosen-border-color: #ccc;
+
+select.form-control + .chosen-container.chosen-container-single .chosen-single {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: $chosen-background-color;
+    border: 1px solid $chosen-border-color;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    background-image:none;
+}
+
+select.form-control + .chosen-container.chosen-container-single .chosen-single div {
+    top:4px;
+    color:#000;
+}
+
+select.form-control + .chosen-container .chosen-drop {
+    background-color: $chosen-background-color;
+    border: 1px solid $chosen-border-color;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    margin: 2px 0 0;
+
+}
+
+select.form-control + .chosen-container .chosen-search input[type=text] {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: $chosen-background-color;
+    border: 1px solid $chosen-border-color;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    background-image:none;
+}
+
+select.form-control + .chosen-container .chosen-results {
+    margin: 2px 0 0;
+    padding: 5px 0;
+    font-size: 14px;
+    list-style: none;
+    background-color: $chosen-background-color;
+    margin-bottom: 5px;
+}
+
+select.form-control + .chosen-container .chosen-results li ,
+select.form-control + .chosen-container .chosen-results li.active-result {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333;
+    white-space: nowrap;
+    background-image:none;
+}
+select.form-control + .chosen-container .chosen-results li:hover,
+select.form-control + .chosen-container .chosen-results li.active-result:hover,
+select.form-control + .chosen-container .chosen-results li.highlighted
+{
+    color: $chosen-background-color;
+    text-decoration: none;
+    background-color: #428BCA;
+    background-image:none;
+}
+
+select.form-control + .chosen-container-multi .chosen-choices {
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: $chosen-background-color;
+    border: 1px solid $chosen-border-color;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    background-image:none;
+}
+
+select.form-control + .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    height:auto;
+    padding:5px 0;
+}
+
+select.form-control + .chosen-container-multi .chosen-choices li.search-choice {
+
+    background-image: none;
+    padding: 3px 24px 3px 5px;
+    margin: 0 6px 0 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid $chosen-border-color;
+    border-radius: 4px;
+    color: #333;
+    background-color: $chosen-background-color;
+    border-color: $chosen-border-color;
+}
+
+select.form-control + .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+    top:8px;
+    right:6px;
+}
+
+select.form-control + .chosen-container-multi.chosen-container-active .chosen-choices,
+select.form-control + .chosen-container.chosen-container-single.chosen-container-active .chosen-single,
+select.form-control + .chosen-container .chosen-search input[type=text]:focus{
+    border-color: #66AFE9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+select.form-control + .chosen-container-multi .chosen-results li.result-selected{
+    display: list-item;
+    color: $chosen-border-color;
+    cursor: default;
+    background-color: white;
+}
+
+[class*="col-"] .chosen-container .chosen-container-multi .chosen-container-multi .chosen-choices {
+    width:100%!important;
+}
+[class*="col-"] .chosen-container .chosen-container-multi .chosen-search .chosen-container-multi .chosen-choices input[type="text"] {
+    padding:2px 4%!important;
+    width:100%!important;
+    margin:5px 2%;
+}
+[class*="col-"] .chosen-container .chosen-container-multi .chosen-drop .chosen-container-multi .chosen-choices {
+    width: 100%!important;
+}
+
+.dashboard{
+  h3{
+    margin-top: 0;
+  }
+}
+
+.header-fixed {
+    width: 100%
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 50%;
+    float: left;
+}
+
+.nav_search_button{
+  padding-top:5px;
+  padding-bottom:5px;
+}

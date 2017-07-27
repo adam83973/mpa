@@ -1,29 +1,27 @@
 class CoursesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_action :authenticate_user!
+  before_action :authorize_employee, except: [:show]
+  before_action :authorize_admin, except: [:show, :index]
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
 
 
 
   # GET /courses
   # GET /courses.json
-  def employee?
-    employee?
-  end
 
   def index
-    @courses = Course.all
+    @courses = Course.order(:id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @courses }
+      format.csv { send_data @courses.to_csv }
     end
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @course = Course.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @course }
@@ -43,13 +41,12 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(params[:course])
+    @course = Course.new(course_params)
 
     respond_to do |format|
       if @course.save
@@ -65,10 +62,8 @@ class CoursesController < ApplicationController
   # PUT /courses/1
   # PUT /courses/1.json
   def update
-    @course = Course.find(params[:id])
-
     respond_to do |format|
-      if @course.update_attributes(params[:course])
+      if @course.update_attributes(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,7 +76,6 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @course = Course.find(params[:id])
     @course.destroy
 
     respond_to do |format|
@@ -95,6 +89,12 @@ class CoursesController < ApplicationController
     redirect_to courses_path, notice: "Course imported."
   end
 
+  private
+    def set_course
+      @course = Course.find(params[:id])
+    end
+
+    def course_params
+      params.require(:course).permit(:name, :description, :grade, :occupation_id, :capacity, :has_assignments)
+    end
 end
-
-

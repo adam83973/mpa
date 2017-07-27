@@ -1,12 +1,10 @@
 <% if params[:type] == 'problem' %>
-	<h1>New Problem</h1>
+	<h1 class="mb-4">New Problem</h1>
 	<%= render 'problem_form' %>
 <% elsif params[:problem] && params[:problem][:activity_type] == 'Problem' %>
-	<h1>New Problem</h1>
+	<h1 class="mb-4">New Problem</h1>
 	<%= render 'problem_form' %>
 <% else params[:type] == 'activity' %>
-	<h1>New Activity / Game</h1>
+	<h1 class="mb-4">New Activity / Game</h1>
 	<%= render 'activity_form' %>
 <% end %>
-
-<%= link_to 'Back', problems_path %>

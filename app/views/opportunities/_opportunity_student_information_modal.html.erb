@@ -1,0 +1,32 @@
+<div class="modal fade" id="addStudentInformationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Student Information or Link To Student Account</h4>
+        <span>
+          <% if @opportunity.user %>
+            If there is no student in the system click "no match" to create a new student account and link it to this opportunity.
+          <% else %>
+            <span style="color:red;">You must add a parent to the system and link them to this opportunity before you can add a student account.</span>
+          <% end %>
+        </span>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for(@opportunity) do |f| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.error_notification %>
+                <%= f.input :student_name %>
+                <%= f.association :student, label_method: :full_name, label: "Add to student account", input_html: { class: 'chosen' } if @opportunity.user %>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <%= link_to "No Match", "javascript:void(0)", id: "opporunityStudentUserNoMatch", class: "btn btn-lg btn-primary", data: { opportunityid: @opportunity.id, userid: @opportunity.user_id } if @opportunity.user %>
+          <%= f.button :submit, class: "btn btn-lg btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

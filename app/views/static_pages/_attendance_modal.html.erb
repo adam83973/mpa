@@ -1,27 +1,27 @@
-<div id="attendanceModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">You can't have a class without students!</h3>
-  </div>
-<center>
-  <div class="modal-body">
-     <%= simple_form_for @experience_point,
-        url: url_for( action: :create, controller: :experience_points ),
-        method: :post,
-        html: { id: 'attendance_form'},
-        remote: true do |f| %>
-      <%= f.error_notification %>
-
-      <div class="form-inputs">
-        <%= f.input :student_id, autofocus: true %>
-        <%= f.input :experience_id, input_html: { value: '2'}, as: :hidden, label: "Achievement ID" %>
-        <%= f.input :points, as: :hidden, input_html: { :value => '20'} %>
-        <%= f.input :comment, as: :hidden, hidden: true, input_html: { rows: 2, value: "Week #{class_session.week} attendance" } %>
-        <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+<% if class_session.in_session? %>
+<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">You can't have a class without students!</h5>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
       </div>
-        <%= f.button :submit, "Add to Class", class: "m-btn" %>
-    <% end %>
-    <button type="button" class="m-btn red" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
-  </div>
-</center>
-</div>
+      <div class="modal-body text-center">
+         <%= simple_form_for @attendance,
+            html: { id: 'attendance_form'},
+            remote: true do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :student_id, collection: Student.all.order(:last_name), label_method: :full_name, input_html: { class: "chzn", id: 'attendance_modal_experience_point_student_id' } %>
+            <%= f.input :offering_id, as: :hidden, input_html: { value: class_session.offering } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.input :date, as: :hidden, input_html: { value: Date.today } %>
+            <%= f.input :week, input_html: { value: class_session.week }, as: :hidden %>
+            <%= f.button :submit, "Add to Class", class: "btn btn-success", id: "attendance_modal_button" %>
+        <% end %>
+        <br>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Done with attendance...</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% end %>

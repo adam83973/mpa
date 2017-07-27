@@ -1,0 +1,29 @@
+<h1>Listing offering_histories</h1>
+
+<table>
+  <tr>
+    <th>Offering</th>
+    <th>Teacher</th>
+    <th>Assistant</th>
+    <th>Enrollment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @offering_histories.each do |offering_history| %>
+  <tr>
+    <td><%= offering_history.offering_id %></td>
+    <td><%= offering_history.teacher_id %></td>
+    <td><%= offering_history.assistant_id %></td>
+    <td><%= offering_history.enrollment %></td>
+    <td><%= link_to 'Show', offering_history %></td>
+    <td><%= link_to 'Edit', edit_offering_history_path(offering_history) %></td>
+    <td><%= link_to 'Destroy', offering_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Offering history', new_offering_history_path %>

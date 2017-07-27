@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Registration Audit <small>parents with subscriptions and no active registrations</small></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-hover table-bordered table-sm table-responsive">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Parent Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @parents.each_with_index do |parent, i| %>
+          <% if parent.active_subscription && !parent.active_registrations.any? %>
+						<tr>
+							<td class="text-center"><%= i + 1 %></td>
+							<td ><%= link_to parent.full_name, parent, :target => "_blank" %> <%= "- " + parent.billing_note if !parent.billing_note.empty? %></td>
+						</tr>
+				  <% end %>
+				<% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

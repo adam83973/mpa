@@ -1,0 +1,31 @@
+<div class="modal fade" id="learningPlanModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title">Create Learning Plan</h5>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= simple_form_for lp do |f| %>
+            <%= f.association :student, label_method: :full_name, selected: student.id %>
+            <%= f.input :grade, collection: LearningPlan::GRADES %>
+            <%= f.association :course, label_method: :name %>
+            <%= f.association :learning_plan_issue, label_method: :title %>
+            <%= f.input :notes, input_html: { rows: 5 } %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <hr>
+            <h4>Learning Plan Goals</h4>
+            <%= f.simple_fields_for :goals do |b| %>
+              <%= b.input :name, label: "Goal #{b.options[:child_index]+1}" %>
+            <% end %>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit "Submit Learning Plan", class: "btn btn-success" %>
+      </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

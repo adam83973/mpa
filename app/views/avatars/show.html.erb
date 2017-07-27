@@ -1,0 +1,9 @@
+<p>
+    <% if @avatar.image_url %>
+      <%=  image_tag(@avatar.image_url, size: "200x200") %>
+    <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_avatar_path(@avatar) %> |
+<%= link_to 'Back', avatars_path %>

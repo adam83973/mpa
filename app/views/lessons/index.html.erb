@@ -1,48 +1,42 @@
-<% title "Lessons" %>
+<% title "Find Lessons" %>
 
 <h1><%= yield(:title)%></h1>
 
-<% if current_user.admin?%>
+<% if current_user.super_admin?%>
 <p>
   Download:
   <%= link_to "CSV", lessons_path(format: "csv") %>
 </p>
 <p>
-  <%= link_to 'New Lesson', new_lesson_path, class: "m-btn green" %>
+  <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-success" %>
 </p>
 <% end %>
 
-<table id="lessons" class="display">
+<table id="datatable" class="display">
   <thead>
         <tr>
           <th>Name</th>
           <th>Week</th>
           <th>Course</th>
-          <th>Standard</th>
-          <th>Assignment</th>
-          <th>Assignment Key</th>
+          <th>Status</th>
+          <th></th>
           <th></th>
         </tr>
   </thead>
   <tbody>
     <% @lessons.each do |lesson| %>
       <tr>
-        <td><%= link_to lesson.name, lesson %></td>
+        <td><%= link_to lesson.name, lesson, target: '_blank' %></td>
         <td><%= lesson.week %></td>
-        <td><%= lesson.standard.course.course_name if lesson.standard %></td>
-        <td><%= lesson.standard.name if lesson.standard %></td>
-        <td><%= link_to "Assignment", Resource.find(lesson.assignment) if lesson.assignment && lesson.assignment != '' && lesson.assignment != nil  %></td>
-        <td><%= link_to "Assignment Key", Resource.find(lesson.assignment_key) if lesson.assignment_key && lesson.assignment_key != '' && lesson.assignment_key != nil  %></td>
+        <td><%= lesson.course_name %></td>
+        <td><%= lesson_status(lesson) %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+        <td><%= link_to 'View', lesson, target: '_blank' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<% if signed_in? && current_user.admin? %>
-<h3> Import Lessons</h3>
-  <%= form_tag import_lessons_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+<% if signed_in? && current_user.super_admin? %>
+  <%= render 'layouts/import_form', resource: @lessons %>
 <% end %>

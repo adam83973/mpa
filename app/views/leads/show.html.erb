@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <p>
+      <h3><u>Lead</u></h3>
+      <h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
+    </p>
+
+    <p>
+      <strong>Phone:</strong>
+      <%= @lead.phone %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @lead.email %>
+    </p>
+
+    <p>
+      <strong>User:</strong>
+      <%= @lead.user ? @lead.user.full_name : "There is no one asigned to this lead. Please assign someone to this lead." %>
+    </p>
+
+    <p>
+      <strong>Stage:</strong>
+      <%= @lead.stage ? @lead.stage.name : "No Stage Set, Please update satge of lead." %>
+    </p>
+
+    <% unless @lead.student_information == "" %>
+      <p>
+        <strong>Student information:</strong>
+        <%= @lead.student_information %>
+      </p>
+    <% end %>
+
+    <p>
+      <strong>Active:</strong>
+      <%= @lead.active? %>
+    </p>
+
+    <%= link_to("/infusion_pages/home?first_name=#{@lead.first_name}&last_name=#{@lead.last_name}&phone=#{@lead.phone}&email=#{@lead.email}", class: "m-btn green" ) do %>
+      Convert to Customer <i class="icon icon-arrow-right icon-white"></i>
+    <% end %>
+    <br>
+    <br>
+    <p>
+      <%= link_to 'Edit', edit_lead_path(@lead) %> |
+      <%= link_to 'Back', leads_path %>
+    </p>
+  </div>
+
+  <div class="col-lg-1 col-md-1">
+  </div>
+
+  <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+    <p>
+      <h3>Notes</h3>
+        <%= simple_form_for [Lead.find(@lead.id), Note.new], remote: true do |f| %>
+          <%= f.input :content, input_html: { style: "width:100%;", rows: 4 } %>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.input :action_date, as: :string, input_html: { id: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note brocast to all admins at specified location." } %>
+              </div>
+            </div>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.button :submit, class: "btn btn-success btn-sm", id: "lead_note" %>
+          <% end %>
+          <br>
+      <div id="lead_notes" class="notes">
+        <%= render 'lead_notes' %>
+      </div>
+    </p>
+  </div>
+</div>

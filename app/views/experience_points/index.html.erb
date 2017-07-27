@@ -4,7 +4,10 @@
 
 <% if current_user.admin? %>
   <p>
-    <%= link_to 'New Experience Point', new_experience_point_path, class: "m-btn green" %>
+    <%= link_to 'New Experience Point', new_experience_point_path, class: "btn btn-lg btn-success" %>
+  </p>
+  <p>
+    <%= link_to 'QC Experience Point Comments', qc_experience_points_path, class: "btn btn-lg btn-secondary" %>
   </p>
 <% end %>
 
@@ -35,4 +38,3 @@
   </tbody>
 </table>
 <br />
-

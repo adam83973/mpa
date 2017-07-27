@@ -1,30 +1,20 @@
-
-<div class="pull-right">
-  <nav>
-    <ul class="nav ul-padding inline">
-      <%if current_user.employee? %>
-      <li>
-        <%= link_to "Edit Student", edit_student_path(@student),class: "m-btn red-stripe" %>
-      </li>
-      <li>
-        <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "m-btn blue-stripe"%>
-      </li>
-      <li>
-        <%= link_to "Add Achievement", { :controller => "experience_points", :action => "new", :student => @student.id }, { :class => "m-btn purple-stripe" } %>
-      </li>
-      <li><%= link_to "Add Grades", "#gradesModal", data: {toggle: :modal}, class: "m-btn yellow-stripe", id: "gradesModalButton"%></li>
-      <% if @agent_offering %>
-      <li>
-        <%= link_to "Print Briefcase Cover", { :controller => "binders", :action => "briefcase", :student => @student.id }, { :class => "m-btn black-stripe" } %>
-      </li>
-      <% end %>
-
-      <% if @second_offering %>
-      <li>
-        <%= link_to "Print Binder Cover", { :controller => "binders", :action => "middleschool", :student => @student.id }, { :class => "m-btn orange-stripe" } %>
-      </li>
-      <% end %>
-      <% end %>
-    </ul>
-  </nav>
+<div class="hidden-md-down d-flex justify-content-center mt-3 mb-3">
+  <%if current_user.employee? %>
+    <div class="btn-group btn-group-justified">
+      <%= link_to "Redeem Credits", "#creditsModal", data: { toggle: :modal }, class: "btn btn-secondary student_tool_button"%>
+      <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary student_tool_button" %>
+      <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary student_tool_button" %>
+      <%= link_to "Add Attendance", new_attendance_path(attendance: {student_id: @student.id}), class: "btn btn-secondary student_tool_button" %>
+    </div>
+  <% end %>
+</div>
+<div class="hidden-lg-up">
+  <%if current_user.employee? %>
+    <div class="mb-4">
+      <%= link_to "Add Assignment", new_assignment_path(student_id: @student.id),class: "btn btn-secondary btn-block" %>
+      <%= link_to "Redeem Credits", "#creditsModal", data: {toggle: :modal}, class: "btn btn-secondary btn-block"%>
+      <%= link_to "Award Badge", new_badge_request_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+      <%= link_to "Add Attendance", new_attendance_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+    </div>
+  <% end %>
 </div>

@@ -1,31 +1,56 @@
 <%if @users_search %>
-  <% if @users_search.empty? %>
-    No results found.
-    <div class="pull-right">
-        <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
-          <%= hidden_field_tag :search, '' %>
-            <%= button_tag(type: "submit", class: "m-btn red") do %>
-              Reset Search <i class="icon-remove icon-white"></i>
-          <% end %>
-        <% end %>
-      </div>
+  <% if @users_search.empty? && @students_search.empty? && @offerings_search.empty? && @lessons_search.empty? %>
+  <div class="row">
+    <div class="hidden-md-up col-sm-12 col-xs-12">
+      <%= render 'shared/mobile_reset_search' %><br>
+    </div>
+    <div class="col-md-10">
+      No results found.
+      <br>
+    </div>
+    <div class="col-md-2 hidden-sm-down">
+      <%= render 'shared/search_reset' %>
+    </div>
+  </div>
+  <hr>
   <% elsif params[:search] == '' %>
   <% else %>
-    <h3>Results</h3>
-    <div class="pull-right">
-        <%= form_tag root_path, :method => 'get', :id => "users_search" do %>
-          <%= hidden_field_tag :search, '' %>
-            <%= button_tag(type: "submit", class: "m-btn red") do %>
-              Reset Search <i class="icon-remove icon-white"></i>
-          <% end %>
+    <div class="row">
+      <div class="hidden-md-up col-12">
+        <%= render 'shared/mobile_reset_search' %>
+      </div>
+      <div class="col-md-9">
+        <h3>Results</h3>
+        <% @users_search.each do |user|%>
+          <div class="user_search">
+            <p><strong><%= link_to user.full_name, user %></strong></p>
+            <p><%= mail_to user.email, user.email %></p>
+            <p><%= user.phone %></p>
+          </div>
+        <% end %>
+        <% @students_search.each do |student|%>
+          <div class="user_search">
+            <p>
+              <strong><%= link_to student.first_name + " " + student.last_name, student %></strong> (Student)
+            <%= student_status(student).html_safe%>
+            </p>
+          </div>
+        <% end %>
+        <% @offerings_search.each do |offering|%>
+          <div class="user_search">
+            <p><strong><%= link_to offering.offering_name, offering %></strong>  (Open spots: <%= open_spots offering %>)</p>
+          </div>
+        <% end %>
+        <% @lessons_search.each do |lesson|%>
+          <div class="user_search">
+            <p><strong><%= link_to "#{lesson.course_name_and_week}: #{lesson.name}", lesson %></strong> (Lesson)</p>
+          </div>
         <% end %>
       </div>
-    <% @users_search.each do |user|%>
-      <div class="user_search">
-        <p><strong><%= link_to user.full_name, user %></strong></p>
-        <p><%= user.email %></p>
-        <p><%= user.phone %></p>
+      <div class="col-md-3 hidden-sm-down">
+        <%= render 'shared/search_reset' %>
+      </div>
     </div>
-    <% end %>
+    <hr style='margin-bottom:40px;'>
   <% end %>
 <% end %>

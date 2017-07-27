@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="page-header">
+      <h2>Account Information <small><%= link_to "Edit", edit_user_path(@user) %></small></h2>
+    </div>
+
+    <h3> <%= @user.full_name %> </h3>
+    <% if @infusion_info %>
+      Address:
+      <h4>
+        <%= @infusion_info.StreetAddress1 %><br>
+        <%= @infusion_info.City %>, <%= @infusion_info.State %> <%= @infusion_info.PostalCode %>
+      </h4>
+      <br>
+      Email:   <h5 style="display:inline;"> <%= @infusion_info.Email %> </h5><br>
+      <br>
+      Phone 1: <h5 style="display:inline;"> <%= @infusion_info.Phone1 %> </h5><br>
+      <br>
+      Phone 2: <h5 style="display:inline;"> <%= @infusion_info.Phone2 %> </h5>
+    <% else %>
+      Please update your account information.
+    <% end %>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="page-header">
+      <h2>Students</h2>
+    </div>
+    <% @user.students.each do |student| %>
+      <div class="card">
+        <div class="row">
+          <div class="col-lg-3">
+            <%= render '/students/student_avatar', student: student %>
+            <%= render '/students/add_avatar_modal', student: student if current_user.employee? || current_user == student.user %>
+          </div>
+          <div class="col-lg-9">
+            <h1 class="text-center"><%= student.full_name %></h1>
+            <div class="row">
+              <div class="col-lg-6">
+                <%= link_to student do%>
+                  <h5 class="text-center">Student Page</h5>
+                <% end %>
+              </div>
+              <div class="col-lg-6">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

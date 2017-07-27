@@ -1,0 +1,156 @@
+// Place all the styles related to the opportunities controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// fix to padding on opp interest level check_box
+.radio_buttons.opportunity_interest_level{
+  :first-child{
+    margin-top: 0;
+  }
+}
+
+.opportunity_other_source{
+  display: none;
+}
+
+.opportunity_info{
+  display: none;
+  background:#afafaf;
+  padding: 15px 9px 10px 9px;
+  border: 1px solid #9b9b9b;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.opportunity_title{
+  .form-control{
+    height: 45px;
+    font-size: 24px;
+  }
+}
+
+.opportunity_possible_restart_date{
+  display: none;
+}
+
+.opportunity_toolbar{
+  margin-bottom: 5px;
+  background-color: #d3d3d3;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid #afafaf;
+  border-radius: 3px;
+  textarea{
+    height:100px;
+    width: 300px;
+  }
+}
+
+.leads{
+}
+
+#status_list .card{
+  margin-bottom: 10px;
+}
+
+.stage_attr{
+  .fa{
+    margin-top: 3px;
+  }
+}
+
+.note-button{
+  line-height: 4px;
+  font-size: 12px;
+  width: 45px;
+  height: 20px;
+  margin-top: 0;
+}
+
+.leads.over {
+  border: 2px dashed #000;
+}
+
+#appointment_scheduled{
+  background-color: #c1b9ff;
+}
+
+#appointment_missed{
+  background-color: #ffcccc;
+}
+
+#trial{
+  background-color: #ffffcc;
+}
+
+#interested{
+  background-color: #ffdea6;
+}
+
+#waitlisted{
+  background-color: #99ccff;
+}
+
+#won{
+  background-color: #caffc5;
+}
+
+#lost{
+  background-color: #ffcccc;
+}
+.opportunity_group{
+  .fa{
+    margin-top: 4px;
+  }
+  .glyphicon{
+    margin-top: 3px;
+  }
+}
+// Opp Dashboard Graph Styling
+#dashboard path{
+  stroke: #fff;
+}
+#dashboard path:hover{
+  opacity:0.9;
+}
+rect:hover{fill:rgb(90, 169, 236); }
+.axis {
+  font: 10px sans-serif;
+}
+.legend tr{
+  border-bottom:1px solid grey;
+}
+.legend tr:first-child{
+  border-top:1px solid grey;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+.legend{
+  margin:0 0 15px 0;
+  display:inline-block;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+.legend td{
+  padding:4px 5px;
+  vertical-align:bottom;
+}
+.legendFreq, .legendPerc{
+  align:right;
+  width:50px;
+}
+
+// Analytics Styling
+.timeline{
+  path {  stroke: #fff; }
+  path:hover {  opacity:0.9; }
+}

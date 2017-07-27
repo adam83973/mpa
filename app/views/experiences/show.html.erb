@@ -1,32 +1,83 @@
-<p id="notice"><%= notice %></p>
+<% if current_user.admin? %>
+  <div class="row" style="margin-bottom:20px;">
+    <div class="col-sm-12">
+      <%= link_to "Edit", edit_experience_path, class: 'btn btn-secondary pull-right' %>
+      <%= link_to "Related Badge", @experience.badge, class: "btn btn-primary pull-right", style: 'margin-right:15px;' if @experience.badge %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+    <h2>
+      Achievement: <%= @experience.name %>
+    </h2>
+    <h3>
+      Points:
+      <% if @experience.points %>
+        <%= @experience.points %>
+      <% else %>
+        <em>Please add points.</em>
+      <% end %>
+    </h3>
 
-<p>
-  <b>Name:</b>
-  <%= @experience.name %>
-</p>
+    <% if @experience.occupation %>
+    <p>
+      <strong>Occupation:</strong>
+      <%= @experience.occupation.title if @experience.occupation %>
+    </p>
+    <% end %>
 
-<p>
-  <b>Points:</b>
-  <% if @experience.points %>
-    <%= @experience.points %>
-  <% else %>
-    <em>Please add points.</em>
-  <% end %>
-</p>
+    <p>
+      <strong>Category:</strong>
+      <%= @experience.category %>
+    </p>
 
-<p>
-  <b>Category:</b>
-  <%= @experience.category %>
-</p>
+    <% if signed_in? && current_user.employee? && (@experience.category && @experience.category == "Robotics") %>
+    <p>
+      <strong>Secret Code:</strong>
+      <%= Base64.encode64(@experience.id.to_s) %>
+    </p>
+    <% end %>
 
-<p>
-  <b>Content:</b>
-  <%= @experience.content.html_safe %>
-</p>
-
-<p>
-  <%= image_tag @experience.image_url if @experience.image_url %>
-</p>
-
-<%= link_to 'Edit', edit_experience_path(@experience) %> |
-<%= link_to 'Back', experiences_path %>
+    <p>
+      <strong>Content:</strong>
+      <% if @experience.content && @experience.content.empty? %>
+        <u>Please add a description to this achievement!</u>
+      <% else %>
+        <%= sanitize @experience.content, tags: %w(strong b u br em a div ul ol li p), attributes: %w(href style class target) %>
+      <% end %>
+    </p>
+      <%= link_to image_tag(@experience.image_url, width: "200"), @experience.image.url if @experience.image_url %>
+    <% unless @experience.resources.empty? %>
+        <p>
+          <strong>Resources:</strong>
+          <% @experience.resources.each do |resource| %>
+            <div class="resource_thumb" style="background:white;">
+              <div class="name"><%= resource.filename %></div>
+              <div class="thumb-image"><%= link_to image_tag(resource.file_url(:thumb)), resource.file.url, :target => "_blank" %></div>
+            </div>
+          <% end %>
+        </p>
+    <% else %>
+    <% end %>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <% if @experience.badge %>
+    <div class="card text-center">
+      <div class="card-header">
+        <h3 style="margin-top:0;">Badge</h3>
+      </div>
+      <div class="card-block">
+        <%= link_to @experience.badge do %>
+          <%= image_tag(@experience.badge.image_url, size: '200x200') if @experience.badge && @experience.badge.image %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <%= link_to "Add Another Achievement", new_experience_path, class: "btn btn-success", style: "margin:40px 0 0 0" %>
+  </div>
+</div>

@@ -1,11 +1,11 @@
 class LessonsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.order(:id)
+    @lessons = Lesson.includes(:standard, :course)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.includes(:standard, notes: [:notable, :user]).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +44,7 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(params[:lesson])
+    @lesson = Lesson.new(lesson_params)
 
     respond_to do |format|
       if @lesson.save
@@ -63,12 +63,23 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
 
     respond_to do |format|
-      if @lesson.update_attributes(params[:lesson])
+      if @lesson.update_attributes(lesson_params)
         format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def toggle_error
+    lesson = Lesson.find params[:lesson][:id]
+
+    if lesson.update_attribute :contains_error, params[:lesson][:contains_error]
+      response = params[:lesson][:contains_error]
+      respond_to do |format|
+        format.json { render json: response }
       end
     end
   end
@@ -88,5 +99,10 @@ class LessonsController < ApplicationController
   def import
     Lesson.import(params[:file])
     redirect_to lessons_path, notice: "Lessons imported."
+  end
+  private
+
+  def lesson_params
+    params.require(:lesson).permit(:assessment, :assessment_key, :assignment, :contains_error, :assignment_key, :standard_id, :name, :week, :course_id, :starter, {resource_ids: []}, {problem_ids: []})
   end
 end

@@ -1,0 +1,79 @@
+<div class="row mb-4">
+  <div class="col-md-6 col-xs-12">
+    <div class="card card-default">
+      <div class="card-header">
+        <h1 style="margin:10px 0 10px 0;" data-toggle="tooltip" data-placement="right" title="See below for link to more information about badges.">Badges Are Here!</h1>
+      </div>
+      <div class="card-block text-center">
+        <%= link_to badge_home_path do %>
+          <h2>More Information</h2>
+        <% end %>
+        <%= link_to faq_badges_path do %>
+          <h2>FAQs</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Render each parent's student in an accordian view and their offering(s) -->
+<% student_count = @user.students.count %>
+<% @user.students.each_with_index do |student, i| %>
+  <% if i % 2 == 0 %>
+    <div class="row mb-4">
+  <% end %>
+    <div class="col-md-6 col-xs-12">
+      <div id="student-<%= student.id %>" class="card card-default parent-student-home" style="height:100%;">
+        <div class="card-header">
+          <div class="text-center mt-3 mb-4">
+            <%= image_tag(student.avatar.image_url, size: "75x75") if student.avatar %>
+          </div>
+          <h3 class="text-center"><%= link_to student.full_name, student %></h3>
+        </div>
+        <div class="card-block">
+          <p class="text-center"><u>Total Credits:</u> <%= student.credits %></p>
+          <p class="text-center"><u>Total XP:</u> <%= student.xp_total %></p>
+          <p style="height:50px;overflow:scroll;" class="text-center"><u>Recent comment:</u>
+            "<%= student.last_assignment ? student.last_assignment.comment : "There are no comments on file." %>"
+          </p>
+        </div>
+        <% if student.has_course_with_assignments? %>
+          <div class="card-footer">
+
+            <div class="row mb-2">
+              <div class="col-12 text-center">
+                Assignments Last 90 Days
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 text-center">
+                <h3>Perfect</h3>
+                <h3 style="color:green;">
+                  <%= student.assignment_scores_last_90_days("perfect").count %>
+                </h3>
+              </div>
+              <div class="col-4 text-center">
+                <h3>Complete</h3>
+                <h3>
+                  <%= student.assignment_scores_last_90_days("complete").count + student.assignment_scores_last_90_days("perfect").count %>
+                </h3>
+              </div>
+              <div class="col-4 text-center">
+                <h3 class="hidden-xs">Incomplete</h3>
+                <h3 class="hidden-sm hidden-md hidden-lg">Inc.</h3>
+                <h3 style="color:red;">
+                  <%= student.assignment_scores_last_90_days("incomplete").count %>
+                </h3>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% if i % 2 == 1 || i+1 == student_count %>
+    </div>
+  <% end %>
+<% end %>

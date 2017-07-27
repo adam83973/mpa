@@ -1,1 +1,1 @@
-$('#myModal').modal();
+# $('#myModal').modal();

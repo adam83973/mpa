@@ -1,13 +1,20 @@
 <% if @new_students_location.empty? %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <h3 class="text-center">No New Students</h3>
+  </div>
 <% else %>
-<h3>New Students</h3>
-  <% @new_students_location.each do |student| %>
-    <% if student.attended_first_class? %>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <h3 class="text-center">New Students: <%= @new_students_location.reject{|student| student.attended_first_class? }.count %></h3>
+    <div class="new_students">
+      <% @new_students_location.order("start_date ASC").each do |student| %>
+        <% if student.attended_first_class? %>
 
-    <% else %>
-      <% student.offerings.each do |offering| %>
-        <p><b><%= link_to "#{student.full_name}", student %></b> is starting in: <b><%= offering.offering_name %></b></p>
+        <% else %>
+          <% student.offerings.includes(:course, :location).each do |offering| %>
+            <p><strong><%= link_to "#{student.full_name}", student %></strong> is starting in: <strong><%= offering.offering_name %></strong></p>
+          <% end %>
+        <% end %>
       <% end %>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 <% end %>

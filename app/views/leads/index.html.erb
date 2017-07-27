@@ -1,0 +1,38 @@
+<h1>Leads</h1>
+
+<table class="display" id="datatable">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>User</th>
+        <th>Stage</th>
+        <th>Active</th>
+        <th>Location</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @leads.each do |lead| %>
+      <tr>
+        <td><%= lead.first_name %></td>
+        <td><%= lead.last_name %></td>
+        <td><%= lead.phone %></td>
+        <td><%= lead.email %></td>
+        <td><%= lead.user.full_name if lead.user %></td>
+        <td><%= lead.stage.name if lead.stage %></td>
+        <td><%= lead.active? %></td>
+        <td><%= lead.location.name if lead.location %></td>
+        <td><%= link_to 'Show', lead %></td>
+        <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Lead', new_lead_path %>

@@ -1,0 +1,58 @@
+<% content_for :fb_conversion do %>
+  <script>(function() {
+  var _fbq = window._fbq || (window._fbq = []);
+  if (!_fbq.loaded) {
+  var fbds = document.createElement('script');
+  fbds.async = true;
+  fbds.src = '//connect.facebook.net/en_US/fbds.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(fbds, s);
+  _fbq.loaded = true;
+  }
+  })();
+  window._fbq = window._fbq || [];
+  window._fbq.push(['track', '6032899202238', {'value':'0.01','currency':'USD'}]);
+  </script>
+  <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6032899202238&amp;cd[value]=0.01&amp;cd[currency]=USD&amp;noscript=1" /></noscript>
+<% end %>
+
+<% content_for :fb_pixel do %>
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '1692622384311519');
+  fbq('track', "PageView");
+  fbq('track', 'CompleteRegistration');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1692622384311519&ev=PageView&noscript=1"
+/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+<% end %>
+
+<div class="text-center">
+  <h1>Your trial has been scheduled!</h1>
+  <p>
+    Thank you and feel free to call us at (614) 792-6284 with any issues.
+  </p>
+  <p style='font-weight:800;'>
+    You will be receiving an email confirmation via the email address you provided.
+  </p>
+
+  <hr>
+
+  <h2>Do you follow us on Facebook or Twitter? Why not?!</h2>
+  <p>We post fun stuff, information about our programs, and ways to save on Math Plus Programs.</p>
+  <p>
+    <div class="fb-follow" data-href="https://www.facebook.com/mathplusacademy" data-colorscheme="light" data-layout="standard" data-show-faces="false"></div>
+    <a href="https://twitter.com/mathplusacademy" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @mathplusacademy</a>
+  </p>
+</div>
+<!-- Facebook Conversion Code for Problem Solving Trial -->

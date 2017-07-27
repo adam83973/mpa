@@ -1,11 +1,11 @@
 class StandardsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /standards
   # GET /standards.json
   def index
-    @standards = Standard.order(:id)
+    @standards = Standard.includes(:course).order(:id)
 
     respond_to do |format|
       format.html # index.html.erb

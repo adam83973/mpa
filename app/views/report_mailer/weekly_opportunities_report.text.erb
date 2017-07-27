@@ -1,0 +1,37 @@
+Opportunities Report - <%= @date %>
+--------------------
+
+## Opportunities Added This Week ##
+--------------------
+
+Total: <%= @opportunities_this_week.count %>
+
+Total With Trial: <%= @opportunities_this_week.where.not(trial_date: nil).count %>
+
+Total Attended Trial: <%= @opportunities_this_week.where(attended_trial: true).count %>
+
+Total Won: <%= @opportunities_this_week.where(status: 7).count %>
+
+
+## Opportunities Status Last 30 days ##
+--------------------
+
+Total Created: <%= @opportunities_last_30.count %>
+
+Total Won: <%= Opportunity.where("date_won >= ?", Date.today - 30.days).count %>
+
+Total Lost: <%= Opportunity.where("date_lost >= ?", Date.today - 30.days).count %>
+
+Total Trials Scheduled: <%= @opportunities_last_30.where.not(trial_date: nil).count %>
+
+Total Trials Scheduled and Attended: <%= Opportunity.where("trial_date >= ? AND attended_trial = ?", Date.today - 30.days, true).count %>
+
+
+## Past Opportunities Update ##
+--------------------
+
+Total Outstanding Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7).count %>
+
+Opportunities: <%= Opportunity.where("created_at <= ? AND status < ?", @date, 7).count %>
+
+Conversion Rate YTD: <%= "#{((@opportunities_ytd.where(status: 7).count.to_f / @opportunities_ytd.count.to_f.round(2))*100).round(2)}%" %>

@@ -1,12 +1,2 @@
-<div class="form-inputs container">
-  <h2>Sign in</h2>
-
-  <%= simple_form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
-
-      <%= f.input :email, :required => false, :autofocus => true %>
-      <%= f.input :password, :required => false %>
-      <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-          <%= f.button :submit, "Sign in", class: "m-btn" %>
-          <%= render "devise/shared/links" %>
-  <% end %>
-</div>
+<%= title 'Sign In' %>
+<%= render 'layouts/sign_in_form' %>

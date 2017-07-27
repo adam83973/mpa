@@ -1,14 +1,19 @@
-<h3>Find Parent in Infusionsoft</h3>
-Enter first few letters of last name:
-<%= form_tag({}, {:method => :get, class: 'form-search'}) do %>
-<p>
-	<%= text_field_tag :search, params[:search] %>
-	<%= submit_tag "Search", :name => nil, class: 'btn' %>
-</p>
-<% end %>
-
+<div class="row">
+	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+		<h3>Is the family already in Infusionsoft?</h3>
+		Enter first few letters of last name:
+		<%= form_tag({}, {:method => :get, class: 'simple_form'}) do %>
+			<%= text_field_tag :search, params[:search] || params[:last_name], class:"form-control" %>
+			<br>
+			<%= submit_tag "Search", :name => nil, class: 'btn btn-primary' %>
+		<% end %>
+	</div>
+</div>
 <% unless @contacts.nil? %>
-	<table class="table table-striped table-bordered table-condensed">
+	<br>
+	<hr>
+	<br>
+	<table class="table table-striped table-bordered table-sm">
 		<thead>
 			<tr>
 				<th>Person Type</th>
@@ -26,10 +31,9 @@ Enter first few letters of last name:
 				<td><%= i["LastName"] %></td>
 				<td><%= i["Email"] %></td>
 				<td>
-					<%= link_to 'Edit', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-small' %>
-					<%= link_to 'Subscriptions', infusion_pages_subscription_path(ContactId: i["Id"]), class: 'btn btn-small' %>
-
- 					<%= link_to 'Delete', infusion_pages_delete_user_path(Id: i["Id"]), class: 'btn btn-small btn-danger' %>
+					<%= link_to 'Edit', infusion_pages_edit_path(ContactId: i["Id"]), class: 'btn btn-secondary btn-sm' %>
+					<%= link_to 'Subscriptions', infusion_pages_subscription_path(ContactId: i["Id"]), class: 'btn btn-primary btn-sm' %>
+ 					<%= link_to 'Delete', infusion_pages_delete_user_path(Id: i["Id"]), class: 'btn btn-sm btn-danger' %>
 				</td>
 			</tr>
 			<% end %>
@@ -37,13 +41,11 @@ Enter first few letters of last name:
 	</table>
 <% end %>
 <hr>
-<h3>Create Parent in Infusionsoft</h3>
+<h3>No? Create Parent in Infusionsoft</h3>
 <%= form_tag({}, {method: :get, class: 'form-inline'}) do %>
 <p>
-	First Name <%= text_field_tag :FirstName, params[:FirstName] %>
-	Last Name <%= text_field_tag :LastName, params[:LastName] %>
-	<%= submit_tag "Create New Parent", :name => nil, class: 'btn  btn-small' %>
+	First Name <%= text_field_tag :FirstName, params[:FirstName] || params[:first_name], class:"form-control" %>
+	Last Name <%= text_field_tag :LastName, params[:LastName] || params[:last_name], class:"form-control" %>
+	<%= submit_tag "Create New Parent", :name => nil, class: 'btn btn-success' %>
 </p>
 <% end %>
-<hr>
-<%= link_to 'Run Payment Audit Report', infusion_pages_audit_path, class: 'm-btn m-btn-small blue' %>

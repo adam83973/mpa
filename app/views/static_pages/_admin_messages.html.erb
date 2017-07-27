@@ -1,0 +1,43 @@
+<% if @messages %>
+  <div class="col-md-6 col-xs-12">
+    <div style="height:300px;" class="card card-default">
+      <div class="card-header">
+        <h3 style="margin:10px 0 10px 0;" class="text-center">Messages</h3>
+      </div>
+      <div class="card-block">
+        <div style="margin-top:0;" class="cards">
+          <ul class="list-unstyled">
+            <div class="row">
+              <div class="col-xs-12">
+                <% @messages.each do |message| %>
+                  <li>
+                    <div class="card">
+                      <div style="padding:7px 10px 0 10px;">
+                        <div class='row' style='margin-bottom:5px;'>
+                          <div class="col-xs-12">
+                            From: <%= link_to message.user.full_name, message.user, target: '_blank' %>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class="col-xs-12">
+                            <%= message.content %>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class="col-xs-12">
+                            <%= link_to "No Response Needed", update_status_messages_path(id: message.id, status: 2), class: "btn btn-warning btn-sm pull-right", style: "margin: 10px 0 10px 10px" %>
+                              <%= link_to "Responded",  update_status_messages_path(id: message.id, status: 1), class: "btn btn-success btn-sm pull-right", style: "margin: 10px 0 10px 10px" %>
+                          </div>
+                        </div>
+                      </div> <!-- adds padding to message -->
+                    </div>
+                  </li>
+                <% end %>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

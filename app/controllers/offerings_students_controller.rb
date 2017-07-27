@@ -1,13 +1,14 @@
 class OfferingsStudentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_action :authenticate_user!
+  before_action :authorize_admin
 
   def index
-    @offeringsstudents = OfferingsStudent.all
+    @offeringsstudents = OfferingsStudent.order(:student_id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @offeringsstudents }
+      format.csv { send_data @offeringsstudents.to_csv }
     end
   end
 
@@ -17,8 +18,12 @@ class OfferingsStudentsController < ApplicationController
   end
 
   def student_name(offeringsstudents)
-    student = Student.find(offeringsstudents)
+      student = Student.find(offeringsstudents)
+  end
 
+  def destroy
+    @offerings_student = OfferingsStudent.where("offering_id = ?", params[:offering_id])
+    @offerings_student.destroy
   end
 end
 

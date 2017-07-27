@@ -1,0 +1,46 @@
+<% if @badge_requests %>
+  <div class="col-md-6 col-xs-12">
+    <div style="height:300px;" class="card card-default">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 style="margin:10px 0 0 0;" class="text-center">Badge Requests</h3>
+          </div>
+        </div>
+      </div>
+      <div class="card-block">
+        <div style="margin-top:0;" class="cards">
+          <ul class="list-unstyled">
+            <div class="row">
+              <div class="col-xs-12">
+                <% @badge_requests.each do |badge_request| %>
+                  <% if badge_request.badge %>
+                    <li id="badge-request-<%= badge_request.id %>" data-badge-request-id="<%= badge_request.id %>">
+                      <div class="card">
+                        <div class="row">
+                          <div class="col-xs-6">
+                            <div style="padding:10px 0 0px 15px;">
+                              <p>
+                                Student: <%= badge_request.student.full_name %>
+                              </p>
+                              <p>
+                                Badge: <%= badge_request.badge.name %>
+                              </p>
+                            </div>
+                          </div> <!-- adds padding to message -->
+                          <div class="col-xs-6" style="padding-right:15px;">
+                            <%= link_to "Approve", "javascript:void(0)", class: "btn btn-success pull-right badge-request-approval", style: "margin:20px 15px 0 0;" %>
+                          </div> <!-- adds padding to message -->
+                        </div>
+                      </div>
+                    </li>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

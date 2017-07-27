@@ -1,22 +1,38 @@
 <%= simple_form_for(@location) do |f| %>
-  <% if @location.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <% if @location.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
 
-      <ul>
-      <% @location.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @location.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-    <%= f.input :name %>
-    <%= f.input :address %>
-    <%= f.input :city %>
-    <%= f.input :state %>
-    <%= f.input :zip %>
-    <%= f.input :franchise %>
-    <%= f.button :submit %>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <%= f.input :name %>
+        <%= f.input :address %>
+        <%= f.input :city %>
+        <%= f.input :state %>
+        <%= f.input :zip %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <% if current_company.check_appointments_integration? %>
+        <%= f.input :check_appointments_id, label: 'Time Tap Location Id' %>
+      <% end %>
+      <%= f.input :technical_information, as: :text, input_html: { rows: 8 } %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pull-right">
+      <%= f.button :submit, class: 'btn btn-success' %>
+    </div>
   </div>
 <% end %>

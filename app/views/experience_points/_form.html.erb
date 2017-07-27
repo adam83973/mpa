@@ -1,63 +1,65 @@
+<div style="color:red;">
+	Attendance should no longer be added through this form. To add attendance for a student start a class or click the add attendance button on the student's page.
+</div>
 <div class="experience_points_new">
-	<% if params[:student]%>
-		<%= simple_form_for @experience_point, :validate => true do |f| %>
-		  <%= f.error_notification %>
-
-		  <div class="form-inputs">
-		  	<%= f.association :student, label_method: :full_name, :selected => params[:student]  %>
-		    <%= f.association :experience, label: "Achievement ID", :autofocus => true %>
-		    <%= f.input :points %>
-		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-		  </div>
-		    <%= f.button :submit, class: "m-btn" %>
-		<% end %>
-		<p>
-	  	  <%= render '/students/nav_buttons' %>
-		</p>
-	<% elsif params[:attendance] %>
-		<%= simple_form_for @experience_point do |f| %>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+		<% if params[:student]%>
+			<%= simple_form_for @experience_point do |f| %>
 			  <%= f.error_notification %>
 
 			  <div class="form-inputs">
-			  	<%= f.input :student_id, :autofocus => true %>
-			    <%= f.association :experience, :selected => params[:attendance], label: "Achievement ID" %>
-			    <%= f.input :points, :input_html => { :value => '20'} %>
-			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-			  </div>
-			    <%= f.button :submit, class: "m-btn" %>
-			<% end %>
-			<a href="/" class="m-btn red">Done with attendance...</a>
-	<% elsif params[:homework] %>
-		<%= simple_form_for @experience_point, :validate => true do |f| %>
-			  <%= f.error_notification %>
-
-			  <div class="form-inputs">
-			  	<%= f.input :student_id, :autofocus => true %>
-			    <%= f.association :experience, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
+			  	<%= f.association :student, label_method: :full_name, :selected => params[:student], input_html: {class: "xp_chosen"}  %>
+			    <%= f.association :experience, collection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
 			    <%= f.input :points %>
-			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
 			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
 			  </div>
-			    <%= f.button :submit, class: "m-btn" %>
+			    <%= f.button :submit, class: "btn btn-lg btn-success" %>
 			<% end %>
-			<a href="/" class="m-btn red">Done with grading...</a>
-	<% else %>
-		<%= simple_form_for @experience_point, :validate => true do |f| %>
-		  <%= f.error_notification %>
+		<% elsif params[:attendance] %>
+			<%= simple_form_for @experience_point do |f| %>
+				  <%= f.error_notification %>
 
-		  <div class="form-inputs">
-		    <%= f.input :student_id, :autofocus => true %>
-		    <%= f.association :experience, label: "Achievement" %>
-		    <%= f.input :points %>
-		    <%= f.input :comment, as: :text, :input_html => { :rows => 5 } %>
-		    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
-		  </div>
-		    <%= f.button :submit, class: "m-btn" %>
+				  <div class="form-inputs">
+			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
+				    <%= f.association :experience, :selected => params[:attendance], label: "Achievement ID", input_html: {class: "xp_chosen"} %>
+				    <%= f.input :points, :input_html => { :value => '20'} %>
+				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
+				    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+				  </div>
+				    <%= f.button :submit, class: "btn btn-success btn-lg" %>
+				<% end %>
+				<a href="/" class="btn btn-lg btn-danger">Done with attendance...</a>
+		<% elsif params[:homework] %>
+			<%= simple_form_for @experience_point do |f| %>
+				  <%= f.error_notification %>
+
+				  <div class="form-inputs">
+			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
+				    <%= f.association :experience, label: "Homework Score", collection: Experience.where(:category => "Homework"), label_method: :name %>
+				    <%= f.input :points %>
+				    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, placeholder: "Write something like: \n   'Agent, Week 23, Fractions 3/5; Great job!'", hint: "You must leave a comment." %>
+				    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+				  </div>
+				    <%= f.button :submit, class: "btn btn-success btn-lg" %>
+				<% end %>
+				<br>
+				<a href="/" class="btn btn-lg btn-danger">Done with grading...</a>
+		<% else %>
+			<%= simple_form_for @experience_point do |f| %>
+			  <%= f.error_notification %>
+
+			  <div class="form-inputs">
+			    <%= f.association :student, label_method: :full_name, :autofocus => true, input_html: {class: "xp_chosen"} %>
+					<%= f.association :experience, collection: Experience.order('name ASC').where("active = ?", true), label: "Achievement", input_html: {class: "xp_chosen"} %>
+			    <%= f.input :points %>
+			    <%= f.input :comment, as: :text, :input_html => { :rows => 5 }, hint: "You must leave a comment." %>
+			    <%= f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_user.id}" } %>
+			  </div>
+			    <%= f.button :submit, class: "btn btn-success btn-lg" %>
+			<% end %>
 		<% end %>
-		<p>
-	  	  <%= render '/students/nav_buttons' %>
-		</p>
-	<% end %>
+		</div>
+	</div>
 </div>

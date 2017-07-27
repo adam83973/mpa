@@ -1,46 +1,10 @@
 <% if params[:infusion_id] %>
-  <%= simple_form_for @user, validate: true do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <% if params[:first_name] %>
-      <%= f.input :first_name, input_html: { value: params[:first_name]} %>
-      <%= f.input :last_name, input_html: { value: params[:last_name]} %>
-      <%= f.input :phone, input_html: { value: params[:phone]} %>
-      <%= f.input :email, input_html: { value: params[:email]} %>
-    <% else %>
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-      <%= f.input :phone %>
-      <%= f.input :email %>
-    <% end %>
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
-    <% if current_user.employee? %>
-      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { value: params[:infusion_id]}  %>
-      <%= f.input :passion %>
-      <%= f.input :shirt_size %>
-      <%= f.association :location, label_method: :name %>
-      <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
-      <%= f.input :has_key %>
-      <%= f.input :admin %>
-      <%= f.input :active %>
-    <% end %>
-    <%= f.button :submit, class: "m-btn" %>
-  <% end %>
-<% else %>
-  <%= simple_form_for @user, :validate => true do |f| %>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for @user do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
 
         <ul>
         <% @user.errors.full_messages.each do |msg| %>
@@ -49,23 +13,96 @@
         </ul>
       </div>
     <% end %>
-
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-      <%= f.input :phone %>
-      <%= f.input :email %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
+      <%= f.input :active if current_user.admin? %>
+      <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"] if current_user.employee? %>
+      <% if params[:first_name] %>
+        <%= f.input :first_name, label: "First Name", input_html: { value: params[:first_name]} %>
+        <%= f.input :last_name, label: "Last Name", input_html: { value: params[:last_name]} %>
+        <%= f.input :billing_note, input_html: { rows: 2} %>
+        <%= f.input :phone, input_html: { value: params[:phone]} %>
+        <%= f.input :email, input_html: { value: params[:email]} %>
+      <% else %>
+        <%= f.input :first_name, label: "First Name" %>
+        <%= f.input :last_name, label: "Last Name" %>
+        <%= f.input :billing_note, input_html: { rows: 2} %>
+        <%= f.input :phone %>
+        <%= f.input :email %>
+      <% end %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <% if current_user.employee? %>
-        <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents' %>
+        <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]}  %>
         <%= f.input :passion %>
         <%= f.input :shirt_size %>
         <%= f.association :location, label_method: :name %>
-        <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent"] %>
         <%= f.input :has_key %>
-        <%= f.input :admin %>
-        <%= f.input :active %>
+        <%= f.input :admin if current_user.admin? %>
+        <%= f.input :active if current_user.admin? %>
       <% end %>
-      <%= f.button :submit, class: "m-btn" %>
+      <%= f.input :address %>
+      <%= f.input :city %>
+      <%= f.input :state %>
+      <%= f.input :zip %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+    </div>
+  </div>
+  <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+  <% end %>
+<% else %>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= simple_form_for @user do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h4 style="font-weight:bold;"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+
+          <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+        <%= f.input :active, label_html: { style: 'padding-left:0;'} if current_user.admin? %>
+        <%= f.association :location, label_method: :name  %>
+        <%= f.input :role, collection: ["Admin", "Teacher", "Teaching Assistant", "Parent", "Robotics Instructor", "Programming Instructor", "Chess Instructor"] if current_user.employee? %>
+        <%= f.input :first_name, label: "First Name" %>
+        <%= f.input :last_name, label: "Last Name" %>
+        <%= f.input :email %>
+        <%= f.input :billing_note, input_html: { rows: 2}, wrapper_html: { style: 'display:none;'}  %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <%= f.input :phone %>
+        <% if  @contacts || (@user.role == "Parent" && @user.infusion_id == nil) %>
+          <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { style: "background:yellow;" } if current_user.employee? %>
+        <% else %>
+          <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', wrapper_html: { style: 'display:none;'}  if current_user.employee? %>
+        <% end %>
+        <%= f.input :address %>
+        <%= f.input :city %>
+        <%= f.input :state %>
+        <%= f.input :zip %>
+        <%= f.input :ssn, label: 'SSN', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
+        <%= f.input :bank_account, label: 'Bank Account #', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
+        <%= f.input :routing_number, label: 'Routing #', as: :string, hint: 'This is stored securely and is only used for payroll purposes', wrapper_html: { style: 'display:none;'} %>
+        <%= f.input :exemptions, wrapper_html: { style: 'display:none;'} %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <% if current_user.employee? %>
+        <%= f.input :passion, wrapper_html: { style: 'display:none;'}  %>
+        <%= f.input :shirt_size, wrapper_html: { style: 'display:none;'}  %>
+        <%= f.input :has_key, wrapper_html: { style: 'display:none;'}  %>
+        <%= f.input :admin  if current_user.admin? %>
+      <% end %>
+      <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    </div>
+  </div>
   <% end %>
 <% end %>

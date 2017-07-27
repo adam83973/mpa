@@ -1,0 +1,52 @@
+<h3>Class Roster</h3>
+<!-- renders each teacher's offering in home.html.erb, can expand or collapse to view students in class -->
+<div class="card-group" id="accordion-1">
+  <div class="card card-default">
+    <div class="card-header">
+      <h4 class="card-title mb-0">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse<%= @offering_in_session.id %>">
+          <%= @offering_in_session.offering_name %>
+        </a>
+        <%= link_to "Course Lessons", @offering_in_session.course, class: "pull-right", style: 'color:#0261c1;', target: '_blank' %>
+      </h4>
+    </div>
+    <div id="collapse<%=@offering_in_session.id%>" class="card-collapse collapse">
+      <div class="card-block class_offering">
+        <table class= "table table-striped table-hover table-bordered">
+          <tr>
+            <th> <%= link_to "Student Name", :sort => "Name" %> </th>
+            <th> <%= link_to "XP", :sort => "points" %> </th>
+          </tr>
+            <% @offering_in_session.students.each_with_index do |student, i| %>
+              <tr>
+                <td>
+                  <% unless class_session.students.include?(student.id) %>
+                    <%= simple_form_for @attendance,
+                        url: url_for( action: :create, controller: :attendances ),
+                        method: :post,
+                        html: { class: 'class_attendance_form', id: "class_attendance_form#{i}"},
+                        remote: true do |f| %>
+
+                      <div class="form-inputs">
+                        <%= f.input :student_id, input_html: { value: student.id}, as: :hidden %>
+                        <%= f.input :week, input_html: { value: class_session.week }, as: :hidden %>
+                        <%= f.input :date, input_html: { value: Date.today }, as: :hidden %>
+                        <%= f.input :offering_id, input_html: { value: @offering_in_session.id }, as: :hidden %>
+                        <%= f.input :user_id, as: :hidden, input_html: { value: "#{current_user.id}" } %>
+                      </div>
+                        <%= f.button :submit, "Add to Class", class: "btn btn-sm btn-secondary" %>
+                    <% end %>
+                  <% end %>
+                  <%= link_to student.full_name, student %>
+                </td>
+                <td><%= student.xp_total %></td>
+              </tr>
+            <% end %>
+        </table>
+        <center>
+          <%= link_to "Click This If You've Added Students", 'javascript:location.reload(true)', class: "btn btn-large btn-danger" %>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

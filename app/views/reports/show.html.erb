@@ -1,0 +1,60 @@
+<h4>
+  <% if @students.count == 0 %>
+  No students
+  <% end %>
+  <%= pluralize_without_count(@students.count, "Student") %> with
+  <% if !(params[:query][:type].empty?) %>
+    <%= Report::TYPE[params[:query][:type].to_i] %>
+    between
+    <%= Date.parse(params[:query][:start_date_range]).strftime("%D") %>
+    end
+    <%= Date.parse(params[:query][:end_date_range]).strftime("%D") %>
+  <% end %>
+  <% if !(params[:query][:student_status].empty?) %>
+    <% if !(params[:query][:type].empty?) %>
+      and a
+    <% end %>
+    status of <%= Student::STATUSES[params[:query][:student_status].to_i] %>
+  <% end %>
+</h4>
+<p>
+  <strong>Count:</strong> <%= @students.count %>
+</p>
+  <table class="table">
+    <thead>
+      <th>Student</th>
+      <th>Status</th>
+      <th>Last Payment Date</th>
+      <th>Parent's Infusion ID</th>
+      <th>Active Subscription</th>
+    </thead>
+    <% @students.includes(:user).each do |s| %>
+    <tr>
+      <td>
+        <%= link_to s.full_name, s %>
+      </td>
+      <td align="center">
+        <%= student_status(s).html_safe %>
+      </td>
+      <td align="center">
+      <% if s.user %>
+        <% if s.user.last_payment_infusion.any? && s.user.last_payment && s.user.last_payment_infusion[0]["DateCreated"]["month"] %>
+          (<%= s.user.last_payment_infusion[0]["DateCreated"]["month"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+          <%= s.user.last_payment_infusion[0]["DateCreated"]["day"] if s.user.last_payment_infusion.any? && s.user.last_payment %>/
+          <%= s.user.last_payment_infusion[0]["DateCreated"]["year"] if s.user.last_payment_infusion.any? && s.user.last_payment %>)
+        <% else %>
+          No last payment on file
+        <% end %>
+      <% else %>
+        "This student does not have a parent!"
+      <% end %>
+    </td>
+    <td>
+      <%= ( s.user && s.user.infusion_id ) ? s.user.infusion_id : "no id on file" %>
+    </td>
+    <td>
+      <%= s.user ? s.user.active_subscription : "no id on file" %>
+    </td>
+    </tr>
+    <% end %>
+  </table>

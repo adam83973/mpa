@@ -1,12 +1,19 @@
 class OfferingsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_admin
+  before_action :verify_current_company
+  before_action :authenticate_user!, except: :offerings_by_location
+  before_action :authorize_employee, except: [:show, :offerings_by_location]
+  before_action :authorize_admin, except: [:show, :index, :offerings_by_location, :attendance_report]
 
   # GET /offerings
   # GET /offerings.json
   def index
     if current_user.employee?
-      @offerings = Offering.order(:id)
+      @offerings = Offering.includes(:course, :location, :users).order(:id)
+      if params[:students] == "all"
+        @offerings = Offering.includes(:course, :location, :users).order(:id)
+      else
+        @offerings = @offerings.where(active: true)
+      end
       @hold_return_students = Student.where("status = ? AND return_date != ?", "Hold", "nil")
       @hold_restart_students = Student.where("status = ? AND restart_date != ?", "Hold", "nil")
 
@@ -16,7 +23,7 @@ class OfferingsController < ApplicationController
         format.csv { send_data @offerings.to_csv }
       end
     else
-      redirect_to root_path
+      redirect_to root_path(subdomain: current_company.subdomain)
     end
   end
 
@@ -24,10 +31,12 @@ class OfferingsController < ApplicationController
   # GET /offerings/1.json
   def show
     @offering = Offering.find(params[:id])
+    @upcomming_trials = @offering.opportunities.where("trial_date >= ?", Date.today)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @offering }
+      format.csv { send_data @offering.parent_email_to_csv }
     end
   end
 
@@ -36,26 +45,29 @@ class OfferingsController < ApplicationController
   def new
     if current_user.employee?
       @offering = Offering.new
-      @teachers = @parents = User.where("role = ?", "Teacher").order('last_name')
+      @teachers = User.where("role = ? AND active = ?", "Teacher", true).order('last_name')
+      @all_teachers = User.where("role = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor').where(active: true).order('last_name asc')
 
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @offering }
       end
     else
-      redirect_to root_path
+      root_path(subdomain: current_company.subdomain)
     end
   end
 
   # GET /offerings/1/edit
   def edit
     @offering = Offering.find(params[:id])
+    @teachers = User.where("role = ? AND active = ?", "Teacher", true).order('last_name')
+    @all_teachers = User.where("role  = ? OR role = ? OR role = ? OR role = ? OR role = ?", 'Teacher', 'Teaching Assistant', 'Robotics Instructor', 'Programming Instructor', 'Chess Instructor').where(active: true).order('last_name asc')
   end
 
   # POST /offerings
   # POST /offerings.json
   def create
-    @offering = Offering.new(params[:offering])
+    @offering = Offering.new(offering_params)
 
     respond_to do |format|
       if @offering.save
@@ -74,7 +86,7 @@ class OfferingsController < ApplicationController
     @offering = Offering.find(params[:id])
 
     respond_to do |format|
-      if @offering.update_attributes(params[:offering])
+      if @offering.update_attributes(offering_params)
         format.html { redirect_to @offering, notice: 'Offering was successfully updated.' }
         format.json { head :no_content }
       else
@@ -82,6 +94,21 @@ class OfferingsController < ApplicationController
         format.json { render json: @offering.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def offerings_by_location
+    @offerings = Offering.joins(:course).where(location_id: params[:location_id].to_i).where(:courses => { specialization: true } ).where(active: true).order(:course_id)
+    @offerings_list = []
+    @offerings.each{|offering| @offerings_list << [offering.id, offering.offering_trial_name, offering.day]}
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @offerings_list }
+    end
+  end
+
+  def attendance_report
+    @offering = Offering.find(params[:id])
   end
 
   # DELETE /offerings/1
@@ -110,4 +137,29 @@ class OfferingsController < ApplicationController
     redirect_to offerings_path, notice: "Offerings imported/updated."
   end
 
+  def at_capacity
+    offering = Offering.find(params[:id])
+    response = offering.at_capacity?
+
+    respond_to do |format|
+      format.html
+      format.json { render json: response }
+    end
+  end
+
+  def course_id
+    offering = Offering.find(params[:id])
+    course_id = offering.course_id
+
+    respond_to do |format|
+      format.json { render json: course_id }
+    end
+  end
+
+  private
+    def offering_params
+      params.require(:offering).permit(:comments, :course_id, :day, :graduation_year,
+                                       :location_id, :time, {user_ids: []}, :active,
+                                       :classroom, :hidden, :day_number)
+    end
 end

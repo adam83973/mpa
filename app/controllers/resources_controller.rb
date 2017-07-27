@@ -1,11 +1,11 @@
 class ResourcesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authenticate_user!
+  before_action :authorize_employee
 
   # GET /resources
   # GET /resources.json
   def index
-    @resources = Resource.order(:id)
+    @resources = Resource.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +44,7 @@ class ResourcesController < ApplicationController
   # POST /resources
   # POST /resources.json
   def create
-    @resource = Resource.create(params[:resource])
+    @resource = Resource.create!(resource_params)
 
     # @resource = Resource.new(params[:resource])
 
@@ -65,7 +65,7 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
 
     respond_to do |format|
-      if @resource.update_attributes(params[:resource])
+      if @resource.update_attributes(resource_params)
         format.html { redirect_to @resource, notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,7 +79,18 @@ class ResourcesController < ApplicationController
   # DELETE /resources/1.json
   def destroy
     @resource = Resource.find(params[:id])
+    @lessons = Lesson.where('assignment = ? OR assignment_key = ?', "#{@resource.id}", "#{@resource.id}")
+
+    @lessons.each do |lesson|
+      if @resource.is_lesson_key?
+        lesson.update_attributes assignment_key: nil
+      elsif @resource.is_lesson?
+        lesson.update_attributes assignment: nil
+      else
+      end
+    end
     @resource.destroy
+
 
     respond_to do |format|
       format.html { redirect_to resources_url }
@@ -90,5 +101,10 @@ class ResourcesController < ApplicationController
   def import
     Resource.import(params[:file])
     redirect_to resources_path, notice: "Resources imported."
+  end
+
+  private
+  def resource_params
+    params.require(:resource).permit(:filename, :content_type, :file_size, :file, {problem_ids: []}, {activity_ids: []}, {lesson_ids: []}, { experience_id: [] }, :category, :subdomain)
   end
 end

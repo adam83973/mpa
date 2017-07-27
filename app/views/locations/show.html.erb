@@ -1,97 +1,54 @@
+<% title @location.name %>
+<%= link_to "Edit", edit_location_path(@location), class: "btn btn-secondary pull-right" if current_user && current_user.super_admin? %>
 <div class="row">
-  <div class="span8">
-    <p>
-      <b>Name:</b>
-      <%= @location.name %>
-    </p>
+  <div class= "col-sm-12">
+    <%= render 'location_stats' if current_user && current_user.admin? %>
 
-    <p>
-      <b>Address:</b>
-      <%= @location.address %>
-    </p>
+    <%= render 'location_schedule' %>
+  </div>
+</div>
+<% if current_user && current_user.admin? %>
+  <h2>This Week's Assessments</h2>
+  <%= render 'assessment_appointments', appointments: @assessment_appointments %>
 
-    <p>
-      <b>City:</b>
-      <%= @location.city %>
-    </p>
+  <%= render 'weekly_trials', opportunities: @trials %>
 
-    <p>
-      <b>State:</b>
-      <%= @location.state %>
-    </p>
+  <%= render 'homework_help_appointments', appointments: @hw_help_appointments %>
 
-    <p>
-      <b>Zip:</b>
-      <%= @location.zip %>
-    </p>
-
-    <p>
-      <b>Franchise:</b>
-      <%= @location.franchise %>
-    </p>
-
-    <% if signed_in? %>
-      <% if current_user.admin?%>
-        <%= link_to 'Edit', edit_location_path(@location) %> |
-        <%= link_to 'Back', locations_path %>
-      <% end %>
-    <% end %>
+  <div class="row">
+    <div class= "col-sm-12">
+      <%= link_to "sample_student", sample_student_path, class: "btn btn-primary" %>
+    </div>
   </div>
 
-  <% if signed_in? %>
-    <% if current_user.admin?%>
-      <div class= "span4">
-        <h2><%= @location.name%> Stats</h2>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th># of Offerings</th>
-              <th># of Students</th>
-              <th>Avg. Student/Offering</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @location_offerings.count %></td>
-              <td><%= @total_location_students_count %></td>
-              <td><%= @total_location_students_count  / @location_offerings.count %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+  <%= render 'adds_modal' %>
 
-<div class="row">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Class</th>
-        <th>Grade</th>
-        <th>Day/Time</th>
-        <th>Teacher</th>
-        <th>Classroom</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @location_offerings.each do |offering| %>
-        <tr>
-          <td><%= offering.course.course_name%></td>
-          <td><%= offering.course.grade if offering.course.grade %></td>
-          <td><%= offering.day%> / <%= offering.time.strftime("%I:%M %p")%></td>
-          <td>
-            <% offering.users.each do |user| %>
-              <% if user.role == "Teacher" %>
-                <%= user.full_name %>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <%= offering.classroom %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <%= render 'restarting_modal', students_restarting_next_20: @students_restarting_next_20 %>
+
+  <%= render 'future_restarts_modal', future_restarts: @future_restarts %>
+
+
+  <%= render 'drops_modal' %>
+
+  <%= render 'future_adds_modal' %>
+
+  <% if @data %>
+    <div class="row">
+      <div class= "col-sm-12">
+        <div class="text-center">
+          <h1>Average Enrollment per Month</h1>
+          <%= line_chart @data, @options %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @location.technical_information %>
+    <div class="row">
+      <div class= "col-sm-12">
+        <h2>Technical Information</h2>
+        <%= simple_format @location.technical_information %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

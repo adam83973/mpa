@@ -1,0 +1,58 @@
+<% title "Parents" %>
+
+<h1><%= yield(:title)%></h1>
+
+<p>
+  <%= link_to "Email Active Parents", users_path(format: :csv, email: :parents) %>
+</p>
+
+<p>
+  <%= link_to "All Users", users_path(:users => :all) %>
+</p>
+
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Role</th>
+      <th>Phone</th>
+      <th>Location</th>
+      <th>Email</th>
+      <th>Active</th>
+      <th></th>
+      <% if current_user.admin? %>
+      <th></th>
+      <% end %>
+      <% if current_user.super_admin? %>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @parents.each do |parent| %>
+    <tr>
+      <td><%= parent.id %></td>
+      <td><%= parent.first_name %></td>
+      <td><%= parent.last_name %></td>
+      <td><%= parent.role %></td>
+      <td><%= parent.phone %></td>
+      <% if parent.location %>
+      <td><%= parent.location.name %></td>
+      <% else %>
+      <td>invited</td>
+      <% end %>
+      <td><%= parent.email %></td>
+      <td><%= parent.active %></td>
+      <td><%= link_to 'Show', parent, :target => "_blank" %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Edit', edit_user_path(parent), :target => "_blank" %></td>
+      <% end %>
+      <% if current_user.super_admin? %>
+        <td><%= link_to 'Delete', parent, method: :delete, data: { confirm: 'Are you sure? This will not remove connected students.'} %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

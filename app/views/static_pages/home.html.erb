@@ -1,67 +1,41 @@
+<% title 'Home' unless !signed_in? %>
 <% if signed_in? %>
+  <%= render 'first_login_password' %>
 
-<%= render 'first_login_password' %>
+  <div id="results">
+    <%= render 'shared/user_search_results' %>
+  </div>
 
-<div class="row">
-  <aside class="span3 user-info">
+  <% if current_user.admin? %>
 
-    <section>
-     <%= render 'shared/user_info' %>
-   </section>
+    <%= render 'admin_home' %>
 
-   <%if current_user.employee? %>
+    <%= render 'parent_lookup_modal' %>
 
-   <section>
-    <%= render 'clock_in' %>
-  </section>
+    <%= render 'student_lookup_modal' %>
 
-  <section>
-    <% if current_user.admin? %>
-    <%= render 'location_stats' %>
-    <% end %>
-  </section>
+    <%= render 'new_parent_modal', table_id: "new_user" %>
 
-  <section>
-    <%= render 'shared/user_search' %>
-  </section>
+    <%= render 'new_student_modal' %>
 
   <% end %>
-</aside>
 
-<div class="span8">
-  <div id="results"><%= render 'shared/user_search_results' %></div>
+  <%if current_user.teacher? %>
 
-    <%if current_user.employee? %>
+    <%= render 'teacher_home' %>
 
-      <%= render 'new_student_feed' %>
+    <%= render 'activity_feed' %>
 
-      <% if current_user.admin? %>
+  <% end %>
 
-        <%= render 'on_hold' %>
+  <% if current_user.parent? %>
 
-      <% end %>
+    <%= render 'parent_home' %>
 
-    <% end %>
-
-    <%if current_user.teacher? %>
-
-      <%= render 'teacher_offerings' %>
-
-      <%= render 'activity_feed' %>
-
-    <% end %>
-
-    <% if current_user.parent? %>
-
-      <%= render 'parent_students' %>
-
-    <% end %>
-
-  </div>
-</div>
+  <% end %>
 
 <% else %>
-
-<%= render 'login_screen' %>
+  <% title 'Sign In' %>
+  <%= render 'login_screen' %>
 
 <% end %>

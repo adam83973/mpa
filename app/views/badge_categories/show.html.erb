@@ -1,0 +1,40 @@
+<%= link_to "Edit", edit_badge_category_path(@badge_category), class: "btn btn-secondary pull-right" if current_user.admin? %>
+<% badges_count = @badge_category.badges.count %>
+<h1>
+  <%= @badge_category.name %> <%= 'Badge'.pluralize(badges_count) %>
+</h1>
+<hr style='margin-bottom:30px;'>
+<% @badge_category.badges.order(:id).each_with_index do |badge, i| %>
+  <% if i % 2 == 0 %>
+    <div class="row">
+  <% end %>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="row text-center">
+        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+          <%= link_to badge, target: '_blank' do %>
+            <div class="card badge_card">
+              <div id="badge_<%= badge.id %>" class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                  <%= image_tag(badge.image.url, size: "100x100") unless !badge.image || badge.image.blank? %>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-center" style="
+            position: relative;height:200px;">
+                  <div style="position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%); ">
+                    <h1><%= badge.name %></h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  <% if i % 2 == 1 || i+1 == badges_count %>
+    </div>
+  <% end %>
+<% end %>

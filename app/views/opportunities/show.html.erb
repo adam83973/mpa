@@ -1,0 +1,103 @@
+<% title "Viewing Opportunity" %>
+<div id="opportunity_show" class="row">
+  <div class="col-md-8">
+    <h2>Opportunity: <%= @opportunity.title %></h2>
+    <%= opportunity_status(@opportunity).html_safe %> |
+    <%= link_to "Update Status", "javascript:void(0)", data: { toggle: "modal", target: "#oppUpdateStatusModal"} %><br><br>
+    <div>
+      <p>
+        <strong>Appointment Date:</strong>
+        <%= @opportunity.appointment_date ? @opportunity.appointment_date.strftime("%D") : ( link_to "Add Appointment Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppAppointmentInformationModal"} ) %>
+      </p>
+      <p><strong>Interest Level:</strong></p>
+      <% Opportunity::INTEREST_LEVELS.each_with_index do |interest_level, i| %>
+        <%= label_tag interest_level %>
+        <%= radio_button_tag("interest_level", interest_level, (Opportunity::INTEREST_LEVELS[@opportunity.interest_level] == interest_level ? true : false), "data-interest-level" => i, "data-id" => @opportunity.id, class: "interest_level" ) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="hidden-sm-down">
+      <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-secondary btn-block" %>
+      <br>
+      <div class="text-center">
+        <% if @opportunity.user %>
+          <%= render 'promotions' unless @opportunity.promotion_sent || @opportunity.status != 4 || !(@opportunity.user.infusion_id) %>
+          <%= !(@opportunity.user.infusion_id) && current_company.infusionsoft_integration ? "Please make sure parent is added to Infusionsoft." : "" %>
+        <% else %>
+          <p style="color:red;">Please add parent to opportunity to start a promotion.</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="hidden-md-up">
+      <ul class="nav">
+        <li>
+          <%= link_to "Edit", edit_opportunity_path(@opportunity), class: "btn btn-secondary" %>
+        </li>
+        <li style="padding-top:10px;">
+          <% if @opportunity.user %>
+            <%= render 'promotions' unless @opportunity.promotion_sent || @opportunity.status != 4 || (!@opportunity.user.infusion_id) %>
+            <%= (!@opportunity.user.infusion_id) ? "Please make sure parent is added to Infusionsoft." : "" %>
+          <% else %>
+            <p style="color:red;">Please add parent to opportunity to start a promotion.</p>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<% if @opportunity.promotion_sent %>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 cl-xs-12">
+      <div style="margin:5px 0 0 0;" class="alert alert-success">
+        Promotion <%= @promotion_name%> has been sent.
+      </div>
+    </div>
+  </div>
+<% end %>
+<hr class="mb-4">
+<div class="row mb-5">
+  <div class="col-md-6">
+    <%= render 'opportunity_student_information' %>
+
+    <%= render 'opportunity_parent_information' %>
+
+    <%= render 'opportunity_class_information' %>
+  </div>
+  <div class="col-md-6">
+    <%= render 'opportunity_note_management' %>
+  </div>
+</div>
+
+<div class='row'>
+  <div class="col-md-12" style='background:#545453;border-radius:4px;padding:20px 30px 20px 30px;'>
+    <h1 class="text-white mt-0">Opportunity History</h1>
+    <section id="cd-timeline" class="cd-container">
+        <% @versions.each_with_index do |version, n| %>
+          <% if version.event == 'create' %>
+            <%= render 'version_opportunity_created', version: version %>
+          <% elsif version.event == 'update' %>
+            <%= render 'version_opportunity_updated', version: version %>
+          <% end %>
+        <% end %>
+    </section> <!-- cd-timeline -->
+  </div>
+</div>
+
+<%= render 'opportunity_student_information_modal' %>
+
+<%= render 'opportunity_parent_information_modal' %>
+
+<%= render 'opportunity_class_information_modal' %>
+
+<%= render 'opportunity_trial_information_modal' %>
+
+<%= render 'opportunity_update_status_modal' %>
+
+<%= render 'opportunity_appointment_information_modal' %>
+
+<%= render '/students/add_to_class_modal' %>
+
+<%= render '/static_pages/new_student_modal' %>
+
+<%= render '/static_pages/new_parent_modal', table_id: "new_user_from_opportunity" %>

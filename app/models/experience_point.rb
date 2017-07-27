@@ -1,18 +1,36 @@
 class ExperiencePoint < ActiveRecord::Base
-  attr_accessible :experience_id, :points, :student_id, :experience_point, :user_id, :comment
 
-  validates_presence_of :experience_id, :student_id
-
-  validate :experience_id_exists, :comment_exists
+  validates_presence_of :experience_id, :student_id, :comment
 
   belongs_to :user
   belongs_to :student
   belongs_to :experience
   belongs_to :grade, dependent: :destroy
+  has_one :occupation, through: :experience
+  belongs_to :badge_request
+  has_one :attendance
 
-  after_save :update_student_xp
-  after_update :update_student_xp
-  after_destroy :update_student_xp
+  before_save :toggle_negative
+  after_create :update_student_xp_level_credits_on_create
+  after_update :update_student_xp_level_credits_on_update
+  after_destroy :update_student_xp_level_credits_on_destroy, :cleanup
+
+  def add_badge?(student)
+    if experience.badge
+      student.badges << badge
+      true
+    else
+      false
+    end
+  end
+
+  def badge
+    if experience.badge
+      experience.badge
+    else
+      nil
+    end
+  end
 
   def student_name
   	student.try(:full_name)
@@ -41,7 +59,58 @@ class ExperiencePoint < ActiveRecord::Base
     end
   end
 
-  def update_student_xp
-   	student.calculate_xp
-   end
+  private
+
+    def cleanup
+      unless self.badge_request.nil?
+        self.badge_request.destroy
+      end
+      return unless self.attendance
+      self.attendance.destroy unless self.attendance.destroyed?
+    end
+
+    def toggle_negative
+      if points == 0 && !(experience.name =~ /\bAttendance\b/)
+        self.negative = true
+      else
+        self.negative = false
+        true
+      end
+    end
+
+    def update_student_xp_level_credits_on_create
+      # Calculate credits earned.
+      credits = (student.experience_point_total + points)/100 - ((student.experience_point_total)/100)
+      # Add credits earned.
+      student.add_remove_credits(credits)
+      puts "*****************Added Credits!*****************"
+      puts "*****************Credits :: #{credits}*****************"
+      # Updating current occupation xp, occupation levels and total xp
+      student.update_occupation_experience_points_and_level(points)
+    end
+
+    def update_student_xp_level_credits_on_update
+      previous_points = points_was
+      if points >= previous_points
+        # Calculate credits earned.
+        credits = (student.experience_point_total + (points - previous_points))/100 - ((student.experience_point_total)/100)
+        # Add credits earned.
+        student.add_remove_credits(credits)
+        puts "Points were: #{points_was}"
+        puts "*****************Added Credits!*****************"
+        puts "*****************Credits :: #{credits}*****************"
+        # Updating current occupation xp, occupation levels and total xp
+        student.update_occupation_experience_points_and_level(points - previous_points)
+      end
+    end
+
+    def update_student_xp_level_credits_on_destroy
+      puts "*****************Credit Level Xp Update!*****************"
+      # Calculate credits to be subtracted.
+      credits = (student.experience_point_total - points)/100 - ((student.experience_point_total)/100)
+      # Remove credits lost
+      student.add_remove_credits(credits)
+      # Updating current occupation xp, occupation levels and total xp
+      student.update_occupation_experience_points_and_level(-points)
+    end
 end

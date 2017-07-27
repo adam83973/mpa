@@ -1,6 +1,6 @@
 <div class="hero-unit">
   <h1><%= @problem.title %></h1>
-  <table class="table table-condensed">
+  <table class="table table-sm">
     <tr>
       <td style="width:250px;">
         <% if @problem.image_url %>
@@ -8,19 +8,19 @@
         <% end %>
       </td>
       <td>
-        <b>Appropriate For:</b><br />
+        <h3>Appropriate For:</h3>
         <% @problem.courses.each do |course|%>
-          <%= course.course_name %><br />
+          <%= course.name %><br />
         <% end %>
       </td>
       <td>
-        <b>Potential Strategies:</b><br />
+        <h3>Potential Strategies:</h3>
         <% @problem.strategies.each do |strategy|%>
           <%= strategy.name %><br />
         <% end %>
       </td>
       <td>
-        <b>Standards:</b><br />
+        <h3>Standards:</h3>
         <% @problem.standards.each do |standard|%>
           <%= standard.name %><br />
         <% end %>
@@ -28,32 +28,32 @@
     </tr>
   </table>
   <p>
-    <b>Description:</b>
+    <h3>Description:</h3>
     <%= simple_format(@problem.desc) %>
   </p>
 
   <p>
-    <b>Answer:</b>
+    <h3>Answer:</h3>
     <%= simple_format(@problem.answer) %>
   </p>
 
   <p>
-    <b>Solutions:</b>
+    <h3>Solutions:</h3>
     <%= simple_format(@problem.methods) %>
   </p>
 
   <p>
-    <b>Variations:</b>
+    <h3>Variations:</h3>
     <%= simple_format(@problem.variations) %>
   </p>
 
   <p>
-    <b>Source:</b>
+    <h3>Source:</h3>
     <%= simple_format(@problem.source) %>
   </p>
 
   <p>
-    <b>Resources:</b>
+    <h3>Resources:</h3>
     <% @problem.resources.each do |resource| %>
       <div class="resource_thumb" style="background:white;">
         <div class="name"><%= resource.filename %></div>
@@ -61,5 +61,16 @@
       </div>
     <% end %>
   </p>
+
+  <% if @problem.lessons %>
+    <p>
+      <h3>Lessons associated with this problem:</h3>
+      <ul>
+        <% @problem.lessons.each do |l| %>
+          <li><%= l.name %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
   <div style="clear:both;"></div>
 </div>

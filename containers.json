@@ -1,0 +1,9 @@
+[
+  {
+    "Description": "Hortonworks Sandbox",
+    "Format": "ova",
+    "UserBucket": {
+        "S3Bucket": "travishortonworks",
+        "S3Key": "appliance"
+    }
+}]

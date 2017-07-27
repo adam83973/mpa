@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-4 col-xs-12">
+    <%= simple_form_for(@badge) do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :name %>
+      <%= f.association :experience, input_html: { class: 'chosen'} %>
+      <%= f.input :write_up_required %>
+      <%= f.input :multiple, label: "This badge can be earned multiple times." %>
+      <%= f.input :requires_approval, label: "This badge requires approval." %>
+  </div>
+  <div class="col-md-4 col-xs-12">
+      <%= f.association :category, input_html: { class: 'chosen' } %>
+      <%= f.association :module, hint: 'You do not need to add a badge to a module.', input_html: { class: 'chosen' } %>
+      <%= f.input :submission_type, collection: Badge::SUBMISSION_TYPES.zip((0..1).to_a) %>
+      <%= f.input :parent_can_request, label: "A parent can request this badge." %>
+      <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
+  </div>
+  <div class="col-md-4 col-xs-12">
+      <%= f.input :image, as: :file, label: "Upload Image" unless @badge.image? %>
+    <div class="text-center">
+        <%= image_tag(@badge.image_url, size: '200x200') if @badge.image? %>
+
+        <%= f.input :remove_image, as: :boolean, label: 'Remove Image' if @badge.image? %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-xs-12">
+      <%= f.input :requirements, input_html: { rows: 12, style: "resize:vertical;" } %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-xs-12 col-lg-offset-8 col-md-offset-8">
+      <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+    <% end %>
+  </div>
+</div>

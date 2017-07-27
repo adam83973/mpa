@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-0">Start A Class</h3>
+  </div>
+  <div class="card-block">
+    <%= simple_form_for :class_session, as: :post, url: class_sessions_start_class_path do |f| %>
+      <%= f.input :offering, as: :select, collection: @offerings, input_html: {class: "chosen form-control"}, label: "Class", label_method: :offering_name %>
+      <%= f.input :week, as: :select, collection: (1..48).to_a, input_html: { class: "chosen", id: "week" } %>
+      <%= f.submit "Start Class", id: :startclass, disabled: :disabled, class: "btn btn-sm btn-success" %>
+    <% end %>
+  </div>
+</div>

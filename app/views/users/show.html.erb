@@ -1,110 +1,48 @@
+<% title @user.full_name %>
 <div class="row">
-  <div class="span4">
-    <p>
-      <b>First name:</b>
-      <%= @user.first_name %>
-    </p>
-    <p>
-      <b>Last name:</b>
-      <%= @user.last_name %>
-    </p>
-
-    <p>
-      <b>Email:</b>
-      <%= @user.email %>
-    </p>
-
-    <!-- displays each student for user -->
-    <% if @user.role  == "Parent" %>
-    <b><%= "Student".pluralize(@user.students.count) %>/offering:</b>
-    <p>
-      <% @user.students.each do |student| %>
-      <h4> <%= link_to student.full_name, student %></h4>
-      <% student.offerings.each do |offering| %>
-      <p><%= link_to offering.offering_name, offering %></p>
-      <% end %>
-      <% end %>
-    </p>
-    <% end %>
-    <% unless current_user.parent? || current_user.teacher? %>
-
-    <p>
-      <b>Role:</b>
-      <%= @user.role %>
-    </p>
-
-    <!-- displays each student for user -->
-
-    <% if @user.role  == "Parent" %>
-      <% if @user.infusion_id != nil %>
-      <p>
-        <b>Infusionsoft Id:</b>
-        <%= @user.infusion_id %>
-      </p>
-      <p>
-        <%= link_to 'Update in Infusionsoft', infusion_pages_edit_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-      </p>
-      <p>
-        <%= link_to 'Invoices & Subscriptions', infusion_pages_subscription_path(ContactId: @user.infusion_id), class: 'btn btn-small' %>
-      </p>
-      <% else %>
-      <p>
-        <b>Infusionsoft Id is Undefined</b>
-      </p>
-      <% end %>
-    <% end %>
-
-    <p>
-      <b>Phone:</b>
-      <%= @user.phone %>
-    </p>
-
-    <p>
-      <b>Passion:</b>
-      <%= @user.passion %>
-    </p>
-    <p>
-      <b>Shirt size:</b>
-      <%= @user.shirt_size %>
-    </p>
-    <p>
-      <b>Has key:</b>
-      <%= @user.has_key %>
-    </p>
-    <p>
-      <b>Location:</b>
-      <%= @user.location.name if @user.location %>
-    </p>
-    <% if @user.admin? %>
-    <p>
-      <b>Admin:</b>
-      <%= @user.admin %>
-    </p>
-    <% end %>
-    <p>
-      <b>Active:</b>
-      <%= @user.active %>
-    </p>
-
-    <p>
-      <%= link_to "Edit User", edit_user_path(@user), class: "m-btn"%>
-      <%= render 'shared/nav_buttons' %>
-
-      <% if @user.parent? %>
-      <%= link_to "Add Student", { :controller => "students", :action => "new", :user_id => @user.id }, { :class => "m-btn blue" } %>
-      <% end %>
-    </p>
-
+  <div class="col-lg-10">
+    <h2 style="display:inline;"><%= @user.first_name %> <%= @user.last_name %></h2>&nbsp &nbsp (<%= @user.role %>)
+    <br>
+    <br>
+    <%= user_status(@user).html_safe if current_user.employee? %>
   </div>
-  <% end %>
+  <div class="col-lg-2">
+    <%= render 'user_toolbar' if current_user.employee? %>
+  </div>
 </div>
+<hr>
 
 <div class="row">
-  <% if current_user.admin? %>
-  <div class="span8">
-    <% if @user.role == "Parent" && @user.infusion_id != nil %>
-      <%= render 'billing' %>
+  <div class="col-lg-6">
+
+    <%= render 'user_account_information' %>
+
+    <!-- teacher specific information -->
+    <%= render 'user_class_management' %>
+
+    <!-- parent specific information -->
+    <% if @user.parent? %>
+      <%= render 'user_student_management' %>
+
+      <%= render 'user_opportunity_management' if current_user.admin? %>
+
+      <%= render 'user_billing_management' if current_user.admin? && current_company.infusionsoft_integration %>
+    <% end %><!-- /.col-lg-6 .col-md-6 .col-sm-12 .cl-xs-12 -->
+  </div>
+
+  <div class="col-lg-6">
+    <%= render 'user_note_management' if current_user.admin? %>
+  </div><!-- /.col-lg-6 .col-md-6 .col-sm-12 .cl-xs-12 -->
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <% if @user.parent? && current_user.employee? %>
+      <%= render 'user_emails' %>
     <% end %>
   </div>
-  <% end %>
+  <div class="col-lg-6">
+
+  </div>
 </div>
+
+<%= render 'new_student_user_modal' if @user.parent? and current_user.admin? %>

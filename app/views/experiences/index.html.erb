@@ -2,13 +2,17 @@
 
 <h1><%= yield(:title)%></h1>
 
-<% if current_user.admin? %>
+<% if current_user.super_admin? %>
   <p>
-    <%= link_to 'New Achievement', new_experience_path, class: "m-btn green" %>
+    Download:
+    <%= link_to "CSV", experiences_path(format: "csv") %>
+  </p>
+  <p>
+    <%= link_to 'New Achievement', new_experience_path, class: "btn btn-success" %>
   </p>
 <% end %>
 
-<table id="achievements" class="display">
+<table id="datatable" class="display">
   <thead>
     <tr>
       <th>ID</th>
@@ -45,5 +49,6 @@
   </tbody>
 </table>
 
-<br />
-
+<% if signed_in? && current_user.super_admin? %>
+  <%= render 'layouts/import_form', resource: @experiences %>
+<% end %>

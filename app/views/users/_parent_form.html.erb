@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+  <%= simple_form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+
+      <ul style="margin-left:20px;">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.association :location, label_method: :name if current_user.employee? %>
+    <%= f.input :role, collection: ["Parent"], selected: 'Parent' unless current_user.parent? %>
+    <%= f.input :first_name, label: "First Name" %>
+    <%= f.input :last_name, label: "Last Name" %>
+    <%= f.input :email, required: true %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= f.input :address, label: 'Street Address' %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= f.input :phone %>
+    <% if current_company.infusionsoft_integration && current_user.employee? %>
+      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning", value: params[:infusion_id]} if current_user.employee? && params[:infusion_id] %>
+      <%= f.input :infusion_id, label: 'Infusionsoft Id', hint: 'Only for Parents', input_html: { class: "warning" } unless current_user.employee? && params[:infusion_id] %>
+    <% end %>
+    <%= f.input :billing_note, input_html: { rows: 2 } if current_user.admin? %>
+    <%= f.input :password, as: :hidden, input_html: { value: @generated_password } %>
+    <%= f.input :subdomain, as: :hidden, input_html: { value: current_company.subdomain} %>
+    <%= f.input :active if current_user.admin? %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <%= f.button :submit, class: "btn btn-success pull-right" %>
+  </div>
+</div>
+<% end %>

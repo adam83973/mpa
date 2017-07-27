@@ -1,0 +1,29 @@
+<h1>Listing Transactions</h1>
+
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Process</th>
+      <th>User</th>
+      <th>Student</th>
+      <th>Product</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.process ? Transaction::PROCESSES[(transaction.process)] : "Please update process type." %></td>
+        <td><%= transaction.user.full_name %></td>
+        <td><%= transaction.student ? transaction.student.full_name : "N/A" %></td>
+        <td><%= transaction.product.name if transaction.product %></td>
+        <td><%= link_to 'Show', transaction %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction', new_transaction_path, class: 'btn btn-lg btn-success' %>

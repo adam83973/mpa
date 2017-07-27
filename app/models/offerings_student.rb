@@ -1,7 +1,4 @@
 class OfferingsStudent < ActiveRecord::Base
-  attr_accessible :offering_id, :student_id
-
-  # join table. Table name: offerings_students
 
   belongs_to :student
   belongs_to :offering
@@ -11,6 +8,15 @@ class OfferingsStudent < ActiveRecord::Base
       studoffering = new
       studoffering.attributes = row.to_hash.slice(*accessible_attributes)
       studoffering.save!
+    end
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |offerings_students|
+        csv << offerings_students.attributes.values_at(*column_names)
+      end
     end
   end
 end

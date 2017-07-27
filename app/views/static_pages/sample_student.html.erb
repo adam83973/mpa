@@ -1,0 +1,312 @@
+<div class="row">
+  <div id="student">
+    <div class="studentinfo">
+      <div class="row">
+        <div class="col-lg-3 col-xs-12 studentname">
+          <h2>Secret Student</h2>
+          <div style="padding:0 25px 0 25px;">
+            <div style="
+              padding:20px 0 20px 0;
+              margin:0 auto;
+              width:218px;border-radius:50%;
+              background-color:#D3EA91;"
+              class="text-center">
+
+              <%= image_tag('math_plus_icons/MATHPLUS-avatar-robot.png', size: "175x175") %>
+            </div>
+          </div>
+
+          <div id="totalCredits" data-totalCredits="34">
+            <h3>Credits: 34</h3>
+          </div><!--/#totalCredits -->
+          <div style="min-width:260px;min-height:40px;" class="hidden-md hidden-sm hidden-xs"></div>
+        </div><!--/.col-lg-3 col-md-12 col-sm-12 col-xs-12 studentname hidden-sm hidden-xs -->
+
+        <div class="student-occupations col-lg-9 col-xs-12">
+
+            <!-- Mathematics student information -->
+            <div class="col-lg-3 col-xs-12 ">
+              <div class="text-center card" style="position:relative; z-index:2; margin:0;min-height:311px;">
+                <h3 style="margin-bottom:20px;">Mathematician</h3>
+                  <input
+                    disabled
+                    id="mathematician-dial" class="outside"
+                    value="67"
+                    data-level="2"
+                    data-displayInput="false"
+                  >
+                  <%= image_tag('math_plus_icons/MATHPLUS-mathmetician-L02.png', size: "115x115", class: "inside")%>
+                <h3 style="margin:10px 0 10px 0;">
+                  2000xp
+                </h3>
+                <p style="margin:0;">
+                  <%= link_to("#mathematicianModal", data: {toggle: :modal}) do %>
+                   Can You Level Up?
+                  <% end %>
+                </p>
+              </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
+            </div>
+
+
+            <!-- Programming student information -->
+            <div class="col-lg-3 col-xs-12 ">
+              <div class="text-center card" style="position:relative; z-index:2; margin:0;min-height:311px;">
+                <h3 style="margin-bottom:20px;">Programmer</h3>
+                  <input
+                    disabled
+                    id="programmer-dial" class="outside"
+                    value="67"
+                    data-level="2"
+                    data-displayInput="false"
+                  >
+                  <%= image_tag('math_plus_icons/MATHPLUS-programmer-L03.png', size: "115x115", class: "inside")%>
+                <h3 style="margin:10px 0 10px 0;">
+                  2000xp
+                </h3>
+                <p style="margin:0;">
+                  <%= link_to("#programmerModal", data: {toggle: :modal}) do %>
+                   Can You Level Up?
+                  <% end %>
+                </p>
+              </div><!--/.text-center col-lg-3 col-md-3 col-sm-12 col-xs-12 -->
+            </div>
+
+              <div style="position:relative; z-index:2;" class="text-center col-lg-3 col-xs-12">
+              </div>
+
+            <div class="text-center hidden-sm hidden-xs hidden-md col-lg-3 col-xs-12 ">
+              <div class="card">
+                <h3 style="margin:0 0 10px;">Badges</h3>
+                <p>
+                  <span style="color:red;">You have no badges.</span>
+                  Here's what it might look like if you did...
+                </p>
+                <div class="row">
+                  <%= image_tag('example_badge1.png', size: '60x60') %>
+                  <%= image_tag('example_badge2.png', size: '60x60') %>
+                </div>
+                <div style="margin:0 0 25px 0;" class="row">
+                  <%= image_tag('example_badge3.png', size: '60x60') %>
+                </div>
+                <%= link_to "Find out how to earn more.", "javascript:void(0)", data: {toggle: "modal", target: "#comingSoon"}  %>
+              </div>
+            </div>
+
+        </div><!--/.span9 -->
+
+        <div class="modal fade" id="comingSoon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="comingSoon" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Badges coming soon!</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row text-center">
+
+                  <h1>Coming Soon!</h1>
+
+                </div>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+      </div><!--/.row -->
+    </div><!--/.studentinfo -->
+  </div><!--/#student -->
+</div>
+
+<div class="row paddingtop15">
+  <div class="col-lg-3 col-xs-12 class_list">
+    <hr style="margin:0 0 10px 0;">
+
+    <div class="row">
+    	<div class="col-xs-12">
+    		<h4 class="hidden-sm hidden-xs">Classes</h4>
+    		<h3 class="hidden-lg hidden-md" style="display:inline;">Classes</h3>
+    		<hr>
+        <div class="card" style="padding:0 0 0 0;">
+        	<div style="padding:5px 10px 0 10px;">
+        	  <div class="row">
+        	    <div class='col-xs-12'>
+        				<%= Offering.find(34).offering_name %>
+        			</div>
+        		</div>
+        	  <div class="row" style="padding-bottom:10px;">
+        		</div>
+          </div>
+        </div>
+    	</div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-sm-12 achievements">
+    <div class="row">
+    </div>
+    <h3>Achievements</h3>
+    <div class="card-group" id="accordion">
+      <div class="card card-default">
+        <div class="card-header">
+          <h4 class="card-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+              Achievements Total: 5
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="card-collapse collapse">
+          <div class="card-block">
+            <div class="tscroll a-achievements">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Experience</th>
+                    <th>Date Earned</th>
+                    <th>Last Updated</th>
+                    <th>Points</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Attendance</td>
+                    <td>January 1, 2025</td>
+                    <td>January 1, 2025</td>
+                    <td>20</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <h3>Recent Comments</h3>
+      <div class="activity_feed">
+        <div id="inner-content-div">
+           <p style="color:red;">
+            <em>Homework Incomplete</em>
+            <strong>"Looks like you missed this assignment. It's ok you can still complete it"</strong>
+            by: Helpful Employee -
+            20 minutes ago
+           </p>
+              <p>
+               <em>Homework Perfect</em>
+               <strong>"You did an amazing job!"</strong>
+               by: Helpful Employee -
+               20 minutes ago
+              </p>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="mathematicianModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Can You Level Up?</h3>
+      </div>
+      <div class="modal-body">
+        <p style="display:block; margin:0 0 20px 10px;">
+          As you attend class and complete your assignments, not only do you earn credits, you also earn experience points. These experience points accumulate and allow you to level up. At each level you will earn valuable prizes. The best part? These prizes don't cost you any credits! Here's a look at the prizes you could win. Level up to unlock future prizes.
+        </p>
+        <ul>
+          <% Occupation.find(3).occupation_levels.order(:level).each do |level|  %>
+          <li class="well">
+            <% if level.level.to_i <= 3 %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <%= image_tag(level.image_url, size: "100x100") if level.image? %>
+                </div>
+                <div class="col-lg-2">
+                  <% if level.level.to_i <= 2 %>
+                    <i style="color:#e7e63a;margin-top:50%;" class="fa fa-star fa-3x"></i>
+                  <% else %>
+                    <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
+                  <% end %>
+                </div>
+                <div class="col-lg-7">
+                  <h1 style="margin:5px 0 5px 0;">Level <%= level.level %></h1>
+                  XP: <%= level.points %></br>
+                  <strong>Reward:</strong> <%= level.rewards %>
+                </div>
+              </div>
+            <% else %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <%= image_tag(level.image_url, size: "100x100", class: "blur") if level.image? %>
+                </div>
+                <div class="col-lg-2">
+                  <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
+                </div>
+                <div class="col-lg-7">
+                  <h1 style="margin:5px 0 5px 0;">Level <%= level.level %></h1>
+                  <h2 style="color:red;">Locked</h2>
+                  <p>You must level up to see whats in store for the next level...</p>
+                </div>
+              </div>
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="programmerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Can You Level Up?</h3>
+      </div>
+      <div class="modal-body">
+        <p style="display:block; margin:0 0 20px 10px;">
+          As you attend class and complete your assignments, not only do you earn credits, you also earn experience points. These experience points accumulate and allow you to level up. At each level you will earn valuable prizes. The best part? These prizes don't cost you any credits! Here's a look at the prizes you could win. Level up to unlock future prizes.
+        </p>
+        <ul>
+          <% Occupation.find(3).occupation_levels.order(:level).each do |level|  %>
+          <li class="well">
+            <% if level.level.to_i <= 4 %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <%= image_tag(level.image_url, size: "100x100") if level.image? %>
+                </div>
+                <div class="col-lg-2">
+                  <% if level.level.to_i <= 3 %>
+                    <i style="color:#e7e63a;margin-top:50%;" class="fa fa-star fa-3x"></i>
+                  <% else %>
+                    <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
+                  <% end %>
+                </div>
+                <div class="col-lg-7">
+                  <h1 style="margin:5px 0 5px 0;">Level <%= level.level %></h1>
+                  XP: <%= level.points %></br>
+                  <strong>Reward:</strong> <%= level.rewards %>
+                </div>
+              </div>
+            <% else %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <%= image_tag(level.image_url, size: "100x100", class: "blur") if level.image? %>
+                </div>
+                <div class="col-lg-2">
+                  <i style="margin-top:50%;" class="fa fa-star fa-3x"></i>
+                </div>
+                <div class="col-lg-7">
+                  <h1 style="margin:5px 0 5px 0;">Level <%= level.level %></h1>
+                  <h2 style="color:red;">Locked</h2>
+                  <p>You must level up to see whats in store for the next level...</p>
+                </div>
+              </div>
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

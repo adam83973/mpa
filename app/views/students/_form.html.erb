@@ -1,5 +1,6 @@
-<% if params[:user_id] %>
-  <%= simple_form_for @student, :validate => true do |f| %>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+  <%= simple_form_for @student do |f| %>
     <% if @student.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
@@ -11,51 +12,18 @@
         </ul>
       </div>
     <% end %>
-
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name %>
-      <%= f.input :start_date, as: :string %>
-      <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
-      <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
-      <%= f.input :return_date, as: :string, placeholder: "Tentative return date." %>
-      <%= f.label :offerings %>
-      <div class="studentofferings">
-        <%= f.association :offerings, collection: Offering.all(order: 'course_id'), as: :check_boxes, label_method: :offering_name, label: false %>
-      </div><br />
-      <%= f.input :credits %><br />
-      <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
-      <%= f.input :birth_date, as: :string %>
-      <%= f.button :submit, class: "m-btn" %>
-  <% end %>
-<% else %>
-  <%= simple_form_for @student, :validate => true do |f| %>
-    <% if @student.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
-
-        <ul>
-        <% @student.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-      <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label_method: :full_name %>
-      <%= f.input :start_date, as: :string %>
-      <%= f.input :status, collection: ["Active","Hold","Inactive"] %>
-      <%= f.input :restart_date, as: :string, placeholder: "Only if billing restarts." %>
-      <%= f.input :return_date, as: :string, placeholder: "Tentative return date." %>
-      <%= f.label :offerings %>
-      <div class="studentofferings">
-        <%= f.association :offerings, collection: Offering.all(order: 'course_id'), as: :check_boxes, label_method: :offering_name, label: false %>
-      </div><br />
-      <%= f.input :credits %><br />
-      <%= f.input :rank, collection: ["Classified", "Confidential", "Secret", "Top Secret"]  %><br />
-      <%= f.input :birth_date, as: :string %>
-      <%= f.button :submit, class: "m-btn" %>
-  <% end %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :birth_date, as: :string, label: "Birth Date", input_html: { class: 'datepicker'} %>
+    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), :selected => params[:user_id], label_method: :full_name, input_html: { class: "chosen" } if params[:user_id] %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <%= f.association :user, collection: User.where(:role => "Parent").order('last_name asc'), label: 'Parent', label_method: :full_name, input_html: { class: "chosen" } unless params[:user_id] %>
+    <%= f.association :avatar, label_method: :name %>
+    <%= f.input :current_occupation_id, collection: Occupation.all, label_method: :title %>
+  </div>
+</div>
+<div class="row">
+  <%= f.button :submit, class: "btn btn-lg btn-success pull-right" %>
+</div>
 <% end %>

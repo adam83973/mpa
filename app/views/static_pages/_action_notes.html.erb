@@ -1,0 +1,21 @@
+<div class="col-lg-4 mt-md-4 mt-sm-3 mt-3 mt-lg-0">
+  <div id="user_action_needed">
+    <div class="card card-default" style="height:300px;" >
+      <div class="card-header">
+        <h3 class="text-center" style="margin-bottom:0;">Needs Action: <%= @user_action_needed.count %></h3>
+      </div>
+      <div class="card-block notes">
+        <ul class="list-unstyled">
+          <% @user_action_needed.each do |note| %>
+            <li>
+              <%= render '/shared/note_template', note: note %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="card-footer more-notes text-center p-0">
+        <small><i class="fa fa-chevron-down"></i> Scroll for more notes. <i class="fa fa-chevron-down"></i></small>
+      </div>
+    </div>
+  </div>
+</div>

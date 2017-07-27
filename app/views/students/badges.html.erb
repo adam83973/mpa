@@ -1,0 +1,8 @@
+<h3>Badges Earned!</h3>
+<% @earned_badges_with_count.each do |badge, count| %>
+  <div title="<%= badge.name %>" class='badge-count' <%= "data-badge=#{count}" if count > 1 %>>
+    <%= link_to badge do %>
+      <%= image_tag(badge.image_url, size: '100x100') if badge.image_url %>
+    <% end %>
+  </div>
+<% end %>

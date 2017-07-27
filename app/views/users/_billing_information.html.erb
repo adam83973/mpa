@@ -1,0 +1,10 @@
+<% if @user.role  == "Parent" %>
+  <% if @user.infusion_id != nil %>
+  <p>
+    <strong>Infusionsoft Id:</strong>
+    <%= @user.infusion_id %>
+  </p>
+  <% else %>
+      <h4 class="text-center text-muted">Not Attached To Billing Software</h4>
+  <% end %>
+<% end %>

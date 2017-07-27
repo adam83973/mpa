@@ -1,0 +1,41 @@
+<h1>Listing enrollment_change_requests</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Admin</th>
+    <th>Status</th>
+    <th>Hold start date</th>
+    <th>Hold return date</th>
+    <th>End date</th>
+    <th>Reason ids</th>
+    <th>Other reason</th>
+    <th>Restart billing authorization</th>
+    <th>Student</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @enrollment_change_requests.each do |enrollment_change_request| %>
+  <tr>
+    <td><%= enrollment_change_request.user_id %></td>
+    <td><%= enrollment_change_request.admin_id %></td>
+    <td><%= enrollment_change_request.status %></td>
+    <td><%= enrollment_change_request.hold_start_date %></td>
+    <td><%= enrollment_change_request.hold_return_date %></td>
+    <td><%= enrollment_change_request.end_date %></td>
+    <td><%= enrollment_change_request.reason_ids %></td>
+    <td><%= enrollment_change_request.other_reason %></td>
+    <td><%= enrollment_change_request.restart_billing_authorization %></td>
+    <td><%= enrollment_change_request.student_id %></td>
+    <td><%= link_to 'Show', enrollment_change_request %></td>
+    <td><%= link_to 'Edit', edit_enrollment_change_request_path(enrollment_change_request) %></td>
+    <td><%= link_to 'Destroy', enrollment_change_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Enrollment change request', new_enrollment_change_request_path %>

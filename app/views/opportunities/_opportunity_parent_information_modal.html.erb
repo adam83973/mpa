@@ -1,0 +1,27 @@
+<div class="modal fade" id="addUserInformationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add To User Account</h4>
+        <span>
+          If there is no parent in the system click "no match" to create a new student account and link it to this opportunity.
+        </span>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for(@opportunity) do |f| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.error_notification %>
+                <%= f.association :user, collection: User.where(role: "Parent"), label_method: :full_name, label: "Add to parent account", input_html: { class: 'chosen' } %>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <%= link_to "No Match", "javascript:void(0)", id: "opporunityUserNoMatch", class: "btn btn-lg btn-primary", data: { opportunityid: @opportunity.id, parentname: @opportunity.parent_name, parentemail: @opportunity.parent_email, parentphone: @opportunity.parent_phone } %>
+          <%= f.button :submit, class: "btn btn-lg btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

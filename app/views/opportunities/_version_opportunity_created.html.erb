@@ -1,0 +1,10 @@
+<div class="cd-timeline-block">
+  <div class="cd-timeline-img cd-<%= ("success" if version.event == 'create') || ("danger" if version.event == 'update') || "warning" %>">
+    <%= image_tag 'cd-icon-picture.svg' %>
+  </div> <!-- cd-timeline-img -->
+
+  <div class="cd-timeline-content">
+    <h2>Opportunity created! <small class='pull-right'><%= User.find(version.whodunnit).full_name if version.whodunnit %></small></h2>
+    <span class="cd-date"><%= version.created_at.strftime('%b %e, %Y') if version.created_at %></span>
+  </div> <!-- cd-timeline-content -->
+</div> <!-- cd-timeline-block -->

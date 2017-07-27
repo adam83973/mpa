@@ -1,0 +1,28 @@
+<h3 class="mb-5">Opportunity Management</h3>
+<p>
+  <%= link_to "New Family", "#opportunityModal", data: {toggle: :modal}, class: "btn btn-md btn-success", id: "opportunityModalButton" %>
+</p>
+<table class="table table-bordered table-small">
+  <thead>
+    <tr>
+      <% 6.times do |n| %>
+        <th>
+          <%= Opportunity::STATUSES[n] %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% 6.times do |n| %>
+        <th>
+          <%= link_to status_index_opportunities_path(status: n, location_id: @user_location.id), target: 'blank' do %>
+            <%= Opportunity.where(status: n, location_id: @user_location.id).count %>
+          <% end %>
+        </th>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<%= render 'opportunity_modal' %>

@@ -2,15 +2,25 @@
 
 <h1><%= yield(:title)%></h1>
 
+<% if current_user.super_admin? %>
+  <p>
+    <%= link_to 'New Class', new_offering_path, class: "btn btn-success" %>
+  </p>
+  <p>
+    Download:
+    <%= link_to "CSV", offerings_path(format: "csv") %>
+  </p>
+<% end %>
 <p>
-  <%= link_to 'New Class', new_offering_path, class: "m-btn green" %>
-</p>
-<p>
-  Download:
-  <%= link_to "CSV", offerings_path(format: "csv") %>
+  <% if params[:students] == 'all' %>
+    <%= link_to "Show Active", offerings_path %>
+  <% else %>
+    <%= link_to "Show All", offerings_path(students: "all") %>
+  <% end %>
+
 </p>
 
-<table id="offerings" class="display">
+<table id="datatable" class="display">
     <thead>
       <tr>
         <th>ID</th>
@@ -33,7 +43,7 @@
         <% @offerings.each do |offering| %>
           <tr>
             <td><%= offering.id %></td>
-            <td><%= link_to offering.course.course_name, offering.course, :target => "_blank" %></td>
+            <td><%= link_to offering.course.name, offering.course, :target => "_blank" if offering.course %></td>
             <td><%= link_to offering.location.name, offering.location, :target => "_blank" %></td>
             <td><%= offering.day %></td>
             <td><%= offering.time.strftime("%I:%M %p") %></td>
@@ -53,15 +63,8 @@
                 <em>No teachers assigned.</em>
               <% end %>
             </td>
-            <td><%= offering.active_students_count + offering.returning_students_count %></td>
-            <td>
-              <% if offering.course_id <= 10 %>
-                <%= 10 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif [11, 12].include?(offering.course_id) %>
-                <%= 8 - (offering.active_students_count + offering.returning_students_count) %>
-              <% elsif offering.course_id > 13 %>
-              <% end %>
-            </td>
+            <td><%= roster_count offering %></td>
+            <td><%= open_spots offering %></td>
             <td><%= offering.active %></td>
             <td><%= link_to 'Show', offering, :target => "_blank" %></td>
             <% if signed_in? && current_user.try(:admin?) %>
@@ -73,10 +76,6 @@
 </table>
 <br />
 
-<% if signed_in? && current_user.try(:admin?) %>
-<h3> Import Classes</h3>
-  <%= form_tag import_offerings_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+<% if signed_in? && current_user.super_admin? %>
+  <%= render 'layouts/import_form.html.erb', resource: @offerings %>
 <% end %>

@@ -1,34 +1,115 @@
-<div class="row-fluid">
-  <%= render 'student_stats' %>
-</div>
+<% title @student.full_name %>
+<% if @student.has_learning_plan && current_user.employee? %>
+  <div class="lp_icon">
+    <%= link_to @student.learning_plans.last do %>
+      <%= image_tag "lp_icon.svg", size: "100" %>
+    <% end %>
+  </div>
+<% end %>
+<% if current_user.employee? %>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 mb-4 mb-lg-3">
+      <div class="btn-group pull-right hidden-md-down">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+      <div class="hidden-lg-up">
+        <%= link_to "Edit Student", edit_student_path(@student), class: "btn btn-secondary btn-block" %>
+        <% unless @student.has_learning_plan %>
+          <%= link_to "Add Learning Plan", new_learning_plan_path(student_id: @student.id), class: "btn btn-secondary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-<div class="row paddingtop15">
-  <div class="span3">
-    <%= render 'student_class_list' %><br />
-    <p>
-      <%= render 'shared/nav_buttons' %>
-    </p>
+<%= render 'student_stats' %>
+
+<div class="row">
+  <div class="col-md-3 class_list">
+    <%= render 'student_class_list' %>
   </div>
 
-  <div class="span8 achievements">
-    <%= render 'student_achievements' %><br />
-    <%= render 'robotics_achievements' %>
-    <%= render 'student_grades' if current_user.admin? && @student.in_math_class? %>
+  <div class="col-md-9 achievements">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'student_toolbar' %>
+      </div>
+    </div>
+    <% unless current_user.employee? %>
+      <hr style="margin:0 0 10px 0;">
+    <% end %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'badges_earned' %>
+      </div>
+    </div>
+    <hr style="margin-bottom:0;">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'student_achievements' %>
+      </div>
+    </div>
+    <hr style="margin-bottom:0;">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <%= render 'assignments' %>
+      </div>
+    </div>
+    <hr style="margin-bottom:0;">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'transactions' %>
+
+      </div>
+    </div>
   </div>
 </div>
-<span class="row">
-  <%= render 'student_comment_feed'%>
-</span>
+<% unless current_user.parent? %>
+  <hr class="mt-5">
+<% end %>
+
+<% if current_user.employee? %>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 class="mt-4 mb-4"><u>Student Account Administration</u></h2>
+      <div class="card card-default mb-4">
+        <div class="card-header">
+          <h3 class="mb-0">Notes</h3>
+        </div>
+        <div class="card-block">
+          <%= render 'student_notes' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%= render 'registration_history' %>
+    </div>
+    <div class="col-md-6">
+      <%= render 'help_session_history' %>
+    </div>
+  </div>
+<% end %>
+<!-- modal stuff below -->
+
+<%= render 'redeem_prize_modal' %>
 
 <%= render '/static_pages/grades_modal' %>
 
-<div id="creditsModal" class="modal hide fade" tabindex="-1" role="dialog" labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Redeem Credits.</h3>
-  </div>
+<%= render 'credits_modal' %>
 
-  <div class="modal-body">
-     <%= render 'credits_form' %>
- </div>
-</div>
+<%= render 'occupation_modals' %>
+
+<%= render 'registration_switch_modal' %>
+
+<%= render 'registration_drop_modal' %>
+
+<%= render 'registration_hold_modal' %>
+
+<%= render 'add_to_class_modal' %>
+
+<%= render 'add_avatar_modal', student: @student if current_user.employee? || current_user == @student.user %>

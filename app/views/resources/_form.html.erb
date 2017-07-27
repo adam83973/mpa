@@ -1,16 +1,14 @@
-<%= simple_form_for(@resource) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-horizontal">
-    <% if !@resource.file? %>
-		  <%= f.input :file, as: :file, label: "Upload File" %>
-	  <% end %>
-    <%= f.input :filename, label: "File Name" %>
-    <%= f.input :category, label: "Category" %>
-    <%= f.association :problems, label: 'Connect to Problems/Activities', label_method: :title, item_wrapper_class: 'inline', :input_html => { :class => 'span8' } %>
+<div class="row">
+  <div class="col-md-3">
+    <%= simple_form_for(@resource) do |f| %>
+      <%= f.error_notification %>
+      <% if !@resource.file? %>
+  		  <%= f.input :file, as: :file, label: "Upload File" %>
+  	  <% end %>
+      <%= f.input :filename, label: "File Name" %>
+      <%= f.input :category, as: :select, label: "Category", collection: Resource::CATEGORIES %>
+      <%= f.association :problems, label: 'Connect to Problems/Activities', label_method: :title, item_wrapper_class: 'inline' %>
+      <%= f.button :submit %>
+    <% end %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+</div>

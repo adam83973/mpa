@@ -1,33 +1,34 @@
 class BindersController < ActionController::Base
-  before_filter :authenticate_user!
-  before_filter :authorize_employee
+  before_action :authorize_employee
+  around_action :scope_current_company
 
-  def briefcase
-    @student = Student.find(params[:student])
+  def current_company
+    @current_company ||= Company.find_by_subdomain(request.subdomain)
+  end
 
-# Sets instance variable for student offering, used to print binder
-# for elementary classes.
-    if @student.offerings
-      @offerings = @student.offerings.where("course_id < ?", 7)
-      @agent_offering = @offerings.first
+  def scope_current_company(&block)
+    if current_company.nil?
+      yield
+    else
+      current_company.scope_schema("public", &block)
     end
   end
 
-# Sets instance variable for student offering, used to print binder for
-# middle school and brain builder classes.
-  def middleschool
-    @student = Student.find(params[:student])
+  def briefcase
+    @student = Student.find(params[:student_id])
+    @offering = Offering.find(params[:offering_id])
+  end
 
-    if @student.offerings
-      @offerings = @student.offerings.where("course_id > ?", 6)
-      @second_offering = @offerings.first
-    end
+  # Sets instance variable for student offering, used to print binder for
+  # middle school and brain builder classes.
+  def middleschool
+    @student = Student.find(params[:student_id])
+    @offering = Offering.find(params[:offering_id])
   end
 
   private
 
   def authorize_employee
-    redirect_to root_path unless current_user && current_user.employee?
+    root_path unless current_user && current_user.employee?
   end
 end
-

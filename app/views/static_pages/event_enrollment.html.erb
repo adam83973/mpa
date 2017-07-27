@@ -1,0 +1,58 @@
+<h2 id="workshop-<%= @workshop['id'] %>"><%= @workshop['title'] %></h2>
+<% if !@orders.empty? %>
+<table class="table table-sm table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>
+      </th>
+      <th>
+        Student
+      </th>
+      <th>
+        Parent
+      </th>
+      <th>
+        Phone
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        # Registered
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each_with_index do |order, i| %>
+      <tr>
+        <td>
+          <%= i + 1 %>
+        </td>
+        <td>
+          <%= order['child'] %> (<%= order['age'] %>)
+        </td>
+        <td>
+          <%= order['customer']['first_name'].downcase.capitalize %> <%= order['customer']['last_name'].downcase.capitalize %>
+        </td>
+        <td>
+          <%= order['customer']['billing_address']['phone'] %>
+        </td>
+        <td>
+          <%= order['customer']['email'] %>
+        </td>
+        <td>
+          <% order['line_items'].each do |item| %>
+            <% if item['product_id'] == @workshop['id'] %>
+              <%= item['quantity'] %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <div style="color:red;">
+    No registrations
+  </div>
+<% end %>

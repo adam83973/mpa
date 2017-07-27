@@ -1,0 +1,206 @@
+<h1>Adding Trial Applet to a Webpage</h1>
+
+<p>
+  The trial applet allows potential customers to schedule a trial for a number of
+  classes, not including regular math enrichment classes. User will be able to
+  select a location and then a class that corresponds with selected location.
+</p>
+<hr>
+<p style="font-weight:800;color:red;">
+  In order for a class to be selected the offering must be <u>active</u>.
+</p>
+
+<p>
+  To add an applet to a webpage simply copy and paste the code below. <b style='font-weight:800;'>jQuery and
+  jQueryUI must be included for this to work.</strong>
+</p>
+<br>
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="card" style='padding-left:20px;'>
+      <code>
+        &lt;h1 style='margin-top:0;margin-bottom:0;'&gt;Register for a Trial&lt;/h1&gt;<br>
+      &lt;!-- trial form Start --&gt;<br>
+      &lt;div class=&quot;trial-form&quot;&gt;<br>
+        &lt;form accept-charset=&quot;UTF-8&quot; action=&quot;http://app.mathplusacademy.com/opportunities/add_trial&quot; class=&quot;form-horizontal&quot; data-remote=&quot;true&quot; id=&quot;new_trial&quot; method=&quot;post&quot; novalidate=&quot;novalidate&quot;&gt;<br>
+
+          &lt;fieldset&gt;<br>
+            &lt;!-- Form Name --&gt;<br>
+            &lt;legend&gt;Trial Registration&lt;/legend&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[parent_first_name]&quot;&gt;Parent Name&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;input id=&quot;new_trial_parent_name&quot; type=&quot;text&quot; placeholder=&quot;First and Last&quot; class=&quot;input-xlarge&quot; required=&quot;&quot; name=&quot;opportunity[parent_name]&quot;&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[parent_email]&quot;&gt;Email&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;input id=&quot;new_trial_parent_email&quot; type=&quot;text&quot; placeholder=&quot;Parent Email&quot; class=&quot;input-xlarge&quot; required=&quot;&quot; name=&quot;opportunity[parent_email]&quot;&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[student_first_name]&quot;&gt;Student Name&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;input id=&quot;new_trial_student_name&quot; type=&quot;text&quot; placeholder=&quot;First and Last&quot; class=&quot;input-xlarge&quot; required=&quot;&quot; name=&quot;opportunity[student_name]&quot;&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[location_id]&quot;&gt;Location&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;select style=&quot;width:185px;&quot; id=&quot;new_trial_location_id&quot; class=&quot;input-xlarge&quot; name=&quot;opportunity[location_id]&quot;&gt;<br>
+                  &lt;option disabled selected&gt; -- select an option -- &lt;/option&gt;<br>
+                &lt;/select&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[offering_id]&quot;&gt;Select Class&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;select style=&quot;text-overflow: ellipsis; width:185px;&quot; id=&quot;new_trial_offering_id&quot; class=&quot;input-xlarge&quot; name=&quot;opportunity[offering_id]&quot;&gt;<br>
+                  &lt;option disabled selected&gt; -- select an option -- &lt;/option&gt;<br>
+                &lt;/select&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot; style='margin-bottom:15px;'&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;opportunity[trial_date]&quot;&gt;Trial Date&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;input id=&quot;new_trial_trial_date&quot; type=&quot;text&quot; placeholder=&quot;Select a date to attend trial&quot; class=&quot;input-xlarge&quot; required=&quot;&quot; name=&quot;opportunity[trial_date]&quot; disabled&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+            &lt;div class=&quot;control-group&quot;&gt;<br>
+              &lt;label class=&quot;control-label&quot; for=&quot;register-button&quot;&gt;&lt;/label&gt;<br>
+              &lt;div class=&quot;controls&quot;&gt;<br>
+                &lt;button style=&quot;color:white;&quot; id=&quot;register-button&quot; name=&quot;register-button&quot; class=&quot;woo-sc-button teal&quot;&gt;Schedule Trial!&lt;/button&gt;<br>
+              &lt;/div&gt;<br>
+            &lt;/div&gt;<br>
+          &lt;/fieldset&gt;<br>
+        &lt;/form&gt;<br>
+      &lt;/div&gt;<br>
+      &lt;!-- trial form END --&gt;<br>
+      &lt;script&gt;<br>
+      $( document ).ready(function() {
+        // When location is changed update corresponding class offerings
+        $('#new_trial_location_id').change(function() {
+          $('#new_trial_offering_id').html("&lt;option disabled selected&gt; &mdash; select an option &mdash; &lt;/option&gt;")
+          $.ajax({
+            type:'get',
+            url: 'http://app.mathplusacademy.com/offerings/offerings_by_location.json',
+            data: {location_id: $(this).val()},
+            success: function(data, status, xhr) {
+              var courses = data;
+              $.each(courses, function(index, value) {
+                $('#new_trial_offering_id').append($("&lt;option&gt;&lt;/option&gt;").attr("value", value[0]).attr("data-day", value[2]).text(value[1]));
+              });
+            },
+            error: function (xhr, status, e) {
+            },
+            dataType: 'JSON'
+          });
+        })
+
+        $('#new_trial_offering_id').change(function() {
+          $('#new_trial_trial_date').prop('disabled', false) //remove disabled from trial date
+          var selected = $(this).find('option:selected');
+          var day = selected.data('day');
+          // alert(day) //Use day to scope dates user can select from with date picker
+          var days_of_the_week = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+          var day_index = days_of_the_week.indexOf(day)
+          // add date picker to trial date field
+          var dateToday = new Date();
+          $("#new_trial_trial_date").datepicker("destroy");
+          $('#new_trial_trial_date').datepicker({
+                dateFormat : 'dd-mm-yy',
+      		      minDate: dateToday,
+                beforeShowDay: function(day) {
+                  var day = day.getDay();
+                    return [day == day_index , ""];
+                }
+            });
+        })
+
+        // Populate location select with available locations
+        $.ajax({
+          type:'get',
+          url: 'http://app.mathplusacademy.com/locations/list.json',
+          success: function(data, status, xhr) {
+            var locations = data;
+            $.each(locations, function(index, value) {
+              $('#new_trial_location_id').append($("&lt;option&gt;&lt;/option&gt;").attr("value", value[0]).text(value[1]));
+            });
+          },
+          error: function (xhr, status, e) {
+          },
+          dataType: 'JSON'
+        });
+      });<br>
+      &lt;/script&gt;
+      </code>
+    </div>
+  </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <h1 class='text-center' style='color:red;'>This what it will look like!</h1>
+      <h1  class='text-center' style='color:red;'><i class='fa fa-angle-down'></i></h1>
+      <h1 style='margin-top:0;margin-bottom:0;'>Register for a Trial</h1>
+      <!-- trial form Start -->
+      <div class="trial-form">
+        <form accept-charset="UTF-8" action="#" class="form-horizontal" data-remote="true" id="new_trial" method="post" novalidate="novalidate">
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Trial Registration</legend>
+
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[parent_first_name]">Parent Name</label>
+              <div class="controls">
+                <input id="new_trial_parent_name" type="text" placeholder="First and Last" class="input-xlarge" required="" name="opportunity[parent_name]">
+              </div>
+            </div>
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[parent_email]">Email</label>
+              <div class="controls">
+                <input id="new_trial_parent_email" type="text" placeholder="Parent Email" class="input-xlarge" required="" name="opportunity[parent_email]">
+              </div>
+            </div>
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[student_first_name]">Student Name</label>
+              <div class="controls">
+                <input id="new_trial_student_name" type="text" placeholder="First and Last" class="input-xlarge" required="" name="opportunity[student_name]">
+              </div>
+            </div>
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[location_id]">Location</label>
+              <div class="controls">
+                <select style="width:185px;" id="new_trial_location_id" class="input-xlarge" name="opportunity[location_id]">
+                  <option disabled selected> -- select an option -- </option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[offering_id]">Select Class</label>
+              <div class="controls">
+                <select style="text-overflow: ellipsis; width:185px;" id="new_trial_offering_id" class="input-xlarge" name="opportunity[offering_id]">
+                  <option disabled selected> -- select an option -- </option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group" style='margin-bottom:15px;'>
+              <label class="control-label" for="opportunity[trial_date]">Trial Date</label>
+              <div class="controls">
+                <input id="new_trial_trial_date" type="text" placeholder="Select a date to attend trial" class="input-xlarge" required="" name="opportunity[trial_date]" disabled>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="register-button"></label>
+              <div class="controls">
+                <button id="register-button" name="register-button" disable>Schedule Trial!</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <!-- trial form END -->
+      <p style='color:red;margin-top:20px;'>
+        Note: The dropdown menus in this form do not work as this form is inactive.
+      </p>
+    </div>
+  </div>
+</div>

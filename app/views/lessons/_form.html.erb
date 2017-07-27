@@ -1,23 +1,35 @@
-<%= simple_form_for(@lesson) do |f| %>
-  <% if @lesson.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+<div class="row">
+  <div class="col-md-4">
+    <%= simple_form_for(@lesson) do |f| %>
+      <% if @lesson.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
 
-      <ul>
-      <% @lesson.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @lesson.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-    <%= f.input :name %>
-    <%= f.input :week %>
-    <%= f.association :standard, label_method: :name %>
-    <%= f.input :assignment, as: :select, collection: Resource.where("category = ?", "Assignments"), label_method: :filename %>
-    <%= f.input :assignment_key, as: :select, collection: Resource.where("category = ?", "Assignment Keys"), label_method: :filename %>
-    <%= f.association :activities, label_method: :title, :input_html => { :class => 'span4' } %>
-    <%= f.submit %>
-
-<% end %>
+        <%= f.association :course, input_html: { class: 'chosen' } %>
+        <%= f.input :name %>
+        <%= f.input :week, as: :select, collection: (1..48).to_a, input_html: { class: 'chosen' } %>
+        <%= f.association :standard, label_method: :name %>
+  </div>
+  <div class="col-md-4">
+        <%= f.input :assignment, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignments"), label_method: :filename_created_at %>
+        <%= f.input :assignment_key, as: :select, collection: Resource.order(created_at: :desc).where("category = ?", "Assignment Keys"), label_method: :filename_created_at %>
+        <%= f.association :resources, collection: Resource.all, label_method: :filename, item_wrapper_class: 'inline' %>
+        <%= f.association :problems, label: "Activites", label_method: :title %>
+  </div>
+  <div class="col-md-4">
+    <%= f.input :starter, input_html: { rows: 4 } %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+      <%= f.button :submit, class: "btn btn-success btn-lg pull-right" %>
+    <% end %>
+  </div>
+</div>

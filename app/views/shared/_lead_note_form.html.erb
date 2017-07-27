@@ -1,0 +1,41 @@
+Interest Level:
+<% Opportunity::INTEREST_LEVELS.each_with_index do |interest_level, i| %>
+  <%= label_tag interest_level %>
+  <%= radio_button_tag("interest_level", interest_level, ( Opportunity::INTEREST_LEVELS[ opportunity.interest_level ] == interest_level ? true : false ), "data-interest-level" => i, "data-id" => opportunity.id, class: "interest_level" ) %>
+<% end %>
+<p>
+  <u>Info:</u>
+  <%= opportunity.title ? opportunity.title : "Please add a title that describes this opportunity." %>
+</p>
+<% unless !(opportunity.student) && ( opportunity.student_name.empty? || opportunity.student_name.nil? ) %>
+<p>
+  <u>Parent:</u>
+  <%= link_to "#{opportunity.parent_name}", opportunity.user if opportunity.user %>
+  <%= "#{opportunity.parent_name}" unless opportunity.user %>
+</p>
+<% end %>
+<% if opportunity.user %>
+  <p>
+    <u>Last Note:</u>
+    <div class="last_note">
+      <%= opportunity.notes.last ? opportunity.notes.last.content : "None" %>
+      <%= opportunity.notes.last ? "(#{opportunity.notes.last.created_at.strftime("%D")})" : "" %>
+    </div>
+  </p>
+  <%= simple_form_for [User.find(opportunity.user_id), Note.new], remote: true do |f| %>
+    <%= f.input :content, input_html: { rows: 4, style: "width:100%;" } %>
+    <%= f.input :opportunity_id, as: :hidden, input_html: { value: opportunity.id } %>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <%= f.input :action_date, as: :string, input_html: { id: "note_action_date_#{opportunity.id}", class: :datepicker, data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want to be reminded on a specific date." } %>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <%= f.association :location, label_method: :name, input_html: { data: { toggle: "tooltip", placement: "top" }, title: "Leave blank unless you want note broadcast to all admins at specified location." } %>
+      </div>
+    </div>
+    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+    <%= f.button :submit, class: "btn btn-success btn-sm" %>
+  <% end %>
+<% else %>
+ "Please add a user to this opportunity to leave notes."
+<% end %>

@@ -1,0 +1,39 @@
+<div class="card card-default">
+  <div class="card-header">
+    <h3 style="display:inline;" class="card-title">Class Information</h3>
+    <%= link_to "Add To Class", "javascript:void(0)", class: "add_to_class pull-right", id: "add_to_class", data: { offeringid: @opportunity.offering_id, opportunityid: @opportunity.id, studentid: @opportunity.student_id, confirm: "This will add a student to the offering linked to this opportunity. Are you sure you want to continue?" } if @opportunity.offering && @opportunity.student %>
+  </div>
+  <div class="card-block">
+    <p>
+      <strong>Course:</strong>
+      <%= @opportunity.course ? @opportunity.course.name : ( link_to "Add Course", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal"} ) %>
+    </p>
+
+    <p>
+      <strong>Offering:</strong>
+      <% if @opportunity.offering %>
+        <%= link_to @opportunity.offering_name, @opportunity.offering %>
+      <% else %>
+        <%= link_to "Add Class", "javascript:void(0)", data: { toggle: "modal", target: "#oppClassInformationModal" } %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Trial date:</strong>
+      <%= @opportunity.trial_date ? ( link_to @opportunity.trial_date.strftime('%D'), "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) : ( link_to "Add Trial Date", "javascript:void(0)", data: { toggle: "modal", target: "#oppTrialInformationModal"} ) %>
+
+    </p>
+
+    <p>
+      <strong>Attended trial:</strong>
+      <%= @opportunity.attended_trial %>
+    </p>
+
+    <% if @opportunity.status == 6 %>
+      <p>
+        <strong>Possible restart date:</strong>
+        <%= @opportunity.possible_restart_date %>
+      </p>
+    <% end %>
+  </div>
+</div>

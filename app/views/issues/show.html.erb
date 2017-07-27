@@ -1,0 +1,32 @@
+<p>
+  <strong>Name:</strong>
+  <%= @issue.name %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @issue.summary %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @issue.user_id %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= Issue::PRIORITY_LEVELS[@issue.priority.to_i] %>
+</p>
+
+<p>
+  <strong>Resolved:</strong>
+  <%= @issue.resolved %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= Issue::STATUS_LEVELS[@issue.status.to_i] %>
+</p>
+
+
+<%= link_to 'Edit', edit_issue_path(@issue) if current_user.admin? %>

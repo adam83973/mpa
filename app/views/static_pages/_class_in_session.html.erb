@@ -1,25 +1,119 @@
-<% if class_session.in_session? %>
-  <h3>In Session: <%= Offering.find(class_session.offering).offering_name if class_session.offering %></h3>
-  <h4>Week: <%= class_session.week %></h4>
-     <%# link_to "Today's Lesson", @todays_lesson if @todays_lesson %>
-  <% if class_session.students == [] %>
-    <p>Take attendance to add students to class!</p>
-  <% else %>
-  <p><b>Students in Attendance:</b></p>
-  <ul>
+<% offering = Offering.find(class_session.offering) if class_session.offering %>
+<div class="card mb-4">
+  <div class="card-header" style="background:rgba(92, 184, 92, 0.33);">
+    <h3 class="mb-0">Class In Session</h3>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-8">
+        <h3 class='card-title'>
+        <%= offering.offering_name if class_session.offering %>
+        </h3>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Week: <%= class_session.week %>
+        </h6>
+      </div>
+      <div class="col-lg-4">
+        <div class="btn-group pull-right mb-3">
+          <%= link_to "Course Page", offering.course, class: "btn btn-primary" if class_session.offering %>
+          <%= link_to "Lesson Page", offering.lesson(class_session.week), target: "_blank", class: "btn btn-secondary" if offering.lesson(class_session.week) %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-3">
+        <% if @todays_lesson && @todays_lesson.assignment %>
+          <div class="card mb-3">
+            <div class="card-block">
+              <p>Lesson:</p>
+              <div class="text-center">
+                <%= link_to image_tag(resource_lookup(@todays_lesson.assignment).file_url(:thumb)), resource_lookup(@todays_lesson.assignment).file.url if resource_lookup(@todays_lesson.assignment) %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="card mb-3">
+            <div class="card-block text-center">
+              <p>
+                No lesson on file.
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-lg-4 col-md-3">
+        <% if @last_weeks_lesson && @last_weeks_lesson.assignment_key && !(@last_weeks_lesson.assignment_key.empty?) %>
+          <div class="card mb-3">
+            <div class="card-block text-center">
+              <p>Key:</p>
+              <div class="text-center">
+                  <%= link_to image_tag(resource_lookup(@last_weeks_lesson.assignment_key).file_url(:thumb)), resource_lookup(@last_weeks_lesson.assignment_key).file.url %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="card mb-3">
+            <div class="card-block text-center">
+              <p>
+                No lesson on file.
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <div class="card mb-3">
+          <div class="card-block text-center">
+            <% if @todays_lesson && (@todays_lesson.problems || @todays_lesson.resources) %>
+              <p>Activities/Additional Resources:</p>
+              <div class="text-center">
+                <% if @todays_lesson && @todays_lesson.problems %>
+                  <% @todays_lesson.problems.each do |problem| %>
+                    <p>- <%= link_to "#{problem.title}", problem %></p>
+                  <% end %>
+                <% end %>
+                <% if @todays_lesson && @todays_lesson.resources %>
+                  <% @todays_lesson.resources.each do |resource| %>
+                    <p>- <%= link_to "#{resource.filename}", resource %></p>
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              <p>
+                No problems or resources.
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 d-flex justify-content-center">
+    <%= render 'attendance_grades_buttons' %>
+  </div>
+</div>
+<% if class_session.students == [] %>
+  <hr>
+  <h3 style="color:red;">You have not taken attendance.</h3>
+  <hr>
+<% else %>
+  <hr>
+  <p><strong>Students in Attendance:</strong></p>
+  <ul style="list-style-type:none;" id="sortable">
     <% class_session.students.each do |student_id| %>
-      <div id='student_<%= student_id %>' class="student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
-        <li class='student_<%= student_id %>'>
+      <div id='student_<%= student_id %>' class="alert <% if Student.find(student_id).is_inactive? %>alert-danger<% else %>alert-info<% end %> student_attending" data-studentname="<%= Student.find(student_id).full_name %>">
+        <li class='student_<%= student_id %> '>
           <%= link_to Student.find(student_id).full_name, Student.find(student_id) %>
-          <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right", remote: true %>
-          <% if @todays_lesson%>
-            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week, lesson: @todays_lesson.id }, class: "pull-right padding" %>
-          <% else %>
-            <%# link_to "Add Grade", "#gradesModal", data: {toggle: :modal, student_id: student_id, week: class_session.week }, class: "pull-right padding" %>
-          <% end%>
+          <% if Student.find(student_id).is_inactive? %><span style="padding-left: 30px;">Please notify director that student is not active.</span><% end %>
+          <%= link_to "×", { :controller => "class_sessions", :action => "remove_student", :student_id => student_id }, class: "close pull-right" %>
+          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-secondary btn-sm pull-right", style: "margin:0 40px 0 0;" unless Assignment.completed?(student_id, class_session.week.to_i - 1) %>
+          <%= link_to "Add Assignment", new_assignment_path(student_id: student_id), class: "btn btn-warning btn-sm pull-right", style: "margin:0 40px 0 0;" if Assignment.completed?(student_id, class_session.week.to_i - 1) %>
+          <%= link_to "Add Badge", new_badge_request_path(student_id: student_id), class: "btn btn-secondary btn-sm pull-right", style: "margin:0 15px 0 0;" %>
         </li>
       </div>
     <% end %>
   </ul>
-  <% end %>
+  <hr>
 <% end %>

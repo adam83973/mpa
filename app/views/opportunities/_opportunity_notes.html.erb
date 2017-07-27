@@ -1,0 +1,9 @@
+<% unless @student || @note_user || @lesson %>
+  <ul class="list-unstyled">
+    <% @opportunity.user.notes.order("created_at DESC").each do |note| %>
+      <li>
+        <%= render '/shared/note_template', note: note %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

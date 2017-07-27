@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Parent</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% appointments.each do |appointment| %>
+          <tr>
+            <td>
+              <%= appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%A") %>
+            </td>
+            <td>
+              <%= link_to appointment.user.full_name, appointment.user if appointment.user %>
+            </td>
+            <td>
+              <%= appointment.time.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M %P") %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+</table>

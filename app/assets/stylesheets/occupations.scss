@@ -1,0 +1,15 @@
+// Place all the styles related to the Occupations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.levels{
+  color: #ececec;
+  border: 4px solid gray;
+  background: #353535;
+  margin: 5px 0 5px 0;
+  padding: 5px 15px 25px 30px;
+  .pull-right{
+    font-size: 80px;
+  }
+}

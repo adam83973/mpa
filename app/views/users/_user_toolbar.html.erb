@@ -1,0 +1,7 @@
+<div class="float-lg-right mt-lg-0 mt-3">
+  <%= link_to "Send Password Reset", { controller: "users", action: "password_reset", id: @user.id }, { class: "btn btn-primary btn-block", data: { confirm: "This will send an email to this user requesting a password reset. Are you sure you want to do this?" } } %>
+  <% if @user.parent? %>
+    <%= link_to "Email Hold Form", { controller: "users", action: "send_hold_form", id: @user.id}, { class: "btn btn-warning btn-block", data: { confirm: "Are you sure you want to send a hold form?" } } %>
+    <%= link_to "Email Termination Form", {controller: "users", action: "send_termination_form", id: @user.id}, { class: "btn btn-danger btn-block", data: { confirm: "Are you sure you want to send a termination form?" } } %>
+  <% end %>
+</div>

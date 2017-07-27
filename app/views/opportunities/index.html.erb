@@ -1,0 +1,56 @@
+<% title 'Opporunities' %>
+<h1>Opportunities Dashboard</h1>
+<hr>
+<h2>Location And Status</h2>
+<div id="dashboard">
+</div>
+<hr>
+<h2>Aging Report</h2>
+<div id="aging_report">
+</div>
+<hr>
+<h2>Website Analytics</h2>
+<section id="auth-button"></section>
+<section id="view-selector"></section>
+<section id="timeline"></section>
+<hr>
+<h1>Active Opportunities</h1>
+<p style='color:red;'>
+  Please add new opportunities from admin's home page.
+</p>
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Student</th>
+      <th>Offering</th>
+      <th>Attended trial</th>
+      <th>Trial date</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <% if current_user.super_admin? %>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= opportunity.user ? opportunity.user.full_name : "No Parent Linked" %></td>
+        <td><%= opportunity.student ? opportunity.student.full_name : "No Student Linked" %></td>
+        <td><%= opportunity.offering ? opportunity.offering.offering_name : "No Class Linked" %></td>
+        <td><%= opportunity.attended_trial %></td>
+        <td><%= opportunity.trial_date %></td>
+        <td><%= opportunity.status %></td>
+        <td><%= link_to 'Show', opportunity %></td>
+        <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
+        <% if current_user.super_admin? %>
+          <td>
+            <%= link_to 'Delete', opportunity, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

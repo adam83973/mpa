@@ -1,42 +1,11 @@
 <div id="student">
-  <div class="studentname row">
-    <div class="span4">
-      <h2><%= @student.full_name %></h2>
-      <p>
-        <div id="studentId" data-studentId="<%= @student.id %>">
-          <h3>ID: <%= @student.id %></h3>
-        </div>
-      </p>
-      <p>
-        <h3>Total XP: <%= @student.xp_total %></h3>
-      </p>
-      <p>
-        <div id="totalCredits" data-totalCredits="<%= @student.credits %>">
-          <h3>Total Credits: <%= @student.credits %></h3>
-        </div>
-      </p>
-      <%if current_user.employee? %>
-      <p>
-        <b>Parent:</b>
-        <%= link_to @student.parent_name, @student.user %>
-      </p>
-      <% end %>
-    </div>
-    <% if @student.in_math_class? %>
-      <div class="rank">
-        <p>
-          <h3>Current level: <em><%= @student.rank %> </em></h3>
-        </p>
-        <div class="progress square">
-          <center>
-            <div class="bar" style="width:<%= ((@student.xp_total.to_f - @student.rank_points)/(1000)*100).round %>%"><%= @student.level_comp_percentage %>%</div>
-          </div>
-        </center>
-        <p>Next Level: <em><%= @student.next_rank %></em></p>
-      </div>
-    <% end %>
+  <div class="studentinfo">
     <div class="row">
-       <%= render 'student_toolbar' %>
-    </div>
-  </div>
-</div>
+
+      <%= render 'student_info' %>
+
+      <%= render 'student_occupations' %>
+
+    </div><!--/.row -->
+  </div><!--/.studentinfo -->
+</div><!--/#student -->

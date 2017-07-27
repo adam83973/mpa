@@ -1,0 +1,30 @@
+<% title "Users Classes" %>
+
+<h1><%= yield(:title)%></h1>
+
+<p>
+  Download:
+  <%= link_to "CSV", offerings_users_path(format: "csv") %>
+</p>
+
+<table class="table table-striped">
+  <tr>
+    <th>User ID</th>
+    <th>Offering ID</th>
+  </tr>
+
+<% @offerings_users.each do |offering_user| %>
+  <tr>
+    <td><%= offering_user.user_id %></td>
+    <td><%= offering_user.offering_id %></td>
+  </tr>
+<% end %>
+</table>
+
+<% if signed_in? && current_user.admin? %>
+<h3> Import User Class Assignment</h3>
+  <%= form_tag import_offerings_users_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+<% end %>

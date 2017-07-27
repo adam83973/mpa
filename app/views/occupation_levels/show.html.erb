@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @occupation_level.level %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @occupation_level.points %>
+</p>
+
+<p>
+  <strong>Rewards:</strong>
+  <%= @occupation_level.rewards %>
+</p>
+
+<p>
+  <strong>Bonus Credits:</strong>
+  <%= @occupation_level.bonus_credits %>
+</p>
+
+<p>
+  <strong>Prevleges:</strong>
+  <%= @occupation_level.privileges %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @occupation_level.notes %>
+</p>
+
+<p>
+  <%= image_tag(@occupation_level.image_url, size: "200x200") if @occupation_level.image? %>
+</p>
+
+
+<%= link_to 'Edit', edit_occupation_level_path(@occupation_level) %> |
+<%= link_to 'Back', occupation_levels_path %>

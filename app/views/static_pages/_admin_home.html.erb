@@ -1,0 +1,51 @@
+<div class="mb-5" id="home_tabs">
+  <!-- Nav tabs -->
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="nav-item">
+          <a class="nav-link active" href="#today" aria-controls="today" role="tab" data-toggle="tab" >Today</a>
+        </li>
+        <li role="presentation" class="nav-item">
+          <a class="nav-link" href="#opportunities" aria-controls="opportunities" role="tab" data-toggle="tab">Add New Family/Opportunity</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabcard" class="tab-pane active" style="padding-top:40px;" id="today">
+      <div class="dashboard mb-lg-5 mb-md-3 mb-sm-3 mb-3">
+        <div class="row">
+          <%= render 'todays_overview' %>
+
+          <%= render 'action_notes' if current_user.admin? %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <% unless class_session.in_session? %>
+            <% if !(@location_assessment_appointments.empty?) %>
+              <h2>Today's Assessments</h2>
+              <%= render 'locations/assessment_appointments', appointments: @location_assessment_appointments unless !(current_user.admin?) %>
+            <% end %>
+            <% if !(@location_hw_help_appointments.empty?) %>
+              <%= render 'locations/homework_help_appointments', appointments: @location_hw_help_appointments unless @location_hw_help_appointments.empty? || !(current_user.role == "Teaching Assistant" || current_user.admin?) %>
+            <% end %>
+            <% unless !(@location_assessment_appointments.empty?) || !(@location_hw_help_appointments.empty?) %>
+              <hr>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <%= render 'daily_schedule' if current_user.admin? %>
+        </div>
+      </div>
+    </div>
+    <div role="tabcard" class="tab-pane" style="padding-top:40px;" id="opportunities">
+      <%= render 'opportunity_management' %>
+    </div>
+  </div>
+</div>

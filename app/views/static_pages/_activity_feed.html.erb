@@ -1,17 +1,14 @@
-<% if @user_activity_feed.empty? %>
-
-<% else %>
-  <h3>Activity Feed</h3>
-  <div class="activity_feed">
-<div id="inner-content-div">
+<% if !@user_activity_feed.empty? %>
+  <h3 class='mt-4'>Activity Feed</h3>
+  <div class="card">
+    <div class="card-block" id="inner-content-div">
      <% @user_activity_feed.each do |xp|%>
        <p>
         <em>Added:</em> <%= xp.experience.name %> for
-        <b><%= link_to "#{xp.student.full_name}", xp.student %></b>
+        <strong><%= link_to "#{xp.student.full_name}", xp.student %></strong>
         <%= time_ago_in_words(xp.updated_at) %> ago
        </p>
      <% end %>
     </div>
   </div>
 <% end %>
-

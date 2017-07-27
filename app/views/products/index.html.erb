@@ -1,0 +1,41 @@
+<% title 'Products' %>
+<h1>Listing Products</h1>
+
+<table id="datatable" class="display">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Price</th>
+      <th>Credits</th>
+      <th>Quantity</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td data-name="<%= product.name %>"><%= product.name %></td>
+        <td data-name="<%= product.location ? product.location.name : "" %>">
+          <%= product.location ? product.location.name : "Please add a location to this product." %>
+        </td>
+        <td><%= product.price ? number_to_currency(product.price/100) : "Please add price." %></td>
+        <td><%= product.credits %></td>
+        <td data-id="<%= product.id %>"><%= !product.virtual? ? link_to(product.quantity, 'javascript:void(0)', class: 'update-product-quantity') : 'n/a' %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if current_user.super_admin? %>
+  <p>
+    <%= link_to 'Add Product', new_product_path, class: "btn btn-success" %>
+  </p>
+<% end %>
+
+<%= render 'update_quantity_modal' %>

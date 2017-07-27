@@ -1,0 +1,54 @@
+<div class="modal fade" id="opportunityModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add New Family!</h4>
+      </div>
+      <div class="modal-body">
+        <p class="alert alert-success">
+          Please enter the information for one parent and one student. You will be able to enter information for additional students once you have created a family.
+        </p>
+        <%= simple_form_for @opportunity,
+        url: url_for( action: :create, controller: :opportunities ),
+        method: :post,
+        html: { id: 'new_opportunity'},
+        remote: true do |f| %>
+          <%= f.error_notification %>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.input :title, placeholder: 'Something like, "Interested in Algebra"' %>
+              <%= f.label "Interest Level:" %>
+              <div class="text-center">
+                <%= f.input :interest_level, as: :radio_buttons, item_wrapper_class: 'radio-inline', label: false, collection: Opportunity::INTEREST_LEVELS.zip((0..2).to_a) %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.association :location, label_method: :name %>
+              <%= f.input :parent_name, placeholder: "First and Last" %>
+              <%= f.input :parent_phone %>
+              <%= f.input :parent_email %>
+              <%= f.input :student_name %>
+              <%= f.input :status, collection: Opportunity::STATUSES.zip((0..8).to_a) %>
+            </div>
+            <div class="col-md-6">
+              <%= f.association :course, label_method: :name, input_html: { class: 'chosen' } %>
+              <%= f.association :offering, collection: @active_offerings.map{ |offering| [ offering.offering_name + " (#{offering.active_students_count})", offering.id] }, input_html: { class: 'chosen' } %>
+              <%= f.input :appointment_date, as: :string %>
+              <%= f.input :trial_date, as: :string, input_html: { class: "datepickerFutureOnly"} %>
+              <%= f.input :source, collection: Opportunity::SOURCES.zip((0..7).to_a) %>
+              <%= f.input :other_source %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.button :submit, "Add Opportunity!", class: "btn btn-success pull-right", id: "addOpportunity" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
