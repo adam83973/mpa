@@ -51,7 +51,8 @@
 								<td></td>
 							<% else %>
 								<td class="text-center">
-									<%= link_to 'End', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-sm btn-danger', id: "end_subscription", data: { contactId: @user.infusion_id } %>
+									<%= link_to 'Hold', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-sm btn-warning', id: "hold_subscription", data: { contactId: @user.infusion_id } %>
+									<%= link_to 'Terminate', infusion_pages_end_subscription_path(i.merge(ContactId: params[:ContactId])), class: 'btn btn-sm btn-danger', id: "terminate_subscription", data: { contactId: @user.infusion_id } %>
 								</td>
 							<% end %>
 						</tr>

@@ -20,10 +20,18 @@ jQuery ->
           last_attendance = data1.responseText
           $active_registration.append("(#{last_attendance})")
 
-  $('#end_subscription').bind 'click', ->
-    $contactId = $('#end_subscription').data('contactid')
-    if confirm "Would you like to cancel this subscription? OK to confirm."
-      if confirm "Would you like the customer to receive a termination confirmation?"
+  $('#hold_subscription').bind 'click', ->
+    $contactId = $('#hold_subscription').data('contactid')
+    if confirm "Click OK to END this subscription."
+      alert "Please create a NEW subscription to restart billing on the restart date."
+      true
+    else
+      false
+
+  $('#terminate_subscription').bind 'click', ->
+    $contactId = $('#terminate_subscription').data('contactid')
+    if confirm "Click OK to END this subscription."
+      if confirm "WARNING: Client will automatically receive termination email. Click OK to proceed."
         $.ajax
           type:'get'
           url: '/infusion_pages/add_to_terimination_sequence'
